@@ -1,0 +1,510 @@
+/* ===========================
+   EVENTS DISC SECTION
+   =========================== */
+
+.events-disc {
+  background: #0a0a0a;
+  padding: 88px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.events-disc__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  align-items: center;
+  min-height: 520px;
+}
+
+/* ===========================
+   LEFT — Event List
+   =========================== */
+.events-disc__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-right: 2rem;
+}
+
+.events-disc__header {
+  margin-bottom: 32px;
+}
+
+.events-disc__header .section-label {
+  color: rgba(255,255,255,0.4);
+}
+
+.events-disc__header h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+
+.event-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  position: relative;
+  transition: padding-left 0.25s ease;
+}
+
+.event-row:first-of-type { border-top: 1px solid rgba(255,255,255,0.07); }
+
+.event-row__date {
+  text-align: center;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+
+.event-row__date .day {
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  line-height: 1;
+  transition: color 0.25s ease;
+}
+
+.event-row__date .month {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2);
+  transition: color 0.25s ease;
+}
+
+.event-row__info {
+  flex: 1;
+}
+
+.event-row__info strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 3px;
+  transition: color 0.25s ease;
+}
+
+.event-row__info span {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.25);
+  transition: color 0.25s ease;
+}
+
+.event-row__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  flex-shrink: 0;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+/* Active state */
+.event-row.is-active,
+.event-row:hover {
+  padding-left: 8px;
+}
+
+.event-row.is-active .event-row__date .day,
+.event-row:hover .event-row__date .day {
+  color: #E85D1F;
+}
+
+.event-row.is-active .event-row__date .month,
+.event-row:hover .event-row__date .month {
+  color: #E85D1F;
+}
+
+.event-row.is-active .event-row__info strong,
+.event-row:hover .event-row__info strong {
+  color: #fff;
+}
+
+.event-row.is-active .event-row__info span,
+.event-row:hover .event-row__info span {
+  color: rgba(255,255,255,0.5);
+}
+
+.event-row.is-active .event-row__dot,
+.event-row:hover .event-row__dot {
+  background: #E85D1F;
+  transform: scale(1.5);
+}
+
+/* ===========================
+   CENTER — Spinning Disc
+   =========================== */
+.events-disc__wheel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.disc-wrap {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  flex-shrink: 0;
+}
+
+/* Outer glow ring */
+.disc-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,93,31,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.disc {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+/* Disc segments — SVG-drawn via conic-gradient */
+.disc__face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgba(255,255,255,0.04) 0deg 72deg,
+    rgba(255,255,255,0.02) 72deg 144deg,
+    rgba(255,255,255,0.04) 144deg 216deg,
+    rgba(255,255,255,0.02) 216deg 288deg,
+    rgba(255,255,255,0.04) 288deg 360deg
+  );
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Segment divider lines */
+.disc__face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    rgba(255,255,255,0.06) 0deg 1deg,
+    transparent 1deg 72deg
+  );
+}
+
+/* Active segment highlight */
+.disc__segment-highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    transparent 0deg,
+    transparent var(--seg-start, 0deg),
+    rgba(232,93,31,0.25) var(--seg-start, 0deg),
+    rgba(232,93,31,0.25) var(--seg-end, 72deg),
+    transparent var(--seg-end, 72deg)
+  );
+  transition: background 0.4s ease;
+}
+
+/* Center hub */
+.disc__hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  border: 2px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.disc__hub-icon {
+  font-size: 1.2rem;
+  opacity: 0.5;
+}
+
+/* Tick marks around disc */
+.disc__ticks {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Segment labels on disc */
+.disc__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.25);
+  white-space: nowrap;
+  transform-origin: 0 0;
+  transition: color 0.3s ease;
+  pointer-events: none;
+}
+
+.disc__label.is-active { color: rgba(232,93,31,0.8); }
+
+/* Needle / pointer */
+.disc-needle {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(to bottom, #E85D1F, transparent);
+  border-radius: 2px;
+}
+
+.disc-needle::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E85D1F;
+  box-shadow: 0 0 8px rgba(232,93,31,0.8);
+}
+
+/* ===========================
+   RIGHT — Video Preview
+   =========================== */
+.events-disc__preview {
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.preview-cam {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #111;
+  aspect-ratio: 16/10;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Scanline overlay — gives it a "camera feed" feel */
+.preview-cam::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* REC indicator */
+.preview-cam__rec {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 4;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+
+.preview-cam__rec-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E85D1F;
+  animation: rec-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes rec-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* Timecode */
+.preview-cam__tc {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 0.6rem;
+  font-family: monospace;
+  color: rgba(255,255,255,0.4);
+  z-index: 4;
+  letter-spacing: 0.05em;
+}
+
+/* Corner brackets */
+.preview-cam__corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  z-index: 4;
+}
+
+.preview-cam__corner--tl { top: 8px; left: 8px; border-top: 1.5px solid rgba(255,255,255,0.3); border-left: 1.5px solid rgba(255,255,255,0.3); }
+.preview-cam__corner--tr { top: 8px; right: 8px; border-top: 1.5px solid rgba(255,255,255,0.3); border-right: 1.5px solid rgba(255,255,255,0.3); }
+.preview-cam__corner--bl { bottom: 8px; left: 8px; border-bottom: 1.5px solid rgba(255,255,255,0.3); border-left: 1.5px solid rgba(255,255,255,0.3); }
+.preview-cam__corner--br { bottom: 8px; right: 8px; border-bottom: 1.5px solid rgba(255,255,255,0.3); border-right: 1.5px solid rgba(255,255,255,0.3); }
+
+/* Preview image */
+.preview-cam__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.preview-cam__img.is-visible { opacity: 1; }
+
+/* Placeholder grid when no image */
+.preview-cam__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  transition: opacity 0.3s ease;
+}
+
+.preview-cam__placeholder.is-hidden { opacity: 0; pointer-events: none; }
+
+.preview-cam__placeholder-icon {
+  font-size: 2rem;
+  opacity: 0.12;
+}
+
+/* Event info below cam */
+.preview-info {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.preview-info.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.preview-info__tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #E85D1F;
+  margin-bottom: 5px;
+}
+
+.preview-info__title {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.preview-info__meta {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 1024px) {
+  .events-disc__inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .events-disc__wheel {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+
+  .events-disc__preview {
+    grid-column: 1;
+    grid-row: 2;
+    padding-left: 0;
+    padding-top: 24px;
+  }
+
+  .disc-wrap { width: 260px; height: 260px; }
+}
+
+@media (max-width: 768px) {
+  .events-disc__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .events-disc__wheel { grid-column: 1; grid-row: 2; }
+  .events-disc__preview { grid-column: 1; grid-row: 3; padding-left: 0; }
+  .disc-wrap { width: 220px; height: 220px; }
+}
+
+/* Idle spin animation */
+@keyframes disc-idle-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.disc.is-idle {
+  animation: disc-idle-spin 18s linear infinite;
+}
+
+.disc.is-idle:hover,
+.disc.is-spinning {
+  animation: none;
+}
