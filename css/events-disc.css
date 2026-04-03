@@ -1,4 +1,81 @@
 /* ===========================
+   MLRIT BRAND REVEAL
+   =========================== */
+
+.events-brand-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.events-brand-reveal.is-active {
+  animation: brandRevealIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.events-brand-reveal.is-exit {
+  animation: brandRevealOut 0.45s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+.events-brand-reveal__text {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light sweep across text */
+.events-brand-reveal__text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  animation: textSweep 0.8s 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes brandRevealIn {
+  0%   { opacity: 0; transform: scale(0.97); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes brandRevealOut {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.04) translateY(-12px); }
+}
+
+@keyframes textSweep {
+  0%   { left: -100%; }
+  100% { left: 160%; }
+}
+
+/* Events content — hidden until reveal completes */
+.events-disc__content {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.events-disc__content.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
    EVENTS — REEL PROJECTOR
    =========================== */
 

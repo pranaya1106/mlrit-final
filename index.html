@@ -405,7 +405,13 @@
          8. EVENTS — REEL PROJECTOR
          ===================== -->
     <section class="events-disc" id="events">
-      <div class="events-disc__inner">
+
+      <!-- MLRIT Brand Reveal -->
+      <div class="events-brand-reveal" id="eventsBrandReveal">
+        <span class="events-brand-reveal__text">MLRIT</span>
+      </div>
+
+      <div class="events-disc__inner events-disc__content" id="eventsContent">
 
         <!-- Header -->
         <div class="events-camera-scene">
@@ -949,6 +955,40 @@
         }
       });
 
+    })();
+
+    // ── MLRIT Brand Reveal ──────────────────────────────
+    (function () {
+      const section  = document.getElementById('events');
+      const reveal   = document.getElementById('eventsBrandReveal');
+      const content  = document.getElementById('eventsContent');
+      if (!section || !reveal || !content) return;
+
+      let triggered = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        if (triggered || !entries[0].isIntersecting) return;
+        triggered = true;
+        observer.disconnect();
+
+        // Step 1: show MLRIT
+        reveal.classList.add('is-active');
+
+        // Step 2: after 0.75s exit MLRIT, fade in content
+        setTimeout(() => {
+          reveal.classList.remove('is-active');
+          reveal.classList.add('is-exit');
+          content.classList.add('is-visible');
+        }, 750);
+
+        // Step 3: fully hide reveal overlay after exit
+        setTimeout(() => {
+          reveal.style.display = 'none';
+        }, 1250);
+
+      }, { threshold: 0.3 });
+
+      observer.observe(section);
     })();
 
     // ── Photo Section ──────────────────────────────
