@@ -4,11 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MLRIT — Marri Laxman Reddy Institute of Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/navbar.css" />
   <link rel="stylesheet" href="css/hero.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/photo-section.css" />
   <link rel="stylesheet" href="css/success-stories.css" />
+  <link rel="stylesheet" href="css/why-mlrit.css" />
   <link rel="stylesheet" href="css/events-disc.css" />
 </head>
 <body>
@@ -23,7 +27,7 @@
           <img src="mlrit-logo.png" alt="MLRIT Logo" />
         </a>
         <div class="masthead__tagline">
-          <span>Marri Laxman Reddy Institute of Technology and Management</span>
+          <span>Marri Laxman Reddy Institute of Technology</span>
         </div>
       </div>
     </div>
@@ -39,7 +43,6 @@
                 <h4>Institution</h4>
                 <a href="#">Vision &amp; Mission</a>
                 <a href="#">Accreditations</a>
-                <a href="#">Why MLRIT</a>
               </div>
               <div class="dropdown__col">
                 <h4>Programs</h4>
@@ -135,7 +138,7 @@
             </div>
           </li>
 
-          <li class="main-nav__item main-nav__item--right">
+          <li class="main-nav__item main-nav__item--right" style="margin-right: 8px;">
             <a href="#" class="main-nav__link">MLRIT Chronicles <span class="chevron"></span></a>
             <div class="dropdown dropdown--right">
               <div class="dropdown__col">
@@ -159,6 +162,73 @@
                 <a href="#">Faculty Updates</a>
                 <a href="#">Press Releases</a>
               </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item main-nav__item--support">
+            <a href="#" class="main-nav__link main-nav__link--support">
+              <span class="support-avatar" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="9" cy="6" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2 15.5c0-3.038 3.134-5.5 7-5.5s7 2.462 7 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              Support
+            </a>
+
+            <div class="support-panel">
+
+              <!-- Divider top -->
+              <div class="support-panel__divider"></div>
+
+              <!-- Talk with us -->
+              <p class="support-panel__heading">Talk with us</p>
+              <div class="support-panel__call-row">
+                <a href="tel:18005724363" class="support-panel__call-btn" aria-label="Call toll free">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="16" fill="#18453B"/>
+                    <path d="M11.5 10h2.8l1.2 3-1.6 1a9.1 9.1 0 0 0 4.1 4.1l1-1.6 3 1.2v2.8A1.5 1.5 0 0 1 20.5 22C13.6 22 10 18.4 10 11.5A1.5 1.5 0 0 1 11.5 10Z" fill="#fff"/>
+                  </svg>
+                </a>
+                <span class="support-panel__call-text">Toll Free: 1800 572 4363</span>
+              </div>
+
+              <!-- Divider mid -->
+              <div class="support-panel__divider"></div>
+
+              <!-- Connect with us -->
+              <p class="support-panel__heading">Connect with us</p>
+              <div class="support-panel__socials">
+                <a href="https://x.com/mlritin"                                          class="support-panel__social" aria-label="X / Twitter">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#f0f0f0"/><text x="35" y="41" text-anchor="middle" font-size="22" font-family="Arial" fill="#333">𝕏</text></svg>
+                </a>
+                <a href="https://www.linkedin.com/school/mlr-institute-of-technology/" class="support-panel__social" aria-label="LinkedIn">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#0A66C2"/><text x="35" y="43" text-anchor="middle" font-size="26" font-family="Arial" fill="#fff" font-weight="bold">in</text></svg>
+                </a>
+                <a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA"      class="support-panel__social" aria-label="YouTube">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#FF0000"/><polygon points="28,24 28,46 50,35" fill="#fff"/></svg>
+                </a>
+                <a href="https://www.facebook.com/Mlrit/"                                class="support-panel__social" aria-label="Facebook">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#1877F2"/><text x="35" y="44" text-anchor="middle" font-size="30" font-family="Arial" fill="#fff" font-weight="bold">f</text></svg>
+                </a>
+                <a href="https://www.instagram.com/mlritofficial/"                       class="support-panel__social" aria-label="Instagram">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><defs><radialGradient id="ig" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><circle cx="35" cy="35" r="35" fill="url(#ig)"/><rect x="20" y="20" width="30" height="30" rx="8" stroke="#fff" stroke-width="2.5" fill="none"/><circle cx="35" cy="35" r="7" stroke="#fff" stroke-width="2.5" fill="none"/><circle cx="44" cy="26" r="2" fill="#fff"/></svg>
+                </a>
+              </div>
+
+              <!-- Find us -->
+              <p class="support-panel__heading">Find us</p>
+              <div class="support-panel__map">
+                <iframe
+                  src="https://maps.google.com/maps?q=MLR+Institute+of+Technology+Dundigal+Hyderabad&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  width="100%" height="100%"
+                  style="border:0; border-radius:15px;"
+                  allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="MLRIT Location">
+                </iframe>
+              </div>
+
             </div>
           </li>
 
@@ -274,7 +344,29 @@
     </section>
 
     <!-- =====================
-         4. SUCCESS STORIES
+         4. WHY MLRIT
+         ===================== -->
+    <section class="why-section" id="why-mlrit">
+      <div class="why-section__bg" aria-hidden="true"></div>
+      <div class="why-section__inner">
+
+        <div class="why-section__left">
+          <span class="section-label">Why MLRIT</span>
+          <h2 class="why-section__heading">
+            <span class="why-section__dropcap">I</span>ndustry Integrated Curriculum Blended With Sports
+          </h2>
+          <p class="why-section__body">MLR Institute of Technology is known for its integrated curriculum with equal importance to academics, employable skills &amp; sports. MLR Institute of Technology (MLRIT) is located at Dundigal, Hyderabad, Telangana, India. The institution was started in 2005 by the KMR Education Trust, headed by Mr. Marri Laxman Reddy. The Institute has Eleven UG courses along with Five PG Courses. The Institute is affiliated with Jawaharlal Nehru Technological University, Hyderabad (JNTUH). It was granted Autonomous status by University Grants Commission (India) in the year 2015.</p>
+        </div>
+
+        <div class="why-section__right">
+          <video class="why-section__video" id="whyVideo" src="sports.mp4" muted loop playsinline></video>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================
+         5. SUCCESS STORIES
          ===================== -->
     <section class="ss-section">
       <div class="ss-header">
@@ -668,6 +760,14 @@
       card.addEventListener('mouseenter', () => { video.currentTime = 0; video.play().catch(() => {}); });
       card.addEventListener('mouseleave', () => { video.pause(); });
     });
+
+    // Why MLRIT video hover-to-play
+    (function () {
+      const vid = document.getElementById('whyVideo');
+      if (!vid) return;
+      vid.addEventListener('mouseenter', () => { vid.play().catch(() => {}); });
+      vid.addEventListener('mouseleave', () => { vid.pause(); });
+    })();
 
     // Programs tab toggle
     const tabBtns = document.querySelectorAll('.tab-btn');

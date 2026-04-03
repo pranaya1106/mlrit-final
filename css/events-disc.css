@@ -96,7 +96,6 @@
    =========================== */
 
 .ev-tagline {
-  /* Final (settled) position — top of section */
   position: absolute;
   top: 68px;
   left: 0;
@@ -106,18 +105,16 @@
   pointer-events: none;
   margin: 0;
 
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Sora', 'Segoe UI', Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.06em;
   white-space: nowrap;
   color: #fff;
   text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 48px rgba(0,0,0,0.6);
 
-  /* Hidden by default */
   opacity: 0;
 
-  /* Hero state: large + centered via transform */
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
   transform: translateY(calc(50vh - 68px - 1.5em)) scale(1);
 
   transition:
@@ -126,22 +123,17 @@
     font-size 0.75s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Step 1: element exists at hero size/position, fade in */
 .ev-tagline.is-hero {
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
   transform: translateY(calc(50vh - 68px - 1.5em)) scale(1);
 }
 
-/* Step 2: fade in while still in hero position */
-.ev-tagline.is-visible {
-  opacity: 1;
-}
+.ev-tagline.is-visible { opacity: 1; }
 
-/* Step 3: transform to header — move up, shrink */
 .ev-tagline.is-settled {
   font-size: clamp(0.95rem, 1.8vw, 1.3rem);
   transform: translateY(0) scale(1);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   font-weight: 600;
 }
 
@@ -278,14 +270,14 @@
 }
 
 .ev-item__title {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
+  font-family: 'Sora', 'Segoe UI', Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
   color: #fff;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin: 0 0 6px;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin: 0 0 8px;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.7);
 }
 
 .ev-item__sub {

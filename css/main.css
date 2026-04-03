@@ -8,8 +8,18 @@
   --text-muted:  #888;
   --border:      #e8e8e8;
   --radius:      14px;
-  --serif:       Georgia, "Times New Roman", serif;
-  --sans:        'Segoe UI', Arial, sans-serif;
+  --serif:       'Playfair Display', Georgia, serif;
+  --sans:        'Inter', 'Segoe UI', Arial, sans-serif;
+  --display:     'Sora', 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== Base ===== */
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ===== Shared utilities ===== */
@@ -21,29 +31,32 @@
 
 .section-label {
   display: inline-block;
-  font-size: 0.68rem;
+  font-family: var(--display);
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--green);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .section-heading {
-  font-family: var(--serif);
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 700;
   color: var(--text-dark);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
 .section-sub {
-  font-size: 0.95rem;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 400;
   color: var(--text-muted);
-  line-height: 1.7;
-  max-width: 520px;
-  margin-top: 10px;
+  line-height: 1.8;
+  max-width: 500px;
+  margin-top: 14px;
 }
 
 .btn {
@@ -97,9 +110,9 @@
 .stat-item:last-child { border-right: none; }
 
 .stat-item__number {
-  font-family: var(--serif);
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: 2.8rem;
+  font-weight: 800;
   color: #fff;
   line-height: 1;
   margin-bottom: 6px;
@@ -158,8 +171,8 @@
 .rank-row:first-child { border-top: 1px solid var(--border); }
 
 .rank-row__num {
-  font-family: var(--serif);
-  font-size: 1.6rem;
+  font-family: var(--display);
+  font-size: 1.7rem;
   font-weight: 700;
   color: var(--green);
   min-width: 56px;
@@ -195,7 +208,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 0;
-  transform: perspective(1200px) rotateX(12deg) rotateY(-8deg);
+  transform: none;
   transform-style: preserve-3d;
 }
 
@@ -262,7 +275,7 @@
 
 @media (max-width: 1024px) {
   .accred-keyboard {
-    transform: perspective(1000px) rotateX(10deg) rotateY(-6deg);
+    transform: none;
     gap: 12px;
   }
   
@@ -279,7 +292,7 @@
 
 @media (max-width: 768px) {
   .accred-keyboard {
-    transform: perspective(800px) rotateX(8deg) rotateY(-4deg);
+    transform: none;
     gap: 10px;
     grid-template-columns: repeat(3, 1fr);
   }
@@ -480,9 +493,9 @@
 }
 
 .placement-stat__num {
-  font-family: var(--serif);
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: 2.8rem;
+  font-weight: 800;
   color: #fff;
   line-height: 1;
   margin-bottom: 6px;
@@ -598,15 +611,47 @@
 }
 
 .testimonial-card {
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(232, 93, 31, 0.35);
   border-radius: 16px;
   padding: 32px 28px;
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.35s ease;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-.testimonial-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0.14); }
+.testimonial-card:hover {
+  box-shadow:
+    0 12px 36px rgba(0,0,0,0.14),
+    0 0 0 1px #E85D1F;
+  border-color: #E85D1F;
+}
+
+/* Play badge — visible by default, fades on hover */
+.testimonial-card::before {
+  content: '▶';
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 5;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(232, 93, 31, 0.85);
+  color: #fff;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding-left: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-card:hover::before {
+  opacity: 0;
+  transform: scale(0.7);
+}
 
 /* Video — hidden by default, zoom + fade on hover */
 .testimonial-card__video {
@@ -942,12 +987,12 @@
 }
 
 .admissions-cta__heading {
-  font-family: var(--serif);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
   color: #fff;
-  line-height: 1.2;
-  margin-bottom: 12px;
+  line-height: 1.1;
+  margin-bottom: 14px;
 }
 
 .admissions-cta__sub {

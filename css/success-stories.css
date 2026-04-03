@@ -12,6 +12,14 @@
   padding: 0 1.5rem 32px;
 }
 
+.ss-header .section-label {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--green, #18453B);
+}
+
 /* ── Band — clips each row ── */
 .ss-band {
   overflow: hidden;
@@ -62,8 +70,8 @@
   animation: ssScrollRight 50s linear infinite;
 }
 
-/* Pause on section hover */
-.ss-section:hover .ss-track {
+/* Pause only when hovering the scrolling band itself */
+.ss-band:hover .ss-track {
   animation-play-state: paused;
 }
 
