@@ -294,6 +294,7 @@ ul { list-style: none; }
   flex-direction: column;
   gap: 16px;
   z-index: 200;
+  overflow: hidden;
 
   opacity: 0;
   visibility: hidden;
@@ -378,7 +379,19 @@ ul { list-style: none; }
   height: 220px;
   border-radius: 15px;
   overflow: hidden;
-  background: rgba(43,45,43,0.52);
+  background: #1a1a1a;
+}
+
+.support-panel__map iframe {
+  display: block;
+  background: #1a1a1a;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-nav__item--support:hover .support-panel__map iframe,
+.main-nav__item--support:focus-within .support-panel__map iframe {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
