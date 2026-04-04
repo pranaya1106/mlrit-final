@@ -43,7 +43,7 @@
 
 /* Big "Why MLRIT" label */
 .why-section__left .section-label {
-  font-size: 1.8rem;
+  font-size: 2.8rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   color: #E85D1F;
@@ -64,7 +64,7 @@
 .why-section__dropcap {
   float: left;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 6.4em;
+  font-size: 4.8em;
   font-weight: 700;
   line-height: 0.72;
   color: #E85D1F;

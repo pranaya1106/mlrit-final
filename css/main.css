@@ -601,6 +601,16 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+.testimonials .section-heading {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+}
+
+.testimonials .section-label {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
 .testimonials__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1105,11 +1115,14 @@ body {
 }
 
 .footer__brand img {
-  height: 48px;
+  height: 56px;
   width: auto;
   margin-bottom: 16px;
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
+  display: block;
+}
+
+.footer__brand::before {
+  display: none;
 }
 
 .footer__brand p {
