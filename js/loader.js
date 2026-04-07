@@ -60,9 +60,27 @@ function initEvents() {
   var evRole     = document.getElementById('evRole');
   var mainThumb  = document.getElementById('evMainThumb');
   var muteBtn    = document.getElementById('evMuteBtn');
+  var evExplore  = document.getElementById('evExplore');
   var miniThumbs = document.querySelectorAll('.ev-mini-thumb');
 
   if (!section || !bgVideo) return;
+
+  // ── Explore prompt: settle (exit upward) when section scrolls into view ──
+  if (evExplore) {
+    var exploreIO = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        evExplore.classList.add('is-settled');
+      } else {
+        evExplore.classList.remove('is-settled');
+      }
+    }, { threshold: 0.3 });
+    exploreIO.observe(section);
+  }
+
+  // Ensure all mini-thumb videos are paused (thumbnail only)
+  document.querySelectorAll('.ev-mini-thumb video').forEach(function (v) {
+    v.pause();
+  });
 
   var events = [
     { src: 'events/e1.mp4', quote: 'A celebration of technical brilliance and innovation that defines the spirit of MLRIT.', name: 'Zignasa',      role: 'Technical Fest'      },
