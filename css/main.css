@@ -640,9 +640,61 @@ body {
   position: relative;
   cursor: pointer;
   min-height: 260px;
-  background: #111;
+  background: #fff;
+  border: 1.5px solid var(--border);
   display: flex;
   align-items: flex-end;
+  transition: border-color 0.3s ease;
+}
+
+.alumni-card:hover {
+  border-color: transparent;
+}
+
+/* Preview content — visible by default, disappears on hover */
+.alumni-preview {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.alumni-card:hover .alumni-preview {
+  opacity: 0;
+}
+
+.alumni-preview h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+.alumni-preview .alumni-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0 0 12px;
+}
+
+.alumni-desc {
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.alumni-play-hint {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #E85D1F;
 }
 
 /* Orange sweep: collapses at top-right corner, expands to full card */
@@ -652,7 +704,7 @@ body {
   inset: 0;
   background: #E85D1F;
   clip-path: polygon(100% 0, 100% 0, 100% 0, 100% 0);
-  transition: clip-path 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
   pointer-events: none;
 }
@@ -670,32 +722,53 @@ body {
   opacity: 0;
   z-index: 2;
   pointer-events: none;
-  transition: opacity 0s 0.25s;
+  transition: opacity 0s 0.45s;
 }
 
 .alumni-card:hover::after {
   opacity: 1;
 }
 
-/* Info: sits above overlays */
+/* Info: hidden by default, appears with video on hover */
 .alumni-info {
-  position: relative;
-  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
   padding: 16px;
   width: 100%;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease 0.45s, transform 0.3s ease 0.45s;
+}
+
+.alumni-card:hover .alumni-info {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .alumni-info h3 {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #fff;
+  color: #111;
   margin: 0 0 4px;
+  transition: color 0.3s ease;
+}
+
+.alumni-card:hover .alumni-info h3 {
+  color: #fff;
 }
 
 .alumni-role {
   font-size: 0.78rem;
-  color: rgba(255,255,255,0.55);
+  color: rgba(0,0,0,0.5);
   margin: 0 0 2px;
+  transition: color 0.3s ease;
+}
+
+.alumni-card:hover .alumni-role {
+  color: rgba(255,255,255,0.55);
 }
 
 .alumni-company {
@@ -705,7 +778,7 @@ body {
   margin: 0;
 }
 
-/* Video: hidden by default, appears after blue overlay (same 0.25s delay) */
+/* Video: hidden by default, appears after blue overlay (same 0.45s delay) */
 .alumni-video {
   position: absolute;
   inset: 0;
@@ -715,7 +788,7 @@ body {
   opacity: 0;
   z-index: 3;
   pointer-events: none;
-  transition: opacity 0s 0.25s;
+  transition: opacity 0s 0.45s;
 }
 
 .alumni-card:hover .alumni-video {

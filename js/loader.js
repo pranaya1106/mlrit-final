@@ -65,29 +65,15 @@ function initEvents() {
 
   if (!section || !bgVideo) return;
 
-  // ── Explore prompt: settle to top-left on any scroll within section ──
+  // ── Explore prompt: center when out of view, settle to top-left when scrolled into view ──
   if (evExplore) {
-    var settled = false;
-    section.addEventListener('wheel', function () {
-      if (!settled) {
-        settled = true;
-        evExplore.classList.add('is-settled');
-      }
-    }, { passive: true });
-    section.addEventListener('touchmove', function () {
-      if (!settled) {
-        settled = true;
-        evExplore.classList.add('is-settled');
-      }
-    }, { passive: true });
-
-    // Also trigger when user scrolls page and section enters viewport
     var exploreIO = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting && entries[0].intersectionRatio >= 0.35) {
-        settled = true;
+      if (entries[0].isIntersecting) {
         evExplore.classList.add('is-settled');
+      } else {
+        evExplore.classList.remove('is-settled');
       }
-    }, { threshold: 0.35 });
+    }, { threshold: 0.15 });
     exploreIO.observe(section);
   }
 

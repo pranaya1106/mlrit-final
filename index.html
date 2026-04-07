@@ -451,6 +451,12 @@
         <div class="alumni-grid">
 
           <div class="alumni-card">
+            <div class="alumni-preview">
+              <h3>Sathvika</h3>
+              <p class="alumni-role">Software Engineer at Microsoft</p>
+              <p class="alumni-desc">From campus placement to building cloud platforms — Sathvika shares her journey from MLRIT to Microsoft.</p>
+              <span class="alumni-play-hint">Hover to watch</span>
+            </div>
             <div class="alumni-info">
               <h3>Sathvika</h3>
               <p class="alumni-role">Software Engineer</p>
@@ -460,6 +466,12 @@
           </div>
 
           <div class="alumni-card">
+            <div class="alumni-preview">
+              <h3>Dasam Pranay</h3>
+              <p class="alumni-role">Aerospace Engineer at HAL</p>
+              <p class="alumni-desc">Designing the future of Indian aviation — Pranay's story of going from MLRIT labs to HAL's engineering floors.</p>
+              <span class="alumni-play-hint">Hover to watch</span>
+            </div>
             <div class="alumni-info">
               <h3>Dasam Pranay</h3>
               <p class="alumni-role">Aerospace Engineer</p>
@@ -469,6 +481,12 @@
           </div>
 
           <div class="alumni-card">
+            <div class="alumni-preview">
+              <h3>Gopi Pavani</h3>
+              <p class="alumni-role">Systems Engineer at Safran</p>
+              <p class="alumni-desc">From embedded systems coursework to global aerospace — Pavani talks about her path from MLRIT to Safran.</p>
+              <span class="alumni-play-hint">Hover to watch</span>
+            </div>
             <div class="alumni-info">
               <h3>Gopi Pavani</h3>
               <p class="alumni-role">Systems Engineer</p>
@@ -703,7 +721,7 @@
         var playTimer = null;
         if (!vid) return;
         card.addEventListener('mouseenter', function() {
-          playTimer = setTimeout(function() { vid.play().catch(function(){}); }, 250);
+          playTimer = setTimeout(function() { vid.play().catch(function(){}); }, 450);
         });
         card.addEventListener('mouseleave', function() {
           clearTimeout(playTimer);
