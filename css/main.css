@@ -694,61 +694,68 @@ body {
   transform: scale(0.7);
 }
 
-/* ── Diagonal corner fill — top-right → bottom-left (reference: mlrit.amalyte.tech) ── */
+/* ── Alumni card — diagonal sweep before video reveal ── */
 .testimonial-card__sweep {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-}
-
-/* Orange fill layer — diagonal wipe from BOTTOM-LEFT → TOP-RIGHT */
-.testimonial-card__sweep::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #FF6B00;
-  z-index: 1;
-  /* Start: single point at bottom-left corner */
-  clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
-}
-
-/* Dark layer — follows 0.15s behind */
-.testimonial-card__sweep::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.38);
-  z-index: 2;
-  clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
-}
-
-/* Trigger on hover */
-.testimonial-card:hover .testimonial-card__sweep::before,
-.testimonial-card.is-sweeping .testimonial-card__sweep::before {
-  animation: diagWipeOrange 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.testimonial-card:hover .testimonial-card__sweep::after,
-.testimonial-card.is-sweeping .testimonial-card__sweep::after {
-  animation: diagWipeOrange 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
-}
-
-/* Reset on leave */
-.testimonial-card:not(:hover):not(.is-sweeping) .testimonial-card__sweep::before,
-.testimonial-card:not(:hover):not(.is-sweeping) .testimonial-card__sweep::after {
-  animation: none;
-  clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
+  overflow: hidden;
 }
 
 /*
-  Diagonal wipe: starts at bottom-left corner,
-  expands diagonally toward top-right,
-  fills entire card
+  Both panels are wide strips rotated -45deg,
+  positioned off-screen to the top-right.
+  They slide from top-right → bottom-left via translateX.
 */
-@keyframes diagWipeOrange {
-  0%   { clip-path: polygon(0% 100%, 0% 100%, 0% 100%); }
-  100% { clip-path: polygon(0% 100%, 0% 0%, 100% 0%, 100% 100%); }
+.testimonial-card__sweep::before,
+.testimonial-card__sweep::after {
+  content: '';
+  position: absolute;
+  /* Tall enough to cover full diagonal */
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  /* Rotate to create diagonal edge */
+  transform: rotate(-45deg) translateX(100%);
+}
+
+/* Orange — vivid fresh orange */
+.testimonial-card__sweep::before {
+  background: #FF5500;
+  z-index: 1;
+}
+
+/* Blue — deep navy */
+.testimonial-card__sweep::after {
+  background: #0a1628;
+  z-index: 2;
+}
+
+/* On hover: orange sweeps in first */
+.testimonial-card:hover .testimonial-card__sweep::before {
+  animation: sweepIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Blue follows 150ms later */
+.testimonial-card:hover .testimonial-card__sweep::after {
+  animation: sweepIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+}
+
+/* Reset instantly on leave — no reverse animation */
+.testimonial-card:not(:hover) .testimonial-card__sweep::before,
+.testimonial-card:not(:hover) .testimonial-card__sweep::after {
+  animation: none;
+  transform: rotate(-45deg) translateX(100%);
+}
+
+/* Slide from top-right to bottom-left, hold, then exit bottom-left */
+@keyframes sweepIn {
+  0%   { transform: rotate(-45deg) translateX(100%);  }
+  45%  { transform: rotate(-45deg) translateX(0%);    }
+  55%  { transform: rotate(-45deg) translateX(0%);    }
+  100% { transform: rotate(-45deg) translateX(-100%); }
 }
 .testimonial-card__video {
   position: absolute;
@@ -757,8 +764,9 @@ body {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 0.45s 0.4s ease-out, transform 0.45s 0.4s ease-out;
+  transform: scale(1.03);
+  /* Delay until sweep finishes (~600ms) */
+  transition: opacity 0.35s 0.6s ease-out, transform 0.35s 0.6s ease-out;
   z-index: 1;
   pointer-events: none;
 }
@@ -810,7 +818,7 @@ body {
   background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.0) 100%);
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.4s 0.4s ease-in-out, transform 0.4s 0.4s ease-in-out;
+  transition: opacity 0.35s 0.6s ease-in-out, transform 0.35s 0.6s ease-in-out;
   display: flex;
   flex-direction: column;
   gap: 3px;
