@@ -1,5 +1,5 @@
 /* ===========================
-   SUCCESS STORIES — Single Infinite Band
+   SUCCESS STORIES — Cinematic Infinite Belt
    =========================== */
 
 .ss-section {
@@ -21,17 +21,12 @@
   color: var(--green, #18453B);
 }
 
-/* ── Band — clips the track ── */
+/* ── Band — clips overflow, edge fades ── */
 .ss-band {
   overflow: hidden;
   position: relative;
-  cursor: grab;
-  user-select: none;
 }
 
-.ss-band:active { cursor: grabbing; }
-
-/* Edge fades */
 .ss-band::before,
 .ss-band::after {
   content: '';
@@ -52,16 +47,31 @@
   background: linear-gradient(to left, #f7f7f5, transparent);
 }
 
-/* ── Track ── */
+/* ── Track — two groups side by side, animates left ── */
 .ss-track {
   display: flex;
-  gap: 16px;
   width: max-content;
-  padding: 8px 0 16px;
+  gap: 24px;
+  animation: ss-scroll 28s linear infinite;
   will-change: transform;
 }
 
-/* Pause on hover handled by JS */
+/* Pause entire belt on hover */
+.ss-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ss-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Group — one set of cards ── */
+.ss-group {
+  display: flex;
+  gap: 24px;
+  flex-shrink: 0;
+}
 
 /* ── Card ── */
 .ss-card {
@@ -73,14 +83,16 @@
   background: #1a1a1a;
   position: relative;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 0 0 1px rgba(24,69,59,0.2);
-  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
-              box-shadow 0.35s ease;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.25s ease;
+  will-change: transform;
+  cursor: pointer;
 }
 
 .ss-card:hover {
-  transform: scale(1.06) translateY(-6px);
-  box-shadow: 0 0 0 2px #E85D1F, 0 20px 48px rgba(0,0,0,0.2);
-  z-index: 5;
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 0 2px #E85D1F;
+  z-index: 2;
 }
 
 .ss-card img {
