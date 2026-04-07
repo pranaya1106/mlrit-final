@@ -8,14 +8,6 @@
   background: #1c1c1c;
   overflow: hidden;
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.why-section.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 /* ── Subtle football field background ── */
