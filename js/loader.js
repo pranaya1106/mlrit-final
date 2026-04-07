@@ -102,40 +102,36 @@ function initEvents() {
   if (evName)  evName.textContent  = events[0].name;
   if (evRole)  evRole.textContent  = events[0].role;
 
-  // ── TASK 4: Mini-thumb — selection only, NO play, NO blur change ──
+  // ── Select event by index ──
+  function selectEvent(i) {
+    if (i < 0 || i >= events.length) return;
+
+    // Stop any mini-thumb preview videos
+    document.querySelectorAll('.ev-mini-thumb video').forEach(function (v) {
+      v.pause();
+      v.currentTime = 0;
+    });
+
+    // Update bg video source — do NOT play, do NOT change blur
+    bgVideo.pause();
+    bgVideo.src   = events[i].src;
+    bgVideo.muted = isMuted;
+    bgVideo.load();
+
+    // Update text
+    if (evQuote) evQuote.textContent = '\u201c' + events[i].quote + '\u201d';
+    if (evName)  evName.textContent  = events[i].name;
+    if (evRole)  evRole.textContent  = events[i].role;
+
+    // Update active state
+    miniThumbs.forEach(function (th, j) { th.classList.toggle('is-active', j === i); });
+    current = i;
+  }
+
+  // ── Mini-thumb — selection only ──
   miniThumbs.forEach(function (t, i) {
-    // Hover: update active source only
-    t.addEventListener('mouseenter', function () {
-      var vid    = t.querySelector('video');
-      var newSrc = vid ? (vid.getAttribute('src') || vid.currentSrc) : null;
-      if (!newSrc) return;
-
-      // Stop any mini-thumb preview videos
-      document.querySelectorAll('.ev-mini-thumb video').forEach(function (v) {
-        v.pause();
-        v.currentTime = 0;
-      });
-
-      // Update bg video source — do NOT play, do NOT change blur
-      bgVideo.pause();
-      bgVideo.src   = newSrc;
-      bgVideo.muted = isMuted;
-      bgVideo.load();
-
-      // Update text
-      if (evQuote) evQuote.textContent = '\u201c' + events[i].quote + '\u201d';
-      if (evName)  evName.textContent  = events[i].name;
-      if (evRole)  evRole.textContent  = events[i].role;
-
-      // Update active state
-      miniThumbs.forEach(function (th, j) { th.classList.toggle('is-active', j === i); });
-      current = i;
-    });
-
-    // Click: same as hover (selection only)
-    t.addEventListener('click', function () {
-      t.dispatchEvent(new MouseEvent('mouseenter'));
-    });
+    t.addEventListener('mouseenter', function () { selectEvent(i); });
+    t.addEventListener('click', function () { selectEvent(i); });
   });
 
   // ── TASK 5: Main thumb hover — play bg video, remove blur, hide overlay ──
@@ -167,12 +163,10 @@ function initEvents() {
   var btnPrev = document.getElementById('evPrev');
   var btnNext = document.getElementById('evNext');
   if (btnPrev) btnPrev.addEventListener('click', function () {
-    var idx = ((current - 1) % events.length + events.length) % events.length;
-    miniThumbs[idx] && miniThumbs[idx].dispatchEvent(new MouseEvent('mouseenter'));
+    selectEvent(((current - 1) % events.length + events.length) % events.length);
   });
   if (btnNext) btnNext.addEventListener('click', function () {
-    var idx = (current + 1) % events.length;
-    miniThumbs[idx] && miniThumbs[idx].dispatchEvent(new MouseEvent('mouseenter'));
+    selectEvent((current + 1) % events.length);
   });
 
   // ── Touch swipe ──
@@ -181,8 +175,7 @@ function initEvents() {
   section.addEventListener('touchend',   function (e) {
     var dx = e.changedTouches[0].clientX - touchX;
     if (Math.abs(dx) > 50) {
-      var idx = dx < 0 ? (current + 1) % events.length : ((current - 1) % events.length + events.length) % events.length;
-      miniThumbs[idx] && miniThumbs[idx].dispatchEvent(new MouseEvent('mouseenter'));
+      selectEvent(dx < 0 ? (current + 1) % events.length : ((current - 1) % events.length + events.length) % events.length);
     }
   });
 
