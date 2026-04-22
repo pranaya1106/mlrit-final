@@ -23,3 +23,12 @@ function closeAll() {
 document.addEventListener('click', e => {
   if (!e.target.closest('.main-nav__item')) closeAll();
 });
+
+document.querySelectorAll('.main-nav__link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (!href || href === '#') {
+      e.preventDefault();
+    }
+  });
+});

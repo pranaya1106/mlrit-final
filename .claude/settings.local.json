@@ -20,7 +20,16 @@
       "WebFetch(domain:www.iare.ac.in)",
       "Bash(sed '1d;$d')",
       "Bash(node --check c:/mlr/test_js.js)",
-      "WebFetch(domain:mlrit.ac.in)"
+      "WebFetch(domain:mlrit.ac.in)",
+      "Bash(curl -s -o ediko.jpg \"https://mlrit.ac.in/wp-content/uploads/2022/08/ediko.jpg\")",
+      "Bash(curl -s -o deutsche-bank.jpg \"https://mlrit.ac.in/wp-content/uploads/2022/08/DB.jpeg\")",
+      "Bash(curl -s -o power-bridge.jpg \"https://mlrit.ac.in/wp-content/uploads/2022/08/POWER-BRIDGE.jpg\")",
+      "Bash(curl -s -o icrisat.jpg \"https://mlrit.ac.in/wp-content/uploads/2022/08/Icrisat.jpeg\")",
+      "Bash(curl -s -o drive-1.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.46-PM.jpeg\")",
+      "Bash(curl -s -o drive-2.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.48-PM-1.jpeg\")",
+      "Bash(curl -s -o drive-3.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.49-PM.jpeg\")",
+      "Bash(curl -s -o drive-4.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.50-PM.jpeg\")",
+      "Bash(curl -s -o drive-5.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.51-PM.jpeg\")"
     ]
   }
 }
