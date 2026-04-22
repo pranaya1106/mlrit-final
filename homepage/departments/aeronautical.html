@@ -27,7 +27,11 @@
     .dept-nav__sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); align-self: center; margin: 0 4px; }
 
     /* ── Hero ── */
-    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); padding: 60px 48px 28px; position: relative; overflow: hidden; }
+    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
+    .dept-hero__video.is-visible { opacity: 0.55; }
+    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,51,32,0.75), rgba(24,69,59,0.75)); z-index: 1; transition: opacity 0.6s ease; }
+    .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
     .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); }
     .dept-hero__eyebrow { font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; position: relative; z-index: 1; }
     .dept-hero__title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
@@ -282,12 +286,12 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; }
+    .dept-body { display: flex; flex: 1; align-items: flex-start; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
     .dark-sidebar {
-      width: 220px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      width: 220px; flex-shrink: 0; position: sticky; top: 44px; height: calc(100vh - 44px);
       background: #FAFAF8; z-index: 35; padding-top: 24px;
       border-right: 1px solid rgba(0,0,0,0.05);
       overflow-y: auto; align-self: flex-start;
@@ -357,10 +361,29 @@
     <span class="dept-nav__link dept-nav__link--dept">Aeronautical Department</span>
   </nav>
 
-  <div class="dept-hero" id="page-top">
+  <div class="dept-hero" id="page-top" id="deptHero">
+    <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="none">
+      <source src="../../departments/dept.mp4" type="video/mp4" />
+    </video>
+    <div class="dept-hero__overlay" id="heroOverlay"></div>
     <div class="dept-hero__eyebrow">B.Tech — Aeronautical Engineering</div>
     <div class="dept-hero__title">Department of Aeronautical Engineering</div>
   </div>
+  <script>
+    (function(){
+      var hero = document.querySelector('.dept-hero');
+      var vid  = document.getElementById('heroVideo');
+      if (!hero || !vid) return;
+      hero.addEventListener('mouseenter', function(){
+        vid.play();
+        vid.classList.add('is-visible');
+      });
+      hero.addEventListener('mouseleave', function(){
+        vid.classList.remove('is-visible');
+        setTimeout(function(){ vid.pause(); }, 650);
+      });
+    })();
+  </script>
 
   <nav class="dept-tabs" id="deptTabs">
     <a class="dept-tab is-active" data-tab="overview">Overview</a>
@@ -379,7 +402,7 @@
     <a class="ds-item" data-ds-tab="overview" data-ds-target="hod-msg"><span class="ds-item__dot"></span><span class="ds-item__label">HOD Message</span></a>
     <a class="ds-item" data-ds-tab="overview" data-ds-target="vm-section"><span class="ds-item__dot"></span><span class="ds-item__label">Vision, Mission</span></a>
     <a class="ds-item" data-ds-tab="overview" data-ds-target="teaching-method"><span class="ds-item__dot"></span><span class="ds-item__label">Teaching</span></a>
-    <a class="ds-item" data-ds-tab="overview" data-ds-target="about-dept"><span class="ds-item__dot"></span><span class="ds-item__label">History</span></a>
+    <a class="ds-item" data-ds-tab="overview" data-ds-target="about-dept"><span class="ds-item__dot"></span><span class="ds-item__label">About Dept</span></a>
     <a class="ds-item" data-ds-tab="overview" data-ds-target="history-section"><span class="ds-item__dot"></span><span class="ds-item__label">History</span></a>
     <a class="ds-item" data-ds-tab="overview" data-ds-target="labs-section"><span class="ds-item__dot"></span><span class="ds-item__label">Labs</span></a>
     <a class="ds-item" data-ds-tab="objectives" data-ds-target="peo-section"><span class="ds-item__dot"></span><span class="ds-item__label">PEOs</span></a>
@@ -481,7 +504,7 @@
                 <div class="fcard__hover-name">Dr. M. Satyanarayana Gupta</div>
                 <div class="fcard__hover-role">HOD, Professor</div>
                 <div class="fcard__hover-spec">FEM, Machine Design, Smart Aerospace</div>
-                <a href="faculty-profile.html?photo=images/aeronautical/satyanarayana.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20M.%20Satyanarayana%20Gupta&role=HOD%2C%20Professor&photo=images/aeronautical/satyanarayana.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="A. Vivek Anand">
@@ -495,7 +518,7 @@
                 <div class="fcard__hover-name">Dr. A. Vivek Anand</div>
                 <div class="fcard__hover-role">Professor, Dean</div>
                 <div class="fcard__hover-spec">Propulsion, Gas Turbines</div>
-                <a href="faculty-profile.html?photo=images/aeronautical/vivek-anand.jpg&role=Professor%2C%20Dean&photo=images/aeronautical/vivek-anand.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20A.%20Vivek%20Anand&role=Professor%2C%20Dean&photo=images/aeronautical/vivek-anand.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="K. Veeranjaneyulu">
@@ -509,7 +532,7 @@
                 <div class="fcard__hover-name">K. Veeranjaneyulu</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Aircraft Structures, FEM</div>
-                <a href="faculty-profile.html?photo=images/aeronautical/veeranjaneyulu.jpg&role=Professor&photo=images/aeronautical/veeranjaneyulu.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=K.%20Veeranjaneyulu&role=Professor&photo=images/aeronautical/veeranjaneyulu.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="R. Arvind Singh">
@@ -523,7 +546,7 @@
                 <div class="fcard__hover-name">Dr. R. Arvind Singh</div>
                 <div class="fcard__hover-role">Professor of Eminence</div>
                 <div class="fcard__hover-spec">Flight Dynamics, Control</div>
-                <a href="faculty-profile.html?photo=images/aeronautical/arvind-singh.jpg&role=Professor%20of%20Eminence&photo=images/aeronautical/arvind-singh.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20R.%20Arvind%20Singh&role=Professor%20of%20Eminence&photo=images/aeronautical/arvind-singh.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="S. Jayalakshmi">
@@ -537,7 +560,7 @@
                 <div class="fcard__hover-name">Dr. S. Jayalakshmi</div>
                 <div class="fcard__hover-role">Professor of Eminence</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?photo=images/aeronautical/s-jayalakshmi.jpg&role=&photo=images/aeronautical/s-jayalakshmi.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20S.%20Jayalakshmi&role=Professor%20of%20Eminence&photo=images/aeronautical/s-jayalakshmi.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Thangavel Sanjeeviraja">
@@ -551,7 +574,7 @@
                 <div class="fcard__hover-name">Dr. Thangavel Sanjeeviraja</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?photo=images/aeronautical/thangavel-sanjeeviraja.jpeg&role=&photo=images/aeronautical/thangavel-sanjeeviraja.jpeg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Thangavel%20Sanjeeviraja&role=Associate%20Professor&photo=images/aeronautical/thangavel-sanjeeviraja.jpeg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Nayani Uday Ranjan Goud">
@@ -593,7 +616,7 @@
                 <div class="fcard__hover-name">Dr. Saiprakash</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=Swetha%20Bala%20MNVS&role=Associate%20Professor%2C%20Associate%20Dean&photo=images/aeronautical/saiprakash.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Saiprakash&role=Associate%20Professor&photo=images/aeronautical/saiprakash.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Ganesh">
@@ -607,7 +630,7 @@
                 <div class="fcard__hover-name">M. Ganesh</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=Dr.%20Saiprakash&role=Associate%20Professor&photo=images/aeronautical/m-ganesh.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=M.%20Ganesh&role=Associate%20Professor&photo=images/aeronautical/m-ganesh.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Yelamasetti Balram">
@@ -621,7 +644,7 @@
                 <div class="fcard__hover-name">Mr. Yelamasetti Balram</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=M.%20Ganesh&role=Associate%20Professor&photo=images/aeronautical/yelamasetti-balram.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Yelamasetti%20Balram&role=Assistant%20Professor&photo=images/aeronautical/yelamasetti-balram.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Sreekanth Sura">
@@ -635,7 +658,7 @@
                 <div class="fcard__hover-name">Sreekanth Sura</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=Mr.%20Yelamasetti%20Balram&role=Assistant%20Professor&photo=images/aeronautical/sreekanth-sura.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Sreekanth%20Sura&role=Assistant%20Professor&photo=images/aeronautical/sreekanth-sura.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="G. Sravanthi">
@@ -649,7 +672,7 @@
                 <div class="fcard__hover-name">Ms. G. Sravanthi</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=Sreekanth%20Sura&role=Assistant%20Professor&photo=images/aeronautical/g-sravanthi.jpeg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Ms.%20G.%20Sravanthi&role=Assistant%20Professor&photo=images/aeronautical/g-sravanthi.jpeg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="B. Manideep">
@@ -663,7 +686,7 @@
                 <div class="fcard__hover-name">Mr. B. Manideep</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=Ms.%20G.%20Sravanthi&role=Assistant%20Professor&photo=images/aeronautical/b-manideep.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20B.%20Manideep&role=Assistant%20Professor&photo=images/aeronautical/b-manideep.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Nirmith Kumar Mishra">
@@ -677,7 +700,7 @@
                 <div class="fcard__hover-name">Nirmith Kumar Mishra</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=A.%20Udaya%20Deepika&role=Assistant%20Professor&photo=images/aeronautical/a-udaya-deepika.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Nirmith%20Kumar%20Mishra&role=Assistant%20Professor&photo=images/aeronautical/nirmith-kumar-mishra.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="A. Udaya Deepika">
@@ -691,7 +714,7 @@
                 <div class="fcard__hover-name">A. Udaya Deepika</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=K.%20Arun%20Kumar&role=&photo=images/aeronautical/k-arun-kumar.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=A.%20Udaya%20Deepika&role=Assistant%20Professor&photo=images/aeronautical/a-udaya-deepika.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="K. Arun Kumar">
@@ -705,7 +728,7 @@
                 <div class="fcard__hover-name">K. Arun Kumar</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=B.%20Nagaraj%20Goud&role=Assistant%20Professor&photo=images/aeronautical/b-nagaraj-goud.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=K.%20Arun%20Kumar&role=Assistant%20Professor&photo=images/aeronautical/k-arun-kumar.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="B. Nagaraj Goud">
@@ -719,7 +742,7 @@
                 <div class="fcard__hover-name">B. Nagaraj Goud</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Aeronautical</div>
-                <a href="faculty-profile.html?name=B.%20Nagaraj%20Goud&role=Assistant%20Professor&photo=images/aeronautical/a-sai-kumar.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=B.%20Nagaraj%20Goud&role=Assistant%20Professor&photo=images/aeronautical/b-nagaraj-goud.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="A. Sai Kumar">
@@ -757,13 +780,12 @@
     <!-- Drop your PDFs into: departments/syllabus/aeronautical/ as r25.pdf, r22.pdf, mlr20.pdf, mlr18.pdf -->
     <div class="catalog-grid" style="grid-template-columns:1fr;">
       <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">R25 Complete Syllabus</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/aeronautical/r25.pdf</span></div>
+        <div><span class="catalog-item__text">R25 Complete Syllabus</span><span class="catalog-item__sub">2025 regulation</span></div>
         <div class="syll-actions">
           <a href="syllabus/pdfs/aero-r25-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
           <a href="syllabus/pdfs/aero-r25-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
         </div>
       </div>
-</div>
       <div class="catalog-item" style="justify-content:space-between;">
         <div><span class="catalog-item__text">R22 Complete Syllabus</span><span class="catalog-item__sub">2.6 MB</span></div>
         <div class="syll-actions">
@@ -1000,6 +1022,7 @@
 
   <script>
     // ── STANDALONE TAB SWITCHER (runs first, always works) ──
+    var __activeTab = 'overview';
     (function () {
       var tabs = document.querySelectorAll('.dept-tab');
       var panels = document.querySelectorAll('.dept-panel');
@@ -1013,6 +1036,15 @@
           tab.classList.add('is-active');
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.add('is-active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          __activeTab = id;
+          document.querySelectorAll('.ds-item').forEach(function (item) {
+            var show = item.getAttribute('data-ds-tab') === id;
+            item.style.display = show ? 'flex' : 'none';
+            item.classList.remove('is-active');
+          });
+          var first = document.querySelector('.ds-item[data-ds-tab="' + id + '"]');
+          if (first) first.classList.add('is-active');
         });
       });
     })();
@@ -1253,6 +1285,7 @@
           if (!entry.isIntersecting) return;
           var matched = targets.find(function(t) { return t.el === entry.target; });
           if (!matched) return;
+          if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
           if (matched.item.style.display === 'none') return;
           document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
           matched.item.classList.add('is-active');

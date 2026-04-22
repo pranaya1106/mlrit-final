@@ -27,7 +27,11 @@
     .dept-nav__sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); align-self: center; margin: 0 4px; }
 
     /* ── Hero ── */
-    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); padding: 60px 48px 28px; position: relative; overflow: hidden; }
+    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
+    .dept-hero__video.is-visible { opacity: 0.55; }
+    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,51,32,0.75), rgba(24,69,59,0.75)); z-index: 1; transition: opacity 0.6s ease; }
+    .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
     .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); }
     .dept-hero__eyebrow { font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; position: relative; z-index: 1; }
     .dept-hero__title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
@@ -282,12 +286,12 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; }
+    .dept-body { display: flex; flex: 1; align-items: flex-start; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
     .dark-sidebar {
-      width: 220px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      width: 220px; flex-shrink: 0; position: sticky; top: 44px; height: calc(100vh - 44px);
       background: #FAFAF8; z-index: 35; padding-top: 24px;
       border-right: 1px solid rgba(0,0,0,0.05);
       overflow-y: auto; align-self: flex-start;
@@ -357,10 +361,29 @@
     <span class="dept-nav__link dept-nav__link--dept">Freshman Engineering</span>
   </nav>
 
-  <div class="dept-hero" id="page-top">
+  <div class="dept-hero" id="page-top" id="deptHero">
+    <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="none">
+      <source src="../../departments/dept.mp4" type="video/mp4" />
+    </video>
+    <div class="dept-hero__overlay" id="heroOverlay"></div>
     <div class="dept-hero__eyebrow">First Year — All Branches</div>
     <div class="dept-hero__title">Freshman Engineering Department</div>
   </div>
+  <script>
+    (function(){
+      var hero = document.querySelector('.dept-hero');
+      var vid  = document.getElementById('heroVideo');
+      if (!hero || !vid) return;
+      hero.addEventListener('mouseenter', function(){
+        vid.play();
+        vid.classList.add('is-visible');
+      });
+      hero.addEventListener('mouseleave', function(){
+        vid.classList.remove('is-visible');
+        setTimeout(function(){ vid.pause(); }, 650);
+      });
+    })();
+  </script>
 
   <nav class="dept-tabs" id="deptTabs">
     <a class="dept-tab is-active" data-tab="overview">Overview</a>
@@ -498,7 +521,7 @@
                 <div class="fcard__hover-name">Dr. N Ch Ramgopal</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Physics, Electronics</div>
-                <a href="faculty-profile.html?name=Dr.%20N%20Ch%20Ramgopal&role=&photo=images/freshman/ramgopal.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20N%20Ch%20Ramgopal&role=Professor&photo=images/freshman/ramgopal.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="G. Ravindranath Reddy">
@@ -512,7 +535,7 @@
                 <div class="fcard__hover-name">Dr. G. Ravindranath Reddy</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20G.%20Ravindranath%20Reddy&role=&photo=images/freshman/ravindranath.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20G.%20Ravindranath%20Reddy&role=Professor&photo=images/freshman/ravindranath.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="JSVR. Krishna Prasad">
@@ -568,7 +591,7 @@
                 <div class="fcard__hover-name">Dr. N. Yuganand</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20Y.%20Anantha%20Lakshmi&role=Professor&photo=images/freshman/yuganand.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20N.%20Yuganand&role=Professor&photo=images/freshman/yuganand.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Mopur Vijaya Bhaskar Reddy">
@@ -596,7 +619,7 @@
                 <div class="fcard__hover-name">Dr. Sailaja Peesapati</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Dr.%20Mopur%20Vijaya%20Bhaskar%20Reddy&role=Professor&photo=images/freshman/sailaja.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Sailaja%20Peesapati&role=Professor&photo=images/freshman/sailaja.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Harika Patnala">
@@ -610,7 +633,7 @@
                 <div class="fcard__hover-name">Dr. Harika Patnala</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">English, Soft Skills</div>
-                <a href="faculty-profile.html?name=Dr.%20Sailaja%20Peesapati&role=Professor&photo=images/freshman/harika.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Harika%20Patnala&role=Professor&photo=images/freshman/harika.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Deepthi Sista">
@@ -624,7 +647,7 @@
                 <div class="fcard__hover-name">Dr. Deepthi Sista</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20Harika%20Patnala&role=Professor&photo=images/freshman/deepthi-sista.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Deepthi%20Sista&role=Associate%20Professor&photo=images/freshman/deepthi-sista.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="CH. Lakshmi Rajesh">
@@ -638,7 +661,7 @@
                 <div class="fcard__hover-name">Dr. CH. Lakshmi Rajesh</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Dr.%20Deepthi%20Sista&role=Associate%20Professor&photo=images/freshman/lakshmi-rajesh.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20CH.%20Lakshmi%20Rajesh&role=Associate%20Professor&photo=images/freshman/lakshmi-rajesh.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Manuri Brahmayya">
@@ -652,7 +675,7 @@
                 <div class="fcard__hover-name">Dr. Manuri Brahmayya</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Dr.%20CH.%20Lakshmi%20Rajesh&role=Associate%20Professor&photo=images/freshman/brahmayya.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Manuri%20Brahmayya&role=Associate%20Professor&photo=images/freshman/brahmayya.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="V Nirmala Kumari">
@@ -666,7 +689,7 @@
                 <div class="fcard__hover-name">Dr. V Nirmala Kumari</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20Manuri%20Brahmayya&role=Associate%20Professor&photo=images/freshman/nirmala-kumari.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20V%20Nirmala%20Kumari&role=Associate%20Professor&photo=images/freshman/nirmala-kumari.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Kola Aravind Mudhiraj">
@@ -680,7 +703,7 @@
                 <div class="fcard__hover-name">Dr. Kola Aravind Mudhiraj</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Dr.%20V%20Nirmala%20Kumari&role=Associate%20Professor&photo=images/freshman/aravind-mudhiraj.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Kola%20Aravind%20Mudhiraj&role=Associate%20Professor&photo=images/freshman/aravind-mudhiraj.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="V. Haripriya">
@@ -834,7 +857,7 @@
                 <div class="fcard__hover-name">Mr. Momin Ali</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Mr.%20S%20Eranna&role=Assistant%20Professor&photo=images/freshman/eranna.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Momin%20Ali&role=Assistant%20Professor&photo=images/freshman/momin-ali.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Subhadeep Kumar">
@@ -862,7 +885,7 @@
                 <div class="fcard__hover-name">Dr. Inzamul Sarkar</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Dr.%20Subhadeep%20Kumar&role=Assistant%20Professor&photo=images/freshman/subhadeep.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Inzamul%20Sarkar&role=Assistant%20Professor&photo=images/freshman/inzamul.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Ekramul Haque">
@@ -876,7 +899,7 @@
                 <div class="fcard__hover-name">Mr. Ekramul Haque</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20Inzamul%20Sarkar&role=Assistant%20Professor&photo=images/freshman/inzamul.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Ekramul%20Haque&role=Assistant%20Professor&photo=images/freshman/ekramul.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Shubhra Dash">
@@ -890,7 +913,7 @@
                 <div class="fcard__hover-name">Dr. Shubhra Dash</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Mr.%20Ekramul%20Haque&role=Assistant%20Professor&photo=images/freshman/ekramul.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Shubhra%20Dash&role=Assistant%20Professor&photo=images/freshman/shubhra.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Atasi Ray">
@@ -904,7 +927,7 @@
                 <div class="fcard__hover-name">Dr. Atasi Ray</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Dr.%20Shubhra%20Dash&role=Assistant%20Professor&photo=images/freshman/shubhra.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Atasi%20Ray&role=Assistant%20Professor&photo=images/freshman/atasi.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Srimanta Pal">
@@ -918,7 +941,7 @@
                 <div class="fcard__hover-name">Dr. Srimanta Pal</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20Atasi%20Ray&role=Assistant%20Professor&photo=images/freshman/atasi.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Srimanta%20Pal&role=Assistant%20Professor&photo=images/freshman/srimanta.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Monaj Karar">
@@ -932,7 +955,7 @@
                 <div class="fcard__hover-name">Dr. Monaj Karar</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Dr.%20Srimanta%20Pal&role=&photo=images/freshman/srimanta.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Monaj%20Karar&role=Assistant%20Professor&photo=images/freshman/monaj.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Srinivas Indla">
@@ -946,7 +969,7 @@
                 <div class="fcard__hover-name">Dr. Srinivas Indla</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">English</div>
-                <a href="faculty-profile.html?name=Dr.%20Monaj%20Karar&role=&photo=images/freshman/monaj.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Srinivas%20Indla&role=Assistant%20Professor&photo=images/freshman/srinivas-indla.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Subhasish Saha">
@@ -988,7 +1011,7 @@
                 <div class="fcard__hover-name">Mr. Arif Ahammed</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Dr.%20Subhasish%20Saha&role=Assistant%20Professor&photo=images/freshman/shiva-kumar.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Arif%20Ahammed&role=Assistant%20Professor&photo=images/freshman/arif.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Sujatha">
@@ -1002,7 +1025,7 @@
                 <div class="fcard__hover-name">M. Sujatha</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Sri%20Ram%20Shiva%20Kumar&role=Assistant%20Professor&photo=images/freshman/arif.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=M.%20Sujatha&role=Assistant%20Professor&photo=images/freshman/sujatha.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Janga Anil Reddy">
@@ -1016,7 +1039,7 @@
                 <div class="fcard__hover-name">Janga Anil Reddy</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">English</div>
-                <a href="faculty-profile.html?name=Mr.%20Arif%20Ahammed&role=Assistant%20Professor&photo=images/freshman/sujatha.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Janga%20Anil%20Reddy&role=Assistant%20Professor&photo=images/freshman/janga-anil.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="A. Shilpa">
@@ -1030,7 +1053,7 @@
                 <div class="fcard__hover-name">A. Shilpa</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=M.%20Sujatha&role=Assistant%20Professor&photo=images/freshman/janga-anil.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=A.%20Shilpa&role=Assistant%20Professor&photo=images/freshman/shilpa.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Amritha Saha">
@@ -1044,7 +1067,7 @@
                 <div class="fcard__hover-name">Dr. Amritha Saha</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Janga%20Anil%20Reddy&role=Assistant%20Professor&photo=images/freshman/shilpa.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Amritha%20Saha&role=Assistant%20Professor&photo=images/freshman/amritha.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Noel Nalli">
@@ -1058,7 +1081,7 @@
                 <div class="fcard__hover-name">Mr. Noel Nalli</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">English</div>
-                <a href="faculty-profile.html?name=A.%20Shilpa&role=Assistant%20Professor&photo=images/freshman/amritha.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Noel%20Nalli&role=Assistant%20Professor&photo=images/freshman/noel.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Y. Lavanya">
@@ -1072,7 +1095,7 @@
                 <div class="fcard__hover-name">Dr. Y. Lavanya</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Mathematics</div>
-                <a href="faculty-profile.html?name=Dr.%20Amritha%20Saha&role=Assistant%20Professor&photo=images/freshman/noel.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Y.%20Lavanya&role=Assistant%20Professor&photo=images/freshman/lavanya.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Vishal Nakka">
@@ -1086,7 +1109,7 @@
                 <div class="fcard__hover-name">Mr. Vishal Nakka</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Mr.%20Noel%20Nalli&role=Assistant%20Professor&photo=images/freshman/lavanya.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Vishal%20Nakka&role=Assistant%20Professor&photo=images/freshman/vishal.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Hymavathi">
@@ -1128,7 +1151,7 @@
                 <div class="fcard__hover-name">Mr. T Veera Raghavulu</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=M.%20Hymavathi&role=Assistant%20Professor&photo=images/freshman/hymavathi.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20T%20Veera%20Raghavulu&role=Assistant%20Professor&photo=images/freshman/veera-raghavulu.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Sudheer Kumar">
@@ -1170,7 +1193,7 @@
                 <div class="fcard__hover-name">Mr. K. Krishnudu</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Physics</div>
-                <a href="faculty-profile.html?name=Dr.%20M.%20Sudheer%20Kumar&role=Assistant%20Professor&photo=images/freshman/sudheer.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20K.%20Krishnudu&role=Assistant%20Professor&photo=images/freshman/krishnudu.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="A Venkata Laxman Rao">
@@ -1184,7 +1207,7 @@
                 <div class="fcard__hover-name">Mr. A Venkata Laxman Rao</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">Chemistry</div>
-                <a href="faculty-profile.html?name=Neela%20Amar%20Nath&role=Assistant%20Professor&photo=images/freshman/amar-nath.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20A%20Venkata%20Laxman%20Rao&role=Assistant%20Professor&photo=images/freshman/laxman-rao.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
     </div>
@@ -1197,12 +1220,8 @@
     <h2 class="panel-heading">Academics</h2>
 <div class="panel-sub"id="syll-pdfs">Syllabus PDFs</div>
     <div class="catalog-grid" style="grid-template-columns:1fr;">
-      <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">R25 First Year Syllabus (All Branches)</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/freshman/r25.pdf</span></div>
-        <div class="syll-actions">
-          <a href="syllabus/pdfs/cse-r25-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
-          <a href="syllabus/pdfs/cse-r25-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
-        </div>
+      <div class="catalog-item" style="justify-content:space-between;cursor:default;opacity:0.55;">
+        <div><span class="catalog-item__text">R25 First Year Syllabus (All Branches)</span><span class="catalog-item__sub">Coming soon — contact department office for current syllabi</span></div>
       </div>
     </div>
     <div class="panel-sub">Semester 1 Subjects</div>
@@ -1259,6 +1278,7 @@
 
   <script>
     // ── STANDALONE TAB SWITCHER (runs first, always works) ──
+    var __activeTab = 'overview';
     (function () {
       var tabs = document.querySelectorAll('.dept-tab');
       var panels = document.querySelectorAll('.dept-panel');
@@ -1272,6 +1292,15 @@
           tab.classList.add('is-active');
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.add('is-active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          __activeTab = id;
+          document.querySelectorAll('.ds-item').forEach(function (item) {
+            var show = item.getAttribute('data-ds-tab') === id;
+            item.style.display = show ? 'flex' : 'none';
+            item.classList.remove('is-active');
+          });
+          var first = document.querySelector('.ds-item[data-ds-tab="' + id + '"]');
+          if (first) first.classList.add('is-active');
         });
       });
     })();
@@ -1376,6 +1405,7 @@
           if (!entry.isIntersecting) return;
           var matched = targets.find(function(t) { return t.el === entry.target; });
           if (!matched) return;
+          if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
           if (matched.item.style.display === 'none') return;
           document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
           matched.item.classList.add('is-active');

@@ -27,7 +27,11 @@
     .dept-nav__sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); align-self: center; margin: 0 4px; }
 
     /* ── Hero ── */
-    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); padding: 60px 48px 28px; position: relative; overflow: hidden; }
+    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
+    .dept-hero__video.is-visible { opacity: 0.55; }
+    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,51,32,0.75), rgba(24,69,59,0.75)); z-index: 1; transition: opacity 0.6s ease; }
+    .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
     .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); }
     .dept-hero__eyebrow { font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; position: relative; z-index: 1; }
     .dept-hero__title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
@@ -286,12 +290,12 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; }
+    .dept-body { display: flex; flex: 1; align-items: flex-start; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
     .dark-sidebar {
-      width: 220px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      width: 220px; flex-shrink: 0; position: sticky; top: 44px; height: calc(100vh - 44px);
       background: #FAFAF8; z-index: 35; padding-top: 24px;
       border-right: 1px solid rgba(0,0,0,0.05);
       overflow-y: auto; align-self: flex-start;
@@ -368,10 +372,29 @@
     <span class="dept-nav__link dept-nav__link--dept">CSE Department</span>
   </nav>
 
-  <div class="dept-hero" id="page-top">
+  <div class="dept-hero" id="page-top" id="deptHero">
+    <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="none">
+      <source src="../../departments/dept.mp4" type="video/mp4" />
+    </video>
+    <div class="dept-hero__overlay" id="heroOverlay"></div>
     <div class="dept-hero__eyebrow">B.Tech — Computer Science and Engineering</div>
     <div class="dept-hero__title">Department of Computer Science and Engineering</div>
   </div>
+  <script>
+    (function(){
+      var hero = document.querySelector('.dept-hero');
+      var vid  = document.getElementById('heroVideo');
+      if (!hero || !vid) return;
+      hero.addEventListener('mouseenter', function(){
+        vid.play();
+        vid.classList.add('is-visible');
+      });
+      hero.addEventListener('mouseleave', function(){
+        vid.classList.remove('is-visible');
+        setTimeout(function(){ vid.pause(); }, 650);
+      });
+    })();
+  </script>
 
   <nav class="dept-tabs" id="deptTabs">
     <a class="dept-tab is-active" data-tab="overview">Overview</a>
@@ -504,7 +527,7 @@
                 <div class="fcard__hover-name">Dr. Ajmeera Kiran</div>
                 <div class="fcard__hover-role">Associate Professor, HOD</div>
                 <div class="fcard__hover-spec">Deep Learning, ML, IoT</div>
-                <a href="faculty-profile.html?photo=images/cse/ajmeera-kiran.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Ajmeera%20Kiran&role=Associate%20Professor%2C%20HOD&photo=images/cse/ajmeera-kiran.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="N. Sirisha">
@@ -1343,28 +1366,28 @@
     <!-- Drop your PDFs into: departments/syllabus/cse/ as r25.pdf, r22.pdf, mlr20.pdf, mlr18.pdf -->
     <div class="catalog-grid" style="grid-template-columns:1fr;">
       <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">R25 Complete Syllabus</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/cse/r25.pdf</span></div>
+        <div><span class="catalog-item__text">R25 Complete Syllabus</span><span class="catalog-item__sub">2025 regulation</span></div>
         <div class="syll-actions">
           <a href="syllabus/pdfs/cse-r25-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
           <a href="syllabus/pdfs/cse-r25-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
         </div>
       </div>
       <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">R22 Complete Syllabus</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/cse/r22.pdf</span></div>
+        <div><span class="catalog-item__text">R22 Complete Syllabus</span><span class="catalog-item__sub">2022 regulation</span></div>
         <div class="syll-actions">
           <a href="syllabus/pdfs/cse-r22-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
           <a href="syllabus/pdfs/cse-r22-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
         </div>
       </div>
       <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">MLR20 Complete Syllabus</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/cse/mlr20.pdf</span></div>
+        <div><span class="catalog-item__text">MLR20 Complete Syllabus</span><span class="catalog-item__sub">MLR 2020 regulation</span></div>
         <div class="syll-actions">
           <a href="syllabus/pdfs/cse-mlr20-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
           <a href="syllabus/pdfs/cse-mlr20-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
         </div>
       </div>
       <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">MLR18 Complete Syllabus</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/cse/mlr18.pdf</span></div>
+        <div><span class="catalog-item__text">MLR18 Complete Syllabus</span><span class="catalog-item__sub">MLR 2018 regulation</span></div>
         <div class="syll-actions">
           <a href="syllabus/pdfs/cse-mlr18-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
           <a href="syllabus/pdfs/cse-mlr18-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
@@ -1659,6 +1682,7 @@
   <!-- ═══ JavaScript ═══ -->
   <script>
     // ── STANDALONE TAB SWITCHER (runs first, always works) ──
+    var __activeTab = 'overview';
     (function () {
       var tabs = document.querySelectorAll('.dept-tab');
       var panels = document.querySelectorAll('.dept-panel');
@@ -1672,6 +1696,15 @@
           tab.classList.add('is-active');
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.add('is-active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          __activeTab = id;
+          document.querySelectorAll('.ds-item').forEach(function (item) {
+            var show = item.getAttribute('data-ds-tab') === id;
+            item.style.display = show ? 'flex' : 'none';
+            item.classList.remove('is-active');
+          });
+          var first = document.querySelector('.ds-item[data-ds-tab="' + id + '"]');
+          if (first) first.classList.add('is-active');
         });
       });
     })();
@@ -2009,6 +2042,7 @@
           if (!entry.isIntersecting) return;
           var matched = targets.find(function(t) { return t.el === entry.target; });
           if (!matched) return;
+          if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
           // Only update if this item is currently visible in sidebar
           if (matched.item.style.display === 'none') return;
           document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });

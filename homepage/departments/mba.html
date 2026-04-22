@@ -27,7 +27,11 @@
     .dept-nav__sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); align-self: center; margin: 0 4px; }
 
     /* ── Hero ── */
-    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); padding: 60px 48px 28px; position: relative; overflow: hidden; }
+    .dept-hero { background: linear-gradient(135deg, #0D3320, #18453B); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
+    .dept-hero__video.is-visible { opacity: 0.55; }
+    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,51,32,0.75), rgba(24,69,59,0.75)); z-index: 1; transition: opacity 0.6s ease; }
+    .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
     .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); }
     .dept-hero__eyebrow { font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; position: relative; z-index: 1; }
     .dept-hero__title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
@@ -273,12 +277,12 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; }
+    .dept-body { display: flex; flex: 1; align-items: flex-start; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
     .dark-sidebar {
-      width: 220px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      width: 220px; flex-shrink: 0; position: sticky; top: 44px; height: calc(100vh - 44px);
       background: #FAFAF8; z-index: 35; padding-top: 24px;
       border-right: 1px solid rgba(0,0,0,0.05);
       overflow-y: auto; align-self: flex-start;
@@ -348,10 +352,29 @@
     <span class="dept-nav__link dept-nav__link--dept">MBA Department</span>
   </nav>
 
-  <div class="dept-hero" id="page-top">
+  <div class="dept-hero" id="page-top" id="deptHero">
+    <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="none">
+      <source src="../../departments/dept.mp4" type="video/mp4" />
+    </video>
+    <div class="dept-hero__overlay" id="heroOverlay"></div>
     <div class="dept-hero__eyebrow">MBA — Master of Business Administration</div>
     <div class="dept-hero__title">Department of Master of Business Administration</div>
   </div>
+  <script>
+    (function(){
+      var hero = document.querySelector('.dept-hero');
+      var vid  = document.getElementById('heroVideo');
+      if (!hero || !vid) return;
+      hero.addEventListener('mouseenter', function(){
+        vid.play();
+        vid.classList.add('is-visible');
+      });
+      hero.addEventListener('mouseleave', function(){
+        vid.classList.remove('is-visible');
+        setTimeout(function(){ vid.pause(); }, 650);
+      });
+    })();
+  </script>
 
   <nav class="dept-tabs" id="deptTabs">
     <a class="dept-tab is-active" data-tab="overview">Overview</a>
@@ -443,10 +466,7 @@
     <div class="panel-sub"id="handbook-section">Handbook</div>
     <div class="card" style="max-width:500px;"><h3>MBA Department Handbook</h3><p>Department of Master of Business Administration — Academic Year 2025-26</p></div>
     </div>
-    </div>
-  </div>
 
-  
   <!-- TAB 3: Faculty -->
   <div class="dept-panel" id="panel-faculty">
     <h2 class="panel-heading">Faculty Profiles</h2>
@@ -464,7 +484,7 @@
                 <div class="fcard__hover-name">Dr. N. Ramanjaneyulu</div>
                 <div class="fcard__hover-role">Professor, HOD</div>
                 <div class="fcard__hover-spec">Strategic Management, Leadership</div>
-                <a href="faculty-profile.html?photo=images/mba/ramanjaneyulu.jpeg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20N.%20Ramanjaneyulu&role=Professor%2C%20HOD&photo=images/mba/ramanjaneyulu.jpeg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. V. Narasimha Rao">
@@ -478,7 +498,7 @@
                 <div class="fcard__hover-name">Dr. M. V. Narasimha Rao</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Finance, Banking, Fintech</div>
-                <a href="faculty-profile.html?photo=images/mba/narasimha-rao.jpg&role=Professor&photo=images/mba/narasimha-rao.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20M.%20V.%20Narasimha%20Rao&role=Professor&photo=images/mba/narasimha-rao.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="G. Aruna">
@@ -492,7 +512,7 @@
                 <div class="fcard__hover-name">Dr. G. Aruna</div>
                 <div class="fcard__hover-role">Professor</div>
                 <div class="fcard__hover-spec">Marketing, Consumer Behaviour</div>
-                <a href="faculty-profile.html?photo=images/mba/aruna.jpg&role=Professor&photo=images/mba/aruna.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20G.%20Aruna&role=Professor&photo=images/mba/aruna.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Umrez">
@@ -506,7 +526,7 @@
                 <div class="fcard__hover-name">M. Umrez</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">HR Management, OB</div>
-                <a href="faculty-profile.html?photo=images/mba/umrez.jpg&role=Associate%20Professor&photo=images/mba/umrez.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=M.%20Umrez&role=Associate%20Professor&photo=images/mba/umrez.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Tirupalaiah">
@@ -520,7 +540,7 @@
                 <div class="fcard__hover-name">Dr. M. Tirupalaiah</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/m-tirupalaiah.jpg&role=Associate%20Professor&photo=images/mba/m-tirupalaiah.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20M.%20Tirupalaiah&role=Associate%20Professor&photo=images/mba/m-tirupalaiah.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Jostna Kumar Gantepogu">
@@ -534,7 +554,7 @@
                 <div class="fcard__hover-name">Dr. Jostna Kumar Gantepogu</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/jostna-kumar.jpg&role=&photo=images/mba/jostna-kumar.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Jostna%20Kumar%20Gantepogu&role=Assistant%20Professor&photo=images/mba/jostna-kumar.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Vasudha Kurikala">
@@ -548,7 +568,7 @@
                 <div class="fcard__hover-name">Dr. Vasudha Kurikala</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/vasudha-kurikala.jpg&role=Assistant%20Professor&photo=images/mba/vasudha-kurikala.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20Vasudha%20Kurikala&role=Assistant%20Professor&photo=images/mba/vasudha-kurikala.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="A. Koti Reddy">
@@ -562,7 +582,7 @@
                 <div class="fcard__hover-name">Mr. A. Koti Reddy</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/a-koti-reddy.jpg&role=Assistant%20Professor&photo=images/mba/a-koti-reddy.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20A.%20Koti%20Reddy&role=Assistant%20Professor&photo=images/mba/a-koti-reddy.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="M. Parsharamulu">
@@ -576,7 +596,7 @@
                 <div class="fcard__hover-name">Mr. M. Parsharamulu</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/m-parsharamulu.jpg&role=Assistant%20Professor&photo=images/mba/m-parsharamulu.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20M.%20Parsharamulu&role=Assistant%20Professor&photo=images/mba/m-parsharamulu.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="B. S. Venkat Narayana">
@@ -590,7 +610,7 @@
                 <div class="fcard__hover-name">Mr. B. S. Venkat Narayana</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/bs-venkat-narayana.jpg&role=Assistant%20Professor&photo=images/mba/bs-venkat-narayana.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20B.%20S.%20Venkat%20Narayana&role=Assistant%20Professor&photo=images/mba/bs-venkat-narayana.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="B. Vishnu Prasad">
@@ -604,7 +624,7 @@
                 <div class="fcard__hover-name">B. Vishnu Prasad</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/b-vishnu-prasad.jpg&role=Assistant%20Professor&photo=images/mba/b-vishnu-prasad.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=B.%20Vishnu%20Prasad&role=Assistant%20Professor&photo=images/mba/b-vishnu-prasad.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="K. Rajya Lakshmi">
@@ -618,7 +638,7 @@
                 <div class="fcard__hover-name">Dr. K. Rajya Lakshmi</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/k-rajya-lakshmi.jpg&role=Assistant%20Professor&photo=images/mba/k-rajya-lakshmi.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Dr.%20K.%20Rajya%20Lakshmi&role=Assistant%20Professor&photo=images/mba/k-rajya-lakshmi.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Sudha Rani N">
@@ -632,7 +652,7 @@
                 <div class="fcard__hover-name">Mrs. Sudha Rani N</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/sudha-rani.jpeg&role=Assistant%20Professor&photo=images/mba/sudha-rani.jpeg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mrs.%20Sudha%20Rani%20N&role=Assistant%20Professor&photo=images/mba/sudha-rani.jpeg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="N. Madhusudhanarao">
@@ -646,7 +666,7 @@
                 <div class="fcard__hover-name">N. Madhusudhanarao</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/n-madhusudhanarao.jpg&role=Assistant%20Professor&photo=images/mba/n-madhusudhanarao.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=N.%20Madhusudhanarao&role=Assistant%20Professor&photo=images/mba/n-madhusudhanarao.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Ram Narsa Goud">
@@ -660,7 +680,7 @@
                 <div class="fcard__hover-name">Mr. Ram Narsa Goud</div>
                 <div class="fcard__hover-role">Assistant Professor</div>
                 <div class="fcard__hover-spec">MBA</div>
-                <a href="faculty-profile.html?photo=images/mba/ram-narsa-goud.jpg&role=Assistant%20Professor&photo=images/mba/ram-narsa-goud.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Mr.%20Ram%20Narsa%20Goud&role=Assistant%20Professor&photo=images/mba/ram-narsa-goud.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
     </div>
@@ -674,23 +694,17 @@
     <h2 class="panel-heading">Academics</h2>
 <div class="panel-sub" id="catalog-section">Course Catalog</div>
     <div class="catalog-grid">
-      <a href="#" target="_blank" class="catalog-item"><div><span class="catalog-item__text">MBA Course Catalog — R22</span><span class="catalog-item__sub">2022 regulation</span></div></a>
-      <a href="#" target="_blank" class="catalog-item"><div><span class="catalog-item__text">MBA Course Catalog — MLR20</span><span class="catalog-item__sub">2020 regulation</span></div></a>
+      <div class="catalog-item" style="cursor:default;opacity:0.55;pointer-events:none;"><div><span class="catalog-item__text">MBA Course Catalog — R22</span><span class="catalog-item__sub">Coming soon</span></div></div>
+      <div class="catalog-item" style="cursor:default;opacity:0.55;pointer-events:none;"><div><span class="catalog-item__text">MBA Course Catalog — MLR20</span><span class="catalog-item__sub">Coming soon</span></div></div>
     </div>
-<div class="panel-sub"id="syll-explorer">Semester-wise Syllabus Explorer</div>
-    <p style="font-style:italic;color:#666;">Select programme, year and semester to browse subjects.</p>
-    
-    <div class="panel-sub"id="syll-pdfs">Syllabus PDFs</div>
-    <!-- Drop your PDFs into: departments/syllabus/mba/ as r25.pdf, r22.pdf, mlr20.pdf, mlr18.pdf -->
+    <div class="panel-sub" id="syll-pdfs">Syllabus PDFs</div>
     <div class="catalog-grid" style="grid-template-columns:1fr;">
-      <div class="catalog-item" style="justify-content:space-between;">
-        <div><span class="catalog-item__text">R22 Complete Syllabus</span><span class="catalog-item__sub">Place PDF at: departments/syllabus/mba/r22.pdf</span></div>
-        <div class="syll-actions">
-          <a href="syllabus/pdfs/cse-r22-syllabus.pdf" target="_blank" class="syll-btn syll-btn--view">View</a>
-          <a href="syllabus/pdfs/cse-r22-syllabus.pdf" download class="syll-btn syll-btn--download">Download</a>
-        </div>
+      <div class="catalog-item" style="justify-content:space-between;cursor:default;opacity:0.55;">
+        <div><span class="catalog-item__text">MBA Syllabus PDFs</span><span class="catalog-item__sub">Coming soon — contact department office for current syllabi</span></div>
       </div>
     </div>
+    <div class="panel-sub" id="syll-explorer">Semester-wise Syllabus Explorer</div>
+    <p style="font-style:italic;color:#666;">Select programme, year and semester to browse subjects.</p>
   </div>
 
   <!-- TAB 5: Achievements -->
@@ -911,6 +925,7 @@
 
   <script>
     // ── STANDALONE TAB SWITCHER (runs first, always works) ──
+    var __activeTab = 'overview';
     (function () {
       var tabs = document.querySelectorAll('.dept-tab');
       var panels = document.querySelectorAll('.dept-panel');
@@ -919,137 +934,28 @@
         tab.addEventListener('click', function (e) {
           e.preventDefault();
           var id = tab.getAttribute('data-tab');
+          __activeTab = id;
           tabs.forEach(function (t) { t.classList.remove('is-active'); });
           panels.forEach(function (p) { p.classList.remove('is-active'); });
           tab.classList.add('is-active');
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.add('is-active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // update sidebar visibility
+          document.querySelectorAll('.ds-item').forEach(function (item) {
+            var show = item.getAttribute('data-ds-tab') === id;
+            item.style.display = show ? 'flex' : 'none';
+            item.classList.remove('is-active');
+          });
+          var first = document.querySelector('.ds-item[data-ds-tab="' + id + '"]');
+          if (first) first.classList.add('is-active');
         });
       });
     })();
 
 
-    // Syllabus selector
-    (function () {
-      var programs = {};
-      var syllabusUrls = { btech: '#', mtech: '#' };
-      var subjectDetails = {
-        "Management Principles": ["Evolution of Management Thought", "Planning and Decision Making", "Organizing and Staffing", "Directing and Leadership", "Controlling and MIS"],
-        "Organizational Behaviour": ["Individual Behaviour", "Personality and Perception", "Motivation Theories", "Group Dynamics and Teams", "Organizational Culture and Change"],
-        "Managerial Economics": ["Demand Analysis", "Production and Cost Analysis", "Market Structures", "Pricing Strategies", "National Income and Macro Economics"],
-        "Financial Accounting": ["Accounting Fundamentals", "Journal and Ledger", "Financial Statements", "Ratio Analysis", "Fund Flow and Cash Flow"],
-        "Business Statistics": ["Descriptive Statistics", "Probability Theory", "Probability Distributions", "Correlation and Regression", "Time Series Analysis"],
-        "Business Communication": ["Communication Process", "Business Correspondence", "Report Writing", "Presentation Skills", "Interview and GD Skills"],
-        "IT for Managers": ["Information Systems", "Database Management", "ERP Systems", "E-Commerce", "IT Strategy and Governance"],
-        "Business Environment": ["Economic Environment", "Political and Legal Environment", "Socio-Cultural Environment", "Technological Environment", "International Environment"],
-        "Financial Management": ["Financial Planning", "Capital Budgeting", "Cost of Capital", "Capital Structure", "Dividend Policy"],
-        "Marketing Management": ["Marketing Concepts", "Consumer Behaviour", "Market Segmentation", "Product and Pricing", "Distribution and Promotion"],
-        "Human Resource Management": ["HRM Functions", "Recruitment and Selection", "Training and Development", "Performance Management", "Compensation and Benefits"],
-        "Operations Management": ["Operations Strategy", "Facility Planning", "Production Planning", "Quality Management", "Supply Chain Management"],
-        "Research Methodology": ["Research Design", "Sampling Methods", "Data Collection", "Statistical Analysis", "Report Writing"],
-        "Business Law": ["Contract Act", "Sale of Goods Act", "Partnership Act", "Companies Act", "Consumer Protection"],
-        "Quantitative Techniques": ["Linear Programming", "Transportation and Assignment", "Queuing Theory", "Simulation", "Decision Theory"],
-        "Entrepreneurship Development": ["Entrepreneurship Fundamentals", "Idea Generation", "Business Plan", "Funding Sources", "Government Schemes"],
-        "Strategic Management": ["Strategic Planning", "Environmental Analysis", "Strategy Formulation", "Strategy Implementation", "Strategic Control"],
-        "International Business": ["Globalization", "International Trade Theories", "FDI and MNCs", "International Financial System", "Global Strategy"],
-        "Management Information Systems": ["MIS Concepts", "System Development", "Decision Support Systems", "Knowledge Management", "IT Infrastructure"],
-        "Business Analytics": ["Introduction to Analytics", "Descriptive Analytics", "Predictive Analytics", "Prescriptive Analytics", "Analytics Tools"],
-        "Corporate Governance": ["Governance Framework", "Board Structure", "Corporate Social Responsibility", "Business Ethics", "Regulatory Compliance"]
-      };
-      var regulations = {
-        "r22": { label: "R22", pdf: "#", data: programs.btech },
-      };
-
-      var subjectDetails = {
-        "Management Principles": ["Evolution of Management Thought", "Planning and Decision Making", "Organizing and Staffing", "Directing and Leadership", "Controlling and MIS"],
-        "Organizational Behaviour": ["Individual Behaviour", "Personality and Perception", "Motivation Theories", "Group Dynamics and Teams", "Organizational Culture and Change"],
-        "Managerial Economics": ["Demand Analysis", "Production and Cost Analysis", "Market Structures", "Pricing Strategies", "National Income and Macro Economics"],
-        "Financial Accounting": ["Accounting Fundamentals", "Journal and Ledger", "Financial Statements", "Ratio Analysis", "Fund Flow and Cash Flow"],
-        "Business Statistics": ["Descriptive Statistics", "Probability Theory", "Probability Distributions", "Correlation and Regression", "Time Series Analysis"],
-        "Business Communication": ["Communication Process", "Business Correspondence", "Report Writing", "Presentation Skills", "Interview and GD Skills"],
-        "IT for Managers": ["Information Systems", "Database Management", "ERP Systems", "E-Commerce", "IT Strategy and Governance"],
-        "Business Environment": ["Economic Environment", "Political and Legal Environment", "Socio-Cultural Environment", "Technological Environment", "International Environment"],
-        "Financial Management": ["Financial Planning", "Capital Budgeting", "Cost of Capital", "Capital Structure", "Dividend Policy"],
-        "Marketing Management": ["Marketing Concepts", "Consumer Behaviour", "Market Segmentation", "Product and Pricing", "Distribution and Promotion"],
-        "Human Resource Management": ["HRM Functions", "Recruitment and Selection", "Training and Development", "Performance Management", "Compensation and Benefits"],
-        "Operations Management": ["Operations Strategy", "Facility Planning", "Production Planning", "Quality Management", "Supply Chain Management"],
-        "Research Methodology": ["Research Design", "Sampling Methods", "Data Collection", "Statistical Analysis", "Report Writing"],
-        "Business Law": ["Contract Act", "Sale of Goods Act", "Partnership Act", "Companies Act", "Consumer Protection"],
-        "Quantitative Techniques": ["Linear Programming", "Transportation and Assignment", "Queuing Theory", "Simulation", "Decision Theory"],
-        "Entrepreneurship Development": ["Entrepreneurship Fundamentals", "Idea Generation", "Business Plan", "Funding Sources", "Government Schemes"],
-        "Strategic Management": ["Strategic Planning", "Environmental Analysis", "Strategy Formulation", "Strategy Implementation", "Strategic Control"],
-        "International Business": ["Globalization", "International Trade Theories", "FDI and MNCs", "International Financial System", "Global Strategy"],
-        "Management Information Systems": ["MIS Concepts", "System Development", "Decision Support Systems", "Knowledge Management", "IT Infrastructure"],
-        "Business Analytics": ["Introduction to Analytics", "Descriptive Analytics", "Predictive Analytics", "Prescriptive Analytics", "Analytics Tools"],
-        "Corporate Governance": ["Governance Framework", "Board Structure", "Corporate Social Responsibility", "Business Ethics", "Regulatory Compliance"]
-      };
-      var regPills = document.getElementById('regPills');
-      var yearPills = document.getElementById('yearPills');
-      var semPillsRow = document.getElementById('semPills');
-      var subjectList = document.getElementById('subjectList');
-      var fullSyllabusBtn = document.getElementById('fullSyllabusBtn');
-      var currentReg = 'r22';
-      var selectedYear = null;
-
-      function buildYearPills() {
-        var regData = regulations[currentReg].data;
-        var years = Object.keys(regData);
-        yearPills.innerHTML = '';
-        years.forEach(function (y) {
-          var p = document.createElement('button');
-          p.className = 'pill'; p.setAttribute('data-year', y);
-          p.textContent = 'Year ' + y; yearPills.appendChild(p);
-        });
-        semPillsRow.innerHTML = ''; semPillsRow.style.display = 'none';
-        subjectList.classList.remove('is-visible'); subjectList.innerHTML = '';
-        if (fullSyllabusBtn) fullSyllabusBtn.style.display = 'none';
-        selectedYear = null;
-      }
-      buildYearPills();
-
-      regPills.addEventListener('click', function (e) {
-        var btn = e.target.closest('.pill'); if (!btn) return;
-        currentReg = btn.getAttribute('data-reg');
-        regPills.querySelectorAll('.pill').forEach(function (p) { p.classList.remove('is-active'); });
-        btn.classList.add('is-active'); buildYearPills();
-      });
-
-      yearPills.addEventListener('click', function (e) {
-        var btn = e.target.closest('.pill'); if (!btn) return;
-        var year = parseInt(btn.getAttribute('data-year')); selectedYear = year;
-        yearPills.querySelectorAll('.pill').forEach(function (p) { p.classList.remove('is-active'); }); btn.classList.add('is-active');
-        var sems = Object.keys(regulations[currentReg].data[year]);
-        semPillsRow.innerHTML = '';
-        sems.forEach(function (s) {
-          var p = document.createElement('button'); p.className = 'pill';
-          p.setAttribute('data-sem', s); p.textContent = 'Sem ' + s; semPillsRow.appendChild(p);
-        });
-        semPillsRow.style.display = 'flex'; subjectList.classList.remove('is-visible'); subjectList.innerHTML = '';
-        if (fullSyllabusBtn) fullSyllabusBtn.style.display = 'none';
-      });
-
-      semPillsRow.addEventListener('click', function (e) {
-        var btn = e.target.closest('.pill'); if (!btn || !selectedYear) return;
-        var sem = parseInt(btn.getAttribute('data-sem'));
-        semPillsRow.querySelectorAll('.pill').forEach(function (p) { p.classList.remove('is-active'); }); btn.classList.add('is-active');
-        var subjects = regulations[currentReg].data[selectedYear][sem]; if (!subjects) return;
-        var pdfUrl = regulations[currentReg].pdf;
-        var html = '';
-        subjects.forEach(function (name, i) {
-          var subName = typeof name === 'object' ? name[1] : name;
-          var subCode = typeof name === 'object' ? name[0] : '';
-          var units = subjectDetails[subName]; var uh = '';
-          if (units && units.length) { uh = '<div class="subject-units"><ol>'; units.forEach(function (u) { uh += '<li>' + u + '</li>'; }); uh += '</ol></div>'; }
-          var codeHtml = subCode ? '<span class="subject-code">' + subCode + '</span>' : '<span class="subject-num">' + (i+1) + '.</span>';
-          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
-        });
-        subjectList.innerHTML = html; subjectList.classList.remove('is-visible'); void subjectList.offsetWidth; subjectList.classList.add('is-visible');
-        if (fullSyllabusBtn) {
-          fullSyllabusBtn.innerHTML = '<a href="' + pdfUrl + '" target="_blank" class="full-syllabus-btn">Download Full ' + regulations[currentReg].label + ' Syllabus &rarr;</a>';
-          fullSyllabusBtn.style.display = 'block';
-        }
-      });
-    })();
+    // Syllabus selector placeholder — no data loaded yet
+    // (function () { ... })();
 
     // Publication filter
     (function(){var f=document.getElementById('pubFilters');var c=document.querySelectorAll('.pub-card');if(!f||!c.length)return;f.addEventListener('click',function(e){var b=e.target.closest('.pub-filter');if(!b)return;var y=b.getAttribute('data-year');f.querySelectorAll('.pub-filter').forEach(function(x){x.classList.remove('is-active')});b.classList.add('is-active');c.forEach(function(card){var m=(y==='all'||card.getAttribute('data-pub-year')===y);if(m){card.classList.remove('is-hidden');card.style.display='flex'}else{card.classList.add('is-hidden');setTimeout(function(){if(card.classList.contains('is-hidden'))card.style.display='none'},350)}});});})();
@@ -1156,6 +1062,7 @@
           if (!entry.isIntersecting) return;
           var matched = targets.find(function(t) { return t.el === entry.target; });
           if (!matched) return;
+          if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
           if (matched.item.style.display === 'none') return;
           document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
           matched.item.classList.add('is-active');
