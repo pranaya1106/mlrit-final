@@ -84,6 +84,12 @@
 
     .empty-msg { font-style: italic; color: #999; font-size: 0.88rem; }
 
+    .profile-hod-badge {
+      display: inline-block; font-family: 'Raleway', sans-serif; font-size: 0.65rem;
+      font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #fff; background: #18453B; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px;
+    }
+
     @media (max-width: 600px) {
       .profile-header { flex-direction: column; align-items: center; text-align: center; }
       .profile-tags { justify-content: center; }
@@ -3196,114 +3202,119 @@
       "ram-narsa-goud": "ram-narsa-goud"
     };
 
-    // Generic profile for faculty not in detailed DB
-    function getGenericProfile(id) {
-      // Try to find in the page that linked here via data attributes
-      var parts = id.split('-');
-      var name = parts.map(function(p) { return p.charAt(0).toUpperCase() + p.slice(1); }).join(' ');
-      return {
-        name: name, role: "Faculty Member", dept: "", photo: "",
-        qual: "", email: "", exp: "", joined: "", areas: [], subjects: [],
-        journals: [], conferences: 0, confTitles: [], books: [], patents: [], awards: []
-      };
-    }
-
     function renderProfile(data) {
       var h = '';
       var isHOD = /hod|head of department/i.test(data.role);
 
-      // Header
-      var initials = data.name.replace(/Dr\.|Mr\.|Mrs\.|Ms\.|Prof\./g,'').trim().split(' ');
-      var ini = initials.length >= 2 ? initials[0][0] + initials[initials.length-1][0] : initials[0].substring(0,2);
+      // Safe initials — strip titles, take first letters of first two name words
+      var nameParts = (data.name || '').replace(/^(Dr|Mr|Mrs|Ms|Prof)\.?\s*/i, '').trim().split(/\s+/);
+      var ini = (nameParts.length >= 2
+        ? (nameParts[0][0] || '') + (nameParts[nameParts.length - 1][0] || '')
+        : (nameParts[0] || '').substring(0, 2)
+      ).toUpperCase();
 
+      // Photo — use data-ini attribute on the container so onerror can read it without inline string injection
       h += '<div class="profile-header">';
-      h += '<div class="profile-photo">';
-      if (data.photo) h += '<img src="' + data.photo + '" alt="' + data.name + '" onerror="this.style.display=\'none\';this.parentElement.textContent=\'' + ini.toUpperCase() + '\'" />';
-      else h += ini.toUpperCase();
+      h += '<div class="profile-photo" id="profilePhoto" data-ini="' + ini + '">';
+      if (data.photo) {
+        h += '<img src="' + data.photo + '" alt="' + data.name.replace(/"/g, '&quot;') + '" '
+           + 'onerror="this.style.display=\'none\';var c=this.closest(\'[data-ini]\');if(c)c.textContent=c.getAttribute(\'data-ini\')" />';
+      } else {
+        h += ini;
+      }
       h += '</div>';
+
       h += '<div class="profile-info">';
-      if (isHOD) h += '<div style="display:inline-block;font-family:\'Raleway\',sans-serif;font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#fff;background:#18453B;padding:3px 10px;border-radius:4px;margin-bottom:8px;">Head of Department</div>';
+      if (isHOD) h += '<div class="profile-hod-badge">Head of Department</div>';
       h += '<div class="profile-name">' + data.name + '</div>';
       h += '<div class="profile-role">' + data.role + '</div>';
-      if (data.dept) h += '<p class="profile-meta"><strong>Department:</strong> ' + data.dept + '</p>';
-      if (data.qual) h += '<p class="profile-meta"><strong>Qualification:</strong> ' + data.qual + '</p>';
-      if (data.exp) h += '<p class="profile-meta"><strong>Experience:</strong> ' + data.exp + '</p>';
-      if (data.email) h += '<p class="profile-meta"><strong>Email:</strong> ' + data.email + '</p>';
+      if (data.dept)   h += '<p class="profile-meta"><strong>Department:</strong> '    + data.dept   + '</p>';
+      if (data.qual)   h += '<p class="profile-meta"><strong>Qualification:</strong> ' + data.qual   + '</p>';
+      if (data.exp)    h += '<p class="profile-meta"><strong>Experience:</strong> '    + data.exp    + '</p>';
+      if (data.joined) h += '<p class="profile-meta"><strong>Joined:</strong> '        + data.joined + '</p>';
+      if (data.email)  h += '<p class="profile-meta"><strong>Email:</strong> '         + data.email  + '</p>';
       h += '</div></div>';
 
-      // Stats
-      var totalPubs = data.journals.length + data.conferences;
-      if (totalPubs || data.books.length || data.patents.length) {
+      // Stats — only render if there's at least one non-zero value
+      var jLen = (data.journals  || []).length;
+      var bLen = (data.books     || []).length;
+      var pLen = (data.patents   || []).length;
+      var conf = data.conferences || 0;
+      if (jLen || conf || bLen || pLen) {
         h += '<div class="profile-stat-row">';
-        if (data.journals.length) h += '<div class="profile-stat"><div class="profile-stat__num">' + data.journals.length + '</div><div class="profile-stat__label">Journal Papers</div></div>';
-        if (data.conferences) h += '<div class="profile-stat"><div class="profile-stat__num">' + data.conferences + '</div><div class="profile-stat__label">Conference Papers</div></div>';
-        if (data.books.length) h += '<div class="profile-stat"><div class="profile-stat__num">' + data.books.length + '</div><div class="profile-stat__label">Books Published</div></div>';
-        if (data.patents.length) h += '<div class="profile-stat"><div class="profile-stat__num">' + data.patents.length + '</div><div class="profile-stat__label">Patents</div></div>';
+        if (jLen) h += '<div class="profile-stat"><div class="profile-stat__num">' + jLen + '</div><div class="profile-stat__label">Journal Papers</div></div>';
+        if (conf) h += '<div class="profile-stat"><div class="profile-stat__num">' + conf + '</div><div class="profile-stat__label">Conference Papers</div></div>';
+        if (bLen) h += '<div class="profile-stat"><div class="profile-stat__num">' + bLen + '</div><div class="profile-stat__label">Books Published</div></div>';
+        if (pLen) h += '<div class="profile-stat"><div class="profile-stat__num">' + pLen + '</div><div class="profile-stat__label">Patents</div></div>';
         h += '</div>';
       }
 
-      // Research Areas (dedicated section)
-      h += '<div class="profile-section"><div class="profile-section__title">Research Areas</div>';
+      // Research Areas — skip section entirely if empty
       if (data.areas && data.areas.length) {
+        h += '<div class="profile-section"><div class="profile-section__title">Research Areas</div>';
         h += '<div class="profile-tags" style="margin-top:0;">';
         data.areas.forEach(function(a) { h += '<span class="profile-tag">' + a + '</span>'; });
-        h += '</div>';
-      } else {
-        h += '<p class="empty-msg">Details will be updated</p>';
+        h += '</div></div>';
       }
-      h += '</div>';
 
-      // Subjects Taught
-      h += '<div class="profile-section"><div class="profile-section__title">Subjects Taught</div>';
+      // Subjects Taught — skip section entirely if empty
       if (data.subjects && data.subjects.length) {
+        h += '<div class="profile-section"><div class="profile-section__title">Subjects Taught</div>';
         h += '<div class="subject-chips">';
         data.subjects.forEach(function(s) { h += '<div class="subject-chip">' + s + '</div>'; });
-        h += '</div>';
-      } else {
-        h += '<p class="empty-msg">Details will be updated</p>';
+        h += '</div></div>';
       }
-      h += '</div>';
 
-      // Journal Publications
-      h += '<div class="profile-section"><div class="profile-section__title">Publications</div>';
-      if (data.journals && data.journals.length) {
-        data.journals.forEach(function(p) {
-          h += '<div class="pub-item"><div class="pub-item__title">' + p.t + '</div><div class="pub-item__journal">' + p.j + '</div><span class="pub-item__year">' + p.y + '</span></div>';
-        });
-        if (data.confTitles && data.confTitles.length) {
-          h += '<div style="margin-top:12px;font-family:\'Raleway\',sans-serif;font-size:0.72rem;font-weight:800;color:#18453B;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Conference Papers (' + data.conferences + ' total)</div>';
-          data.confTitles.forEach(function(t) {
-            h += '<div class="pub-item"><div class="pub-item__title">' + t + '</div></div>';
+      // Publications — only render section if there's something to show
+      var hasJournals = jLen > 0;
+      var hasConf     = conf > 0;
+      if (hasJournals || hasConf) {
+        h += '<div class="profile-section"><div class="profile-section__title">Publications</div>';
+        if (hasJournals) {
+          (data.journals || []).forEach(function(p) {
+            h += '<div class="pub-item">'
+               + '<div class="pub-item__title">' + p.t + '</div>'
+               + '<div class="pub-item__journal">' + (p.j || '') + '</div>'
+               + '<span class="pub-item__year">' + (p.y || '') + '</span>'
+               + '</div>';
           });
-          if (data.conferences > data.confTitles.length) h += '<p class="empty-msg">...and ' + (data.conferences - data.confTitles.length) + ' more conference papers</p>';
-        } else if (data.conferences > 0) {
-          h += '<p class="empty-msg">' + data.conferences + ' conference paper(s) — titles will be updated</p>';
         }
-      } else if (data.conferences > 0) {
-        h += '<p class="empty-msg">' + data.conferences + ' conference paper(s) — titles will be updated</p>';
-      } else {
-        h += '<p class="empty-msg">Details will be updated</p>';
+        if (hasConf) {
+          var titles = data.confTitles || [];
+          if (titles.length) {
+            h += '<div style="margin-top:12px;font-family:\'Raleway\',sans-serif;font-size:0.72rem;font-weight:800;'
+               + 'color:#18453B;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">'
+               + 'Conference Papers (' + conf + ' total)</div>';
+            titles.forEach(function(t) {
+              h += '<div class="pub-item"><div class="pub-item__title">' + t + '</div></div>';
+            });
+            if (conf > titles.length) {
+              h += '<p class="empty-msg">...and ' + (conf - titles.length) + ' more conference papers</p>';
+            }
+          }
+        }
+        h += '</div>';
       }
-      h += '</div>';
 
-      // Books
-      h += '<div class="profile-section"><div class="profile-section__title">Books</div>';
-      if (data.books && data.books.length) {
-        data.books.forEach(function(b) {
+      // Books — skip section entirely if empty
+      if (bLen) {
+        h += '<div class="profile-section"><div class="profile-section__title">Books</div>';
+        (data.books || []).forEach(function(b) {
+          var pub  = b.pub  ? ' — ' + b.pub : '';
           var isbn = b.isbn ? '<span class="book-isbn">ISBN: ' + b.isbn + '</span>' : '';
-          h += '<div class="book-item"><strong>' + b.t + '</strong> (' + b.y + ') ' + isbn + '</div>';
+          h += '<div class="book-item"><strong>' + b.t + '</strong> (' + (b.y || '') + ')' + pub + ' ' + isbn + '</div>';
         });
-      } else {
-        h += '<p class="empty-msg">Details will be updated</p>';
+        h += '</div>';
       }
-      h += '</div>';
 
-      // Patents
-      if (data.patents && data.patents.length) {
+      // Patents — skip section entirely if empty
+      if (pLen) {
         h += '<div class="profile-section"><div class="profile-section__title">Patents</div>';
-        data.patents.forEach(function(p) {
-          var num = (typeof p === 'string') ? p : p.t;
-          var detail = (typeof p === 'object' && p.n) ? '<span class="patent-num">' + p.n + ' (' + p.y + ')</span>' : '';
+        (data.patents || []).forEach(function(p) {
+          var num    = (typeof p === 'string') ? p : (p.t || '');
+          var detail = (typeof p === 'object' && p.n)
+            ? '<span class="patent-num">' + p.n + (p.y ? ' (' + p.y + ')' : '') + '</span>'
+            : '';
           h += '<div class="patent-item"><strong>' + num + '</strong>' + detail + '</div>';
         });
         h += '</div>';
