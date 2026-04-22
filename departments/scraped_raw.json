@@ -1,0 +1,1860 @@
+{
+  "ashok-kumar-cheeli": {
+    "name": "Prof. Ashok Kumar Cheeli",
+    "role": "Professor & HOD",
+    "photo": "images/eee/ashok-kumar.jpg",
+    "dept": "eee",
+    "qual": "M.Tech(NIT Surathkal), 1999, B.Tech ECE, 1992",
+    "email": "ashokkumar.cheeli@mlrinstitutions.ac.in",
+    "exp": "23 years",
+    "joined": "1/7/2019",
+    "areas": [
+      "Communication Engineering",
+      "Low power VLSI"
+    ],
+    "subjects": [
+      "Electronic devices & Circuits",
+      "Electronic circuit analysis",
+      "Linear IC applications",
+      "Analog & Digital communication",
+      "Fiber optic communication",
+      "Electronic instrumentation",
+      "VLSI Design"
+    ],
+    "journals": [],
+    "conferences": 8,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "journal_count": 10
+  },
+  "dr-m-dileep-kumar": {
+    "name": "Dr. M. Dileep Kumar",
+    "role": "Associate Professor",
+    "photo": "images/eee/dileep-kumar.jpg",
+    "dept": "eee",
+    "qual": "Ph.D, M.Tech, B.Tech",
+    "email": "mdk206@gmail.com",
+    "exp": "16 Years",
+    "joined": "19-07-2021",
+    "areas": [
+      "EPS"
+    ],
+    "subjects": [
+      "EM-I & EM-II & POWER SYSTEMS"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "ashok-reddy-kanna": {
+    "name": "Ashok Reddy Kanna",
+    "role": "Associate Professor",
+    "photo": "images/eee/placeholder.jpg",
+    "dept": "eee",
+    "qual": "",
+    "email": "",
+    "exp": "",
+    "joined": "15/05/2023",
+    "areas": [],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "k-usha-rani": {
+    "name": "K. Usha Rani",
+    "role": "Associate Professor",
+    "photo": "images/eee/placeholder.jpg",
+    "dept": "eee",
+    "qual": "",
+    "email": "",
+    "exp": "",
+    "joined": "08/10/2014",
+    "areas": [],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-sumana-das": {
+    "name": "Dr. Sumana Das",
+    "role": "Associate Professor",
+    "photo": "images/eee/sumana-das.jpeg",
+    "dept": "eee",
+    "qual": "Ph D - Power Electronics",
+    "email": "",
+    "exp": "7 Years",
+    "joined": "20/08/2023",
+    "areas": [
+      "Power Electronics"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-b-v-rajanna": {
+    "name": "Dr. B. V. Rajanna",
+    "role": "Associate Professor",
+    "photo": "images/eee/bv-rajanna.jpg",
+    "dept": "eee",
+    "qual": "PhD- Power Electronics and Drives, M.Tech, B.Tech",
+    "email": "bv.rajanna@mlrit.ac.in",
+    "exp": "11",
+    "joined": "13/04/2023",
+    "areas": [
+      "Power Electronics and Drives"
+    ],
+    "subjects": [
+      "Artificial Intelligence Machine Learning Power Electronics Instrumentation Energy Audit"
+    ],
+    "journals": [
+      {
+        "t": "[SCOPUS] B V Rajanna, S V N L Lalitha, Ganta Joga Rao, Dr. SK Shrivastava,\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"https:\\/\\/sch",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna, S V N L Lalitha, Ganta Joga Rao, Dr. SK Shrivastava,\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/dr-b-v-rajanna\\/#breadcrumblist\"},\"image\":{\"@ty",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna, S V N L Lalitha, Ganta Joga Rao , Dr. SK Shrivastava , “Solar Photovoltaic Generators with MPPT and Battery Storage in Microgrids”, in International Journal of Power Electronics and Drive Systems(IJPEDS), Vol: 7, No: 3, pp.701-7",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , Dr. S V N L Lalitha, Ganta Joga Rao , SK Shrivastava, “BPSK Modulation and Demodulation with Power Line Carrier Communication and GSM Communication for Smart Metering”, in International Journal of Power Electronics and Drive Sy",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , Ganta Joga Rao , SK Shrivastava , “Defining Control Strategies for Micro Grids Islanded Operation with Maximum Power Point Tracking using a Fuzzy Logic Control Scheme”, in International Journal of Power Electronics and Drive Sy",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna, Ch Rami Reddy , K. Harinadha Reddy , “Design, Modeling & Simulation of DSTATCOM for Distribution Lines for Power Quality Improvement”, in Journal of Electrical Engineering (JEE), Vol: 17, No: 2, pp.1-10, January",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna, K S Srikanth , “Advanced Active Power Filter Performance for Grid Integrated Hybrid Renewable Power Generation Systems”, in Indonesian Journal of Electrical Engineering and Computer Science (IJEECS), Vol: 11, No: 1, pp.60-73, Ju",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna, K S Srikanth, “Grid Connected Inverter for Current Control by using Anti-Islanding Technique”, in International Journal of Power Electronics and Drive Systems (IJPEDS), Vol: 9, No: 2, pp.926-932, June",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , K Harinadha Reddy, Ch Rami Reddy , “Resonance Propagation and Elimination in Integrated and Islanded Micro grids”, in International Journal of Power Electronics and Drive Systems (IJPEDS), Vol: 9, No: 3, pp.1445-1456, September",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , “A Transformer Less High Step up DC-DC Converter Based on Cockcroft Walton Voltage Multiplier for Grid Tied System”, in Journal of Science and Technology (JST), vol: 4, No: 1, pp. 1-7, February",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "B V Rajanna , Ch Rami Reddy, K Harinadha Reddy , “Reactive Power Compensation with DSTATCOM in different modes of operation of a Single Phase Micro Grid”, in Journal of Electrical Engineering (JEE), Vol: 19, No: 1, pp.1-25, March",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , Kiran Kumar , “Dynamic Model Development for Lead Acid Storage Battery”, in Indonesian Journal of Electrical Engineering and Computer Science (IJEECS), Vol: 15, No: 2, pp.609-619, August",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , “REDUCTION OF DC FAULT CURRENT IN DISTRIBUTION POWER SYSTEM USING A NOVEL CONTROL METHOD”, in International Journal of Research, vol: 8, No: 8, pp. 1-12, August",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "B V Rajanna , Kiran Kumar , “Comparison of one and two time constant models for Lithium Ion Battery”, in International Journal of Electrical and Computer Engineering (IJECE), Vol: 10, No: 1, pp. 670-680, February",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[SCOPUS] B V Rajanna , “Induction drive system with DSTATCOM based asymmetric twin converter”, in International Journal of Power Electronics and Drive Systems (IJPEDS), vol: 11, No: 4, pp. 1826-1834, December",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "books_raw": "Nil"
+  },
+  "t-bhargava-ramu": {
+    "name": "Dr. T. Bhargava Ramu",
+    "role": "Associate Professor",
+    "photo": "images/eee/t-bhargava-ramu.jpg",
+    "dept": "eee",
+    "qual": "PhD -Power Electronics, M.Tech, B.Tech",
+    "email": "bhargava.ramu@yahoo.com",
+    "exp": "18 Years",
+    "joined": "06-07-2018",
+    "areas": [
+      "Power Electronics"
+    ],
+    "subjects": [
+      "ELECTRICAL CIRCUITS",
+      "POWER SYSTEM",
+      "EMF"
+    ],
+    "journals": [
+      {
+        "t": "Mitigating Voltage Sag In Secondary Distribution Line Using DVR With Single DC Source ,INTERNATIONAL JOURNAL OF SCIENTIFIC & TECHNOLOGY RESEARCH VOLUME 9, ISSUE 03, MARCH 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Investigation In Finding The Role Of Active Loads In The Electrical Grid Dominated By Power Electronics,THINK INDIA JOURNAL 3.Performance Analysis of Different Level D-Statcom using\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataL",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mitigating Voltage Sag In Secondary Distribution Line Using DVR With Single DC Source ,INTERNATIONAL JOURNAL OF SCIENTIFIC & TECHNOLOGY RESEARCH VOLUME 9, ISSUE 03, MARCH 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Investigation In Finding The Role Of Active Loads In The Electrical Grid Dominated By Power Electronics,THINK INDIA JOURNAL 3.Performance Analysis of Different Level D-Statcom using\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#web",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mitigating Voltage Sag In Secondary Distribution Line Using DVR With Single DC Source ,INTERNATIONAL JOURNAL OF SCIENTIFIC & TECHNOLOGY RESEARCH VOLUME 9, ISSUE 03, MARCH 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Investigation In Finding The Role Of Active Loads In The Electrical Grid Dominated By Power Electronics,THINK INDIA JOURNAL 3.Performance Analysis of Different Level D-Statcom using Finfet Technology,History Research Journal 4.BLDC MOTOR BASED CUKCON",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-sonu-kumar": {
+    "name": "Dr. Sonu Kumar",
+    "role": "Assistant Professor",
+    "photo": "images/eee/sonu-kumar.jpeg",
+    "dept": "eee",
+    "qual": "PhD-(Electrical & Electronics Instr.)",
+    "email": "",
+    "exp": "10 Years",
+    "joined": "17/07/2023",
+    "areas": [],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "6242": {
+    "name": "Dr. Y. Lalitha Kameswari",
+    "role": "Assistant Professor",
+    "photo": "images/eee/y-lalitha-kameswari.jpeg",
+    "dept": "eee",
+    "qual": "Ph D - Power Electronics & Drives",
+    "email": "",
+    "exp": "7 months",
+    "joined": "09/10/2023",
+    "areas": [
+      "Ph D - Power Electronics & Drives"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "t-mrudula-2": {
+    "name": "T. Mrudula",
+    "role": "Assistant Professor",
+    "photo": "images/eee/t-mrudula.jpg",
+    "dept": "eee",
+    "qual": "M.Tech-EEE, B.Tech - EEE",
+    "email": "mrudulat@mlrit.ac.in",
+    "exp": "5",
+    "joined": "06-02-23",
+    "areas": [
+      "Power Electronics"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "n-karthik": {
+    "name": "N. Karthik",
+    "role": "Assistant Professor",
+    "photo": "images/eee/n-karthik.jpg",
+    "dept": "eee",
+    "qual": "M.Tech, B.Tech",
+    "email": "karthiknachagari2748@gmail.com",
+    "exp": "Assistant professo",
+    "joined": "02-01-2019",
+    "areas": [
+      "Power Systems"
+    ],
+    "subjects": [
+      "BEE",
+      "Solar Energy"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "journal_count": 2
+  },
+  "p-jithendar": {
+    "name": "P. Jithendar",
+    "role": "Assistant Professor",
+    "photo": "images/eee/p-jithendar.jpg",
+    "dept": "eee",
+    "qual": "M.TECH, B.TECH",
+    "email": "jitendar13@gmail.com",
+    "exp": "3 Years",
+    "joined": "24-08-2015",
+    "areas": [],
+    "subjects": [
+      "NETWORK ANALYSIS",
+      "ELECTRICAL CIRCUITS",
+      "BASIC ELECTRICAL ENGINEERING",
+      "ELECTRICAL AND ELECTRONICS ENGINEERING"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "a-yadagiri": {
+    "name": "A. Yadagiri",
+    "role": "Assistant Professor",
+    "photo": "images/eee/a-yadagiri.jpg",
+    "dept": "eee",
+    "qual": "M.TECH, B. TECH",
+    "email": "yadagiri259@gmail.com",
+    "exp": "5 Years",
+    "joined": "31-08-2019",
+    "areas": [
+      "Power Electronics and Electrical Drives"
+    ],
+    "subjects": [
+      "BEEE"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "k-rajasri": {
+    "name": "K. Rajasri",
+    "role": "Assistant Professor",
+    "photo": "images/eee/k-rajasri.jpg",
+    "dept": "eee",
+    "qual": "M.Tech, B.Tech",
+    "email": "kasularajasree@gmail.com",
+    "exp": "6.5 Years",
+    "joined": "03-02-2022",
+    "areas": [
+      "EPS"
+    ],
+    "subjects": [
+      "POWER ELECTRONICS",
+      "POWER SEMI CONDUCTOR DRIVES",
+      "SGP",
+      "BEE"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "a-shubhangi-rao": {
+    "name": "A. Shubhangi Rao",
+    "role": "Assistant Professor",
+    "photo": "images/eee/a-shubhangi-rao.jpg",
+    "dept": "eee",
+    "qual": "M.E, B.E",
+    "email": "shubhir5789@gmail.com",
+    "exp": "6 Years",
+    "joined": "17-12-2018",
+    "areas": [
+      "control systems"
+    ],
+    "subjects": [
+      "AC machines",
+      "Basic Electrical Engineering",
+      "Electromagnetic fields",
+      "Power Transmission & Distribution",
+      "Network Theory",
+      "Instrumentation and Measurement",
+      "Industrial Instrumentation",
+      "Computer Applications in Power system"
+    ],
+    "journals": [
+      {
+        "t": "Comparative analysis among PI controller, PID controller and Fuzzy Logic Controller for the speed control of Induction Motor. International Journal of Enhanced Research in Science Technology & Engineering, ISSN:2319-7463 Vol.2 Issue 7, July-2013, pp:",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Comparative analysis among PI controller, PID controller and Fuzzy Logic Controller for the speed control of Induction Motor. International Journal of Enhanced Research in Science Technology & Engineering, ISSN:2319-7463 Vol.2 Issue 7, July-2013, pp:",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Comparative analysis among PI controller, PID controller and Fuzzy Logic Controller for the speed control of Induction Motor. International Journal of Enhanced Research in Science Technology & Engineering, ISSN:2319-7463 Vol.2 Issue 7, July-2013, pp:",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Energy management system on operation of smart grid, IRJET",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "MLR Institute of technology campus energy monitoring and controlling system with interconnection of grid and solar power,IJET,UAE,SCOPUS.",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "BLDC MOTOR BASED CUK CONVERTER USING MODELPREDECTIVE CONTROLLER FOR LOW POWER APPLICATION, International Journal of Advanced Trends in Computer Science and Engineering.",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "ch-srivardhan-kumar": {
+    "name": "Dr. CH. Srivardhan Kumar",
+    "role": "Assistant Professor",
+    "photo": "images/eee/ch-srivardhan-kumar.jpg",
+    "dept": "eee",
+    "qual": "Power Electronics Application in Power Systems, M.Tech, B.Tech",
+    "email": "chsvnk123@gmail.com",
+    "exp": "11 Years",
+    "joined": "09-08-2017",
+    "areas": [
+      "Power Electronics"
+    ],
+    "subjects": [
+      "Power Electronics",
+      "Power Electric Drives",
+      "Electrical Measurements & Instrumentation",
+      "Power Quality",
+      "Software Testing",
+      "BEEE"
+    ],
+    "journals": [
+      {
+        "t": "EISSN 1432-0487 . (SCIE, IF 1.8). Ch.Srivardhan kumar, Dr.Z.Mary Livinsa, “ Power quality enhancement by using Z- DVR based series voltage compensation with black widow optimization technique ” in IJAPE , Vol. 12, No. 3, September 2023, pp. 229 246 I",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "(SCOPUS, IF 1.06). Ch.Srivardhan kumar, Dr.Z.Mary Livinsa, “ Performance and Comparison of Voltage Compensation Based on Hybrid Metaheuristic Technique Tuned Z-Dynamic Voltage Restorer ” in Electrica 2023; , 23(3): 681-694, September 2023, pp. 681-69",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "(SCOPUS, IF 0.9). Ch.Srivardhan kumar, BLDC Motor Based Cuk Converter Using Model Predictive Controller For Low Power Application , International Journal of Advanced Trends in Computer Science and Engineering.",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "books_raw": "Ch.Srivardhan Kumar, Dr.Z.Mary Livinsa, A Shubhangi rao , T.Bhargava ramu Electrifying the Roads a Comprhensive Guide to EV Vehicles ISBN 978-93-5747-597-6"
+  },
+  "m-sreenivasa-reddy": {
+    "name": "M. Sreenivasa Reddy",
+    "role": "Associate Professor",
+    "photo": "images/eee/m-sreenivasa-reddy.jpg",
+    "dept": "eee",
+    "qual": "M.Tech, B.E",
+    "email": "reddy2347524@yahoo.co.uk",
+    "exp": "13 Years",
+    "joined": "07-10-2013",
+    "areas": [
+      "Power System"
+    ],
+    "subjects": [
+      "EM -I",
+      "BEE",
+      "ECA"
+    ],
+    "journals": [
+      {
+        "t": "2.MLR Institute of technology campus energy monitoring and controlling system with interconnection of grid and solar power,IJET,UAE,SCOPUS 3.Mitigating Voltage Sag In Secondary Distribution Line Using DVR With Single DC Source,INTERNATIONAL JOURNAL O",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "2.MLR Institute of technology campus energy monitoring and controlling system with interconnection of grid and solar power,IJET,UAE,SCOPUS 3.Mitigating Voltage Sag In Secondary Distribution Line Using DVR With Single DC Source,INTERNATIONAL JOURNAL O",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "2.MLR Institute of technology campus energy monitoring and controlling system with interconnection of grid and solar power,IJET,UAE,SCOPUS 3.Mitigating Voltage Sag In Secondary Distribution Line Using DVR With Single DC Source,INTERNATIONAL JOURNAL O",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Review on energy consumption by using solar systems, (IJPAM),Vol-120, N0.6, ISSN:1314-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Design of sensors for adaptive solar panels. ARPN Journal of engineering and applied sciences,ARPN Journal of engineering and applied sciences.Vol-13, No.10,ISSN:1819-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "New hybrid PSO Algorithm for non-convex optimal power flow problem,(IJEER), VOL-4,Issue-4, ISSN:2348-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Solar electric battery car using microcontroller,(IJEER),Vol-4,Issue-2, ISSN:2348-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Electric battery car using Microcontroller, (IJARET),vol-3,Issue-IV,ISSN:2320-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "An Intelligent RFID reader and its application for Airport baggage tracking system,(IJGIS) Vol-1, Issue-2,ISSN:2319-",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-ch-ravi-kiran": {
+    "name": "Dr. Ch. Ravi Kiran",
+    "role": "Associate Professor",
+    "photo": "images/mechanical/ravi-kiran.jpg",
+    "dept": "mech",
+    "qual": "JNTU Ananthapur, M.Tech (TE), B.Tech - Mechanical",
+    "email": "ravimadhu1063@gmail.com",
+    "exp": "5 Years",
+    "joined": "",
+    "areas": [
+      "Thermal Engineering"
+    ],
+    "subjects": [
+      "Strength of materials 2.Engineering Drawing 3. Automobile Engineering"
+    ],
+    "journals": [
+      {
+        "t": "K.Thirupathi Reddy, M.L.S.Deva Kumar andCh.Ravikiran , “Combustion of microalgae oil and ethanol blended with diesel fuel”,International Journal of Engineering Research in Mechanical and Civil Engineering (IJERMCE), Vol 2, Issue 3, March",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "ISSN (Online) 2456-1290",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K.Thirupathi Reddy, M.L.S.Deva Kumar and Ch.Ravikiran , “Thamanu oil- an alternative fuel for variable compression Ratio\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config',",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K.Thirupathi Reddy, M.L.S.Deva Kumar andCh.Ravikiran , \\u201cCombustion of microalgae oil and ethanol blended with diesel fuel\\u201d,International Journal of Engineering Research in Mechanical and Civil Engineering (IJERMCE), Vol 2, Issue 3, March",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "ISSN (Online) 2456-1290",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K.Thirupathi Reddy, M.L.S.Deva Kumar and Ch.Ravikiran , \\u201cThamanu oil- an alternative fuel for variable compression Ratio\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/facul",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K.Thirupathi Reddy, M.L.S.Deva Kumar andCh.Ravikiran , “Combustion of microalgae oil and ethanol blended with diesel fuel”,International Journal of Engineering Research in Mechanical and Civil Engineering (IJERMCE), Vol 2, Issue 3, March",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "ISSN (Online) 2456-1290",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K.Thirupathi Reddy, M.L.S.Deva Kumar and Ch.Ravikiran , “Thamanu oil- an alternative fuel for variable compression Ratio CI engine”, International Journal of Engineering Research in Mechanical and Civil Engineering (IJERMCE), Vol 2, Issue 3, March",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "ISSN (Online) 2456-1290 Ch.Ravikiran, B.ChinaAnkanna and K.Thirupathi Reddy, “An experimental investigation on the performance of diesel engine operating on linseed and neem methyl esters blends”International journal of trend in research and developm",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Ch. Ravikiran, Dr.K Tirupathi Reddy and Dr. M.L.S Deva Kumar “Experimental Investigation of Performance & Emission Characteristics of CI Diesel Engine Using Jute Oil Blends” International Journal of Applied Engineering Research ISSN 0973-4562 Volume ",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "(UGC CARE LIST) Link: – https://www.ripublication.com/Volume/ijaerv13n2spl.htm",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "H Sumithra, B Sidda Reddy, Ch. Ravikiran “A Numerical Model to Predict the Performance of A CI Engine Enriched by Hydrogen Fuel and Flow Visualisation in the Intake Manifold for Hydrogen Injection using CFD” International Journal of Applied Engineeri",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-harikishor-kumar": {
+    "name": "Dr. Harikishor Kumar",
+    "role": "Associate Professor",
+    "photo": "images/mechanical/harikishor.jpg",
+    "dept": "mech",
+    "qual": "PhD from Indian Institute of Technology (BHU), Varanasi, India, M.Tech (Production Engineering) from Indian Institute of Technology (BHU), Varanasi, India, B. Tech (Mechanical Engineering)",
+    "email": "hari@mlrinstitutions.ac.in",
+    "exp": "0 Years",
+    "joined": "",
+    "areas": [
+      "Production Engineering"
+    ],
+    "subjects": [],
+    "journals": [
+      {
+        "t": "Effect of multi-groove reinforcement strategy on Cu/SiC surface composite fabricated by friction stir processing, Materials Chemistry and Physics 256, 123720, 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Filler dispersion and unidirectional sliding characteristics of as-cast and multi-pass friction stir processed ZrB2/AA7075 in-situ composites, Journal of Tribology, 1-39",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mechanical and tribological characterization of industrial wastes reinforced aluminium\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"h",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Effect of multi-groove reinforcement strategy on Cu\\/SiC surface composite fabricated by friction stir processing, Materials Chemistry and Physics 256, 123720, 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Filler dispersion and unidirectional sliding characteristics of as-cast and multi-pass friction stir processed ZrB2\\/AA7075 in-situ composites, Journal of Tribology, 1-39",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mechanical and tribological characterization of industrial wastes reinforced aluminium\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/dr-harikishor-kumar\\/#breadcrumblis",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Effect of multi-groove reinforcement strategy on Cu/SiC surface composite fabricated by friction stir processing, Materials Chemistry and Physics 256, 123720, 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Filler dispersion and unidirectional sliding characteristics of as-cast and multi-pass friction stir processed ZrB2/AA7075 in-situ composites, Journal of Tribology, 1-39",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mechanical and tribological characterization of industrial wastes reinforced aluminium alloy composites fabricated via friction stir processing, Journal of Alloys and Compounds, 831, 154832, 2020",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Kumar,H., Yusufzai, M.Z.K. and Vashista, M.(2018) ‘Microstructure and Wear Behavior of Zircon Reinforced Copper Based Surface Composite Synthesized by Friction Stir Processing Route’, Transaction of Indian Institute of Metals (2018) 71(8):2025–",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "(SCIE Indexed, I.F 0.91).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Kumar,H., Prasad,R., Srivastava, A., Yusufzai, M.Z.K. and Vashista, M. ‘Utilisation of Industrial waste (Fly ash) in synthesis of copper based surface composite through friction stir processing route for wear applications’, Journal of Cleaner Product",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Kumar,H., Yusufzai, M.Z.K. and Vashista, M. ‘Microstructure, Mechanical and Electrical characterization of zirconia reinforced copper based surface composite by friction stir process’, Material Research Express (2018) 5, 086505 (SCIE Indexed, I.F 1.1",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Srivastava, A., Kumar,H., Yusufzai, M.Z.K. and Vashista, M.(2017) ‘On the role of magnetising frequency and magnetic field intensity on hysteresis loop characteristics’, Int. J. Microstructure and Materials Properties, Vol. 12, Nos. 1/2, pp.104–115 (",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Srivastava, A., Kumar,H., Yusufzai, M.Z.K. and Vashista, M.(2017) ‘Barkhausen noise signal analysis of heat treated samples at various magnetizing frequencies’, Int. J. Materials and Product Technology, (Accepted) (SCIE Indexed, I.F 0.46)",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-k-limbadri": {
+    "name": "Dr. K. Limbadri",
+    "role": "Associate Professor",
+    "photo": "images/mechanical/k-limbadri.jpg",
+    "dept": "mech",
+    "qual": "BITS Pilani, Hyderabad, M.Tech ( Materials Technology), B.Tech - Mechanical",
+    "email": "limbadri@mlrinstitutions.ac.in",
+    "exp": "7 Years",
+    "joined": "",
+    "areas": [
+      "Metal Forming"
+    ],
+    "subjects": [
+      "MMS 2. Composite Materials 3. Nanotechnology"
+    ],
+    "journals": [
+      {
+        "t": "Swadesh Kumar Singh, K. Limbadri, K. Sajun Prasad, Sushanta Kumar Panda, Kurra Suresh, Meena Ravindran, M. Chaitanya Reddy, K. V. Mani Krishna, Maruthi Ram, 2018, Formability Study of Zircaloy-4 Produced by Pilgering Route, The Journal of Advanced Ma",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, S. K. Singh, K. Suresh, Mani Krishnan, K. Chaithanya\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"https:\\/\\/schema.org\",",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Swadesh Kumar Singh, K. Limbadri, K. Sajun Prasad, Sushanta Kumar Panda, Kurra Suresh, Meena Ravindran, M. Chaitanya Reddy, K. V. Mani Krishna, Maruthi Ram, 2018, Formability Study of Zircaloy-4 Produced by Pilgering Route, The Journal of Advanced Ma",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, S. K. Singh, K. Suresh, Mani Krishnan, K. Chaithanya\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/dr-k-limbadri\\/#breadcrumblist\"},\"image\":{\"@type\":\"Image",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Swadesh Kumar Singh, K. Limbadri, K. Sajun Prasad, Sushanta Kumar Panda, Kurra Suresh, Meena Ravindran, M. Chaitanya Reddy, K. V. Mani Krishna, Maruthi Ram, 2018, Formability Study of Zircaloy-4 Produced by Pilgering Route, The Journal of Advanced Ma",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, S. K. Singh, K. Suresh, Mani Krishnan, K. Chaithanya and Maruthi ram, 2017, Orientation dependant tensile flow behavior of Zircaloy-4 at room temperature, Metallography, Microstructure, and Analysis. (under review)",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, S. K. Singh, K. Suresh, Mani Krishnan, K. Chaithanya and Maruthi ram, 2017, Orientation dependant tensile flow behavior of Zircaloy-4 at elevated temperatures, Transactions of the Indian Institute of Metals (under review).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, S. K. Singh, K. Suresh, Mani Krishnan, K. Chaithanya and Maruthi ram, 2018, Stress Variation of Zircaloy-4 and Johnson Cook Model for rolled sheets, Materials Today: Proceedings, Volume 5, Issue 2, Part 1, Pages 3793-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, H.N. Krishnamurthy, A.M. Ram, N. Saibaba, V.K. Rao, J.N. Murthy, A.K. Gupta, and S.K. Singh,",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Development of Johnson Cook Model for Zircaloy-4 with Low Oxygen Content. Materials Today: Proceedings, 4(2), pp.966-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "K. Limbadri, J. Gangadhar, A.M. Ram, and S.K. Singh,",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Review of Formability in Relation to Texture. Materials Today: Proceedings, 2(4-5), pp.2198-",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-pramod-kumar-p": {
+    "name": "Dr. Pramod Kumar P",
+    "role": "Associate Professor",
+    "photo": "images/mechanical/pramod-kumar.jpg",
+    "dept": "mech",
+    "qual": "Ph.D. in Mechanical Engineering from JNTUK, Kakinada, M.Tech (CAD/CAM, B.Tech in Mechanical Engineering",
+    "email": "pramod.330@gmail.com",
+    "exp": "12 Years",
+    "joined": "",
+    "areas": [
+      "CAD",
+      "CAM"
+    ],
+    "subjects": [],
+    "journals": [
+      {
+        "t": "(Accepted for Publication) ✓ P Pramod kumar, V V Subbarao,\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"https:\\/\\/schema.org\",\"@graph",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "(Accepted for Publication) \\u2713 P Pramod kumar, V V Subbarao,\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/dr-pramod-kumar-peyyala\\/#breadcrumblist\"},\"image\":{\"@type",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "(Accepted for Publication) ✓ P Pramod kumar, V V Subbarao, “An analytical study on buckling behavior of CNT/polymer composite plates using first order shear deformation theory”, Journal of Theoretical and Applied Mechanics, Volume 56, No 1, Page 71-7",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Science Citation Index Expanded (SCIE), Thomson Reuters Impact Factor 0.783, DOI: 10.15632/jtam-pl.56.1.71 ✓ P Pramod kumar, V V Subbarao, “First Order Shear Deformation Theory access for the stress research of CNT/Polymer Laminated Composite Plate”,",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "SCOPUS Indexed. ✓ P Pramod kumar, S. Madhu, V V Subbarao, “Correlation of CLPT and FSDT responses in CNT/Polymer composite beams under Deflection and Buckling”, International Journal of Recent Technology and Engineering (IJRTE) ISSN: 2277-3878, Volum",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "SCOPUS Indexed. ✓ P Pramodkumar, V V Subbarao, “An Analytical Investigation of Deflection Behavior of CNT Reinforced Composite Plates under First-Order Shear Deformation Theory”, Journal of Advanced Research in Dynamical and Control Systems, Volume 1",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "SCOPUS Indexed. ✓ P Pramod kumar, B Malathi, and V V Subbarao, “An Analytical Study of Buckling Behavior of Nanocomposite Beams”, SAE Technical paper series,",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "SCOPUS Indexed, Cite Score 0.47 and SNIP 0.528, DOI: https://doi.org/10.4271/2018-28-0050 ✓ P Pramod kumar, V V Subbarao, S Sarath Chandra and B Malathi, “Deflection and Buckling behaviour of simply supported nanocomposite beams under FSDT approach”,",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "SCOPUS Indexed, Cite Score 0.49 and SNIP 0.573, DOI:10.1088/1757- 899X/225/1/012284 ✓ P.Pramod Kumar, Dr. VV Subbarao, S.Sarath Chandra, “Deflection Behavior of Carbon Nanotube Reinforced Polymer Composite Beams using First Order Shear Deformation Th",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "✓ B. Malathi, P.Pramod Kumar, “Experimental Investigation for Evaluation of Mechanical Properties of Rice Husk and Saw Dust Composites”, International Journal of Trend in Research and Development, ISSN: 2394-9333, Volume-5, Issue-6, Page 6-10, Decemb",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "✓ P.Srikanth, P.Pramod Kumar, “Structural Analysis of Isotropic and Orthotropic Beams and Plates in First Order Shear Deformation Theory”, International Journal of Innovative Research in Science, Engineering and Technology, Volume 5, Issue 2, 2256-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "✓ A. Satish, P.Pramod Kumar, “Investigation of Geometry under Different Lubrication Conditions in Cold Upset Forging of Solid Aluminium Rings”, International Journal of Innovative Research in Science, Engineering and Technology, Volume 4, Issue 9, 86",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "✓ S.Madhu, Dr. VV Subbarao, P.Pramod Kumar, “Buckling Analysis of Carbon Nanotube Reinforced Polymer Composite Plates” International Journal of Research in Mechanical Engineering And Technology, Volume 3, Issue 2, Page 51-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "✓ S.Madhu, Dr.VV Subbarao, P.Pramod Kumar, and K.Chandra Mouli, “Deflection and vibration analysis of carbon nanotube reinforced polymer composite plates”, Material Science Research Journal, volume 6, issue 3-4, Nova Publications. ✓ S.Madhu, Dr.VV Su",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "✓ S.Madhu, P.Pramod Kumar “Buckling Analysis of CFRP composite rectangular plates”, National Conference NCRASEM’",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-lokasani-bhanuprakash": {
+    "name": "Dr. Lokasani Bhanuprakash",
+    "role": "Associate Professor",
+    "photo": "images/mechanical/lokasani-bhanuprakash.jpg",
+    "dept": "mech",
+    "qual": "Composite Materials, National Institute of Technology, Calicut, M.Tech - Nanotechnology, B.Tech - Mechanical",
+    "email": "lokasanibhanu@gmail.com",
+    "exp": "3 Years",
+    "joined": "",
+    "areas": [
+      "Nanotechnology"
+    ],
+    "subjects": [
+      "Composite Materials"
+    ],
+    "journals": [
+      {
+        "t": "Experimental investigation on graphene oxides coated carbon fibre/epoxy hybrid composites: Mechanical and electrical properties, Composites Science and Technology, Elsevier, (2019).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mode I and Mode II interlaminar fracture behavior of E-glass fiber reinforced composites modified with reduced exfoliated graphite oxide, Lokasani Bhanuprakash, Abin Ali, Rashad and Soney Varghese, Polymer Composites, Wiley Publishers,\" /> window.dat",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Experimental investigation on graphene oxides coated carbon fibre\\/epoxy hybrid composites: Mechanical and electrical properties, Composites Science and Technology, Elsevier, (2019).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mode I and Mode II interlaminar fracture behavior of E-glass fiber reinforced composites modified with reduced exfoliated graphite oxide, Lokasani Bhanuprakash, Abin Ali, Rashad and Soney Varghese, Polymer Composites, Wiley Publishers,\",\"inLanguage\":",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Experimental investigation on graphene oxides coated carbon fibre/epoxy hybrid composites: Mechanical and electrical properties, Composites Science and Technology, Elsevier, (2019).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mode I and Mode II interlaminar fracture behavior of E-glass fiber reinforced composites modified with reduced exfoliated graphite oxide, Lokasani Bhanuprakash, Abin Ali, Rashad and Soney Varghese, Polymer Composites, Wiley Publishers, DOI 10.1002/pc",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Investigation on the effects of low-temperature anodic bonding and its reliability for MEMS packaging using destructive and non-destructive techniques, Robin Joyce, Minu George, Lokasani Bhanuprakash, Deepak Kumar Panwar, Ravi Raj Bhatia, Soney Vargh",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Flexible nanoenergy harvester using piezo-tribo functional polymer and carbon fibre as electrodes, Sreenidhi P. R., Subash C.K., Lokasani Bhanuprakash and Soney Varghese, Materials Research Express, IOP Publishers, (2018).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Short beam shear strength measurements of glass fiber reinforced epoxy nanocomposites modified with graphene oxide interfaces, Subin Mohan, L Bhanuprakash, Subash C K and Soney Varghese, International Journal of ChemTech Research, (2014).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Tribological performances of low temperature expanded graphene oxide/epoxy nanocomposites, Sajith T.A., L. Bhanuprakash and Soney Varghese, Technology Letters, (2014).",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "P(VDF-TrFE)/BaTiO3 nanocomposite as a novel gate dielectric material in ferroelectric field effect transistor fabrication for memory device applications, Uvais Valiyaneerilakkal, C. K. Subash, Kulwant Singh, L Bhanuprakash, Robin Joyce, Jamsheed K, R",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-alli-anil-kumar": {
+    "name": "Dr. Alli Anil Kumar",
+    "role": "Assistant Professor",
+    "photo": "images/mechanical/alli-anil-kumar.jpg",
+    "dept": "mech",
+    "qual": "NIT Warangal, M.Tech (Thermal Engineering), B. Tech (Mechanical Engineering)",
+    "email": "anilkumar4049@mlrit.ac.in",
+    "exp": "3",
+    "joined": "24-03-2026",
+    "areas": [
+      "Thermal Engineering"
+    ],
+    "subjects": [
+      "Thermodynamics",
+      "Heat Transfer",
+      "Engineering Graphics"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "mrs-laxmi": {
+    "name": "Mrs. Laxmi",
+    "role": "Assistant Professor",
+    "photo": "images/mechanical/laxmi.jpg",
+    "dept": "mech",
+    "qual": "--, M.Tech in Thermal Engineering, B.Tech in Mechanical Engineering",
+    "email": "laxmi.g@mlrit.ac.in",
+    "exp": "01",
+    "joined": "01/07/2021",
+    "areas": [
+      "Thermal Engineering"
+    ],
+    "subjects": [
+      "Engineering Drawing Engineering Graphics"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-a-vivek-anand": {
+    "name": "Dr. A. Vivek Anand",
+    "role": "Professor, Dean",
+    "photo": "images/aeronautical/vivek-anand.jpg",
+    "dept": "aero",
+    "qual": "Aerospace Engineering, M.E. : Aeronautical Engineering, B.E. : Aeronautical Engineering",
+    "email": "deanpd@mlrit.ac.in",
+    "exp": "14 Years",
+    "joined": "16-05-2019",
+    "areas": [
+      "Material Processing & Characterization and Surface Engineering"
+    ],
+    "subjects": [
+      "Composite Materials and Structures Aerospace Structures Experimental Stress Analysis"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "k-veeranjaneyulu": {
+    "name": "K. Veeranjaneyulu",
+    "role": "Professor",
+    "photo": "images/aeronautical/veeranjaneyulu.jpg",
+    "dept": "aero",
+    "qual": "Pursuing, Aerospace Engineering, Aeronautical Engineering",
+    "email": "veerak2k@gmail.com",
+    "exp": "20 Years",
+    "joined": "11-08-2014",
+    "areas": [
+      "Aerospace engineering"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-r-arvind-singh": {
+    "name": "Dr. R. Arvind Singh",
+    "role": "Professor of Eminence",
+    "photo": "images/aeronautical/arvind-singh.jpg",
+    "dept": "aero",
+    "qual": "Indian Institute of Science (IISc), Indian Institute of Science (IISc), Mysore University",
+    "email": "r.arvindsingh@gmail.com",
+    "exp": "22",
+    "joined": "15 June 2022",
+    "areas": [
+      "Tribology and Surface Engineering"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 92,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-s-jayalakshmi": {
+    "name": "Dr. S. Jayalakshmi",
+    "role": "Professor of Eminence",
+    "photo": "images/aeronautical/s-jayalakshmi.jpg",
+    "dept": "aero",
+    "qual": "Indian Institute of Science (IISc), NIT Surathkal (KREC), PSG College of Technology",
+    "email": "jayalakshmi.subramanian@gmail.com",
+    "exp": "22",
+    "joined": "15 June 2022",
+    "areas": [
+      "Advanced Materials Development"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 90,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-thangavel-sanjeeviraja": {
+    "name": "Dr. Thangavel Sanjeeviraja",
+    "role": "Associate Professor",
+    "photo": "images/aeronautical/thangavel-sanjeeviraja.jpeg",
+    "dept": "aero",
+    "qual": "Ph.D- Aerospace Engineering, M.s by Research, B.Tech",
+    "email": "tvaero@gmail.com",
+    "exp": "10+ Years Experience",
+    "joined": "06-03-2026",
+    "areas": [
+      "Aerospace Engineering"
+    ],
+    "subjects": [
+      "Space Mechanics",
+      "Space Technology"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "nayani-uday-ranjan-goud": {
+    "name": "Nayani Uday Ranjan Goud",
+    "role": "Associate Professor",
+    "photo": "images/aeronautical/nayani-uday-ranjan.jpg",
+    "dept": "aero",
+    "qual": "REGISTERED AT GITAM UNIVERSITY HYDERABAD, M.TECH IN AEROSPACE ENGINEERING, B.E IN AERONAUTICAL ENGINEERING",
+    "email": "UDAYAERO@GMAIL.COM",
+    "exp": "5 Years",
+    "joined": "",
+    "areas": [
+      "AEROSPACE STRUCTURES"
+    ],
+    "subjects": [],
+    "journals": [
+      {
+        "t": "‘Nayani Uday Ranjan Goud’, ‘Alka Sawale’, ‘Bhupal Rakham’, “Buckling Load Predictions of Panel and Shell using Vibration Correlation Technique”, International Journal of Engineering and Advanced Technology (IJEAT), ISSN: 2249 – 8958, Volume-9 Issue-2",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "‘Alka Sawale’, ‘Nayani Uday Ranjan Goud’, ‘M.Srinikitha’, “Experimental Analysis of Stress Concentration on V-Notched Plate”, International\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "\\u2018Nayani Uday Ranjan Goud\\u2019, \\u2018Alka Sawale\\u2019, \\u2018Bhupal Rakham\\u2019, \\u201cBuckling Load Predictions of Panel and Shell using Vibration Correlation Technique\\u201d, International Journal of Engineering and Advanced Technology (IJE",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "\\u2018Alka Sawale\\u2019, \\u2018Nayani Uday Ranjan Goud\\u2019, \\u2018M.Srinikitha\\u2019, \\u201cExperimental Analysis of Stress Concentration on V-Notched Plate\\u201d, International\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#websi",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "‘Nayani Uday Ranjan Goud’, ‘Alka Sawale’, ‘Bhupal Rakham’, “Buckling Load Predictions of Panel and Shell using Vibration Correlation Technique”, International Journal of Engineering and Advanced Technology (IJEAT), ISSN: 2249 – 8958, Volume-9 Issue-2",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "‘Alka Sawale’, ‘Nayani Uday Ranjan Goud’, ‘M.Srinikitha’, “Experimental Analysis of Stress Concentration on V-Notched Plate”, International Journal of Innovative Technology and Exploring Engineering (IJITEE), ISSN: 2278-3075, Volume-9 Issue-2, Decemb",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "‘Mr. N. Uday Ranjan Goud’ , ‘Dr. N. V. Swamy Naidu’, “Investigation on Buckling of Laminated Composite Plate”, IOSR Journal of Mechanical and Civil Engineering (IOSR-JMCE), e-ISSN: 2278-1684, p-ISSN : 2320–334X, PP 81-87, www.iosrjournals.org , Janua",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mr. N. Uday Ranjan Goud1 , Dr. N. V. Swamy Naidu2, “Investigation on Buckling of Laminated Composite Plate”, IOSR Journal of Mechanical and Civil Engineering (IOSR-JMCE) , e-ISSN: 2278-1684, p-ISSN : 2320–334X PP 81-87 www.iosrjournals.org , DOI: 10.",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "swetha-bala-mnvs": {
+    "name": "Swetha Bala MNVS",
+    "role": "Associate Professor",
+    "photo": "images/aeronautical/swetha-bala.jpg",
+    "dept": "aero",
+    "qual": "PhD, M.Tech Aerospace Engineering, B.Tech Aeronautical Engineering",
+    "email": "swethabala@mlrinstitutions.ac.in",
+    "exp": "13 Years",
+    "joined": "13-06-2019",
+    "areas": [
+      "Aerospace"
+    ],
+    "subjects": [],
+    "journals": [
+      {
+        "t": "[2] AG Sarwade, Swetha Bala MNVS, D. Karthikeyan, T. Balu, “A Development Scheme For MAV Mimicking the Insect\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-180351",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[2] AG Sarwade, Swetha Bala MNVS, D. Karthikeyan, T. Balu, \\u201cA Development Scheme For MAV Mimicking the Insect\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/swetha-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[2] AG Sarwade, Swetha Bala MNVS, D. Karthikeyan, T. Balu, “A Development Scheme For MAV Mimicking the Insect Flight”, ICRAMAV – 2013, 2nd International Conference on Recent Advances in Design, Development and Control of Micro Air Vehicles, pp 410- 4",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[3] Sachin Srivastava, Swetha Bala Gurram, “Numerical Analysis of Wings for UAV Based on High Lift Airfoils”, International Journal of Innovations in Engineering and Technology, Volume 5 pp 325 – 330, Issue 3, June 2015: ISSN: 2319-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[4] Chandra Sekhar Saka, Swetha Bala MNVS, “Design and Flow Analysis of Dual feather Winglet”, International Conference on Emerging Trends in Mechanical Sciences – 2K15, MRCET ISBN: 978-93-83038-40-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[5] Harika Palle, Swetha Bala MNVS “Design and Kinematic Analysis of Flapping Wing MAV” International Conference on Emerging Trends in Mechanical Sciences – 2K15, MRCET ISBN: 978-93-83038-40-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[6] Swetha Bala MNVS, PS Ashwin Kumar, “ Effect of Jet Pressure ratio on Drag Characteristics of an After Body”, International Conference on Emerging Trends in Mechanical Sciences – 2K14, MRCET ISBN: 978-93-83038-40-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[7] Karthik Vatvat, Swetha Bala MNVS, “Aerodynamic performance enhancement & computational study of NACA 64-212 airfoil configuration using Open source code SU2” International Conference on Emerging Trends in Mechanical Sciences – 2K15, MRCET ISBN: 9",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "[8] Swetha Bala MNVS, PS Ashwin Kumar, Smitha.D, “Biologically Inspired Micro Aerial Vehicle Research – An OverView” National Conference on Aerospace Engineering (NCAE – 2010).",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "books_raw": "Compiled a book on “Engineering Drawing” as the Main author with 2 Co-Authors, exclusive publication from Tata Mc Graw Hill for the students of MRCET – 2016"
+  },
+  "dr-saiprakash": {
+    "name": "Dr. Saiprakash",
+    "role": "Associate Professor",
+    "photo": "images/aeronautical/saiprakash.jpg",
+    "dept": "aero",
+    "qual": "M.E, B.E",
+    "email": "iamsaiaero@gmail.com",
+    "exp": "4.5 Years",
+    "joined": "",
+    "areas": [
+      "Aerospace"
+    ],
+    "subjects": [
+      "Nondestructive testing (NDT) 2. Introduction to Space Technology 3. Aerodynamics LAB"
+    ],
+    "journals": [
+      {
+        "t": "M. Saiprakash, C.Senthilkumar, G.Balu,V.Shanmugam,Singh prakash rampratap,G. Kadam sunil “Visualization of shock wave phenomenon around a sharp cone model at hypersonic Mach Number in a shock tunnel using high speed Schlieren facility,” Journal of ap",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M.Saiprakash et al \"Heat transfer rate and surface pressure measurements in short\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"https:",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M. Saiprakash, C.Senthilkumar, G.Balu,V.Shanmugam,Singh prakash rampratap,G. Kadam sunil \\u201cVisualization of shock wave phenomenon around a sharp cone model at hypersonic Mach Number in a shock tunnel using high speed Schlieren facility,\\u201d Jou",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M.Saiprakash et al \\\"Heat transfer rate and surface pressure measurements in short\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/dr-saiprakash\\/#breadcrumblist\"},\"image",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M. Saiprakash, C.Senthilkumar, G.Balu,V.Shanmugam,Singh prakash rampratap,G. Kadam sunil “Visualization of shock wave phenomenon around a sharp cone model at hypersonic Mach Number in a shock tunnel using high speed Schlieren facility,” Journal of ap",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M.Saiprakash et al “Heat transfer rate and surface pressure measurements in short duration hypersonic flow” Aeronautical journal, ISSN 0001-9240,volume 123,issue no 1269,Oct",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M. Saiprakash, C.Senthilkumar, G.Balu,V.Shanmugam,Singh prakash rampratap, G. Kadam sunil “Effects of angle of attack and bluntness on heating rate distribution of blunt models at hypersonic speeds” Fluid dynamics-Springer,",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M. Saiprakash, C.Senthilkumar, G.Balu, V.Shanmugam, Singh Prakash Rampratap,G. Kadam sunil “ Convective heat-transfer rate and surface pressure distribution over a cone model at hypersonic speeds” Proc. IMech Part G.Journal of Aerospace Engineering, ",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "https://doi.org/10.1177/0954410018804691 .",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Saiprakash,M, Senthilkumar,C, Balu,G, Shanmugam,V, Singh Prakash Rampratap & Kadamsunil, G,(2018) Heat Transfer Measurements on Blunt model at Hypersonic Mach number, Experimental and numerical investigation of flow field around blunt and sharp cone ",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "m-ganesh": {
+    "name": "M. Ganesh",
+    "role": "Associate Professor",
+    "photo": "images/aeronautical/m-ganesh.jpg",
+    "dept": "aero",
+    "qual": "Pursuing, M.Tech in Aerospace Engineering, B.Tech in Mechanical Engineering",
+    "email": "ganesh.manikonda@gmail.com",
+    "exp": "15 Years",
+    "joined": "19-1-2011",
+    "areas": [
+      "Manufacturing"
+    ],
+    "subjects": [
+      "Aircraft Production Technology-I",
+      "2. Aircraft Production Technology-II",
+      "3. Space Technology",
+      "4. CAD/CAM"
+    ],
+    "journals": [
+      {
+        "t": "A. Sai Kumar 1 , M Ganesh 2 , Nirmith Kumar Mishra 3,”\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "A. Sai Kumar 1 , M Ganesh 2 , Nirmith Kumar Mishra 3,\\u201d\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/m-ganesh\\/#breadcrumblist\"},\"image\":{\"@type\":\"ImageObject\",\"ur",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "A. Sai Kumar 1 , M Ganesh 2 , Nirmith Kumar Mishra 3,” DESIGN AND DEVELOPMENT OF MAN PORTABLE BACK PACKABLE MULTI-PURPOSE DRONE”, International Journal of Engineering and Advanced Technology (IJEAT), ISSN: 2249 – 8958, Volume-10, Issue-10December",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Mr. Nirmith Kumar Mishra 1 , Mr. A Sai Kumar 2 , Mr. M Ganesh 3, International Journal of Innovative Technology and Exploring Engineering (IJITEE), ISSN: 2278-3075, Volume-9 Issue-2, December",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M. GANESH1 & SAI KUMAR A2,” DESIGN OF AIRSHIP FOR AERIAL SURVEILLANCE AND COMMUNICATIONUSING KNOWLEDGE BASED ENGINEERING”, International Journal of Mechanical and Production Engineering Research and Development (IJMPERD), ISSN (P): 2249-6890; ISSN (E",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "SAI KUMAR A1 & M. GANESH2,” EVALUATION OF EFFECT OF SHAPE AND LENGTH OF SPIKE ON AERODYNAMICS PERFORMANCE OF SUPERSONIC AXI-SYMMETRIC BODIES”, International Journal of Mechanical and Production Engineering Research and Development (IJMPERD), ISSN (P)",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "M. Ganesh ,G Hima Bindu,A. Sai Kumar “Modeling And Analysis Of a Composite Wing For Missile Structure “ (Ijmet) Volume 8, Issue 6, June 2017,Issn Online: 0976-",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "sreekanth-sura": {
+    "name": "Sreekanth Sura",
+    "role": "Assistant Professor",
+    "photo": "images/aeronautical/sreekanth-sura.jpg",
+    "dept": "aero",
+    "qual": "Advanced Design and Manufacturing, Aeronautical Engineering",
+    "email": "sreekanthsuramlrit@gmail.com",
+    "exp": "3 Years",
+    "joined": "",
+    "areas": [],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "nirmith-kumar-mishra": {
+    "name": "Nirmith Kumar Mishra",
+    "role": "Assistant Professor",
+    "photo": "images/aeronautical/nirmith-kumar-mishra.jpg",
+    "dept": "aero",
+    "qual": "Aerospace Engineering, Aeronautical Engineering",
+    "email": "nk.aero@mlrinstitutions.ac.in",
+    "exp": "9 Years",
+    "joined": "19 June 2017",
+    "areas": [
+      "Aerospace engineering"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "a-udaya-deepika": {
+    "name": "A. Udaya Deepika",
+    "role": "Assistant Professor",
+    "photo": "images/aeronautical/a-udaya-deepika.jpg",
+    "dept": "aero",
+    "qual": "M.Tech in AEROSPACE ENGINEERING, B.Tech in AERONAUTICAL ENGINEERING",
+    "email": "udeepika.aero4825@gmail.com",
+    "exp": "5 Years",
+    "joined": "",
+    "areas": [],
+    "subjects": [
+      "Flight Scheduling & Operation (FSO)",
+      "2. Launch Vehicle Missile Technology (LVMT)",
+      "3. Introduction to Space Technology (IST)",
+      "4. Aerodynamics",
+      "5. Airframe Structural Design",
+      "6. Mechanical Vibrations Structural Dynamics (MVSD) 7. Introduction to Aerospace Engineering (IAE)",
+      "8. ATS"
+    ],
+    "journals": [
+      {
+        "t": "Dynamic stability analysis of structural members(Article) Subbaratnam, B., Ramana Reddy, D.V., Udaya Deepika, A., Seshagiri Rao, G.V.R. 2.CFD Investigation for different nozzle jets Author links open overlay panelL.SushmaA.Udaya DeepikSathishKumar Su",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "DESIGN AND FABRICATION OF BLACK BOX EJECTION\" /> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-18035104711'); {\"@context\":\"https:\\/\\/schema.org\",\"@graph\":[{\"@type\":\"B",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Dynamic stability analysis of structural members(Article) Subbaratnam, B., Ramana Reddy, D.V., Udaya Deepika, A., Seshagiri Rao, G.V.R. 2.CFD Investigation for different nozzle jets Author links open overlay panelL.SushmaA.Udaya DeepikSathishKumar Su",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "DESIGN AND FABRICATION OF BLACK BOX EJECTION\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/#website\"},\"breadcrumb\":{\"@id\":\"https:\\/\\/mlrit.ac.in\\/faculty\\/a-udaya-deepika\\/#breadcrumblist\"},\"image\":{\"@type\":\"ImageObject\",\"url\":\"http",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "Dynamic stability analysis of structural members(Article) Subbaratnam, B., Ramana Reddy, D.V., Udaya Deepika, A., Seshagiri Rao, G.V.R. 2.CFD Investigation for different nozzle jets Author links open overlay panelL.SushmaA.Udaya DeepikSathishKumar Su",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "DESIGN AND FABRICATION OF BLACK BOX EJECTION SYSTEM FOR A CIVIL TRANSPORT AIRCRAFT KALAVAGUNTA VEERANJANEYULU1 & UDAY DEEPIKA. A2",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "b-nagaraj-goud": {
+    "name": "B. Nagaraj Goud",
+    "role": "Assistant Professor",
+    "photo": "images/aeronautical/b-nagaraj-goud.jpg",
+    "dept": "aero",
+    "qual": "M.Tech Aerospace Engineering, B.Tech Aeronautical Engineering",
+    "email": "nagaraj2107@gmail.com",
+    "exp": "6 Years",
+    "joined": "15-06-2012",
+    "areas": [
+      "Aerospace engineering (Structures)"
+    ],
+    "subjects": [
+      "Engineering Drawing",
+      "2. Mechanics of Solids",
+      "3. Aerospace Vehicle Structures",
+      "4. Mechanical Vibrations and Structural dynamics"
+    ],
+    "journals": [],
+    "conferences": 2267,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "p-sai-kumar": {
+    "name": "A. Sai Kumar",
+    "role": "Assistant Professor",
+    "photo": "images/aeronautical/a-sai-kumar.jpg",
+    "dept": "aero",
+    "qual": "M.TECH - CSE, B.TECH - CSE",
+    "email": "saikumar1993@mlrit.ac.in",
+    "exp": "6 Years",
+    "joined": "01-02-2023",
+    "areas": [
+      "AIML"
+    ],
+    "subjects": [
+      "JAVA",
+      "PHYTON"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-m-v-narasimha-rao": {
+    "name": "Dr. M. V. Narasimha Rao",
+    "role": "Professor",
+    "photo": "images/mba/narasimha-rao.jpg",
+    "dept": "mba",
+    "qual": "Finanancial Management, MBA, BA",
+    "email": "drmvnrao@gmail.com",
+    "exp": "19 Years",
+    "joined": "26-07-2017",
+    "areas": [
+      "MBA"
+    ],
+    "subjects": [
+      "Production and Operations Management",
+      " Managerial Economics",
+      " Security Analysis and Portfolio Management",
+      " International Finance",
+      " Financial Derivatives",
+      " Financial Engineering",
+      " Financial Accounting and Analysis",
+      " Business Research Methods",
+      " Quantitative Techniques",
+      " International Business",
+      " Financial Management",
+      " Managerial Economics and Financial Accounting",
+      " Management Science",
+      " Cost and Management Accounting",
+      " Financial institutions and Services"
+    ],
+    "journals": [
+      {
+        "t": ", o Participated in Two weeks National level Workshop on Basic Business Research methods (1st-10th June, 2017) on Basic Business research Methods conducted by Department of Management Studies, VFSTR\" /> window.dataLayer = window.dataLayer || []; func",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Participated in Two weeks National level Workshop on Basic Business Research methods (1st-10th June, 2017) on Basic Business research Methods conducted by Department of Management Studies, VFSTR\",\"inLanguage\":\"en-US\",\"isPartOf\":{\"@id\":\"https:\\/\\/",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Participated in Two weeks National level Workshop on Basic Business Research methods (1st-10th June, 2017) on Basic Business research Methods conducted by Department of Management Studies, VFSTR University, Vadlamudi, Guntur.. o Published a Paper",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Participated and Presented a paper titled “FDI in Insurance Sector: Opportunities and Challenges” in National Conference on FDI: Issues and Challenges organized by Aurora’s Post Graduate College held on 14th Feb",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Published a Paper titled “Industry Institutes interaction in Management Education” in Business Vision, Vol: 11, No: 3, Oct-Dec 2015 ISSN: 2231-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Published a Paper titled “Government policy and Regulations towards Pharma Industry” in Business Vision, Vol: 11, No: 2, Oct-Dec 2015 ISSN: 2231-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Participated in NSIC- Technical Service Centre one day work shop on Entrepreneurship Development conducted by APG-Uppal, on 6th Dec 2013., o Participated in NSIC- Technical Service Centre one day work shop on Entrepreneurship Development conducte",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Participated in Two day work shop on NEN Entrepreneurship Educator program Organised by Aurora’s Business School,Hyderabad, from 14th-16th Jul 2016., o Participated and presented a paper at AICTE Sponsored national seminar on “New Banking License",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "The article got published in the book released by the APG-R., o Presented a paper titled “Skill Development during the Twelfth five year plan: Issues and challenges” in National Conference on Women – The Emerging power in 21st Century organized by Au",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": "The article got published in the book released by the APG-R. , o Published a Paper titled “Working Capital Management Practices of Natco Pharma Limited” in Antharmukha, Vol: 2, Issue: 3, Apr-June 2015 ISSN: 2348-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Presented a paper titled “FDI in Insurance Sector: Opportunities and Challenges” in National Seminar on Foreign Direct Investment: issues and Challenges by Aurora’s Post Graduate College held on 14th Feb 2015., o Published a Paper titled “Recent ",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Published a Paper titled “Street Children in Andhra Pradesh” in Business Vision, Vol: 11, No: 2, Apr-June 2015 ISSN: 2231-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Published a Paper titled “Environment and Economic Development” in Business Vision, Vol: 11, No: 1, Jan-March 2015 ISSN: 2231-",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Participated in One week National level Faculty Development programme on Statistical packages for Social Sciences (SPSS) (15th-22nd March, 2014) conducted by Aurora’s Scientific technological and Research Academy, Hyderabad., o Presented a paper ",
+        "j": "International Journal",
+        "y": ""
+      },
+      {
+        "t": ", o Published a Paper titled “Infrastructure Development In Andhra Pradesh” in Business Vision, Vol: 9, No: 2, April-June 2013 ISSN: 2231-",
+        "j": "International Journal",
+        "y": ""
+      }
+    ],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "books_raw": "Book on Cost and Management Accounting- Published, Book Financial Management In Pharmaceutical Industry- in printing process, Book on Placement Hand Book- in printing process, Book on Group Discussion and HR Interview Questions – in printing process,"
+  },
+  "m-umrez": {
+    "name": "M. Umrez",
+    "role": "Associate Professor",
+    "photo": "images/mba/umrez.jpg",
+    "dept": "mba",
+    "qual": "PhD, MBA, B.Sc",
+    "email": "umrez@mlrinstitutions.ac.in",
+    "exp": "10 Years",
+    "joined": "12-02-2021",
+    "areas": [
+      "HR & Marketing"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-m-tirupalaiah": {
+    "name": "Dr. M. Tirupalaiah",
+    "role": "Associate Professor",
+    "photo": "images/mba/m-tirupalaiah.jpg",
+    "dept": "mba",
+    "qual": "ECONOMICS, MA, BA",
+    "email": "TIRUPALAIAH1963@GMAIL.COM",
+    "exp": "20 Years",
+    "joined": "01-07-2009",
+    "areas": [
+      "RURAL BANKING"
+    ],
+    "subjects": [
+      "MEFA MS. GS"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-jostna-kumar-gantepogu": {
+    "name": "Dr. Jostna Kumar Gantepogu",
+    "role": "Assistant Professor",
+    "photo": "images/mba/jostna-kumar.jpg",
+    "dept": "mba",
+    "qual": "MANAGEMENT, MBA, B.Tech",
+    "email": "drjostnakumar.g@mlrit.ac.in",
+    "exp": "2",
+    "joined": "01-07-2024",
+    "areas": [
+      "HR and Marketing"
+    ],
+    "subjects": [
+      "Human Resource Management",
+      "International Human Resource Management",
+      "Learning and Development",
+      "Management and Organizational Behaviour",
+      "Consumer Behaviour."
+    ],
+    "journals": [],
+    "conferences": 10,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "dr-vasudha-kurikala": {
+    "name": "Dr. Vasudha Kurikala",
+    "role": "Assistant Professor",
+    "photo": "images/mba/vasudha-kurikala.jpg",
+    "dept": "mba",
+    "qual": "Ph.D. (2020–2023) – Gitam University, M.Phil. (2007–2009) – Sri Venkateswara University, B.Com. (1997–2000) – Kakatiya University",
+    "email": "vasudha.k@mlrit.ac.in",
+    "exp": "12 years",
+    "joined": "1/7/2024",
+    "areas": [
+      "Human Resource Management"
+    ],
+    "subjects": [],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": [],
+    "books_raw": "3 Books Published on Management, Green HRM & AI in HRM"
+  },
+  "b-vishnu-prasad": {
+    "name": "B. Vishnu Prasad",
+    "role": "Assistant Professor",
+    "photo": "images/mba/b-vishnu-prasad.jpg",
+    "dept": "mba",
+    "qual": "MBA",
+    "email": "vishnubattula594@gmail.com",
+    "exp": "2 yrs",
+    "joined": "17-10-2022",
+    "areas": [
+      "Finance"
+    ],
+    "subjects": [
+      "FIMS",
+      "RMSA",
+      "SMA"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "mrs-sudha-rani-n": {
+    "name": "Mrs. Sudha Rani N",
+    "role": "Assistant Professor",
+    "photo": "images/mba/sudha-rani.jpeg",
+    "dept": "mba",
+    "qual": "MBA, BA",
+    "email": "sudharani.rani782@gmail.com",
+    "exp": "0",
+    "joined": "02/11/2023",
+    "areas": [],
+    "subjects": [
+      "PMS",
+      "HRM",
+      "MOB",
+      "L&D"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  },
+  "n-madhusudhanarao": {
+    "name": "N. Madhusudhanarao",
+    "role": "Assistant Professor",
+    "photo": "images/mba/n-madhusudhanarao.jpg",
+    "dept": "mba",
+    "qual": "MBA, B.Com ( Comp)",
+    "email": "nidumolumadhu@gmail.com",
+    "exp": "-",
+    "joined": "16-12-2021",
+    "areas": [
+      "Finance and Marketing"
+    ],
+    "subjects": [
+      "Financial Accounting",
+      "Security Analysis and portfolio Management"
+    ],
+    "journals": [],
+    "conferences": 0,
+    "confTitles": [],
+    "books": [],
+    "patents": [],
+    "awards": []
+  }
+}

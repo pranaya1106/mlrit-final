@@ -5,8 +5,12 @@
 .dept-section {
   position: relative;
   background: #F7F3EC;
-  padding: 80px 0;
+  min-height: 70vh;
+  padding: 100px 0 120px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Logo watermark */
@@ -38,11 +42,12 @@
   margin: 0 auto;
   padding: 0 48px;
   z-index: 1;
+  width: 100%;
 }
 
 /* ── Header ── */
 .dept-header {
-  margin-bottom: 40px;
+  margin-bottom: 56px;
 }
 
 .dept-header .section-label {
@@ -63,7 +68,7 @@
 /* ── Arena (tile container) ── */
 .dept-arena {
   position: relative;
-  height: 160px; /* fixed — no layout shift on level switch */
+  height: 180px;
 }
 
 /* ── Level (each navigation state) ── */
@@ -104,7 +109,6 @@
   border: 1.5px solid rgba(11,15,26,0.08);
   box-shadow: 0 2px 12px rgba(11,15,26,0.06);
   text-decoration: none;
-  /* orange bottom line — hidden by default */
   overflow: hidden;
 }
 
@@ -148,7 +152,7 @@
   line-height: 1.4;
 }
 
-/* ── Parent tiles — colored accent instead of full gradient ── */
+/* ── Parent tiles ── */
 .dept-tile--ug-parent {
   width: 300px;
   height: 150px;
@@ -236,7 +240,6 @@
   height: 120px;
 }
 
-/* Staggered entrance */
 .dept-level:not(.dept-level--active) .dept-tile--child {
   opacity: 0;
   transform: translateY(8px);
@@ -278,7 +281,7 @@
 
 @media (max-width: 768px) {
   .dept-inner   { padding: 0 20px; }
-  .dept-section { padding: 48px 0; }
+  .dept-section { min-height: unset; padding: 48px 0; }
 
   .dept-level {
     flex-direction: column;
