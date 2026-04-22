@@ -32,7 +32,7 @@
     .dept-hero__video.is-visible { opacity: 0.55; }
     .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,51,32,0.75), rgba(24,69,59,0.75)); z-index: 1; transition: opacity 0.6s ease; }
     .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
-    .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); }
+    .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); pointer-events: none; z-index: 3; }
     .dept-hero__eyebrow { font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; position: relative; z-index: 1; }
     .dept-hero__title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
 
@@ -373,7 +373,7 @@
   </nav>
 
   <div class="dept-hero" id="page-top" id="deptHero">
-    <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="none">
+    <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="metadata">
       <source src="../../departments/dept.mp4" type="video/mp4" />
     </video>
     <div class="dept-hero__overlay" id="heroOverlay"></div>
@@ -386,7 +386,8 @@
       var vid  = document.getElementById('heroVideo');
       if (!hero || !vid) return;
       hero.addEventListener('mouseenter', function(){
-        vid.play();
+        if (vid.readyState === 0) { vid.load(); }
+        var p = vid.play(); if (p && p.catch) p.catch(function(){});
         vid.classList.add('is-visible');
       });
       hero.addEventListener('mouseleave', function(){
