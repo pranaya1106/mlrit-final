@@ -1039,7 +1039,7 @@
 
 
 
-        // ΓöÇΓöÇ Recruiter Band ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+        // ── Recruiter Band ──────────────────────────────────────────────────────
     (function () {
       const track = document.getElementById('recruiterTrack');
       const band  = document.getElementById('recruiterBand');
@@ -1081,14 +1081,13 @@
         const rect   = card.getBoundingClientRect();
         const cx     = rect.left + rect.width  / 2;
         const cy     = rect.top  + rect.height / 2;
-        const dx     = (e.clientX - cx) / (rect.width  / 2); // -1 to 1
-        const dy     = (e.clientY - cy) / (rect.height / 2); // -1 to 1
-        const rotY   =  dx * 12;   // tilt left/right
-        const rotX   = -dy * 8;    // tilt up/down
+        const dx     = (e.clientX - cx) / (rect.width  / 2);
+        const dy     = (e.clientY - cy) / (rect.height / 2);
+        const rotY   =  dx * 12;
+        const rotX   = -dy * 8;
         card.style.transform = `perspective(500px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.06)`;
       }
 
-      // Delegate tilt to all current and future cards
       track.addEventListener('mousemove', e => {
         const card = e.target.closest('.recruiter-band__item');
         if (card) applyTilt(card, e);
@@ -1099,7 +1098,6 @@
         if (card) card.style.transform = '';
       }, true);
 
-      // Reset when cursor leaves a card
       track.addEventListener('mouseout', e => {
         const card = e.target.closest('.recruiter-band__item');
         if (card && !card.contains(e.relatedTarget)) {
