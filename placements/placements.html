@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Placements — MLRIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&family=Raleway:wght@400;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="placements.css" />
+  <script src="data/placements-data.js"></script>
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR
+       ===================== -->
+  <header class="site-header">
+    <div class="masthead">
+      <div class="container masthead__inner">
+        <a href="../index.html" class="masthead__logo" aria-label="MLRIT Home">
+          <img src="../mlrit-logo-transparent.png" alt="MLRIT Logo" />
+        </a>
+        <div class="masthead__tagline">
+          <span>Marri Laxman Reddy Institute of Technology</span>
+        </div>
+        <a href="#" class="masthead__eapcet">EAPCET CODE : MLID</a>
+      </div>
+    </div>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <div class="container main-nav__inner">
+        <ul class="main-nav__list">
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">About <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Institution</h4>
+                <a href="#">Vision &amp; Mission</a>
+                <a href="#">Accreditations</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Academics <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Programmes</h4>
+                <a href="../departments/ug.html">Undergraduate (B.Tech)</a>
+                <a href="../departments/pg.html">Postgraduate (M.Tech &amp; MBA)</a>
+              </div>
+              <div class="dropdown__col">
+                <h4>Resources</h4>
+                <a href="#">ERP</a>
+                <a href="#">LMS</a>
+                <a href="#">Academic Calendar</a>
+                <a href="#">Exam Portal</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Admissions <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Undergraduate</h4>
+                <a href="#">How to Apply</a>
+                <a href="#">Eligibility</a>
+                <a href="#">Fee Structure</a>
+                <a href="#">Scholarships</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Research <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Research Areas</h4>
+                <a href="#">AI &amp; Machine Learning</a>
+                <a href="#">IoT &amp; Embedded Systems</a>
+                <a href="#">Data Science</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Campus <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Facilities</h4>
+                <a href="#">Hostels</a>
+                <a href="#">Sports</a>
+                <a href="#">Transport</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="placements.html" class="main-nav__link is-active">Placements</a>
+          </li>
+
+          <li class="main-nav__item main-nav__item--right" style="margin-right: 8px;">
+            <a href="#" class="main-nav__link">MLRIT Chronicles <span class="chevron"></span></a>
+            <div class="dropdown dropdown--right">
+              <div class="dropdown__col">
+                <h4>Bulletins</h4>
+                <a href="#">Academic Notices</a>
+                <a href="#">Exam Schedules</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item--support">
+            <div class="support-avatar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="pl-page-content">
+
+  <!-- =====================
+       STATS WALL
+       ===================== -->
+  <section id="pl-wall" class="pl-wall">
+    <!-- Neural network canvas -->
+    <canvas class="pl-wall__canvas" id="plNetCanvas" aria-hidden="true"></canvas>
+    <!-- Background video (plays on scroll reveal) -->
+    <video class="pl-wall__video" id="plWallVideo" playsinline muted loop aria-hidden="true">
+      <source src="place vid.mp4" type="video/mp4" />
+    </video>
+    <!-- Gradient overlay — fades partially when video activates -->
+    <div class="pl-wall__overlay" aria-hidden="true"></div>
+
+    <!-- Foreground text + chips -->
+    <div class="pl-wall__inner">
+      <span class="pl-wall__eyebrow">Placements at MLRIT</span>
+      <h1 class="pl-wall__headline">Engineering careers<br>are built here.</h1>
+      <span class="pl-wall__headline-accent" aria-hidden="true"></span>
+      <p class="pl-wall__statement">80% and above placements every year — engineers from MLRIT land roles at the world's most respected organisations.</p>
+
+      <!-- Inline stat strip -->
+      <div class="pl-wall__statstrip">
+        <div class="pl-wall__stat">
+          <span class="pl-wall__stat-val">₹33 LPA</span>
+          <span class="pl-wall__stat-lbl">Highest Package</span>
+        </div>
+        <div class="pl-wall__stat-divider" aria-hidden="true"></div>
+        <div class="pl-wall__stat">
+          <span class="pl-wall__stat-val">536+</span>
+          <span class="pl-wall__stat-lbl">Offers · 2025</span>
+        </div>
+        <div class="pl-wall__stat-divider" aria-hidden="true"></div>
+        <div class="pl-wall__stat">
+          <span class="pl-wall__stat-val">62+</span>
+          <span class="pl-wall__stat-lbl">Companies</span>
+        </div>
+        <div class="pl-wall__stat-divider" aria-hidden="true"></div>
+        <div class="pl-wall__stat">
+          <span class="pl-wall__stat-val">7000+</span>
+          <span class="pl-wall__stat-lbl">Alumni Placed</span>
+        </div>
+      </div>
+
+      <div class="pl-wall__hover-hint" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>Hover to preview</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       PLACEMENT PERFORMANCE
+       ===================== -->
+  <section class="pl-performance" id="pl-performance">
+    <div class="pl-section-inner">
+      <span class="pl-label">By the Numbers</span>
+      <h2 class="pl-heading">Placement Performance</h2>
+      <div class="pl-statgrid__grid">
+        <div class="pl-statgrid__card pl-fade">
+          <span class="pl-statgrid__value">₹33 LPA</span>
+          <span class="pl-statgrid__label">Highest Package</span>
+          <span class="pl-statgrid__note">ServiceNow · 2025</span>
+        </div>
+        <div class="pl-statgrid__card pl-fade">
+          <span class="pl-statgrid__value">536</span>
+          <span class="pl-statgrid__label">Total Job Offers</span>
+          <span class="pl-statgrid__note">Academic Year 2025</span>
+        </div>
+        <div class="pl-statgrid__card pl-fade">
+          <span class="pl-statgrid__value">62+</span>
+          <span class="pl-statgrid__label">Companies Visited</span>
+          <span class="pl-statgrid__note">MNCs and product firms</span>
+        </div>
+        <div class="pl-statgrid__card pl-fade">
+          <span class="pl-statgrid__value">7000+</span>
+          <span class="pl-statgrid__label">Students Placed</span>
+          <span class="pl-statgrid__note">Cumulative · all years</span>
+        </div>
+      </div>
+      <div class="pl-perf-history">
+        <span class="pl-perf-history__label">Track Record</span>
+        <div id="pl-yearstats-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       TOP RECRUITERS
+       ===================== -->
+  <section class="pl-recruiters" id="pl-recruiters">
+    <div class="pl-section-inner">
+      <span class="pl-label">Our Recruiters</span>
+      <h2 class="pl-heading">Top Hiring Partners</h2>
+      <p class="pl-recruiters__sub">Leading organisations across IT, product, consulting, and core engineering sectors recruit regularly from MLRIT.</p>
+      <div class="pl-logo-band" id="pl-recruiters-grid">
+        <div class="pl-logo-track pl-logo-track--fwd" id="plLogoRow1"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       INFRASTRUCTURE
+       ===================== -->
+  <section class="pl-infra" id="pl-infra">
+    <div class="pl-section-inner pl-infra__inner">
+      <div class="pl-infra__text">
+        <span class="pl-label pl-label--light">Facilities</span>
+        <h2 class="pl-heading pl-heading--light">Placement Infrastructure</h2>
+        <p class="pl-infra__sub">MLRIT maintains a dedicated placement block equipped to host large-scale campus recruitment drives throughout the year.</p>
+        <ul class="pl-infra__list">
+          <li>800+ networked computer systems with webcams and 1 Gbps internet connectivity</li>
+          <li>Auditorium with 1,200-seat capacity for pre-placement talks and mass drives</li>
+          <li>Dedicated placement block with seminar halls, GD rooms, and interview panels</li>
+          <li>Uninterrupted power backup across all placement facilities</li>
+          <li>Centres of Excellence with Virtusa and EPAM Systems for advanced domain training</li>
+        </ul>
+      </div>
+      <div class="pl-infra__stats">
+        <div class="pl-infra__stat pl-fade">
+          <span class="pl-infra__stat-num">800+</span>
+          <span class="pl-infra__stat-label">Systems</span>
+        </div>
+        <div class="pl-infra__stat pl-fade">
+          <span class="pl-infra__stat-num">1200</span>
+          <span class="pl-infra__stat-label">Seat Auditorium</span>
+        </div>
+        <div class="pl-infra__stat pl-fade">
+          <span class="pl-infra__stat-num">1 Gbps</span>
+          <span class="pl-infra__stat-label">Connectivity</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       MoUs & COLLABORATIONS
+       ===================== -->
+  <section class="pl-mou" id="pl-mou">
+    <div class="pl-section-inner">
+      <span class="pl-label">Industry Partnerships</span>
+      <h2 class="pl-heading">MoUs and Centres of Excellence</h2>
+      <p class="pl-mou__sub">MLRIT has established formal partnerships and Centres of Excellence with leading industry organisations to provide students with advanced domain training and direct placement pathways.</p>
+      <div class="pl-mou__grid" id="pl-mou-grid"></div>
+    </div>
+  </section>
+
+  <!-- =====================
+       GALLERY
+       ===================== -->
+  <section class="pl-gallery" id="pl-gallery">
+    <div class="pl-section-inner">
+      <span class="pl-label">On Campus</span>
+      <h2 class="pl-heading">Placement Drives</h2>
+      <p class="pl-gallery__context">Dozens of companies. Hundreds of offers. Every placement season, MLRIT brings industry directly to campus.</p>
+      <div class="pl-gallery__layout" id="pl-gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- =====================
+       CONTACT
+       ===================== -->
+  <section class="pl-contact" id="pl-contact">
+    <div class="pl-section-inner pl-contact__inner">
+      <div>
+        <span class="pl-label">Get in Touch</span>
+        <h2 class="pl-heading">Placement Cell</h2>
+        <p class="pl-contact__name">Ravi Chandra P</p>
+        <p class="pl-contact__role">Head of Placements</p>
+        <div class="pl-contact__details">
+          <a href="tel:+919849991299" class="pl-contact__item">
+            <span class="pl-contact__icon">&#9742;</span>
+            +91 98499 91299
+          </a>
+          <a href="tel:+919652226061" class="pl-contact__item">
+            <span class="pl-contact__icon">&#9742;</span>
+            +91 96522 26061
+          </a>
+          <a href="mailto:ravichandra@mlrinstitutions.ac.in" class="pl-contact__item">
+            <span class="pl-contact__icon">&#9993;</span>
+            ravichandra@mlrinstitutions.ac.in
+          </a>
+        </div>
+      </div>
+      <div class="pl-contact__address">
+        <h3 class="pl-contact__addr-heading">Address</h3>
+        <p>MLR Institute of Technology<br />
+        Survey No. 444, Dundigal<br />
+        Medchal Malkajgiri<br />
+        Telangana – 500 043</p>
+        <p class="pl-contact__eapcet">EAPCET Code: <strong>MLID</strong></p>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /.pl-page-content -->
+
+  <!-- =====================
+       SIDEBAR QUICK NAV
+       ===================== -->
+  <aside class="pl-sidebar" id="plSidebar" aria-label="Page sections">
+    <div class="pl-sidebar__title">Quick Nav</div>
+    <a href="#pl-wall"        class="pl-sidebar__item is-active" data-section="pl-wall">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Overview</span>
+    </a>
+    <a href="#pl-performance" class="pl-sidebar__item" data-section="pl-performance">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Year Stats</span>
+    </a>
+    <a href="#pl-recruiters"  class="pl-sidebar__item" data-section="pl-recruiters">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Recruiters</span>
+    </a>
+    <a href="#pl-infra"       class="pl-sidebar__item" data-section="pl-infra">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Infrastructure</span>
+    </a>
+    <a href="#pl-mou"         class="pl-sidebar__item" data-section="pl-mou">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">MOU</span>
+    </a>
+    <a href="#pl-gallery"     class="pl-sidebar__item" data-section="pl-gallery">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Placement Drives</span>
+    </a>
+    <a href="#pl-contact"     class="pl-sidebar__item" data-section="pl-contact">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Contact</span>
+    </a>
+  </aside>
+
+  <script src="../js/navbar.js" defer></script>
+  <script src="placements.js" defer></script>
+  <script>
+  /* ── Neural Network Canvas — pl-wall background ── */
+  (function () {
+    const canvas = document.getElementById('plNetCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const NODE_COUNT   = 62;
+    const MAX_DIST     = 180;
+    const NODE_RADIUS  = 2.2;
+    const SPEED        = 0.38;
+    const LINE_COLOR   = 'rgba(255,255,255,';
+    const NODE_COLOR   = 'rgba(255,255,255,';
+    const ACCENT_COLOR = 'rgba(255,140,30,';
+
+    let W, H, nodes = [], raf;
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      W = canvas.width  = rect.width;
+      H = canvas.height = rect.height;
+    }
+
+    function makeNode() {
+      return {
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - 0.5) * SPEED,
+        vy: (Math.random() - 0.5) * SPEED,
+        r:  NODE_RADIUS + Math.random() * 1.2,
+        accent: Math.random() < 0.12   /* ~12% nodes are orange accent */
+      };
+    }
+
+    function init() {
+      resize();
+      nodes = Array.from({ length: NODE_COUNT }, makeNode);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      /* Draw connections */
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > MAX_DIST) continue;
+
+          const alpha = (1 - dist / MAX_DIST) * 0.18;
+          const isAccent = a.accent || b.accent;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = isAccent
+            ? ACCENT_COLOR + (alpha * 1.8) + ')'
+            : LINE_COLOR   + alpha + ')';
+          ctx.lineWidth = isAccent ? 0.8 : 0.5;
+          ctx.stroke();
+        }
+      }
+
+      /* Draw nodes */
+      nodes.forEach(n => {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = n.accent
+          ? ACCENT_COLOR + '0.75)'
+          : NODE_COLOR   + '0.35)';
+        ctx.fill();
+
+        /* Glow ring on accent nodes */
+        if (n.accent) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r + 3, 0, Math.PI * 2);
+          ctx.strokeStyle = ACCENT_COLOR + '0.18)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      });
+    }
+
+    function update() {
+      nodes.forEach(n => {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+      });
+    }
+
+    function loop() {
+      update();
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+
+    /* Pause when video plays */
+    const wall = document.getElementById('pl-wall');
+    if (wall) {
+      const obs = new MutationObserver(() => {
+        if (wall.classList.contains('video-active')) {
+          cancelAnimationFrame(raf);
+          canvas.style.opacity = '0';
+        } else {
+          canvas.style.opacity = '1';
+          loop();
+        }
+      });
+      obs.observe(wall, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    window.addEventListener('resize', () => { resize(); });
+    init();
+    loop();
+  })();
+  </script>
+</body>
+</html>
