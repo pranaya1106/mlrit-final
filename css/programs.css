@@ -7,7 +7,7 @@
 
 /* â”€â”€ Scoped CSS variables (source :root values, isolated) â”€â”€ */
 .programs {
-  --primary:       #2E7D32;
+  --primary:       #1F6B24;
   --primary-dark:  #006d25;
   --bg-alt:        #f7f7f5;
   --surface:       #ffffff;
@@ -125,7 +125,7 @@ a.bento-card { text-decoration: none; color: inherit; }
 
 .bento-card--lg {
   grid-column: span 2; grid-row: span 2;
-  background: linear-gradient(145deg, #2E7D32, #006d25);
+  background: linear-gradient(145deg, #1F6B24, #006d25);
   border: none; color: #fff; padding: 36px 32px;
 }
 .bento-card--lg .bento-card__dept { color: rgba(255,255,255,0.45); }
@@ -161,5 +161,6 @@ a.bento-card { text-decoration: none; color: inherit; }
   .bento-card--lg { grid-column: span 1; grid-row: span 1; }
   .bento-card--md { grid-column: span 1; }
 }
+
 
 

@@ -1,7 +1,7 @@
 ﻿/* ===== Global tokens ===== */
 :root {
-  --green:       #2E7D32;
-  --green-light: #e8f5e9;
+  --green:       #1F6B24;
+  --green-light: #e8f2e8;
   --gold:        #C8960C;
   --orange:      #E8500A;
   --text-dark:   #0f0f0f;
@@ -30,8 +30,8 @@
 
   /* â”€â”€ Footer tokens â”€â”€ */
   --accent:       #E8500A;
-  --primary:      #2E7D32;
-  --primary-dark: #1b5e20;
+  --primary:      #1F6B24;
+  --primary-dark: #155218;
   --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -330,7 +330,7 @@ body {
   font-family: var(--heading);
   font-size: 1.9rem;
   font-weight: 900;
-  color: #2e7d32;
+  color: #1F6B24;
   line-height: 1;
   letter-spacing: -0.03em;
   margin-bottom: 10px;
@@ -1563,5 +1563,6 @@ body {
     transition: none;
   }
 }
+
 
 

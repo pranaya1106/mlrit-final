@@ -1421,7 +1421,7 @@ html { scroll-behavior: smooth; }
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #2E7D32;
+  color: #1F6B24;
   padding: 0 20px 14px;
   border-bottom: 1px solid rgba(0,0,0,0.06);
   margin-bottom: 8px;
@@ -1658,4 +1658,5 @@ html { scroll-behavior: smooth; }
   .pl-year-detail__table th,
   .pl-year-detail__table td { padding: 8px 12px; }
 }
+
 

@@ -40,7 +40,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #2E7D32, #4CAF50, #2E7D32);
+  background: linear-gradient(90deg, #1F6B24, #4CAF50, #1F6B24);
 }
 
 .testimonials .section-wrap {
@@ -55,7 +55,7 @@
 }
 
 .testi-header .section-label {
-  color: #2E7D32;
+  color: #1F6B24;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -266,14 +266,14 @@
 
 .testi-mute:hover {
   background: rgba(255, 255, 255, 0.95);
-  border-color: #2E7D32;
-  color: #2E7D32;
+  border-color: #1F6B24;
+  color: #1F6B24;
   transform: scale(1.05);
 }
 
 .testi-mute.is-unmuted {
-  background: #2E7D32;
-  border-color: #2E7D32;
+  background: #1F6B24;
+  border-color: #1F6B24;
   color: #fff;
 }
 
@@ -301,4 +301,5 @@
     transition: none;
   }
 }
+
 

@@ -8,7 +8,7 @@
   --ps-orange:       #E8500A;
   --ps-orange-light: #FDF0EA;
   --ps-orange-dark:  #7A2E0B;
-  --ps-green:        #2E7D32;
+  --ps-green:        #1F6B24;
   --ps-green-light:  #EAF4EA;
   --ps-black:        #111111;
   --ps-bg:           #F7F7F7;
@@ -328,5 +328,6 @@
 
   .tile::before { animation: none; }
 }
+
 
 

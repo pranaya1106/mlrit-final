@@ -123,14 +123,14 @@
 
   .nav-hamburger:hover {
     background: #f0f0f0;
-    border-color: #2E7D32;
+    border-color: #1F6B24;
   }
 
   .nav-hamburger__bar {
     display: block;
     width: 20px;
     height: 2px;
-    background: #2E7D32;
+    background: #1F6B24;
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
@@ -162,7 +162,7 @@
   .main-nav__list {
     flex-direction: column;
     width: 100%;
-    background: #1b5e20;
+    background: #155218;
     padding: 0.5rem 0 1rem;
     max-height: 80vh;
     overflow-y: auto;
@@ -1205,6 +1205,7 @@
     width: 100%;
   }
 }
+
 
 
 
