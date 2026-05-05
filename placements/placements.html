@@ -126,10 +126,8 @@
     </nav>
   </header>
 
-  <div class="pl-page-content">
-
   <!-- =====================
-       STATS WALL
+       STATS WALL (full-width hero)
        ===================== -->
   <section id="pl-wall" class="pl-wall">
     <!-- Neural network canvas -->
@@ -177,6 +175,46 @@
       </div>
     </div>
   </section>
+
+  <div class="pl-layout">
+  <!-- =====================
+       SIDEBAR QUICK NAV
+       ===================== -->
+  <aside class="pl-sidebar" id="plSidebar" aria-label="Page sections">
+    <div class="pl-sidebar__inner">
+    <div class="pl-sidebar__title">Quick Nav</div>
+    <a href="#pl-wall"        class="pl-sidebar__item is-active" data-section="pl-wall">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Overview</span>
+    </a>
+    <a href="#pl-performance" class="pl-sidebar__item" data-section="pl-performance">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Year Stats</span>
+    </a>
+    <a href="#pl-recruiters"  class="pl-sidebar__item" data-section="pl-recruiters">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Recruiters</span>
+    </a>
+    <a href="#pl-infra"       class="pl-sidebar__item" data-section="pl-infra">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Infrastructure</span>
+    </a>
+    <a href="#pl-mou"         class="pl-sidebar__item" data-section="pl-mou">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">MOU</span>
+    </a>
+    <a href="#pl-gallery"     class="pl-sidebar__item" data-section="pl-gallery">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Placement Drives</span>
+    </a>
+    <a href="#pl-contact"     class="pl-sidebar__item" data-section="pl-contact">
+      <span class="pl-sidebar__dot"></span>
+      <span class="pl-sidebar__label">Contact</span>
+    </a>
+    </div>
+  </aside>
+
+  <div class="pl-page-content">
 
   <!-- =====================
        PLACEMENT PERFORMANCE
@@ -323,41 +361,7 @@
   </section>
 
   </div><!-- /.pl-page-content -->
-
-  <!-- =====================
-       SIDEBAR QUICK NAV
-       ===================== -->
-  <aside class="pl-sidebar" id="plSidebar" aria-label="Page sections">
-    <div class="pl-sidebar__title">Quick Nav</div>
-    <a href="#pl-wall"        class="pl-sidebar__item is-active" data-section="pl-wall">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">Overview</span>
-    </a>
-    <a href="#pl-performance" class="pl-sidebar__item" data-section="pl-performance">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">Year Stats</span>
-    </a>
-    <a href="#pl-recruiters"  class="pl-sidebar__item" data-section="pl-recruiters">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">Recruiters</span>
-    </a>
-    <a href="#pl-infra"       class="pl-sidebar__item" data-section="pl-infra">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">Infrastructure</span>
-    </a>
-    <a href="#pl-mou"         class="pl-sidebar__item" data-section="pl-mou">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">MOU</span>
-    </a>
-    <a href="#pl-gallery"     class="pl-sidebar__item" data-section="pl-gallery">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">Placement Drives</span>
-    </a>
-    <a href="#pl-contact"     class="pl-sidebar__item" data-section="pl-contact">
-      <span class="pl-sidebar__dot"></span>
-      <span class="pl-sidebar__label">Contact</span>
-    </a>
-  </aside>
+  </div><!-- /.pl-layout -->
 
   <script src="../js/navbar.js" defer></script>
   <script src="placements.js" defer></script>

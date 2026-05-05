@@ -1,9 +1,9 @@
-﻿/* ===========================
+/* ===========================
    EVENT SHOWCASE
-   Full-screen video Â· always-visible info Â· cursor PLAY Â· mute
+   Full-screen video · always-visible info · cursor PLAY · mute
    =========================== */
 
-/* â”€â”€ Section shell â”€â”€ */
+/* ── Section shell ── */
 .event-showcase {
   position: relative;
   width: 100%;
@@ -13,7 +13,7 @@
   cursor: none;
 }
 
-/* â”€â”€ Video â”€â”€ */
+/* ── Video ── */
 .es__video {
   position: absolute;
   inset: 0;
@@ -23,7 +23,7 @@
   z-index: 0;
 }
 
-/* â”€â”€ Instagram embed â”€â”€ */
+/* ── Instagram embed ── */
 .es__embed {
   position: absolute;
   inset: 0;
@@ -34,7 +34,7 @@
   background: #000;
 }
 
-/* â”€â”€ Overlay â”€â”€ */
+/* ── Overlay ── */
 .es__overlay {
   position: absolute;
   inset: 0;
@@ -49,7 +49,7 @@
   );
 }
 
-/* â”€â”€ Custom PLAY cursor â€” hidden until mouse moves â”€â”€ */
+/* ── Custom PLAY cursor — hidden until mouse moves ── */
 .es__cursor {
   position: absolute;
   top: 0; left: 0;
@@ -97,7 +97,7 @@
   transform: translate(-50%, -50%) scale(0.5);
 }
 
-/* â”€â”€ Event info â€” always visible, bottom left â”€â”€ */
+/* ── Event info — always visible, bottom left ── */
 .es__info {
   position: absolute;
   bottom: 5rem;
@@ -162,7 +162,7 @@
   font-size: 0.8rem;
 }
 
-/* â”€â”€ btn--white for event showcase â”€â”€ */
+/* ── btn--white for event showcase ── */
 .btn.btn--white {
   display: inline-flex;
   align-items: center;
@@ -226,7 +226,7 @@
   stroke-linejoin: round;
 }
 
-/* â”€â”€ Next event button â€” vertically centred, right side â”€â”€ */
+/* ── Next event button — vertically centred, right side ── */
 .es__next {
   position: absolute;
   right: 2rem;
@@ -254,7 +254,7 @@
   transform: translateY(-50%) scale(1.1);
 }
 
-/* â”€â”€ Bottom bar â€” dots left, mute right â”€â”€ */
+/* ── Bottom bar — dots left, mute right ── */
 .es__bottom-bar {
   position: absolute;
   bottom: 0;
@@ -266,7 +266,7 @@
   padding: 1.4rem 2.5rem;
 }
 
-/* â”€â”€ Dot navigation â”€â”€ */
+/* ── Dot navigation ── */
 .es__dots {
   display: flex;
   gap: 8px;
@@ -292,7 +292,7 @@
   border-radius: 4px;
 }
 
-/* â”€â”€ Mute button â”€â”€ */
+/* ── Mute button ── */
 .es__mute {
   display: flex;
   align-items: center;
@@ -332,7 +332,7 @@
   letter-spacing: 0.04em;
 }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .event-showcase { cursor: auto; }
   .es__cursor { display: none; }

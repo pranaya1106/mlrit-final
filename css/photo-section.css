@@ -1,6 +1,6 @@
-﻿/* ===========================
+/* ===========================
    STRUCTURED PHOTO SECTION
-   PRD v1.0 â€” Orange + Green
+   PRD v1.0 — Orange + Green
    =========================== */
 
 /* Brand tokens */
@@ -111,10 +111,10 @@
   transform: scale(1.03);
 }
 
-/* Hero tile â€” fixed height */
+/* Hero tile — fixed height */
 .tile--hero { height: 520px; }
 
-/* Secondary tiles â€” equal halves */
+/* Secondary tiles — equal halves */
 .tile--secondary-a,
 .tile--secondary-b { height: 254px; }
 
@@ -232,7 +232,7 @@
   width: fit-content;
 }
 
-/* Hero badge sits on orange bg â€” use white outline style */
+/* Hero badge sits on orange bg — use white outline style */
 .tile--hero .tile__badge {
   background: rgba(255,255,255,0.2);
   border: 1px solid rgba(255,255,255,0.5);

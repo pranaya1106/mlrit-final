@@ -1,8 +1,8 @@
-﻿/* ===========================
-   TESTIMONIALS â€” Fan Card Layout
+/* ===========================
+   TESTIMONIALS — Fan Card Layout
    =========================== */
 
-/* â”€â”€ Section background with soft gradient + node network â”€â”€ */
+/* ── Section background with soft gradient + node network ── */
 .testimonials {
   position: relative;
   padding: 56px 0 56px;
@@ -48,7 +48,7 @@
   z-index: 1;
 }
 
-/* â”€â”€ Header â”€â”€ */
+/* ── Header ── */
 .testi-header {
   text-align: center;
   margin-bottom: 40px;
@@ -75,7 +75,7 @@
   color: #777;
 }
 
-/* â”€â”€ Fan Container â”€â”€ */
+/* ── Fan Container ── */
 .testi-fan {
   display: flex;
   justify-content: center;
@@ -84,7 +84,7 @@
   position: relative;
 }
 
-/* â”€â”€ Card â”€â”€ */
+/* ── Card ── */
 .testi-card {
   width: 220px;
   height: 320px;
@@ -111,7 +111,7 @@
   z-index: 3;
 }
 
-/* â”€â”€ Scattered state: fan out on hover â”€â”€ */
+/* ── Scattered state: fan out on hover ── */
 .testi-fan:hover .testi-card {
   transform: rotate(var(--rotate)) translateY(var(--ty));
   margin: 0 -20px;
@@ -121,7 +121,7 @@
   transform: rotate(0deg) translateY(0px) scale(1.08);
 }
 
-/* â”€â”€ Video â”€â”€ */
+/* ── Video ── */
 .testi-card__video {
   position: absolute;
   inset: 0;
@@ -133,7 +133,7 @@
   transition: filter 0.4s ease, opacity 0.4s ease;
 }
 
-/* Paused / thumbnail state â€” dim + desaturate */
+/* Paused / thumbnail state — dim + desaturate */
 .testi-card:not(.testi-card--active) .testi-card__video {
   filter: brightness(0.6) saturate(0.4);
   opacity: 0.85;
@@ -144,7 +144,7 @@
   opacity: 1;
 }
 
-/* â”€â”€ Gradient overlay â”€â”€ */
+/* ── Gradient overlay ── */
 .testi-card__overlay {
   position: absolute;
   inset: 0;
@@ -158,7 +158,7 @@
   z-index: 1;
 }
 
-/* â”€â”€ Card Label â”€â”€ */
+/* ── Card Label ── */
 .testi-card-label {
   position: absolute;
   bottom: 0;
@@ -189,7 +189,7 @@
   line-height: 1.3;
 }
 
-/* â”€â”€ Hover individual card (only when scattered) â”€â”€ */
+/* ── Hover individual card (only when scattered) ── */
 .testi-fan:hover .testi-card:hover {
   transform: rotate(0deg) translateY(-10px) scale(1.12);
   z-index: 10;
@@ -201,7 +201,7 @@
   transform: rotate(0deg) translateY(-10px) scale(1.15);
 }
 
-/* â”€â”€ Mobile: horizontal scroll â”€â”€ */
+/* ── Mobile: horizontal scroll ── */
 @media (max-width: 768px) {
   .testi-fan {
     justify-content: flex-start;
@@ -243,7 +243,7 @@
   }
 }
 
-/* â”€â”€ Sound toggle â”€â”€ */
+/* ── Sound toggle ── */
 .testi-sound-bar {
   display: flex;
   justify-content: center;
@@ -295,7 +295,7 @@
   text-transform: uppercase;
 }
 
-/* â”€â”€ Reduced motion â”€â”€ */
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .testi-card {
     transition: none;

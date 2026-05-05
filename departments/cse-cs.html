@@ -231,11 +231,11 @@
     .streak.is-firing { animation: orange-streak 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; align-items: flex-start; }
-    .dept-body__panels { flex: 1; min-width: 0; }
+    .dept-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: stretch; min-height: calc(100vh - 44px); }
+    .dept-body__panels { min-width: 0; }
 
     /* ── Left sidebar ── */
-    .dark-sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 44px; height: calc(100vh - 44px); background: #FAFAF8; z-index: 35; padding-top: 24px; border-right: 1px solid rgba(0,0,0,0.05); overflow-y: auto; align-self: flex-start; }
+    .dark-sidebar { position: sticky; top: 44px; align-self: start; height: calc(100vh - 44px); background: #FAFAF8; z-index: 35; padding-top: 24px; border-right: 1px solid rgba(0,0,0,0.05); overflow-y: auto; }
     .dark-sidebar::-webkit-scrollbar { width: 4px; }
     .dark-sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
     .dark-sidebar__title { font-family: 'Raleway', sans-serif; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: #155218; padding: 0 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 8px; }

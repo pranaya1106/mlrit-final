@@ -1,5 +1,5 @@
-﻿/* ===========================
-   SUCCESS STORIES â€” Carousel
+/* ===========================
+   SUCCESS STORIES — Carousel
    =========================== */
 
 .ss-section {
@@ -13,7 +13,7 @@
   padding: 0 40px;
 }
 
-/* â”€â”€ Header â”€â”€ */
+/* ── Header ── */
 .ss-header {
   display: flex;
   align-items: flex-end;
@@ -69,7 +69,7 @@
   }
 }
 
-/* â”€â”€ Carousel wrapper â”€â”€ */
+/* ── Carousel wrapper ── */
 .ss-carousel {
   position: relative;
   border-radius: 14px;
@@ -78,13 +78,13 @@
   box-shadow: 0 4px 32px rgba(200,150,12,0.1);
 }
 
-/* â”€â”€ Track â”€â”€ */
+/* ── Track ── */
 .ss-track {
   position: relative;
   width: 100%;
 }
 
-/* â”€â”€ Card base â€” hidden â”€â”€ */
+/* ── Card base — hidden ── */
 .ss-card {
   position: absolute;
   inset: 0;
@@ -98,7 +98,7 @@
   pointer-events: none;
 }
 
-/* Active card â€” in flow to set height */
+/* Active card — in flow to set height */
 .ss-card.is-active {
   position: relative;
   opacity: 1;
@@ -114,7 +114,7 @@
   z-index: 1;
 }
 
-/* â”€â”€ Image wrapper â”€â”€ */
+/* ── Image wrapper ── */
 .ss-card__img-wrap {
   position: relative;
   width: 100%;
@@ -122,7 +122,7 @@
   background: #FFFDF7;
 }
 
-/* â”€â”€ Image â”€â”€ */
+/* ── Image ── */
 .ss-card img {
   display: block;
   width: 100%;
@@ -132,7 +132,7 @@
   object-position: center top;
 }
 
-/* â”€â”€ Hover info â€” slides up inside the image area â”€â”€ */
+/* ── Hover info — slides up inside the image area ── */
 .ss-card__info {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -196,7 +196,7 @@
   padding-left: 10px;
 }
 
-/* â”€â”€ Gold caption strip â€” always visible below image â”€â”€ */
+/* ── Gold caption strip — always visible below image ── */
 .ss-card__name-badge {
   width: 100%;
   padding: 13px 24px 11px;
@@ -230,7 +230,7 @@
   line-height: 1.25;
 }
 
-/* â”€â”€ Dots â”€â”€ */
+/* ── Dots ── */
 .ss-dots {
   display: flex;
   justify-content: center;
@@ -255,12 +255,12 @@
   transform: scale(1.35);
 }
 
-/* â”€â”€ Arrows â€” hidden by default, show on hover â”€â”€ */
+/* ── Arrows — hidden by default, show on hover ── */
 .ss-arrow {
   display: none;
 }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .ss-section { padding: 56px 0 72px; }
   .ss-container { padding: 0 16px; }

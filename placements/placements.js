@@ -190,25 +190,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* 4d. MoUs — Narrative timeline blocks with optional document links */
+  /* 4d. MoUs — Glass cards stacked vertically with alternating content alignment */
   const mouGrid = document.getElementById('pl-mou-grid');
   if (mouGrid && typeof mous !== 'undefined') {
-    mouGrid.className = 'pl-mou__narrative';
-    mouGrid.innerHTML = mous.map((m, i) => `
-      <div class="pl-mou__row${i % 2 !== 0 ? ' pl-mou__row--alt' : ''} pl-fade">
-        <div class="pl-mou__row-meta">
-          ${m.type ? `<span class="pl-mou__type${m.type === 'Centre of Excellence' ? ' pl-mou__type--coe' : ''}">${m.type}</span>` : ''}
-          ${m.package ? `<span class="pl-mou__metric">${m.package}</span>` : ''}
-        </div>
-        <div class="pl-mou__row-main">
-          <h3 class="pl-mou__company">${m.name}</h3>
-        </div>
-        <p class="pl-mou__desc">${m.domain.replace(/&amp;/g, 'and')}</p>
-        ${m.docs && m.docs.length ? `<div class="pl-mou__docs">${m.docs.map(d =>
-          `<a href="${d.file}" class="pl-mou__doc-link" target="_blank" rel="noopener">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            ${d.label}</a>`).join('')}</div>` : ''}
-      </div>`).join('');
+    mouGrid.className = 'pl-mou__stack';
+    mouGrid.innerHTML = mous.map((m, i) => {
+      const isCoe = m.type === 'Centre of Excellence';
+      const side  = i % 2 === 0 ? 'left' : 'right';
+      const docsHtml = m.docs && m.docs.length
+        ? `<div class="pl-mou-card__docs">${m.docs.map(d =>
+            `<a href="${d.file}" class="pl-mou-card__doc" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>${d.label}</span>
+            </a>`).join('')}</div>`
+        : '';
+      return `
+        <article class="pl-mou-card pl-fade" data-type="${isCoe ? 'coe' : 'partner'}" data-side="${side}" tabindex="0">
+          <div class="pl-mou-card__glow" aria-hidden="true"></div>
+          <div class="pl-mou-card__inner">
+            <div class="pl-mou-card__head">
+              <span class="pl-mou-card__type">${m.type || 'Partner'}</span>
+              ${m.package ? `<span class="pl-mou-card__metric">${m.package}</span>` : ''}
+            </div>
+            <h3 class="pl-mou-card__name">${m.name}</h3>
+            <p class="pl-mou-card__desc">${m.domain.replace(/&amp;/g, 'and')}</p>
+            ${docsHtml}
+          </div>
+          <span class="pl-mou-card__shine" aria-hidden="true"></span>
+        </article>`;
+    }).join('');
+
+    /* Cursor-tracking glow on each card */
+    mouGrid.querySelectorAll('.pl-mou-card').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+      });
+    });
 
     mouGrid.querySelectorAll('.pl-fade').forEach(observeFade);
   }
@@ -257,16 +276,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }, { threshold: 0.08 }).observe(sec);
   });
-
-  /* ── Sidebar visibility: appear only after hero leaves viewport ── */
-  (function () {
-    const sidebar = document.getElementById('plSidebar');
-    const hero    = document.getElementById('pl-wall');
-    if (!sidebar || !hero) return;
-    new IntersectionObserver(([entry]) => {
-      sidebar.classList.toggle('is-visible', !entry.isIntersecting);
-    }, { threshold: 0 }).observe(hero);
-  })();
 
   /* ── Sidebar: click → smooth scroll + active tracking on scroll ── */
   (function () {

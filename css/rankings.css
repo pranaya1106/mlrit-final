@@ -1,5 +1,5 @@
-﻿/* ===================================================
-   Accreditations â€” Premium Design
+/* ===================================================
+   Accreditations — Premium Design
    =================================================== */
 
 .achievements {
@@ -10,7 +10,7 @@
   isolation: isolate;
 }
 
-/* â”€â”€ Top / bottom fade transitions â”€â”€ */
+/* ── Top / bottom fade transitions ── */
 .accred-fade {
   position: absolute;
   left: 0; right: 0;
@@ -27,7 +27,7 @@
   background: linear-gradient(to top, #fafafa, transparent);
 }
 
-/* â”€â”€ Subtle grid texture â”€â”€ */
+/* ── Subtle grid texture ── */
 .accred-grid-bg {
   position: absolute;
   inset: 0;
@@ -39,7 +39,7 @@
   z-index: 0;
 }
 
-/* â”€â”€ Blurred color blobs â€” clipped to section â”€â”€ */
+/* ── Blurred color blobs — clipped to section ── */
 .achievements::after {
   content: '';
   position: absolute;
@@ -73,7 +73,7 @@
   top: 30%; right: 30%;
 }
 
-/* â”€â”€ Two-column layout â”€â”€ */
+/* ── Two-column layout ── */
 .achievements__grid {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -83,7 +83,7 @@
   z-index: 2;
 }
 
-/* â”€â”€ Ranking cards â”€â”€ */
+/* ── Ranking cards ── */
 .achievements__ranks {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -152,7 +152,7 @@
   line-height: 1.4;
 }
 
-/* â”€â”€ Constellation SVG â”€â”€ */
+/* ── Constellation SVG ── */
 .logo-cluster-wrap {
   position: relative;
   width: 380px;
@@ -191,7 +191,7 @@
   to { stroke-dashoffset: -40; }
 }
 
-/* â”€â”€ Logo cluster â”€â”€ */
+/* ── Logo cluster ── */
 .logo-cluster {
   position: absolute;
   inset: 0;
@@ -216,7 +216,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.8);
-  /* NO transition on transform â€” fully static */
+  /* NO transition on transform — fully static */
   transition: box-shadow 0.25s ease, opacity 0.25s ease;
   will-change: auto;
 }
@@ -245,7 +245,7 @@
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.12));
 }
 
-/* Hover â€” scale only, no position change */
+/* Hover — scale only, no position change */
 .lc-bubble:hover {
   z-index: 10 !important;
   box-shadow: 0 16px 48px rgba(0,0,0,0.18), 0 0 0 2px rgba(255,255,255,0.9);
@@ -264,7 +264,7 @@
   opacity: 0.3;
 }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* ── Responsive ── */
 @media (max-width: 1100px) {
   .logo-cluster-wrap { width: 340px; height: 340px; }
   .lc-bubble--center { width: 120px; height: 120px; }

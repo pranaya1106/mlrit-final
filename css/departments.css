@@ -1,6 +1,6 @@
-﻿/* ===========================
-   PROGRAMS â€” Scroll-to-Stack
-   Cards spread â†’ compress one by one
+/* ===========================
+   PROGRAMS — Scroll-to-Stack
+   Cards spread → compress one by one
    Stack stays pinned on screen
    =========================== */
 
@@ -15,7 +15,7 @@
   padding: 0 clamp(20px, 4vw, 48px);
 }
 
-/* â”€â”€ Sticky top bar â”€â”€ */
+/* ── Sticky top bar ── */
 .programs-topbar {
   position: sticky;
   top: 0;
@@ -60,7 +60,7 @@
   flex-shrink: 0;
 }
 
-/* â”€â”€ Tabs â”€â”€ */
+/* ── Tabs ── */
 .programs-tabs { display: flex; gap: 8px; }
 
 .tab-btn {
@@ -84,7 +84,7 @@
   box-shadow: 0 2px 14px rgba(0,143,49,0.3);
 }
 
-/* â”€â”€ Counter â”€â”€ */
+/* ── Counter ── */
 .programs-counter {
   font-family: 'Poppins', sans-serif;
   font-size: 0.72rem;
@@ -95,9 +95,9 @@
   text-align: right;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════
    Sticky two-column grid
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════ */
 .dept-columns {
   position: sticky;
   top: 100px;
@@ -124,14 +124,14 @@
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-/* â”€â”€ Stack â€” flex column â”€â”€ */
+/* ── Stack — flex column ── */
 .dept-stack {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* â”€â”€ Card â€” SOLID background, no opacity tricks â”€â”€ */
+/* ── Card — SOLID background, no opacity tricks ── */
 .dept-card {
   position: relative;
   /* Later cards stack ON TOP of earlier ones */
@@ -149,7 +149,7 @@
   transform-origin: top center;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 
-  /* no transition on transform â€” JS drives it smoothly via rAF */
+  /* no transition on transform — JS drives it smoothly via rAF */
   transition: box-shadow 0.3s ease,
               border-color 0.3s ease,
               background 0.3s ease;
@@ -163,7 +163,7 @@
   z-index: 20;
 }
 
-/* â”€â”€ Text â”€â”€ */
+/* ── Text ── */
 .dept-card__badge {
   display: inline-block;
   font-size: 0.58rem;
@@ -208,9 +208,9 @@
   color: var(--accent, #1F6B24);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════
    Responsive
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════ */
 @media (max-width: 768px) {
   /* section height set by JS */
   .programs-topbar__inner {

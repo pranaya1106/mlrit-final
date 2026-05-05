@@ -1,4 +1,4 @@
-﻿/* ===== Global tokens ===== */
+/* ===== Global tokens ===== */
 :root {
   --green:       #1F6B24;
   --green-light: #e8f2e8;
@@ -12,10 +12,10 @@
   --heading:     'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
   --sans:        'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* â”€â”€ Side padding â€” matches utexas.edu feel â”€â”€ */
+  /* ── Side padding — matches utexas.edu feel ── */
   --page-pad: clamp(1.5rem, 5vw, 5rem);
 
-  /* â”€â”€ Type scale â”€â”€ */
+  /* ── Type scale ── */
   --fs-h1:      clamp(3rem, 5.5vw, 3.5rem);
   --fs-h2:      clamp(2rem, 3.5vw, 2.25rem);
   --fs-h3:      clamp(1.5rem, 2.5vw, 1.75rem);
@@ -28,7 +28,7 @@
   --lh-body:    1.6;
   --ls-label:   0.03em;
 
-  /* â”€â”€ Footer tokens â”€â”€ */
+  /* ── Footer tokens ── */
   --accent:       #E8500A;
   --primary:      #1F6B24;
   --primary-dark: #155218;
@@ -122,7 +122,7 @@ body {
 }
 
 /* ===========================
-   2. STATS STRIP â€” redesigned minimal & dynamic
+   2. STATS STRIP — redesigned minimal & dynamic
    =========================== */
 .stats-strip {
   background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0d0d0d 100%);
@@ -291,7 +291,7 @@ body {
 
 
 /* ===========================
-   3. ACHIEVEMENTS / RANKINGS â€” styles in rankings.css
+   3. ACHIEVEMENTS / RANKINGS — styles in rankings.css
    =========================== */
 
 .rank-row {
@@ -447,7 +447,7 @@ body {
 }
 
 /* ===========================
-   5. PLACEMENTS â€” Premium Dark
+   5. PLACEMENTS — Premium Dark
    =========================== */
 .placements {
   position: relative;
@@ -698,7 +698,7 @@ body {
 }
 
 /* ===========================
-   6. TESTIMONIALS â€” Story Deck
+   6. TESTIMONIALS — Story Deck
    =========================== */
 .testimonials {
   padding: 80px 0;
@@ -716,7 +716,7 @@ body {
   margin: 10px auto 0;
 }
 
-/* â”€â”€ Desktop deck wrapper â”€â”€ */
+/* ── Desktop deck wrapper ── */
 .desktop-deck {
   display: flex;
   flex-direction: column;
@@ -733,7 +733,7 @@ body {
   cursor: pointer;
 }
 
-/* â”€â”€ Stack (collapsed state) â”€â”€ */
+/* ── Stack (collapsed state) ── */
 .stack-wrapper {
   position: relative;
   width: 240px;
@@ -745,7 +745,7 @@ body {
   top: 0; left: 0;
 }
 
-/* â”€â”€ Scattered row â”€â”€ */
+/* ── Scattered row ── */
 .scatter-row {
   display: flex;
   align-items: center;
@@ -754,7 +754,7 @@ body {
   flex-wrap: nowrap;
 }
 
-/* â”€â”€ Card base â”€â”€ */
+/* ── Card base ── */
 .sv-card {
   width: 240px;
   height: 360px;
@@ -849,11 +849,11 @@ body {
   transition: opacity 0.22s ease 0.1s, transform 0.22s ease 0.1s;
 }
 
-/* Cards are static â€” always show badge & batch */
+/* Cards are static — always show badge & batch */
 .scatter-row .sv-card__badge { opacity: 1; transform: translateY(0); }
 .scatter-row .sv-card__batch { opacity: 1; transform: translateY(0); }
 
-/* â”€â”€ Hint label â”€â”€ */
+/* ── Hint label ── */
 .deck-hint {
   position: absolute;
   bottom: -32px;
@@ -871,7 +871,7 @@ body {
 
 .deck-hint.hidden { opacity: 0; }
 
-/* â”€â”€ Dots â”€â”€ */
+/* ── Dots ── */
 .deck-dots {
   display: flex;
   align-items: center;
@@ -899,7 +899,7 @@ body {
   cursor: pointer;
 }
 
-/* â”€â”€ Mobile scroll â”€â”€ */
+/* ── Mobile scroll ── */
 .mobile-deck {
   display: none;
   gap: 16px;
@@ -923,7 +923,7 @@ body {
   transform: none;
 }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* ── Responsive ── */
 @media (pointer: coarse), (max-width: 640px) {
   .desktop-deck { display: none; }
   .mobile-deck  { display: flex; }
@@ -1172,14 +1172,14 @@ body {
    10. STICKY FOOTER
    =========================== */
 
-/* Outer shell â€” clip-path creates the reveal window */
+/* Outer shell — clip-path creates the reveal window */
 .sticky-footer {
   position: relative;
   height: 820px;
   clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
 }
 
-/* Sticky inner â€” rises from bottom of viewport as you scroll */
+/* Sticky inner — rises from bottom of viewport as you scroll */
 .sticky-footer__inner {
   position: sticky;
   top: calc(100vh - 820px);
@@ -1429,7 +1429,7 @@ body {
 }
 
 /* ===========================
-   RANKING CARDS â€” top-right corner reveal
+   RANKING CARDS — top-right corner reveal
    =========================== */
 .rank-cards {
   display: flex;
@@ -1452,7 +1452,7 @@ body {
   transition: border-color 0.4s ease;
 }
 
-/* fill â€” tiny circle at top-right, expands to cover the whole card */
+/* fill — tiny circle at top-right, expands to cover the whole card */
 .rank-card::before {
   content: '';
   position: absolute;
@@ -1533,7 +1533,7 @@ body {
    REVEAL ON SCROLL
    =========================== */
 
-/* Hidden state â€” sits 28px below, invisible */
+/* Hidden state — sits 28px below, invisible */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1543,7 +1543,7 @@ body {
   will-change: opacity, transform;
 }
 
-/* Visible state â€” JS adds this class */
+/* Visible state — JS adds this class */
 .reveal.is-revealed {
   opacity: 1;
   transform: translateY(0);

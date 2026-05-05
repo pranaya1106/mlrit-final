@@ -1,11 +1,11 @@
-﻿/* =====================================================
-   PROGRAMS â€” Full Component
+/* =====================================================
+   PROGRAMS — Full Component
    Source: COLLEGE-WEBSITE-main (Mounith / COLLEGE-WEBSITE)
    Verbatim CSS from source. Variables scoped to .programs
-   for isolation â€” no base-project dependencies.
+   for isolation — no base-project dependencies.
    ===================================================== */
 
-/* â”€â”€ Scoped CSS variables (source :root values, isolated) â”€â”€ */
+/* ── Scoped CSS variables (source :root values, isolated) ── */
 .programs {
   --primary:       #1F6B24;
   --primary-dark:  #006d25;
@@ -23,7 +23,7 @@
   --ease-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* â”€â”€ TiltedCard glare â”€â”€ */
+/* ── TiltedCard glare ── */
 [data-tilt] { position: relative; overflow: hidden; }
 .tilt-glare-wrap { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 10; }
 .tilt-glare {
@@ -36,14 +36,14 @@
   .tilt-glare { display: none; }
 }
 
-/* â”€â”€ Section-wrap container: match source max-width + centring â”€â”€ */
+/* ── Section-wrap container: match source max-width + centring ── */
 .programs > .section-wrap {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* â”€â”€ Scroll-triggered reveal â€” refined â”€â”€ */
+/* ── Scroll-triggered reveal — refined ── */
 .reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -73,7 +73,7 @@
 .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 360ms; }
 .reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 450ms; }
 
-/* â”€â”€ Buttons â€” Animated CTA â”€â”€ */
+/* ── Buttons — Animated CTA ── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   position: relative; overflow: hidden; padding: 0;
@@ -102,7 +102,7 @@
 .btn--outline .btn__chevron { background: var(--primary); color: #fff; }
 .btn--outline:hover { background: rgba(0,143,49,0.04); }
 
-/* â”€â”€ Programs section â”€â”€ */
+/* ── Programs section ── */
 .programs { padding: clamp(80px, 10vw, 140px) 0; background: var(--bg-alt); min-height: 100vh; }
 .programs__header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
 .programs__tabs { display: flex; gap: 8px; margin-bottom: 32px; }
@@ -113,7 +113,7 @@
 }
 .tab-btn.active, .tab-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 2px 12px rgba(0,143,49,0.2); }
 
-/* â”€â”€ Bento grid â”€â”€ */
+/* ── Bento grid ── */
 .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(140px, auto); gap: 14px; }
 a.bento-card { text-decoration: none; color: inherit; }
 .bento-card {
@@ -148,7 +148,7 @@ a.bento-card { text-decoration: none; color: inherit; }
 .bento-card__name { font-family: var(--sans); font-size: 0.95rem; font-weight: 600; color: var(--text-dark); line-height: 1.4; margin-bottom: 6px; }
 .bento-card__meta { font-family: var(--sans); font-size: 0.72rem; color: var(--text-muted); font-weight: 300; }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* ── Responsive ── */
 @media (max-width: 1024px) {
   .bento-grid { grid-template-columns: repeat(2, 1fr); }
   .bento-card--lg { grid-column: span 2; grid-row: span 1; }

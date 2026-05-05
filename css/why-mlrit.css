@@ -1,5 +1,5 @@
-﻿/* ===========================
-   WHY MLRIT â€” Editorial Cinematic
+/* ===========================
+   WHY MLRIT — Editorial Cinematic
    =========================== */
 
 .why-section {
@@ -10,7 +10,7 @@
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-/* â”€â”€ Premium orange gradient layer â”€â”€ */
+/* ── Premium orange gradient layer ── */
 .why-section::before {
   content: '';
   position: absolute;
@@ -23,7 +23,7 @@
   z-index: 0;
 }
 
-/* â”€â”€ Subtle football field background â”€â”€ */
+/* ── Subtle football field background ── */
 .why-section__bg {
   position: absolute;
   inset: 0;
@@ -34,7 +34,7 @@
   pointer-events: none;
 }
 
-/* â”€â”€ Inner two-column layout â”€â”€ */
+/* ── Inner two-column layout ── */
 .why-section__inner {
   position: relative;
   z-index: 1;
@@ -47,7 +47,7 @@
   margin: 0 auto;
 }
 
-/* â”€â”€ Left â€” text â”€â”€ */
+/* ── Left — text ── */
 .why-section__left {
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@
   margin: 0;
 }
 
-/* Drop cap â€” removed, I is now normal */
+/* Drop cap — removed, I is now normal */
 .why-section__dropcap {
   font-size: inherit;
   font-weight: inherit;
@@ -100,7 +100,7 @@
   margin: 0;
 }
 
-/* â”€â”€ Right â€” video â”€â”€ */
+/* ── Right — video ── */
 .why-section__right {
   display: flex;
   align-items: center;
@@ -139,7 +139,7 @@
     0 0 80px rgba(232,80,10,0.22);
 }
 
-/* â”€â”€ Responsive â”€â”€ */
+/* ── Responsive ── */
 @media (max-width: 900px) {
   .why-section__inner {
     grid-template-columns: 1fr;

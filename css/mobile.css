@@ -1,12 +1,12 @@
-﻿/* =============================================================
-   MOBILE RESPONSIVE â€” MLRIT Homepage
+/* =============================================================
+   MOBILE RESPONSIVE — MLRIT Homepage
    Only adds styles for max-width: 768px and below.
    Does NOT override any desktop styles.
    =============================================================
 
    TABLE OF CONTENTS
    1.  Global / Base
-   2.  Navbar â€” Hamburger Menu
+   2.  Navbar — Hamburger Menu
    3.  Hero
    4.  Stats Strip
    5.  Achievements / Rankings
@@ -24,12 +24,12 @@
    ============================================================= */
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    1. GLOBAL / BASE
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-  /* Kill the desktop zoom â€” let the browser handle scaling */
+  /* Kill the desktop zoom — let the browser handle scaling */
   html {
     zoom: 1;
   }
@@ -46,7 +46,7 @@
   /* Tighten side padding on mobile */
   :root {
     --page-pad: 1rem;
-    --header-h: 72px;  /* masthead only â€” green nav bar hidden on mobile */
+    --header-h: 72px;  /* masthead only — green nav bar hidden on mobile */
   }
 
   /* Fluid images everywhere */
@@ -55,7 +55,7 @@
     height: auto;
   }
 
-  /* Section headings â€” slightly smaller on mobile */
+  /* Section headings — slightly smaller on mobile */
   .section-heading {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
@@ -67,12 +67,12 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   2. NAVBAR â€” Hamburger Menu
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────────
+   2. NAVBAR — Hamburger Menu
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-  /* â”€â”€ Masthead â”€â”€ */
+  /* ── Masthead ── */
   .masthead {
     padding: 0.6rem 0;
   }
@@ -91,7 +91,7 @@
     height: 44px;
   }
 
-  /* Hide tagline on mobile â€” saves space */
+  /* Hide tagline on mobile — saves space */
   .masthead__tagline {
     display: none;
   }
@@ -103,7 +103,7 @@
     letter-spacing: 0.04em;
   }
 
-  /* â”€â”€ Hamburger button â€” injected into masthead__right by JS â”€â”€ */
+  /* ── Hamburger button — injected into masthead__right by JS ── */
   .nav-hamburger {
     display: flex;
     flex-direction: column;
@@ -147,9 +147,9 @@
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* â”€â”€ Main nav â€” hidden by JS, shown as dropdown drawer â”€â”€ */
+  /* ── Main nav — hidden by JS, shown as dropdown drawer ── */
   .main-nav {
-    display: none;  /* hidden on mobile â€” JS-built drawer replaces it */
+    display: none;  /* hidden on mobile — JS-built drawer replaces it */
     position: absolute;
     top: 100%;
     left: 0;
@@ -158,7 +158,7 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
   }
 
-  /* Nav list: vertical drawer â€” JS controls display via inline style */
+  /* Nav list: vertical drawer — JS controls display via inline style */
   .main-nav__list {
     flex-direction: column;
     width: 100%;
@@ -169,7 +169,7 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Nav items â€” full width rows */
+  /* Nav items — full width rows */
   .main-nav__item {
     width: 100%;
     border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -183,7 +183,7 @@
     border-bottom: none;
   }
 
-  /* Nav links â€” full width, taller touch target */
+  /* Nav links — full width, taller touch target */
   .main-nav__link {
     width: 100%;
     height: auto;
@@ -201,12 +201,12 @@
     transform: rotate(45deg) translateY(-2px);
   }
 
-  /* Underline indicator â€” disable on mobile */
+  /* Underline indicator — disable on mobile */
   .main-nav__link::before {
     display: none;
   }
 
-  /* â”€â”€ Dropdowns â€” accordion style on mobile â”€â”€ */
+  /* ── Dropdowns — accordion style on mobile ── */
   .dropdown,
   .support-panel {
     position: static !important;
@@ -264,7 +264,7 @@
     background: rgba(255,255,255,0.5);
   }
 
-  /* Right-aligned dropdown â€” reset on mobile */
+  /* Right-aligned dropdown — reset on mobile */
   .dropdown--right {
     left: 0 !important;
     right: auto !important;
@@ -282,9 +282,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    3. HERO
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .hero {
@@ -330,12 +330,12 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    4. STATS STRIP
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-  /* 2Ã—2 grid â€” all 4 stats visible at once */
+  /* 2×2 grid — all 4 stats visible at once */
   .stats-strip__inner {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -354,7 +354,7 @@
     letter-spacing: 0.1em;
   }
 
-  /* Hide all pseudo-element vertical dividers â€” grid handles spacing */
+  /* Hide all pseudo-element vertical dividers — grid handles spacing */
   .stat-item::before {
     display: none;
   }
@@ -372,9 +372,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    5. ACHIEVEMENTS / RANKINGS
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .achievements {
@@ -399,7 +399,7 @@
     font-size: 1.5rem;
   }
 
-  /* Hide logo constellation on mobile â€” too cluttered at small sizes */
+  /* Hide logo constellation on mobile — too cluttered at small sizes */
   .logo-cluster-wrap {
     display: none;
   }
@@ -422,9 +422,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    6. PROGRAMS (Departments Scroll-to-Stack)
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .programs-topbar {
@@ -463,7 +463,7 @@
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 20px 1rem 0;
-    /* Disable sticky on mobile â€” scroll-to-stack animation is desktop-only */
+    /* Disable sticky on mobile — scroll-to-stack animation is desktop-only */
     position: static;
     top: auto;
   }
@@ -478,9 +478,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    7. PLACEMENTS
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .placements {
@@ -513,7 +513,7 @@
     max-width: 100%;
   }
 
-  /* Recruiter band â€” smaller items on mobile */
+  /* Recruiter band — smaller items on mobile */
   .recruiter-band__item {
     width: 130px;
     height: 70px;
@@ -536,7 +536,7 @@
     font-size: clamp(1.4rem, 5vw, 1.8rem);
   }
 
-  /* Cards â€” slightly narrower on mobile */
+  /* Cards — slightly narrower on mobile */
   .placement-card {
     flex: 0 0 260px;
   }
@@ -553,9 +553,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   8. TESTIMONIALS â€” Simple horizontal scroll on mobile
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────────
+   8. TESTIMONIALS — Simple horizontal scroll on mobile
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .testimonials {
@@ -572,12 +572,12 @@
     font-size: clamp(1.4rem, 6vw, 1.9rem);
   }
 
-  /* Hide the "hover over the deck" hint â€” irrelevant on touch */
+  /* Hide the "hover over the deck" hint — irrelevant on touch */
   .testi-header .section-sub {
     display: none;
   }
 
-  /* Allow horizontal scroll â€” parent overflow:hidden blocks it */
+  /* Allow horizontal scroll — parent overflow:hidden blocks it */
   .testimonials {
     overflow: visible;
   }
@@ -603,7 +603,7 @@
 
   .testi-fan::-webkit-scrollbar { display: none; }
 
-  /* â”€â”€ Each card â€” upright, no rotation, no overlap â”€â”€ */
+  /* ── Each card — upright, no rotation, no overlap ── */
   .testi-card {
     transform: none;
     margin: 0;
@@ -634,7 +634,7 @@
     z-index: 10;
   }
 
-  /* Video â€” dimmed by default so name is readable, brightens when active */
+  /* Video — dimmed by default so name is readable, brightens when active */
   .testi-card .testi-card__video {
     filter: brightness(0.7);
     opacity: 1;
@@ -673,9 +673,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    9. CAMPUS LIFE
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .campus-life {
@@ -714,9 +714,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   10. EVENTS â€” keep horizontal layout on mobile
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────────
+   10. EVENTS — keep horizontal layout on mobile
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .events {
@@ -765,7 +765,7 @@
     min-height: 36px;
   }
 
-  /* Event list â€” compact */
+  /* Event list — compact */
   .event-item {
     padding: 10px 0;
     gap: 8px;
@@ -790,9 +790,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    11. ADMISSIONS CTA
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .admissions-cta {
@@ -826,12 +826,12 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    12. FOOTER
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-  /* Disable sticky footer effect on mobile â€” just a normal block */
+  /* Disable sticky footer effect on mobile — just a normal block */
   .sticky-footer {
     height: auto;
     clip-path: none;
@@ -884,7 +884,7 @@
     width: 100%;
   }
 
-  /* Main grid â€” brand full width, then link cols in 2 columns */
+  /* Main grid — brand full width, then link cols in 2 columns */
   .sf-grid {
     grid-template-columns: 1fr 1fr;
     gap: 1.2rem 1.5rem;
@@ -895,7 +895,7 @@
     grid-column: 1 / -1;
   }
 
-  /* Each link column takes one cell â€” 2 per row */
+  /* Each link column takes one cell — 2 per row */
   .sf-col {
     min-width: 0;
   }
@@ -932,7 +932,7 @@
     gap: 10px;
   }
 
-  /* Watermark â€” scale down */
+  /* Watermark — scale down */
   .sf-watermark {
     font-size: clamp(3.5rem, 18vw, 7rem);
   }
@@ -956,9 +956,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    13. SUCCESS STORIES
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .ss-section {
@@ -1001,9 +1001,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    14. WHY MLRIT
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .why-section {
@@ -1026,7 +1026,7 @@
     line-height: 1.75;
   }
 
-  /* Video â€” always visible on mobile (no slide-in animation needed) */
+  /* Video — always visible on mobile (no slide-in animation needed) */
   .why-section__right {
     opacity: 1;
     transform: none;
@@ -1039,9 +1039,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-   15. EVENT SHOWCASE â€” desktop-like horizontal on mobile
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─────────────────────────────────────────────
+   15. EVENT SHOWCASE — desktop-like horizontal on mobile
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .event-showcase {
@@ -1055,7 +1055,7 @@
     display: none !important;
   }
 
-  /* Info panel â€” compact, bottom-left */
+  /* Info panel — compact, bottom-left */
   .es__info {
     bottom: 2.8rem;
     left: 1rem;
@@ -1063,7 +1063,7 @@
     max-width: none;
   }
 
-  /* Hide logo on mobile â€” saves space */
+  /* Hide logo on mobile — saves space */
   .es__info-logo {
     display: none;
   }
@@ -1080,7 +1080,7 @@
     line-height: 1.2;
   }
 
-  /* Hide description â€” too cluttered on small screen */
+  /* Hide description — too cluttered on small screen */
   .es__info-desc {
     display: none;
   }
@@ -1128,9 +1128,9 @@
 }
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ─────────────────────────────────────────────
    16. PHOTO SECTION
-â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
 
   .photo-section {
