@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLRIT Chronicles — News, Publications and Facts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="chronicles.css" />
+</head>
+<body>
+
+  <!-- =====================
+       NAVBAR — verbatim copy of the homepage navbar
+       (only relative paths adjusted because this file lives in /chronicles)
+       ===================== -->
+  <header class="site-header">
+    <div class="masthead">
+      <div class="container masthead__inner">
+        <a href="../index.html" class="masthead__logo" aria-label="MLRIT Home">
+          <img src="../mlrit-logo-main.png" alt="MLRIT Logo" />
+        </a>
+        <div class="masthead__tagline">
+          <span>Marri Laxman Reddy Institute of Technology</span>
+        </div>
+        <a href="#" class="masthead__eapcet">EAPCET CODE : MLID</a>
+      </div>
+    </div>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <div class="container main-nav__inner">
+        <ul class="main-nav__list">
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">About <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Institution</h4>
+                <a href="#">Vision and Mission</a>
+                <a href="#">Accreditations</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Academics <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Programmes</h4>
+                <a href="../departments/ug.html">Undergraduate (B.Tech)</a>
+                <a href="../departments/pg.html">Postgraduate (M.Tech and MBA)</a>
+              </div>
+              <div class="dropdown__col">
+                <h4>Resources</h4>
+                <a href="#">ERP</a>
+                <a href="#">LMS</a>
+                <a href="#">Academic Calendar</a>
+                <a href="#">Edmit – Course Registration</a>
+                <a href="#">Exam Portal</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Admissions <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Undergraduate</h4>
+                <a href="#">How to Apply</a>
+                <a href="#">Eligibility</a>
+                <a href="#">Fee Structure</a>
+                <a href="#">Scholarships</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Research <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Research Areas</h4>
+                <a href="#">AI and Machine Learning</a>
+                <a href="#">IoT and Embedded Systems</a>
+                <a href="#">VLSI Design</a>
+                <a href="#">Data Science</a>
+              </div>
+              <div class="dropdown__col">
+                <h4>Centers</h4>
+                <a href="#">Research Centers</a>
+                <a href="#">Publications</a>
+                <a href="#">Patents</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="#" class="main-nav__link">Campus <span class="chevron"></span></a>
+            <div class="dropdown">
+              <div class="dropdown__col">
+                <h4>Facilities</h4>
+                <a href="#">Hostels</a>
+                <a href="#">Sports</a>
+                <a href="#">Cafeteria</a>
+                <a href="#">Transport</a>
+              </div>
+              <div class="dropdown__col">
+                <h4>Student Life</h4>
+                <a href="#">Clubs and Societies</a>
+                <a href="#">Events</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item">
+            <a href="../placements/placements.html" class="main-nav__link">Placements</a>
+          </li>
+
+          <li class="main-nav__item main-nav__item--right" style="margin-right: 8px;">
+            <a href="chronicles.html" class="main-nav__link">MLRIT Chronicles <span class="chevron"></span></a>
+            <div class="dropdown dropdown--right">
+              <div class="dropdown__col">
+                <h4>Bulletins</h4>
+                <a href="chronicles.html#bulletins">Academic Notices</a>
+                <a href="chronicles.html#bulletins">Exam Schedules</a>
+                <a href="chronicles.html#bulletins">Fee Notifications</a>
+                <a href="chronicles.html#bulletins">Scholarship Alerts</a>
+              </div>
+              <div class="dropdown__col">
+                <h4>Circulars</h4>
+                <a href="chronicles.html#bulletins">Administrative Circulars</a>
+                <a href="chronicles.html#bulletins">Department Circulars</a>
+                <a href="chronicles.html#bulletins">Event Announcements</a>
+                <a href="chronicles.html#bulletins">Holiday Notices</a>
+              </div>
+              <div class="dropdown__col">
+                <h4>Latest</h4>
+                <a href="chronicles.html#main-feed">Campus News</a>
+                <a href="chronicles.html#main-feed">Student Achievements</a>
+                <a href="chronicles.html#main-feed">Faculty Updates</a>
+                <a href="chronicles.html#press">Press Releases</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="main-nav__item main-nav__item--support">
+            <a href="#" class="main-nav__link main-nav__link--support">
+              <span class="support-avatar" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="9" cy="6" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2 15.5c0-3.038 3.134-5.5 7-5.5s7 2.462 7 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              Support
+            </a>
+
+            <div class="support-panel">
+
+              <!-- Divider top -->
+              <div class="support-panel__divider"></div>
+
+              <!-- Talk with us -->
+              <p class="support-panel__heading">Talk with us</p>
+              <div class="support-panel__call-row">
+                <a href="tel:18005724363" class="support-panel__call-btn" aria-label="Call toll free">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="16" fill="#18453B"/>
+                    <path d="M11.5 10h2.8l1.2 3-1.6 1a9.1 9.1 0 0 0 4.1 4.1l1-1.6 3 1.2v2.8A1.5 1.5 0 0 1 20.5 22C13.6 22 10 18.4 10 11.5A1.5 1.5 0 0 1 11.5 10Z" fill="#fff"/>
+                  </svg>
+                </a>
+                <span class="support-panel__call-text">Toll Free: 1800 572 4363</span>
+              </div>
+
+              <!-- Divider mid -->
+              <div class="support-panel__divider"></div>
+
+              <!-- Connect with us -->
+              <p class="support-panel__heading">Connect with us</p>
+              <div class="support-panel__socials">
+                <a href="https://x.com/mlritin"                                          class="support-panel__social" aria-label="X / Twitter">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#000"/><path d="M39.77 32.36L46.88 24h-1.68l-6.18 7.26L33.6 24H27l7.47 10.97L27 43.5h1.68l6.53-7.67 5.21 7.67H47l-7.23-11.14zm-2.31 2.71l-.76-1.09-6.02-8.7h2.59l4.86 7.02.76 1.09 6.32 9.14h-2.59l-5.16-7.46z" fill="#fff"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/school/mlr-institute-of-technology/" class="support-panel__social" aria-label="LinkedIn">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#0A66C2"/><text x="35" y="43" text-anchor="middle" font-size="26" font-family="Arial" fill="#fff" font-weight="bold">in</text></svg>
+                </a>
+                <a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA"      class="support-panel__social" aria-label="YouTube">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#FF0000"/><polygon points="28,24 28,46 50,35" fill="#fff"/></svg>
+                </a>
+                <a href="https://www.facebook.com/Mlrit/"                                class="support-panel__social" aria-label="Facebook">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="35" fill="#1877F2"/><text x="35" y="44" text-anchor="middle" font-size="30" font-family="Arial" fill="#fff" font-weight="bold">f</text></svg>
+                </a>
+                <a href="https://www.instagram.com/mlritofficial/"                       class="support-panel__social" aria-label="Instagram">
+                  <svg width="70" height="70" viewBox="0 0 70 70" fill="none"><defs><radialGradient id="ig" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><circle cx="35" cy="35" r="35" fill="url(#ig)"/><rect x="20" y="20" width="30" height="30" rx="8" stroke="#fff" stroke-width="2.5" fill="none"/><circle cx="35" cy="35" r="7" stroke="#fff" stroke-width="2.5" fill="none"/><circle cx="44" cy="26" r="2" fill="#fff"/></svg>
+                </a>
+              </div>
+
+              <!-- Find us -->
+              <p class="support-panel__heading">Find us</p>
+              <div class="support-panel__map">
+                <iframe
+                  src="https://maps.google.com/maps?q=MLR+Institute+of+Technology+Dundigal+Hyderabad&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  width="100%" height="100%"
+                  style="border:0; border-radius:15px; display:block; background:#1a1a1a;"
+                  allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="MLRIT Location">
+                </iframe>
+              </div>
+
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =====================
+         PAGE: SIDEBAR + MAIN COLUMN (NYU-style)
+         ===================== -->
+    <div class="ch-page">
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="ch-side" aria-label="MLRIT News categories">
+        <h3 class="ch-side__title">MLRIT News</h3>
+
+        <ul class="ch-side__list">
+          <li><button class="ch-side__link is-active" data-cat="all">All Stories</button></li>
+          <li><button class="ch-side__link" data-cat="campus">Campus and Community</button></li>
+          <li><button class="ch-side__link" data-cat="students">Student Achievements</button></li>
+          <li><button class="ch-side__link" data-cat="faculty">Faculty and Staff</button></li>
+          <li><button class="ch-side__link" data-cat="placements">Placements and Careers</button></li>
+          <li><button class="ch-side__link" data-cat="research">Engineering, Science and Technology</button></li>
+          <li><button class="ch-side__link" data-cat="sports">Sports and Athletics</button></li>
+          <li><button class="ch-side__link" data-cat="events">Events and Hackathons</button></li>
+          <li><button class="ch-side__link" data-cat="press">Press Releases</button></li>
+          <li><a href="#bulletins" class="ch-side__link">Bulletins and Circulars</a></li>
+          <li><a href="#" class="ch-side__link">Series Archive</a></li>
+          <li><a href="#" class="ch-side__link">News Search</a></li>
+        </ul>
+      </aside>
+
+      <!-- ── MAIN COLUMN ── -->
+      <section class="ch-main">
+
+        <h1 class="ch-main__title">MLRIT News</h1>
+        <hr class="ch-main__rule" />
+
+        <!-- Featured 2-column hero card: image placeholder left, content right -->
+        <article class="ch-hero-card">
+          <div class="ch-hero-card__placeholder" aria-label="Image placeholder — add image here">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="8.5" cy="10" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M21 16l-5-5-9 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Image</span>
+          </div>
+          <div class="ch-hero-card__content">
+            <h2 class="ch-hero-card__title">2025–2026 in Review</h2>
+            <p class="ch-hero-card__desc">A new AI Centre of Excellence, a record-breaking placement season, and an institute-wide hackathon network were among the most significant developments in an academic year defined by achievement and community.</p>
+            <a href="#" class="ch-hero-card__btn">Explore</a>
+          </div>
+        </article>
+
+        <!-- Trio of image cards with headline + description -->
+        <div class="ch-trio">
+
+          <a href="#" class="ch-trio__card">
+            <div class="ch-trio__img">
+              <img src="../success stories/2.jpg" alt="HCLTech mega placement drive" />
+            </div>
+            <h3 class="ch-trio__title">68 MLRIT Engineers Join HCLTech in a Single-Day Drive <span class="arrow">&rsaquo;</span></h3>
+            <p class="ch-trio__desc">Batch 2026 delivers the campus&#39;s largest single-company offer in three years</p>
+          </a>
+
+          <a href="#" class="ch-trio__card">
+            <div class="ch-trio__img">
+              <img src="../success stories/4.jpg" alt="IGNITE hackathon" />
+            </div>
+            <h3 class="ch-trio__title">IGNITE 2K26 Draws 412 Hackathon Teams From Across Telangana <span class="arrow">&rsaquo;</span></h3>
+            <p class="ch-trio__desc">36-hour build sprint culminates in an offline-first navigation app for rural transit users</p>
+          </a>
+
+          <a href="#" class="ch-trio__card">
+            <div class="ch-trio__img">
+              <img src="../success stories/6.jpeg" alt="Microsoft internship" />
+            </div>
+            <h3 class="ch-trio__title">Two MLRIT Engineers Crack Microsoft&#39;s ₹51 LPA Internship Cohort <span class="arrow">&rsaquo;</span></h3>
+            <p class="ch-trio__desc">Sai Loukhya and Kakumanu Sailatha join Microsoft at ₹1.25 L/month stipend</p>
+          </a>
+
+        </div>
+
+        <!-- Recent Stories — stacked list -->
+        <section class="ch-recent">
+          <h2 class="ch-recent__heading">Recent Stories</h2>
+
+          <a href="#" class="ch-recent__item">
+            <h3 class="ch-recent__title">Meet Three Graduating Seniors Who Made the Most of Their Four Years <span class="arrow">&rsaquo;</span></h3>
+            <p class="ch-recent__desc">A national-level chess champion who studies mechanical engineering, a singer-songwriter on the placement-cell track, and an AI&amp;ML engineer who runs a campus magazine share how MLRIT shaped them.</p>
+          </a>
+
+          <a href="#" class="ch-recent__item ch-recent__item--featured">
+            <h3 class="ch-recent__title">Through Hackathons and Industry Sprints, Students Are Shipping Real Products <span class="arrow">&rsaquo;</span></h3>
+            <p class="ch-recent__desc">Final-year teams from the AI Centre of Excellence are pushing their semester projects to open-source — three apps have crossed 10k downloads this year alone.</p>
+          </a>
+
+          <a href="#" class="ch-recent__item">
+            <h3 class="ch-recent__title">MLRIT Design Lab Introduces 2026 Maker-in-Residence Cohort <span class="arrow">&rsaquo;</span></h3>
+            <p class="ch-recent__desc">Six engineers and artists from across departments will develop new prototypes during the two-week residency in June.</p>
+          </a>
+
+          <a href="#" class="ch-recent__viewall">View all news</a>
+        </section>
+
+        <!-- Story grid — image left, content right (2 columns × 3 rows) -->
+        <section class="ch-stories">
+
+          <a href="#" class="ch-story">
+            <div class="ch-story__img">
+              <img src="../success stories/3.jpg" alt="AI literacy programme" />
+            </div>
+            <div class="ch-story__body">
+              <h3 class="ch-story__title">Universal AI Programme Becomes "a Pathway to AI Fluency for Every MLRIT Student"</h3>
+              <p class="ch-story__desc">A new AI education track at the MLRIT Centre of Excellence debuts with AI-powered personalisation and a free introductory course for engineers across all branches.</p>
+            </div>
+          </a>
+
+          <a href="#" class="ch-story">
+            <div class="ch-story__img">
+              <img src="../success stories/5.png" alt="Faculty Q and A" />
+            </div>
+            <div class="ch-story__body">
+              <h3 class="ch-story__title">Q&amp;A: Expanding MLRIT&#39;s Global Reach Through Industry Collaborations</h3>
+              <p class="ch-story__desc">Dr. Ajmeera Kiran and Mrs. Vijay Keerthika discuss the motivation behind MLRIT&#39;s new MoU network and what sets the institute&#39;s training partnerships apart.</p>
+            </div>
+          </a>
+
+          <a href="#" class="ch-story">
+            <div class="ch-story__img">
+              <img src="../success stories/1.jpg" alt="Photonics research" />
+            </div>
+            <div class="ch-story__body">
+              <h3 class="ch-story__title">Photonics Advance Could Enable Compact, High-Performance Lidar Sensors</h3>
+              <p class="ch-story__desc">With a novel circuit design, MLRIT researchers overcame a stubborn problem that has limited the effectiveness of chip-based systems for lidar.</p>
+            </div>
+          </a>
+
+          <a href="#" class="ch-story">
+            <div class="ch-story__img">
+              <img src="../success stories/4.jpg" alt="IoT sensors" />
+            </div>
+            <div class="ch-story__body">
+              <h3 class="ch-story__title">Mapping the City with Autonomous Sensors Built in MLRIT&#39;s IoT Lab</h3>
+              <p class="ch-story__desc">Founded by alumni-faculty teams, the AeroSense initiative is deploying low-cost air-quality sensors to improve storm forecasts, detect pollution hotspots, and more.</p>
+            </div>
+          </a>
+
+          <a href="#" class="ch-story">
+            <div class="ch-story__img">
+              <img src="../success stories/7.jpg" alt="Workforce study" />
+            </div>
+            <div class="ch-story__body">
+              <h3 class="ch-story__title">Study: Firms Often Use Automation to Control Certain Workers&#39; Wages</h3>
+              <p class="ch-story__desc">MLRIT economists found Indian companies tend to target employees earning a "wage premium," which increases inequality but not necessarily productivity.</p>
+            </div>
+          </a>
+
+          <a href="#" class="ch-story">
+            <div class="ch-story__img">
+              <img src="../success stories/6.jpeg" alt="Cloud stress testing" />
+            </div>
+            <div class="ch-story__body">
+              <h3 class="ch-story__title">Method for Stress-Testing Cloud Computing Algorithms Helps Avoid Network Failures</h3>
+              <p class="ch-story__desc">The "MetaEase" technique developed at MLRIT&#39;s Centre of Excellence provides a heads-up to potential scenarios that could cause long wait-times or outages.</p>
+            </div>
+          </a>
+
+        </section>
+
+        <!-- Upcoming Events -->
+        <section class="ch-events">
+          <h2 class="ch-events__heading">Upcoming MLRIT Events</h2>
+
+          <a href="#" class="ch-event">
+            <div class="ch-event__date">
+              <span class="ch-event__day">12</span>
+              <span class="ch-event__month">August 2026</span>
+            </div>
+            <div class="ch-event__title-wrap">
+              <h3 class="ch-event__title">Zenith — Annual Tech Fest <span class="arrow">&rsaquo;</span></h3>
+            </div>
+            <div class="ch-event__meta">
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Date &amp; Time:</span>
+                <span class="ch-event__meta-value">Wednesday, August 12, 2026</span>
+                <span class="ch-event__meta-value">9:00 AM – 6:00 PM IST</span>
+              </div>
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Location:</span>
+                <span class="ch-event__meta-value">MLRIT Main Auditorium</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="#" class="ch-event">
+            <div class="ch-event__date">
+              <span class="ch-event__day">28</span>
+              <span class="ch-event__month">September 2026</span>
+            </div>
+            <div class="ch-event__title-wrap">
+              <h3 class="ch-event__title">Zignasa — Inter-Department Sports Meet <span class="arrow">&rsaquo;</span></h3>
+            </div>
+            <div class="ch-event__meta">
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Date &amp; Time:</span>
+                <span class="ch-event__meta-value">Monday, September 28, 2026</span>
+                <span class="ch-event__meta-value">All day</span>
+              </div>
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Location:</span>
+                <span class="ch-event__meta-value">MLRIT Sports Complex</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="#" class="ch-event">
+            <div class="ch-event__date">
+              <span class="ch-event__day">05</span>
+              <span class="ch-event__month">November 2026</span>
+            </div>
+            <div class="ch-event__title-wrap">
+              <h3 class="ch-event__title">Init Saga — 36-Hour Campus Hackathon <span class="arrow">&rsaquo;</span></h3>
+            </div>
+            <div class="ch-event__meta">
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Date &amp; Time:</span>
+                <span class="ch-event__meta-value">Thursday, November 5, 2026</span>
+                <span class="ch-event__meta-value">10:00 AM – 10:00 PM (next day)</span>
+              </div>
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Location:</span>
+                <span class="ch-event__meta-value">AI Centre of Excellence, Block C</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="#" class="ch-event">
+            <div class="ch-event__date">
+              <span class="ch-event__day">24</span>
+              <span class="ch-event__month">January 2027</span>
+            </div>
+            <div class="ch-event__title-wrap">
+              <h3 class="ch-event__title">Equinox — Cultural Fest &amp; Battle of Bands <span class="arrow">&rsaquo;</span></h3>
+            </div>
+            <div class="ch-event__meta">
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Date &amp; Time:</span>
+                <span class="ch-event__meta-value">Sunday, January 24, 2027</span>
+                <span class="ch-event__meta-value">4:00 PM – 11:00 PM IST</span>
+              </div>
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Location:</span>
+                <span class="ch-event__meta-value">Open Air Theatre</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="#" class="ch-event">
+            <div class="ch-event__date">
+              <span class="ch-event__day">18</span>
+              <span class="ch-event__month">March 2027</span>
+            </div>
+            <div class="ch-event__title-wrap">
+              <h3 class="ch-event__title">TEDx MLRIT — Ideas Worth Spreading <span class="arrow">&rsaquo;</span></h3>
+            </div>
+            <div class="ch-event__meta">
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Date &amp; Time:</span>
+                <span class="ch-event__meta-value">Thursday, March 18, 2027</span>
+                <span class="ch-event__meta-value">10:00 AM – 5:00 PM IST</span>
+              </div>
+              <div class="ch-event__meta-block">
+                <span class="ch-event__meta-label">Location:</span>
+                <span class="ch-event__meta-value">MLRIT Convention Centre</span>
+              </div>
+            </div>
+          </a>
+
+        </section>
+
+      </section>
+    </div>
+
+    <!-- =====================
+         CHRONICLES FOOTER
+         ===================== -->
+    <footer class="ch-footer">
+      <div class="ch-footer__inner">
+
+        <div class="ch-footer__col ch-footer__col--brand">
+          <h4 class="ch-footer__brand">MLR Institute of Technology</h4>
+          <p class="ch-footer__copy">Equal Opportunity and Non-Discrimination at MLRIT — Marri Laxman Reddy Institute of Technology is committed to maintaining an environment that encourages and fosters respect for individual values and appropriate conduct among all persons. In all university spaces — physical and digital — programming, activities, and events are carried out in accordance with applicable law as well as university policy, which includes but is not limited to its <a href="#">Non-Discrimination and Anti-Harassment Policy</a>.</p>
+          <p class="ch-footer__rights">Unless otherwise noted, all content copyright MLR Institute of Technology. All rights reserved.</p>
+        </div>
+
+        <div class="ch-footer__col ch-footer__col--links">
+          <a href="../index.html">The MLRIT Homepage</a>
+          <a href="#">Campus Map</a>
+          <a href="#events">Events</a>
+          <a href="#">Contact Editorial</a>
+          <a href="#">Submit a Story</a>
+          <a href="#">Copyright &amp; Fair Use</a>
+          <a href="#">Privacy</a>
+          <a href="#">Accessibility</a>
+          <a href="#">Feedback</a>
+        </div>
+
+        <div class="ch-footer__col ch-footer__col--places">
+          <a href="#">Main Campus — Dundigal</a>
+          <a href="../departments/cse.html">Departments</a>
+          <a href="../placements/placements.html">Placements Portal</a>
+          <a href="#bulletins">Bulletins</a>
+          <a href="#press">Press Desk</a>
+        </div>
+
+      </div>
+
+      <div class="ch-footer__socials">
+        <a href="https://www.facebook.com/Mlrit/" aria-label="Facebook" class="ch-footer__social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9V14.9H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3V22A10 10 0 0022 12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/school/mlr-institute-of-technology/" aria-label="LinkedIn" class="ch-footer__social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56V22H.22V8zm7.59 0H12v1.92h.06c.6-1.13 2.07-2.32 4.27-2.32 4.57 0 5.41 3.01 5.41 6.92V22h-4.56v-6.2c0-1.48-.03-3.39-2.07-3.39-2.07 0-2.39 1.62-2.39 3.29V22H7.81V8z"/></svg>
+        </a>
+        <a href="https://x.com/mlritin" aria-label="X / Twitter" class="ch-footer__social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.45L22 22h-6.797l-4.62-6.04L5.4 22H2.64l6.99-7.99L2 2h6.99l4.16 5.5L18.244 2zm-1.18 18h1.55L7.04 4H5.4l11.664 16z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/mlritofficial/" aria-label="Instagram" class="ch-footer__social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.16 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.16 8.8 2.16 12 2.16zm0 1.94c-3.14 0-3.51 0-4.74.07-1.06.05-1.64.23-2.02.38a3.4 3.4 0 00-1.25.81 3.4 3.4 0 00-.81 1.25c-.15.38-.33.96-.38 2.02-.07 1.23-.07 1.6-.07 4.74s0 3.51.07 4.74c.05 1.06.23 1.64.38 2.02.2.51.43.87.81 1.25.38.38.74.61 1.25.81.38.15.96.33 2.02.38 1.23.07 1.6.07 4.74.07s3.51 0 4.74-.07c1.06-.05 1.64-.23 2.02-.38a3.4 3.4 0 001.25-.81 3.4 3.4 0 00.81-1.25c.15-.38.33-.96.38-2.02.07-1.23.07-1.6.07-4.74s0-3.51-.07-4.74c-.05-1.06-.23-1.64-.38-2.02a3.4 3.4 0 00-.81-1.25 3.4 3.4 0 00-1.25-.81c-.38-.15-.96-.33-2.02-.38-1.23-.07-1.6-.07-4.74-.07zm0 3.3a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 7.6a3 3 0 100-6 3 3 0 000 6zm5.85-7.8a1.08 1.08 0 11-2.16 0 1.08 1.08 0 012.16 0z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" aria-label="YouTube" class="ch-footer__social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1c.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+        </a>
+      </div>
+
+      <div class="ch-footer__watermark" aria-hidden="true">MLRIT</div>
+    </footer>
+
+  </main>
+
+  <script src="../js/navbar.js"></script>
+  <script src="chronicles.js" defer></script>
+</body>
+</html>
