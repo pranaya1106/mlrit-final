@@ -274,6 +274,11 @@ ul { list-style: none; }
   right: 0;
 }
 
+/* Wider dropdown for 3-column layouts (Research, Chronicles) */
+.dropdown--wide {
+  min-width: 780px;
+}
+
 .dropdown__cta {
   display: flex;
   flex-direction: column;
