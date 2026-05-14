@@ -143,6 +143,12 @@
   line-height: 1.7;
   color: #444;
   margin: 0 0 10px;
+  transition: color 0.15s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1);
+  cursor: default;
+}
+.iq-main p:hover {
+  color: #E85D1F;
+  transform: translateY(-1px);
 }
 
 .iq-main ul,
@@ -156,6 +162,12 @@
   line-height: 1.7;
   color: #444;
   margin-bottom: 3px;
+  transition: color 0.15s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1);
+  cursor: default;
+}
+.iq-main li:hover {
+  color: #E85D1F;
+  transform: translateX(3px);
 }
 
 /* ── Tables ── */
