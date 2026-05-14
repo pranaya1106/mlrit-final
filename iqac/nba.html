@@ -482,5 +482,30 @@
     item.addEventListener('focusout',   resetReveal);
   })();
   </script>
+  <script>
+  (function () {
+    var links = Array.from(document.querySelectorAll('.iq-side__list a[href^="#"]'));
+    var sections = links.map(function (a) {
+      return document.getElementById(a.getAttribute('href').slice(1));
+    }).filter(Boolean);
+    if (!sections.length) return;
+    var ready = false;
+    setTimeout(function () { ready = true; }, 400);
+    function setActive(section) {
+      links.forEach(function (a) { a.classList.remove('is-active'); });
+      var a = links.find(function (a) {
+        return a.getAttribute('href') === '#' + section.id;
+      });
+      if (a) a.classList.add('is-active');
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      if (!ready) return;
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target);
+      });
+    }, { threshold: 0.25, rootMargin: '-100px 0px -45% 0px' });
+    sections.forEach(function (s) { observer.observe(s); });
+  })();
+  </script>
 </body>
 </html>

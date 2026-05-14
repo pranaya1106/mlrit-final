@@ -74,13 +74,20 @@
   border-radius: 0 2px 2px 0;
   transition: width 0.18s cubic-bezier(0.22,1,0.36,1);
 }
-.iq-side__list a:hover {
+.iq-side__list a:hover,
+.iq-side__list a.is-active {
   color: #E85D1F;
   background: #fff8f5;
   transform: translateX(4px);
 }
-.iq-side__list a:hover::before {
+.iq-side__list a:hover::before,
+.iq-side__list a.is-active::before {
   width: 3px;
+}
+.iq-side__list a.is-active {
+  font-weight: 700;
+  color: #E85D1F;
+  background: rgba(232,93,31,0.08);
 }
 
 /* ── Main content ── */
