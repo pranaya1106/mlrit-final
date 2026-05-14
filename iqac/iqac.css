@@ -17,7 +17,15 @@
 .iq-side {
   flex: 0 0 200px;
   width: 200px;
+  position: sticky;
+  top: 140px;         /* sits just below the sticky site-header (~88px masthead + 48px nav) */
+  align-self: flex-start;
+  max-height: calc(100vh - 156px);
+  overflow-y: auto;
+  background: #fff;
+  scrollbar-width: none;
 }
+.iq-side::-webkit-scrollbar { display: none; }
 
 .iq-side__title {
   font-size: 0.78rem;
@@ -47,7 +55,7 @@
   color: #444;
   text-decoration: none;
   position: relative;
-  transition: color 0.15s ease, padding-left 0.18s ease;
+  transition: color 0.15s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1);
 }
 .iq-side__list a::before {
   content: '';
@@ -63,7 +71,6 @@
 }
 .iq-side__list a:hover {
   color: #E85D1F;
-  padding-left: 14px;
 }
 .iq-side__list a:hover::before {
   transform: translateY(-50%) scaleY(1);
@@ -310,25 +317,45 @@
   margin: 0 0 5px;
 }
 
-/* ── Orange on hover — all interactive text ── */
+/* ── Orange + pop on hover — all interactive text ── */
 .iq-main a,
 .iq-main h2,
 .iq-main h3,
 .iq-coordinator__name,
-.iq-coordinator__desig,
-.iq-table td a {
-  transition: color 0.15s ease;
+.iq-table td a,
+.iq-doc-list a,
+.iq-side__list a {
+  transition: color 0.15s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1);
+  display: inline-block; /* needed for transform to apply on inline elements */
+}
+
+/* block-level links should stay block */
+.iq-side__list a,
+.iq-doc-list a {
+  display: block;
 }
 
 .iq-main a:hover,
-.iq-table td a:hover {
+.iq-table td a:hover,
+.iq-doc-list a:hover {
   color: #E85D1F;
+  transform: translateY(-1px) scale(1.015);
 }
 
-.iq-main h2:hover,
+.iq-main h2:hover {
+  color: #E85D1F;
+  transform: translateX(4px);
+  cursor: default;
+}
+
 .iq-main h3:hover {
   color: #E85D1F;
+  transform: translateX(3px);
   cursor: default;
+}
+
+.iq-side__list a:hover {
+  transform: translateX(4px);
 }
 
 /* ── Note text ── */
