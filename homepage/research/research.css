@@ -256,6 +256,21 @@ a { color: inherit; }
 .res-prose p { margin-bottom: 16px; max-width: 760px; }
 .res-prose p:last-child { margin-bottom: 0; }
 
+/* ──────────────────────────────── SPLIT (text + figure side-by-side) ──────────────────────────────── */
+.res-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+.res-split__text { min-width: 0; }
+.res-split__figure { margin: 0; position: sticky; top: 24px; }
+.res-split__figure img { max-height: 480px; object-fit: contain; }
+@media (max-width: 860px) {
+  .res-split { grid-template-columns: 1fr; gap: 24px; }
+  .res-split__figure { position: static; }
+}
+
 /* ──────────────────────────────── HIGHLIGHT CARDS (Research Hub) ──────────────────────────────── */
 .hub-list {
   display: grid;
