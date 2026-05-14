@@ -310,6 +310,27 @@
   margin: 0 0 5px;
 }
 
+/* ── Orange on hover — all interactive text ── */
+.iq-main a,
+.iq-main h2,
+.iq-main h3,
+.iq-coordinator__name,
+.iq-coordinator__desig,
+.iq-table td a {
+  transition: color 0.15s ease;
+}
+
+.iq-main a:hover,
+.iq-table td a:hover {
+  color: #E85D1F;
+}
+
+.iq-main h2:hover,
+.iq-main h3:hover {
+  color: #E85D1F;
+  cursor: default;
+}
+
 /* ── Note text ── */
 .iq-note {
   font-size: 0.79rem;
