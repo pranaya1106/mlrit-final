@@ -1,0 +1,304 @@
+/* ============================================================
+   MLRIT IQAC / NBA / NAAC pages
+   Plain institutional layout — sidebar + content
+   ============================================================ */
+
+/* ── Layout ── */
+.iq-page {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  gap: 32px;
+}
+
+/* ── Sidebar ── */
+.iq-side {
+  flex: 0 0 200px;
+  width: 200px;
+}
+
+.iq-side__title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1F6B24;
+  border-bottom: 2px solid #1F6B24;
+  padding-bottom: 6px;
+  margin: 0 0 2px;
+}
+
+.iq-side__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.iq-side__list li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.iq-side__list a {
+  display: block;
+  padding: 8px 4px;
+  font-size: 0.865rem;
+  color: #444;
+  text-decoration: none;
+}
+
+.iq-side__list a:hover {
+  color: #1F6B24;
+  text-decoration: underline;
+}
+
+/* ── Main content ── */
+.iq-main {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ── Page banner ── */
+.iq-banner {
+  background: #1F6B24;
+  padding: 20px 24px;
+  border-bottom: 3px solid #C8960C;
+}
+
+.iq-banner h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.iq-banner p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.72);
+  margin: 3px 0 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Section headings ── */
+.iq-main h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1F6B24;
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 5px;
+  margin: 32px 0 12px;
+}
+
+.iq-main h2:first-child {
+  margin-top: 0;
+}
+
+.iq-main h3 {
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 18px 0 7px;
+}
+
+.iq-main p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #444;
+  margin: 0 0 10px;
+}
+
+.iq-main ul,
+.iq-main ol {
+  padding-left: 20px;
+  margin: 0 0 14px;
+}
+
+.iq-main li {
+  font-size: 0.91rem;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 3px;
+}
+
+/* ── Tables ── */
+.iq-table-wrap {
+  overflow-x: auto;
+  margin: 10px 0 20px;
+}
+
+.iq-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.865rem;
+}
+
+.iq-table th {
+  background: #1F6B24;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.iq-table td {
+  padding: 7px 12px;
+  color: #444;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: top;
+}
+
+.iq-table tr:last-child td {
+  border-bottom: none;
+}
+
+.iq-table tr:nth-child(even) td {
+  background: #f5f5f5;
+}
+
+/* ── Document list ── */
+.iq-doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 18px;
+  border: 1px solid #ddd;
+}
+
+.iq-doc-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.865rem;
+  color: #444;
+}
+
+.iq-doc-list li:last-child {
+  border-bottom: none;
+}
+
+.iq-doc-list li::before {
+  content: '▸';
+  color: #C8960C;
+  flex-shrink: 0;
+  font-size: 0.73rem;
+}
+
+.iq-doc-list a {
+  color: #1F6B24;
+  text-decoration: none;
+}
+
+.iq-doc-list a:hover {
+  text-decoration: underline;
+}
+
+.iq-doc__year {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* ── Coordinator profile block ── */
+.iq-coordinator {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin: 0 0 16px;
+  border: 1px solid #ddd;
+  padding: 14px;
+  background: #fafafa;
+}
+
+.iq-coordinator__photo {
+  flex: 0 0 100px;
+}
+
+.iq-coordinator__photo img {
+  width: 100px;
+  height: 120px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  border: 1px solid #ccc;
+}
+
+.iq-coordinator__info {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.iq-coordinator__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 2px;
+}
+
+.iq-coordinator__desig {
+  font-size: 0.84rem;
+  color: #555;
+  margin: 0 0 8px;
+  font-style: italic;
+}
+
+.iq-coordinator__bio {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #444;
+  margin: 0 0 5px;
+}
+
+/* ── Note text ── */
+.iq-note {
+  font-size: 0.79rem;
+  color: #888;
+  margin: -6px 0 14px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .iq-page {
+    flex-direction: column;
+    gap: 20px;
+    padding: 18px 14px 48px;
+  }
+
+  .iq-side {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 12px;
+  }
+
+  .iq-side__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .iq-side__list li {
+    border-bottom: none;
+    width: 50%;
+  }
+
+  .iq-side__list a {
+    padding: 5px 4px;
+    font-size: 0.82rem;
+  }
+
+  .iq-coordinator {
+    flex-direction: column;
+  }
+
+  .iq-coordinator__photo {
+    flex: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .iq-side__list li { width: 100%; }
+}
