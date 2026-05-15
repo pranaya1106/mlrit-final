@@ -43,14 +43,18 @@ body {
   font-size: 0.95rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+body > .res-footer { margin-top: auto; }
 
 a { color: inherit; }
 
 /* ──────────────────────────────── HERO ──────────────────────────────── */
 .res-hero {
   position: relative;
-  padding: 84px 8% 56px;
+  padding: 56px clamp(20px, 3vw, 48px) 44px;
   background: linear-gradient(160deg, var(--r-green-dark) 0%, var(--r-green) 60%, var(--r-green-mid) 100%);
   color: #fff;
   overflow: hidden;
@@ -73,7 +77,7 @@ a { color: inherit; }
 }
 .res-hero__inner {
   position: relative;
-  max-width: 1180px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 .res-hero__crumbs {
@@ -112,9 +116,9 @@ a { color: inherit; }
 .res-hero__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 28px 40px;
-  margin-top: 30px;
-  padding-top: 24px;
+  gap: 20px 40px;
+  margin-top: 22px;
+  padding-top: 18px;
   border-top: 1px solid rgba(255,255,255,0.12);
 }
 .res-hero__meta-item { font-family: var(--r-display); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
@@ -147,7 +151,7 @@ a { color: inherit; }
 }
 .res-banner__caption {
   position: absolute;
-  left: 8%;
+  left: clamp(20px, 3vw, 48px);
   bottom: 22px;
   font-family: var(--r-display);
   font-size: 0.72rem;
@@ -162,7 +166,7 @@ a { color: inherit; }
 
 /* Portfolio / illustration figure inside content */
 .res-figure {
-  margin: 24px 0 36px;
+  margin: 16px 0 24px;
   background: var(--r-paper);
   border: 1px solid var(--r-border);
   padding: 12px;
@@ -183,9 +187,9 @@ a { color: inherit; }
 }
 
 /* ──────────────────────────────── SECTION SCAFFOLDING ──────────────────────────────── */
-.res-wrap { max-width: 1180px; margin: 0 auto; padding: 0 8%; }
-.res-section { padding: 72px 0; }
-.res-section--tight { padding: 48px 0; }
+.res-wrap { max-width: 1400px; margin: 0 auto; padding: 0 clamp(20px, 3vw, 48px); }
+.res-section { padding: 48px 0; }
+.res-section--tight { padding: 32px 0; }
 .res-section--surface { background: var(--r-surface); }
 .res-section--ink { background: var(--r-green-dark); color: #fff; }
 .res-section--ink .res-eyebrow { color: var(--r-orange-soft); }
@@ -209,8 +213,8 @@ a { color: inherit; }
   color: var(--r-ink);
   line-height: 1.15;
   letter-spacing: -0.01em;
-  margin-bottom: 18px;
-  max-width: 740px;
+  margin-bottom: 14px;
+  max-width: 960px;
 }
 .res-h3 {
   font-family: var(--r-serif);
@@ -223,11 +227,11 @@ a { color: inherit; }
 .res-lede {
   font-size: 0.95rem;
   color: var(--r-ink-muted);
-  max-width: 760px;
-  line-height: 1.75;
-  margin-bottom: 36px;
+  max-width: 980px;
+  line-height: 1.7;
+  margin-bottom: 24px;
 }
-.res-rule { width: 56px; height: 3px; background: var(--r-orange); border-radius: 2px; margin: 12px 0 24px; }
+.res-rule { width: 56px; height: 3px; background: var(--r-orange); border-radius: 2px; margin: 10px 0 18px; }
 
 /* ──────────────────────────────── EDITORIAL BLOCKS ──────────────────────────────── */
 .res-pull {
@@ -238,8 +242,8 @@ a { color: inherit; }
   font-size: 1.05rem;
   line-height: 1.55;
   color: var(--r-ink);
-  max-width: 680px;
-  margin: 28px 0;
+  max-width: 880px;
+  margin: 22px 0;
 }
 .res-pull cite {
   display: block;
@@ -253,7 +257,7 @@ a { color: inherit; }
   margin-top: 12px;
 }
 
-.res-prose p { margin-bottom: 16px; max-width: 760px; }
+.res-prose p { margin-bottom: 14px; max-width: 980px; }
 .res-prose p:last-child { margin-bottom: 0; }
 
 /* ──────────────────────────────── SPLIT (text + figure side-by-side) ──────────────────────────────── */
@@ -327,9 +331,9 @@ a { color: inherit; }
 .centre-block {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 56px;
+  gap: 48px;
   align-items: center;
-  margin-bottom: 72px;
+  margin-bottom: 48px;
 }
 .centre-block:last-child { margin-bottom: 0; }
 .centre-block--flip { grid-template-columns: 1fr 1.1fr; direction: rtl; }
@@ -575,7 +579,7 @@ a { color: inherit; }
 .stat-strip__label { font-family: var(--r-display); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--r-ink-muted); margin-top: 8px; }
 
 /* ──────────────────────────────── DEFINITION LIST / ENTREPRENEUR PROGRAMS ──────────────────────────────── */
-.def-list { display: grid; grid-template-columns: 200px 1fr; gap: 14px 32px; max-width: 880px; }
+.def-list { display: grid; grid-template-columns: 220px 1fr; gap: 12px 36px; max-width: 1200px; }
 .def-list dt {
   font-family: var(--r-display);
   font-size: 0.78rem;
@@ -618,20 +622,20 @@ a { color: inherit; }
 .callout__btn:hover { background: var(--r-orange-dark); }
 
 /* ──────────────────────────────── CHECK LIST ──────────────────────────────── */
-.check-list { list-style: none; padding: 0; max-width: 760px; }
+.check-list { list-style: none; padding: 0; max-width: 1100px; }
 .check-list li {
   position: relative;
-  padding: 10px 0 10px 36px;
+  padding: 9px 0 9px 36px;
   font-size: 0.9rem;
   color: var(--r-ink-mid);
-  line-height: 1.7;
+  line-height: 1.65;
   border-bottom: 1px solid var(--r-border);
 }
 .check-list li:last-child { border-bottom: none; }
 .check-list li::before {
   content: '';
   position: absolute;
-  left: 0; top: 18px;
+  left: 0; top: 16px;
   width: 18px; height: 10px;
   border-left: 2px solid var(--r-orange);
   border-bottom: 2px solid var(--r-orange);
@@ -643,10 +647,9 @@ a { color: inherit; }
 .res-footer {
   background: var(--r-green-dark);
   color: rgba(255,255,255,0.7);
-  padding: 36px 8% 40px;
-  margin-top: 20px;
+  padding: 36px clamp(20px, 3vw, 48px) 40px;
 }
-.res-footer__inner { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; justify-content: space-between; align-items: center; }
+.res-footer__inner { max-width: 1600px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 48px; justify-content: space-between; align-items: center; }
 .res-footer a { color: #F0C96A; text-decoration: none; }
 .res-footer a:hover { text-decoration: underline; }
 .res-footer__copy { font-family: var(--r-display); font-size: 0.78rem; letter-spacing: 0.06em; }
