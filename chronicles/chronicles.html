@@ -3,384 +3,347 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MLRIT Chronicles — News, Publications and Facts</title>
+  <title>MLRIT Chronicles — The campus broadsheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/navbar.css" />
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/chronicles-dropdown.css" />
-  <link rel="stylesheet" href="chronicles.css" />
   <link rel="stylesheet" href="../css/mobile.css" />
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="chronicles-medium.css" />
 </head>
-<body>
+<body class="chronicles-medium">
 
   <div id="site-navbar"></div>
 
-  <main>
+  <!-- ═════════════════════════════════════════
+       MASTHEAD — newspaper banner
+       ═════════════════════════════════════════ -->
+  <header class="bw-mast">
+    <div class="bw-mast__supra">
+      <span class="live">Live · Spring '26 Edition</span>
+      <span>Vol. V · Issue 23</span>
+    </div>
+    <span class="bw-mast__rule-top" aria-hidden="true"></span>
+    <h1 class="bw-mast__name">MLRIT <em>Chronicles</em></h1>
+    <p class="bw-mast__tagline">"All the campus that's fit to print" — a broadsheet of stories, ideas and updates from MLR Institute of Technology.</p>
+    <span class="bw-mast__rule-bottom" aria-hidden="true"></span>
+    <div class="bw-mast__meta">
+      <span>Saturday, <strong>16 May 2026</strong></span>
+      <span>Dundigal · Hyderabad</span>
+      <span>62 pages · ₹0</span>
+      <span>Reading time · 4 min</span>
+    </div>
+  </header>
 
-    <!-- =====================
-         PAGE: SIDEBAR + MAIN COLUMN (NYU-style)
-         ===================== -->
-    <div class="ch-page">
+  <!-- ═════════════════════════════════════════
+       SECTION RIBBON
+       ═════════════════════════════════════════ -->
+  <nav class="bw-ribbon" aria-label="Sections">
+    <div class="bw-ribbon__inner">
+      <a class="bw-ribbon__item is-active" href="#">Front Page</a>
+      <a class="bw-ribbon__item" href="#">Campus</a>
+      <a class="bw-ribbon__item" href="#">Placements</a>
+      <a class="bw-ribbon__item" href="#">Research</a>
+      <a class="bw-ribbon__item" href="#">Sports</a>
+      <a class="bw-ribbon__item" href="#">Student Voice</a>
+      <a class="bw-ribbon__item" href="#">Alumni</a>
+      <a class="bw-ribbon__item" href="#">Events</a>
+      <a class="bw-ribbon__item" href="#">Faculty</a>
+      <a class="bw-ribbon__item" href="#">Opinion</a>
+      <a class="bw-ribbon__item" href="#">Archive</a>
+    </div>
+  </nav>
 
-      <!-- ── SIDEBAR ── -->
-      <aside class="ch-side" aria-label="MLRIT News categories">
-        <h3 class="ch-side__title">MLRIT News</h3>
+  <!-- ═════════════════════════════════════════
+       FRONT PAGE  ·  3-column grid
+       ═════════════════════════════════════════ -->
+  <main class="bw-front">
 
-        <ul class="ch-side__list">
-          <li><button class="ch-side__link is-active" data-cat="all">All Stories</button></li>
-          <li><button class="ch-side__link" data-cat="campus">Campus and Community</button></li>
-          <li><button class="ch-side__link" data-cat="students">Student Achievements</button></li>
-          <li><button class="ch-side__link" data-cat="faculty">Faculty and Staff</button></li>
-          <li><button class="ch-side__link" data-cat="placements">Placements and Careers</button></li>
-          <li><button class="ch-side__link" data-cat="research">Engineering, Science and Technology</button></li>
-          <li><button class="ch-side__link" data-cat="sports">Sports and Athletics</button></li>
-          <li><button class="ch-side__link" data-cat="events">Events and Hackathons</button></li>
-          <li><button class="ch-side__link" data-cat="press">Press Releases</button></li>
-          <li><a href="#bulletins" class="ch-side__link">Bulletins and Circulars</a></li>
-          <li><a href="#" class="ch-side__link">Series Archive</a></li>
-          <li><a href="#" class="ch-side__link">News Search</a></li>
-        </ul>
-      </aside>
+    <!-- LEFT — Lead story -->
+    <article class="bw-col">
+      <span class="bw-lead__kicker"><span class="dot"></span> Cover Story</span>
+      <h2 class="bw-lead__title">
+        621 offers, ₹51 LPA highest — inside the <em>season that broke records</em>.
+      </h2>
+      <p class="bw-lead__dek">
+        The numbers are loud — but the stories behind them, of late-night DSA grinds, mock
+        interviews with alumni and a midnight pep-talk that turned the season, are louder.
+      </p>
+      <div class="bw-lead__byline">
+        <span>By <strong>MLRIT Chronicles</strong></span>
+        <span class="bw-lead__byline-sep">•</span>
+        <span>Apr 12, 2026</span>
+        <span class="bw-lead__byline-sep">•</span>
+        <span>8 min read</span>
+      </div>
+      <a href="#" class="bw-lead__media">
+        <img src="https://mlrit.ac.in/wp-content/uploads/2026/04/annual-day2.jpeg" alt="MLRIT 21st Annual Day — placement season closing ceremony" />
+      </a>
+      <p class="bw-lead__caption"><strong>FILE PHOTO ·</strong> Graduates at the 21st Annual Day, where Sri Bala Prasad Peddigari spoke on academics-meets-industry.</p>
+      <div class="bw-lead__body">
+        <p>MLR Institute of Technology closed its placement season with 621 confirmed offers across engineering, sciences and management — the highest tally in its twenty-year history, and a ₹51 LPA package as the season's headline number.</p>
+        <p>Behind the announcement is a routine that began long before the recruiters arrived. Students kept a four-week sprint log of DSA problems shared on a Slack channel; alumni in Bangalore ran weekly mock interviews on Sunday mornings; the placement cell built a public dashboard that anyone could open to see who was on the floor that day.</p>
+        <p>"We stopped treating placement like a season and started treating it like a habit," said one fourth-year coordinator. "The number is just the receipt."</p>
+        <a href="#" class="bw-lead__continue">Continue reading →</a>
+      </div>
+    </article>
 
-      <!-- ── MAIN COLUMN ── -->
-      <section class="ch-main">
+    <!-- MIDDLE — secondary stories stacked -->
+    <div class="bw-col">
 
-        <h1 class="ch-main__title">MLRIT News</h1>
-        <hr class="ch-main__rule" />
+      <article class="bw-mid-story">
+        <span class="bw-mid-story__section">Research</span>
+        <a href="#" class="bw-mid-story__media">
+          <img src="https://mlrit.ac.in/wp-content/uploads/2026/01/WhatsApp-Image-2025-12-30-at-18.32.07.jpeg" alt="" />
+        </a>
+        <h3 class="bw-mid-story__title">A quiet revolution: three labs rewriting <em>drone autonomy</em></h3>
+        <p class="bw-mid-story__dek">Inside an unmarked corridor on the second floor, a cluster of grad students is quietly training swarms — and rewriting what we let students touch.</p>
+        <p class="bw-mid-story__meta">Ravi Varma · Mar 28 · 11 min</p>
+      </article>
 
-        <!-- Featured 2-column hero card: image placeholder left, content right -->
-        <article class="ch-hero-card">
-          <div class="ch-hero-card__placeholder" aria-label="Image placeholder — add image here">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="8.5" cy="10" r="1.5" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M21 16l-5-5-9 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>Image</span>
-          </div>
-          <div class="ch-hero-card__content">
-            <h2 class="ch-hero-card__title">2025–2026 in Review</h2>
-            <p class="ch-hero-card__desc">A new AI Centre of Excellence, a record-breaking placement season, and an institute-wide hackathon network were among the most significant developments in an academic year defined by achievement and community.</p>
-            <a href="#" class="ch-hero-card__btn">Explore</a>
-          </div>
-        </article>
+      <article class="bw-mid-story">
+        <span class="bw-mid-story__section">Student Voice</span>
+        <a href="#" class="bw-mid-story__media">
+          <img src="https://mlrit.ac.in/wp-content/uploads/2026/01/WhatsApp-Image-2026-01-06-at-18.34.19.jpeg" alt="" />
+        </a>
+        <h3 class="bw-mid-story__title">I went to Delhi as a student. I came back <em>believing</em> in something bigger.</h3>
+        <p class="bw-mid-story__dek">Notes from inside the Viksit Bharat Young Leaders Dialogue 2026 — five days, a thousand strangers and a slow change of mind.</p>
+        <p class="bw-mid-story__meta">Koduri Viplav · Jan 8 · 7 min</p>
+      </article>
 
-        <!-- Trio of image cards with headline + description -->
-        <div class="ch-trio">
+      <article class="bw-mid-story">
+        <span class="bw-mid-story__section">Sports</span>
+        <h3 class="bw-mid-story__title">Eleven men, two days, one trophy — the side that finally believed</h3>
+        <p class="bw-mid-story__dek">From the bus ride to St. Peter's to the penalty that wasn't and the substitution that was — a frame-by-frame retelling.</p>
+        <p class="bw-mid-story__meta">Sports Desk · Mar 24 · 9 min</p>
+      </article>
 
-          <a href="#" class="ch-trio__card">
-            <div class="ch-trio__img">
-              <img src="../success stories/2.jpg" alt="HCLTech mega placement drive" />
-            </div>
-            <h3 class="ch-trio__title">68 MLRIT Engineers Join HCLTech in a Single-Day Drive <span class="arrow">&rsaquo;</span></h3>
-            <p class="ch-trio__desc">Batch 2026 delivers the campus&#39;s largest single-company offer in three years</p>
-          </a>
-
-          <a href="#" class="ch-trio__card">
-            <div class="ch-trio__img">
-              <img src="../success stories/4.jpg" alt="IGNITE hackathon" />
-            </div>
-            <h3 class="ch-trio__title">IGNITE 2K26 Draws 412 Hackathon Teams From Across Telangana <span class="arrow">&rsaquo;</span></h3>
-            <p class="ch-trio__desc">36-hour build sprint culminates in an offline-first navigation app for rural transit users</p>
-          </a>
-
-          <a href="#" class="ch-trio__card">
-            <div class="ch-trio__img">
-              <img src="../success stories/6.jpeg" alt="Microsoft internship" />
-            </div>
-            <h3 class="ch-trio__title">Two MLRIT Engineers Crack Microsoft&#39;s ₹51 LPA Internship Cohort <span class="arrow">&rsaquo;</span></h3>
-            <p class="ch-trio__desc">Sai Loukhya and Kakumanu Sailatha join Microsoft at ₹1.25 L/month stipend</p>
-          </a>
-
-        </div>
-
-        <!-- Recent Stories — stacked list -->
-        <section class="ch-recent">
-          <h2 class="ch-recent__heading">Recent Stories</h2>
-
-          <a href="#" class="ch-recent__item">
-            <h3 class="ch-recent__title">Meet Three Graduating Seniors Who Made the Most of Their Four Years <span class="arrow">&rsaquo;</span></h3>
-            <p class="ch-recent__desc">A national-level chess champion who studies mechanical engineering, a singer-songwriter on the placement-cell track, and an AI&amp;ML engineer who runs a campus magazine share how MLRIT shaped them.</p>
-          </a>
-
-          <a href="#" class="ch-recent__item ch-recent__item--featured">
-            <h3 class="ch-recent__title">Through Hackathons and Industry Sprints, Students Are Shipping Real Products <span class="arrow">&rsaquo;</span></h3>
-            <p class="ch-recent__desc">Final-year teams from the AI Centre of Excellence are pushing their semester projects to open-source — three apps have crossed 10k downloads this year alone.</p>
-          </a>
-
-          <a href="#" class="ch-recent__item">
-            <h3 class="ch-recent__title">MLRIT Design Lab Introduces 2026 Maker-in-Residence Cohort <span class="arrow">&rsaquo;</span></h3>
-            <p class="ch-recent__desc">Six engineers and artists from across departments will develop new prototypes during the two-week residency in June.</p>
-          </a>
-
-          <a href="#" class="ch-recent__viewall">View all news</a>
-        </section>
-
-        <!-- Story grid — image left, content right (2 columns × 3 rows) -->
-        <section class="ch-stories">
-
-          <a href="#" class="ch-story">
-            <div class="ch-story__img">
-              <img src="../success stories/3.jpg" alt="AI literacy programme" />
-            </div>
-            <div class="ch-story__body">
-              <h3 class="ch-story__title">Universal AI Programme Becomes "a Pathway to AI Fluency for Every MLRIT Student"</h3>
-              <p class="ch-story__desc">A new AI education track at the MLRIT Centre of Excellence debuts with AI-powered personalisation and a free introductory course for engineers across all branches.</p>
-            </div>
-          </a>
-
-          <a href="#" class="ch-story">
-            <div class="ch-story__img">
-              <img src="../success stories/5.png" alt="Faculty Q and A" />
-            </div>
-            <div class="ch-story__body">
-              <h3 class="ch-story__title">Q&amp;A: Expanding MLRIT&#39;s Global Reach Through Industry Collaborations</h3>
-              <p class="ch-story__desc">Dr. Ajmeera Kiran and Mrs. Vijay Keerthika discuss the motivation behind MLRIT&#39;s new MoU network and what sets the institute&#39;s training partnerships apart.</p>
-            </div>
-          </a>
-
-          <a href="#" class="ch-story">
-            <div class="ch-story__img">
-              <img src="../success stories/1.jpg" alt="Photonics research" />
-            </div>
-            <div class="ch-story__body">
-              <h3 class="ch-story__title">Photonics Advance Could Enable Compact, High-Performance Lidar Sensors</h3>
-              <p class="ch-story__desc">With a novel circuit design, MLRIT researchers overcame a stubborn problem that has limited the effectiveness of chip-based systems for lidar.</p>
-            </div>
-          </a>
-
-          <a href="#" class="ch-story">
-            <div class="ch-story__img">
-              <img src="../success stories/4.jpg" alt="IoT sensors" />
-            </div>
-            <div class="ch-story__body">
-              <h3 class="ch-story__title">Mapping the City with Autonomous Sensors Built in MLRIT&#39;s IoT Lab</h3>
-              <p class="ch-story__desc">Founded by alumni-faculty teams, the AeroSense initiative is deploying low-cost air-quality sensors to improve storm forecasts, detect pollution hotspots, and more.</p>
-            </div>
-          </a>
-
-          <a href="#" class="ch-story">
-            <div class="ch-story__img">
-              <img src="../success stories/7.jpg" alt="Workforce study" />
-            </div>
-            <div class="ch-story__body">
-              <h3 class="ch-story__title">Study: Firms Often Use Automation to Control Certain Workers&#39; Wages</h3>
-              <p class="ch-story__desc">MLRIT economists found Indian companies tend to target employees earning a "wage premium," which increases inequality but not necessarily productivity.</p>
-            </div>
-          </a>
-
-          <a href="#" class="ch-story">
-            <div class="ch-story__img">
-              <img src="../success stories/6.jpeg" alt="Cloud stress testing" />
-            </div>
-            <div class="ch-story__body">
-              <h3 class="ch-story__title">Method for Stress-Testing Cloud Computing Algorithms Helps Avoid Network Failures</h3>
-              <p class="ch-story__desc">The "MetaEase" technique developed at MLRIT&#39;s Centre of Excellence provides a heads-up to potential scenarios that could cause long wait-times or outages.</p>
-            </div>
-          </a>
-
-        </section>
-
-        <!-- Upcoming Events -->
-        <section class="ch-events">
-          <h2 class="ch-events__heading">Upcoming MLRIT Events</h2>
-
-          <a href="#" class="ch-event">
-            <div class="ch-event__date">
-              <span class="ch-event__day">12</span>
-              <span class="ch-event__month">August 2026</span>
-            </div>
-            <div class="ch-event__title-wrap">
-              <h3 class="ch-event__title">Zenith — Annual Tech Fest <span class="arrow">&rsaquo;</span></h3>
-            </div>
-            <div class="ch-event__meta">
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Date &amp; Time:</span>
-                <span class="ch-event__meta-value">Wednesday, August 12, 2026</span>
-                <span class="ch-event__meta-value">9:00 AM – 6:00 PM IST</span>
-              </div>
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Location:</span>
-                <span class="ch-event__meta-value">MLRIT Main Auditorium</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="ch-event">
-            <div class="ch-event__date">
-              <span class="ch-event__day">28</span>
-              <span class="ch-event__month">September 2026</span>
-            </div>
-            <div class="ch-event__title-wrap">
-              <h3 class="ch-event__title">Zignasa — Inter-Department Sports Meet <span class="arrow">&rsaquo;</span></h3>
-            </div>
-            <div class="ch-event__meta">
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Date &amp; Time:</span>
-                <span class="ch-event__meta-value">Monday, September 28, 2026</span>
-                <span class="ch-event__meta-value">All day</span>
-              </div>
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Location:</span>
-                <span class="ch-event__meta-value">MLRIT Sports Complex</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="ch-event">
-            <div class="ch-event__date">
-              <span class="ch-event__day">05</span>
-              <span class="ch-event__month">November 2026</span>
-            </div>
-            <div class="ch-event__title-wrap">
-              <h3 class="ch-event__title">Init Saga — 36-Hour Campus Hackathon <span class="arrow">&rsaquo;</span></h3>
-            </div>
-            <div class="ch-event__meta">
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Date &amp; Time:</span>
-                <span class="ch-event__meta-value">Thursday, November 5, 2026</span>
-                <span class="ch-event__meta-value">10:00 AM – 10:00 PM (next day)</span>
-              </div>
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Location:</span>
-                <span class="ch-event__meta-value">AI Centre of Excellence, Block C</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="ch-event">
-            <div class="ch-event__date">
-              <span class="ch-event__day">24</span>
-              <span class="ch-event__month">January 2027</span>
-            </div>
-            <div class="ch-event__title-wrap">
-              <h3 class="ch-event__title">Equinox — Cultural Fest &amp; Battle of Bands <span class="arrow">&rsaquo;</span></h3>
-            </div>
-            <div class="ch-event__meta">
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Date &amp; Time:</span>
-                <span class="ch-event__meta-value">Sunday, January 24, 2027</span>
-                <span class="ch-event__meta-value">4:00 PM – 11:00 PM IST</span>
-              </div>
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Location:</span>
-                <span class="ch-event__meta-value">Open Air Theatre</span>
-              </div>
-            </div>
-          </a>
-
-          <a href="#" class="ch-event">
-            <div class="ch-event__date">
-              <span class="ch-event__day">18</span>
-              <span class="ch-event__month">March 2027</span>
-            </div>
-            <div class="ch-event__title-wrap">
-              <h3 class="ch-event__title">TEDx MLRIT — Ideas Worth Spreading <span class="arrow">&rsaquo;</span></h3>
-            </div>
-            <div class="ch-event__meta">
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Date &amp; Time:</span>
-                <span class="ch-event__meta-value">Thursday, March 18, 2027</span>
-                <span class="ch-event__meta-value">10:00 AM – 5:00 PM IST</span>
-              </div>
-              <div class="ch-event__meta-block">
-                <span class="ch-event__meta-label">Location:</span>
-                <span class="ch-event__meta-value">MLRIT Convention Centre</span>
-              </div>
-            </div>
-          </a>
-
-        </section>
-
-      </section>
     </div>
 
-    <!-- =====================
-         CHRONICLES FOOTER
-         ===================== -->
-    <footer class="ch-footer">
-      <div class="ch-footer__inner">
+    <!-- RIGHT — Most Read + In Brief -->
+    <aside class="bw-col">
 
-        <div class="ch-footer__col ch-footer__col--brand">
-          <h4 class="ch-footer__brand">MLR Institute of Technology</h4>
-          <p class="ch-footer__copy">Equal Opportunity and Non-Discrimination at MLRIT — Marri Laxman Reddy Institute of Technology is committed to maintaining an environment that encourages and fosters respect for individual values and appropriate conduct among all persons. In all university spaces — physical and digital — programming, activities, and events are carried out in accordance with applicable law as well as university policy, which includes but is not limited to its <a href="#">Non-Discrimination and Anti-Harassment Policy</a>.</p>
-          <p class="ch-footer__rights">Unless otherwise noted, all content copyright MLR Institute of Technology. All rights reserved.</p>
+      <section>
+        <h3 class="bw-rail__head">Most Read <span class="pill">This week</span></h3>
+        <div class="bw-most">
+          <a href="#">
+            <div>
+              <p class="bw-most__title">621 placement offers — inside the season that broke records</p>
+              <p class="bw-most__meta">Cover · 1.2K claps</p>
+            </div>
+          </a>
+          <a href="#">
+            <div>
+              <p class="bw-most__title">"Hyderabad to Helsinki" — the long, unglamorous middle of a Microsoft offer</p>
+              <p class="bw-most__meta">Alumni · 3.4K claps</p>
+            </div>
+          </a>
+          <a href="#">
+            <div>
+              <p class="bw-most__title">A quiet revolution: how three labs are rewriting drone autonomy</p>
+              <p class="bw-most__meta">Research · 834 claps</p>
+            </div>
+          </a>
+          <a href="#">
+            <div>
+              <p class="bw-most__title">I went to Delhi as a student. I came back believing in something bigger.</p>
+              <p class="bw-most__meta">Student Voice · 2.1K claps</p>
+            </div>
+          </a>
+          <a href="#">
+            <div>
+              <p class="bw-most__title">Re-learning Java: twenty years of teaching, one hard week at Wipro</p>
+              <p class="bw-most__meta">Faculty · 412 claps</p>
+            </div>
+          </a>
         </div>
+      </section>
 
-        <div class="ch-footer__col ch-footer__col--links">
-          <a href="../index.html">The MLRIT Homepage</a>
-          <a href="#">Campus Map</a>
-          <a href="#events">Events</a>
-          <a href="#">Contact Editorial</a>
-          <a href="#">Submit a Story</a>
-          <a href="#">Copyright &amp; Fair Use</a>
-          <a href="#">Privacy</a>
-          <a href="#">Accessibility</a>
-          <a href="#">Feedback</a>
-        </div>
+      <section>
+        <h3 class="bw-rail__head">In Brief <span class="pill">Today</span></h3>
+        <ul class="bw-brief">
+          <li>
+            <span class="bw-brief__date">16 May</span>
+            <span><strong>Mid-2 timetable</strong> — I B.Tech II Sem R25 published; exam window opens 8 June.</span>
+          </li>
+          <li>
+            <span class="bw-brief__date">12 May</span>
+            <span><strong>CIE-II marks</strong> — II B.Tech II Sem internal marks now live on the portal.</span>
+          </li>
+          <li>
+            <span class="bw-brief__date">10 Apr</span>
+            <span><strong>Workshop Carnival '26</strong> — 11 hands-on sessions across two days; CSE Block.</span>
+          </li>
+          <li>
+            <span class="bw-brief__date">Apr '26</span>
+            <span><strong>Placement drive</strong> — Cognizant, Infosys and HCL Tech close out the season with 217 offers.</span>
+          </li>
+          <li>
+            <span class="bw-brief__date">Dec '25</span>
+            <span><strong>Zenith '25</strong> — three days, dozens of events; main auditorium and grounds.</span>
+          </li>
+        </ul>
+      </section>
 
-        <div class="ch-footer__col ch-footer__col--places">
-          <a href="#">Main Campus — Dundigal</a>
-          <a href="../departments/cse.html">Departments</a>
-          <a href="../placements/placements.html">Placements Portal</a>
-          <a href="#bulletins">Bulletins</a>
-          <a href="#press">Press Desk</a>
-        </div>
-
-      </div>
-
-      <div class="ch-footer__socials">
-        <a href="https://www.facebook.com/Mlrit/" aria-label="Facebook" class="ch-footer__social">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9V14.9H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3V22A10 10 0 0022 12z"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/school/mlr-institute-of-technology/" aria-label="LinkedIn" class="ch-footer__social">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56V22H.22V8zm7.59 0H12v1.92h.06c.6-1.13 2.07-2.32 4.27-2.32 4.57 0 5.41 3.01 5.41 6.92V22h-4.56v-6.2c0-1.48-.03-3.39-2.07-3.39-2.07 0-2.39 1.62-2.39 3.29V22H7.81V8z"/></svg>
-        </a>
-        <a href="https://x.com/mlritin" aria-label="X / Twitter" class="ch-footer__social">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.45L22 22h-6.797l-4.62-6.04L5.4 22H2.64l6.99-7.99L2 2h6.99l4.16 5.5L18.244 2zm-1.18 18h1.55L7.04 4H5.4l11.664 16z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/mlritofficial/" aria-label="Instagram" class="ch-footer__social">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.16 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.42 2.16 8.8 2.16 12 2.16zm0 1.94c-3.14 0-3.51 0-4.74.07-1.06.05-1.64.23-2.02.38a3.4 3.4 0 00-1.25.81 3.4 3.4 0 00-.81 1.25c-.15.38-.33.96-.38 2.02-.07 1.23-.07 1.6-.07 4.74s0 3.51.07 4.74c.05 1.06.23 1.64.38 2.02.2.51.43.87.81 1.25.38.38.74.61 1.25.81.38.15.96.33 2.02.38 1.23.07 1.6.07 4.74.07s3.51 0 4.74-.07c1.06-.05 1.64-.23 2.02-.38a3.4 3.4 0 001.25-.81 3.4 3.4 0 00.81-1.25c.15-.38.33-.96.38-2.02.07-1.23.07-1.6.07-4.74s0-3.51-.07-4.74c-.05-1.06-.23-1.64-.38-2.02a3.4 3.4 0 00-.81-1.25 3.4 3.4 0 00-1.25-.81c-.38-.15-.96-.33-2.02-.38-1.23-.07-1.6-.07-4.74-.07zm0 3.3a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 7.6a3 3 0 100-6 3 3 0 000 6zm5.85-7.8a1.08 1.08 0 11-2.16 0 1.08 1.08 0 012.16 0z"/></svg>
-        </a>
-        <a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" aria-label="YouTube" class="ch-footer__social">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 00.5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 002.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 002.1-2.1c.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-        </a>
-      </div>
-
-      <div class="ch-footer__watermark" aria-hidden="true">MLRIT</div>
-    </footer>
-
+    </aside>
   </main>
 
-  <script src="../js/navbar.js"></script>
-  <script>
-  (function () {
-    'use strict';
-    var item = document.querySelector('.main-nav__item--chronicles');
-    if (!item) return;
-    var panel = item.querySelector('.dropdown--chronicles');
-    var reveals = panel ? panel.querySelectorAll('[data-reveal]') : [];
-    function triggerReveal() {
-      reveals.forEach(function (el, i) {
-        el.style.transitionDelay = (i * 40) + 'ms';
-        el.classList.add('chron-ep--visible');
-      });
-    }
-    function resetReveal() {
-      reveals.forEach(function (el) {
-        el.classList.remove('chron-ep--visible');
-        el.style.transitionDelay = '0ms';
-      });
-    }
-    item.addEventListener('mouseenter', triggerReveal);
-    item.addEventListener('mouseleave', resetReveal);
-    item.addEventListener('focusin', triggerReveal);
-    item.addEventListener('focusout', resetReveal);
-  })();
-  </script>
-  <script src="chronicles.js" defer></script>
+  <!-- ═════════════════════════════════════════
+       SECOND TIER  ·  4-up grid
+       ═════════════════════════════════════════ -->
+  <section class="bw-tier">
+    <div class="bw-tier__head">
+      <h3 class="bw-tier__title">More from <em>this issue</em></h3>
+      <span class="bw-tier__rule" aria-hidden="true"></span>
+      <a class="bw-tier__see" href="#">See all stories</a>
+    </div>
+    <div class="bw-tier__grid">
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://i.ibb.co/MxvbKjRH/8.jpg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Alumni</span>
+        <h4 class="bw-tile__title">"Hyderabad to Helsinki" — the long middle of a <em>Microsoft</em> offer</h4>
+        <p class="bw-tile__meta">Alumni Office · Nov 5 · 13 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://i.ibb.co/99JB52L2/4.jpg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Sports</span>
+        <h4 class="bw-tile__title">Eleven men, two days, one trophy — the football side that finally believed</h4>
+        <p class="bw-tile__meta">Sports Desk · Mar 24 · 9 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://i.ibb.co/670CTVrD/6.png" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Faculty</span>
+        <h4 class="bw-tile__title">Re-learning Java: twenty years of teaching, one hard week at <em>Wipro</em></h4>
+        <p class="bw-tile__meta">Mrs. Vijay Keerthika · Feb 18 · 6 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://i.ibb.co/Xf6Vbj44/5.jpg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Placements</span>
+        <h4 class="bw-tile__title">Mehta Hitech places three from the 2025 cohort — the small drive that matters</h4>
+        <p class="bw-tile__meta">Placements · Mar 2 · 5 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://i.ibb.co/S4L7YCQY/2.jpg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Recognition</span>
+        <h4 class="bw-tile__title">Careers360 hands MLRIT a <em>Four-A</em> rating — what changes inside the corridor</h4>
+        <p class="bw-tile__meta">Newsroom · Feb 6 · 4 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://files.mlrit.ac.in/zenith.jpg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Events</span>
+        <h4 class="bw-tile__title">Zenith '25 — three days, dozens of events, one campus fully <em>switched on</em></h4>
+        <p class="bw-tile__meta">Zenith Newsroom · Dec 20 · 5 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://mlrit.ac.in/wp-content/uploads/2026/04/annual-day2.jpeg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Campus</span>
+        <h4 class="bw-tile__title">Annual Day '26 — twenty years on, a quiet evening that earned its loud applause</h4>
+        <p class="bw-tile__meta">Campus Desk · Apr 11 · 6 min</p>
+      </a>
+
+      <a class="bw-tile" href="#">
+        <div class="bw-tile__media"><img src="https://i.ibb.co/YFgQdGgx/1.jpg" alt="" loading="lazy" /></div>
+        <span class="bw-tile__section">Placements</span>
+        <h4 class="bw-tile__title">Nineteen graduates head to <em>Eidiko Systems</em> — the right-education, bright-placements line, again</h4>
+        <p class="bw-tile__meta">Placements · Feb 12 · 4 min</p>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       PHOTO ESSAY  ·  inverted strip
+       ═════════════════════════════════════════ -->
+  <section class="bw-essay">
+    <div class="bw-essay__head">
+      <h3 class="bw-essay__title">Photo essay · <em>Zenith</em> '25</h3>
+      <span class="bw-essay__rule" aria-hidden="true"></span>
+      <span class="bw-essay__sub">Three days, one campus</span>
+    </div>
+    <div class="bw-essay__grid">
+      <a class="bw-essay__cell" href="#">
+        <img src="https://files.mlrit.ac.in/zenith.jpg" alt="" loading="lazy" />
+        <div class="bw-essay__overlay">
+          <span class="bw-essay__overlay-tag">Day 1 · Opening Night</span>
+          <h4 class="bw-essay__overlay-title">When the bands took the stage, the campus stopped breathing</h4>
+        </div>
+      </a>
+      <a class="bw-essay__cell" href="#">
+        <img src="https://i.ibb.co/Xf6Vbj44/5.jpg" alt="" loading="lazy" />
+        <div class="bw-essay__overlay">
+          <span class="bw-essay__overlay-tag">Day 2 · Robotics</span>
+          <h4 class="bw-essay__overlay-title">Inside the build pits — every weld counts</h4>
+        </div>
+      </a>
+      <a class="bw-essay__cell" href="#">
+        <img src="https://i.ibb.co/S4L7YCQY/2.jpg" alt="" loading="lazy" />
+        <div class="bw-essay__overlay">
+          <span class="bw-essay__overlay-tag">Day 3 · Closing</span>
+          <h4 class="bw-essay__overlay-title">Trophies, tears, and the long walk home</h4>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       FOOTER  ·  colophon
+       ═════════════════════════════════════════ -->
+  <footer class="bw-footer">
+    <div class="bw-footer__top">
+      <div>
+        <h4 class="bw-footer__name">MLRIT <em>Chronicles</em></h4>
+        <p class="bw-footer__tag">"All the campus that's fit to print" — a broadsheet of MLR Institute of Technology · est. 2021.</p>
+      </div>
+      <div class="bw-footer__cols">
+        <div class="bw-footer__col">
+          <h5>Sections</h5>
+          <a href="#">Front Page</a>
+          <a href="#">Campus</a>
+          <a href="#">Placements</a>
+          <a href="#">Research</a>
+          <a href="#">Sports</a>
+        </div>
+        <div class="bw-footer__col">
+          <h5>Series</h5>
+          <a href="#">Student Voice</a>
+          <a href="#">Faculty Diaries</a>
+          <a href="#">Alumni Letters</a>
+          <a href="#">Photo Essays</a>
+          <a href="#">In Brief</a>
+        </div>
+        <div class="bw-footer__col">
+          <h5>The Paper</h5>
+          <a href="#">About</a>
+          <a href="#">Editorial board</a>
+          <a href="#">Submit a story</a>
+          <a href="#">Letters</a>
+          <a href="#">Archive</a>
+        </div>
+        <div class="bw-footer__col">
+          <h5>MLRIT</h5>
+          <a href="../index.html">Home</a>
+          <a href="#">Admissions</a>
+          <a href="#">Departments</a>
+          <a href="#">Contact</a>
+          <a href="#">Press</a>
+        </div>
+      </div>
+    </div>
+    <div class="bw-footer__bot">
+      <span>© 2026 MLR Institute of Technology</span>
+      <span>Vol. V · Issue 23 · 16 May 2026</span>
+      <span>Set in Playfair Display, Source Serif 4 and Inter</span>
+    </div>
+  </footer>
 
   <script src="../js/site-navbar.js" data-base="../"></script>
 </body>

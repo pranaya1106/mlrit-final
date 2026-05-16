@@ -1,16 +1,18 @@
 /* ===== Global tokens ===== */
 :root {
-  --green:       #1F6B24;
-  --green-light: #e8f2e8;
-  --gold:        #C8960C;
-  --orange:      #E8500A;
-  --text-dark:   #0f0f0f;
-  --text-mid:    #444;
-  --text-muted:  #888;
-  --border:      #e8e8e8;
+  /* Legacy tokens — kept as fallbacks. The real theme is in css/theme.css
+     which redeclares :root after this file and therefore wins. */
+  --green:       #2d8b55;
+  --green-light: #f5fbf7;
+  --gold:        #c49a10;
+  --orange:      #e85d04;
+  --text-dark:   #111111;
+  --text-mid:    #5c5a55;
+  --text-muted:  #989890;
+  --border:      #d9d7d1;
   --radius:      14px;
-  --heading:     'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
-  --sans:        'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --heading:     'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sans:        'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* ── Side padding — matches utexas.edu feel ── */
   --page-pad: clamp(1.5rem, 5vw, 5rem);
@@ -38,7 +40,6 @@
 
 /* ===== Base ===== */
 html {
-  zoom: 0.9;
   scroll-behavior: smooth;
   overflow-x: clip;
   max-width: 100%;
