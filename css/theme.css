@@ -287,25 +287,78 @@ body:has(#smooth-wrapper) { padding-top: 0 !important; }
   50% { opacity: 0.55; transform: scale(0.85); }
 }
 
+/* ──────────────────────────────────────────────────────────
+   GLOBAL HEADING TYPOGRAPHY — type only, NO colour.
+   Colour is set per-section below so dark vs light sections
+   never fight the cascade.
+   ────────────────────────────────────────────────────────── */
 .section-heading,
 .ss-heading,
-[class*="__title"] {
+[class*="__title"]:not(.med-card__title):not(.bw-lead__title):not(.bw-mid-story__title):not(.bw-tile__title):not(.medium-hero__title):not(.medium-featured__title):not(.medium-picks__title):not(.bw-tier__title):not(.bw-essay__title):not(.ev-stage__overlay-title) {
   font-family: var(--font-sans) !important;
   font-weight: 900 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.04 !important;
-  /* No color override here — each section sets its own foreground so
-     titles inside dark sections (.placements, .ev-stage, .medium-featured)
-     don't get forced to var(--foreground) and become invisible. */
 }
-/* Titles inside light sections that historically expected a dark colour */
-.section-heading,
-.ss-heading,
-.why-section__heading,
-.achievements__grid h2,
-.testimonials [class*="__title"] {
+
+/* ── LIGHT sections (white / cream / light-gray bg) — dark text ── */
+.ss-section,                                         /* white       */
+.achievements,                                       /* #fafafa     */
+.testimonials,                                       /* light grad  */
+.stats-strip {                                       /* light grad  */
+  color: var(--foreground);
+}
+.ss-section .section-heading,
+.ss-section .ss-heading,
+.achievements .section-heading,
+.achievements [class*="__title"],
+.achievements [class*="__heading"],
+.testimonials .section-heading,
+.testimonials [class*="__title"],
+.testimonials [class*="__heading"],
+.stats-strip [class*="__title"] {
   color: var(--foreground) !important;
 }
+
+/* ── DARK sections — light text ── */
+.hero,                                               /* video       */
+.why-section,                                        /* #111        */
+.placements,                                         /* dark navy   */
+.ev-stage {                                          /* black/video */
+  color: #fff;
+}
+/* Headings */
+.why-section .why-section__heading,
+.why-section [class*="__title"],
+.why-section [class*="__heading"],
+.placements .placements__title,
+.placements [class*="__title"],
+.placements [class*="__heading"],
+.ev-stage [class*="__title"] {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+/* Section labels / eyebrows on dark sections */
+.why-section .section-label,
+.why-section [class*="__label"],
+.placements .section-label,
+.placements [class*="__label"],
+.ev-stage [class*="__label"] {
+  color: rgba(255,255,255,0.55) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.16) !important;
+}
+.why-section .section-label::before,
+.placements .section-label::before { background: var(--primary) !important; }
+/* Dek / sub copy on dark sections */
+.why-section .why-section__body,
+.placements .placements__sub,
+.placements .placement-stat__label {
+  color: rgba(255,255,255,0.72) !important;
+}
+/* Decorative quotes & dropcap in why-section */
+.why-section .why-quote { color: var(--primary) !important; }
+.why-section .why-section__dropcap { color: #fff !important; }
 .section-heading em,
 .ss-heading em {
   font-family: var(--font-display) !important;
@@ -402,7 +455,8 @@ a.btn-secondary:hover {
    ════════════════════════════════════════════════ */
 .stats-strip {
   background: linear-gradient(135deg, var(--orange-50) 0%, var(--background) 50%, var(--green-50) 100%);
-  border-block: 1px solid var(--border-color);
+  border-top: 0 !important;            /* kill the bright hairline between dark hero and stats */
+  border-bottom: 1px solid var(--border-color);
 }
 .stat-item__number {
   font-family: var(--font-sans) !important;
