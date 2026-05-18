@@ -753,6 +753,395 @@ a { color: inherit; }
   transform: translateX(3px);
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   FULL INTERACTIVITY SUITE
+   Glass hover, glow, lift, pulse, shimmer, tab polish — all components
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Centre blocks: glass-morphism card on hover ── */
+.centre-block {
+  border-radius: 12px;
+  padding: 36px;
+  transition: background 0.32s ease, box-shadow 0.32s ease, transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  will-change: transform;
+}
+.centre-block:hover {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow:
+    0 8px 32px rgba(201,98,43,0.12),
+    0 2px 8px rgba(11,15,26,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  transform: translateY(-4px);
+}
+.res-section--surface .centre-block:hover {
+  background: rgba(255,255,255,0.85);
+}
+
+/* Glass shimmer streak on .centre-block__visual on hover */
+.centre-block__visual {
+  transition: box-shadow 0.32s ease, transform 0.32s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+  overflow: hidden;
+}
+.centre-block__visual::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.22) 50%, transparent 70%);
+  transform: skewX(-15deg) translateX(0);
+  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  pointer-events: none;
+  z-index: 2;
+}
+.centre-block:hover .centre-block__visual::before {
+  transform: skewX(-15deg) translateX(320%);
+}
+.centre-block:hover .centre-block__visual {
+  box-shadow: 0 0 40px rgba(201,98,43,0.25);
+  transform: scale(1.025);
+}
+
+/* Centre chips: lift + glow on hover */
+.centre-chip {
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.2s ease;
+  cursor: default;
+}
+.centre-chip:hover {
+  background: var(--r-orange);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(201,98,43,0.35);
+}
+
+/* ── Stat strip: full item lift + left-border glow ── */
+.stat-strip__item {
+  transition: background 0.2s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.22s ease;
+  cursor: default;
+  position: relative;
+}
+.stat-strip__item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 0;
+  background: var(--r-orange);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
+}
+.stat-strip__item:hover {
+  background: rgba(201,98,43,0.04);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(201,98,43,0.1);
+}
+.stat-strip__item:hover::before { width: 3px; }
+.stat-strip__label {
+  transition: color 0.18s ease;
+}
+.stat-strip__item:hover .stat-strip__label { color: var(--r-orange); }
+
+/* ── Service grid cells: glow border + lift ── */
+.service-cell {
+  transition: background 0.22s ease, box-shadow 0.22s ease,
+              transform 0.22s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.22s ease;
+  border-left: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.service-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,98,43,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+.service-cell:hover {
+  background: var(--r-paper);
+  border-left-color: var(--r-orange);
+  box-shadow: 0 8px 28px rgba(201,98,43,0.1), 0 2px 6px rgba(11,15,26,0.05);
+  transform: translateY(-3px);
+}
+.service-cell:hover::after { opacity: 1; }
+.service-cell__body {
+  transition: color 0.18s ease;
+}
+.service-cell:hover .service-cell__body { color: var(--r-ink-mid); }
+
+/* ── Process steps: lift + top-bar glow ── */
+.process__step {
+  transition: background 0.22s ease, box-shadow 0.22s ease,
+              transform 0.22s cubic-bezier(0.22,1,0.36,1),
+              border-top-color 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+.process__step::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--r-orange), var(--r-orange-dark));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.process__step:hover {
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(201,98,43,0.12), 0 2px 6px rgba(11,15,26,0.05);
+  transform: translateY(-4px);
+  border-top-color: transparent;
+}
+.process__step:hover::after { transform: scaleX(1); }
+/* The counter number glows */
+.process__step:hover::before { color: var(--r-orange); opacity: 1; }
+
+/* ── Department tabs: animated underline + active glow ── */
+.dept-tab {
+  position: relative;
+  transition: color 0.18s ease, background 0.18s ease;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+.dept-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--r-orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+.dept-tab:hover { background: rgba(201,98,43,0.04); color: var(--r-ink); }
+.dept-tab:hover::after { transform: scaleX(0.5); }
+.dept-tab.is-active { background: rgba(26,58,46,0.05); }
+.dept-tab.is-active::after { transform: scaleX(1); }
+
+/* ── Res-table rows: left glow bar + row lift ── */
+.res-table tbody tr {
+  transition: background 0.15s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.18s ease;
+  position: relative;
+}
+.res-table tbody tr:hover {
+  background: rgba(201,98,43,0.05) !important;
+  transform: translateX(3px);
+  box-shadow: inset 3px 0 0 var(--r-orange);
+}
+.res-table tbody tr:hover td { background: transparent !important; }
+
+/* ── Year pills (publications): active pulse ring ── */
+.year-pill {
+  position: relative;
+}
+.year-pill.is-active::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 5px;
+  border: 2px solid var(--r-green);
+  opacity: 0.4;
+  animation: pill-pulse 1.8s ease infinite;
+}
+@keyframes pill-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50%       { transform: scale(1.05); opacity: 0.15; }
+}
+
+/* ── Download cards: shimmer + border pop ── */
+.dl-card {
+  position: relative;
+  overflow: hidden;
+}
+.dl-card::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 50%;
+  height: 220%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+  transform: skewX(-15deg);
+  transition: left 0.55s cubic-bezier(0.22,1,0.36,1);
+  pointer-events: none;
+}
+.dl-card:hover::after { left: 140%; }
+.dl-card:hover {
+  box-shadow: 0 8px 28px rgba(201,98,43,0.14), 0 2px 6px rgba(11,15,26,0.06);
+}
+
+/* ── Callout button: pulse glow ring ── */
+.callout__btn {
+  position: relative;
+}
+.callout__btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  box-shadow: 0 0 0 0 rgba(201,98,43,0.5);
+  animation: btn-glow-pulse 2.2s ease infinite;
+  pointer-events: none;
+}
+@keyframes btn-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,98,43,0.4); }
+  60%       { box-shadow: 0 0 0 8px rgba(201,98,43,0); }
+}
+.callout__btn:hover::after { animation: none; }
+
+/* ── Hero meta items: lift + underline on hover ── */
+.res-hero__meta-item {
+  transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), opacity 0.22s ease;
+  cursor: default;
+  position: relative;
+  padding-bottom: 4px;
+}
+.res-hero__meta-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: rgba(255,255,255,0.5);
+  transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
+}
+.res-hero__meta-item:hover { transform: translateY(-3px); }
+.res-hero__meta-item:hover::after { width: 100%; }
+.res-hero__meta-item:hover strong { color: #F0C96A; }
+.res-hero__meta-item strong { transition: color 0.18s ease; }
+
+/* ── Pull quote: left-bar glow pulse ── */
+.res-pull {
+  transition: border-left-color 0.22s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.22s ease;
+  cursor: default;
+}
+.res-pull:hover {
+  border-left-color: var(--r-orange-dark);
+  transform: translateX(4px);
+  box-shadow: -4px 0 18px rgba(201,98,43,0.12);
+}
+.res-pull:hover cite { color: var(--r-orange); }
+.res-pull cite { transition: color 0.18s ease; }
+
+/* ── Definition list terms: glow accent ── */
+.def-list dt {
+  transition: color 0.18s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1);
+  cursor: default;
+}
+.def-list dt:hover {
+  color: var(--r-orange) !important;
+  transform: translateX(3px);
+}
+
+/* ── Fac-panel table rows (doctoral faculty) ── */
+.fac-panel .res-table tbody tr:hover td:first-child {
+  color: var(--r-orange);
+  font-weight: 700;
+}
+
+/* ── Research scholars table: highlight awarded rows ── */
+.res-table tbody td:last-child {
+  transition: color 0.15s ease;
+}
+.res-table tbody tr:hover td:last-child { color: var(--r-orange); }
+
+/* ── Hub tiles: full glass card on hover ── */
+.hub-tile {
+  position: relative;
+  overflow: hidden;
+}
+.hub-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,98,43,0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.hub-tile:hover::before { opacity: 1; }
+.hub-tile:hover {
+  box-shadow:
+    0 10px 32px rgba(201,98,43,0.13),
+    0 2px 8px rgba(11,15,26,0.07),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* ── Res-figure: subtle lift + border glow ── */
+.res-figure {
+  transition: box-shadow 0.28s ease, transform 0.28s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.28s ease;
+}
+.res-figure:hover {
+  border-color: var(--r-orange);
+  box-shadow: 0 8px 28px rgba(201,98,43,0.12);
+  transform: translateY(-3px);
+}
+
+/* ── Res-banner image: parallax zoom ── */
+.res-banner img {
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+.res-banner:hover img { transform: scale(1.03); }
+
+/* ── Footer link: slide-up underline ── */
+.res-footer a {
+  position: relative;
+  display: inline-block;
+}
+.res-footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: #F0C96A;
+  transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
+}
+.res-footer a:hover { text-decoration: none; }
+.res-footer a:hover::after { width: 100%; }
+
+/* ── Dark-section def-list hover (funded partners, dark bg) ── */
+.res-section--ink .def-list dd {
+  transition: color 0.18s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1);
+  cursor: default;
+}
+.res-section--ink .def-list dd:hover {
+  color: #fff !important;
+  transform: translateX(4px);
+}
+.res-section--ink .def-list dt:hover {
+  color: #fff !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — reduce motion for mobile
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .centre-block:hover { transform: none; }
+  .process__step:hover { transform: none; }
+  .service-cell:hover { transform: none; }
+  .stat-strip__item:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .centre-block, .centre-block__visual, .centre-chip,
+  .stat-strip__item, .service-cell, .process__step,
+  .dept-tab, .res-table tbody tr, .dl-card,
+  .callout__btn::after, .res-pull, .res-figure,
+  .res-hero__meta-item, .hub-tile {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 /* ──────────────────────────────── FOOTER ──────────────────────────────── */
 .res-footer {
   background: var(--r-green-dark);
