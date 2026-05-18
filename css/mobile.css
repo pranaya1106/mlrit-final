@@ -644,7 +644,6 @@
   .testi-card:hover .testi-card__video {
     filter: brightness(1);
   }
-}
 
   /* Name label sizing */
   .testi-card-label {
