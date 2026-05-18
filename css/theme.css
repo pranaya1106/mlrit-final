@@ -132,9 +132,16 @@ a { color: inherit; }
   z-index: 1000;
   background: var(--background);
 }
-/* Push page content below the fixed header */
-html.has-smooth-scroll #smooth-content,
-#smooth-content { padding-top: var(--header-fixed-h, 144px); }
+/* Header height token — masthead (~78) + nav (~52) + border (1) ≈ 132 */
+:root { --header-fixed-h: 132px; }
+
+/* Push page content below the fixed header EVERYWHERE.
+   On the homepage the offset is applied to #smooth-content (inside ScrollSmoother).
+   On every other page we add it to <body> instead so content isn't sliced. */
+#smooth-content { padding-top: var(--header-fixed-h); }
+body { padding-top: var(--header-fixed-h); }
+/* …but the homepage already pads inside the smoother — undo body padding there */
+body:has(#smooth-wrapper) { padding-top: 0 !important; }
 .masthead {
   background: var(--background);
   border-bottom: 1px solid var(--border-color);
@@ -287,6 +294,16 @@ html.has-smooth-scroll #smooth-content,
   font-weight: 900 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.04 !important;
+  /* No color override here — each section sets its own foreground so
+     titles inside dark sections (.placements, .ev-stage, .medium-featured)
+     don't get forced to var(--foreground) and become invisible. */
+}
+/* Titles inside light sections that historically expected a dark colour */
+.section-heading,
+.ss-heading,
+.why-section__heading,
+.achievements__grid h2,
+.testimonials [class*="__title"] {
   color: var(--foreground) !important;
 }
 .section-heading em,
@@ -921,8 +938,9 @@ a.btn-secondary:hover {
 
 /* --- Contact Us CTA (right end of masthead) --- */
 .masthead__contact {
-  flex-shrink: 0;
-  display: inline-flex;
+  flex-shrink: 0 !important;
+  margin-left: auto;
+  display: inline-flex !important;
   align-items: center;
   gap: 9px;
   height: 40px;
@@ -969,13 +987,21 @@ a.btn-secondary:hover {
   font-size: 0.92rem !important;
   font-weight: 500 !important;
 }
-/* Properly hide the legacy support item that we no longer use */
+/* Hide the legacy Support item entirely so it never consumes flex space */
+.main-nav__item--support,
 .main-nav__item--support[hidden],
 .main-nav__list > [hidden] { display: none !important; }
 
-/* Push Chronicles + Contact to the far right */
-.main-nav__list > .main-nav__item--right { margin-left: auto !important; }
-.main-nav__item--chronicles { margin-right: 4px !important; }
+/* Push Chronicles to the far right — never let it shrink off-screen */
+.main-nav__list > .main-nav__item--right {
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+.main-nav__item--chronicles {
+  margin-right: 4px !important;
+  flex-shrink: 0 !important;
+}
+.main-nav__item--chronicles .main-nav__link { white-space: nowrap; }
 
 
 /* ════════════════════════════════════════════════════════════════
