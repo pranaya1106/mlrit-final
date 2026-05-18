@@ -112,7 +112,11 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
   letter-spacing: -0.025em;
-  color: var(--foreground);
+  /* No colour here — let each section's parent decide.
+     Light pages inherit var(--foreground) from <body>;
+     dark sections (.res-hero, .dept-hero, .obe-hero, .prog-hero, .pl-wall,
+     .why-section, .placements, .ev-stage, .medium-featured) inherit
+     #fff from their own `color: #fff` rule. */
 }
 
 em, .em-serif, .serif {
