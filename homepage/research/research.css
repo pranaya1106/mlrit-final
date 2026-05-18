@@ -236,6 +236,19 @@ a { color: inherit; }
   max-width: 980px;
   line-height: 1.7;
   margin-bottom: 24px;
+  transition: color 0.18s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1),
+              text-shadow 0.18s ease;
+  cursor: default;
+  will-change: transform;
+}
+.res-lede:hover {
+  color: var(--r-orange);
+  transform: translateY(-2px) scale(1.005);
+  text-shadow: 0 2px 12px rgba(201,98,43,0.1);
+}
+.res-section--ink .res-lede:hover {
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 2px 12px rgba(201,98,43,0.2);
 }
 .res-rule { width: 56px; height: 3px; background: var(--r-orange); border-radius: 2px; margin: 10px 0 18px; }
 
