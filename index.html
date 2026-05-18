@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="css/mobile.css" />
   <!-- ✦ NEXT-theme overlay — must be last so it owns the cascade ✦ -->
   <link rel="stylesheet" href="css/theme.css" />
+  <!-- Events stage -->
+  <link rel="stylesheet" href="events/events.css" />
 </head>
 <body>
 
@@ -28,6 +30,10 @@
        1. NAVBAR
        ===================== -->
   <div id="site-navbar"></div>
+
+  <!-- ScrollSmoother wrapper — content scrolls smoothly inside this -->
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
 
   <main>
 
@@ -544,225 +550,148 @@
     </section>
 
     <!-- =====================
-         7. EVENT SHOWCASE
+         7. EVENTS  ·  full-bleed rotating stage (mlrit-next port)
          ===================== -->
-    <section class="event-showcase" id="events">
-
-      <!-- Video background -->
-      <video class="es__video" id="esVideo" autoplay muted loop playsinline preload="auto">
+    <section class="ev-stage" id="evStage" aria-label="Featured events">
+      <video class="ev-stage__video is-active" data-idx="0" muted loop playsinline autoplay preload="auto"
+             poster="https://mlrit-next.vercel.app/assets/SBS_0711.JPG">
         <source src="https://res.cloudinary.com/dhqhhtvym/video/upload/v1777366731/equinox.mp4" type="video/mp4" />
       </video>
+      <video class="ev-stage__video" data-idx="1" muted loop playsinline autoplay preload="auto"
+             poster="https://mlrit-next.vercel.app/assets/SBS_0750.JPG">
+        <source src="https://res.cloudinary.com/dhqhhtvym/video/upload/v1777367629/hero1_hq.mp4" type="video/mp4" />
+      </video>
+      <video class="ev-stage__video" data-idx="2" muted loop playsinline autoplay preload="auto"
+             poster="https://mlrit-next.vercel.app/assets/SBS_0998.JPG">
+        <source src="https://res.cloudinary.com/dhqhhtvym/video/upload/v1777366655/sports.mp4" type="video/mp4" />
+      </video>
+      <video class="ev-stage__video" data-idx="3" muted loop playsinline autoplay preload="auto"
+             poster="https://mlrit-next.vercel.app/assets/SBS_1131.JPG">
+        <source src="https://res.cloudinary.com/dhqhhtvym/video/upload/v1777366676/av3.mp4" type="video/mp4" />
+      </video>
 
-      <!-- Instagram embed (hidden by default, shown for embed-type events) -->
-      <iframe class="es__embed" id="esEmbed" allowfullscreen frameborder="0" scrolling="no"></iframe>
+      <div class="ev-stage__overlay" aria-hidden="true"></div>
 
-      <!-- Dark overlay -->
-      <div class="es__overlay"></div>
-
-      <!-- Cursor-following PLAY circle (only visible on mouse move) -->
-      <div class="es__cursor" id="esCursor" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        <span>PLAY</span>
+      <div class="ev-stage__dots" role="tablist">
+        <button class="ev-stage__dot is-active" data-idx="0" aria-label="Event 1"></button>
+        <button class="ev-stage__dot"           data-idx="1" aria-label="Event 2"></button>
+        <button class="ev-stage__dot"           data-idx="2" aria-label="Event 3"></button>
+        <button class="ev-stage__dot"           data-idx="3" aria-label="Event 4"></button>
       </div>
 
-      <!-- Event info — always visible at bottom left -->
-      <div class="es__info" id="esInfo">
-        <div class="es__info-inner">
-          <!-- Event logo thumbnail -->
-          <img class="es__info-logo" id="esInfoLogo" src="assets/logo.svg" alt="Event logo" />
-          <!-- Event details -->
-          <p class="es__info-tag" id="esInfoTag">Entrepreneurship Summit · 2024</p>
-          <h2 class="es__info-title" id="esInfoTitle">The Equinox<br>E-Summit 2K24</h2>
-          <p class="es__info-desc" id="esInfoDesc">MLRIT's flagship annual summit bringing together entrepreneurs, investors, and innovators to inspire the next generation of leaders.</p>
-          <a href="#" class="btn btn--white es__info-cta">
-            <span class="btn__chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></span>
-            <span class="btn__label">Explore Event</span>
-          </a>
-        </div>
+      <div class="ev-stage__center" id="evCenter">
+        <article class="ev-card" id="evCard">
+          <img class="ev-card__logo" id="evCardLogo" src="https://mlrit-next.vercel.app/assets/logo.svg" alt="The Equinox E-Summit 2K24" />
+          <p class="ev-card__tag"   id="evCardTag">Entrepreneurship Summit · 2024</p>
+          <h2 class="ev-card__title" id="evCardTitle">The Equinox<br>E-Summit 2K24</h2>
+          <p class="ev-card__desc"  id="evCardDesc">MLRIT's flagship annual summit bringing together entrepreneurs, investors, and innovators to inspire the next generation of leaders.</p>
+          <span class="ev-card__hint">
+            <span class="pip" aria-hidden="true"></span>
+            Stay to play video
+          </span>
+        </article>
       </div>
 
-      <!-- Next event button — right side -->
-      <button class="es__next" id="esNext" aria-label="Next event">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-
-      <!-- Bottom bar: dots (left) · mute (right) -->
-      <div class="es__bottom-bar">
-        <!-- Dot navigation -->
-        <div class="es__dots" id="esDots">
-          <button class="es__dot is-active" data-index="0" aria-label="Event 1"></button>
-          <button class="es__dot" data-index="1" aria-label="Event 2"></button>
-        </div>
-
-        <!-- Mute toggle -->
-        <button class="es__mute" id="esMute" aria-label="Toggle mute">
-          <svg class="es__mute-icon es__mute-icon--on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-          </svg>
-          <svg class="es__mute-icon es__mute-icon--off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-            <line x1="23" y1="9" x2="17" y2="15"/>
-            <line x1="17" y1="9" x2="23" y2="15"/>
-          </svg>
-          <span class="es__mute-label">Sound</span>
-        </button>
+      <div class="ev-stage__chip" id="evChip" aria-hidden="true">
+        <img class="ev-stage__chip-logo" id="evChipLogo" src="https://mlrit-next.vercel.app/assets/logo.svg" alt="" />
+        <p class="ev-stage__chip-tag" id="evChipTag">Entrepreneurship Summit · 2024</p>
       </div>
-
     </section>
 
     <!-- =====================
-         10. STICKY FOOTER
+         10. FOOTER  ·  light cream, mlrit-next style
          ===================== -->
-    <footer class="sticky-footer">
-      <div class="sticky-footer__inner">
-        <div class="sticky-footer__content">
+    <footer class="nf-footer" id="footer">
 
-          <!-- Decorative radial gradients -->
-          <div class="sticky-footer__bg" aria-hidden="true">
-            <div class="sfbg sfbg--1"></div>
-            <div class="sfbg sfbg--2"></div>
-            <div class="sfbg sfbg--3"></div>
-          </div>
+      <!-- 4-column link grid -->
+      <div class="nf-cols">
 
-          <!-- Top CTA bar -->
-          <div class="sf-cta">
-            <div class="sf-cta__text">
-              <h3>Start Your Journey at MLRIT</h3>
-              <p>Applications open for B.Tech, M.Tech and MBA — limited seats.</p>
-            </div>
-            <div class="sf-cta__right">
-              <div class="sf-cta__actions">
-                <a href="https://mlrit.ac.in/admissions/" class="btn btn--primary">Apply Now</a>
-                <a href="https://mlrit.ac.in/wp-content/uploads/2024/05/MLRIT_Brochure.pdf" class="btn btn--white">Download Brochure</a>
-              </div>
-              <form class="sf-newsletter sf-newsletter--cta" onsubmit="return false;">
-                <input type="email" placeholder="Your email address" />
-                <button type="submit">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </button>
-              </form>
-            </div>
-          </div>
+        <div class="nf-col">
+          <h5>About</h5>
+          <ul>
+            <li><a href="https://mlrit.ac.in/about-us/" target="_blank" rel="noopener">Our Story</a></li>
+            <li><a href="https://mlrit.ac.in/about-us/governing-body/" target="_blank" rel="noopener">Leadership</a></li>
+            <li><a href="iqac/iqac.html">Accreditations</a></li>
+            <li><a href="https://mlrit.ac.in/careers/" target="_blank" rel="noopener">Careers at MLRIT</a></li>
+          </ul>
+        </div>
 
-          <!-- Main grid -->
-          <div class="sf-grid">
+        <div class="nf-col">
+          <h5>Academics</h5>
+          <ul>
+            <li><a href="departments/ug.html">Undergraduate</a></li>
+            <li><a href="departments/pg.html">Postgraduate</a></li>
+            <li><a href="homepage/research/research.html">Research</a></li>
+            <li><a href="departments/faculty-profile.html">Faculty</a></li>
+          </ul>
+        </div>
 
-            <!-- Brand column -->
-            <div class="sf-brand sf-col-reveal">
-              <img src="mlrit-logo-main.png" alt="MLRIT" class="sf-brand__logo" loading="lazy" decoding="async" />
-              <p class="sf-brand__desc">MLR Institute of Technology, Dundigal, Hyderabad — shaping engineers and leaders since 2005.</p>
-              <div class="sf-brand__contact">
-                <a href="tel:+919652226061">+91 96522 26061</a>
-                <a href="mailto:info@mlrinstitutions.ac.in">info@mlrinstitutions.ac.in</a>
-              </div>
-              <div class="sf-brand__socials">
-                <a href="https://www.facebook.com/Mlrit/" aria-label="Facebook" class="sf-social-btn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/mlr_institute_of_technology/" aria-label="Instagram" class="sf-social-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                </a>
-                <a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" aria-label="YouTube" class="sf-social-btn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg>
-                </a>
-                <a href="https://www.linkedin.com/school/mlr-institute-of-technology/" aria-label="LinkedIn" class="sf-social-btn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-                <a href="https://x.com/mlritin" aria-label="X / Twitter" class="sf-social-btn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-              </div>
-            </div>
+        <div class="nf-col">
+          <h5>Admissions</h5>
+          <ul>
+            <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Apply Now</a></li>
+            <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Fee Structure</a></li>
+            <li><a href="https://mlrit.ac.in/scholarships/" target="_blank" rel="noopener">Scholarships</a></li>
+            <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">FAQs</a></li>
+          </ul>
+        </div>
 
-            <!-- Academics -->
-            <div class="sf-col sf-col-reveal" style="--delay: 0.1s">
-              <h5>Academics</h5>
-              <ul>
-                <li><a href="https://mlrit.ac.in/about-us/course-intake/">B.Tech Programs</a></li>
-                <li><a href="https://mlrit.ac.in/about-us/course-intake/">M.Tech Programs</a></li>
-                <li><a href="https://mlrit.ac.in/mba/">MBA</a></li>
-                <li><a href="https://mlrit.ac.in/research/details-of-research-scholar/">Ph.D</a></li>
-                <li><a href="https://mlrit.ac.in/examinations/">Academic Calendar</a></li>
-                <li><a href="https://mlrit.ac.in/examinations/">Syllabus and Curriculum</a></li>
-                <li><a href="https://mlrit.ac.in/campus-life/library/">Library</a></li>
-                <li><a href="https://mlrit.ac.in/examinations/">Examinations</a></li>
-                <li><a href="https://mlrit.ac.in/innovation-cell/innovation-overview/">Innovation Cell</a></li>
-              </ul>
-            </div>
+        <div class="nf-col">
+          <h5>Follow</h5>
+          <ul>
+            <li><a href="https://www.linkedin.com/school/mlr-institute-of-technology/" target="_blank" rel="noopener">LinkedIn <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://www.instagram.com/mlritofficial/" target="_blank" rel="noopener">Instagram <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://www.facebook.com/Mlrit/" target="_blank" rel="noopener">Facebook <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://x.com/mlritin" target="_blank" rel="noopener">X.com <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" target="_blank" rel="noopener">YouTube <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
 
-            <!-- Admissions -->
-            <div class="sf-col sf-col-reveal" style="--delay: 0.2s">
-              <h5>Admissions</h5>
-              <ul>
-                <li><a href="https://mlrit.ac.in/admissions/">How to Apply</a></li>
-                <li><a href="https://mlrit.ac.in/admissions/">Eligibility Criteria</a></li>
-                <li><a href="https://mlrit.ac.in/admissions/">Fee Structure</a></li>
-                <li><a href="https://mlrit.ac.in/scholarships/">Scholarships</a></li>
-                <li><a href="https://mlrit.ac.in/admissions/">EAMCET Counselling</a></li>
-                <li><a href="https://mlrit.ac.in/admissions/">International Students</a></li>
-                <li><a href="https://mlrit.ac.in/admissions/">Lateral Entry</a></li>
-                <li><a href="https://files.mlrit.ac.in/uploads/ADMISSION_FORM_2024-25.pdf">Application Form</a></li>
-              </ul>
-            </div>
+      </div>
 
-            <!-- Campus -->
-            <div class="sf-col sf-col-reveal" style="--delay: 0.3s">
-              <h5>Campus Life</h5>
-              <ul>
-                <li><a href="https://mlrit.ac.in/campus-life/">Clubs and Societies</a></li>
-                <li><a href="https://mlrit.ac.in/sports/">Sports and Fitness</a></li>
-                <li><a href="https://mlrit.ac.in/events/">Cultural Events</a></li>
-                <li><a href="https://mlrit.ac.in/campus-life/hostel-facility/">Hostel</a></li>
-                <li><a href="https://mlrit.ac.in/campus-life/cafeteria/">Cafeteria</a></li>
-                <li><a href="https://mlrit.ac.in/campus-life/transport-facility/">Transport</a></li>
-                <li><a href="https://mlrit.ac.in/campus-life/">Health Centre</a></li>
-                <li><a href="https://mlrit.ac.in/virtual-tour/">Virtual Tour</a></li>
-                <li><a href="https://mlrit.ac.in/campus-life/auditorium/">Auditorium</a></li>
-              </ul>
-            </div>
+      <!-- Accredited row -->
+      <div class="nf-accred">
+        <span class="nf-accred-label">Accredited by</span>
+        <div class="nf-accred-logos">
+          <img src="nirf/naac.svg" alt="NAAC" />
+          <img src="nirf/aicte.svg" alt="AICTE" />
+          <img src="nirf/nba.svg"  alt="NBA" />
+        </div>
+        <button type="button" class="nf-back-top" id="nfBackTop" aria-label="Back to top">
+          Back to top
+          <span class="nf-back-top__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          </span>
+        </button>
+      </div>
 
-            <!-- Connect -->
-            <div class="sf-col sf-col-reveal" style="--delay: 0.4s">
-              <h5>Connect</h5>
-              <ul>
-                <li><a href="https://mlrit.ac.in/about-us/">About MLRIT</a></li>
-                <li><a href="https://mlrit.ac.in/about-us/governing-body/">Leadership</a></li>
-                <li><a href="placements/placements.html">Placements</a></li>
-                <li><a href="https://mlrit.ac.in/research/">Research</a></li>
-                <li><a href="https://mlrit.ac.in/nirf-ranked-institution/">NIRF Rankings</a></li>
-                <li><a href="https://mlrit.ac.in/category/news/">Press and Media</a></li>
-                <li><a href="https://mlrit.ac.in/contactus/">Contact Us</a></li>
-                <li><a href="https://alumni.mlrit.ac.in/">Alumni</a></li>
-                <li><a href="https://mlrit.ac.in/careers/">Careers</a></li>
-                <li><a href="https://mlrit.ac.in/iqac/">IQAC</a></li>
-                <li><a href="https://naac.mlrit.ac.in/">NAAC</a></li>
-              </ul>
-            </div>
+      <!-- Big MLRIT watermark with gradient -->
+      <div class="nf-watermark-row" aria-hidden="true">
+        <div class="nf-watermark">MLRIT</div>
+      </div>
 
-          </div><!-- /sf-grid -->
-
-          <!-- Bottom bar -->
-          <div class="sf-bottom">
-            <span>&copy; 2025 KMR Educational Society. All rights reserved.</span>
-            <span class="sf-legal">
-              <a href="https://mlrit.ac.in/mandatory-disclosures/">Mandatory Disclosures</a>
-              <a href="https://mlrit.ac.in/aicte-approvals/">AICTE Approvals</a>
-              <a href="https://mlrit.edugrievance.com/">Grievance Portal</a>
-            </span>
-          </div>
-
-          <!-- Big MLRIT watermark -->
-          <div class="sf-watermark" aria-hidden="true">MLRIT</div>
-
+      <!-- Bottom legal bar -->
+      <div class="nf-bottom">
+        <div class="nf-bottom__left">
+          <span>© 2026 KMR Educational Society</span>
+          <span class="dot">·</span>
+          <span>Affiliated to JNTUH</span>
+          <span class="dot">·</span>
+          <span>Approved by AICTE</span>
+        </div>
+        <div class="nf-bottom__right">
+          <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener">Privacy</a>
+          <a href="https://mlrit.ac.in/aicte-approvals/" target="_blank" rel="noopener">Terms</a>
+          <a href="#footer">Sitemap</a>
         </div>
       </div>
+
     </footer>
 
   </main>
+
+    </div><!-- /#smooth-content -->
+  </div><!-- /#smooth-wrapper -->
 
   <script src="js/navbar.js"></script>
   <script src="js/hero-scroll.js"></script>
@@ -1229,6 +1158,18 @@
   <script src="js/events.js" defer></script>
   <script src="js/success-stories-scroll.js" defer></script>
   <script src="js/why-mlrit.js" defer></script>
+  <script src="events/events.js" defer></script>
+
+  <!-- Footer: Back-to-top button -->
+  <script>
+    (function () {
+      var btn = document.getElementById('nfBackTop');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 
   <!-- ── Mobile hamburger menu ── -->
   <script>
@@ -1504,6 +1445,59 @@
   </script>
 
   <script src="js/site-navbar.js" data-base=""></script>
+
+  <!-- ════════════════════════════════════════
+       GSAP ScrollSmoother
+       ════════════════════════════════════════ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+  <!-- ScrollSmoother (trial build hosted on assets.codepen.io) -->
+  <script src="https://assets.codepen.io/16327/ScrollSmoother.min.js"></script>
+  <script>
+    (function () {
+      if (typeof gsap === 'undefined') return;
+      // Disable smooth scroll for users who prefer reduced motion
+      var mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mql.matches) return;
+      if (typeof ScrollSmoother === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+      if (window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
+
+      var smoother = ScrollSmoother.create({
+        wrapper:      '#smooth-wrapper',
+        content:      '#smooth-content',
+        smooth:       1.4,          // seconds of inertia
+        smoothTouch:  0.1,          // very light on touch (mostly skipped)
+        effects:      true,         // honor data-speed / data-lag on elements
+        normalizeScroll: true,
+      });
+      window.__smoother = smoother;
+
+      // Hijack in-page anchor jumps (e.g. #stats, #footer, #evStage) so they
+      // glide instead of teleport.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        var id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        smoother.scrollTo(target, true, 'top 0px');
+      });
+
+      // Back-to-top button uses smoother too
+      var btn = document.getElementById('nfBackTop');
+      if (btn) {
+        btn.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          smoother.scrollTo(0, true);
+        }, { capture: true });
+      }
+    })();
+  </script>
 </body>
 </html>
 

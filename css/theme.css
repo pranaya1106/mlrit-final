@@ -126,7 +126,15 @@ a { color: inherit; }
 /* ════════════════════════════════════════════════
    NAVBAR — match target (white masthead + green nav)
    ════════════════════════════════════════════════ */
-.site-header { background: var(--background); }
+.site-header {
+  position: fixed !important;   /* ScrollSmoother-friendly: fixed outside #smooth-wrapper */
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--background);
+}
+/* Push page content below the fixed header */
+html.has-smooth-scroll #smooth-content,
+#smooth-content { padding-top: var(--header-fixed-h, 144px); }
 .masthead {
   background: var(--background);
   border-bottom: 1px solid var(--border-color);
@@ -385,8 +393,18 @@ a.btn-secondary:hover {
   letter-spacing: -0.04em !important;
   color: var(--foreground) !important;
 }
-.stat-suffix { color: var(--primary) !important; }
-.stat-item__label {
+.stat-count,
+.stat-count.done {
+  color: var(--foreground) !important;
+  animation: none !important;
+}
+.stat-suffix,
+.stat-item:hover .stat-suffix {
+  color: var(--primary) !important;
+  text-shadow: none !important;
+}
+.stat-item__label,
+.stat-item:hover .stat-item__label {
   font-family: var(--font-sans) !important;
   color: var(--text-muted) !important;
   text-transform: uppercase;
@@ -545,6 +563,220 @@ a.btn-secondary:hover {
 
 /* selections */
 ::selection { background: var(--primary); color: #fff; }
+
+/* ════════════════════════════════════════════════════════════════
+   NEXT-FOOTER — light cream, 4-col, accred row, big MLRIT watermark
+   (ported from mlrit-next.vercel.app footer)
+   ════════════════════════════════════════════════════════════════ */
+.nf-footer {
+  background: var(--warm-light, #f5efe5);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  position: relative;
+  isolation: isolate;
+  border-top: 1px solid var(--border-color);
+  /* Neutralise the legacy sticky-footer behaviour if it wraps us */
+  height: auto !important;
+}
+.nf-footer * { box-sizing: border-box; }
+
+/* ── 4-column link grid ────────────────────────────────────── */
+.nf-cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 64px);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px) clamp(40px, 4vw, 60px);
+}
+.nf-col h5 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+.nf-col ul { list-style: none; padding: 0; margin: 0; }
+.nf-col li { margin: 0; padding: 0; }
+.nf-col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.nf-col a:hover { color: var(--primary); }
+.nf-col a .nf-ext {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.nf-col a:hover .nf-ext { color: var(--primary); transform: translate(2px, -2px); }
+
+/* ── Accredited row — label · logos · back-to-top ─────────── */
+.nf-accred {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  border-block: 1px solid var(--border-color);
+  padding: 22px clamp(24px, 5vw, 80px);
+  max-width: 100%;
+}
+.nf-accred-label {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.nf-accred-logos {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex: 1;
+  min-width: 0;
+}
+.nf-accred-logos img {
+  height: 36px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.nf-accred-logos img:hover { opacity: 1; transform: translateY(-2px); }
+
+.nf-back-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.nf-back-top:hover { color: var(--primary); }
+.nf-back-top__icon {
+  width: 42px; height: 42px;
+  border-radius: 9999px;
+  border: 1.4px solid var(--foreground);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.nf-back-top:hover .nf-back-top__icon {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.nf-back-top__icon svg { width: 16px; height: 16px; }
+
+/* ── BIG MLRIT WATERMARK with orange→dark gradient ───────── */
+.nf-watermark-row {
+  pointer-events: none;
+  text-align: center;
+  padding: 24px 0 0;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 80% at 25% 60%, rgba(232,93,4,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 70% at 80% 70%, rgba(45,139,85,0.04) 0%, transparent 60%);
+}
+.nf-watermark {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: clamp(8rem, 28vw, 24rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg,
+    #161616 0%,
+    #2b1605 25%,
+    #6a2f00 45%,
+    var(--primary) 62%,
+    #ffb27a 82%,
+    rgba(245, 239, 229, 0) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  user-select: none;
+  margin: 0;
+  padding: 0 24px;
+  display: block;
+}
+
+/* ── Bottom legal bar ─────────────────────────────────────── */
+.nf-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 22px clamp(24px, 5vw, 80px);
+  border-top: 1px solid var(--border-color);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.nf-bottom__left { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.nf-bottom__left .dot { color: var(--text-subtle); }
+.nf-bottom__right { display: inline-flex; gap: 24px; }
+.nf-bottom a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.nf-bottom a:hover { color: var(--primary); }
+
+/* ── Defeat legacy sticky-footer (main.css) when wrapped in .nf-footer ── */
+.sticky-footer.nf-footer,
+.sticky-footer.nf-footer .sticky-footer__inner,
+.sticky-footer.nf-footer .sticky-footer__content {
+  position: static !important;
+  height: auto !important;
+  top: auto !important;
+  background: transparent !important;
+  clip-path: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .nf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .nf-cols { grid-template-columns: 1fr; }
+  .nf-accred { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .nf-back-top { margin-left: 0; }
+}
 
 /* ════════════════════════════════════════════════════════════════
    MASTHEAD V2 — pixel-match to reference screenshot
