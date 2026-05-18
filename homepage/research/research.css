@@ -89,8 +89,8 @@ a { color: inherit; }
   color: rgba(255,255,255,0.55);
   margin-bottom: 18px;
 }
-.res-hero__crumbs a { color: rgba(255,255,255,0.55); transition: color .2s; }
-.res-hero__crumbs a:hover { color: #fff; }
+.res-hero__crumbs a { color: rgba(255,255,255,0.55); transition: color .2s, text-shadow .2s; }
+.res-hero__crumbs a:hover { color: #F0C96A; text-shadow: 0 0 8px rgba(240,201,106,0.35); }
 .res-hero__crumbs span { margin: 0 8px; opacity: 0.4; }
 .res-hero__title {
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -100,18 +100,34 @@ a { color: inherit; }
   letter-spacing: -0.01em;
   margin-bottom: 18px;
   max-width: 880px;
+  transition: color 0.22s ease, text-shadow 0.22s ease;
+  cursor: default;
+}
+.res-hero__title:hover {
+  color: #F0C96A;
+  text-shadow: 0 0 24px rgba(240,201,106,0.25), 0 0 6px rgba(240,201,106,0.12);
 }
 .res-hero__title em {
   font-style: italic;
   color: #F0C96A;
   display: block;
   margin-top: 4px;
+  transition: text-shadow 0.22s ease;
+}
+.res-hero__title:hover em {
+  text-shadow: 0 0 16px rgba(240,201,106,0.4);
 }
 .res-hero__lede {
   font-size: 0.95rem;
   color: rgba(255,255,255,0.78);
   max-width: 720px;
   line-height: 1.7;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  cursor: default;
+}
+.res-hero__lede:hover {
+  color: rgba(255,255,255,0.96);
+  text-shadow: 0 0 12px rgba(240,201,106,0.18);
 }
 .res-hero__meta {
   display: flex;
