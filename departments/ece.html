@@ -1480,6 +1480,7 @@
       }
 
       function updateSidebar(activeTab) {
+        __activeTab = activeTab;
         dsItems.forEach(function (item) {
           var show = item.getAttribute('data-ds-tab') === activeTab;
           item.style.display = show ? 'flex' : 'none';
@@ -1568,7 +1569,7 @@
           document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
           matched.item.classList.add('is-active');
         });
-      }, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+      }, { threshold: 0.25, rootMargin: '-20px 0px -40% 0px' });
       targets.forEach(function(t) { observer.observe(t.el); });
     })();
 
@@ -1609,79 +1610,6 @@
       });
     })();
   </script>
-
-  <footer class="nf-footer" id="footer">
-    <div class="nf-cols">
-      <div class="nf-col">
-        <h5>About</h5>
-        <ul>
-          <li><a href="https://mlrit.ac.in/about-us/" target="_blank" rel="noopener">Our Story</a></li>
-          <li><a href="https://mlrit.ac.in/about-us/governing-body/" target="_blank" rel="noopener">Leadership</a></li>
-          <li><a href="../iqac/iqac.html">Accreditations</a></li>
-          <li><a href="https://mlrit.ac.in/careers/" target="_blank" rel="noopener">Careers at MLRIT</a></li>
-        </ul>
-      </div>
-      <div class="nf-col">
-        <h5>Academics</h5>
-        <ul>
-          <li><a href="ug.html">Undergraduate</a></li>
-          <li><a href="pg.html">Postgraduate</a></li>
-          <li><a href="../homepage/research/research.html">Research</a></li>
-          <li><a href="faculty-profile.html">Faculty</a></li>
-        </ul>
-      </div>
-      <div class="nf-col">
-        <h5>Admissions</h5>
-        <ul>
-          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Apply Now</a></li>
-          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Fee Structure</a></li>
-          <li><a href="https://mlrit.ac.in/scholarships/" target="_blank" rel="noopener">FAQs</a></li>
-        </ul>
-      </div>
-      <div class="nf-col">
-        <h5>Follow</h5>
-        <ul>
-          <li><a href="https://www.linkedin.com/school/mlr-institute-of-technology/" target="_blank" rel="noopener">LinkedIn <span class="nf-ext" aria-hidden="true">↗</span></a></li>
-          <li><a href="https://www.instagram.com/mlritofficial/" target="_blank" rel="noopener">Instagram <span class="nf-ext" aria-hidden="true">↗</span></a></li>
-          <li><a href="https://www.facebook.com/Mlrit/" target="_blank" rel="noopener">Facebook <span class="nf-ext" aria-hidden="true">↗</span></a></li>
-          <li><a href="https://x.com/mlritin" target="_blank" rel="noopener">X.com <span class="nf-ext" aria-hidden="true">↗</span></a></li>
-          <li><a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" target="_blank" rel="noopener">YouTube <span class="nf-ext" aria-hidden="true">↗</span></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="nf-accred">
-      <span class="nf-accred-label">Accredited by</span>
-      <div class="nf-accred-logos">
-        <img src="../nirf/naac.svg" alt="NAAC" />
-        <img src="../nirf/aicte.svg" alt="AICTE" />
-        <img src="../nirf/nba.svg" alt="NBA" />
-      </div>
-      <button type="button" class="nf-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
-        Back to top
-        <span class="nf-back-top__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-        </span>
-      </button>
-    </div>
-    <div class="nf-watermark-row" aria-hidden="true">
-      <div class="nf-watermark">MLRIT</div>
-    </div>
-    <div class="nf-crafted"><em>Crafted with passion by</em> <strong>the Students</strong> <em>of MLRIT</em></div>
-    <div class="nf-bottom">
-      <div class="nf-bottom__left">
-        <span>© 2026 KMR Educational Society</span>
-        <span class="dot">·</span>
-        <span>Affiliated to JNTUH</span>
-        <span class="dot">·</span>
-        <span>Approved by AICTE</span>
-      </div>
-      <div class="nf-bottom__right">
-        <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener">Privacy</a>
-        <a href="https://mlrit.ac.in/aicte-approvals/" target="_blank" rel="noopener">Terms</a>
-        <a href="#footer">Sitemap</a>
-      </div>
-    </div>
-  </footer>
 
   <script src="../js/site-navbar.js" data-base="../" data-no-mainnav></script>
   <script src="../js/navbar.js" defer></script>
