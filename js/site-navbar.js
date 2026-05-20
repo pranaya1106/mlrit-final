@@ -47,7 +47,11 @@
       console.warn('[site-navbar] No <div id="site-navbar"> mount point found.');
       return;
     }
-    mount.outerHTML = html.replace(/\{\{base\}\}/g, base);
+    var resolved = html.replace(/\{\{base\}\}/g, base);
+    if (script && script.hasAttribute('data-no-mainnav')) {
+      resolved = resolved.replace(/<!--MAINNAV-START-->[\s\S]*?<!--MAINNAV-END-->/m, '');
+    }
+    mount.outerHTML = resolved;
     initChroniclesReveal();
   }
 
