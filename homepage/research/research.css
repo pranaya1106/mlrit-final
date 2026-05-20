@@ -1183,3 +1183,4 @@ a { color: inherit; }
 .res-footer a:hover { text-decoration: underline; }
 .res-footer__copy { font-family: var(--r-display); font-size: 0.78rem; letter-spacing: 0.06em; }
 .res-footer__contact { font-size: 0.86rem; }
+.res-footer__crafted { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; width: 100%; text-align: center; padding-top: 8px; }
