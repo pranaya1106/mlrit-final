@@ -28,7 +28,7 @@
     .dept-hero__title { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
 
     /* ── Tabs ── */
-    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 0; z-index: 40; }
+    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: static; z-index: 40; }
     .dept-tabs::-webkit-scrollbar { height: 0; }
     .dept-tab { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; padding: 14px 24px; white-space: nowrap; cursor: pointer; position: relative; transition: color 0.25s, background 0.25s; }
     .dept-tab::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 3px; background: linear-gradient(90deg, transparent, #E85D1F, transparent); transition: transform 0.25s ease; }
@@ -1309,30 +1309,57 @@
       updateSidebar('overview');
       window.scrollTo(0, 0);
     })();
-    // Scroll-spy — highlights sidebar only, does NOT touch accordion state
+    // Scroll-spy — highlights sidebar item as user scrolls within active panel
     (function () {
-      var targets = [];
-      document.querySelectorAll('.ds-item[data-ds-target]').forEach(function(item) {
-        var id = item.getAttribute('data-ds-target');
-        var el = document.getElementById(id);
-        if (el) targets.push({ el: el, item: item });
-      });
-      if (!targets.length) return;
-      var spyReady = false;
-      setTimeout(function () { spyReady = true; }, 600);
-      var observer = new IntersectionObserver(function(entries) {
-        if (!spyReady) return;
-        entries.forEach(function(entry) {
-          if (!entry.isIntersecting) return;
-          var matched = targets.find(function(t) { return t.el === entry.target; });
-          if (!matched) return;
-          if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
-          if (matched.item.style.display === 'none') return;
-          document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
-          matched.item.classList.add('is-active');
+      function getScrollTargets() {
+        var targets = [];
+        document.querySelectorAll('.ds-item[data-ds-target]').forEach(function(item) {
+          if (item.getAttribute('data-ds-tab') !== __activeTab) return;
+          var id = item.getAttribute('data-ds-target');
+          var el = document.getElementById(id);
+          if (el) targets.push({ el: el, item: item });
         });
-      }, { threshold: 0.25, rootMargin: '-20px 0px -40% 0px' });
-      targets.forEach(function(t) { observer.observe(t.el); });
+        return targets;
+      }
+
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+          ticking = false;
+          var targets = getScrollTargets();
+          if (!targets.length) return;
+          var scrollY = window.pageYOffset;
+          var windowH = window.innerHeight;
+          var best = null;
+          targets.forEach(function(t) {
+            var rect = t.el.getBoundingClientRect();
+            var top = rect.top;
+            // Section is "in view" when its top is in the upper 60% of viewport
+            if (top <= windowH * 0.5 && rect.bottom > 0) {
+              if (!best || top > best.top) {
+                best = { item: t.item, top: top };
+              }
+            }
+          });
+          // Fallback: if nothing in upper half, pick the one closest to top
+          if (!best) {
+            var closest = null;
+            targets.forEach(function(t) {
+              var top = t.el.getBoundingClientRect().top;
+              if (!closest || Math.abs(top) < Math.abs(closest.top)) {
+                closest = { item: t.item, top: top };
+              }
+            });
+            best = closest;
+          }
+          if (best) {
+            document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
+            best.item.classList.add('is-active');
+          }
+        });
+      }, { passive: true });
     })();
 
 
