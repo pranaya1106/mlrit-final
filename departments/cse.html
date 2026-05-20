@@ -350,6 +350,35 @@
 
     /* Hide non-overview sidebar items by default — JS will show correct ones */
     .ds-item[data-ds-tab]:not([data-ds-tab="overview"]) { display: none; }
+
+    /* ── Responsive additions ── */
+    body { overflow-x: hidden; }
+    img { max-width: 100%; height: auto; }
+
+    .honour-table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .intern-grid {
+      overflow-x: auto;
+    }
+    .pub-list, .pub-card {
+      overflow-x: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .dept-hero { padding: 60px 20px 40px; min-height: 45vh; }
+      .dept-nav { overflow-x: auto; flex-wrap: nowrap; }
+      .dept-nav::-webkit-scrollbar { height: 0; }
+      .dept-panel { overflow-x: hidden; }
+      .placement-stats { flex-direction: column; }
+      .intern-stats { flex-direction: column; }
+      .pill-row { flex-wrap: wrap; }
+      .fcard-grid { gap: 12px; }
+      .pub-card { flex-direction: column; gap: 10px; }
+      .honour-table { font-size: 0.78rem; }
+    }
   </style>
   <link rel="stylesheet" href="../css/theme.css" />
 </head>

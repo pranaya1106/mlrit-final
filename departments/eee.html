@@ -337,6 +337,35 @@
 
     /* Hide non-overview sidebar items by default — JS will show correct ones */
     .ds-item[data-ds-tab]:not([data-ds-tab="overview"]) { display: none; }
+
+    /* ── Responsive additions ── */
+    body { overflow-x: hidden; }
+    img { max-width: 100%; height: auto; }
+
+    .honour-table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .intern-grid {
+      overflow-x: auto;
+    }
+    .pub-list, .pub-card {
+      overflow-x: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .dept-hero { padding: 60px 20px 40px; min-height: 45vh; }
+      .dept-nav { overflow-x: auto; flex-wrap: nowrap; }
+      .dept-nav::-webkit-scrollbar { height: 0; }
+      .dept-panel { overflow-x: hidden; }
+      .placement-stats { flex-direction: column; }
+      .intern-stats { flex-direction: column; }
+      .pill-row { flex-wrap: wrap; }
+      .fcard-grid { gap: 12px; }
+      .pub-card { flex-direction: column; gap: 10px; }
+      .honour-table { font-size: 0.78rem; }
+    }
   </style>
   <link rel="stylesheet" href="../css/theme.css" />
 </head>
@@ -461,7 +490,6 @@
         </div></div></div>
       </div>
     </div>
-    </div>
   </div>
 
 
@@ -484,8 +512,6 @@
     <div class="panel-sub"id="handbook-section">Handbook</div>
     <div class="card" style="max-width:500px;"><h3>EEE Department Handbook</h3><p>Department of Electrical and Electronics Engineering — Academic Year 2025-26</p></div>
     </div>
-    </div>
-  </div>
 
   
   <!-- TAB 3: Faculty -->
@@ -523,7 +549,7 @@
               </div>
           </div>
           <div class="fcard" data-author="Ashok Reddy Kanna">
-              <img src="images/eee/placeholder.jpg" alt="Ashok Reddy Kanna" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <img src="images/eee/ashok-reddy-kanna.jpg" alt="Ashok Reddy Kanna" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
               <div class="fcard__ini" style="display:none">AK</div>
               <div class="fcard__overlay">
                 <div class="fcard__name">Ashok Reddy Kanna</div>
@@ -533,11 +559,11 @@
                 <div class="fcard__hover-name">Ashok Reddy Kanna</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">EEE</div>
-                <a href="faculty-profile.html?name=Ashok%20Reddy%20Kanna&role=Associate%20Professor&photo=images/eee/placeholder.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=Ashok%20Reddy%20Kanna&role=Associate%20Professor&photo=images/eee/ashok-reddy-kanna.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="K. Usha Rani">
-              <img src="images/eee/placeholder.jpg" alt="K. Usha Rani" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <img src="images/eee/k-usha-rani.jpg" alt="K. Usha Rani" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
               <div class="fcard__ini" style="display:none">KR</div>
               <div class="fcard__overlay">
                 <div class="fcard__name">K. Usha Rani</div>
@@ -547,7 +573,7 @@
                 <div class="fcard__hover-name">K. Usha Rani</div>
                 <div class="fcard__hover-role">Associate Professor</div>
                 <div class="fcard__hover-spec">EEE</div>
-                <a href="faculty-profile.html?name=K.%20Usha%20Rani&role=Associate%20Professor&photo=images/eee/placeholder.jpg" class="fcard__hover-btn">View Research</a>
+                <a href="faculty-profile.html?name=K.%20Usha%20Rani&role=Associate%20Professor&photo=images/eee/k-usha-rani.jpg" class="fcard__hover-btn">View Research</a>
               </div>
           </div>
           <div class="fcard" data-author="Sumana Das">
@@ -734,8 +760,6 @@
           </div>
     </div>
     </div>
-    </div>
-  </div>
 
   
   <!-- TAB 4: Academics -->
