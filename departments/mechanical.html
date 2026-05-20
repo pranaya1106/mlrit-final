@@ -28,7 +28,7 @@
     .dept-hero__title { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
 
     /* ── Tabs ── */
-    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 78px; z-index: 40; }
+    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 0; z-index: 40; }
     .dept-tabs::-webkit-scrollbar { height: 0; }
     .dept-tab { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; padding: 14px 24px; white-space: nowrap; cursor: pointer; position: relative; transition: color 0.25s, background 0.25s; }
     .dept-tab::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 3px; background: linear-gradient(90deg, transparent, #E85D1F, transparent); transition: transform 0.25s ease; }
@@ -357,20 +357,21 @@
     }
 
     /* ── Dept-nav breadcrumb ── */
-    /* Fix body padding-top: global theme uses 132px for header+nav, but dept pages have no green nav so header = 78px */
-    body { padding-top: 78px !important; }
-    header.site-header { display: block; margin: 0; padding: 0; }
+    /* Make site-header static on dept pages (not fixed) */
+    body { padding-top: 0 !important; }
+    header.site-header,
+    .site-header { position: static !important; top: auto !important; }
     .dept-nav {
       background: #0B0F1A;
-      padding: 10px 48px;
+      padding: 14px 48px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       margin-top: 0;
       position: static;
     }
