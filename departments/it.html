@@ -279,6 +279,9 @@
     }
 
     /* ── Dept-nav breadcrumb ── */
+    /* Fix body padding-top: global theme uses 132px for header+nav, but dept pages have no green nav so header = 78px */
+    body { padding-top: 78px !important; }
+    header.site-header { display: block; margin: 0; padding: 0; }
     .dept-nav {
       background: #0B0F1A;
       padding: 10px 48px;
@@ -290,6 +293,8 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-top: 0;
+      position: static;
     }
     .dept-nav__link {
       color: rgba(255,255,255,0.5);
