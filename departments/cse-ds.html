@@ -18,10 +18,10 @@
 
 
     /* ── Hero ── */
-    .dept-hero { background: linear-gradient(160deg, #0a3d12 0%, #1F6B24 100%); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero { background: linear-gradient(160deg, #155c1a 0%, #1F6B24 60%, #1b6820 100%); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
     .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
     .dept-hero__video.is-visible { opacity: 0.55; }
-    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(8,40,12,0.55), rgba(10,60,15,0.35)); z-index: 1; transition: opacity 0.6s ease; }
+    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(10,50,14,0.4), rgba(15,70,20,0.2)); z-index: 1; transition: opacity 0.6s ease; }
     .dept-hero:hover .dept-hero__overlay { opacity: 0.28; }
     .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
     .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); pointer-events: none; z-index: 3; }
@@ -250,6 +250,36 @@
     }
 
     .ds-item[data-ds-tab]:not([data-ds-tab="overview"]) { display: none; }
+
+    /* ── Dept-nav breadcrumb ── */
+    .dept-nav {
+      background: #0B0F1A;
+      padding: 10px 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .dept-nav__link {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .dept-nav__link:hover { color: #E85D1F; }
+    .dept-nav__link--active { color: rgba(255,255,255,0.7); }
+    .dept-nav__link--dept { color: #fff; font-weight: 700; }
+    .dept-nav__sep {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
   </style>
   <link rel="stylesheet" href="../css/theme.css" />
 </head>
@@ -264,6 +294,13 @@
     <div class="dept-hero__eyebrow">B.Tech &mdash; Computer Science and Engineering (Data Science)</div>
     <div class="dept-hero__title">Department of CSE &mdash; Data Science</div>
   </div>
+  <nav class="dept-nav">
+    <a href="../index.html" class="dept-nav__link">Home</a>
+    <span class="dept-nav__sep"></span>
+    <a href="pg.html" class="dept-nav__link dept-nav__link--active">Postgraduate</a>
+    <span class="dept-nav__sep"></span>
+    <span class="dept-nav__link dept-nav__link--dept">CSE-DS M.Tech</span>
+  </nav>
   <script>
     (function(){
       var hero = document.querySelector('.dept-hero');
