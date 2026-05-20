@@ -494,16 +494,12 @@ ul { list-style: none; }
 /* ===== Desktop spacing refinements (1024px+) ===== */
 @media (min-width: 1024px) {
 
-  /* Masthead — balanced horizontal padding */
-  .masthead .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
-  /* Nav bar — balanced left padding to match masthead */
+  /* Nav bar inner — match masthead's 28px side padding exactly */
+  .main-nav__inner.container,
   .main-nav .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 28px;
+    padding-right: 28px;
+    width: 100%;
   }
 
   /* Nav list — flex gap between items instead of implicit edge-to-edge */
