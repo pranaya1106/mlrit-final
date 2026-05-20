@@ -29,7 +29,7 @@
     .dept-hero__title { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
 
     /* ── Tabs ── */
-    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: static; z-index: 40; }
+    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 122px; z-index: 980; }
     .dept-tabs::-webkit-scrollbar { height: 0; }
     .dept-tab { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; padding: 14px 24px; white-space: nowrap; cursor: pointer; position: relative; transition: color 0.25s, background 0.25s; }
     .dept-tab::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 3px; background: linear-gradient(90deg, transparent, #E85D1F, transparent); transition: transform 0.25s ease; }
@@ -281,8 +281,7 @@
     /* ── Dept-nav breadcrumb ── */
     /* Make site-header static on dept pages (not fixed) */
     body { padding-top: 0 !important; }
-    header.site-header,
-    .site-header { position: static !important; top: auto !important; }
+    header.site-header, .site-header { position: sticky !important; top: 0 !important; z-index: 1000 !important; }
     .dept-nav {
       background: #0B0F1A;
       padding: 14px 48px;
@@ -295,7 +294,7 @@
       letter-spacing: 0.05em;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       margin-top: 0;
-      position: static;
+      position: sticky; top: 78px; z-index: 990;
     }
     .dept-nav__link {
       color: rgba(255,255,255,0.5);
