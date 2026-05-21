@@ -281,7 +281,7 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; align-items: flex-start; }
+    .dept-body { display: flex; flex: 1; align-items: flex-start; padding-left: 220px; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
@@ -415,7 +415,7 @@
     <span class="dept-nav__sep"></span>
     <span class="dept-nav__link dept-nav__link--dept">CSE Department</span>
   </nav>
-<div class="dept-hero" id="page-top" id="deptHero">
+<div class="dept-hero" id="page-top">
     <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="metadata">
       <source src="dept.mp4" type="video/mp4" />
     </video>
@@ -1918,7 +1918,7 @@
           var code = sub[0]; var name = sub[1];
           var units = subjectDetails[name]; var uh = '';
           if (units && units.length) { uh = '<div class="subject-units"><ol>'; units.forEach(function (u) { uh += '<li>' + u + '</li>'; }); uh += '</ol></div>'; }
-          var pdfLink = '<a href="' + pdfBase + code + '.pdf" target="_blank" class="subject-pdf" onclick="event.stopPropagation()">Syllabus PDF</a>';
+          var pdfLink = '<a href="' + pdfBase + code + '.pdf" target="_blank" download class="subject-pdf" onclick="event.stopPropagation()">Syllabus PDF</a>';
           html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')"><span class="subject-code">' + code + '</span><span class="subject-name">' + name + '</span><span class="subject-toggle">&#9654;</span>' + pdfLink + '</div>' + uh;
         });
         subjectList.innerHTML = html;

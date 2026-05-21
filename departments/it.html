@@ -223,11 +223,11 @@
     .streak.is-firing { animation: orange-streak 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
     /* ── Body flex layout ── */
-    .dept-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: stretch; min-height: calc(100vh - 44px); }
+    .dept-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: start; min-height: calc(100vh - 166px); }
     .dept-body__panels { min-width: 0; }
 
     /* ── Left sidebar ── */
-    .dark-sidebar { position: static; background: #FAFAF8; z-index: 35; padding-top: 24px; border-right: 1px solid rgba(0,0,0,0.05); overflow-y: auto; }
+    .dark-sidebar { position: sticky; top: 166px; height: calc(100vh - 166px); background: #FAFAF8; z-index: 35; padding-top: 24px; border-right: 1px solid rgba(0,0,0,0.05); overflow-y: auto; }
     .dark-sidebar::-webkit-scrollbar { width: 4px; }
     .dark-sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
     .dark-sidebar__title { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: #155218; padding: 0 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 8px; }
@@ -888,6 +888,9 @@
         <div class="panel-sub" id="syll-explorer">Syllabus Explorer</div>
         <div class="pill-row" id="regPills">
           <button class="pill is-active" data-reg="r25">R25</button>
+          <button class="pill" data-reg="r22">R22</button>
+          <button class="pill" data-reg="mlr20">MLR20</button>
+          <button class="pill" data-reg="mlr18">MLR18</button>
         </div>
         <div class="pill-row" id="yearPills"></div>
         <div class="pill-row" id="semPills" style="display:none;"></div>
@@ -1008,7 +1011,10 @@
       };
 
       var regulations = {
-        "r25": { label: "R25", pdf: "syllabus/it/r25/it-r25-syllabus.pdf", data: programs.btech }
+        "r25":   { label: "R25",   pdf: "",    data: programs.btech },
+        "r22":   { label: "R22",   pdf: "syllabus/pdfs/it-r22-syllabus.pdf",       data: programs.btech },
+        "mlr20": { label: "MLR20", pdf: "syllabus/pdfs/it-mlr20-syllabus.pdf",     data: programs.btech },
+        "mlr18": { label: "MLR18", pdf: "syllabus/pdfs/it-mlr18-syllabus.pdf",     data: programs.btech }
       };
 
       var subjectDetails = {};
@@ -1070,7 +1076,7 @@
           var units = subjectDetails[subName]; var uh = '';
           if (units && units.length) { uh = '<div class="subject-units"><ol>'; units.forEach(function (u) { uh += '<li>' + u + '</li>'; }); uh += '</ol></div>'; }
           var codeHtml = subCode ? '<span class="subject-code">' + subCode + '</span>' : '<span class="subject-num">' + (i+1) + '.</span>';
-          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
+          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" download class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
         });
         subjectList.innerHTML = html; subjectList.classList.remove('is-visible'); void subjectList.offsetWidth; subjectList.classList.add('is-visible');
         if (fullSyllabusBtn) {

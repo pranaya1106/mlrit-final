@@ -277,7 +277,7 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; align-items: flex-start; }
+    .dept-body { display: flex; flex: 1; align-items: flex-start; padding-left: 220px; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
@@ -404,7 +404,7 @@
     <span class="dept-nav__sep"></span>
     <span class="dept-nav__link dept-nav__link--dept">Mechanical Department</span>
   </nav>
-<div class="dept-hero" id="page-top" id="deptHero">
+<div class="dept-hero" id="page-top">
     <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="metadata">
       <source src="dept.mp4" type="video/mp4" />
     </video>
@@ -852,7 +852,7 @@
 
     <div class="panel-sub">Semester-wise Syllabus Explorer</div>
     <p style="font-style:italic;color:#666;">Select regulation, year and semester to browse subjects.</p>
-    <div class="pill-row" id="regPills"><button class="pill is-active" data-reg="r25">R25</button><button class="pill" data-reg="r22">R22</button></div>
+    <div class="pill-row" id="regPills"><button class="pill is-active" data-reg="r25">R25</button><button class="pill" data-reg="r22">R22</button><button class="pill" data-reg="mlr20">MLR20</button><button class="pill" data-reg="mlr18">MLR18</button></div>
     <div class="pill-row" id="yearPills"></div>
     <div class="pill-row" id="semPills" style="display:none;"></div>
     <div class="subject-list" id="subjectList"></div>
@@ -1130,8 +1130,10 @@
         }
       };
       var regulations = {
-        "r25": { label: "R25", pdf: "syllabus/pdfs/mech-r25-syllabus.pdf", data: programs.btech },
-        "r22": { label: "R22", pdf: "syllabus/pdfs/mech-r22-complete.pdf", data: programs.btech },
+        "r25":   { label: "R25",   pdf: "syllabus/pdfs/mech-r25-syllabus.pdf",   data: programs.btech },
+        "r22":   { label: "R22",   pdf: "syllabus/pdfs/mech-r22-syllabus.pdf",   data: programs.btech },
+        "mlr20": { label: "MLR20", pdf: "syllabus/pdfs/mech-mlr20-syllabus.pdf", data: programs.btech },
+        "mlr18": { label: "MLR18", pdf: "syllabus/pdfs/mech-mlr18-syllabus.pdf", data: programs.btech }
       };
 
       var subjectDetails = {
@@ -1224,7 +1226,7 @@
           var units = subjectDetails[subName]; var uh = '';
           if (units && units.length) { uh = '<div class="subject-units"><ol>'; units.forEach(function (u) { uh += '<li>' + u + '</li>'; }); uh += '</ol></div>'; }
           var codeHtml = subCode ? '<span class="subject-code">' + subCode + '</span>' : '<span class="subject-num">' + (i+1) + '.</span>';
-          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
+          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" download class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
         });
         subjectList.innerHTML = html; subjectList.classList.remove('is-visible'); void subjectList.offsetWidth; subjectList.classList.add('is-visible');
         if (fullSyllabusBtn) {
