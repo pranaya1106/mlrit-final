@@ -1140,6 +1140,45 @@
     })();
   </script>
 
+  <!-- Mobile-only: single "next" scroll button under the testimonials deck -->
+  <script>
+    (function () {
+      var MQ = window.matchMedia('(max-width: 768px)');
+      if (!MQ.matches) return;
+
+      var fan = document.querySelector('.testi-fan');
+      if (!fan) return;
+
+      var btn = document.createElement('button');
+      btn.className = 'testi-mobile-next';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Next testimonial');
+      btn.innerHTML =
+        '<span>Next</span>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<polyline points="9 18 15 12 9 6"/>' +
+        '</svg>';
+
+      /* Insert directly after the deck */
+      fan.parentNode.insertBefore(btn, fan.nextSibling);
+
+      btn.addEventListener('click', function () {
+        var card = fan.querySelector('.testi-card');
+        if (!card) return;
+        var styles = window.getComputedStyle(fan);
+        var gap = parseFloat(styles.columnGap || styles.gap || '12') || 12;
+        var step = card.offsetWidth + gap;
+        var maxScroll = fan.scrollWidth - fan.clientWidth;
+        /* At end → wrap to start, otherwise step forward */
+        if (fan.scrollLeft + step >= maxScroll - 4) {
+          fan.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          fan.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      });
+    })();
+  </script>
+
   <!-- Footer column reveal -->
   <script>
     (function () {
@@ -1181,9 +1220,30 @@
     var MQ = window.matchMedia('(max-width: 768px)');
     if (!MQ.matches) return;
 
-    var siteHeader = document.querySelector('.site-header');
-    var navList    = document.getElementById('mainNavList');
-    var mastRight  = document.querySelector('.masthead__right');
+    var siteHeader, navList, mastInner, initialized = false;
+
+    /* Poll for the navbar partial (loaded async via site-navbar.js).
+       Bail out cleanly after ~6 seconds if the navbar never arrives. */
+    function tryInit() {
+      if (initialized) return true;
+      siteHeader = document.querySelector('.site-header');
+      navList    = document.querySelector('.main-nav__list');
+      mastInner  = document.querySelector('.masthead__inner');
+      if (!siteHeader || !navList || !mastInner) return false;
+      initialized = true;
+      mount();
+      return true;
+    }
+
+    if (!tryInit()) {
+      var tries = 0;
+      var poller = setInterval(function () {
+        tries++;
+        if (tryInit() || tries > 60) clearInterval(poller);
+      }, 100);
+    }
+
+    function mount() {
 
     /* ── Hamburger button ── */
     var hamburger = document.createElement('button');
@@ -1194,7 +1254,7 @@
       '<span class="nav-hamburger__bar"></span>' +
       '<span class="nav-hamburger__bar"></span>' +
       '<span class="nav-hamburger__bar"></span>';
-    mastRight.appendChild(hamburger);
+    mastInner.appendChild(hamburger);
 
     /* ── Drawer overlay — starts BELOW the fixed header ── */
     var drawer = document.createElement('div');
@@ -1386,6 +1446,7 @@
       if (!MQ.matches) closeDrawer();
     });
 
+    } /* end mount() */
   })();
   </script>
 
