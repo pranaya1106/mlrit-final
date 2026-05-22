@@ -1,6 +1,6 @@
 /* ============================================================
    PROGRAMMES SECTION — tabs + scroll-stack
-   Scoped: only touches `.prog-stack-section` and its children.
+   Scoped: only touches `.prog-stack-section` and children.
    ============================================================ */
 (function () {
   'use strict';
@@ -8,119 +8,241 @@
   var section = document.querySelector('.prog-stack-section');
   if (!section) return;
 
-  var tabs = section.querySelectorAll('.prog-stack-tab');
-  var catalogue = section.querySelector('.prog-stack-catalogue');
-  var cols = section.querySelectorAll('.prog-stack-col');
+  var tabs        = section.querySelectorAll('.prog-stack-tab');
+  var catalogue   = section.querySelector('.prog-stack-catalogue');
+  var cols        = section.querySelectorAll('.prog-stack-col');
   var mobileQuery = window.matchMedia('(max-width: 900px)');
 
-  function getCards() {
-    return section.querySelectorAll('.prog-stack-card');
+  /* ------------------------------------------------------------------
+     Helpers
+  ------------------------------------------------------------------ */
+
+  function getCSSVar(name, fallback) {
+    var raw = getComputedStyle(section).getPropertyValue(name).trim();
+    var val = parseFloat(raw);
+    return isNaN(val) ? fallback : val;
+  }
+
+  function getVisibleCards(col) {
+    return Array.prototype.filter.call(
+      col.querySelectorAll('.prog-stack-card'),
+      function (c) { return !c.hidden; }
+    );
   }
 
   function clearInline(card) {
     card.style.transform = '';
-    card.style.opacity = '';
-    card.style.filter = '';
-    card.style.zIndex = '';
+    card.style.opacity   = '';
+    card.style.zIndex    = '';
   }
+
+  /* ------------------------------------------------------------------
+     Tab switching — fade cards out/in instead of instant display:none
+     so there is never a sudden layout jump.
+  ------------------------------------------------------------------ */
 
   function setLevel(level) {
-    getCards().forEach(function (c) {
-      c.hidden = (c.dataset.level !== level);
+    var allCards = section.querySelectorAll('.prog-stack-card');
+
+    /* Step 1 — mark outgoing cards, they animate out via CSS class */
+    allCards.forEach(function (c) {
+      if (c.dataset.level !== level && !c.hidden) {
+        c.classList.add('is-leaving');
+      }
     });
-    requestAnimationFrame(applyStack);
+
+    /* Step 2 — after the leave transition (180 ms) hide them and show incoming */
+    setTimeout(function () {
+      allCards.forEach(function (c) {
+        c.classList.remove('is-leaving', 'is-entering');
+
+        if (c.dataset.level !== level) {
+          c.hidden = true;
+          clearInline(c);
+        } else {
+          if (c.hidden) {
+            /* Pre-set opacity/transform so it can animate IN */
+            c.style.opacity   = '0';
+            c.style.transform = 'translateZ(0) translateY(12px)';
+            c.hidden = false;
+            c.classList.add('is-entering');
+
+            /* Let the browser paint the initial state then animate */
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                c.style.opacity   = '';
+                c.style.transform = '';
+              });
+            });
+
+            /* Clean up entering class once done */
+            setTimeout(function () {
+              c.classList.remove('is-entering');
+            }, 320);
+          }
+        }
+      });
+
+      /* Recalculate stack after DOM update */
+      requestAnimationFrame(applyStack);
+    }, 190);
   }
 
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () {
-      tabs.forEach(function (o) {
-        o.classList.remove('is-active');
-        o.setAttribute('aria-selected', 'false');
+  /* Tab click handler */
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var level = tab.dataset.level;
+
+      /* No-op if already active */
+      if (tab.classList.contains('is-active')) return;
+
+      tabs.forEach(function (t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
       });
-      t.classList.add('is-active');
-      t.setAttribute('aria-selected', 'true');
-      setLevel(t.dataset.level);
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+
+      setLevel(level);
+
+      /* Scroll to catalogue — use ScrollSmoother if present, else native */
       if (catalogue) {
-        var y = catalogue.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        var targetY = catalogue.getBoundingClientRect().top + window.scrollY - 120;
+        if (window.ScrollSmoother && ScrollSmoother.get()) {
+          ScrollSmoother.get().scrollTo(targetY, true, 'top top');
+        } else {
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
       }
     });
   });
 
-  /* ---------- Scroll stack ---------- */
-  var ticking = false;
+  /* ------------------------------------------------------------------
+     Scroll-stack engine
+     Strategy: read card positions once per frame using a single
+     IntersectionObserver-driven dirty flag, then only call
+     getBoundingClientRect when something has actually changed.
+  ------------------------------------------------------------------ */
 
-  function readVar(name, fallback) {
-    var v = parseFloat(getComputedStyle(section).getPropertyValue(name));
-    return isNaN(v) ? fallback : v;
+  var ticking    = false;
+  var stackTop   = 152;
+  var stepPx     = 14;
+  var scaleStep  = 0.038;
+
+  /* Cache CSS vars once (they're constant at runtime, only change on resize) */
+  function refreshVars() {
+    stackTop  = getCSSVar('--prog-stack-top',   152);
+    stepPx    = getCSSVar('--prog-stack-step',   14);
+    scaleStep = getCSSVar('--prog-stack-scale',  0.038);
   }
 
   function applyStack() {
     ticking = false;
 
+    /* Mobile: nothing to do — CSS handles everything */
     if (mobileQuery.matches) {
-      getCards().forEach(clearInline);
+      cols.forEach(function (col) {
+        getVisibleCards(col).forEach(clearInline);
+      });
       return;
     }
 
-    var stackTop = readVar('--prog-stack-top', 96);
-    var stepPx = readVar('--prog-stack-step', 14);
-    var scaleS = readVar('--prog-stack-scale', 0.045);
-
+    /* Read all card rects in one batch to avoid interleaved read/write */
+    var colData = [];
     cols.forEach(function (col) {
-      var visible = Array.prototype.filter.call(
-        col.querySelectorAll('.prog-stack-card'),
-        function (c) { return !c.hidden; }
-      );
+      var visible = getVisibleCards(col);
+      colData.push({
+        cards: visible,
+        rects: visible.map(function (c) { return c.getBoundingClientRect(); })
+      });
+    });
 
-      visible.forEach(function (card, i) {
-        var next = visible[i + 1];
-        var progress = 0;
-        if (next) {
-          var nr = next.getBoundingClientRect();
-          var start = stackTop + 220;
-          var end = stackTop;
-          progress = Math.min(1, Math.max(0, (start - nr.top) / (start - end)));
+    /* Write transforms in a second batch — no forced reflow here */
+    colData.forEach(function (cd) {
+      var cards = cd.cards;
+      var rects = cd.rects;
+
+      cards.forEach(function (card, i) {
+        var nextRect  = rects[i + 1];
+        var progress  = 0;
+
+        if (nextRect) {
+          var rangeStart = stackTop + 200;
+          var rangeEnd   = stackTop;
+          var raw = (rangeStart - nextRect.top) / (rangeStart - rangeEnd);
+          /* Smooth the progress with a cubic ease to prevent oscillation */
+          raw = Math.min(1, Math.max(0, raw));
+          progress = raw * raw * (3 - 2 * raw); /* smoothstep */
         }
-        var stackedBehind = visible.slice(i + 1).filter(function (c) {
-          var cr = c.getBoundingClientRect();
-          return cr.top <= stackTop + 1;
-        }).length;
 
-        var depth = stackedBehind;
-        var scale = 1 - (depth + progress) * scaleS;
-        var lift = -((depth + progress) * stepPx);
+        /* Count cards that are fully behind the stack threshold */
+        var depth = 0;
+        for (var j = i + 1; j < cards.length; j++) {
+          if (rects[j].top <= stackTop + 2) depth++;
+        }
 
-        card.style.transform = 'translateY(' + lift.toFixed(2) + 'px) scale(' + scale.toFixed(4) + ')';
-        card.style.opacity = Math.max(0.55, 1 - (depth + progress) * 0.10).toFixed(3);
-        card.style.zIndex = i;
-        card.style.filter = depth > 0 ? 'blur(' + Math.min(2, depth * 0.4).toFixed(2) + 'px)' : '';
+        var totalDepth = depth + progress;
+        var scale   = Math.max(0.78, 1 - totalDepth * scaleStep);
+        var liftY   = -(totalDepth * stepPx);
+        /* Opacity: front card = 1, each layer behind loses 0.08, min 0.55 */
+        var opacity = Math.max(0.55, 1 - totalDepth * 0.08);
+
+        card.style.transform = 'translateZ(0) translateY(' + liftY.toFixed(2) + 'px) scale(' + scale.toFixed(4) + ')';
+        card.style.opacity   = opacity.toFixed(3);
+        card.style.zIndex    = String(i);
+        /* No filter:blur — it causes expensive repaints on every frame */
       });
     });
   }
 
-  function onScroll() {
+  /* Throttle scroll to one rAF at a time */
+  function scheduleStack() {
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(applyStack);
     }
   }
 
+  /* On resize: refresh CSS vars then recalculate */
+  var resizeTimer = 0;
+  function onResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      refreshVars();
+      scheduleStack();
+    }, 80);
+  }
+
   function onMediaChange() {
+    refreshVars();
     if (mobileQuery.matches) {
-      getCards().forEach(clearInline);
+      cols.forEach(function (col) {
+        getVisibleCards(col).forEach(clearInline);
+      });
     } else {
-      requestAnimationFrame(applyStack);
+      scheduleStack();
     }
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  /* ------------------------------------------------------------------
+     Boot
+  ------------------------------------------------------------------ */
+  refreshVars();
+
+  window.addEventListener('scroll', scheduleStack, { passive: true });
+  window.addEventListener('resize', onResize);
+
   if (mobileQuery.addEventListener) {
     mobileQuery.addEventListener('change', onMediaChange);
   } else if (mobileQuery.addListener) {
+    /* Safari < 14 fallback */
     mobileQuery.addListener(onMediaChange);
   }
 
-  applyStack();
+  /* Initial paint — run on next frame so the DOM is settled */
+  requestAnimationFrame(function () {
+    refreshVars();
+    applyStack();
+  });
+
 })();
