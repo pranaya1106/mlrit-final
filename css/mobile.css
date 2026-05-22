@@ -707,3 +707,234 @@
   .prog-hero__sub   { font-size: 0.85rem !important; }
   .prog-content     { padding: 32px 16px 48px !important; }
 }
+
+
+/* ─────────────────────────────────────────────
+   13. DEPARTMENT PAGE BODY — FLEXBOX LAYOUT FIX
+   Many dept pages set `.dept-body { padding-left: 220px }` or a
+   `220px minmax(0, 1fr)` grid to make room for the desktop sidebar.
+   On mobile that pushes content off-screen (only ~140px usable on a
+   360px viewport). The inline `<style>` blocks only override
+   `display`, not the padding/grid columns, so we clear both here.
+───────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Switch the body to a clean column flex layout */
+  .dept-body {
+    display: flex !important;
+    flex-direction: column !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    grid-template-columns: 1fr !important;
+    width: 100%;
+    max-width: 100vw;
+    align-items: stretch !important;
+    min-height: 0 !important;
+  }
+  .dept-body__panels {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  /* Hide the desktop left rail + floating right quick-bar — they
+     don't translate to small screens */
+  .dark-sidebar,
+  .qbar {
+    display: none !important;
+  }
+
+  /* Sticky offsets: on mobile the masthead is ~56px and the
+     .dept-nav strip is ~38px. The inline rules pin them at desktop
+     heights (78px / 122px) which leaves a visible gap. Re-pin. */
+  .dept-nav {
+    top: 56px !important;
+    padding: 0 8px !important;
+  }
+  .dept-tabs {
+    top: calc(56px + 38px) !important;
+  }
+
+  /* Panel + section sizing */
+  .dept-panel {
+    padding: 24px 16px !important;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .panel-sub {
+    margin: 26px 0 14px !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Generic copy width — desktop caps at 780px, on mobile go full */
+  .dept-panel p,
+  .dept-panel .obe-list-numbered p,
+  .intern-note {
+    max-width: 100% !important;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   14. DEPARTMENT PAGE COMPONENTS — flex-based stacks
+───────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* HOD message — photo on top, text below, both centered */
+  .hod-msg {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+    padding: 22px 18px !important;
+    margin-bottom: 24px !important;
+    border-left: none !important;
+    border-top: 4px solid #1F6B24 !important;
+    border-radius: 14px !important;
+  }
+  .hod-msg__photo {
+    width: 84px !important;
+    height: 84px !important;
+  }
+  .hod-msg__content {
+    width: 100%;
+  }
+  .hod-msg__label {
+    font-size: 0.6rem !important;
+    margin-bottom: 6px !important;
+  }
+  .hod-msg__text {
+    font-size: 0.86rem !important;
+    line-height: 1.65 !important;
+    max-width: 100% !important;
+  }
+  .hod-msg__name {
+    margin-top: 10px !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* Stack every multi-column grid into a single column flex */
+  .two-col,
+  .three-col,
+  .obe-grid,
+  .catalog-grid,
+  .lab-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    width: 100%;
+  }
+
+  /* Cards: full width, no awkward right edge bleed */
+  .dept-panel .card,
+  .dept-panel .card--accent,
+  .dept-panel .lab-card,
+  .dept-panel .catalog-item {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 18px 18px !important;
+  }
+  .dept-panel .card h3 { font-size: 1rem !important; }
+
+  /* Stat cards — flex row that wraps */
+  .intern-stats,
+  .placement-stats {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+  .intern-stats .stat-card,
+  .placement-stats .placement-stat {
+    flex: 1 1 calc(50% - 10px) !important;
+    min-width: 0 !important;
+    padding: 16px 12px !important;
+  }
+  .stat-card__num,
+  .placement-stat__num { font-size: 1.4rem !important; }
+
+  /* Internship 3D cards — drop the flip on touch, show name only */
+  .intern-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    overflow-x: visible !important;
+  }
+  .intern-card { height: 90px !important; }
+
+  /* Faculty cards — 2 per row keeps faces legible on phones */
+  .fcard-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .fcard {
+    width: 100%;
+    aspect-ratio: 3/4;
+    height: auto !important;
+  }
+  .fcard__hover-info { padding: 14px !important; }
+  .fcard__hover-name { font-size: 0.9rem !important; }
+  .fcard__hover-role { font-size: 0.62rem !important; }
+  .fcard__hover-spec { font-size: 0.6rem !important; margin-bottom: 10px !important; }
+
+  /* Publication cards — already stack via inline rule, just sand
+     edges so the green left bar doesn't push wider than viewport */
+  .pub-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 18px 18px !important;
+  }
+  .pub-card__year { align-self: flex-start; }
+
+  /* Pill row (filters, syllabus regulations) — wrap + touch-friendly */
+  .pill-row,
+  .pub-filters {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .pill,
+  .pub-filter {
+    padding: 8px 16px !important;
+    font-size: 0.74rem !important;
+  }
+
+  /* Tables can't shrink below their natural column width — wrap them
+     in a horizontal scroller without forcing the whole page wide */
+  .honour-table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Sub-accordion — slimmer header, smaller chevron */
+  .sub-accordion__header {
+    padding: 14px 16px !important;
+    font-size: 0.84rem !important;
+    gap: 10px;
+  }
+  .sub-accordion__content { padding: 0 16px 16px !important; }
+
+  /* Subject explorer rows — wrap pieces vertically so the code +
+     download button don't push the title off-screen */
+  .subject-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+  }
+  .subject-name { flex: 1 1 100%; font-size: 0.86rem !important; }
+  .subject-num  { width: 22px !important; }
+  .syll-actions {
+    flex-wrap: wrap;
+    gap: 6px !important;
+  }
+}
+
+
