@@ -210,10 +210,9 @@
   top: var(--prog-stack-top);
   height: auto;
   margin: 0 0 48px;
-  transform-origin: 50% 0;        /* scale from top — correct for top-pinned sticky */
-  transform: translateZ(0);       /* pre-promote to GPU compositor layer */
+  transform-origin: top center;
+  transform: translateZ(0);
   will-change: transform, opacity;
-  /* NO transition here — JS drives every frame, any CSS transition fights it */
 }
 
 /* Tab-switching entrance / exit classes */
