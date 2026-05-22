@@ -1967,6 +1967,12 @@
       var mql = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (mql.matches) return;
       if (typeof ScrollSmoother === 'undefined') return;
+      // Disable ScrollSmoother on touch/mobile — native scroll is smoother
+      var isTouch = ('ontouchstart' in window) ||
+                    (navigator.maxTouchPoints > 0) ||
+                    window.matchMedia('(pointer: coarse)').matches ||
+                    window.matchMedia('(max-width: 900px)').matches;
+      if (isTouch) return;
 
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
       if (window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);

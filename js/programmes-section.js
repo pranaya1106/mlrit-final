@@ -168,6 +168,14 @@
     seedAll();
     buildOffsetCache();
     scheduleStack();
+    /* Rebuild cache after full page load — fonts/images shift layout */
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', function () {
+        buildOffsetCache();
+        lastTransforms.clear();
+        scheduleStack();
+      }, { once: true });
+    }
   }
 
   /* ------------------------------------------------------------------
@@ -344,6 +352,10 @@
   ------------------------------------------------------------------ */
   boot();
 
+  /* gsap.ticker drives every frame on desktop (ScrollSmoother inertia
+     doesn't fire window.scroll each frame). window.scroll handles mobile
+     where ScrollSmoother is disabled and native scroll is used. */
+  if (window.gsap) gsap.ticker.add(scheduleStack);
   window.addEventListener('scroll', scheduleStack, { passive: true });
   window.addEventListener('resize', onResize);
 
