@@ -344,12 +344,6 @@
   ------------------------------------------------------------------ */
   boot();
 
-  /* Desktop: GSAP ticker drives updates every frame during ScrollSmoother
-     inertia (window.scroll only fires once at end of inertia).
-     Mobile: ScrollSmoother is disabled, so native window.scroll is used. */
-  if (window.gsap) {
-    gsap.ticker.add(scheduleStack);
-  }
   window.addEventListener('scroll', scheduleStack, { passive: true });
   window.addEventListener('resize', onResize);
 

@@ -31,15 +31,11 @@
   }
   body { -webkit-text-size-adjust: 100%; }
 
-  /* ScrollSmoother is disabled on touch/mobile — reset wrappers to normal flow */
+  /* ScrollSmoother wrappers must also clip horizontally */
   #smooth-wrapper,
   #smooth-content {
     max-width: 100vw;
     overflow-x: hidden;
-    height: auto !important;
-    overflow-y: visible !important;
-    transform: none !important;
-    will-change: auto !important;
   }
 
   /* Section-level overflow safety */
