@@ -647,7 +647,7 @@ body {
   gap: 16px;
   will-change: transform;
   padding: 4px 0 20px;
-  animation: recruiterScroll 20s linear infinite;
+  animation: recruiterScroll 12s linear infinite;
 }
 
 .recruiter-band__track:hover {

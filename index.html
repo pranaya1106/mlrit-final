@@ -1137,16 +1137,16 @@
          7. EVENTS  ·  full-bleed rotating stage (mlrit-next port)
          ===================== -->
     <section class="ev-stage" id="evStage" aria-label="Featured events">
-      <video class="ev-stage__video is-active" data-idx="0" muted loop playsinline autoplay preload="auto">
+      <video class="ev-stage__video is-active" data-idx="0" muted loop playsinline webkit-playsinline autoplay preload="auto">
         <source src="homepage/e1.mp4" type="video/mp4" />
       </video>
-      <video class="ev-stage__video" data-idx="1" muted loop playsinline autoplay preload="auto">
+      <video class="ev-stage__video" data-idx="1" muted loop playsinline webkit-playsinline autoplay preload="metadata">
         <source src="homepage/e2.mp4" type="video/mp4" />
       </video>
-      <video class="ev-stage__video" data-idx="2" muted loop playsinline autoplay preload="auto">
+      <video class="ev-stage__video" data-idx="2" muted loop playsinline webkit-playsinline autoplay preload="metadata">
         <source src="homepage/e3.mp4" type="video/mp4" />
       </video>
-      <video class="ev-stage__video" data-idx="3" muted loop playsinline autoplay preload="auto">
+      <video class="ev-stage__video" data-idx="3" muted loop playsinline webkit-playsinline autoplay preload="metadata">
         <source src="homepage/e4.mp4" type="video/mp4" />
       </video>
 
@@ -1777,6 +1777,20 @@
   </script>
 
   <script src="js/events.js" defer></script>
+
+  <!-- ev-stage: force play active video when section scrolls into view (mobile autoplay fix) -->
+  <script>
+    (function () {
+      var stage = document.getElementById('evStage');
+      if (!stage) return;
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        var active = stage.querySelector('.ev-stage__video.is-active');
+        if (active && active.paused) active.play().catch(function () {});
+      }, { threshold: 0.1 });
+      io.observe(stage);
+    })();
+  </script>
   <script src="js/success-stories-scroll.js" defer></script>
   <script src="js/why-mlrit.js" defer></script>
   <script src="js/programmes-section.js" defer></script>
@@ -2103,8 +2117,12 @@
       var mql = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (mql.matches) return;
       if (typeof ScrollSmoother === 'undefined') return;
-      // Disable on mobile/touch — ScrollSmoother fights native touch scroll and causes jitter
-      if (window.matchMedia('(max-width: 900px)').matches || ('ontouchstart' in window)) return;
+      // Disable on any touch/mobile device — ScrollSmoother fights native touch scroll
+      var isTouch = ('ontouchstart' in window) ||
+                    (navigator.maxTouchPoints > 0) ||
+                    window.matchMedia('(pointer: coarse)').matches ||
+                    window.matchMedia('(max-width: 900px)').matches;
+      if (isTouch) return;
 
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
       if (window.ScrollToPlugin) gsap.registerPlugin(ScrollToPlugin);
