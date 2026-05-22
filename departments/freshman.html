@@ -277,15 +277,15 @@
 
 
     /* ── Body flex layout ── */
-    .dept-body { display: flex; flex: 1; align-items: flex-start; padding-left: 220px; }
+    .dept-body { margin-left: 220px; }
     .dept-body__panels { flex: 1; min-width: 0; }
 
     /* ── Left sidebar ── */
     .dark-sidebar {
-      width: 220px; flex-shrink: 0; position: sticky; top: 166px; height: calc(100vh - 166px); overflow-y: auto;
+      position: fixed; left: 0; top: 166px; width: 220px;
+      height: calc(100vh - 166px); overflow-y: auto;
       background: #FAFAF8; z-index: 35; padding-top: 24px;
       border-right: 1px solid rgba(0,0,0,0.05);
-      align-self: flex-start;
     }
     .dark-sidebar::-webkit-scrollbar { width: 4px; }
     .dark-sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
@@ -311,7 +311,7 @@
       overflow: hidden; text-overflow: ellipsis;
     }
     .ds-item:hover .ds-item__label { color: rgba(232,93,31,0.8); }
-    .ds-item.is-active .ds-item__label { color: #E85D1F; }
+    .ds-item.is-active .ds-item__label { color: #E85D1F !important; }
 
     /* Push all content right to make room for sidebar */
 
@@ -321,7 +321,7 @@
       .hod-msg { flex-direction: column; align-items: center; text-align: center; }
       .qbar { display: none; }
       .dark-sidebar { display: none; }
-      .dept-body { display: block; }
+      .dept-body { margin-left: 0; display: block; }
       .fcard-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
       .fcard { height: 240px; }
     }
@@ -1427,8 +1427,10 @@
       updateSidebar('overview');
       window.scrollTo(0, 0);
     })();
-    // Scroll-spy — highlights sidebar item as user scrolls within active panel
+    // Scroll-spy — highlights sidebar item tracking the section in view
     (function () {
+      var spyTicking = false;
+
       function getScrollTargets() {
         var targets = [];
         document.querySelectorAll('.ds-item[data-ds-target]').forEach(function(item) {
@@ -1440,43 +1442,49 @@
         return targets;
       }
 
-      var ticking = false;
-      window.addEventListener('scroll', function() {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function() {
-          ticking = false;
-          var targets = getScrollTargets();
-          if (!targets.length) return;
-          var scrollY = window.pageYOffset;
-          var windowH = window.innerHeight;
-          var best = null;
+      function runSpy() {
+        spyTicking = false;
+        var targets = getScrollTargets();
+        if (!targets.length) return;
+
+        // Pin offset: below fixed navbar + dept-tabs bar (~166px + 48px)
+        var PIN = 220;
+        var best = null;
+
+        targets.forEach(function(t) {
+          var rect = t.el.getBoundingClientRect();
+          // A section is active when its top edge has scrolled above PIN
+          // and its bottom edge is still visible
+          if (rect.top <= PIN && rect.bottom > PIN) {
+            if (!best || rect.top > best.rect.top) {
+              best = { item: t.item, rect: rect };
+            }
+          }
+        });
+
+        // Fallback: if no section straddles the pin, find the last one
+        // whose top is above the pin (i.e. user scrolled past it)
+        if (!best) {
           targets.forEach(function(t) {
             var rect = t.el.getBoundingClientRect();
-            var top = rect.top;
-            // Section is "in view" when its top is in the upper 60% of viewport
-            if (top <= windowH * 0.5 && rect.bottom > 0) {
-              if (!best || top > best.top) {
-                best = { item: t.item, top: top };
+            if (rect.top <= PIN) {
+              if (!best || rect.top > best.rect.top) {
+                best = { item: t.item, rect: rect };
               }
             }
           });
-          // Fallback: if nothing in upper half, pick the one closest to top
-          if (!best) {
-            var closest = null;
-            targets.forEach(function(t) {
-              var top = t.el.getBoundingClientRect().top;
-              if (!closest || Math.abs(top) < Math.abs(closest.top)) {
-                closest = { item: t.item, top: top };
-              }
-            });
-            best = closest;
-          }
-          if (best) {
-            document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
-            best.item.classList.add('is-active');
-          }
-        });
+        }
+
+        if (best) {
+          document.querySelectorAll('.ds-item').forEach(function(i) { i.classList.remove('is-active'); });
+          best.item.classList.add('is-active');
+        }
+      }
+
+      window.addEventListener('scroll', function() {
+        if (spyTicking) return;
+        spyTicking = true;
+        requestAnimationFrame(runSpy);
       }, { passive: true });
     })();
 

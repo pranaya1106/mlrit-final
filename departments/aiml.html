@@ -223,11 +223,16 @@
     .streak.is-firing { animation: orange-streak 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
     /* ── Body flex layout ── */
-    .dept-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: start; min-height: calc(100vh - 166px); }
+    .dept-body { margin-left: 220px; }
     .dept-body__panels { min-width: 0; }
 
     /* ── Left sidebar ── */
-    .dark-sidebar { position: sticky; top: 166px; height: calc(100vh - 166px); background: #FAFAF8; z-index: 35; padding-top: 24px; border-right: 1px solid rgba(0,0,0,0.05); overflow-y: auto; }
+    .dark-sidebar {
+      position: fixed; left: 0; top: 166px; width: 220px;
+      height: calc(100vh - 166px); overflow-y: auto;
+      background: #FAFAF8; z-index: 35; padding-top: 24px;
+      border-right: 1px solid rgba(0,0,0,0.05);
+    }
     .dark-sidebar::-webkit-scrollbar { width: 4px; }
     .dark-sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
     .dark-sidebar__title { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: #155218; padding: 0 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 8px; }
@@ -238,14 +243,14 @@
     .ds-item.is-active .ds-item__dot { background: #E85D1F; box-shadow: 0 0 6px rgba(232,93,31,0.4); }
     .ds-item__label { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.7rem; font-weight: 600; color: rgba(26,58,46,0.5); transition: color 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .ds-item:hover .ds-item__label { color: rgba(232,93,31,0.8); }
-    .ds-item.is-active .ds-item__label { color: #E85D1F; }
+    .ds-item.is-active .ds-item__label { color: #E85D1F !important; }
 
     @media (max-width: 768px) {
       .dept-panel { padding: 32px 20px; }
       .two-col, .three-col, .obe-grid, .catalog-grid, .lab-grid { grid-template-columns: 1fr; }
       .hod-msg { flex-direction: column; align-items: center; text-align: center; }
       .dark-sidebar { display: none; }
-      .dept-body { display: block; }
+      .dept-body { margin-left: 0; display: block; }
       .fcard-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
 
@@ -1546,30 +1551,36 @@
       window.scrollTo(0, 0);
     })();
 
-    // Scroll-spy — highlights sidebar item as user scrolls
+    // Scroll-spy — highlights sidebar item tracking the section in view
     (function () {
-      var targets = [];
+      var spyReady = false;
+      setTimeout(function () { spyReady = true; }, 400);
+
+      var allTargets = [];
       document.querySelectorAll('.ds-item[data-ds-target]').forEach(function (item) {
         var id = item.getAttribute('data-ds-target');
         var el = document.getElementById(id);
-        if (el) targets.push({ el: el, item: item });
+        if (el) allTargets.push({ el: el, item: item });
       });
-      if (!targets.length) return;
-      var spyReady = false;
-      setTimeout(function () { spyReady = true; }, 600);
+      if (!allTargets.length) return;
+
       var observer = new IntersectionObserver(function (entries) {
         if (!spyReady) return;
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
-          var matched = targets.find(function (t) { return t.el === entry.target; });
+          var matched = allTargets.find(function (t) { return t.el === entry.target; });
           if (!matched) return;
           if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
           if (matched.item.style.display === 'none') return;
           document.querySelectorAll('.ds-item').forEach(function (i) { i.classList.remove('is-active'); });
           matched.item.classList.add('is-active');
         });
-      }, { threshold: 0.25, rootMargin: '-20px 0px -40% 0px' });
-      targets.forEach(function (t) { observer.observe(t.el); });
+      }, {
+        threshold: 0.15,
+        rootMargin: '-166px 0px -40% 0px'
+      });
+
+      allTargets.forEach(function (t) { observer.observe(t.el); });
     })();
   </script>
 </body>
