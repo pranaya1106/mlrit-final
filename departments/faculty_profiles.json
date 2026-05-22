@@ -4,14 +4,16 @@
     "qual": "",
     "counts": {},
     "name": "Dr. D.B.K. Kamesh",
-    "url": "https://mlrit.ac.in/faculty/dr-d-b-k-kamesh/"
+    "url": "https://mlrit.ac.in/faculty/dr-d-b-k-kamesh/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/d-b-k-kamesh.jpg"
   },
   "csit/p-nishitha": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms .P.Nishitha",
-    "url": "https://mlrit.ac.in/faculty/p-nishitha-2/"
+    "url": "https://mlrit.ac.in/faculty/p-nishitha-2/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/p-nishitha.jpg"
   },
   "csit/d-rajeshwari": {
     "areas": [
@@ -25,14 +27,16 @@
     "qual": "",
     "counts": {},
     "name": "D.Rajeshwari",
-    "url": "https://mlrit.ac.in/faculty/d-rajeshwari/"
+    "url": "https://mlrit.ac.in/faculty/d-rajeshwari/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/d-rajeshwari.jpg"
   },
   "csit/a-nirisha": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "A.Nirisha",
-    "url": "https://mlrit.ac.in/faculty/a-nirisha/"
+    "url": "https://mlrit.ac.in/faculty/a-nirisha/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/a-nirisha.jpg"
   },
   "csit/p-poojasree": {
     "areas": [
@@ -44,7 +48,8 @@
     "qual": "",
     "counts": {},
     "name": "P. Poojasree",
-    "url": "https://mlrit.ac.in/faculty/p-poojasree/"
+    "url": "https://mlrit.ac.in/faculty/p-poojasree/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/p-poojasree.jpg"
   },
   "csit/rajkumar-bhookya": {
     "areas": [
@@ -55,7 +60,8 @@
     "qual": "",
     "counts": {},
     "name": "Rajkumar Bhookya",
-    "url": "https://mlrit.ac.in/faculty/rajkumar-bhookya/"
+    "url": "https://mlrit.ac.in/faculty/rajkumar-bhookya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/rajkumar-bhookya.jpg"
   },
   "csit/devolla-manogna": {
     "areas": [
@@ -66,14 +72,16 @@
     "qual": "",
     "counts": {},
     "name": "Devolla Manogna",
-    "url": "https://mlrit.ac.in/faculty/devolla-manogna/"
+    "url": "https://mlrit.ac.in/faculty/devolla-manogna/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/devolla-manogna.jpg"
   },
   "csit/s-anudeep": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "S. Anudeep",
-    "url": "https://mlrit.ac.in/faculty/sadula-anudeep/"
+    "url": "https://mlrit.ac.in/faculty/sadula-anudeep/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/s-anudeep.jpg"
   },
   "csit/banothu-seva": {
     "areas": [
@@ -84,21 +92,24 @@
     "qual": "",
     "counts": {},
     "name": "Banothu Seva",
-    "url": "https://mlrit.ac.in/faculty/banothu-seva/"
+    "url": "https://mlrit.ac.in/faculty/banothu-seva/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/banothu-seva.jpg"
   },
   "csit/madhavi-banala": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms.Madhavi Banala",
-    "url": "https://mlrit.ac.in/faculty/b-madhavi/"
+    "url": "https://mlrit.ac.in/faculty/b-madhavi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/madhavi-banala.jpg"
   },
   "csit/n-thulasi-chithra": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "N. Thulasi Chithra",
-    "url": "https://mlrit.ac.in/faculty/n-thulasi-chitra/"
+    "url": "https://mlrit.ac.in/faculty/n-thulasi-chitra/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/n-thulasi-chithra.jpg"
   },
   "csit/v-srikanth": {
     "areas": [
@@ -108,7 +119,8 @@
     "qual": "",
     "counts": {},
     "name": "V. Srikanth",
-    "url": "https://mlrit.ac.in/faculty/v-srikanth/"
+    "url": "https://mlrit.ac.in/faculty/v-srikanth/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/v-srikanth.jpg"
   },
   "csit/t-gandhi": {
     "areas": [
@@ -117,7 +129,8 @@
     "qual": "",
     "counts": {},
     "name": "T. Gandhi",
-    "url": "https://mlrit.ac.in/faculty/t-gandhi/"
+    "url": "https://mlrit.ac.in/faculty/t-gandhi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/t-gandhi.jpg"
   },
   "csit/t-mounika": {
     "areas": [
@@ -126,49 +139,56 @@
     "qual": "",
     "counts": {},
     "name": "Mrs T. Mounika",
-    "url": "https://mlrit.ac.in/faculty/mrs-t-mounika/"
+    "url": "https://mlrit.ac.in/faculty/mrs-t-mounika/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/t-mounika.jpg"
   },
   "csit/s-parvathi": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mrs S.Parvathi",
-    "url": "https://mlrit.ac.in/faculty/mrs-s-parvathi/"
+    "url": "https://mlrit.ac.in/faculty/mrs-s-parvathi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/s-parvathi.jpg"
   },
   "csit/n-sandhya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "N. Sandhya",
-    "url": "https://mlrit.ac.in/faculty/mrs-n-sandhya-rani/"
+    "url": "https://mlrit.ac.in/faculty/mrs-n-sandhya-rani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/n-sandhya.jpg"
   },
   "csit/m-srividya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mrs M.Srividya",
-    "url": "https://mlrit.ac.in/faculty/mrs-m-srividya/"
+    "url": "https://mlrit.ac.in/faculty/mrs-m-srividya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/m-srividya.jpg"
   },
   "csit/d-neelima-priyadarshini": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms D.Neelima Priyadarshini",
-    "url": "https://mlrit.ac.in/faculty/mrs-d-neelima/"
+    "url": "https://mlrit.ac.in/faculty/mrs-d-neelima/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/d-neelima-priyadarshini.jpg"
   },
   "csit/n-vijayasri": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms N.Vijayasri",
-    "url": "https://mlrit.ac.in/faculty/mrs-ch-vijayasri/"
+    "url": "https://mlrit.ac.in/faculty/mrs-ch-vijayasri/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/n-vijayasri.jpg"
   },
   "csit/s-navya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "S. Navya",
-    "url": "https://mlrit.ac.in/faculty/soleti-navya/"
+    "url": "https://mlrit.ac.in/faculty/soleti-navya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/csit/s-navya.jpg"
   },
   "it/n-v-raja-sekhar-reddy": {
     "areas": [
@@ -178,7 +198,8 @@
     "qual": "",
     "counts": {},
     "name": "Dr.N V Raja Sekhar Reddy",
-    "url": "https://mlrit.ac.in/faculty/dr-n-v-rajasekhar-reddy/"
+    "url": "https://mlrit.ac.in/faculty/dr-n-v-rajasekhar-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/n-v-raja-sekhar-reddy.jpg"
   },
   "it/dhilli-rao-gorja": {
     "areas": [
@@ -191,7 +212,8 @@
     "qual": "",
     "counts": {},
     "name": "Dr. Dhilli Rao Gorja",
-    "url": "https://mlrit.ac.in/faculty/dr-dhilli-rao-gorja/"
+    "url": "https://mlrit.ac.in/faculty/dr-dhilli-rao-gorja/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/dhilli-rao-gorja.jpg"
   },
   "it/vemuri-nitin": {
     "areas": [
@@ -200,7 +222,8 @@
     "qual": "",
     "counts": {},
     "name": "Vemuri Nitin",
-    "url": "https://mlrit.ac.in/faculty/vemuri-nitin/"
+    "url": "https://mlrit.ac.in/faculty/vemuri-nitin/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/vemuri-nitin.jpg"
   },
   "it/shruthi-patel": {
     "areas": [
@@ -209,21 +232,24 @@
     "qual": "",
     "counts": {},
     "name": "Mrs Shruthi Patel",
-    "url": "https://mlrit.ac.in/faculty/mrs-shruti-patil/"
+    "url": "https://mlrit.ac.in/faculty/mrs-shruti-patil/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/shruthi-patel.jpg"
   },
   "it/d-sandeep": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mr D. Sandeep",
-    "url": "https://mlrit.ac.in/faculty/d-sandeep/"
+    "url": "https://mlrit.ac.in/faculty/d-sandeep/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/d-sandeep.jpg"
   },
   "it/j-adilakshmi": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "J Adilakshmi",
-    "url": "https://mlrit.ac.in/faculty/j-adilakshmi/"
+    "url": "https://mlrit.ac.in/faculty/j-adilakshmi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/j-adilakshmi.jpg"
   },
   "it/bhasker-boddu": {
     "areas": [
@@ -232,14 +258,16 @@
     "qual": "",
     "counts": {},
     "name": "Bhasker Boddu",
-    "url": "https://mlrit.ac.in/faculty/bhasker-boddu/"
+    "url": "https://mlrit.ac.in/faculty/bhasker-boddu/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/bhasker-boddu.jpg"
   },
   "it/p-laxmaiah": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "P laxmaiah",
-    "url": "https://mlrit.ac.in/faculty/p-laxmaiah/"
+    "url": "https://mlrit.ac.in/faculty/p-laxmaiah/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/p-laxmaiah.jpg"
   },
   "it/b-varija": {
     "areas": [
@@ -248,14 +276,16 @@
     "qual": "",
     "counts": {},
     "name": "B Varija",
-    "url": "https://mlrit.ac.in/faculty/b-varija/"
+    "url": "https://mlrit.ac.in/faculty/b-varija/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/b-varija.jpg"
   },
   "it/b-sushma": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms B. Sushma",
-    "url": "https://mlrit.ac.in/faculty/b-sushma/"
+    "url": "https://mlrit.ac.in/faculty/b-sushma/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/b-sushma.jpg"
   },
   "it/g-sathyanarayan": {
     "areas": [
@@ -264,14 +294,16 @@
     "qual": "",
     "counts": {},
     "name": "G Sathyanarayan",
-    "url": "https://mlrit.ac.in/faculty/g-sathyanarayan/"
+    "url": "https://mlrit.ac.in/faculty/g-sathyanarayan/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/g-sathyanarayan.jpg"
   },
   "it/mohd-anwar-ali": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mr.Mohd Anwar Ali",
-    "url": "https://mlrit.ac.in/faculty/mohd-anwar-ali/"
+    "url": "https://mlrit.ac.in/faculty/mohd-anwar-ali/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/mohd-anwar-ali.jpg"
   },
   "it/m-harshini": {
     "areas": [
@@ -280,7 +312,8 @@
     "qual": "",
     "counts": {},
     "name": "M Harshini",
-    "url": "https://mlrit.ac.in/faculty/m-harshini/"
+    "url": "https://mlrit.ac.in/faculty/m-harshini/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/m-harshini.jpg"
   },
   "it/mopur-vijaya-bhaskar-reddy": {
     "areas": [
@@ -289,7 +322,8 @@
     "qual": "",
     "counts": {},
     "name": "Dr. Mopur Vijaya Bhaskar Reddy",
-    "url": "https://mlrit.ac.in/faculty/dr-mopur-vijaya-bhaskar-reddy/"
+    "url": "https://mlrit.ac.in/faculty/dr-mopur-vijaya-bhaskar-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/it/mopur-vijaya-bhaskar-reddy.jpg"
   },
   "aiml/kashi-sai-prasad": {
     "areas": [
@@ -298,7 +332,8 @@
     "qual": "",
     "counts": {},
     "name": "Dr. Kashi Sai Prasad",
-    "url": "https://mlrit.ac.in/faculty/kashi-sai-prasad/"
+    "url": "https://mlrit.ac.in/faculty/kashi-sai-prasad/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/kashi-sai-prasad.jpg"
   },
   "aiml/k-varada-rajkumar": {
     "areas": [
@@ -307,7 +342,8 @@
     "qual": "",
     "counts": {},
     "name": "Dr. K. Varada Rajkumar",
-    "url": "https://mlrit.ac.in/faculty/dr-k-varada-rajkumar/"
+    "url": "https://mlrit.ac.in/faculty/dr-k-varada-rajkumar/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/k-varada-rajkumar.jpg"
   },
   "aiml/penubaka-kiran-kumar-reddy": {
     "areas": [
@@ -319,7 +355,8 @@
     "qual": "",
     "counts": {},
     "name": "Dr. Penubaka Kiran Kumar Reddy",
-    "url": "https://mlrit.ac.in/faculty/penubaka-kiran-kumar-reddy/"
+    "url": "https://mlrit.ac.in/faculty/penubaka-kiran-kumar-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/penubaka-kiran-kumar-reddy.jpg"
   },
   "aiml/vs-pavan-kumar": {
     "areas": [
@@ -328,7 +365,8 @@
     "qual": "",
     "counts": {},
     "name": "VS Pavan Kumar",
-    "url": "https://mlrit.ac.in/faculty/vs-pavan-kumar/"
+    "url": "https://mlrit.ac.in/faculty/vs-pavan-kumar/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/vs-pavan-kumar.jpg"
   },
   "aiml/bidinamcherla-ammanni": {
     "areas": [
@@ -337,14 +375,16 @@
     "qual": "",
     "counts": {},
     "name": "Bidinamcherla Ammanni",
-    "url": "https://mlrit.ac.in/faculty/bidinamcherla-ammanni/"
+    "url": "https://mlrit.ac.in/faculty/bidinamcherla-ammanni/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/bidinamcherla-ammanni.jpg"
   },
   "aiml/sivakrishna-kondaveeti": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Dr. Sivakrishna Kondaveeti",
-    "url": "https://mlrit.ac.in/faculty/dr-sivakrishna-kondaveeti/"
+    "url": "https://mlrit.ac.in/faculty/dr-sivakrishna-kondaveeti/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/sivakrishna-kondaveeti.jpg"
   },
   "aiml/g-sowmya": {
     "areas": [
@@ -353,14 +393,16 @@
     "qual": "",
     "counts": {},
     "name": "G. Sowmya",
-    "url": "https://mlrit.ac.in/faculty/g-sowmya/"
+    "url": "https://mlrit.ac.in/faculty/g-sowmya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/g-sowmya.jpg"
   },
   "aiml/singanamala-priyanka": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Singanamala Priyanka",
-    "url": "https://mlrit.ac.in/faculty/s-priyanka/"
+    "url": "https://mlrit.ac.in/faculty/s-priyanka/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/singanamala-priyanka.jpg"
   },
   "aiml/pasupuleti-pavani": {
     "areas": [
@@ -370,14 +412,16 @@
     "qual": "",
     "counts": {},
     "name": "Pasupuleti Pavani",
-    "url": "https://mlrit.ac.in/faculty/pasupuleti-pavani/"
+    "url": "https://mlrit.ac.in/faculty/pasupuleti-pavani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/pasupuleti-pavani.jpg"
   },
   "aiml/remedi-sravani": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Remedi Sravani",
-    "url": "https://mlrit.ac.in/faculty/remedi-sravani/"
+    "url": "https://mlrit.ac.in/faculty/remedi-sravani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/remedi-sravani.jpg"
   },
   "aiml/lakshmi-saritha": {
     "areas": [
@@ -386,35 +430,40 @@
     "qual": "",
     "counts": {},
     "name": "Lakshmi Saritha",
-    "url": "https://mlrit.ac.in/faculty/lakshmi-saritha/"
+    "url": "https://mlrit.ac.in/faculty/lakshmi-saritha/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/lakshmi-saritha.jpg"
   },
   "aiml/komari-biksheswara-rao": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Komari BiksheswaraRao",
-    "url": "https://mlrit.ac.in/faculty/komari-biksheswararao/"
+    "url": "https://mlrit.ac.in/faculty/komari-biksheswararao/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/komari-biksheswara-rao.jpg"
   },
   "aiml/e-raghavender": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "E Raghavender",
-    "url": "https://mlrit.ac.in/faculty/e-raghavender/"
+    "url": "https://mlrit.ac.in/faculty/e-raghavender/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/e-raghavender.jpg"
   },
   "aiml/seedarla-sandhya-rani": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Seedarla Sandhya Rani",
-    "url": "https://mlrit.ac.in/faculty/seedarla-sandhya-rani/"
+    "url": "https://mlrit.ac.in/faculty/seedarla-sandhya-rani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/seedarla-sandhya-rani.jpg"
   },
   "aiml/shaik-gouse-pasha": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Shaik Gouse Pasha",
-    "url": "https://mlrit.ac.in/faculty/shaik-gouse-pasha/"
+    "url": "https://mlrit.ac.in/faculty/shaik-gouse-pasha/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/shaik-gouse-pasha.jpg"
   },
   "aiml/m-lakshmi-saranya": {
     "areas": [
@@ -423,14 +472,16 @@
     "qual": "",
     "counts": {},
     "name": "M Lakshmi Saranya",
-    "url": "https://mlrit.ac.in/faculty/m-lakshmi-saranya/"
+    "url": "https://mlrit.ac.in/faculty/m-lakshmi-saranya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/m-lakshmi-saranya.jpg"
   },
   "aiml/pottapinjara-babu": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Pottapinjara Babu",
-    "url": "https://mlrit.ac.in/faculty/pottapinjara-babu/"
+    "url": "https://mlrit.ac.in/faculty/pottapinjara-babu/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/pottapinjara-babu.jpg"
   },
   "aiml/b-mamatha": {
     "areas": [
@@ -439,7 +490,8 @@
     "qual": "",
     "counts": {},
     "name": "B.Mamatha",
-    "url": "https://mlrit.ac.in/faculty/b-mamatha/"
+    "url": "https://mlrit.ac.in/faculty/b-mamatha/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/b-mamatha.jpg"
   },
   "aiml/t-aswani": {
     "areas": [
@@ -449,14 +501,16 @@
     "qual": "",
     "counts": {},
     "name": "T Aswani",
-    "url": "https://mlrit.ac.in/faculty/t-aswani/"
+    "url": "https://mlrit.ac.in/faculty/t-aswani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/t-aswani.jpg"
   },
   "aiml/ravi-gangadharolla": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ravi Gangadharolla",
-    "url": "https://mlrit.ac.in/faculty/ravi-gangadharolla/"
+    "url": "https://mlrit.ac.in/faculty/ravi-gangadharolla/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/ravi-gangadharolla.jpg"
   },
   "aiml/pacha-swathi": {
     "areas": [
@@ -465,56 +519,64 @@
     "qual": "",
     "counts": {},
     "name": "Pacha Swathi",
-    "url": "https://mlrit.ac.in/faculty/pacha-swathi/"
+    "url": "https://mlrit.ac.in/faculty/pacha-swathi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/pacha-swathi.jpg"
   },
   "aiml/t-nagini": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "T Nagini",
-    "url": "https://mlrit.ac.in/faculty/t-nagini/"
+    "url": "https://mlrit.ac.in/faculty/t-nagini/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/t-nagini.jpg"
   },
   "aiml/h-ramanjineyulu": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "H Ramanjineyulu",
-    "url": "https://mlrit.ac.in/faculty/harijana-ramanjineyulu/"
+    "url": "https://mlrit.ac.in/faculty/harijana-ramanjineyulu/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/h-ramanjineyulu.jpg"
   },
   "aiml/talari-meena": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Talari Meena",
-    "url": "https://mlrit.ac.in/faculty/talari-meena/"
+    "url": "https://mlrit.ac.in/faculty/talari-meena/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/talari-meena.jpg"
   },
   "aiml/nemala-jayasri": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Nemala Jayasri",
-    "url": "https://mlrit.ac.in/faculty/nemala-jayasri/"
+    "url": "https://mlrit.ac.in/faculty/nemala-jayasri/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/nemala-jayasri.jpg"
   },
   "aiml/gunda-aishwarya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Gunda Aishwarya",
-    "url": "https://mlrit.ac.in/faculty/gunda-aishwarya/"
+    "url": "https://mlrit.ac.in/faculty/gunda-aishwarya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/gunda-aishwarya.jpg"
   },
   "aiml/p-lokesh-kumar": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "P Lokesh Kumar",
-    "url": "https://mlrit.ac.in/faculty/p-lokesh-kumar/"
+    "url": "https://mlrit.ac.in/faculty/p-lokesh-kumar/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/p-lokesh-kumar.jpg"
   },
   "aiml/j-teja": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "J. Teja",
-    "url": "https://mlrit.ac.in/faculty/mr-j-teja/"
+    "url": "https://mlrit.ac.in/faculty/mr-j-teja/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/j-teja.jpg"
   },
   "aiml/k-anusha": {
     "areas": [
@@ -524,28 +586,32 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. K. Anusha",
-    "url": "https://mlrit.ac.in/faculty/mrs-k-anusha/"
+    "url": "https://mlrit.ac.in/faculty/mrs-k-anusha/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/k-anusha.jpg"
   },
   "aiml/r-akhilesh-reddy": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mr.R Akhilesh Reddy",
-    "url": "https://mlrit.ac.in/faculty/mr-r-akhilesh-reddy/"
+    "url": "https://mlrit.ac.in/faculty/mr-r-akhilesh-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/r-akhilesh-reddy.jpg"
   },
   "aiml/p-sai-kumar": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "P Sai Kumar",
-    "url": "https://mlrit.ac.in/faculty/p-sai-kumar/"
+    "url": "https://mlrit.ac.in/faculty/p-sai-kumar/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/p-sai-kumar.jpg"
   },
   "aiml/damala-obulesu": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Damala Obulesu",
-    "url": "https://mlrit.ac.in/faculty/damala-obulesu/"
+    "url": "https://mlrit.ac.in/faculty/damala-obulesu/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/damala-obulesu.jpg"
   },
   "aiml/bhaskar-mekala": {
     "areas": [
@@ -554,21 +620,24 @@
     "qual": "",
     "counts": {},
     "name": "Bhaskar Mekala",
-    "url": "https://mlrit.ac.in/faculty/bhaskar-mekala/"
+    "url": "https://mlrit.ac.in/faculty/bhaskar-mekala/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/bhaskar-mekala.jpg"
   },
   "aiml/masigari-nagalakshmi": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Masigari Nagalakshmi",
-    "url": "https://mlrit.ac.in/faculty/masigiri-nagalakshmi/"
+    "url": "https://mlrit.ac.in/faculty/masigiri-nagalakshmi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/masigari-nagalakshmi.jpg"
   },
   "aiml/y-naveen": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Y. Naveen",
-    "url": "https://mlrit.ac.in/faculty/y-naveen/"
+    "url": "https://mlrit.ac.in/faculty/y-naveen/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/y-naveen.jpg"
   },
   "aiml/kallam-hemanthi": {
     "areas": [
@@ -577,56 +646,64 @@
     "qual": "",
     "counts": {},
     "name": "Kallam Hemanthi",
-    "url": "https://mlrit.ac.in/faculty/kallam-hemanthi/"
+    "url": "https://mlrit.ac.in/faculty/kallam-hemanthi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/kallam-hemanthi.jpg"
   },
   "aiml/vijay-keerthika": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Vijay Keerthika",
-    "url": "https://mlrit.ac.in/faculty/vijay-keerthika/"
+    "url": "https://mlrit.ac.in/faculty/vijay-keerthika/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/vijay-keerthika.jpg"
   },
   "aiml/g-umamaheswari": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "G. Umamaheswari",
-    "url": "https://mlrit.ac.in/faculty/g-umamaheswari/"
+    "url": "https://mlrit.ac.in/faculty/g-umamaheswari/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/g-umamaheswari.jpg"
   },
   "aiml/k-jyothsna-reddy": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "K. Jyothsna Reddy",
-    "url": "https://mlrit.ac.in/faculty/k-jyothsna-reddy/"
+    "url": "https://mlrit.ac.in/faculty/k-jyothsna-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/aiml/k-jyothsna-reddy.jpg"
   },
   "cse-cs/p-subhashini": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Dr. P. Subhashini",
-    "url": "https://mlrit.ac.in/faculty/dr-p-subhashini/"
+    "url": "https://mlrit.ac.in/faculty/dr-p-subhashini/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/p-subhashini.jpg"
   },
   "cse-cs/atluri-srujan": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mr. Atluri Srujan",
-    "url": "https://mlrit.ac.in/faculty/mr-atluri-srujan/"
+    "url": "https://mlrit.ac.in/faculty/mr-atluri-srujan/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/atluri-srujan.jpg"
   },
   "cse-cs/manisha-kandukuri": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Manisha Kandukuri",
-    "url": "https://mlrit.ac.in/faculty/manisha-kandukuri/"
+    "url": "https://mlrit.ac.in/faculty/manisha-kandukuri/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/manisha-kandukuri.jpg"
   },
   "cse-cs/juttu-suresh": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Juttu Suresh",
-    "url": "https://mlrit.ac.in/faculty/juttu-suresh/"
+    "url": "https://mlrit.ac.in/faculty/juttu-suresh/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/juttu-suresh.jpg"
   },
   "cse-cs/k-shiva-krishna": {
     "areas": [
@@ -635,14 +712,16 @@
     "qual": "",
     "counts": {},
     "name": "K.Shiva Krishna",
-    "url": "https://mlrit.ac.in/faculty/k-shiva-krishna/"
+    "url": "https://mlrit.ac.in/faculty/k-shiva-krishna/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/k-shiva-krishna.jpg"
   },
   "cse-cs/bochu-sandhya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Bochu Sandhya",
-    "url": "https://mlrit.ac.in/faculty/mrs-kannuri-sandhya/"
+    "url": "https://mlrit.ac.in/faculty/mrs-kannuri-sandhya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/bochu-sandhya.jpg"
   },
   "cse-cs/swathi-dendi": {
     "areas": [
@@ -651,7 +730,8 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. Swathi Dendi",
-    "url": "https://mlrit.ac.in/faculty/mrs-swathi-dendi/"
+    "url": "https://mlrit.ac.in/faculty/mrs-swathi-dendi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/swathi-dendi.jpg"
   },
   "cse-cs/y-anjali-satyavati": {
     "areas": [
@@ -660,35 +740,40 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. Y Anjali Satyavati",
-    "url": "https://mlrit.ac.in/faculty/mrs-y-anjali-satyavati/"
+    "url": "https://mlrit.ac.in/faculty/mrs-y-anjali-satyavati/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/y-anjali-satyavati.jpg"
   },
   "cse-cs/irfan-bagawan": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Irfan Bagawan",
-    "url": "https://mlrit.ac.in/faculty/mr-irfan-bagawan/"
+    "url": "https://mlrit.ac.in/faculty/mr-irfan-bagawan/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/irfan-bagawan.jpg"
   },
   "cse-cs/kiran-kumar-reddy-a": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Kiran Kumar Reddy.A",
-    "url": "https://mlrit.ac.in/faculty/mr-a-kiran-kumar-reddy/"
+    "url": "https://mlrit.ac.in/faculty/mr-a-kiran-kumar-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/kiran-kumar-reddy-a.jpg"
   },
   "cse-cs/mukku-bhavana": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms. Mukku Bhavana",
-    "url": "https://mlrit.ac.in/faculty/ms-mukku-bhavana/"
+    "url": "https://mlrit.ac.in/faculty/ms-mukku-bhavana/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/mukku-bhavana.jpg"
   },
   "cse-cs/bolagani-balaji": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Bolagani Balaji",
-    "url": "https://mlrit.ac.in/faculty/mr-bolagani-balaji/"
+    "url": "https://mlrit.ac.in/faculty/mr-bolagani-balaji/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/bolagani-balaji.jpg"
   },
   "cse-cs/d-tejaswini": {
     "areas": [
@@ -697,7 +782,8 @@
     "qual": "",
     "counts": {},
     "name": "Ms. D. Tejaswini",
-    "url": "https://mlrit.ac.in/faculty/ms-d-tejaswini/"
+    "url": "https://mlrit.ac.in/faculty/ms-d-tejaswini/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/d-tejaswini.jpg"
   },
   "cse-cs/ch-sharonu-pushpa": {
     "areas": [
@@ -706,7 +792,8 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. Ch. Sharonu Pushpa",
-    "url": "https://mlrit.ac.in/faculty/mrs-ch-sharonu-pushpa/"
+    "url": "https://mlrit.ac.in/faculty/mrs-ch-sharonu-pushpa/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/ch-sharonu-pushpa.jpg"
   },
   "cse-cs/g-umamaheswari": {
     "areas": [
@@ -715,35 +802,40 @@
     "qual": "",
     "counts": {},
     "name": "G. Umamaheswari",
-    "url": "https://mlrit.ac.in/faculty/g-uma-maheshwari/"
+    "url": "https://mlrit.ac.in/faculty/g-uma-maheshwari/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-cs/g-umamaheswari.jpg"
   },
   "cse-ds/d-b-k-kamesh": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Dr. D.B.K. Kamesh",
-    "url": "https://mlrit.ac.in/faculty/dr-d-b-k-kamesh/"
+    "url": "https://mlrit.ac.in/faculty/dr-d-b-k-kamesh/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/d-b-k-kamesh.jpg"
   },
   "cse-ds/p-subhashini": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Dr. P. Subhashini",
-    "url": "https://mlrit.ac.in/faculty/dr-p-subhashini/"
+    "url": "https://mlrit.ac.in/faculty/dr-p-subhashini/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/p-subhashini.jpg"
   },
   "cse-ds/damalla-jyothi": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Dr. Damalla Jyothi",
-    "url": "https://mlrit.ac.in/faculty/d-jyothi/"
+    "url": "https://mlrit.ac.in/faculty/d-jyothi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/damalla-jyothi.jpg"
   },
   "cse-ds/veerasekhar-reddy": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Dr. Veerasekhar reddy",
-    "url": "https://mlrit.ac.in/faculty/b-veerasekhar-reddy/"
+    "url": "https://mlrit.ac.in/faculty/b-veerasekhar-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/veerasekhar-reddy.jpg"
   },
   "cse-ds/tahneyath-ahmed": {
     "areas": [
@@ -752,42 +844,48 @@
     "qual": "",
     "counts": {},
     "name": "Tahneyath Ahmed",
-    "url": "https://mlrit.ac.in/faculty/tahneyath-ahmed/"
+    "url": "https://mlrit.ac.in/faculty/tahneyath-ahmed/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/tahneyath-ahmed.jpg"
   },
   "cse-ds/k-rani": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "K. Rani",
-    "url": "https://mlrit.ac.in/faculty/mrs-kommula-rani/"
+    "url": "https://mlrit.ac.in/faculty/mrs-kommula-rani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/k-rani.jpg"
   },
   "cse-ds/manasaraj": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Manasaraj",
-    "url": "https://mlrit.ac.in/faculty/p-manasaraj/"
+    "url": "https://mlrit.ac.in/faculty/p-manasaraj/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/manasaraj.jpg"
   },
   "cse-ds/s-shakina": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "S. Shakina",
-    "url": "https://mlrit.ac.in/faculty/shakina-samuel-mark/"
+    "url": "https://mlrit.ac.in/faculty/shakina-samuel-mark/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/s-shakina.jpg"
   },
   "cse-ds/sravanthi-anumasula": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Sravanthi Anumasula",
-    "url": "https://mlrit.ac.in/faculty/d-sravanthi/"
+    "url": "https://mlrit.ac.in/faculty/d-sravanthi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/sravanthi-anumasula.jpg"
   },
   "cse-ds/d-srivalli": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "D.SRIVALLI",
-    "url": "https://mlrit.ac.in/faculty/d-srivalli/"
+    "url": "https://mlrit.ac.in/faculty/d-srivalli/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/d-srivalli.jpg"
   },
   "cse-ds/d-gayathri": {
     "areas": [
@@ -796,14 +894,16 @@
     "qual": "",
     "counts": {},
     "name": "D.GAYATHRI",
-    "url": "https://mlrit.ac.in/faculty/d-gayathri/"
+    "url": "https://mlrit.ac.in/faculty/d-gayathri/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/d-gayathri.jpg"
   },
   "cse-ds/n-baby-rani": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "N.BABY RANI",
-    "url": "https://mlrit.ac.in/faculty/n-baby-rani/"
+    "url": "https://mlrit.ac.in/faculty/n-baby-rani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/n-baby-rani.jpg"
   },
   "cse-ds/dasari-amulya": {
     "areas": [
@@ -812,42 +912,48 @@
     "qual": "",
     "counts": {},
     "name": "Dasari Amulya",
-    "url": "https://mlrit.ac.in/faculty/dasari-amulya/"
+    "url": "https://mlrit.ac.in/faculty/dasari-amulya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/dasari-amulya.jpg"
   },
   "cse-ds/v-divya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "V. DIVYA",
-    "url": "https://mlrit.ac.in/faculty/v-divya/"
+    "url": "https://mlrit.ac.in/faculty/v-divya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/v-divya.jpg"
   },
   "cse-ds/p-nishitha": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms .P.Nishitha",
-    "url": "https://mlrit.ac.in/faculty/p-nishitha-2/"
+    "url": "https://mlrit.ac.in/faculty/p-nishitha-2/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/p-nishitha.jpg"
   },
   "cse-ds/a-nirisha": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "A.Nirisha",
-    "url": "https://mlrit.ac.in/faculty/a-nirisha/"
+    "url": "https://mlrit.ac.in/faculty/a-nirisha/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/a-nirisha.jpg"
   },
   "cse-ds/s-anudeep": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "S. Anudeep",
-    "url": "https://mlrit.ac.in/faculty/sadula-anudeep/"
+    "url": "https://mlrit.ac.in/faculty/sadula-anudeep/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/s-anudeep.jpg"
   },
   "cse-ds/madhavi-banala": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms.Madhavi Banala",
-    "url": "https://mlrit.ac.in/faculty/b-madhavi/"
+    "url": "https://mlrit.ac.in/faculty/b-madhavi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/madhavi-banala.jpg"
   },
   "cse-ds/pallavi-mechineni": {
     "areas": [
@@ -856,14 +962,16 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. Pallavi Mechineni",
-    "url": "https://mlrit.ac.in/faculty/mrs-pallavi-mechineni/"
+    "url": "https://mlrit.ac.in/faculty/mrs-pallavi-mechineni/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/pallavi-mechineni.jpg"
   },
   "cse-ds/bochu-sandhya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Bochu Sandhya",
-    "url": "https://mlrit.ac.in/faculty/mrs-kannuri-sandhya/"
+    "url": "https://mlrit.ac.in/faculty/mrs-kannuri-sandhya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/bochu-sandhya.jpg"
   },
   "cse-ds/swathi-dendi": {
     "areas": [
@@ -872,7 +980,8 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. Swathi Dendi",
-    "url": "https://mlrit.ac.in/faculty/mrs-swathi-dendi/"
+    "url": "https://mlrit.ac.in/faculty/mrs-swathi-dendi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/swathi-dendi.jpg"
   },
   "cse-ds/banoth-rajeshwari": {
     "areas": [
@@ -881,42 +990,48 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. Banoth Rajeshwari",
-    "url": "https://mlrit.ac.in/faculty/mrs-banoth-rajeshwari/"
+    "url": "https://mlrit.ac.in/faculty/mrs-banoth-rajeshwari/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/banoth-rajeshwari.jpg"
   },
   "cse-ds/irfan-bagawan": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Irfan Bagawan",
-    "url": "https://mlrit.ac.in/faculty/mr-irfan-bagawan/"
+    "url": "https://mlrit.ac.in/faculty/mr-irfan-bagawan/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/irfan-bagawan.jpg"
   },
   "cse-ds/kiran-kumar-reddy-a": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Kiran Kumar Reddy.A",
-    "url": "https://mlrit.ac.in/faculty/mr-a-kiran-kumar-reddy/"
+    "url": "https://mlrit.ac.in/faculty/mr-a-kiran-kumar-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/kiran-kumar-reddy-a.jpg"
   },
   "cse-ds/bolagani-balaji": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Bolagani Balaji",
-    "url": "https://mlrit.ac.in/faculty/mr-bolagani-balaji/"
+    "url": "https://mlrit.ac.in/faculty/mr-bolagani-balaji/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/bolagani-balaji.jpg"
   },
   "cse-ds/malothu-sindhuja": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Malothu Sindhuja",
-    "url": "https://mlrit.ac.in/faculty/mrs-malothu-sindhuja/"
+    "url": "https://mlrit.ac.in/faculty/mrs-malothu-sindhuja/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/malothu-sindhuja.jpg"
   },
   "cse-ds/hasina-nasrin": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Hasina Nasrin",
-    "url": "https://mlrit.ac.in/faculty/hasina-nasrin/"
+    "url": "https://mlrit.ac.in/faculty/hasina-nasrin/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/hasina-nasrin.jpg"
   },
   "cse-ds/k-alankruthi": {
     "areas": [
@@ -925,7 +1040,8 @@
     "qual": "",
     "counts": {},
     "name": "Ms. K.Alankruthi",
-    "url": "https://mlrit.ac.in/faculty/ms-k-alankruthi/"
+    "url": "https://mlrit.ac.in/faculty/ms-k-alankruthi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/k-alankruthi.jpg"
   },
   "cse-ds/b-ravali-reddy": {
     "areas": [
@@ -934,14 +1050,16 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. B.Ravali Reddy",
-    "url": "https://mlrit.ac.in/faculty/mrs-b-ravali-reddy/"
+    "url": "https://mlrit.ac.in/faculty/mrs-b-ravali-reddy/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/b-ravali-reddy.jpg"
   },
   "cse-ds/mathipogu-ashok-babu": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mathipogu Ashok Babu",
-    "url": "https://mlrit.ac.in/faculty/mr-m-ashok-babu/"
+    "url": "https://mlrit.ac.in/faculty/mr-m-ashok-babu/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/mathipogu-ashok-babu.jpg"
   },
   "cse-ds/k-srinija": {
     "areas": [
@@ -950,21 +1068,24 @@
     "qual": "",
     "counts": {},
     "name": "Mrs. K.Srinija",
-    "url": "https://mlrit.ac.in/faculty/mrs-k-srinija/"
+    "url": "https://mlrit.ac.in/faculty/mrs-k-srinija/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/k-srinija.jpg"
   },
   "cse-ds/bhukya-balakrishna": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Bhukya Balakrishna",
-    "url": "https://mlrit.ac.in/faculty/bhukya-balakrishna/"
+    "url": "https://mlrit.ac.in/faculty/bhukya-balakrishna/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/bhukya-balakrishna.jpg"
   },
   "cse-ds/jangam-nagaraju": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Jangam Nagaraju",
-    "url": "https://mlrit.ac.in/faculty/mr-j-nagaraju/"
+    "url": "https://mlrit.ac.in/faculty/mr-j-nagaraju/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/jangam-nagaraju.jpg"
   },
   "cse-ds/mary-navyatha-govindu": {
     "areas": [
@@ -973,83 +1094,95 @@
     "qual": "",
     "counts": {},
     "name": "Mary Navyatha Govindu",
-    "url": "https://mlrit.ac.in/faculty/mrs-navyatha-ravi/"
+    "url": "https://mlrit.ac.in/faculty/mrs-navyatha-ravi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/mary-navyatha-govindu.jpg"
   },
   "cse-ds/n-thulasi-chithra": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "N. Thulasi Chithra",
-    "url": "https://mlrit.ac.in/faculty/n-thulasi-chitra/"
+    "url": "https://mlrit.ac.in/faculty/n-thulasi-chitra/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/n-thulasi-chithra.jpg"
   },
   "cse-ds/s-parvathi": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mrs S.Parvathi",
-    "url": "https://mlrit.ac.in/faculty/mrs-s-parvathi/"
+    "url": "https://mlrit.ac.in/faculty/mrs-s-parvathi/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/s-parvathi.jpg"
   },
   "cse-ds/n-sandhya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "N. Sandhya",
-    "url": "https://mlrit.ac.in/faculty/mrs-n-sandhya-rani/"
+    "url": "https://mlrit.ac.in/faculty/mrs-n-sandhya-rani/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/n-sandhya.jpg"
   },
   "cse-ds/m-srividya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mrs M.Srividya",
-    "url": "https://mlrit.ac.in/faculty/mrs-m-srividya/"
+    "url": "https://mlrit.ac.in/faculty/mrs-m-srividya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/m-srividya.jpg"
   },
   "cse-ds/d-neelima-priyadarshini": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms D.Neelima Priyadarshini",
-    "url": "https://mlrit.ac.in/faculty/mrs-d-neelima/"
+    "url": "https://mlrit.ac.in/faculty/mrs-d-neelima/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/d-neelima-priyadarshini.jpg"
   },
   "cse-ds/n-vijayasri": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms N.Vijayasri",
-    "url": "https://mlrit.ac.in/faculty/mrs-ch-vijayasri/"
+    "url": "https://mlrit.ac.in/faculty/mrs-ch-vijayasri/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/n-vijayasri.jpg"
   },
   "cse-ds/rowsonara-begum": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Rowsonara Begum",
-    "url": "https://mlrit.ac.in/faculty/rowsonara-begum/"
+    "url": "https://mlrit.ac.in/faculty/rowsonara-begum/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/rowsonara-begum.jpg"
   },
   "cse-ds/mohd-anwar-ali": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mr.Mohd Anwar Ali",
-    "url": "https://mlrit.ac.in/faculty/mohd-anwar-ali/"
+    "url": "https://mlrit.ac.in/faculty/mohd-anwar-ali/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/mohd-anwar-ali.jpg"
   },
   "cse-ds/b-sushma": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Ms B. Sushma",
-    "url": "https://mlrit.ac.in/faculty/b-sushma/"
+    "url": "https://mlrit.ac.in/faculty/b-sushma/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/b-sushma.jpg"
   },
   "cse-ds/d-sandeep": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "Mr D. Sandeep",
-    "url": "https://mlrit.ac.in/faculty/d-sandeep/"
+    "url": "https://mlrit.ac.in/faculty/d-sandeep/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/d-sandeep.jpg"
   },
   "cse-ds/s-navya": {
     "areas": [],
     "qual": "",
     "counts": {},
     "name": "S. Navya",
-    "url": "https://mlrit.ac.in/faculty/soleti-navya/"
+    "url": "https://mlrit.ac.in/faculty/soleti-navya/",
+    "photo": "https://res.cloudinary.com/dyhhtgodn/image/upload/f_auto,q_auto,w_400,h_400,c_fill,g_face/mlrit/faculty/cse-ds/s-navya.jpg"
   }
 }

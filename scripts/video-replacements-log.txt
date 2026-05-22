@@ -1,0 +1,116 @@
+Video replacement log
+Files scanned: 112
+Files modified: 15
+Total URL replacements: 38
+
+
+=== index.html (16 replacements) ===
+  homepage/hero.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_1200k/mlrit/videos/hero.mp4
+  homepage/sports.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/sports.mp4
+  homepage/av1.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av1.mp4
+  homepage/av2.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av2.mp4
+  homepage/av3.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av3.mp4
+  homepage/av1.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av1.mp4
+  homepage/av2.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av2.mp4
+  assets/events-bg.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/events-bg.mp4
+  homepage/inno.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/inno.mp4
+  homepage/sports.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/sports.mp4
+  homepage/av3.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av3.mp4
+  homepage/av1.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av1.mp4
+  homepage/av2.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av2.mp4
+  homepage/av3.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av3.mp4
+  homepage/av2.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av2.mp4
+  homepage/av1.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av1.mp4
+
+=== placements/placements.html (1 replacements) ===
+  place vid.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/placements.mp4
+
+=== departments/cse-cs.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/eee.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/cse-ds.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/ece.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/mechanical.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/it.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/csit.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/cse.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/freshman.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/mba.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/aiml.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== departments/aeronautical.html (1 replacements) ===
+  dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+
+=== scripts/upload-videos.js (9 replacements) ===
+  homepage/sports.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/sports.mp4
+  homepage/av1.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av1.mp4
+  homepage/av2.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av2.mp4
+  homepage/av3.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto:low,f_auto,br_400k/mlrit/videos/av3.mp4
+  homepage/inno.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/inno.mp4
+  assets/events-bg.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/events-bg.mp4
+  departments/dept.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/dept.mp4
+  hero2.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_1200k/mlrit/videos/hero2.mp4
+  placements/place vid.mp4
+    → https://res.cloudinary.com/dtmde1fyn/video/upload/q_auto,f_auto,br_800k/mlrit/videos/placements.mp4
+
+=== NOTE ===
+scripts/upload-videos.js was inadvertently modified by the replacement pass (it
+is a .js file matching the glob). Restored to original state since it must keep
+local paths to perform uploads. Effective replacements: 29 across 14 files.

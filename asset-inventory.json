@@ -1,0 +1,4181 @@
+{
+  "videos": [
+    {
+      "local_path": "assets/events-bg.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "assets/events-bg.mp4"
+      ]
+    },
+    {
+      "local_path": "departments/dept.mp4",
+      "referenced_in": [
+        "departments/aeronautical.html",
+        "departments/aiml.html",
+        "departments/cse-cs.html",
+        "departments/cse-ds.html",
+        "departments/cse.html",
+        "departments/csit.html",
+        "departments/ece.html",
+        "departments/eee.html",
+        "departments/freshman.html",
+        "departments/it.html",
+        "departments/mba.html",
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "dept.mp4"
+      ]
+    },
+    {
+      "local_path": "hero2.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "hero2.mp4"
+      ]
+    },
+    {
+      "local_path": "homepage/av1.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "homepage/av1.mp4"
+      ]
+    },
+    {
+      "local_path": "homepage/av2.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "homepage/av2.mp4"
+      ]
+    },
+    {
+      "local_path": "homepage/av3.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "homepage/av3.mp4"
+      ]
+    },
+    {
+      "local_path": "homepage/hero.mov",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "homepage/hero.mov"
+      ]
+    },
+    {
+      "local_path": "homepage/inno.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "homepage/inno.mp4"
+      ]
+    },
+    {
+      "local_path": "homepage/sports.mp4",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "homepage/sports.mp4"
+      ]
+    },
+    {
+      "local_path": "placements/place vid.mp4",
+      "referenced_in": [
+        "placements/placements.html"
+      ],
+      "reference_strings": [
+        "place vid.mp4"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "local_path": "assets/logo.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "assets/main logo.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/aeronautical/a-sai-kumar.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/a-sai-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/a-udaya-deepika.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/a-udaya-deepika.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/arvind-singh.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/arvind-singh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/b-manideep.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/b-manideep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/b-nagaraj-goud.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/b-nagaraj-goud.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/g-sravanthi.jpeg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/g-sravanthi.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/k-arun-kumar.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/k-arun-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/m-ganesh.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/m-ganesh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/nayani-uday-ranjan.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/nayani-uday-ranjan.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/nirmith-kumar-mishra.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/nirmith-kumar-mishra.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/s-jayalakshmi.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/s-jayalakshmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/saiprakash.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/saiprakash.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/satyanarayana.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/satyanarayana.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/sreekanth-sura.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/sreekanth-sura.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/swetha-bala.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/swetha-bala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/thangavel-sanjeeviraja.jpeg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/thangavel-sanjeeviraja.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/veeranjaneyulu.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/veeranjaneyulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/vivek-anand.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/vivek-anand.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aeronautical/yelamasetti-balram.jpg",
+      "referenced_in": [
+        "departments/aeronautical.html"
+      ],
+      "reference_strings": [
+        "images/aeronautical/yelamasetti-balram.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/b-mamatha.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/b-mamatha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/bhaskar-mekala.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/bhaskar-mekala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/bidinamcherla-ammanni.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/bidinamcherla-ammanni.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/damala-obulesu.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/damala-obulesu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/e-raghavender.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/e-raghavender.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/g-sowmya.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/g-sowmya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/g-umamaheswari.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/g-umamaheswari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/gunda-aishwarya.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/gunda-aishwarya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/h-ramanjineyulu.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/h-ramanjineyulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/j-teja.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/j-teja.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/k-anusha.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/k-anusha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/k-jyothsna-reddy.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/k-jyothsna-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/k-varada-rajkumar.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/k-varada-rajkumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/kallam-hemanthi.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/kallam-hemanthi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/kashi-sai-prasad.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/kashi-sai-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/komari-biksheswara-rao.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/komari-biksheswara-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/lakshmi-saritha.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/lakshmi-saritha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/m-lakshmi-saranya.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/m-lakshmi-saranya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/masigari-nagalakshmi.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/masigari-nagalakshmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/nemala-jayasri.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/nemala-jayasri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/p-lokesh-kumar.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/p-lokesh-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/p-sai-kumar.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/p-sai-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/pacha-swathi.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/pacha-swathi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/pasupuleti-pavani.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/pasupuleti-pavani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/penubaka-kiran-kumar-reddy.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/penubaka-kiran-kumar-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/pottapinjara-babu.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/pottapinjara-babu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/r-akhilesh-reddy.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/r-akhilesh-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/ravi-gangadharolla.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/ravi-gangadharolla.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/remedi-sravani.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/remedi-sravani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/seedarla-sandhya-rani.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/seedarla-sandhya-rani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/shaik-gouse-pasha.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/shaik-gouse-pasha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/singanamala-priyanka.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/singanamala-priyanka.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/sivakrishna-kondaveeti.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/sivakrishna-kondaveeti.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/t-aswani.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/t-aswani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/t-nagini.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/t-nagini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/talari-meena.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/talari-meena.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/vijay-keerthika.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/vijay-keerthika.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/vs-pavan-kumar.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/vs-pavan-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/aiml/y-naveen.jpg",
+      "referenced_in": [
+        "departments/aiml.html"
+      ],
+      "reference_strings": [
+        "images/aiml/y-naveen.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/atluri-srujan.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/atluri-srujan.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/bochu-sandhya.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/bochu-sandhya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/bolagani-balaji.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/bolagani-balaji.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/ch-sharonu-pushpa.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/ch-sharonu-pushpa.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/d-tejaswini.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/d-tejaswini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/g-umamaheswari.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/g-umamaheswari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/irfan-bagawan.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/irfan-bagawan.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/juttu-suresh.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/juttu-suresh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/k-shiva-krishna.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/k-shiva-krishna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/kiran-kumar-reddy-a.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/kiran-kumar-reddy-a.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/manisha-kandukuri.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/manisha-kandukuri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/mukku-bhavana.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/mukku-bhavana.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/p-subhashini.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/p-subhashini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/swathi-dendi.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/swathi-dendi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-cs/y-anjali-satyavati.jpg",
+      "referenced_in": [
+        "departments/cse-cs.html"
+      ],
+      "reference_strings": [
+        "images/cse-cs/y-anjali-satyavati.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/a-nirisha.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/a-nirisha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/arshiya-begum.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/arshiya-begum.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/b-ravali-reddy.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/b-ravali-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/b-sushma.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/b-sushma.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/banoth-rajeshwari.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/banoth-rajeshwari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/bhukya-balakrishna.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/bhukya-balakrishna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/bochu-sandhya.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/bochu-sandhya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/bolagani-balaji.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/bolagani-balaji.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/d-b-k-kamesh.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/d-b-k-kamesh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/d-gayathri.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/d-gayathri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/d-neelima-priyadarshini.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/d-neelima-priyadarshini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/d-sandeep.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/d-sandeep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/d-srivalli.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/d-srivalli.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/damalla-jyothi.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/damalla-jyothi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/dasari-amulya.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/dasari-amulya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/hasina-nasrin.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/hasina-nasrin.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/irfan-bagawan.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/irfan-bagawan.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/jangam-nagaraju.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/jangam-nagaraju.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/k-alankruthi.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/k-alankruthi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/k-rani.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/k-rani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/k-srinija.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/k-srinija.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/kiran-kumar-reddy-a.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/kiran-kumar-reddy-a.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/m-srividya.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/m-srividya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/madhavi-banala.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/madhavi-banala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/malothu-sindhuja.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/malothu-sindhuja.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/manasaraj.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/manasaraj.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/mary-navyatha-govindu.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/mary-navyatha-govindu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/mathipogu-ashok-babu.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/mathipogu-ashok-babu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/mohd-anwar-ali.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/mohd-anwar-ali.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/n-baby-rani.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/n-baby-rani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/n-sandhya.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/n-sandhya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/n-thulasi-chithra.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/n-thulasi-chithra.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/n-vijayasri.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/n-vijayasri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/p-nishitha.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/p-nishitha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/p-salma-khatoon.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/p-salma-khatoon.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/p-subhashini.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/p-subhashini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/pallavi-mechineni.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/pallavi-mechineni.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/rowsonara-begum.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/rowsonara-begum.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/s-anudeep.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/s-anudeep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/s-navya.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/s-navya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/s-parvathi.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/s-parvathi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/s-shakina.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/s-shakina.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/sravanthi-anumasula.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/sravanthi-anumasula.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/swathi-dendi.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/swathi-dendi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/tahneyath-ahmed.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/tahneyath-ahmed.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/v-divya.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/v-divya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse-ds/veerasekhar-reddy.jpg",
+      "referenced_in": [
+        "departments/cse-ds.html"
+      ],
+      "reference_strings": [
+        "images/cse-ds/veerasekhar-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/a-balaram.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/cse/a-laxmi-prasanna.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/a-laxmi-prasanna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/a-nagamani.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/a-nagamani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/ajmeera-kiran.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/ajmeera-kiran.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/allam-sangeetha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/allam-sangeetha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/b-devananda-rao.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/b-devananda-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/b-manjusha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/b-manjusha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/b-muralikrishna.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/b-muralikrishna.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/b-ratnamala.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/b-ratnamala.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/b-sanjai-prasad.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/b-sanjai-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/b-veda-vidhya.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/b-veda-vidhya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/bashetty-suman.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/bashetty-suman.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/boddu-srilatha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/boddu-srilatha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/d-jeevitha.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/d-jeevitha.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/d-tejaswini.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/d-tejaswini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/divya-priya-degala.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/divya-priya-degala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/en-vijaya-kumari.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/en-vijaya-kumari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/g-prabhakara-reddy.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/g-prabhakara-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/g-praveen.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/g-praveen.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/guduru-durga-bhavani.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/guduru-durga-bhavani.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/hareesh-pesala.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/hareesh-pesala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/i-sapthami.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/i-sapthami.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/j-chaitanya.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/j-chaitanya.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/j-mahalakshmi.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/j-mahalakshmi.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/j-pradeep-kumar.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/j-pradeep-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/jeethu-philip.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/jeethu-philip.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/jetti-sri-lakshmi.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/jetti-sri-lakshmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/john-samuel-babu.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/john-samuel-babu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/k-gagan-kumar.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/k-gagan-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/k-pushpa-rani.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/k-pushpa-rani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/k-samatha.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/k-samatha.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/k-srinivas-rao.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/cse/k-swetha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/k-swetha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/k-venkata-subbaiah.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/k-venkata-subbaiah.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/kandrakunta-chinnaiah.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/kandrakunta-chinnaiah.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/kranthi-kumari.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/kranthi-kumari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/kshitiza-vasudeva.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/cse/kukunoor-shekar.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/kukunoor-shekar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/lingaiah-suramsetti.png",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/lingaiah-suramsetti.png"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/m-kalpana-chowdary.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/m-kalpana-chowdary.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/m-srinivasa-rao.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/m-srinivasa-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/m-srinivasulu.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/m-srinivasulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/m-vineesha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/m-vineesha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/michael-preetam.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/cse/ms-sabitha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/ms-sabitha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/n-sirisha.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/n-sirisha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/nagarjuna-rao-gudelli.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/nagarjuna-rao-gudelli.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/nagarjuna-tandra.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/nagarjuna-tandra.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/oruganti-ramesh.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/oruganti-ramesh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/p-deepak.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/p-deepak.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/p-santhosh-kumar.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/p-santhosh-kumar.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/p-victor-emmanuel.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/p-victor-emmanuel.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/palelli-purushotham.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/palelli-purushotham.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/ragini-patil.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/ragini-patil.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/ramya-s-pure.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/ramya-s-pure.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/sai-krishna.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/sai-krishna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/sasmita-pradhan.png",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/sasmita-pradhan.png"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/shaik-mohammed-ilias.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/shaik-mohammed-ilias.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/sk-lokesh-naik.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/sk-lokesh-naik.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/swathi.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/swathi.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/t-venkata-nagaraju.jpeg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/t-venkata-nagaraju.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/telise-vinod.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/telise-vinod.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/v-balakrishna-reddy.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/v-balakrishna-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/cse/v-thrimurthulu.jpg",
+      "referenced_in": [
+        "departments/cse.html"
+      ],
+      "reference_strings": [
+        "images/cse/v-thrimurthulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/a-nirisha.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/a-nirisha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/banothu-seva.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/banothu-seva.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/d-b-k-kamesh.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/d-b-k-kamesh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/d-neelima-priyadarshini.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/d-neelima-priyadarshini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/d-rajeshwari.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/d-rajeshwari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/devolla-manogna.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/devolla-manogna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/m-srividya.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/m-srividya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/madhavi-banala.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/madhavi-banala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/n-sandhya.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/n-sandhya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/n-thulasi-chithra.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/n-thulasi-chithra.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/n-vijayasri.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/n-vijayasri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/p-nishitha.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/p-nishitha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/p-poojasree.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/p-poojasree.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/rajkumar-bhookya.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/rajkumar-bhookya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/s-anudeep.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/s-anudeep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/s-navya.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/s-navya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/s-parvathi.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/s-parvathi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/t-gandhi.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/t-gandhi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/t-mounika.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/t-mounika.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/csit/v-srikanth.jpg",
+      "referenced_in": [
+        "departments/csit.html"
+      ],
+      "reference_strings": [
+        "images/csit/v-srikanth.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/akhila-akula.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/akhila-akula.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/b-anusha.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/b-anusha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/b-kiran-kumar.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/b-kiran-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/b-sireesha.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/b-sireesha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/chinthakindi-babaiah.jpeg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/chinthakindi-babaiah.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/g-kaushik.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/g-kaushik.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/ganesh-miriyala.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/ganesh-miriyala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/geetha-yerramsetti.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/geetha-yerramsetti.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/gv-subba-reddy.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/gv-subba-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/k-hari-babu.png",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/k-hari-babu.png"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/k-maniraj.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/k-maniraj.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/k-nishanth-rao.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/k-nishanth-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/k-purushotham.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/k-purushotham.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/karthik-reddy.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/karthik-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/khobragade-pithamber.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/khobragade-pithamber.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/kiran-chand.jpeg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/kiran-chand.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/kiran-chand.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/ece/m-raju-naik.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/m-raju-naik.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/manoj-kumar.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/manoj-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/mary-kannidi.jpeg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/mary-kannidi.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/n-poornima-deepthi.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/n-poornima-deepthi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/nagendra-babu.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/nagendra-babu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/p-yakaiah.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/p-yakaiah.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/pullela-sravani.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/pullela-sravani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/rayala-sateesh.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/rayala-sateesh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/rudraram-divya.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/rudraram-divya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/s-monika.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/s-monika.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/s-naveen-kumar.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/s-naveen-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/sahitya.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/sahitya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/sandip-kumar.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/sandip-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/shrikant-upadhyay.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/shrikant-upadhyay.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/sudhakar-ajmera.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/sudhakar-ajmera.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/svs-prasad.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/svs-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/t-vijetha.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/t-vijetha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/vadla-arun-kumar.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/vadla-arun-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/velpula-vijaya-kumar.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/velpula-vijaya-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/ece/y-sivaramakrishna.jpg",
+      "referenced_in": [
+        "departments/ece.html"
+      ],
+      "reference_strings": [
+        "images/ece/y-sivaramakrishna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/a-shubhangi-rao.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/a-shubhangi-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/a-yadagiri.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/a-yadagiri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/ashok-kumar.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/ashok-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/ashok-reddy-kanna.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/ashok-reddy-kanna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/bv-rajanna.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/bv-rajanna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/ch-srivardhan-kumar.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/ch-srivardhan-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/dileep-kumar.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/dileep-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/k-rajasri.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/k-rajasri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/k-usha-rani.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/k-usha-rani.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/m-sreenivasa-reddy.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/m-sreenivasa-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/n-karthik.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/n-karthik.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/p-jithendar.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/p-jithendar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/placeholder.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/eee/sonu-kumar.jpeg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/sonu-kumar.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/sumana-das.jpeg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/sumana-das.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/t-bhargava-ramu.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/t-bhargava-ramu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/t-mrudula.jpg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/t-mrudula.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/eee/y-lalitha-kameswari.jpeg",
+      "referenced_in": [
+        "departments/eee.html"
+      ],
+      "reference_strings": [
+        "images/eee/y-lalitha-kameswari.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/abdullah.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/abdullah.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/achireddy.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/achireddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/amalendu.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/amalendu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/amar-nath.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/amar-nath.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/amritha.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/amritha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/anantha-lakshmi.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/anantha-lakshmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/aravind-mudhiraj.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/aravind-mudhiraj.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/arif.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/arif.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/atasi.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/atasi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/brahmayya.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/brahmayya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/deepthi-sista.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/deepthi-sista.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/divya.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/divya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/ekramul.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/ekramul.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/eranna.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/eranna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/harika.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/harika.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/haripriya.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/haripriya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/harsha-vincent.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/harsha-vincent.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/hymavathi.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/hymavathi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/inzamul.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/inzamul.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/janga-anil.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/janga-anil.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/krishna-prasad.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/krishna-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/krishnudu.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/krishnudu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/lakshmi-rajesh.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/lakshmi-rajesh.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/lavanya.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/lavanya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/laxman-rao.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/laxman-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/momin-ali.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/momin-ali.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/monaj.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/monaj.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/nirmala-kumari.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/nirmala-kumari.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/noel.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/noel.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/parsharamulu.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/parsharamulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/pratyusha.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/pratyusha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/praveen-kumar.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/praveen-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/radhika-devi.jpg",
+      "referenced_in": [
+        "departments/freshman.html",
+        "iqac/iqac.html"
+      ],
+      "reference_strings": [
+        "../departments/images/freshman/radhika-devi.jpg",
+        "images/freshman/radhika-devi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/raghunath-rao.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/raghunath-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/ramgopal.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/ramgopal.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/ratna-priya.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/ratna-priya.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/ravindranath.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/ravindranath.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/sailaja.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/sailaja.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/shilpa.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/shilpa.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/shiva-kumar.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/shiva-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/shubhra.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/shubhra.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/srimanta.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/srimanta.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/srinivas-indla.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/srinivas-indla.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/subhadeep.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/subhadeep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/subhasish.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/subhasish.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/sudheer.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/sudheer.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/sujatha.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/sujatha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/sumalatha.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/sumalatha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/umamaheswara.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/umamaheswara.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/veera-raghavulu.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/veera-raghavulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/vijaya-bhaskar.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/vijaya-bhaskar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/vishal.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/vishal.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/freshman/yuganand.jpg",
+      "referenced_in": [
+        "departments/freshman.html"
+      ],
+      "reference_strings": [
+        "images/freshman/yuganand.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/agosh-m-c.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/agosh-m-c.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/b-sushma.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/b-sushma.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/b-varija.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/b-varija.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/bhasker-boddu.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/bhasker-boddu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/d-sandeep.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/d-sandeep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/dhilli-rao-gorja.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/dhilli-rao-gorja.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/g-anitha.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/g-anitha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/g-sathyanarayan.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/g-sathyanarayan.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/ivs-haritha.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/ivs-haritha.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/j-adilakshmi.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/j-adilakshmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/j-shubangi.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/j-shubangi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/k-neeraja.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/k-neeraja.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/lijo-mon.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/lijo-mon.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/m-harshini.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/m-harshini.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/mohd-anwar-ali.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/mohd-anwar-ali.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/mopur-vijaya-bhaskar-reddy.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/mopur-vijaya-bhaskar-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/n-v-raja-sekhar-reddy.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/n-v-raja-sekhar-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/p-laxmaiah.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/p-laxmaiah.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/shruthi-patel.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/shruthi-patel.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/vemuri-nitin.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/vemuri-nitin.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/venkatesh-g.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/venkatesh-g.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/it/vikram-raju.jpg",
+      "referenced_in": [
+        "departments/it.html"
+      ],
+      "reference_strings": [
+        "images/it/vikram-raju.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/a-koti-reddy.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/a-koti-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/aruna.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/aruna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/b-vishnu-prasad.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/b-vishnu-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/bs-venkat-narayana.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/bs-venkat-narayana.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/jostna-kumar.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/jostna-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/k-rajya-lakshmi.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/k-rajya-lakshmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/m-parsharamulu.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/m-parsharamulu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/m-tirupalaiah.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/m-tirupalaiah.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/n-madhusudhanarao.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/n-madhusudhanarao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/narasimha-rao.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/narasimha-rao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/ram-narsa-goud.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/ram-narsa-goud.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/ramanjaneyulu.jpeg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/ramanjaneyulu.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/ramanjaneyulu.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/mba/sudha-rani.jpeg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/sudha-rani.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/umrez.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/umrez.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mba/vasudha-kurikala.jpg",
+      "referenced_in": [
+        "departments/mba.html"
+      ],
+      "reference_strings": [
+        "images/mba/vasudha-kurikala.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/alli-anil-kumar.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/alli-anil-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/chintala-muralikrishna.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/chintala-muralikrishna.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/g-anandarao.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/g-anandarao.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/g-chandramohana-reddy.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/g-chandramohana-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/g-venkata-rambabu.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/g-venkata-rambabu.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/harikishor.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/harikishor.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/j-laxmi-prasad.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/j-laxmi-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/j-sunil-kumar.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/j-sunil-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/k-limbadri.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/k-limbadri.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/krishnaraj.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/krishnaraj.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/laxmi.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/laxmi.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/lokasani-bhanuprakash.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/lokasani-bhanuprakash.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/m-sundeep.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/m-sundeep.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/m-venkateswar-reddy.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/m-venkateswar-reddy.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/mudhuganti-mahender.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/mudhuganti-mahender.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/ne-chandra-prasad.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/ne-chandra-prasad.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/prabhu-kishore.jpeg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/prabhu-kishore.jpeg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/prabhu-kishore.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "departments/images/mechanical/pramod-kumar.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/pramod-kumar.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/ravi-kiran.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/ravi-kiran.jpg"
+      ]
+    },
+    {
+      "local_path": "departments/images/mechanical/s-nagaraju.jpg",
+      "referenced_in": [
+        "departments/mechanical.html"
+      ],
+      "reference_strings": [
+        "images/mechanical/s-nagaraju.jpg"
+      ]
+    },
+    {
+      "local_path": "homepage/mlrit-logo-main.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/mlrit-logo-transparent.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/mlrit-logo.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/aicte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/arha.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/dataquest.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/gte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/gyaanvigyan.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/naac.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/nba.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/nirf/the week.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/research/images/research-portfolio.png",
+      "referenced_in": [
+        "homepage/research/research.html"
+      ],
+      "reference_strings": [
+        "images/research-portfolio.png"
+      ]
+    },
+    {
+      "local_path": "homepage/success stories/1.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/success stories/2.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/success stories/3.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/success stories/4.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/success stories/5.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/success stories/6.jpeg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "homepage/success stories/7.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "mlrit-logo-main.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "mlrit-logo-transparent.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "mlrit-logo.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/aicte.svg",
+      "referenced_in": [
+        "departments/pg.html",
+        "departments/ug.html",
+        "index.html",
+        "iqac/iqac.html",
+        "iqac/nba.html"
+      ],
+      "reference_strings": [
+        "../nirf/aicte.svg",
+        "nirf/aicte.svg"
+      ]
+    },
+    {
+      "local_path": "nirf/arha.svg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "nirf/arha.svg"
+      ]
+    },
+    {
+      "local_path": "nirf/dataquest.svg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "nirf/dataquest.svg"
+      ]
+    },
+    {
+      "local_path": "nirf/gte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/gyaanvigyan.svg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "nirf/gyaanvigyan.svg"
+      ]
+    },
+    {
+      "local_path": "nirf/naac.svg",
+      "referenced_in": [
+        "departments/pg.html",
+        "departments/ug.html",
+        "index.html",
+        "iqac/iqac.html",
+        "iqac/nba.html"
+      ],
+      "reference_strings": [
+        "../nirf/naac.svg",
+        "nirf/naac.svg"
+      ]
+    },
+    {
+      "local_path": "nirf/nba.svg",
+      "referenced_in": [
+        "departments/pg.html",
+        "departments/ug.html",
+        "index.html",
+        "iqac/iqac.html",
+        "iqac/nba.html"
+      ],
+      "reference_strings": [
+        "../nirf/nba.svg",
+        "nirf/nba.svg"
+      ]
+    },
+    {
+      "local_path": "nirf/nirf/aicte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/arha.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/dataquest.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/gte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/gyaanvigyan.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/naac.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nba.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/aicte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/arha.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/dataquest.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/gte.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/gyaanvigyan.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/naac.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/nba.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/the week.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/nirf/the-week.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/nirf/the week.svg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "nirf/the week.svg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "nirf/the week.svg"
+      ]
+    },
+    {
+      "local_path": "partials/{{base}}mlrit-logo-main.png",
+      "referenced_in": [
+        "partials/navbar.html"
+      ],
+      "reference_strings": [
+        "{{base}}mlrit-logo-main.png"
+      ]
+    },
+    {
+      "local_path": "placements/assets/images/coe.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/drive-1.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/drive-2.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/drive-3.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/drive-4.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/drive-5.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/mou.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/overall-placements.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-1.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-10.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-11.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-12.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-2.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-3.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-4.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-5.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-6.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-7.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-8.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/images/placement-9.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-1.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-2.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-3.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-4.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-5.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-6.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/certi-7.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/cisco.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/conduent.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/deloitte.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/deutsche-bank.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/ediko.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/hcl.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/icrisat.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/inovalon.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/microsoft.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/mstack.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/palo-alto.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/power-bridge.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/servicenow.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/ust.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/yash-tech.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/assets/logos/zscaler.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "placements/p1.jpg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p1.jpg"
+      ]
+    },
+    {
+      "local_path": "placements/p10.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p10.png"
+      ]
+    },
+    {
+      "local_path": "placements/p11.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p11.png"
+      ]
+    },
+    {
+      "local_path": "placements/p12.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p12.png"
+      ]
+    },
+    {
+      "local_path": "placements/p13.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p13.png"
+      ]
+    },
+    {
+      "local_path": "placements/p14.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p14.png"
+      ]
+    },
+    {
+      "local_path": "placements/p15.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p15.png"
+      ]
+    },
+    {
+      "local_path": "placements/p16.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p16.png"
+      ]
+    },
+    {
+      "local_path": "placements/p2.jpg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p2.jpg"
+      ]
+    },
+    {
+      "local_path": "placements/p3.jpg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p3.jpg"
+      ]
+    },
+    {
+      "local_path": "placements/p4.jpg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p4.jpg"
+      ]
+    },
+    {
+      "local_path": "placements/p5.jpg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p5.jpg"
+      ]
+    },
+    {
+      "local_path": "placements/p6.jpg",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p6.jpg"
+      ]
+    },
+    {
+      "local_path": "placements/p7.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p7.png"
+      ]
+    },
+    {
+      "local_path": "placements/p8.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p8.png"
+      ]
+    },
+    {
+      "local_path": "placements/p9.png",
+      "referenced_in": [
+        "index.html"
+      ],
+      "reference_strings": [
+        "placements/p9.png"
+      ]
+    },
+    {
+      "local_path": "success stories/1.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/2.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/3.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/4.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/5.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/6.jpeg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/7.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/1.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/2.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/3.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/4.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/5.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/6.jpeg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/7.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/1.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/2.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/3.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/4.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/5.png",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/6.jpeg",
+      "referenced_in": [],
+      "reference_strings": []
+    },
+    {
+      "local_path": "success stories/success stories/success stories/7.jpg",
+      "referenced_in": [],
+      "reference_strings": []
+    }
+  ]
+}
