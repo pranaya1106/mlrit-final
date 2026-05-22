@@ -1,6 +1,6 @@
 /* ============================================================
    PROGRAMMES SECTION — scroll-stack catalogue
-   All rules are scoped under `.prog-stack-section`.
+   All rules scoped under .prog-stack-section.
    ============================================================ */
 
 .prog-stack-section {
@@ -23,10 +23,10 @@
   --prog-c-eee:   #f4b400;
   --prog-c-mech:  #7b6a55;
 
-  /* Cards pin below the fixed navbar. All JS reads this var too. */
+  /* JS reads these via getComputedStyle */
   --prog-stack-top:   152px;
-  --prog-stack-step:  14px;
-  --prog-stack-scale: 0.038;
+  --prog-stack-step:  18px;
+  --prog-stack-scale: 0.032;
 
   --prog-radius-card: 28px;
   --prog-radius-pill: 999px;
@@ -34,8 +34,7 @@
   position: relative;
   isolation: isolate;
   padding: 96px 0 0;
-  font-family: "Manrope", "Inter", system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
+  font-family: "Manrope", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--prog-ink);
   background:
     radial-gradient(1200px 600px at 0% 0%, var(--prog-bg-1) 0%, transparent 60%),
@@ -43,8 +42,7 @@
     linear-gradient(180deg, var(--prog-bg-2) 0%, var(--prog-bg-3) 100%);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* overflow-x: clip only — keeps sticky working inside the section */
-  overflow-x: clip;
+  overflow-x: clip; /* horizontal-only — preserves sticky */
 }
 
 .prog-stack-section::before {
@@ -57,8 +55,8 @@
   background-size: 48px 48px;
   pointer-events: none;
   z-index: 0;
-  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.55), transparent 70%);
-  mask-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.55), transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.55), transparent 70%);
+  mask-image: radial-gradient(ellipse at top, rgba(0,0,0,0.55), transparent 70%);
 }
 
 .prog-stack-shell {
@@ -128,19 +126,15 @@
   box-shadow: 0 18px 40px -22px rgba(201, 90, 22, 0.7);
 }
 .prog-stack-all-arrow {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
   border-radius: 50%;
   background: linear-gradient(135deg, #ff8a3d, #e65a14);
   color: #fff;
   transition: transform 0.3s ease;
   flex-shrink: 0;
 }
-.prog-stack-all:hover .prog-stack-all-arrow {
-  transform: translateX(4px);
-}
+.prog-stack-all:hover .prog-stack-all-arrow { transform: translateX(4px); }
 
 /* ── Tabs ── */
 .prog-stack-tabs {
@@ -171,31 +165,18 @@
   white-space: nowrap;
 }
 .prog-stack-tab-count {
-  font-size: 12px;
-  opacity: 0.6;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 12px; opacity: 0.6; font-weight: 700; letter-spacing: 0.04em;
   transition: color 0.22s ease, opacity 0.22s ease;
 }
 .prog-stack-tab.is-active {
-  background: #0a0a0a;
-  color: #fff;
+  background: #0a0a0a; color: #fff;
   box-shadow: 0 12px 24px -16px rgba(0, 0, 0, 0.6);
 }
-.prog-stack-tab.is-active .prog-stack-tab-count {
-  color: #fff;
-  opacity: 0.85;
-}
-.prog-stack-tab:not(.is-active):hover {
-  background: rgba(255, 255, 255, 0.85);
-}
-/* Smooth tab transition — pill slides within the container */
-.prog-stack-tab:focus-visible {
-  outline: 2px solid var(--prog-c-aiml);
-  outline-offset: 2px;
-}
+.prog-stack-tab.is-active .prog-stack-tab-count { color: #fff; opacity: 0.85; }
+.prog-stack-tab:not(.is-active):hover { background: rgba(255, 255, 255, 0.85); }
+.prog-stack-tab:focus-visible { outline: 2px solid var(--prog-c-aiml); outline-offset: 2px; }
 
-/* ── Catalogue grid ── */
+/* ── Catalogue ── */
 .prog-stack-catalogue {
   position: relative;
   padding-top: 24px;
@@ -208,66 +189,64 @@
   position: relative;
   min-width: 0;
 }
-/* Spacer so the last card can scroll fully into its sticky position */
+/* Tall enough for 5 cards to stack fully */
 .prog-stack-end {
   grid-column: 1 / -1;
-  height: 80vh;
+  height: 120vh;
 }
 
-/* ── Cards ── */
+/* ── Cards ──────────────────────────────────────────────────────────────────
+   KEY RULES:
+   • position:sticky + top pins card at the viewport threshold while scrolling
+   • transform-origin: top-center (50% 0) — scale compresses downward from the
+     pinned top edge, which is the visually correct direction for a top-sticky card
+   • will-change: transform, opacity — creates compositor layer before animation
+   • NO CSS transition on transform/opacity — the JS writes every frame directly;
+     any CSS transition on the same property creates rubber-band oscillation
+   • The inner element carries hover transitions independently
+   ────────────────────────────────────────────────────────────────────────── */
 .prog-stack-card {
   position: sticky;
   top: var(--prog-stack-top);
   height: auto;
   margin: 0 0 48px;
-  /* Scale from bottom-center so stacked cards compress downward naturally */
-  transform-origin: 50% 100%;
-  /* Force compositor layer up front — eliminates first-frame stutter */
-  transform: translateZ(0);
+  transform-origin: 50% 0;        /* scale from top — correct for top-pinned sticky */
+  transform: translateZ(0);       /* pre-promote to GPU compositor layer */
   will-change: transform, opacity;
-  /* Smooth the JS-driven transform so micro-jitter is absorbed */
-  transition: transform 0.08s linear, opacity 0.08s linear;
+  /* NO transition here — JS drives every frame, any CSS transition fights it */
 }
 
-/* ── Initial scroll-reveal: hidden → visible ──
-   JS adds .prog-reveal on page load (desktop only).
-   IO adds .is-revealed when card enters viewport.
-   After 640ms JS strips both classes and hands off to stack engine. */
+/* Tab-switching entrance / exit classes */
+.prog-stack-card.is-leaving {
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+.prog-stack-card.is-entering {
+  transition: opacity 0.22s ease 0.04s;
+}
+
+/* Initial viewport-reveal: JS adds .prog-reveal, IO adds .is-revealed */
 .prog-stack-card.prog-reveal {
   opacity: 0;
-  transform: translateZ(0) translateY(28px);
-  /* Use a slower ease for the reveal; stack engine uses fast 0.08s linear */
-  transition:
-    opacity  0.60s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.60s cubic-bezier(0.22, 1, 0.36, 1);
+  /* No translateY here — the sticky position already places the card correctly;
+     adding translateY during reveal fights the sticky top constraint */
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .prog-stack-card.prog-reveal.is-revealed {
   opacity: 1;
-  transform: translateZ(0) translateY(0);
 }
 
-/* Stagger: each card in a column waits a little longer */
+/* Stagger per column position */
 .prog-stack-col .prog-stack-card.prog-reveal:nth-child(1) { transition-delay:   0ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(2) { transition-delay:  90ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(3) { transition-delay: 180ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(4) { transition-delay: 270ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(5) { transition-delay: 360ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(6) { transition-delay: 450ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(2) { transition-delay:  70ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(3) { transition-delay: 140ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(4) { transition-delay: 210ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(5) { transition-delay: 280ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(6) { transition-delay: 350ms; }
 
-/* Cards being switched away via tab are faded out before hiding */
-.prog-stack-card.is-leaving {
-  pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease;
-}
-.prog-stack-card.is-entering {
-  transition: opacity 0.22s ease 0.05s, transform 0.22s ease 0.05s;
-}
+.prog-stack-card[hidden] { display: none; }
 
-/* Use visibility+opacity instead of display:none to avoid layout jumps */
-.prog-stack-card[hidden] {
-  display: none;
-}
-
+/* ── Inner card face ── */
 .prog-stack-inner {
   position: relative;
   background: var(--prog-card);
@@ -285,23 +264,21 @@
   flex-direction: column;
   text-decoration: none;
   color: inherit;
-  /* Hover lift — pure CSS, no JS needed */
-  transition: box-shadow 0.28s ease, transform 0.28s ease;
+  /* Hover transitions live on the inner, never on the card wrapper */
+  transition: box-shadow 0.26s ease, transform 0.26s ease;
 }
 .prog-stack-inner:hover {
   box-shadow:
     0 1px 0 rgba(0, 0, 0, 0.02),
     0 40px 80px -32px rgba(0, 0, 0, 0.3),
     0 80px 140px -40px rgba(0, 0, 0, 0.2);
-  transform: translateY(-3px) translateZ(0);
+  transform: translateY(-4px) translateZ(0);
 }
 
 .prog-stack-inner::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 22px;
-  bottom: 22px;
+  left: 0; top: 22px; bottom: 22px;
   width: 6px;
   background: var(--prog-accent);
   border-radius: 0 6px 6px 0;
@@ -313,38 +290,26 @@
   z-index: -1;
   background:
     radial-gradient(520px 280px at 92% 110%,
-      color-mix(in srgb, var(--prog-accent) 28%, transparent),
-      transparent 70%),
+      color-mix(in srgb, var(--prog-accent) 28%, transparent), transparent 70%),
     radial-gradient(680px 320px at 0% -10%,
-      color-mix(in srgb, var(--prog-accent) 10%, transparent),
-      transparent 70%);
+      color-mix(in srgb, var(--prog-accent) 10%, transparent), transparent 70%);
   opacity: 0.7;
   transition: opacity 0.3s ease;
 }
-.prog-stack-inner:hover::after {
-  opacity: 1;
-}
+.prog-stack-inner:hover::after { opacity: 1; }
 
-/* ── Card anatomy ── */
+/* ── Card content ── */
 .prog-stack-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 16px;
 }
 .prog-stack-badge-code {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 92px;
-  height: 58px;
-  padding: 0 20px;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 92px; height: 58px; padding: 0 20px;
   border-radius: 18px;
   background: color-mix(in srgb, var(--prog-accent) 12%, #fff);
   color: var(--prog-accent);
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: 0.04em;
+  font-weight: 800; font-size: 16px; letter-spacing: 0.04em;
   border: 1px solid color-mix(in srgb, var(--prog-accent) 22%, transparent);
   transition: background 0.22s ease;
 }
@@ -352,77 +317,44 @@
   background: color-mix(in srgb, var(--prog-accent) 18%, #fff);
 }
 .prog-stack-badge-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   padding: 9px 16px;
   border-radius: var(--prog-radius-pill);
   background: color-mix(in srgb, var(--prog-accent) 10%, #fff);
   color: var(--prog-accent);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
   border: 1px solid color-mix(in srgb, var(--prog-accent) 18%, transparent);
 }
-
 .prog-stack-card-title {
   margin: 36px 0 10px;
-  font-size: 28px;
-  line-height: 1.14;
-  letter-spacing: -0.018em;
-  font-weight: 800;
-  max-width: 18ch;
-  color: var(--prog-ink);
+  font-size: 28px; line-height: 1.14;
+  letter-spacing: -0.018em; font-weight: 800;
+  max-width: 18ch; color: var(--prog-ink);
   font-family: "Manrope", "Inter", sans-serif;
 }
 .prog-stack-tag-line {
-  color: var(--prog-ink-2);
-  font-size: 15px;
-  line-height: 1.5;
-  margin: 0 0 22px;
-  max-width: 38ch;
+  color: var(--prog-ink-2); font-size: 15px; line-height: 1.5;
+  margin: 0 0 22px; max-width: 38ch;
 }
-.prog-stack-divider {
-  height: 1px;
-  background: var(--prog-line);
-  margin: auto 0 20px;
-}
+.prog-stack-divider { height: 1px; background: var(--prog-line); margin: auto 0 20px; }
 .prog-stack-card-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 16px;
 }
 .prog-stack-clusters {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--prog-muted);
-  text-transform: uppercase;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--prog-muted); text-transform: uppercase;
 }
 .prog-stack-explore {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--prog-accent);
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  /* Gap and SVG animate together */
-  transition: gap 0.25s ease;
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--prog-accent); font-weight: 700; font-size: 15px;
+  cursor: pointer; transition: gap 0.25s ease;
 }
-.prog-stack-inner:hover .prog-stack-explore {
-  gap: 14px;
-}
-.prog-stack-explore svg {
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-}
-.prog-stack-inner:hover .prog-stack-explore svg {
-  transform: translateX(4px);
-}
+.prog-stack-inner:hover .prog-stack-explore { gap: 14px; }
+.prog-stack-explore svg { flex-shrink: 0; transition: transform 0.25s ease; }
+.prog-stack-inner:hover .prog-stack-explore svg { transform: translateX(4px); }
 
-/* ── Per-accent colour vars ── */
+/* ── Per-accent vars ── */
 .prog-stack-a-cse   { --prog-accent: var(--prog-c-cse); }
 .prog-stack-a-aiml  { --prog-accent: var(--prog-c-aiml); }
 .prog-stack-a-cyber { --prog-accent: var(--prog-c-cyber); }
@@ -435,27 +367,21 @@
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .prog-stack-card,
+  .prog-stack-card.prog-reveal,
+  .prog-stack-card.prog-reveal.is-revealed,
   .prog-stack-inner,
   .prog-stack-explore,
   .prog-stack-explore svg,
   .prog-stack-all,
   .prog-stack-tab {
     transition: none !important;
-  }
-  .prog-stack-card {
-    transition: none !important;
-  }
-  .prog-stack-card.prog-reveal,
-  .prog-stack-card.prog-reveal.is-revealed {
-    opacity: 1 !important;
-    transform: translateZ(0) !important;
-    transition: none !important;
     transition-delay: 0ms !important;
   }
+  .prog-stack-card.prog-reveal { opacity: 1 !important; }
 }
 
 /* ============================================================
-   MOBILE — single-column flex layout. Sticky + JS disabled.
+   MOBILE — flat list, sticky/JS completely disabled
    ============================================================ */
 @media (max-width: 900px) {
   .prog-stack-section {
@@ -464,72 +390,35 @@
     --prog-stack-scale: 0;
     padding: 64px 0 0;
   }
-  .prog-stack-shell {
-    padding: 0 22px;
-  }
+  .prog-stack-shell { padding: 0 22px; }
   .prog-stack-head {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+    display: flex; flex-direction: column;
+    align-items: flex-start; gap: 24px;
   }
-  .prog-stack-all {
-    align-self: flex-start;
-  }
+  .prog-stack-all { align-self: flex-start; }
   .prog-stack-catalogue {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding-top: 16px;
+    display: flex; flex-direction: column;
+    gap: 0; padding-top: 16px;
   }
   .prog-stack-col {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 18px;
+    display: flex; flex-direction: column;
+    width: 100%; gap: 18px;
   }
-  .prog-stack-end {
-    display: none;
-  }
+  .prog-stack-end { display: none; }
   .prog-stack-card {
-    position: relative;
-    top: auto;
-    margin: 0;
-    /* Hard reset all JS-set inline styles on mobile */
-    transform: none !important;
-    opacity: 1 !important;
-    filter: none !important;
-    z-index: auto !important;
-    will-change: auto;
+    position: relative; top: auto; margin: 0;
+    transform: none !important; opacity: 1 !important;
+    z-index: auto !important; will-change: auto;
     transition: none !important;
   }
   .prog-stack-inner {
-    padding: 28px 22px 26px;
-    min-height: 0;
-    /* Keep hover lift on mobile touch */
+    padding: 28px 22px 26px; min-height: 0;
     transition: box-shadow 0.22s ease;
   }
-  .prog-stack-inner:hover {
-    transform: none;
-  }
-  .prog-stack-card-title {
-    font-size: 22px;
-    margin-top: 24px;
-  }
-  .prog-stack-badge-code {
-    min-width: 76px;
-    height: 50px;
-    font-size: 14px;
-    padding: 0 16px;
-  }
-  .prog-stack-badge-meta {
-    font-size: 11px;
-    padding: 7px 12px;
-  }
-  .prog-stack-h1 {
-    font-size: clamp(34px, 8vw, 48px);
-  }
-  .prog-stack-lead {
-    font-size: 15px;
-  }
+  .prog-stack-inner:hover { transform: none; }
+  .prog-stack-card-title { font-size: 22px; margin-top: 24px; }
+  .prog-stack-badge-code { min-width: 76px; height: 50px; font-size: 14px; padding: 0 16px; }
+  .prog-stack-badge-meta { font-size: 11px; padding: 7px 12px; }
+  .prog-stack-h1 { font-size: clamp(34px, 8vw, 48px); }
+  .prog-stack-lead { font-size: 15px; }
 }

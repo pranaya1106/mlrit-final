@@ -80,7 +80,7 @@
           /* Hand control to stack engine — clear CSS-class-driven opacity
              so the JS inline styles can take over cleanly */
           card.classList.remove('prog-reveal', 'is-revealed');
-        }, 640);
+        }, 580);
       });
     }, {
       threshold: 0.08,
@@ -119,22 +119,24 @@
           revealedCards.delete(c);
         } else {
           if (c.hidden) {
-            c.style.opacity   = '0';
-            c.style.transform = 'translateZ(0) translateY(12px)';
+            c.style.opacity = '0';
+            c.style.transform = 'translateZ(0)';
             c.hidden = false;
             c.classList.add('is-entering');
 
             requestAnimationFrame(function () {
               requestAnimationFrame(function () {
-                c.style.opacity   = '';
-                c.style.transform = '';
+                c.style.opacity = '';
                 revealedCards.add(c);
               });
             });
 
             setTimeout(function () {
               c.classList.remove('is-entering');
-            }, 320);
+              /* After entering transition, clear any inline transform
+                 so the stack engine drives it without a stale baseline */
+              c.style.transform = '';
+            }, 260);
           }
         }
       });
