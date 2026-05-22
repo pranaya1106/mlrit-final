@@ -404,6 +404,7 @@
   /* Cards: allow JS translate3d, no sticky */
   .prog-stack-card {
     position: relative; top: auto;
+    width: 100%;
     will-change: transform;
     transform-origin: top center;
     backface-visibility: hidden;
