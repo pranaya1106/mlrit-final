@@ -381,16 +381,13 @@
 }
 
 /* ============================================================
-   MOBILE — flat list, sticky/JS completely disabled
+   MOBILE — single-column, stack JS still runs (translate3d mode)
    ============================================================ */
 @media (max-width: 900px) {
   .prog-stack-section {
-    --prog-stack-top: 78px;
-    --prog-stack-step: 0px;
-    --prog-stack-scale: 0;
     padding: 64px 0 0;
   }
-  .prog-stack-shell { padding: 0 22px; }
+  .prog-stack-shell { padding: 0 18px; }
   .prog-stack-head {
     display: flex; flex-direction: column;
     align-items: flex-start; gap: 24px;
@@ -402,17 +399,20 @@
   }
   .prog-stack-col {
     display: flex; flex-direction: column;
-    width: 100%; gap: 18px;
+    width: 100%;
   }
-  .prog-stack-end { display: none; }
+  /* Keep prog-stack-end visible so pinEnd anchor works */
+  .prog-stack-end { height: 60vh; }
+  /* Cards: allow JS transform, kill sticky (not needed in translate3d mode) */
   .prog-stack-card {
-    position: relative; top: auto; margin: 0;
-    transform: none !important; opacity: 1 !important;
-    z-index: auto !important; will-change: auto;
+    position: relative; top: auto;
+    will-change: transform;
+    transform-origin: top center;
+    backface-visibility: hidden;
     transition: none !important;
   }
   .prog-stack-inner {
-    padding: 28px 22px 26px; min-height: 0;
+    padding: 24px 20px 22px; min-height: 0;
     transition: box-shadow 0.22s ease;
   }
   .prog-stack-inner:hover { transform: none; }

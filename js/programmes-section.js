@@ -46,8 +46,6 @@
   var revealedCards = new Set();
 
   function setupReveal() {
-    if (mobileQuery.matches) return null;
-
     section.querySelectorAll('.prog-stack-card').forEach(function (card) {
       if (!card.hidden) card.classList.add('prog-reveal');
     });
@@ -178,14 +176,11 @@
   function applyStack() {
     ticking = false;
 
-    if (mobileQuery.matches) {
-      cols.forEach(function (col) { getVisibleCards(col).forEach(clearInline); });
-      return;
-    }
-
     var scrollY      = window.scrollY;
     var containerH   = window.innerHeight;
-    var stackPosPx   = containerH * STACK_POSITION_PCT;
+    /* On mobile use a lower stack position so effect is visible higher up */
+    var stackPct     = mobileQuery.matches ? 0.12 : STACK_POSITION_PCT;
+    var stackPosPx   = containerH * stackPct;
     var scaleEndPx   = containerH * SCALE_END_PCT;
 
     var endEl        = section.querySelector('.prog-stack-end');
@@ -269,24 +264,12 @@
   }
 
   function onMediaChange() {
-    if (mobileQuery.matches) {
-      cols.forEach(function (col) { getVisibleCards(col).forEach(clearInline); });
-      section.querySelectorAll('.prog-stack-card').forEach(function (c) {
-        c.classList.remove('prog-reveal', 'is-revealed');
-        c.style.marginBottom = '';
-        c.style.willChange = '';
-        clearInline(c);
-      });
-      revealedCards.clear();
-      lastTransforms.clear();
-    } else {
-      if (revealIO) revealIO.disconnect();
-      revealedCards.clear();
-      lastTransforms.clear();
-      applyMargins();
-      revealIO = setupReveal();
-      scheduleStack();
-    }
+    if (revealIO) revealIO.disconnect();
+    revealedCards.clear();
+    lastTransforms.clear();
+    applyMargins();
+    revealIO = setupReveal();
+    scheduleStack();
   }
 
   /* ------------------------------------------------------------------
