@@ -381,29 +381,29 @@
 }
 
 /* ============================================================
-   MOBILE — single-column, stack JS still runs (translate3d mode)
+   MOBILE — single flat column, translate3d stack active
    ============================================================ */
 @media (max-width: 900px) {
-  .prog-stack-section {
-    padding: 64px 0 0;
-  }
-  .prog-stack-shell { padding: 0 18px; }
+  .prog-stack-section { padding: 64px 0 0; }
+  .prog-stack-shell { padding: 0 16px; }
   .prog-stack-head {
     display: flex; flex-direction: column;
     align-items: flex-start; gap: 24px;
   }
   .prog-stack-all { align-self: flex-start; }
+
+  /* Collapse 2-col grid into a single vertical flow */
   .prog-stack-catalogue {
     display: flex; flex-direction: column;
     gap: 0; padding-top: 16px;
   }
-  .prog-stack-col {
-    display: flex; flex-direction: column;
-    width: 100%;
-  }
-  /* Keep prog-stack-end visible so pinEnd anchor works */
-  .prog-stack-end { height: 60vh; }
-  /* Cards: allow JS transform, kill sticky (not needed in translate3d mode) */
+  /* Both cols stack vertically — col2 cards appear after col1 */
+  .prog-stack-col { display: contents; }
+
+  /* Tall spacer so the last card gets enough scroll room to pin */
+  .prog-stack-end { height: 80vh; }
+
+  /* Cards: allow JS translate3d, no sticky */
   .prog-stack-card {
     position: relative; top: auto;
     will-change: transform;
@@ -412,13 +412,13 @@
     transition: none !important;
   }
   .prog-stack-inner {
-    padding: 24px 20px 22px; min-height: 0;
+    padding: 22px 18px 20px; min-height: 0;
     transition: box-shadow 0.22s ease;
   }
   .prog-stack-inner:hover { transform: none; }
-  .prog-stack-card-title { font-size: 22px; margin-top: 24px; }
-  .prog-stack-badge-code { min-width: 76px; height: 50px; font-size: 14px; padding: 0 16px; }
-  .prog-stack-badge-meta { font-size: 11px; padding: 7px 12px; }
-  .prog-stack-h1 { font-size: clamp(34px, 8vw, 48px); }
+  .prog-stack-card-title { font-size: 21px; margin-top: 20px; }
+  .prog-stack-badge-code { min-width: 72px; height: 46px; font-size: 13px; padding: 0 14px; }
+  .prog-stack-badge-meta { font-size: 11px; padding: 7px 11px; }
+  .prog-stack-h1 { font-size: clamp(32px, 8vw, 48px); }
   .prog-stack-lead { font-size: 15px; }
 }

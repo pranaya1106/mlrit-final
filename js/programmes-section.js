@@ -60,8 +60,9 @@
      Card init — margins + GPU hints (called after any level change)
   ------------------------------------------------------------------ */
   function initCards(cards) {
+    var dist = mobileQuery.matches ? 60 : ITEM_DISTANCE;
     cards.forEach(function (c, i) {
-      c.style.marginBottom      = i < cards.length - 1 ? ITEM_DISTANCE + 'px' : '';
+      c.style.marginBottom      = i < cards.length - 1 ? dist + 'px' : '';
       c.style.willChange        = 'transform';
       c.style.transformOrigin   = 'top center';
       c.style.backfaceVisibility = 'hidden';
@@ -69,7 +70,12 @@
   }
 
   function initAllCols() {
-    cols.forEach(function (col) { initCards(getVisibleCards(col)); });
+    if (mobileQuery.matches) {
+      /* Flat list on mobile — init all visible cards as one sequence */
+      initCards(getAllVisible());
+    } else {
+      cols.forEach(function (col) { initCards(getVisibleCards(col)); });
+    }
   }
 
   /* ------------------------------------------------------------------
@@ -214,42 +220,46 @@
 
     var scrollY    = window.scrollY;
     var containerH = window.innerHeight;
-    var stackPct   = mobileQuery.matches ? 0.14 : STACK_POSITION_PCT;
+    var isMobile   = mobileQuery.matches;
+    var stackPct   = isMobile ? 0.12 : STACK_POSITION_PCT;
     var stackPosPx = containerH * stackPct;
     var scaleEndPx = containerH * SCALE_END_PCT;
+    var itemDist   = isMobile ? 20 : ITEM_STACK_DIST; /* tighter stack on mobile */
 
     var endEl  = section.querySelector('.prog-stack-end');
     var endTop = endEl ? getDocTop(endEl) : 0;
     var pinEnd = endTop - containerH * 0.5;
 
-    cols.forEach(function (col) {
-      var cards = getVisibleCards(col).filter(function (c) {
-        return revealedCards.has(c);
-      });
+    /* On mobile: treat all visible cards as one flat list.
+       On desktop: process per-column so each col has its own stack. */
+    var groups = isMobile
+      ? [ getAllVisible().filter(function (c) { return revealedCards.has(c); }) ]
+      : Array.prototype.map.call(cols, function (col) {
+          return getVisibleCards(col).filter(function (c) { return revealedCards.has(c); });
+        });
+
+    groups.forEach(function (cards) {
       if (!cards.length) return;
 
-      /* Batch read */
       var tops = cards.map(getDocTop);
 
       cards.forEach(function (card, i) {
         var cardTop      = tops[i];
-        var triggerStart = cardTop - stackPosPx - ITEM_STACK_DIST * i;
+        var triggerStart = cardTop - stackPosPx - itemDist * i;
         var triggerEnd   = cardTop - scaleEndPx;
 
-        /* Scale: 1 → targetScale as card enters stack zone */
         var scaleProgress = clamp01(
           (scrollY - triggerStart) / Math.max(1, triggerEnd - triggerStart)
         );
         var targetScale = BASE_SCALE + i * ITEM_SCALE;
         var scale       = 1 - scaleProgress * (1 - targetScale);
 
-        /* Pin: card sticks at stackPos + per-card offset while in range */
         var translateY = 0;
         var pinStart   = triggerStart;
         if (scrollY >= pinStart && scrollY <= pinEnd) {
-          translateY = scrollY - cardTop + stackPosPx + ITEM_STACK_DIST * i;
+          translateY = scrollY - cardTop + stackPosPx + itemDist * i;
         } else if (scrollY > pinEnd) {
-          translateY = pinEnd - cardTop + stackPosPx + ITEM_STACK_DIST * i;
+          translateY = pinEnd - cardTop + stackPosPx + itemDist * i;
         }
 
         var ty = Math.round(translateY * 10) / 10;
