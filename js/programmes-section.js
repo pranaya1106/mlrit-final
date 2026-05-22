@@ -259,11 +259,19 @@
     var scaleEndPx = containerH * c.scaleEnd;
     var pinEnd     = endOffset - containerH * 0.4;
 
-    var groups = Array.prototype.map.call(cols, function (col) {
-      return getVisibleCards(col).filter(function (card) {
+    var isMob  = mobileQuery.matches;
+    var groups;
+    if (isMob) {
+      groups = [ getAllVisible().filter(function (card) {
         return revealedCards.has(card);
+      }) ];
+    } else {
+      groups = Array.prototype.map.call(cols, function (col) {
+        return getVisibleCards(col).filter(function (card) {
+          return revealedCards.has(card);
+        });
       });
-    });
+    }
 
     groups.forEach(function (cards) {
       if (!cards.length) return;
