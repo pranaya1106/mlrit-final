@@ -1,0 +1,443 @@
+/* ============================================================
+   PROGRAMMES SECTION — scroll-stack catalogue
+   All rules are scoped under `.prog-stack-section` so nothing
+   leaks into other components.
+   ============================================================ */
+
+.prog-stack-section {
+  --prog-bg-1: #d8efdc;
+  --prog-bg-2: #e7f3df;
+  --prog-bg-3: #f6ead0;
+  --prog-bg-4: #fde2c0;
+  --prog-ink: #0a0a0a;
+  --prog-ink-2: #3d3d3d;
+  --prog-muted: #6c6c6c;
+  --prog-line: rgba(10, 10, 10, 0.08);
+  --prog-card: #ffffff;
+
+  --prog-c-cse: #2f9e6d;
+  --prog-c-aiml: #ff7a2e;
+  --prog-c-cyber: #5a4fff;
+  --prog-c-ds: #1ea6c8;
+  --prog-c-it: #e0a83a;
+  --prog-c-ece: #d94db2;
+  --prog-c-eee: #f4b400;
+  --prog-c-mech: #7b6a55;
+
+  /* Sticky cards pin BELOW the fixed navbar (132px on desktop). */
+  --prog-stack-top: 152px;
+  --prog-stack-step: 14px;
+  --prog-stack-scale: 0.045;
+
+  --prog-radius-card: 28px;
+  --prog-radius-pill: 999px;
+
+  position: relative;
+  isolation: isolate;
+  padding: 96px 0 0;
+  font-family: "Manrope", "Inter", system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  color: var(--prog-ink);
+  background:
+    radial-gradient(1200px 600px at 0% 0%, var(--prog-bg-1) 0%, transparent 60%),
+    radial-gradient(1100px 700px at 100% 0%, var(--prog-bg-4) 0%, transparent 55%),
+    linear-gradient(180deg, var(--prog-bg-2) 0%, var(--prog-bg-3) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* IMPORTANT: do NOT use `overflow: hidden` here — it would make this
+     section a scroll container and break `position: sticky` on the cards.
+     Use `overflow-x: clip` for horizontal-only clipping. */
+  overflow-x: clip;
+}
+
+.prog-stack-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.55), transparent 70%);
+  mask-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.55), transparent 70%);
+}
+
+.prog-stack-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ── Header ── */
+.prog-stack-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.prog-stack-h1 {
+  font-family: "Manrope", "Inter", sans-serif;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  margin: 0;
+  max-width: 14ch;
+  color: var(--prog-ink);
+}
+.prog-stack-h1-em {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(90deg, #3d6e4e 0%, #a35a2a 60%, #b8472b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-left: 0.05em;
+}
+.prog-stack-lead {
+  max-width: 46ch;
+  color: var(--prog-ink-2);
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 18px 0 0;
+}
+
+.prog-stack-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px 14px 14px;
+  border-radius: var(--prog-radius-pill);
+  background: #fff7ec;
+  border: 1px solid rgba(212, 124, 55, 0.25);
+  color: #c95a16;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    background 0.25s ease;
+  box-shadow: 0 10px 30px -18px rgba(201, 90, 22, 0.6);
+  white-space: nowrap;
+}
+.prog-stack-all:hover {
+  transform: translateY(-2px);
+  background: #ffefd6;
+  box-shadow: 0 18px 40px -22px rgba(201, 90, 22, 0.7);
+}
+.prog-stack-all-arrow {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8a3d, #e65a14);
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+.prog-stack-all:hover .prog-stack-all-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Tabs ── */
+.prog-stack-tabs {
+  display: inline-flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 6px;
+  border-radius: var(--prog-radius-pill);
+  border: 1px solid var(--prog-line);
+  margin-bottom: 8px;
+}
+.prog-stack-tab {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 12px 22px;
+  border-radius: var(--prog-radius-pill);
+  font: 600 15px/1 "Manrope", "Inter", sans-serif;
+  color: var(--prog-ink-2);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.prog-stack-tab-count {
+  font-size: 12px;
+  opacity: 0.6;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.prog-stack-tab.is-active {
+  background: #0a0a0a;
+  color: #fff;
+  box-shadow: 0 12px 24px -16px rgba(0, 0, 0, 0.6);
+}
+.prog-stack-tab.is-active .prog-stack-tab-count {
+  color: #fff;
+  opacity: 0.85;
+}
+.prog-stack-tab:not(.is-active):hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Scroll stack catalogue ── */
+.prog-stack-catalogue {
+  position: relative;
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.prog-stack-col {
+  position: relative;
+  min-width: 0;
+}
+.prog-stack-end {
+  grid-column: 1 / -1;
+  height: 60vh;
+}
+
+.prog-stack-card {
+  position: sticky;
+  top: var(--prog-stack-top);
+  height: auto;
+  margin: 0 0 48px;
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+.prog-stack-card[hidden] {
+  display: none;
+}
+
+.prog-stack-inner {
+  position: relative;
+  background: var(--prog-card);
+  border-radius: var(--prog-radius-card);
+  padding: 36px 38px 32px;
+  min-height: 300px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.02),
+    0 30px 60px -32px rgba(0, 0, 0, 0.25),
+    0 60px 120px -40px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+.prog-stack-inner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  bottom: 22px;
+  width: 6px;
+  background: var(--prog-accent);
+  border-radius: 0 6px 6px 0;
+}
+.prog-stack-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(520px 280px at 92% 110%,
+      color-mix(in srgb, var(--prog-accent) 28%, transparent),
+      transparent 70%),
+    radial-gradient(680px 320px at 0% -10%,
+      color-mix(in srgb, var(--prog-accent) 10%, transparent),
+      transparent 70%);
+  transition: opacity 0.4s ease;
+}
+
+.prog-stack-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.prog-stack-badge-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  height: 58px;
+  padding: 0 20px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--prog-accent) 12%, #fff);
+  color: var(--prog-accent);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  border: 1px solid color-mix(in srgb, var(--prog-accent) 22%, transparent);
+}
+.prog-stack-badge-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--prog-radius-pill);
+  background: color-mix(in srgb, var(--prog-accent) 10%, #fff);
+  color: var(--prog-accent);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  border: 1px solid color-mix(in srgb, var(--prog-accent) 18%, transparent);
+}
+
+.prog-stack-card-title {
+  margin: 36px 0 10px;
+  font-size: 28px;
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+  font-weight: 800;
+  max-width: 18ch;
+  color: var(--prog-ink);
+  font-family: "Manrope", "Inter", sans-serif;
+}
+.prog-stack-tag-line {
+  color: var(--prog-ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 22px;
+  max-width: 38ch;
+}
+.prog-stack-divider {
+  height: 1px;
+  background: var(--prog-line);
+  margin: auto 0 20px;
+}
+.prog-stack-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.prog-stack-clusters {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--prog-muted);
+  text-transform: uppercase;
+}
+.prog-stack-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--prog-accent);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: gap 0.25s ease;
+}
+.prog-stack-inner:hover .prog-stack-explore {
+  gap: 14px;
+}
+.prog-stack-explore svg {
+  transition: transform 0.25s ease;
+}
+.prog-stack-inner:hover .prog-stack-explore svg {
+  transform: translateX(4px);
+}
+
+/* per-accent vars */
+.prog-stack-a-cse   { --prog-accent: var(--prog-c-cse); }
+.prog-stack-a-aiml  { --prog-accent: var(--prog-c-aiml); }
+.prog-stack-a-cyber { --prog-accent: var(--prog-c-cyber); }
+.prog-stack-a-ds    { --prog-accent: var(--prog-c-ds); }
+.prog-stack-a-it    { --prog-accent: var(--prog-c-it); }
+.prog-stack-a-ece   { --prog-accent: var(--prog-c-ece); }
+.prog-stack-a-eee   { --prog-accent: var(--prog-c-eee); }
+.prog-stack-a-mech  { --prog-accent: var(--prog-c-mech); }
+
+/* ============================================================
+   MOBILE — single-column flex layout. Disable sticky scroll-
+   stack interaction so cards lay out naturally.
+   ============================================================ */
+@media (max-width: 900px) {
+  .prog-stack-section {
+    /* mobile navbar is ~58px; sticky is disabled anyway on mobile */
+    --prog-stack-top: 78px;
+    --prog-stack-step: 0px;
+    --prog-stack-scale: 0;
+    padding: 64px 0 0;
+  }
+  .prog-stack-shell {
+    padding: 0 22px;
+  }
+  .prog-stack-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .prog-stack-all {
+    align-self: flex-start;
+  }
+
+  .prog-stack-catalogue {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 16px;
+  }
+  .prog-stack-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 18px;
+  }
+  .prog-stack-end {
+    display: none;
+  }
+
+  .prog-stack-card {
+    position: relative;
+    top: auto;
+    margin: 0;
+    /* JS sets inline transform/opacity for desktop; force-reset on mobile */
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    z-index: auto !important;
+    will-change: auto;
+  }
+  .prog-stack-inner {
+    padding: 28px 22px 26px;
+    min-height: 0;
+  }
+  .prog-stack-card-title {
+    font-size: 22px;
+    margin-top: 24px;
+  }
+  .prog-stack-badge-code {
+    min-width: 76px;
+    height: 50px;
+    font-size: 14px;
+    padding: 0 16px;
+  }
+  .prog-stack-badge-meta {
+    font-size: 11px;
+    padding: 7px 12px;
+  }
+  .prog-stack-h1 {
+    font-size: clamp(34px, 8vw, 48px);
+  }
+  .prog-stack-lead {
+    font-size: 15px;
+  }
+}
