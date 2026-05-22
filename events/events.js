@@ -67,9 +67,15 @@
         const tryPlay = () => {
           const p = el.play();
           if (p && p.catch) p.catch(() => {
-            // If first play() fails, retry once on next user interaction
-            const retry = () => { el.play().catch(() => {}); document.removeEventListener('pointermove', retry); };
+            const retry = () => {
+              el.play().catch(() => {});
+              document.removeEventListener('pointermove', retry);
+              document.removeEventListener('touchstart', retry);
+              document.removeEventListener('touchend', retry);
+            };
             document.addEventListener('pointermove', retry, { once: true });
+            document.addEventListener('touchstart',  retry, { once: true, passive: true });
+            document.addEventListener('touchend',    retry, { once: true, passive: true });
           });
         };
         if (el.readyState >= 2) {

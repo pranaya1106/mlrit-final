@@ -1790,11 +1790,8 @@
           /* User scrolled into section — start 3s dwell timer */
           if (!dwellTimer) {
             dwellTimer = setTimeout(function () {
-              var videos = stage.querySelectorAll('.ev-stage__video');
-              videos.forEach(function (v) {
-                v.muted = true;
-                v.play().catch(function () {});
-              });
+              var active = stage.querySelector('.ev-stage__video.is-active');
+              if (active) { active.muted = true; active.play().catch(function () {}); }
             }, 3000);
           }
         } else {

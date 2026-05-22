@@ -37,11 +37,11 @@
 
   var MOBILE = {
     itemDist:  60,
-    stackDist: 20,
+    stackDist:  0,
     stackPct:  0.12,
     scaleEnd:  0.10,
-    baseScale: 1.0,   /* no scale compression on mobile — cards stay full size */
-    scaleStep: 0
+    baseScale: 1.0,
+    scaleStep: 0.0
   };
 
   function cfg() { return mobileQuery.matches ? MOBILE : DESKTOP; }
@@ -252,15 +252,6 @@
   function applyStack() {
     ticking = false;
 
-    /* On mobile: no stacking — plain flat list, no JS transforms needed */
-    if (mobileQuery.matches) {
-      getAllVisible().forEach(function (card) {
-        card.style.transform = '';
-        card.style.zIndex    = '';
-      });
-      return;
-    }
-
     var scrollY    = getScrollY();
     var containerH = window.innerHeight;
     var c          = cfg();
@@ -268,11 +259,19 @@
     var scaleEndPx = containerH * c.scaleEnd;
     var pinEnd     = endOffset - containerH * 0.4;
 
-    var groups = Array.prototype.map.call(cols, function (col) {
-      return getVisibleCards(col).filter(function (card) {
+    var isMob  = mobileQuery.matches;
+    var groups;
+    if (isMob) {
+      groups = [ getAllVisible().filter(function (card) {
         return revealedCards.has(card);
+      }) ];
+    } else {
+      groups = Array.prototype.map.call(cols, function (col) {
+        return getVisibleCards(col).filter(function (card) {
+          return revealedCards.has(card);
+        });
       });
-    });
+    }
 
     groups.forEach(function (cards) {
       if (!cards.length) return;
