@@ -344,15 +344,13 @@
   ------------------------------------------------------------------ */
   boot();
 
-  /* Use GSAP ticker when ScrollSmoother is active so applyStack runs
-     every compositor frame during inertia — window.scroll fires only
-     once at the end of a ScrollSmoother scroll, missing all in-between
-     frames and making the stack appear frozen until the scroll settles. */
+  /* Desktop: GSAP ticker drives updates every frame during ScrollSmoother
+     inertia (window.scroll only fires once at end of inertia).
+     Mobile: ScrollSmoother is disabled, so native window.scroll is used. */
   if (window.gsap) {
     gsap.ticker.add(scheduleStack);
-  } else {
-    window.addEventListener('scroll', scheduleStack, { passive: true });
   }
+  window.addEventListener('scroll', scheduleStack, { passive: true });
   window.addEventListener('resize', onResize);
 
   if (mobileQuery.addEventListener) {
