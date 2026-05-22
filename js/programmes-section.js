@@ -344,7 +344,15 @@
   ------------------------------------------------------------------ */
   boot();
 
-  window.addEventListener('scroll', scheduleStack, { passive: true });
+  /* Use GSAP ticker when ScrollSmoother is active so applyStack runs
+     every compositor frame during inertia — window.scroll fires only
+     once at the end of a ScrollSmoother scroll, missing all in-between
+     frames and making the stack appear frozen until the scroll settles. */
+  if (window.gsap) {
+    gsap.ticker.add(scheduleStack);
+  } else {
+    window.addEventListener('scroll', scheduleStack, { passive: true });
+  }
   window.addEventListener('resize', onResize);
 
   if (mobileQuery.addEventListener) {
