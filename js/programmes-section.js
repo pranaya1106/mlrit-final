@@ -40,8 +40,8 @@
     stackDist: 20,
     stackPct:  0.12,
     scaleEnd:  0.10,
-    baseScale: 0.85,
-    scaleStep: 0.03
+    baseScale: 1.0,   /* no scale compression on mobile — cards stay full size */
+    scaleStep: 0
   };
 
   function cfg() { return mobileQuery.matches ? MOBILE : DESKTOP; }
