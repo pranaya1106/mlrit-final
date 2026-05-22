@@ -1778,16 +1778,35 @@
 
   <script src="js/events.js" defer></script>
 
-  <!-- ev-stage: force play active video when section scrolls into view (mobile autoplay fix) -->
+  <!-- ev-stage: play video after 3s dwell in the section (mobile autoplay policy fix) -->
   <script>
     (function () {
       var stage = document.getElementById('evStage');
       if (!stage) return;
+      var dwellTimer = null;
+
       var io = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        var active = stage.querySelector('.ev-stage__video.is-active');
-        if (active && active.paused) active.play().catch(function () {});
-      }, { threshold: 0.1 });
+        if (entries[0].isIntersecting) {
+          /* User scrolled into section — start 3s dwell timer */
+          if (!dwellTimer) {
+            dwellTimer = setTimeout(function () {
+              var videos = stage.querySelectorAll('.ev-stage__video');
+              videos.forEach(function (v) {
+                v.muted = true;
+                v.play().catch(function () {});
+              });
+            }, 3000);
+          }
+        } else {
+          /* Scrolled away — cancel timer, pause all */
+          clearTimeout(dwellTimer);
+          dwellTimer = null;
+          stage.querySelectorAll('.ev-stage__video').forEach(function (v) {
+            v.pause();
+          });
+        }
+      }, { threshold: 0.3 });
+
       io.observe(stage);
     })();
   </script>

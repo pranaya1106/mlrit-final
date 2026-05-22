@@ -252,6 +252,15 @@
   function applyStack() {
     ticking = false;
 
+    /* On mobile: no stacking — plain flat list, no JS transforms needed */
+    if (mobileQuery.matches) {
+      getAllVisible().forEach(function (card) {
+        card.style.transform = '';
+        card.style.zIndex    = '';
+      });
+      return;
+    }
+
     var scrollY    = getScrollY();
     var containerH = window.innerHeight;
     var c          = cfg();
@@ -259,19 +268,11 @@
     var scaleEndPx = containerH * c.scaleEnd;
     var pinEnd     = endOffset - containerH * 0.4;
 
-    var isMob  = mobileQuery.matches;
-    var groups;
-    if (isMob) {
-      groups = [ getAllVisible().filter(function (card) {
+    var groups = Array.prototype.map.call(cols, function (col) {
+      return getVisibleCards(col).filter(function (card) {
         return revealedCards.has(card);
-      }) ];
-    } else {
-      groups = Array.prototype.map.call(cols, function (col) {
-        return getVisibleCards(col).filter(function (card) {
-          return revealedCards.has(card);
-        });
       });
-    }
+    });
 
     groups.forEach(function (cards) {
       if (!cards.length) return;
