@@ -18,7 +18,7 @@
 
 
     /* ── Hero ── */
-    .dept-hero { background: #1F6B24; min-height: 40vh; padding: 40px 48px 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero { background: #1F6B24; min-height: 40vh; padding: 40px 48px 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; margin-left: 220px; }
     .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
     .dept-hero__video.is-visible { opacity: 0.55; }
     .dept-hero__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.08); z-index: 1; transition: opacity 0.6s ease; }
@@ -29,7 +29,7 @@
     .dept-hero__title { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
 
     /* ── Tabs ── */
-    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 122px; z-index: 980; }
+    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 142px; z-index: 980; }
     .dept-tabs::-webkit-scrollbar { height: 0; }
     .dept-tab { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; padding: 14px 24px; white-space: nowrap; cursor: pointer; position: relative; transition: color 0.25s, background 0.25s; }
     .dept-tab::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 3px; background: linear-gradient(90deg, transparent, #E85D1F, transparent); transition: transform 0.25s ease; }
@@ -228,8 +228,8 @@
 
     /* ── Left sidebar ── */
     .dark-sidebar {
-      position: fixed; left: 0; top: 166px; width: 220px;
-      height: calc(100vh - 166px); overflow-y: auto;
+      position: fixed; left: 0; top: 94px; width: 220px;
+      height: calc(100vh - 94px); overflow-y: auto;
       background: #FAFAF8; z-index: 35; padding-top: 24px;
       border-right: 1px solid rgba(0,0,0,0.05);
     }
@@ -251,6 +251,7 @@
       .hod-msg { flex-direction: column; align-items: center; text-align: center; }
       .dark-sidebar { display: none; }
       .dept-body { margin-left: 0; display: block; }
+      .dept-hero { margin-left: 0; }
       .fcard-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
 
@@ -299,7 +300,7 @@
       letter-spacing: 0.05em;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       margin-top: 0;
-      position: sticky; top: 78px; z-index: 990;
+      position: sticky; top: 94px; z-index: 990;
     }
     .dept-nav__link {
       color: rgba(255,255,255,0.5);
@@ -1282,7 +1283,7 @@
         });
       }, {
         threshold: 0.15,
-        rootMargin: '-166px 0px -40% 0px'
+        rootMargin: '-142px 0px -40% 0px'
       });
 
       allTargets.forEach(function (t) { observer.observe(t.el); });

@@ -189,10 +189,10 @@
   position: relative;
   min-width: 0;
 }
-/* Tall enough for 5 cards to stack fully */
+/* Enough scroll room for all cards to stack and release */
 .prog-stack-end {
   grid-column: 1 / -1;
-  height: 120vh;
+  height: 150vh;
 }
 
 /* ── Cards ──────────────────────────────────────────────────────────────────
@@ -206,8 +206,7 @@
    • The inner element carries hover transitions independently
    ────────────────────────────────────────────────────────────────────────── */
 .prog-stack-card {
-  position: sticky;
-  top: var(--prog-stack-top);
+  position: relative;
   height: auto;
   margin: 0 0 48px;
   transform-origin: top center;
