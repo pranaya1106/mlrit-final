@@ -1,6 +1,7 @@
 /* ============================================================
-   PROGRAMMES SECTION — tabs + scroll-stack
-   Scoped: only touches `.prog-stack-section` and children.
+   PROGRAMMES SECTION — scroll-stack + reveal
+   Handles: tab switching, scroll-stack stacking, and the
+   initial scroll-reveal fade-up for each card.
    ============================================================ */
 (function () {
   'use strict';
@@ -30,6 +31,14 @@
     );
   }
 
+  function getAllVisibleCards() {
+    var all = [];
+    cols.forEach(function (col) {
+      getVisibleCards(col).forEach(function (c) { all.push(c); });
+    });
+    return all;
+  }
+
   function clearInline(card) {
     card.style.transform = '';
     card.style.opacity   = '';
@@ -37,45 +46,92 @@
   }
 
   /* ------------------------------------------------------------------
+     Initial scroll-reveal
+     Cards start hidden (opacity 0, translateY 28px). Each card gets
+     revealed exactly once via IntersectionObserver, then the stack
+     engine takes over with inline styles.
+  ------------------------------------------------------------------ */
+
+  var revealedCards = new Set();
+
+  function setupReveal() {
+    var allCards = section.querySelectorAll('.prog-stack-card');
+
+    /* Only activate reveal on desktop where sticky stacking also runs */
+    if (mobileQuery.matches) return;
+
+    /* Pre-hide all visible (non-hidden) cards */
+    allCards.forEach(function (card) {
+      if (!card.hidden) {
+        card.classList.add('prog-reveal');
+      }
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        revealedCards.add(card);
+        card.classList.add('is-revealed');
+        io.unobserve(card);
+        /* Once revealed, transition handled by CSS. Stack engine
+           will overwrite inline styles after 600ms. */
+        setTimeout(function () {
+          /* Hand control to stack engine — clear CSS-class-driven opacity
+             so the JS inline styles can take over cleanly */
+          card.classList.remove('prog-reveal', 'is-revealed');
+        }, 640);
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    allCards.forEach(function (card) {
+      if (!card.hidden) io.observe(card);
+    });
+
+    return io;
+  }
+
+  var revealIO = setupReveal();
+
+  /* ------------------------------------------------------------------
      Tab switching — fade cards out/in instead of instant display:none
-     so there is never a sudden layout jump.
   ------------------------------------------------------------------ */
 
   function setLevel(level) {
     var allCards = section.querySelectorAll('.prog-stack-card');
 
-    /* Step 1 — mark outgoing cards, they animate out via CSS class */
     allCards.forEach(function (c) {
       if (c.dataset.level !== level && !c.hidden) {
         c.classList.add('is-leaving');
       }
     });
 
-    /* Step 2 — after the leave transition (180 ms) hide them and show incoming */
     setTimeout(function () {
       allCards.forEach(function (c) {
-        c.classList.remove('is-leaving', 'is-entering');
+        c.classList.remove('is-leaving', 'is-entering', 'prog-reveal', 'is-revealed');
 
         if (c.dataset.level !== level) {
           c.hidden = true;
           clearInline(c);
+          revealedCards.delete(c);
         } else {
           if (c.hidden) {
-            /* Pre-set opacity/transform so it can animate IN */
             c.style.opacity   = '0';
             c.style.transform = 'translateZ(0) translateY(12px)';
             c.hidden = false;
             c.classList.add('is-entering');
 
-            /* Let the browser paint the initial state then animate */
             requestAnimationFrame(function () {
               requestAnimationFrame(function () {
                 c.style.opacity   = '';
                 c.style.transform = '';
+                revealedCards.add(c);
               });
             });
 
-            /* Clean up entering class once done */
             setTimeout(function () {
               c.classList.remove('is-entering');
             }, 320);
@@ -83,17 +139,13 @@
         }
       });
 
-      /* Recalculate stack after DOM update */
       requestAnimationFrame(applyStack);
     }, 190);
   }
 
-  /* Tab click handler */
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
       var level = tab.dataset.level;
-
-      /* No-op if already active */
       if (tab.classList.contains('is-active')) return;
 
       tabs.forEach(function (t) {
@@ -105,7 +157,6 @@
 
       setLevel(level);
 
-      /* Scroll to catalogue — use ScrollSmoother if present, else native */
       if (catalogue) {
         var targetY = catalogue.getBoundingClientRect().top + window.scrollY - 120;
         if (window.ScrollSmoother && ScrollSmoother.get()) {
@@ -119,27 +170,23 @@
 
   /* ------------------------------------------------------------------
      Scroll-stack engine
-     Strategy: read card positions once per frame using a single
-     IntersectionObserver-driven dirty flag, then only call
-     getBoundingClientRect when something has actually changed.
+     Only applies to cards that have been revealed (revealedCards set).
   ------------------------------------------------------------------ */
 
-  var ticking    = false;
-  var stackTop   = 152;
-  var stepPx     = 14;
-  var scaleStep  = 0.038;
+  var ticking   = false;
+  var stackTop  = 152;
+  var stepPx    = 14;
+  var scaleStep = 0.038;
 
-  /* Cache CSS vars once (they're constant at runtime, only change on resize) */
   function refreshVars() {
-    stackTop  = getCSSVar('--prog-stack-top',   152);
-    stepPx    = getCSSVar('--prog-stack-step',   14);
-    scaleStep = getCSSVar('--prog-stack-scale',  0.038);
+    stackTop  = getCSSVar('--prog-stack-top',  152);
+    stepPx    = getCSSVar('--prog-stack-step',  14);
+    scaleStep = getCSSVar('--prog-stack-scale', 0.038);
   }
 
   function applyStack() {
     ticking = false;
 
-    /* Mobile: nothing to do — CSS handles everything */
     if (mobileQuery.matches) {
       cols.forEach(function (col) {
         getVisibleCards(col).forEach(clearInline);
@@ -147,35 +194,34 @@
       return;
     }
 
-    /* Read all card rects in one batch to avoid interleaved read/write */
+    /* Batch-read all rects first, then write — avoids interleaved reflows */
     var colData = [];
     cols.forEach(function (col) {
-      var visible = getVisibleCards(col);
+      var visible = getVisibleCards(col).filter(function (c) {
+        return revealedCards.has(c);
+      });
       colData.push({
         cards: visible,
         rects: visible.map(function (c) { return c.getBoundingClientRect(); })
       });
     });
 
-    /* Write transforms in a second batch — no forced reflow here */
     colData.forEach(function (cd) {
       var cards = cd.cards;
       var rects = cd.rects;
 
       cards.forEach(function (card, i) {
-        var nextRect  = rects[i + 1];
-        var progress  = 0;
+        var nextRect = rects[i + 1];
+        var progress = 0;
 
         if (nextRect) {
           var rangeStart = stackTop + 200;
           var rangeEnd   = stackTop;
           var raw = (rangeStart - nextRect.top) / (rangeStart - rangeEnd);
-          /* Smooth the progress with a cubic ease to prevent oscillation */
           raw = Math.min(1, Math.max(0, raw));
           progress = raw * raw * (3 - 2 * raw); /* smoothstep */
         }
 
-        /* Count cards that are fully behind the stack threshold */
         var depth = 0;
         for (var j = i + 1; j < cards.length; j++) {
           if (rects[j].top <= stackTop + 2) depth++;
@@ -184,18 +230,15 @@
         var totalDepth = depth + progress;
         var scale   = Math.max(0.78, 1 - totalDepth * scaleStep);
         var liftY   = -(totalDepth * stepPx);
-        /* Opacity: front card = 1, each layer behind loses 0.08, min 0.55 */
         var opacity = Math.max(0.55, 1 - totalDepth * 0.08);
 
         card.style.transform = 'translateZ(0) translateY(' + liftY.toFixed(2) + 'px) scale(' + scale.toFixed(4) + ')';
         card.style.opacity   = opacity.toFixed(3);
         card.style.zIndex    = String(i);
-        /* No filter:blur — it causes expensive repaints on every frame */
       });
     });
   }
 
-  /* Throttle scroll to one rAF at a time */
   function scheduleStack() {
     if (!ticking) {
       ticking = true;
@@ -203,7 +246,6 @@
     }
   }
 
-  /* On resize: refresh CSS vars then recalculate */
   var resizeTimer = 0;
   function onResize() {
     clearTimeout(resizeTimer);
@@ -219,7 +261,16 @@
       cols.forEach(function (col) {
         getVisibleCards(col).forEach(clearInline);
       });
+      /* Also clear reveal classes on all cards for clean mobile state */
+      section.querySelectorAll('.prog-stack-card').forEach(function (c) {
+        c.classList.remove('prog-reveal', 'is-revealed');
+        clearInline(c);
+      });
+      revealedCards.clear();
     } else {
+      if (revealIO) revealIO.disconnect();
+      revealedCards.clear();
+      revealIO = setupReveal();
       scheduleStack();
     }
   }
@@ -235,11 +286,9 @@
   if (mobileQuery.addEventListener) {
     mobileQuery.addEventListener('change', onMediaChange);
   } else if (mobileQuery.addListener) {
-    /* Safari < 14 fallback */
     mobileQuery.addListener(onMediaChange);
   }
 
-  /* Initial paint — run on next frame so the DOM is settled */
   requestAnimationFrame(function () {
     refreshVars();
     applyStack();

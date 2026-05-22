@@ -229,27 +229,30 @@
   transition: transform 0.08s linear, opacity 0.08s linear;
 }
 
-/* Scroll-reveal state: cards fade in + slide up on viewport entry */
+/* ── Initial scroll-reveal: hidden → visible ──
+   JS adds .prog-reveal on page load (desktop only).
+   IO adds .is-revealed when card enters viewport.
+   After 640ms JS strips both classes and hands off to stack engine. */
 .prog-stack-card.prog-reveal {
   opacity: 0;
-  transform: translateZ(0) translateY(24px);
+  transform: translateZ(0) translateY(28px);
+  /* Use a slower ease for the reveal; stack engine uses fast 0.08s linear */
   transition:
-    opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+    opacity  0.60s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.60s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .prog-stack-card.prog-reveal.is-revealed {
   opacity: 1;
   transform: translateZ(0) translateY(0);
 }
 
-/* Stagger delays for cards in each column */
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(1) { transition-delay: 0ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(2) { transition-delay: 80ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(3) { transition-delay: 160ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(4) { transition-delay: 240ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(5) { transition-delay: 320ms; }
-.prog-stack-col .prog-stack-card.prog-reveal:nth-child(6) { transition-delay: 400ms; }
+/* Stagger: each card in a column waits a little longer */
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(1) { transition-delay:   0ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(2) { transition-delay:  90ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(3) { transition-delay: 180ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(4) { transition-delay: 270ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(5) { transition-delay: 360ms; }
+.prog-stack-col .prog-stack-card.prog-reveal:nth-child(6) { transition-delay: 450ms; }
 
 /* Cards being switched away via tab are faded out before hiding */
 .prog-stack-card.is-leaving {
@@ -442,10 +445,12 @@
   .prog-stack-card {
     transition: none !important;
   }
-  .prog-stack-card.prog-reveal {
+  .prog-stack-card.prog-reveal,
+  .prog-stack-card.prog-reveal.is-revealed {
     opacity: 1 !important;
     transform: translateZ(0) !important;
     transition: none !important;
+    transition-delay: 0ms !important;
   }
 }
 
