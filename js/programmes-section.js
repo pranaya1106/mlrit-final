@@ -37,11 +37,11 @@
 
   var MOBILE = {
     itemDist:  60,
-    stackDist:  0,
+    stackDist: 20,
     stackPct:  0.12,
     scaleEnd:  0.10,
-    baseScale: 1.0,
-    scaleStep: 0.0
+    baseScale: 0.85,
+    scaleStep: 0.03
   };
 
   function cfg() { return mobileQuery.matches ? MOBILE : DESKTOP; }
@@ -259,19 +259,11 @@
     var scaleEndPx = containerH * c.scaleEnd;
     var pinEnd     = endOffset - containerH * 0.4;
 
-    var isMob  = mobileQuery.matches;
-    var groups;
-    if (isMob) {
-      groups = [ getAllVisible().filter(function (card) {
+    var groups = Array.prototype.map.call(cols, function (col) {
+      return getVisibleCards(col).filter(function (card) {
         return revealedCards.has(card);
-      }) ];
-    } else {
-      groups = Array.prototype.map.call(cols, function (col) {
-        return getVisibleCards(col).filter(function (card) {
-          return revealedCards.has(card);
-        });
       });
-    }
+    });
 
     groups.forEach(function (cards) {
       if (!cards.length) return;
