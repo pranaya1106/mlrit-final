@@ -2091,7 +2091,7 @@
       },
       "radhika-devi": {
         name: "Ms. Radhika Devi", role: "Assistant Professor", dept: "Freshman Engineering",
-        photo: "images/freshman/radhika-devi.jpg", qual: "M.Sc (Physics), B.Sc",
+        photo: "https://res.cloudinary.com/dtmde1fyn/image/upload/f_auto,q_auto/mlrit/faculty/freshman/radhika-devi.jpg", qual: "M.Sc (Physics), B.Sc",
         email: "", exp: "", joined: "",
         areas: ["Physics"],
         subjects: ["Engineering Physics", "Applied Physics"],

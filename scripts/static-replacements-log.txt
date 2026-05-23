@@ -1,0 +1,19 @@
+Static image replacement log
+========================================
+Files scanned: 111
+Files modified: 11
+Total Cloudinary URL replacements: 57
+Total placeholder substitutions: 26
+
+Files actually modified:
+  _temp_check.js: 1 URL replacements, 0 placeholders
+  departments/check_faculty.js: 1 URL replacements, 0 placeholders
+  departments/cse-ds.html: 0 URL replacements, 2 placeholders
+  departments/eee.html: 0 URL replacements, 2 placeholders
+  departments/faculty-profile.html: 0 URL replacements, 14 placeholders
+  departments/it.html: 0 URL replacements, 8 placeholders
+  departments/pg.html: 3 URL replacements, 0 placeholders
+  departments/ug.html: 3 URL replacements, 0 placeholders
+  index.html: 42 URL replacements, 0 placeholders
+  iqac/iqac.html: 4 URL replacements, 0 placeholders
+  iqac/nba.html: 3 URL replacements, 0 placeholders

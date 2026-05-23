@@ -1,0 +1,20 @@
+Faculty image replacement log
+========================================
+Total files modified: 13
+Total replacements: 1066
+faculty_profiles.json photo fields updated: 0
+
+Per-HTML-file replacements:
+  departments/aeronautical.html: 39
+  departments/aiml.html: 78
+  departments/cse-cs.html: 30
+  departments/cse-ds.html: 90
+  departments/cse.html: 121
+  departments/csit.html: 40
+  departments/ece.html: 73
+  departments/eee.html: 31
+  departments/faculty-profile.html: 357
+  departments/freshman.html: 107
+  departments/it.html: 28
+  departments/mba.html: 31
+  departments/mechanical.html: 41
