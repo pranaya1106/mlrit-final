@@ -1,7 +1,16 @@
 /* ============================================================
-   PROGRAMMES SECTION — ScrollStack (React Bits port, vanilla JS)
-   Tab switching + per-column scroll-stack stacking.
-   Stack physics ported from ReactBits ScrollStack component.
+   PROGRAMMES SECTION — ScrollStack (ReactBits translate3d model)
+
+   GSAP ScrollSmoother moves #smooth-content via CSS transform, so
+   window.scrollY != visual scroll position during the smoother's
+   inertia frames. Fix: read ScrollSmoother.get().scrollTop() when
+   available — this is the interpolated visual position that matches
+   GSAP's transform exactly, eliminating per-frame position drift.
+
+   Card positions use offsetTop traversal (stops at smooth-content,
+   which has no offsetParent — so the full chain sums correctly
+   within the smooth-content coordinate space). Combined with
+   smoothScrollY this gives stable, jitter-free stacking.
    ============================================================ */
 (function () {
   'use strict';
@@ -15,14 +24,39 @@
   var mobileQuery = window.matchMedia('(max-width: 900px)');
 
   /* ------------------------------------------------------------------
-     Config — mirrors ReactBits ScrollStack props
+     Config
   ------------------------------------------------------------------ */
-  var ITEM_DISTANCE      = 100;   /* px margin between cards */
-  var ITEM_SCALE         = 0.03;  /* scale decrement per depth level */
-  var ITEM_STACK_DIST    = 28;    /* px offset per card in the pin zone */
-  var STACK_POSITION_PCT = 0.20;  /* viewport % where stacking begins */
-  var SCALE_END_PCT      = 0.10;  /* viewport % where scale finishes */
-  var BASE_SCALE         = 0.86;  /* minimum scale for deepest card */
+  var DESKTOP = {
+    itemDist:  100,
+    stackDist:  30,
+    stackPct:  0.18,
+    scaleEnd:  0.08,
+    baseScale: 0.85,
+    scaleStep: 0.03
+  };
+
+  var MOBILE = {
+    itemDist:  60,
+    stackDist: 20,
+    stackPct:  0.12,
+    scaleEnd:  0.10,
+    baseScale: 0.85,
+    scaleStep: 0.03
+  };
+
+  function cfg() { return mobileQuery.matches ? MOBILE : DESKTOP; }
+
+  /* ------------------------------------------------------------------
+     Scroll position — use ScrollSmoother's interpolated value when
+     available so our positions match GSAP's actual transform exactly.
+  ------------------------------------------------------------------ */
+  function getScrollY() {
+    if (window.ScrollSmoother && ScrollSmoother.get) {
+      var sm = ScrollSmoother.get();
+      if (sm) return sm.scrollTop();
+    }
+    return window.scrollY;
+  }
 
   /* ------------------------------------------------------------------
      Helpers
@@ -34,43 +68,115 @@
     );
   }
 
+  function getAllVisible() {
+    var all = [];
+    cols.forEach(function (col) {
+      getVisibleCards(col).forEach(function (c) { all.push(c); });
+    });
+    return all;
+  }
+
   function clearInline(card) {
-    card.style.transform = '';
-    card.style.opacity   = '';
-    card.style.zIndex    = '';
+    card.style.transform    = '';
+    card.style.opacity      = '';
+    card.style.zIndex       = '';
+    card.style.marginBottom = '';
+  }
+
+  /* offsetTop sum within #smooth-content — stable layout position,
+     unaffected by GSAP's transform or the card's own transform. */
+  function getDocTop(el) {
+    var top = 0;
+    while (el) { top += el.offsetTop; el = el.offsetParent; }
+    return top;
+  }
+
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+  /* ------------------------------------------------------------------
+     Offset cache — rebuilt at boot, tab-switch, resize, breakpoint.
+     Maps card → offsetTop (layout px, never changes during scroll).
+  ------------------------------------------------------------------ */
+  var offsetCache = new Map();
+  var endOffset   = 0;
+
+  function buildOffsetCache() {
+    offsetCache.clear();
+    getAllVisible().forEach(function (card) {
+      /* Temporarily zero the card's own transform so offsetTop
+         reflects layout position, not visual position. */
+      var prev = card.style.transform;
+      card.style.transform = '';
+      offsetCache.set(card, getDocTop(card));
+      card.style.transform = prev;
+    });
+    var endEl = section.querySelector('.prog-stack-end');
+    if (endEl) {
+      endOffset = getDocTop(endEl);
+    }
   }
 
   /* ------------------------------------------------------------------
-     Reveal — simple opacity fade, IO-triggered
+     All cards eligible immediately — no IO gate
   ------------------------------------------------------------------ */
   var revealedCards = new Set();
 
-  function setupReveal() {
-    section.querySelectorAll('.prog-stack-card').forEach(function (card) {
-      if (!card.hidden) card.classList.add('prog-reveal');
+  function seedAll() {
+    getAllVisible().forEach(function (card) {
+      revealedCards.add(card);
+      card.classList.remove('prog-reveal', 'is-revealed');
     });
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var card = entry.target;
-        card.classList.add('is-revealed');
-        io.unobserve(card);
-        setTimeout(function () {
-          revealedCards.add(card);
-          card.classList.remove('prog-reveal', 'is-revealed');
-        }, 580);
-      });
-    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
-
-    section.querySelectorAll('.prog-stack-card').forEach(function (card) {
-      if (!card.hidden) io.observe(card);
-    });
-
-    return io;
   }
 
-  var revealIO = setupReveal();
+  /* ------------------------------------------------------------------
+     Init — set margins + GPU hints
+  ------------------------------------------------------------------ */
+  function initAll() {
+    var c     = cfg();
+    var isMob = mobileQuery.matches;
+
+    if (isMob) {
+      var cards = getAllVisible();
+      cards.forEach(function (card, i) {
+        card.style.marginBottom       = i < cards.length - 1 ? c.itemDist + 'px' : '';
+        card.style.willChange         = 'transform';
+        card.style.transformOrigin    = 'top center';
+        card.style.backfaceVisibility = 'hidden';
+        card.style.position           = 'relative';
+        card.style.top                = '';
+      });
+    } else {
+      cols.forEach(function (col) {
+        var cards = getVisibleCards(col);
+        cards.forEach(function (card, i) {
+          card.style.marginBottom       = i < cards.length - 1 ? c.itemDist + 'px' : '';
+          card.style.willChange         = 'transform';
+          card.style.transformOrigin    = 'top center';
+          card.style.backfaceVisibility = 'hidden';
+          card.style.position           = 'relative';
+          card.style.top                = '';
+        });
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Boot
+  ------------------------------------------------------------------ */
+  function boot() {
+    initAll();
+    seedAll();
+    buildOffsetCache();
+    scheduleStack();
+    /* Rebuild cache after full page load — fonts/images shift layout */
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', function () {
+        buildOffsetCache();
+        lastTransforms.clear();
+        scheduleStack();
+      }, { once: true });
+    }
+  }
 
   /* ------------------------------------------------------------------
      Tab switching
@@ -91,7 +197,7 @@
           clearInline(c);
           revealedCards.delete(c);
         } else if (c.hidden) {
-          c.style.opacity = '0';
+          c.style.opacity   = '0';
           c.style.transform = 'translateZ(0)';
           c.hidden = false;
           c.classList.add('is-entering');
@@ -108,6 +214,9 @@
         }
       });
 
+      initAll();
+      buildOffsetCache();
+      lastTransforms.clear();
       requestAnimationFrame(applyStack);
     }, 190);
   }
@@ -116,16 +225,13 @@
     tab.addEventListener('click', function () {
       var level = tab.dataset.level;
       if (tab.classList.contains('is-active')) return;
-
       tabs.forEach(function (t) {
         t.classList.remove('is-active');
         t.setAttribute('aria-selected', 'false');
       });
       tab.classList.add('is-active');
       tab.setAttribute('aria-selected', 'true');
-
       setLevel(level);
-
       if (catalogue) {
         var targetY = catalogue.getBoundingClientRect().top + window.scrollY - 120;
         if (window.ScrollSmoother && ScrollSmoother.get()) {
@@ -138,89 +244,71 @@
   });
 
   /* ------------------------------------------------------------------
-     ScrollStack engine — ReactBits port (useWindowScroll mode)
+     Stack engine
 
-     For each card[i] in a column:
-       cardTop  = card's offsetTop from document top
-       stackPos = containerH * STACK_POSITION_PCT
-       scaleEnd = containerH * SCALE_END_PCT
+     scrollY    = ScrollSmoother.scrollTop() — matches GSAP's transform
+     cardDocTop = offsetCache.get(card)      — stable layout position
+     Both are in the same coordinate space, so the math is exact.
 
-       triggerStart = cardTop - stackPos - ITEM_STACK_DIST * i
-       triggerEnd   = cardTop - scaleEnd
-       pinStart     = triggerStart
-       pinEnd       = endSentinelTop - containerH * 0.5
-
-       scaleProgress = clamp01((scrollY - triggerStart) / (triggerEnd - triggerStart))
-       targetScale   = BASE_SCALE + i * ITEM_SCALE
-       scale         = 1 - scaleProgress * (1 - targetScale)
-
-       if pinned: translateY = scrollY - cardTop + stackPos + ITEM_STACK_DIST * i
-       if past:   translateY = pinEnd  - cardTop + stackPos + ITEM_STACK_DIST * i
-
-     No CSS transitions on transform — JS writes every rAF frame directly.
+     triggerStart = cardDocTop - stackPosPx - stackDist * i
+     while scrollY in [triggerStart, pinEnd]:
+       translateY = scrollY - cardDocTop + stackPosPx + stackDist * i
   ------------------------------------------------------------------ */
-
-  var ticking = false;
-
-  /* Cache of { translateY, scale } per card — skip DOM write if unchanged */
+  var ticking        = false;
   var lastTransforms = new Map();
-
-  function getCardOffset(el) {
-    var top = 0;
-    while (el) { top += el.offsetTop; el = el.offsetParent; }
-    return top;
-  }
-
-  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
 
   function applyStack() {
     ticking = false;
 
-    var scrollY      = window.scrollY;
-    var containerH   = window.innerHeight;
-    /* On mobile use a lower stack position so effect is visible higher up */
-    var stackPct     = mobileQuery.matches ? 0.12 : STACK_POSITION_PCT;
-    var stackPosPx   = containerH * stackPct;
-    var scaleEndPx   = containerH * SCALE_END_PCT;
+    var scrollY    = getScrollY();
+    var containerH = window.innerHeight;
+    var c          = cfg();
+    var stackPosPx = containerH * c.stackPct;
+    var scaleEndPx = containerH * c.scaleEnd;
+    var pinEnd     = endOffset - containerH * 0.4;
 
-    var endEl        = section.querySelector('.prog-stack-end');
-    var endTop       = endEl ? getCardOffset(endEl) : 0;
-
-    cols.forEach(function (col) {
-      var cards = getVisibleCards(col).filter(function (c) {
-        return revealedCards.has(c);
+    var isMob  = mobileQuery.matches;
+    var groups;
+    if (isMob) {
+      groups = [ getAllVisible().filter(function (card) {
+        return revealedCards.has(card);
+      }) ];
+    } else {
+      groups = Array.prototype.map.call(cols, function (col) {
+        return getVisibleCards(col).filter(function (card) {
+          return revealedCards.has(card);
+        });
       });
+    }
+
+    groups.forEach(function (cards) {
       if (!cards.length) return;
 
-      /* Batch-read offsets */
-      var offsets = cards.map(getCardOffset);
-
       cards.forEach(function (card, i) {
-        var cardTop      = offsets[i];
-        var triggerStart = cardTop - stackPosPx - ITEM_STACK_DIST * i;
-        var triggerEnd   = cardTop - scaleEndPx;
-        var pinStart     = triggerStart;
-        var pinEnd       = endTop - containerH * 0.5;
+        var cardTop = offsetCache.get(card);
+        if (cardTop === undefined) return;
 
-        /* Scale */
-        var scaleProgress = clamp01((scrollY - triggerStart) / (Math.max(1, triggerEnd - triggerStart)));
-        var targetScale   = BASE_SCALE + i * ITEM_SCALE;
+        var triggerStart  = cardTop - stackPosPx - c.stackDist * i;
+        var triggerEnd    = cardTop - scaleEndPx;
+
+        var scaleProgress = clamp01(
+          (scrollY - triggerStart) / Math.max(1, triggerEnd - triggerStart)
+        );
+        var targetScale   = c.baseScale + i * c.scaleStep;
         var scale         = 1 - scaleProgress * (1 - targetScale);
 
-        /* TranslateY */
         var translateY = 0;
-        if (scrollY >= pinStart && scrollY <= pinEnd) {
-          translateY = scrollY - cardTop + stackPosPx + ITEM_STACK_DIST * i;
+        if (scrollY >= triggerStart && scrollY <= pinEnd) {
+          translateY = scrollY - cardTop + stackPosPx + c.stackDist * i;
         } else if (scrollY > pinEnd) {
-          translateY = pinEnd - cardTop + stackPosPx + ITEM_STACK_DIST * i;
+          translateY = pinEnd - cardTop + stackPosPx + c.stackDist * i;
         }
 
-        /* Round to reduce sub-pixel writes */
-        var ty  = Math.round(translateY * 10) / 10;
-        var sc  = Math.round(scale * 1000) / 1000;
+        var ty   = Math.round(translateY * 10) / 10;
+        var sc   = Math.round(scale * 1000) / 1000;
 
         var last = lastTransforms.get(card);
-        if (last && Math.abs(last.ty - ty) < 0.2 && Math.abs(last.sc - sc) < 0.001) return;
+        if (last && Math.abs(last.ty - ty) < 0.15 && Math.abs(last.sc - sc) < 0.001) return;
 
         lastTransforms.set(card, { ty: ty, sc: sc });
         card.style.transform = 'translate3d(0,' + ty + 'px,0) scale(' + sc + ')';
@@ -237,46 +325,37 @@
   }
 
   /* ------------------------------------------------------------------
-     Set margin-bottom on all but last card per column (ITEM_DISTANCE)
-  ------------------------------------------------------------------ */
-  function applyMargins() {
-    cols.forEach(function (col) {
-      var cards = getVisibleCards(col);
-      cards.forEach(function (c, i) {
-        c.style.marginBottom = i < cards.length - 1 ? ITEM_DISTANCE + 'px' : '';
-        c.style.willChange   = 'transform';
-        c.style.transformOrigin = 'top center';
-        c.style.backfaceVisibility = 'hidden';
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------
-     Resize + media change
+     Resize + breakpoint change
   ------------------------------------------------------------------ */
   var resizeTimer = 0;
   function onResize() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
+      buildOffsetCache();
       lastTransforms.clear();
       scheduleStack();
     }, 80);
   }
 
   function onMediaChange() {
-    if (revealIO) revealIO.disconnect();
     revealedCards.clear();
     lastTransforms.clear();
-    applyMargins();
-    revealIO = setupReveal();
+    getAllVisible().forEach(clearInline);
+    initAll();
+    seedAll();
+    buildOffsetCache();
     scheduleStack();
   }
 
   /* ------------------------------------------------------------------
      Boot
   ------------------------------------------------------------------ */
-  applyMargins();
+  boot();
 
+  /* gsap.ticker drives every frame on desktop (ScrollSmoother inertia
+     doesn't fire window.scroll each frame). window.scroll handles mobile
+     where ScrollSmoother is disabled and native scroll is used. */
+  if (window.gsap) gsap.ticker.add(scheduleStack);
   window.addEventListener('scroll', scheduleStack, { passive: true });
   window.addEventListener('resize', onResize);
 
@@ -285,7 +364,5 @@
   } else if (mobileQuery.addListener) {
     mobileQuery.addListener(onMediaChange);
   }
-
-  requestAnimationFrame(applyStack);
 
 })();
