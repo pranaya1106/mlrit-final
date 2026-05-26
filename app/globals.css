@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════════
+   GLOBAL CSS — design tokens + base reset
+   Mirrors the static-site theme tokens but lives in the Next.js
+   layer. Tailwind has the same colours; this file owns the
+   tokens that legacy class names (kept for chronicles broadsheet
+   etc.) still consume.
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  --primary:       #e85d04;
+  --primary-hover: #ff7a2f;
+  --secondary:     #2d8b55;
+  --orange-50:  #fff8f4;
+  --orange-200: #ffcfa6;
+  --green-50:   #f5fbf7;
+  --green-nav:  #01741f;
+  --warm-light: #f5efe5;
+  --warm:       #ecdec1;
+  --gold-50:    #fdf3e0;
+  --foreground: #111111;
+  --background: #ffffff;
+  --muted:      #5c5a55;
+  --subtle:     #989890;
+  --border:     #d9d7d1;
+  --header-h:   132px;
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+::selection { background: var(--primary); color: #fff; }
+
+/* Headings: no global colour — sections decide */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; }
+
+/* Italic accent helper used inside headings */
+.serif-italic {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+}
