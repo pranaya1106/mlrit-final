@@ -3,6 +3,7 @@ import { Manrope, Playfair_Display, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable}`}>
       <body className="bg-background text-foreground font-sans antialiased">
+        <SmoothScroll />
         <Header />
         <main className="pt-[var(--header-h)]">{children}</main>
         <Footer />
