@@ -1,8 +1,11 @@
+'use client';
+import Reveal from '@/components/motion/Reveal';
+
 export default function WhyMLRIT() {
   return (
     <section className="relative bg-neutral-900 text-white py-20 md:py-28 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-10 items-center">
-        <div>
+        <Reveal preset="right">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-white/55 font-sans font-bold text-[0.66rem] tracking-[0.22em] uppercase mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Why MLRIT
@@ -19,10 +22,10 @@ export default function WhyMLRIT() {
             Our students compete at state and national levels across cricket, badminton, athletics, and more,
             backed by professional infrastructure and full institutional support.
           </p>
-        </div>
-        <div className="rounded-2xl overflow-hidden aspect-video bg-black/40">
+        </Reveal>
+        <Reveal preset="scale" delay={0.2} className="rounded-2xl overflow-hidden aspect-video bg-black/40">
           <video
-            src="https://res.cloudinary.com/dhqhhtvym/video/upload/v1777366655/sports.mp4"
+            src="/videos/sports.mp4"
             muted
             loop
             playsInline
@@ -30,7 +33,7 @@ export default function WhyMLRIT() {
             preload="metadata"
             className="w-full h-full object-cover"
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
