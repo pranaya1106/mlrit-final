@@ -18,9 +18,10 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'Institution',
         links: [
-          { label: 'Vision and Mission', href: '#' },
-          { label: 'Accreditations', href: '/iqac' },
-          { label: 'Leadership', href: 'https://mlrit.ac.in/about-us/governing-body/', external: true },
+          { label: 'About MLRIT',        href: '/about' },
+          { label: 'Vision and Mission', href: '/about#vision' },
+          { label: 'Leadership',         href: '/about#leadership' },
+          { label: 'Accreditations',     href: '/iqac' },
         ],
       },
     ],
@@ -31,8 +32,10 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'Programmes',
         links: [
-          { label: 'Undergraduate (B.Tech)', href: '/departments/ug' },
+          { label: 'Academics Overview',           href: '/academics' },
+          { label: 'Undergraduate (B.Tech)',        href: '/departments/ug' },
           { label: 'Postgraduate (M.Tech and MBA)', href: '/departments/pg' },
+          { label: 'Faculty Profiles',              href: '/departments/faculty-profile' },
         ],
       },
       {
@@ -41,7 +44,7 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'ERP', href: '#' },
           { label: 'LMS', href: '#' },
           { label: 'Academic Calendar', href: 'https://mlrit.ac.in/examinations/', external: true },
-          { label: 'Exam Portal', href: 'https://mlrit.ac.in/examinations/', external: true },
+          { label: 'Exam Portal',       href: 'https://mlrit.ac.in/examinations/', external: true },
         ],
       },
     ],

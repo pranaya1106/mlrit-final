@@ -2,7 +2,7 @@ import { TestimonialCarousel } from '@/components/ui/profile-card-testimonial-ca
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="bg-[#0a0a0a] text-white py-20 md:py-28 dark relative overflow-hidden">
+    <section id="testimonials" className="bg-[#0a0a0a] text-white py-20 md:py-28 relative overflow-hidden">
       {/* Soft brand glows */}
       <div className="absolute -top-40 -left-40 w-[460px] h-[460px] rounded-full bg-primary/[0.08] blur-[120px] pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-[460px] h-[460px] rounded-full bg-secondary/[0.10] blur-[120px] pointer-events-none" />

@@ -20,23 +20,15 @@ export interface Testimonial {
   githubUrl?: string;
 }
 
+// Real legacy alumni data — names match the actual videos in /public/videos.
+// (Earlier the wrong names were on av1/av2 so the captions never matched what the
+//  viewer saw on camera. This restores the legacy alumni.js mapping.)
 const DEFAULT_TESTIMONIALS: Testimonial[] = [
   {
-    name: 'Gopi Pavani',
-    title: 'Aerospace Engineer · Safran',
+    name: 'Sathvika',
+    title: 'CSIT · MLRIT · B.Tech CSE 2023',
     description:
-      'MLRIT gave me the tools and confidence to walk into Safran from day one. The aero labs, the mentorship and the projects we ran together — it all compounded into a career I am proud of.',
-    videoUrl: '/videos/av3.mp4',
-    linkedinUrl: '#',
-    twitterUrl: '#',
-    youtubeUrl: '#',
-    githubUrl: '#',
-  },
-  {
-    name: 'Ishant',
-    title: 'Software Development Engineer · Amazon',
-    description:
-      'Late-night DSA sessions in the CSE block paid off in the most unexpected way — I was solving Amazon interview problems with the same group of friends I built my projects with. That community made the difference.',
+      'MLRIT was where I learned to think like an engineer — not just to code. The CSIT track, the late-night project rooms, and the mentors who actually picked up the phone made all the difference.',
     videoUrl: '/videos/av1.mp4',
     linkedinUrl: '#',
     twitterUrl: '#',
@@ -44,10 +36,10 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
     githubUrl: '#',
   },
   {
-    name: 'Snigdha Reddy',
-    title: 'Analyst · DBS Bank',
+    name: 'Dasam Pranay',
+    title: 'Aeronautical Engineering · B.Tech AE 2023',
     description:
-      'The placement cell at MLRIT did not just prepare us for interviews — they shaped how we think about careers. DBS happened because the institute insists you learn finance, communication and tech in the same week.',
+      'The aeronautical block at MLRIT is more than labs and lecture halls — it is a working aerospace community. I joined for the degree and stayed for the people who pushed me into UAV research.',
     videoUrl: '/videos/av2.mp4',
     linkedinUrl: '#',
     twitterUrl: '#',
@@ -55,22 +47,11 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
     githubUrl: '#',
   },
   {
-    name: 'Sravya Lingisetty',
-    title: 'Software Engineer · Infosys',
+    name: 'Gopi Pavani',
+    title: 'Aerospace Engineer · Safran · B.Tech AE 2022',
     description:
-      'I joined MLRIT not knowing what I wanted. I left with a job at Infosys, a thesis on cloud automation, and three internships under my belt. The faculty backed me at every step.',
-    videoUrl: '/videos/inno.mp4',
-    linkedinUrl: '#',
-    twitterUrl: '#',
-    youtubeUrl: '#',
-    githubUrl: '#',
-  },
-  {
-    name: 'Aishwarya',
-    title: 'Associate Consultant · Cognizant',
-    description:
-      'From hackathons in the second year to a consulting role on day one — MLRIT made every classroom feel like the start of a real project. Cognizant noticed, and so did the world.',
-    videoUrl: '/videos/sports.mp4',
+      'MLRIT gave me the tools and confidence to walk into Safran from day one. The aero labs, the mentorship and the projects we ran together — it all compounded into a career I am proud of.',
+    videoUrl: '/videos/av3.mp4',
     linkedinUrl: '#',
     twitterUrl: '#',
     youtubeUrl: '#',
@@ -86,6 +67,7 @@ export interface TestimonialCarouselProps {
 export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMONIALS }: TestimonialCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [muted, setMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
   const desktopVid = useRef<HTMLVideoElement | null>(null);
   const mobileVid  = useRef<HTMLVideoElement | null>(null);
 
@@ -102,8 +84,18 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
     });
   }, [currentIndex, muted]);
 
-  const handleNext = () => setCurrentIndex((i) => (i + 1) % testimonials.length);
-  const handlePrev = () => setCurrentIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+  // Auto-advance every 4 seconds. Pauses while the user is hovering / interacting
+  // so they can actually watch the alumni video.
+  useEffect(() => {
+    if (paused) return;
+    const t = window.setInterval(() => {
+      setCurrentIndex((i) => (i + 1) % testimonials.length);
+    }, 4000);
+    return () => window.clearInterval(t);
+  }, [paused, testimonials.length]);
+
+  const handleNext = () => { setCurrentIndex((i) => (i + 1) % testimonials.length); };
+  const handlePrev = () => { setCurrentIndex((i) => (i - 1 + testimonials.length) % testimonials.length); };
 
   const socialIcons = [
     { Icon: Linkedin, url: current.linkedinUrl, label: 'LinkedIn' },
@@ -113,7 +105,13 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
   ];
 
   return (
-    <div className={cn('w-full max-w-5xl mx-auto px-4', className)}>
+    <div
+      className={cn('w-full max-w-5xl mx-auto px-4', className)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       {/* DESKTOP */}
       <div className="hidden md:flex relative items-center">
         {/* Video pane */}
@@ -161,14 +159,14 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="mb-6">
-                <h2 className="font-sans text-2xl md:text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white mb-2">
+                <h2 className="font-sans text-2xl md:text-3xl font-extrabold tracking-tight !text-neutral-900 mb-2">
                   {current.name}
                 </h2>
-                <p className="font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-neutral-500">
+                <p className="font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase !text-neutral-500">
                   {current.title}
                 </p>
               </div>
-              <p className="text-neutral-700 dark:text-white/85 leading-relaxed text-[1.02rem] mb-8">
+              <p className="!text-neutral-700 leading-relaxed text-[1.02rem] mb-8">
                 {current.description}
               </p>
               <div className="flex space-x-3">
@@ -230,13 +228,13 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.45 }}
             >
-              <h2 className="font-sans text-xl font-extrabold text-neutral-900 dark:text-white mb-1">
+              <h2 className="font-sans text-xl font-extrabold !text-neutral-900 mb-1">
                 {current.name}
               </h2>
-              <p className="font-mono text-[0.7rem] tracking-[0.16em] uppercase text-neutral-500 mb-3">
+              <p className="font-mono text-[0.7rem] tracking-[0.16em] uppercase !text-neutral-500 mb-3">
                 {current.title}
               </p>
-              <p className="text-neutral-700 dark:text-white/85 text-sm leading-relaxed mb-6">
+              <p className="!text-neutral-700 text-sm leading-relaxed mb-6">
                 {current.description}
               </p>
               <div className="flex justify-center gap-3">
