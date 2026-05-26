@@ -89,7 +89,7 @@ function Wall() {
   ];
 
   return (
-    <section id="pl-wall" className="relative bg-[#0a0d18] text-white overflow-hidden">
+    <section id="pl-wall" className="relative bg-ink text-white overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
       <div className="absolute inset-0 z-[1] bg-gradient-to-br from-black/40 via-transparent to-black/80 pointer-events-none" />
       <div className="relative z-[2] max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-28 md:py-40">
@@ -205,7 +205,7 @@ function Performance({ activeYear, setActiveYear }: { activeYear: string; setAct
 /* ──────────────────────────────────────────────────────── */
 function Recruiters() {
   return (
-    <section id="pl-recruiters" className="bg-[#0B0F1A] text-white py-20 md:py-28 overflow-hidden">
+    <section id="pl-recruiters" className="bg-ink-2 text-white py-20 md:py-28 overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
         <Reveal>
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Our Recruiters</span>
@@ -260,7 +260,7 @@ function Recruiters() {
 /* ──────────────────────────────────────────────────────── */
 function Training() {
   return (
-    <section id="pl-training" className="bg-[#f7f4ed] py-20 md:py-28">
+    <section id="pl-training" className="bg-cream py-20 md:py-28">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start">
         <Reveal preset="right">
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Career Readiness</span>
@@ -343,7 +343,7 @@ function Infrastructure() {
 /* ──────────────────────────────────────────────────────── */
 function Mous() {
   return (
-    <section id="pl-mou" className="bg-[#f7f4ed] py-20 md:py-28">
+    <section id="pl-mou" className="bg-cream py-20 md:py-28">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
         <Reveal>
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Industry Partnerships</span>
@@ -421,7 +421,7 @@ function Drives() {
 /* ──────────────────────────────────────────────────────── */
 function Contact() {
   return (
-    <section id="pl-contact" className="bg-[#0a0d18] text-white py-20 md:py-28">
+    <section id="pl-contact" className="bg-ink text-white py-20 md:py-28">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-12">
         <Reveal preset="right">
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Get in Touch</span>

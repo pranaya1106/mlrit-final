@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ────────────────────────────────────────────────────────────────
+   Hard-fallback colour classes.
+   These are layered AFTER tailwind so they always resolve, even
+   if the JIT layer ships a stale chunk during dev. They mirror the
+   token values from tailwind.config.ts exactly.
+   ──────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .bg-ink      { background-color: #0c0c0e !important; }
+  .bg-ink-2    { background-color: #16161a !important; }
+  .bg-ink-3    { background-color: #1f1f24 !important; }
+  .bg-cream    { background-color: #faf7f0 !important; }
+  .bg-cream-2  { background-color: #f1ece1 !important; }
+  .bg-cream-deep { background-color: #e8e2d2 !important; }
+  .bg-snow     { background-color: #fbfbfa !important; }
+  .text-warm   { color: #ecdec1 !important; }
+  .bg-warm     { background-color: #ecdec1 !important; }
+}
+
 /* ════════════════════════════════════════════════════════════════
    GLOBAL CSS — design tokens + base reset
    Mirrors the static-site theme tokens but lives in the Next.js
@@ -10,23 +28,50 @@
    etc.) still consume.
    ──────────────────────────────────────────────────────────────── */
 :root {
-  --primary:       #e85d04;
-  --primary-hover: #ff7a2f;
-  --secondary:     #2d8b55;
-  --orange-50:  #fff8f4;
+  /* ── Brand (peak palette) ── */
+  --primary:        #e85d04;
+  --primary-hover:  #f06a14;
+  --primary-pressed:#c44b00;
+  --secondary:      #2d8b55;
+  --secondary-hover:#3dad6c;
+
+  /* ── Orange / Green tints ── */
+  --orange-50:  #fff5ec;
+  --orange-100: #ffe5d3;
   --orange-200: #ffcfa6;
-  --green-50:   #f5fbf7;
+  --green-50:   #f1f8f4;
   --green-nav:  #01741f;
-  --warm-light: #f5efe5;
-  --warm:       #ecdec1;
-  --gold-50:    #fdf3e0;
-  --foreground: #111111;
+
+  /* ── Surfaces (light) ── */
   --background: #ffffff;
-  --muted:      #5c5a55;
-  --subtle:     #989890;
-  --border:     #d9d7d1;
-  --header-h:   132px;
-  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --snow:       #fbfbfa;
+  --cream:      #faf7f0;
+  --cream-2:    #f1ece1;
+  --cream-deep: #e8e2d2;
+  --warm:       #ecdec1;
+  --warm-light: #faf7f0;   /* alias of --cream */
+
+  /* ── Surfaces (dark) ── */
+  --ink:   #0c0c0e;        /* deepest dark section */
+  --ink-2: #16161a;        /* nested dark cards inside dark sections */
+  --ink-3: #1f1f24;        /* hover/raised inside dark cards */
+
+  /* ── Text ── */
+  --foreground: #0f0f0f;
+  --muted:      #6a6a64;
+  --subtle:     #9d9b94;
+
+  /* ── Borders ── */
+  --border:        #e4e0d7;
+  --border-dark:   rgba(255,255,255,0.10);
+
+  /* ── Accents ── */
+  --gold-50:    #fdf3e0;
+  --gold:       #c49a10;
+
+  /* ── Layout ── */
+  --header-h: 132px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * { box-sizing: border-box; }

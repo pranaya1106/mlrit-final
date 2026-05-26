@@ -21,7 +21,7 @@ const LOGOS = Array.from({ length: 16 }, (_, i) => {
 
 export default function Placements() {
   return (
-    <section id="placements" className="relative bg-[#0d0d0d] text-white py-20 md:py-28 overflow-hidden">
+    <section id="placements" style={{ backgroundColor: '#0c0c0e' }} className="relative bg-ink text-white py-20 md:py-28 overflow-hidden">
       {/* Network background SVG */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.55] pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
         <defs>

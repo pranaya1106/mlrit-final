@@ -24,7 +24,7 @@ export default function ResearchPage() {
       />
 
       {/* Stat strip */}
-      <section className="bg-[#0B0F1A] text-white py-12">
+      <section className="bg-ink-2 text-white py-12">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((s) => (
             <div key={s.label}>

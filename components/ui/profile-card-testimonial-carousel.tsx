@@ -117,23 +117,27 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
         {/* Video pane */}
         <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative">
           <AnimatePresence mode="wait">
-            <motion.video
+            <motion.div
               key={current.videoUrl}
-              ref={desktopVid}
               initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 w-full h-full object-cover"
-              poster={current.poster}
-              autoPlay
-              muted={muted}
-              loop
-              playsInline
-              preload="auto"
+              className="absolute inset-0"
             >
-              <source src={current.videoUrl} type="video/mp4" />
-            </motion.video>
+              <video
+                ref={desktopVid}
+                className="w-full h-full object-cover"
+                poster={current.poster}
+                autoPlay
+                muted={muted}
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src={current.videoUrl} type="video/mp4" />
+              </video>
+            </motion.div>
           </AnimatePresence>
           {/* Subtle bottom gradient for legibility */}
           <span className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
@@ -192,23 +196,27 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       <div className="md:hidden max-w-sm mx-auto text-center">
         <div className="w-full aspect-square bg-neutral-200 dark:bg-neutral-800 rounded-3xl overflow-hidden mb-6 relative">
           <AnimatePresence mode="wait">
-            <motion.video
+            <motion.div
               key={current.videoUrl + '_m'}
-              ref={mobileVid}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 w-full h-full object-cover"
-              poster={current.poster}
-              autoPlay
-              muted={muted}
-              loop
-              playsInline
-              preload="auto"
+              className="absolute inset-0"
             >
-              <source src={current.videoUrl} type="video/mp4" />
-            </motion.video>
+              <video
+                ref={mobileVid}
+                className="w-full h-full object-cover"
+                poster={current.poster}
+                autoPlay
+                muted={muted}
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src={current.videoUrl} type="video/mp4" />
+              </video>
+            </motion.div>
           </AnimatePresence>
           <button
             type="button"

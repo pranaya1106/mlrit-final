@@ -112,7 +112,7 @@ export default function AboutPage() {
             </div>
           </Reveal>
           <Reveal preset="up" delay={0.1}>
-            <div className="rounded-2xl border border-border bg-[#0a0d18] text-white p-8 md:p-10 h-full">
+            <div className="rounded-2xl border border-border bg-ink text-white p-8 md:p-10 h-full">
               <span className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-warm/60">Mission</span>
               <ul className="mt-4 space-y-3 text-[1rem] leading-relaxed">
                 {[
@@ -188,7 +188,7 @@ export default function AboutPage() {
       </section>
 
       {/* Campus */}
-      <section className="bg-[#0a0d18] text-white py-20 md:py-28">
+      <section className="bg-ink text-white py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-12 items-center">
           <Reveal preset="right">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Campus</span>

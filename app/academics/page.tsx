@@ -121,7 +121,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* SYLLABUS REGULATIONS */}
-      <section className="bg-[#0a0d18] text-white py-20 md:py-28">
+      <section className="bg-ink text-white py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Curriculum</span>

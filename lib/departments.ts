@@ -36,7 +36,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue advanced studies and lifelong learning in computing.' },
       { id: 'PEO3', text: 'Contribute to society as ethical, collaborative technologists.' },
     ],
-    hod: { name: 'Dr. K. Srinivas Rao', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. Ajmeera Kiran', title: 'Professor & Head of Department, CSE' },
   },
   {
     slug: 'cse-cs',

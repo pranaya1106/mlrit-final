@@ -23,7 +23,7 @@ export default function Achievements() {
   const sizePx = (s: string) => (s === 'lg' ? 'w-28 h-28 md:w-32 md:h-32' : s === 'md' ? 'w-20 h-20 md:w-24 md:h-24' : 'w-16 h-16 md:w-20 md:h-20');
 
   return (
-    <section id="achievements" className="relative bg-[#fafafa] py-20 md:py-28 overflow-hidden">
+    <section id="achievements" className="relative bg-snow py-20 md:py-28 overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-secondary/[0.08] blur-[80px] pointer-events-none" />
       <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-gold-400/[0.10] blur-[80px] pointer-events-none" />

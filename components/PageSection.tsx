@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export function Section({ children, surface = false, id }: { children: ReactNode; surface?: boolean; id?: string }) {
   return (
-    <section id={id} className={`${surface ? 'bg-[#f4f1ea]' : 'bg-white'} py-14 md:py-20`}>
+    <section id={id} className={`${surface ? 'bg-cream-2' : 'bg-white'} py-14 md:py-20`}>
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">{children}</div>
     </section>
   );

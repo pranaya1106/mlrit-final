@@ -63,7 +63,7 @@ export default function Programs() {
   const rows = pairs(tab === 'ug' ? UG : PG);
 
   return (
-    <section id="programs" className="bg-[#f7f4ed] py-20 md:py-28 relative">
+    <section id="programs" className="bg-cream py-20 md:py-28 relative">
       {/* Header — uses inner container but section is full-bleed */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
@@ -128,7 +128,8 @@ function ProgramCard({ card }: { card: Card }) {
   return (
     <Link
       href={linkFor(card.slug)}
-      className="group relative block overflow-hidden rounded-[28px] min-h-[280px] md:min-h-[320px] bg-[#141417] border border-white/[0.08] hover:border-white/20 transition-all duration-300 hover:-translate-y-1"
+      style={{ backgroundColor: '#16161a' }}
+      className="group relative block overflow-hidden rounded-[28px] min-h-[280px] md:min-h-[320px] bg-ink-2 border border-white/[0.08] hover:border-white/20 transition-all duration-300 hover:-translate-y-1"
     >
       {/* Accent bar along the top */}
       <span className={`absolute top-0 left-0 right-0 h-1 ${accentBar(card.accent)}`} />

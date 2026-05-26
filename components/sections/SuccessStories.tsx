@@ -30,7 +30,7 @@ export default function SuccessStories() {
   };
 
   return (
-    <section id="ssSection" className="bg-[#fbf5e6] py-16 md:py-24">
+    <section id="ssSection" className="bg-cream py-16 md:py-24">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="max-w-[680px] mb-12">
           <span className="font-mono text-[0.7rem] font-extrabold tracking-[0.22em] uppercase text-primary">
