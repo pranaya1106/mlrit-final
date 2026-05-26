@@ -15,13 +15,44 @@
   var base = (script && script.getAttribute('data-base')) || './';
   if (base && base.slice(-1) !== '/') base += '/';
 
+  function initChroniclesReveal() {
+    var item = document.querySelector('.main-nav__item--chronicles');
+    if (!item) return;
+
+    var revealEls = item.querySelectorAll('[data-reveal]');
+
+    function triggerReveal() {
+      revealEls.forEach(function (el, i) {
+        setTimeout(function () {
+          el.classList.add('chron-ep--visible');
+        }, i * 60);
+      });
+    }
+
+    function resetReveal() {
+      revealEls.forEach(function (el) {
+        el.classList.remove('chron-ep--visible');
+      });
+    }
+
+    item.addEventListener('mouseenter', triggerReveal);
+    item.addEventListener('mouseleave', resetReveal);
+    item.addEventListener('focusin',    triggerReveal);
+    item.addEventListener('focusout',   resetReveal);
+  }
+
   function inject(html) {
     var mount = document.getElementById('site-navbar');
     if (!mount) {
       console.warn('[site-navbar] No <div id="site-navbar"> mount point found.');
       return;
     }
-    mount.outerHTML = html.replace(/\{\{base\}\}/g, base);
+    var resolved = html.replace(/\{\{base\}\}/g, base);
+    if (script && script.hasAttribute('data-no-mainnav')) {
+      resolved = resolved.replace(/<!--MAINNAV-START-->[\s\S]*?<!--MAINNAV-END-->/m, '');
+    }
+    mount.outerHTML = resolved;
+    initChroniclesReveal();
   }
 
   fetch(base + 'partials/navbar.html', { cache: 'no-cache' })

@@ -6,9 +6,9 @@
 .dropdown--chronicles {
   left: auto;
   right: 0;
-  width: min(1180px, 96vw);
-  max-height: 88vh;
-  overflow-y: auto;
+  width: min(820px, 96vw);
+  max-height: none;
+  overflow-y: visible;
   padding: 0 !important;
   gap: 0 !important;
   flex-direction: column !important;
@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 32px 16px;
+  padding: 8px 20px 8px;
   border-bottom: 1px solid rgba(0,0,0,0.07);
   position: relative;
 }
@@ -132,8 +132,8 @@
 ══════════════════════════════════════ */
 .chron-ep__main {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  min-height: 300px;
+  grid-template-columns: 1fr 260px;
+  min-height: 160px;
   border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
@@ -143,7 +143,7 @@
   display: block;
   overflow: hidden;
   border-right: 1px solid rgba(0,0,0,0.07);
-  min-height: 300px;
+  min-height: 160px;
 }
 
 .chron-ep__hero-img-wrap {
@@ -176,8 +176,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 28px 30px;
-  gap: 10px;
+  padding: 16px 20px;
+  gap: 6px;
 }
 
 .chron-ep__hero-headline {
@@ -239,7 +239,7 @@
 .chron-ep__rail {
   display: flex;
   flex-direction: column;
-  padding: 20px 22px 18px;
+  padding: 12px 16px 12px;
 }
 
 .chron-ep__rail-head {
@@ -249,7 +249,7 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: #bbb;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .chron-ep__rail-list {
@@ -271,7 +271,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: baseline;
   gap: 8px;
-  padding: 9px 4px 9px 8px;
+  padding: 6px 4px 6px 8px;
   text-decoration: none;
   position: relative;
   transition: background 0.15s ease, padding-left 0.18s ease;
@@ -336,7 +336,7 @@
 
 .chron-ep__rail-all {
   display: inline-block;
-  margin-top: 14px;
+  margin-top: 8px;
   font-family: 'Poppins', 'Inter', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
@@ -369,7 +369,7 @@
    FEATURED STORIES
 ══════════════════════════════════════ */
 .chron-ep__stories {
-  padding: 24px 32px 22px;
+  padding: 14px 20px 12px;
   border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 
@@ -380,19 +380,19 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: #bbb;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .chron-ep__stories-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 12px;
 }
 
 .chron-ep__story-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
   text-decoration: none;
   transition: transform 0.26s cubic-bezier(0.22,1,0.36,1);
 }
@@ -468,7 +468,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 14px 32px;
+  padding: 8px 20px;
   background: #faf9f7;
   border-radius: 0 0 12px 12px;
 }

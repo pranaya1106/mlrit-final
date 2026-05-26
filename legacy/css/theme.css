@@ -805,6 +805,19 @@ a.btn-secondary:hover {
   display: block;
 }
 
+/* ── Crafted by line ─────────────────────────────────────── */
+.nf-crafted {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 10px 24px 18px;
+  opacity: 0.7;
+}
+
 /* ── Bottom legal bar ─────────────────────────────────────── */
 .nf-bottom {
   display: flex;

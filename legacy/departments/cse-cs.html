@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,28 +8,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/chronicles-dropdown.css" />
   <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; background: #FFFFFF; color: #3A3A3A; line-height: 1.7; }
+    body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; background: #FFFFFF; color: #3A3A3A; line-height: 1.7; overflow-x: hidden; }
 
-    /* ── Dept Nav ── */
-    .dept-nav { background: #0B0F1A; display: flex; align-items: stretch; padding: 0 16px; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    .dept-nav__link { display: flex; align-items: center; padding: 0 20px; height: 44px; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; position: relative; transition: color 0.2s, background 0.2s; }
-    .dept-nav__link:hover { color: rgba(255,255,255,0.85); background: rgba(232,93,31,0.08); }
-    .dept-nav__link::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 2px; background: linear-gradient(90deg, transparent, #E85D1F, transparent); transition: transform 0.25s; }
-    .dept-nav__link:hover::after { transform: translateX(-50%) scaleX(1); }
-    .dept-nav__link--active { color: #E85D1F; }
-    .dept-nav__link--active::after { transform: translateX(-50%) scaleX(1); background: #E85D1F; }
-    .dept-nav__link--dept { color: #fff; font-weight: 700; margin-left: auto; }
-    .dept-nav__sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); align-self: center; margin: 0 4px; }
 
     /* ── Hero ── */
-    .dept-hero { background: linear-gradient(135deg, #0D3320, #1F6B24); min-height: 60vh; padding: 80px 48px 60px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .dept-hero { background: #1F6B24; min-height: 40vh; padding: 40px 48px 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
     .dept-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
     .dept-hero__video.is-visible { opacity: 0.55; }
-    .dept-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,51,32,0.75), rgba(24,69,59,0.75)); z-index: 1; transition: opacity 0.6s ease; }
+    .dept-hero__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.08); z-index: 1; transition: opacity 0.6s ease; }
     .dept-hero:hover .dept-hero__overlay { opacity: 0.28; }
     .dept-hero__eyebrow, .dept-hero__title { position: relative; z-index: 2; }
     .dept-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(232,93,31,0.12), transparent 60%); pointer-events: none; z-index: 3; }
@@ -37,7 +29,7 @@
     .dept-hero__title { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; color: #fff; position: relative; z-index: 1; }
 
     /* ── Tabs ── */
-    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 0; z-index: 40; }
+    .dept-tabs { background: #0B0F1A; display: flex; gap: 0; overflow-x: auto; border-bottom: 3px solid #1F6B24; position: sticky; top: 142px; z-index: 980; }
     .dept-tabs::-webkit-scrollbar { height: 0; }
     .dept-tab { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; padding: 14px 24px; white-space: nowrap; cursor: pointer; position: relative; transition: color 0.25s, background 0.25s; }
     .dept-tab::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0); width: 70%; height: 3px; background: linear-gradient(90deg, transparent, #E85D1F, transparent); transition: transform 0.25s ease; }
@@ -120,9 +112,9 @@
     .subject-code { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.7rem; font-weight: 700; color: #1F6B24; background: rgba(24,69,59,0.08); padding: 2px 8px; border-radius: 4px; flex-shrink: 0; letter-spacing: 0.04em; }
     .syll-btn { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.72rem; font-weight: 700; padding: 6px 14px; border-radius: 6px; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px; }
     .syll-btn--download { color: #fff; background: #1F6B24; }
-    .syll-btn--download:hover { background: #0D3320; }
+    .syll-btn--download:hover { background: #0a3d12; }
     .full-syllabus-btn { display: inline-block; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.85rem; font-weight: 700; color: #fff; background: #1F6B24; padding: 10px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
-    .full-syllabus-btn:hover { background: #0D3320; transform: translateY(-1px); }
+    .full-syllabus-btn:hover { background: #0a3d12; transform: translateY(-1px); }
     .subject-pdf { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.7rem; font-weight: 700; color: #E85D1F; text-decoration: none; padding: 4px 12px; border: 1px solid rgba(232,93,31,0.3); border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
     .subject-pdf:hover { background: #E85D1F; color: #fff; }
     .subject-toggle { font-size: 0.7rem; color: #888; margin-left: 8px; transition: transform 0.3s; display: inline-block; }
@@ -231,11 +223,16 @@
     .streak.is-firing { animation: orange-streak 0.55s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
 
     /* ── Body flex layout ── */
-    .dept-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: stretch; min-height: calc(100vh - 44px); }
+    .dept-body { display: flex; align-items: flex-start;}
     .dept-body__panels { min-width: 0; }
 
     /* ── Left sidebar ── */
-    .dark-sidebar { position: sticky; top: 44px; align-self: start; height: calc(100vh - 44px); background: #FAFAF8; z-index: 35; padding-top: 24px; border-right: 1px solid rgba(0,0,0,0.05); overflow-y: auto; }
+    .dark-sidebar {
+      position: sticky; top: 148px; width: 220px; flex-shrink: 0; align-self: flex-start;
+      max-height: calc(100vh - 148px); overflow-y: auto;
+      background: #FAFAF8; z-index: 35; padding-top: 24px;
+      border-right: 1px solid rgba(0,0,0,0.05);
+    }
     .dark-sidebar::-webkit-scrollbar { width: 4px; }
     .dark-sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
     .dark-sidebar__title { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: #155218; padding: 0 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 8px; }
@@ -246,43 +243,68 @@
     .ds-item.is-active .ds-item__dot { background: #E85D1F; box-shadow: 0 0 6px rgba(232,93,31,0.4); }
     .ds-item__label { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.7rem; font-weight: 600; color: rgba(26,58,46,0.5); transition: color 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .ds-item:hover .ds-item__label { color: rgba(232,93,31,0.8); }
-    .ds-item.is-active .ds-item__label { color: #E85D1F; }
+    .ds-item.is-active .ds-item__label { color: #E85D1F !important; }
 
     @media (max-width: 768px) {
       .dept-panel { padding: 32px 20px; }
       .two-col, .three-col, .obe-grid, .catalog-grid, .lab-grid { grid-template-columns: 1fr; }
       .hod-msg { flex-direction: column; align-items: center; text-align: center; }
       .dark-sidebar { display: none; }
-      .dept-body { display: block; }
+      .dept-body { margin-left: 0; display: block; }
       .fcard-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
 
     .ds-item[data-ds-tab]:not([data-ds-tab="overview"]) { display: none; }
+
+    /* ── Dept-nav breadcrumb ── */
+    /* Make site-header static on dept pages (not fixed) */
+    body { padding-top: 0 !important; }
+    header.site-header, .site-header { position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+    .dept-nav {
+      background: #0B0F1A;
+      padding: 14px 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-top: 0;
+      position: sticky; top: 94px; z-index: 990;
+    }
+    .dept-nav__link {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .dept-nav__link:hover { color: #E85D1F; }
+    .dept-nav__link--active { color: rgba(255,255,255,0.7); }
+    .dept-nav__link--dept { color: #fff; font-weight: 700; }
+    .dept-nav__sep {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
   </style>
+  <link rel="stylesheet" href="../css/mobile.css" />
   <link rel="stylesheet" href="../css/theme.css" />
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="masthead">
-      <div class="container masthead__inner">
-        <a href="../index.html" class="masthead__logo" aria-label="MLRIT Home"><img src="../mlrit-logo-main.png" alt="MLRIT Logo" /></a>
-        <div class="masthead__tagline"><span>Marri Laxman Reddy Institute of Technology</span></div>
-        <a href="#" class="masthead__eapcet">EAPCET CODE : MLID</a>
-      </div>
-    </div>
-  </header>
-
+  <div id="site-navbar"></div>
   <nav class="dept-nav">
     <a href="../index.html" class="dept-nav__link">Home</a>
     <span class="dept-nav__sep"></span>
-    <a href="ug.html" class="dept-nav__link dept-nav__link--active">Undergraduate</a>
-    <a href="pg.html" class="dept-nav__link">Postgraduate</a>
+    <a href="pg.html" class="dept-nav__link dept-nav__link--active">Postgraduate</a>
     <span class="dept-nav__sep"></span>
-    <span class="dept-nav__link dept-nav__link--dept">Cyber Security Department</span>
+    <span class="dept-nav__link dept-nav__link--dept">CSE-CS M.Tech</span>
   </nav>
-
-  <div class="dept-hero" id="page-top">
+<div class="dept-hero" id="page-top">
     <video class="dept-hero__video" id="heroVideo" muted loop playsinline preload="metadata">
       <source src="dept.mp4" type="video/mp4" />
     </video>
@@ -745,6 +767,8 @@
         <div class="panel-sub" id="syll-explorer">Syllabus Explorer</div>
         <div class="pill-row" id="regPills">
           <button class="pill is-active" data-reg="r25">R25</button>
+          <button class="pill" data-reg="r22">R22</button>
+          <button class="pill" data-reg="mlr20">MLR20</button>
         </div>
         <div class="pill-row" id="yearPills"></div>
         <div class="pill-row" id="semPills" style="display:none;"></div>
@@ -896,6 +920,8 @@
     </div><!-- /.dept-body__panels -->
   </div><!-- /.dept-body -->
 
+  <script src="../js/site-navbar.js" data-base="../" data-no-mainnav></script>
+  <script src="../js/mobile-nav.js" defer></script>
   <script src="../js/navbar.js" defer></script>
   <script>
     var __activeTab = 'overview';
@@ -924,7 +950,9 @@
       };
 
       var regulations = {
-        "r25": { label: "R25", pdf: "syllabus/cse-cs/r25/cs-r25-syllabus.pdf", data: programs.btech }
+        "r25":   { label: "R25",   pdf: "",   data: programs.btech },
+        "r22":   { label: "R22",   pdf: "syllabus/pdfs/cse-cs-r22-syllabus.pdf",      data: programs.btech },
+        "mlr20": { label: "MLR20", pdf: "syllabus/pdfs/cse-cs-mlr20-syllabus.pdf",    data: programs.btech }
       };
 
       var subjectDetails = {
@@ -1002,7 +1030,7 @@
           var units = subjectDetails[subName]; var uh = '';
           if (units && units.length) { uh = '<div class="subject-units"><ol>'; units.forEach(function (u) { uh += '<li>' + u + '</li>'; }); uh += '</ol></div>'; }
           var codeHtml = subCode ? '<span class="subject-code">' + subCode + '</span>' : '<span class="subject-num">' + (i+1) + '.</span>';
-          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
+          html += '<div class="subject-row" onclick="this.classList.toggle(\'is-expanded\')">' + codeHtml + '<span class="subject-name">' + subName + '</span><span class="subject-toggle">&#9654;</span><a href="' + pdfUrl + '" target="_blank" download class="subject-pdf" onclick="event.stopPropagation()">PDF</a></div>' + uh;
         });
         subjectList.innerHTML = html; subjectList.classList.remove('is-visible'); void subjectList.offsetWidth; subjectList.classList.add('is-visible');
         if (fullSyllabusBtn) {
@@ -1140,30 +1168,36 @@
       window.scrollTo(0, 0);
     })();
 
-    // Scroll-spy — highlights sidebar item as user scrolls
+    // Scroll-spy — highlights sidebar item tracking the section in view
     (function () {
-      var targets = [];
+      var spyReady = false;
+      setTimeout(function () { spyReady = true; }, 400);
+
+      var allTargets = [];
       document.querySelectorAll('.ds-item[data-ds-target]').forEach(function (item) {
         var id = item.getAttribute('data-ds-target');
         var el = document.getElementById(id);
-        if (el) targets.push({ el: el, item: item });
+        if (el) allTargets.push({ el: el, item: item });
       });
-      if (!targets.length) return;
-      var spyReady = false;
-      setTimeout(function () { spyReady = true; }, 600);
+      if (!allTargets.length) return;
+
       var observer = new IntersectionObserver(function (entries) {
         if (!spyReady) return;
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
-          var matched = targets.find(function (t) { return t.el === entry.target; });
+          var matched = allTargets.find(function (t) { return t.el === entry.target; });
           if (!matched) return;
           if (matched.item.getAttribute('data-ds-tab') !== __activeTab) return;
           if (matched.item.style.display === 'none') return;
           document.querySelectorAll('.ds-item').forEach(function (i) { i.classList.remove('is-active'); });
           matched.item.classList.add('is-active');
         });
-      }, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
-      targets.forEach(function (t) { observer.observe(t.el); });
+      }, {
+        threshold: 0.15,
+        rootMargin: '-142px 0px -40% 0px'
+      });
+
+      allTargets.forEach(function (t) { observer.observe(t.el); });
     })();
   </script>
 </body>

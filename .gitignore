@@ -29,3 +29,7 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Legacy large assets that shouldn't be tracked
+homepage/hero.mov
+legacy/homepage/hero.mov
