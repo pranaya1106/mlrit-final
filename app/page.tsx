@@ -1,5 +1,6 @@
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
+import Programs from '@/components/sections/Programs';
 import SuccessStories from '@/components/sections/SuccessStories';
 import WhyMLRIT from '@/components/sections/WhyMLRIT';
 import Achievements from '@/components/sections/Achievements';
@@ -12,6 +13,7 @@ export default function HomePage() {
     <>
       <Hero />
       <Stats />
+      <Programs />
       <SuccessStories />
       <WhyMLRIT />
       <Achievements />
