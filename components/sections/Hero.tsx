@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { ChevronRight } from '../icons';
 
 const lineUp = {
@@ -10,18 +11,30 @@ const lineUp = {
 };
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Autoplay only fires on the element's initial load; after framer-motion
+  // hydrates/re-renders the node the browser may skip it, leaving a black box.
+  // Force playback once mounted.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, []);
+
   return (
     <section className="relative w-full h-[calc(100vh-132px)] min-h-[640px] overflow-hidden flex flex-col justify-end items-start">
       {/* Background video */}
       <motion.video
+        ref={videoRef}
+        src="/videos/hero.mp4"
         initial={{ opacity: 0, scale: 1.06 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay muted loop playsInline preload="auto"
-      >
-        <source src="/videos/hero.mp4" type="video/mp4" />
-      </motion.video>
+      />
 
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
