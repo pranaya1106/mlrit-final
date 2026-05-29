@@ -51,12 +51,23 @@
         <ul class="main-nav__list">
 
           <li class="main-nav__item">
-            <a href="https://www.mlrit.ac.in/about-us/" class="main-nav__link" target="_blank" rel="noopener">About <span class="chevron"></span></a>
-            <div class="dropdown">
+            <a href="{{base}}about/introduction.html" class="main-nav__link">About Us <span class="chevron"></span></a>
+            <div class="dropdown dropdown--about">
               <div class="dropdown__col">
-                <h4>Institution</h4>
-                <a href="https://www.mlrit.ac.in/about-us/" target="_blank" rel="noopener">Vision and Mission</a>
-                <a href="https://www.mlrit.ac.in/accreditations/" target="_blank" rel="noopener">Accreditations</a>
+                <h4>About Us</h4>
+                <!-- Vision & Mission — nested flyout trigger -->
+                <div class="dropdown__nested-group">
+                  <a href="{{base}}about/introduction.html" class="dropdown__nested-trigger">
+                    Vision &amp; Mission <span class="dropdown__nested-chevron" aria-hidden="true"></span>
+                  </a>
+                  <div class="dropdown__nested-panel">
+                    <a href="{{base}}about/introduction.html">Introduction</a>
+                    <a href="{{base}}about/vision-mission.html">Vision &amp; Mission</a>
+                  </div>
+                </div>
+                <a href="{{base}}about/legacy.html">Legacy</a>
+                <a href="{{base}}about/rankings.html">Rankings &amp; Awards</a>
+                <a href="{{base}}about/brochure.html">Brochure</a>
               </div>
             </div>
           </li>
