@@ -33,3 +33,4 @@ Thumbs.db
 # Legacy large assets that shouldn't be tracked
 homepage/hero.mov
 legacy/homepage/hero.mov
+homepage/*.mp4

@@ -282,6 +282,128 @@ ul { list-style: none; }
   right: 0;
 }
 
+/* ===== About dropdown — compact single-column ===== */
+.dropdown--about {
+  min-width: 240px;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ===== Nested flyout — Vision & Mission sub-panel ===== */
+.dropdown__nested-group {
+  position: relative;
+}
+
+.dropdown__nested-trigger {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.dropdown__nested-chevron {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #1F6B24;
+  border-bottom: 2px solid #1F6B24;
+  transform: rotate(-45deg);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  margin-top: 1px;
+}
+
+.dropdown__nested-panel {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: -0.32rem;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, #1F6B24, #E85D1F, #1F6B24) 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 6px 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  pointer-events: none;
+  z-index: 300;
+}
+
+.dropdown__nested-panel a {
+  display: block;
+  padding: 0.38rem 0;
+  font-size: 0.875rem;
+  color: #333;
+  position: relative;
+  transition: color 0.18s ease, padding-left 0.18s ease;
+}
+
+.dropdown__nested-panel a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 2px;
+  height: 60%;
+  background: #1F6B24;
+  border-radius: 2px;
+  transition: transform 0.18s ease;
+}
+
+.dropdown__nested-panel a:hover {
+  color: #1F6B24;
+  padding-left: 0.6rem;
+}
+
+.dropdown__nested-panel a:hover::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.dropdown__nested-group:hover .dropdown__nested-panel,
+.dropdown__nested-group:focus-within .dropdown__nested-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.dropdown__nested-group:hover .dropdown__nested-trigger,
+.dropdown__nested-group:focus-within .dropdown__nested-trigger {
+  color: #1F6B24;
+}
+
+.dropdown__nested-group:hover .dropdown__nested-chevron,
+.dropdown__nested-group:focus-within .dropdown__nested-chevron {
+  transform: rotate(-45deg) translateX(2px);
+  border-color: #E85D1F;
+}
+
+/* Mobile: stack nested panel inline */
+@media (max-width: 768px) {
+  .dropdown__nested-panel {
+    position: static;
+    box-shadow: none;
+    border-top: none;
+    border-image: none;
+    border-left: 2px solid #1F6B24;
+    padding: 0.25rem 0 0.25rem 0.75rem;
+    margin: 0.25rem 0 0.25rem 0.5rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .dropdown__nested-chevron {
+    display: none;
+  }
+}
+
 /* Wider dropdown for 3-column layouts (Research, Chronicles) */
 .dropdown--wide {
   min-width: 780px;
