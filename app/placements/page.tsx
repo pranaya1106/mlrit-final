@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import {
   PLACEMENT_OVERVIEW, YEAR_STATS, YEAR_ROLES, RECRUITER_LOGOS, RECRUITERS,
-  INFRASTRUCTURE_LIST, INFRA_STATS, MOUS, TRAINING, CONTACT, DRIVES,
+  INFRASTRUCTURE_LIST, INFRA_STATS, MOUS, CONTACT, DRIVES,
 } from '@/lib/placements';
 
 export default function PlacementsPage() {
@@ -16,7 +16,6 @@ export default function PlacementsPage() {
       <Wall />
       <Performance activeYear={activeYear} setActiveYear={setActiveYear} />
       <Recruiters />
-      <Training />
       <Infrastructure />
       <Mous />
       <Drives />
@@ -251,51 +250,6 @@ function Recruiters() {
                   mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
         }
       `}</style>
-    </section>
-  );
-}
-
-/* ──────────────────────────────────────────────────────── */
-/* TRAINING — General + by-branch curriculum                */
-/* ──────────────────────────────────────────────────────── */
-function Training() {
-  return (
-    <section id="pl-training" className="bg-cream py-20 md:py-28">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start">
-        <Reveal preset="right">
-          <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Career Readiness</span>
-          <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.4vw,2.8rem)] leading-[1.04]">
-            Training <span className="font-display italic font-medium" style={gradientText}>programme.</span>
-          </h2>
-          <p className="mt-4 text-muted leading-relaxed">
-            From day one, the Training & Placement Cell runs a four-strand curriculum to take every student from textbook to job-ready.
-          </p>
-          <ul className="mt-7 space-y-3.5">
-            {TRAINING.general.map((g) => (
-              <li key={g} className="flex items-start gap-3 text-[1.02rem] text-foreground">
-                <span className="mt-2 w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                {g}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-
-        <Reveal preset="up" delay={0.15}>
-          <div className="rounded-2xl border border-border bg-white p-8">
-            <div className="font-mono text-[0.7rem] tracking-[0.18em] uppercase text-muted">By Branch</div>
-            <h3 className="mt-2 font-sans font-extrabold text-foreground text-2xl tracking-tighter-2">Domain curriculum</h3>
-            <p className="mt-3 text-muted">Branch-specific technical tracks aligned with industry demand.</p>
-            <div className="mt-6 space-y-3.5">
-              {TRAINING.byBranch.map((b) => (
-                <div key={b.branch} className="grid grid-cols-[80px_1fr] gap-4 items-start border-t border-border pt-3.5">
-                  <div className="font-sans font-extrabold text-primary text-sm tracking-wider">{b.branch}</div>
-                  <div className="text-foreground text-[0.94rem] leading-relaxed">{b.curriculum}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-      </div>
     </section>
   );
 }

@@ -35,18 +35,23 @@ const PG: Card[] = [
   { slug: 'phd',         dept: 'Ph.D',        name: 'Doctoral programmes',                 meta: 'Ph.D · 5 disciplines',      desc: 'JNTUH-recognised research centres in CSE, ECE, MECH, EEE and MBA.',                       accent: 'navy'   },
 ];
 
-// Unified ink card with a small accent stripe along the top edge.
-// Accent only colours a 4-px bar and the dept chip — no saturated gradients.
+// Accent → bar color + chip color (used on the LIGHT card surface)
 const accentBar = (a: Card['accent']) =>
   a === 'green'  ? 'bg-secondary'
   : a === 'navy' ? 'bg-[#3a6ec4]'
   :                'bg-primary';
-const accentChip = (a: Card['accent']) =>
-  a === 'green'
-    ? 'bg-secondary/15 text-[#7ad19e] border-secondary/30'
-    : a === 'navy'
-    ? 'bg-[#3a6ec4]/15 text-[#9bbcf0] border-[#3a6ec4]/30'
-    : 'bg-primary/15 text-[#ffb27a] border-primary/30';
+const accentText = (a: Card['accent']) =>
+  a === 'green'  ? 'text-secondary'
+  : a === 'navy' ? 'text-[#3a6ec4]'
+  :                'text-primary';
+const accentBg = (a: Card['accent']) =>
+  a === 'green'  ? 'bg-secondary/10 border-secondary/25'
+  : a === 'navy' ? 'bg-[#3a6ec4]/10 border-[#3a6ec4]/25'
+  :                'bg-primary/10 border-primary/25';
+const accentGradient = (a: Card['accent']) =>
+  a === 'green'  ? 'from-secondary/0 via-secondary/0 to-secondary/[0.06]'
+  : a === 'navy' ? 'from-[#3a6ec4]/0 via-[#3a6ec4]/0 to-[#3a6ec4]/[0.06]'
+  :                'from-primary/0 via-primary/0 to-primary/[0.06]';
 
 const linkFor = (slug: string) =>
   slug.startsWith('mtech') || slug === 'phd' ? '/departments/pg' : `/departments/${slug}`;
@@ -64,15 +69,15 @@ export default function Programs() {
 
   return (
     <section id="programs" className="bg-cream py-20 md:py-28 relative">
-      {/* Header — uses inner container but section is full-bleed */}
+      {/* Header */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-          <div className="max-w-[640px]">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-50 border border-green-200 text-secondary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase">
+          <div className="max-w-[680px]">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border text-secondary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
               Programmes
             </span>
-            <h2 className="mt-4 font-sans font-black tracking-tighter-2 leading-[1.04] text-foreground text-[clamp(2.2rem,4vw,3.4rem)]">
+            <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-foreground text-[clamp(2.4rem,4.4vw,3.8rem)]">
               Find the programme{' '}
               <span
                 className="font-display italic font-medium"
@@ -85,7 +90,7 @@ export default function Programs() {
                 built for you.
               </span>
             </h2>
-            <p className="mt-4 text-muted leading-relaxed max-w-[560px]">
+            <p className="mt-4 text-muted leading-relaxed max-w-[560px] text-[1.02rem]">
               Scroll through every UG and PG programme — each card stacks into view, revealing the next.
             </p>
           </div>
@@ -96,24 +101,24 @@ export default function Programs() {
         </div>
       </div>
 
-      {/* Scroll-stack rail — fully edge-to-edge */}
+      {/* Scroll-stack rail */}
       <ScrollStack
-        key={tab} /* remount when switching tabs so transforms recalc */
+        key={tab}
         useWindowScroll
-        itemDistance={120}
-        itemScale={0.025}
-        itemStackDistance={28}
+        itemDistance={140}
+        itemScale={0.02}
+        itemStackDistance={32}
         stackPosition="22%"
-        scaleEndPosition="12%"
-        baseScale={0.88}
+        scaleEndPosition="10%"
+        baseScale={0.9}
         className="w-full"
       >
         {rows.map(([a, b], i) => (
           <ScrollStackItem
             key={`${tab}-${i}`}
-            itemClassName="!h-auto !p-0 !my-0 !rounded-[28px] !shadow-[0_24px_60px_rgba(0,0,0,0.10)] bg-transparent"
+            itemClassName="!h-auto !p-0 !my-0 !rounded-[32px] bg-transparent"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
               {a && <ProgramCard card={a} />}
               {b ? <ProgramCard card={b} /> : <div className="hidden md:block" />}
             </div>
@@ -128,29 +133,49 @@ function ProgramCard({ card }: { card: Card }) {
   return (
     <Link
       href={linkFor(card.slug)}
-      style={{ backgroundColor: '#16161a' }}
-      className="group relative block overflow-hidden rounded-[28px] min-h-[280px] md:min-h-[320px] bg-ink-2 border border-white/[0.08] hover:border-white/20 transition-all duration-300 hover:-translate-y-1"
+      style={{ backgroundColor: '#ffffff' }}
+      className="group relative block overflow-hidden rounded-[32px] min-h-[320px] md:min-h-[360px] border border-border shadow-card-soft hover:shadow-card-strong hover:-translate-y-1 transition-all duration-500 ease-out-quart"
     >
-      {/* Accent bar along the top */}
-      <span className={`absolute top-0 left-0 right-0 h-1 ${accentBar(card.accent)}`} />
-      {/* Soft sphere decoration tinted toward accent — much subtler than the old gradient */}
-      <span className={`pointer-events-none absolute -top-32 -right-32 w-72 h-72 rounded-full ${accentBar(card.accent)} opacity-[0.12] blur-3xl`} />
-      <span className="pointer-events-none absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-white/[0.04] blur-3xl" />
+      {/* Soft accent gradient bottom-right */}
+      <span
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accentGradient(card.accent)}`}
+      />
 
-      <div className="relative z-10 flex flex-col h-full p-8 md:p-10">
-        <div className={`inline-flex items-center self-start gap-1.5 px-2.5 py-1 rounded-full border font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase ${accentChip(card.accent)}`}>
+      {/* Top accent bar */}
+      <span className={`absolute top-0 left-0 right-0 h-[3px] ${accentBar(card.accent)}`} />
+
+      {/* Giant dept code as decorative background type */}
+      <span
+        className={`pointer-events-none absolute -right-4 -bottom-10 font-display italic font-black text-[12rem] md:text-[14rem] leading-none ${accentText(card.accent)} opacity-[0.06] tracking-tighter select-none`}
+      >
+        {card.dept.split('-')[0]}
+      </span>
+
+      <div className="relative z-10 flex flex-col h-full p-9 md:p-11">
+        {/* Dept chip */}
+        <div className={`inline-flex items-center self-start gap-1.5 px-2.5 py-1 rounded-full border font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase ${accentBg(card.accent)} ${accentText(card.accent)}`}>
           {card.dept}
         </div>
-        <h3 className="mt-4 font-sans font-extrabold tracking-tighter-2 leading-[1.05] text-white text-[clamp(1.55rem,2.3vw,2.3rem)]">
+
+        {/* Program name — big bold display type */}
+        <h3 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-foreground text-[clamp(1.7rem,2.4vw,2.5rem)]">
           {card.name}
         </h3>
-        <p className="mt-4 text-white/65 leading-relaxed text-[0.98rem] md:text-[1.02rem] max-w-[480px]">
+
+        {/* Description */}
+        <p className="mt-4 text-muted leading-relaxed text-[0.98rem] md:text-[1.02rem] max-w-[480px]">
           {card.desc}
         </p>
-        <div className="mt-auto pt-6 flex items-center justify-between border-t border-white/[0.06]">
-          <span className="font-mono text-[0.72rem] font-medium tracking-[0.06em] text-white/45">{card.meta}</span>
-          <span className="inline-flex items-center gap-2 font-sans font-medium text-[0.92rem] text-white/85 group-hover:text-primary transition-colors">
-            Explore <span className="transition-transform group-hover:translate-x-1">→</span>
+
+        {/* Footer — meta + arrow */}
+        <div className="mt-auto pt-7 flex items-center justify-between border-t border-border/60">
+          <span className="font-mono text-[0.7rem] font-semibold tracking-[0.08em] text-subtle uppercase">
+            {card.meta}
+          </span>
+          <span className={`inline-flex items-center gap-2 font-sans font-bold text-[0.92rem] text-foreground group-hover:${accentText(card.accent).replace('text-', 'text-')} transition-colors`}>
+            <span className={`relative ${accentText(card.accent)}`}>
+              Explore <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+            </span>
           </span>
         </div>
       </div>
@@ -163,9 +188,9 @@ function Tab({ children, active, onClick }: { children: React.ReactNode; active:
     <button
       type="button"
       onClick={onClick}
-      className={`px-5 py-2 rounded-full font-sans font-medium text-[0.82rem] border-[1.5px] transition-all duration-300 ${
+      className={`px-5 py-2 rounded-full font-sans font-semibold text-[0.85rem] border-[1.5px] transition-all duration-300 ${
         active
-          ? 'bg-foreground text-white border-foreground'
+          ? 'bg-foreground text-white border-foreground shadow-md'
           : 'bg-white text-muted border-border hover:bg-foreground hover:text-white hover:border-foreground'
       }`}
     >

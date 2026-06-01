@@ -56,7 +56,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Stay ahead of evolving threat landscapes through continued learning.' },
       { id: 'PEO3', text: 'Contribute to a safer digital society with ethical practice.' },
     ],
-    hod: { name: 'Dr. K. Srinivas Rao', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. P. Subhashini', title: 'Professor & Head of Department' },
   },
   {
     slug: 'cse-ds',
@@ -76,7 +76,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Translate domain problems into data-driven solutions.' },
       { id: 'PEO3', text: 'Apply data ethics responsibly across applications.' },
     ],
-    hod: { name: 'Dr. K. Srinivas Rao', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. P. Subhashini', title: 'Professor & Head of Department' },
   },
   {
     slug: 'aiml',
@@ -96,7 +96,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Advance through M.Tech and PhD programmes globally.' },
       { id: 'PEO3', text: 'Build AI systems responsibly with fairness and explainability.' },
     ],
-    hod: { name: 'Dr. M. Anitha', title: 'Associate Professor & In-Charge HoD' },
+    hod: { name: 'Dr. Kashi Sai Prasad', title: 'Associate Professor & Head of Department' },
   },
   {
     slug: 'csit',
@@ -116,7 +116,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Strong foundation for industry certifications.' },
       { id: 'PEO3', text: 'Lifelong learning across rapidly changing IT stacks.' },
     ],
-    hod: { name: 'Dr. P. Raj Kumar', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. D.B.K. Kamesh', title: 'Professor & Head of Department' },
   },
   {
     slug: 'it',
@@ -136,7 +136,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue M.Tech / MBA / certifications.' },
       { id: 'PEO3', text: 'Build IT systems that are reliable, ethical and secure.' },
     ],
-    hod: { name: 'Dr. P. Raj Kumar', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. N V Raja Sekhar Reddy', title: 'Professor & Head of Department' },
   },
   {
     slug: 'ece',
@@ -156,7 +156,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue advanced studies in electronics and computing.' },
       { id: 'PEO3', text: 'Develop ethical, sustainable hardware-software systems.' },
     ],
-    hod: { name: 'Dr. P. Rajashekar', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. S V S Prasad', title: 'Professor & Head of Department' },
   },
   {
     slug: 'eee',
@@ -196,7 +196,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue postgraduate study and research in mechanical sciences.' },
       { id: 'PEO3', text: 'Innovate as entrepreneurs in product design and rapid prototyping.' },
     ],
-    hod: { name: 'Dr. K. Eshwara Prasad', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. J. Krishnaraj', title: 'Professor & Head of Department' },
   },
   {
     slug: 'aeronautical',
@@ -216,7 +216,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue M.Tech and PhD in aerospace sciences.' },
       { id: 'PEO3', text: 'Innovate in the unmanned systems and space economy.' },
     ],
-    hod: { name: 'Dr. M. Komaraiah', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. M. Satyanarayana Gupta', title: 'Professor & Head of Department' },
   },
   {
     slug: 'mba',
@@ -236,7 +236,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Develop entrepreneurial ventures.' },
       { id: 'PEO3', text: 'Lead with ethics, communication and analytical rigour.' },
     ],
-    hod: { name: 'Dr. K. Tulasi Krishna Kumar', title: 'Professor & Head of MBA' },
+    hod: { name: 'Dr. N. Ramanjaneyulu', title: 'Professor & Head of MBA' },
   },
   {
     slug: 'freshman',
