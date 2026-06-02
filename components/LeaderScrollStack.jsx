@@ -166,9 +166,12 @@ const LeaderScrollStack = ({
 
   return (
     <div className={`relative w-full ${className}`.trim()} ref={scrollerRef}>
-      <div className="pt-[4vh] pb-[38rem]">
+      <div className="pt-[4vh]">
         {children}
+        {/* end marker — pinEnd formula: endTop - vh/2, so place it far enough down */}
         <div className="leader-stack-end w-full h-px" />
+        {/* extra breathing room so last card stays pinned before next section */}
+        <div style={{ height: '60vh' }} />
       </div>
     </div>
   );

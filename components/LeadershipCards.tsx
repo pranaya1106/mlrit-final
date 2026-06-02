@@ -79,7 +79,7 @@ export default function LeadershipCards() {
 
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
         <LeaderScrollStack
-          itemDistance={80}
+          itemDistance={160}
           itemScale={0.028}
           itemStackDistance={24}
           stackPosition="18%"
