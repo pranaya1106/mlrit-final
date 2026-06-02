@@ -95,7 +95,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Big watermark */}
+      {/* Big watermark + crafted line */}
       <div className="text-center overflow-hidden pt-5">
         <div
           className="font-sans font-black uppercase leading-[0.92] tracking-tighter-3 select-none"
@@ -111,6 +111,12 @@ export default function Footer() {
         >
           MLRIT
         </div>
+        {/* Crafted line — sits just below the watermark */}
+        <p className="mt-2 mb-6 font-sans text-[0.72rem] tracking-[0.18em] text-muted uppercase italic">
+          Crafted with passion by{' '}
+          <strong className="font-extrabold not-italic text-foreground tracking-[0.1em]">The Students</strong>
+          {' '}of MLRIT
+        </p>
       </div>
 
       {/* Bottom legal */}
@@ -122,8 +128,6 @@ export default function Footer() {
             <span>Affiliated to JNTUH</span>
             <span className="text-subtle">·</span>
             <span>Approved by AICTE</span>
-            <span className="text-subtle">·</span>
-            <span>Crafted by students of MLRIT</span>
           </div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
