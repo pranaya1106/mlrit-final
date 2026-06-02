@@ -35,7 +35,7 @@ const LEADERS = [
     message: 'Academic rigour and student welfare are not opposing goals — at MLRIT we have always pursued both, together.',
     points: [
       'Oversees academic programmes across 10 engineering branches and MBA',
-      'Leads the institution's NAAC and NBA accreditation cycles',
+      "Leads the institution's NAAC and NBA accreditation cycles",
       'Champions outcome-based education and industry-integrated curriculum',
     ],
   },
