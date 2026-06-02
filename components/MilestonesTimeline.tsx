@@ -55,25 +55,25 @@ export default function MilestonesTimeline() {
   return (
     <section className="bg-warm-light">
 
-      {/* ── Heading ── */}
-      <div className="max-w-[1180px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-8">
-        <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">
-          Milestones
-        </span>
-        <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-          Two decades,{' '}
-          <span className="font-display italic font-medium" style={gradientText}>
-            in eight moments.
-          </span>
-        </h2>
-      </div>
-
       {/* ── Tall scroll container ── */}
       <div
         ref={wrapperRef}
         style={{ height: `${TIMELINE.length * 40}vh` }}
       >
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+
+          {/* ── Heading inside sticky so it stays visible ── */}
+          <div className="max-w-[1180px] mx-auto w-full px-6 md:px-12 lg:px-20 mb-6">
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">
+              Milestones
+            </span>
+            <h2 className="mt-2 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.04]">
+              Two decades,{' '}
+              <span className="font-display italic font-medium" style={gradientText}>
+                in eight moments.
+              </span>
+            </h2>
+          </div>
 
           {/* Clipping mask so cards slide in/out of view */}
           <div className="overflow-hidden w-full">
