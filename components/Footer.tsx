@@ -111,11 +111,11 @@ export default function Footer() {
         >
           MLRIT
         </div>
-        {/* Crafted line — sits just below the watermark */}
-        <p className="mt-2 mb-6 font-sans text-[0.72rem] tracking-[0.18em] text-muted uppercase italic">
-          Crafted with passion by{' '}
-          <strong className="font-extrabold not-italic text-foreground tracking-[0.1em]">The Students</strong>
-          {' '}of MLRIT
+        {/* Crafted line — display italic, matches screenshot */}
+        <p className="mt-3 mb-6 tracking-[0.22em] uppercase select-none" style={{ fontSize: '0.68rem', color: '#9a9080' }}>
+          <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}>Crafted with passion by </span>
+          <span className="font-sans font-black not-italic" style={{ color: '#3d3328', letterSpacing: '0.22em' }}>The Students</span>
+          <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}> of MLRIT</span>
         </p>
       </div>
 
