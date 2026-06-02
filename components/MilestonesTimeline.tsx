@@ -71,7 +71,7 @@ export default function MilestonesTimeline() {
       {/* ── Tall scroll container ── */}
       <div
         ref={wrapperRef}
-        style={{ height: `${TIMELINE.length * 100}vh` }}
+        style={{ height: `${TIMELINE.length * 40}vh` }}
       >
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
 
