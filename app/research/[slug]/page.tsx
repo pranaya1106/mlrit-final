@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import PageHeader from '@/components/PageHeader';
-import { Section, H2, Lede } from '@/components/PageSection';
+import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_PAGES, RESEARCH_NAV } from '@/lib/research';
 
 export function generateStaticParams() {
@@ -32,44 +32,32 @@ export default function ResearchSubPage({ params }: { params: { slug: string } }
         ]}
       />
 
-      {data.bullets && (
-        <Section>
-          <H2 italic="points">Key</H2>
-          <ul className="mt-6 grid md:grid-cols-2 gap-x-10 gap-y-3.5">
-            {data.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-[1.02rem] text-foreground">
-                <span className="flex-shrink-0 mt-2 w-2 h-2 rounded-full bg-primary" />
-                {b}
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
+      <div className="bg-white">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 space-y-14 md:space-y-20">
+          <Blocks blocks={data.blocks} />
+        </div>
+      </div>
 
-      {data.cards && (
-        <Section surface={!data.bullets}>
-          <H2 italic="in detail">Highlights</H2>
-          <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {data.cards.map((c) => (
-              <div key={c.title} className="rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all">
-                <div className="font-sans font-extrabold text-foreground text-lg">{c.title}</div>
-                <p className="mt-2 text-muted leading-relaxed text-[0.96rem]">{c.body}</p>
-              </div>
+      {/* Browse other research areas */}
+      <section className="bg-cream-2 py-14 md:py-20">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+          <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.5rem,2.4vw,2rem)] mb-6">
+            Browse other{' '}
+            <span className="font-display italic font-medium text-secondary">research areas</span>
+          </h2>
+          <div className="flex flex-wrap gap-2.5">
+            {RESEARCH_NAV.filter((n) => n.slug !== params.slug).map((n) => (
+              <a
+                key={n.slug}
+                href={n.slug ? `/research/${n.slug}` : '/research'}
+                className="px-4 py-2 rounded-full border border-border bg-white hover:border-primary hover:text-primary transition-colors text-sm font-sans font-semibold"
+              >
+                {n.label}
+              </a>
             ))}
           </div>
-        </Section>
-      )}
-
-      <Section surface>
-        <H2 italic="research areas">Browse other</H2>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {RESEARCH_NAV.filter((n) => n.slug && n.slug !== params.slug).map((n) => (
-            <a key={n.slug} href={`/research/${n.slug}`} className="px-3.5 py-2 rounded-full border border-border bg-white hover:border-primary hover:text-primary transition-colors text-sm">
-              {n.label}
-            </a>
-          ))}
         </div>
-      </Section>
+      </section>
     </>
   );
 }

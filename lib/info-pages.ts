@@ -11,7 +11,21 @@ export type InfoBlock =
   | { kind: 'stat-grid'; items: { num: string; label: string }[] }
   | { kind: 'cards'; items: { title: string; body: string; href?: string }[] }
   | { kind: 'quote'; text: string; attribution: string; role?: string }
-  | { kind: 'cta'; label: string; href: string; external?: boolean };
+  | { kind: 'cta'; label: string; href: string; external?: boolean }
+  // ── Rich blocks (used by the About sub-pages) ──
+  | { kind: 'heading'; eyebrow?: string; title: string; italic?: string }
+  | { kind: 'stat-strip'; variant?: 'ink' | 'green'; items: { num: string; label: string }[] }
+  | { kind: 'feature-cards'; items: { icon?: string; title: string; body: string; href?: string }[] }
+  | { kind: 'numbered-cards'; items: { title: string; body: string }[] }
+  | { kind: 'ranking-cards'; items: { icon?: string; eyebrow?: string; title: string; body: string; badge?: string }[] }
+  | { kind: 'pillars'; items: { variant: 'green' | 'light'; icon?: string; eyebrow: string; title: string; body?: string; bullets?: string[] }[] }
+  | { kind: 'leadership'; items: { name: string; role: string; quote: string; href?: string; accent?: 'green' | 'orange' }[] }
+  | { kind: 'roster'; items: { name: string; detail?: string; tag?: string }[] }
+  | { kind: 'chips'; items: { label: string; sub?: string }[] }
+  | { kind: 'brochure-card'; title: string; subtitle?: string; meta?: string; href: string; external?: boolean }
+  | { kind: 'button-group'; items: { label: string; href: string; variant?: 'solid' | 'outline'; external?: boolean }[] }
+  | { kind: 'table'; columns: string[]; rows: string[][]; caption?: string }
+  | { kind: 'timeline'; eyebrow?: string; title?: string; items: { y: string; t: string; d: string }[] };
 
 export type InfoPage = {
   eyebrow: string;        // "About · Vision & Mission" etc.
@@ -26,89 +40,109 @@ export const INFO_PAGES: Record<string, InfoPage> = {
   /* ──────────────────── ABOUT ──────────────────── */
 
   'about/vision-mission/introduction': {
-    eyebrow: 'About · Vision & Mission',
-    title: 'Introduction',
-    italic: 'to MLRIT',
-    dek: 'A snapshot of the institute — its founding, its scale, and the engineers it builds.',
+    eyebrow: 'About MLRIT',
+    title: 'Built Beyond',
+    italic: 'Classrooms',
+    dek: 'Since 2005, MLR Institute of Technology has been shaping engineers, thinkers, and leaders — through academics, innovation, and the culture of a campus that never stops growing.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Introduction' }],
     blocks: [
       {
         kind: 'lead',
         text:
-          'MLR Institute of Technology (MLRIT) is a premier autonomous engineering institution founded in 2005 under the KMR Educational Society. Located at Dundigal, Hyderabad, the institute is affiliated to JNTU Hyderabad and approved by AICTE.',
+          'Somewhere between deadlines, hackathons, placements, sports practice, and team projects — college becomes more than a degree. At MLRIT, it always was.',
+      },
+      {
+        kind: 'stat-strip',
+        variant: 'ink',
+        items: [
+          { num: '2005', label: 'Established at Dundigal, Hyderabad' },
+          { num: 'JNTUH', label: 'Affiliated university' },
+          { num: 'AICTE', label: 'Approved programmes' },
+        ],
       },
       {
         kind: 'paragraph',
         text:
-          'Over two decades, MLRIT has grown from a 240-seat campus into a 11,000-student institution running 11 engineering and management departments, three active research centres, and an industry-MoU portfolio that includes Virtusa, EPAM, Boeing, Cyient and Tata Technologies. The institute holds NAAC institutional accreditation, NBA programme-level accreditation across CSE/ECE/EEE/MECH/IT, and is ranked in the NIRF engineering category.',
+          'MLR Institute of Technology (MLRIT) is an engineering and technology institution located in Dundigal, Hyderabad, Telangana. Established in 2005, the institute was founded with the vision of delivering quality technical education and producing industry-ready, socially responsible engineers and professionals.',
       },
       {
-        kind: 'stat-grid',
-        items: [
-          { num: '2005', label: 'Founded' },
-          { num: '11K+', label: 'Students on campus' },
-          { num: '7K+',  label: 'Alumni worldwide' },
-          { num: '11',   label: 'Departments' },
-          { num: '25+',  label: 'Doctoral faculty' },
-          { num: '12',   label: 'Labs in CSE alone' },
-        ],
+        kind: 'paragraph',
+        text:
+          'Affiliated to Jawaharlal Nehru Technological University Hyderabad (JNTUH) and approved by the All India Council for Technical Education (AICTE), MLRIT offers undergraduate (B.Tech), postgraduate (M.Tech, MBA), and other programs across core and emerging disciplines such as Computer Science (CSE), Electronics & Communication (ECE), Electrical & Electronics (EEE), Mechanical (ME), Artificial Intelligence & Machine Learning (AI&ML), Aeronautical Engineering (AE), and CSE — Data Science.',
+      },
+      { kind: 'heading', eyebrow: 'Why MLRIT', title: 'A trusted name in', italic: 'engineering education.' },
+      {
+        kind: 'paragraph',
+        text:
+          'MLR Institute of Technology is a trusted name in engineering education, offering AICTE-approved, JNTUH-affiliated programs across core and emerging fields like Computer Science, AI/ML, Data Science, and Electronics. Guided by experienced and dedicated faculty, students learn through an industry-aligned curriculum supported by modern laboratories, smart classrooms, and well-equipped infrastructure.',
       },
       {
-        kind: 'bullets',
-        title: 'What sets MLRIT apart',
+        kind: 'paragraph',
+        text:
+          'With strong placements through leading recruiters, a focus on research, innovation, and skill development, and a vibrant campus life filled with technical and cultural activities, MLRIT empowers students to become skilled, confident, and industry-ready professionals prepared to succeed in a competitive world.',
+      },
+      {
+        kind: 'feature-cards',
         items: [
-          'Autonomous status — own curriculum, own examinations, own assessment systems.',
-          'NAAC + NBA accreditation — quality benchmarks recognised nationally.',
-          'Industry-integrated curriculum across all 11 departments.',
-          'Live capstones, paid internships, and a 98% placement record across cohorts.',
-          'Doctoral-strong faculty with active publications and patents.',
+          { icon: 'academics', title: 'Academics', body: 'An industry-aligned curriculum across core and emerging engineering disciplines, taught by experienced and dedicated faculty.' },
+          { icon: 'innovation', title: 'Innovation', body: 'A focus on research, innovation and skill development — supported by modern laboratories and smart classrooms.' },
+          { icon: 'employability', title: 'Employability', body: 'Strong placements through leading recruiters, shaping confident, industry-ready professionals.' },
+          { icon: 'sports', title: 'Campus Life', body: 'A vibrant campus filled with technical and cultural activities, sports, and student community.' },
         ],
       },
-      { kind: 'cta', label: 'Read the full About page →', href: '/about' },
     ],
   },
 
   'about/vision-mission/vision-mission': {
-    eyebrow: 'About · Vision & Mission',
-    title: 'Vision and',
-    italic: 'mission.',
-    dek: 'The North Star that guides every department, every curriculum decision, every campus investment.',
+    eyebrow: 'Our Purpose',
+    title: 'Vision &',
+    italic: 'Mission',
+    dek: 'The foundational beliefs that guide every decision, programme, and experience at MLR Institute of Technology.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Vision & Mission' }],
     blocks: [
       {
-        kind: 'cards',
+        kind: 'pillars',
         items: [
           {
-            title: 'Vision',
+            variant: 'green',
+            icon: 'vision',
+            eyebrow: 'Vision',
+            title: 'Academic Excellence, Research & Innovation',
             body:
-              'To emerge as a centre of excellence in technical education and research — producing globally competent engineers, capable of building a strong and developed nation.',
+              'Promote academic excellence, research, innovation, and entrepreneurial skills to produce graduates with human values and leadership qualities to serve the nation.',
           },
           {
-            title: 'Mission',
-            body:
-              'To deliver an industry-aligned curriculum, operate well-resourced laboratories, and nurture a research culture that empowers every student — producing professionals equipped to lead in an evolving world.',
+            variant: 'light',
+            icon: 'mission',
+            eyebrow: 'Mission',
+            title: 'Student-Centric. Globally Competitive. Socially Responsible.',
+            bullets: [
+              'Provide student-centric education and training on cutting-edge technologies to make the students globally competitive and socially responsible citizens.',
+              'Create an environment to strengthen the research, innovation and entrepreneurship to solve societal problems.',
+            ],
           },
         ],
       },
+      { kind: 'heading', title: 'Core Values' },
       {
-        kind: 'bullets',
-        title: 'Strategic priorities',
+        kind: 'numbered-cards',
         items: [
-          'Outcome-Based Education across every programme — clear PEOs, COs and POs at the course level.',
-          'Industry MoUs that convert into electives, internships and live capstones.',
-          'A doctoral-strong, research-active faculty with continuous publication output.',
-          'Equity in admissions and placements — diversity is a measured metric, not a slogan.',
-          'A culture of student-led entrepreneurship, with on-campus IPFC support.',
+          { title: 'Academic Excellence', body: 'Rigorous, industry-relevant curriculum that builds strong engineering fundamentals across all disciplines.' },
+          { title: 'Innovation & Research', body: 'A culture that encourages students and faculty to pursue new ideas, publish research, and protect intellectual property.' },
+          { title: 'Human Values & Ethics', body: 'Instilling integrity, responsibility, and compassion — qualities that define leaders in every walk of life.' },
+          { title: 'Entrepreneurship', body: 'Supporting ventures, startups, and creative initiatives through mentorship, incubation, and hands-on exposure.' },
+          { title: 'Sports & Holistic Growth', body: 'Athletics are as central as academics — nurturing discipline, teamwork, and resilience through sport.' },
+          { title: 'Social Responsibility', body: 'Preparing graduates who contribute meaningfully to society, communities, and the nation.' },
         ],
       },
     ],
   },
 
   'about/legacy': {
-    eyebrow: 'About',
-    title: 'Twenty years,',
-    italic: 'one mission.',
-    dek: 'A chronology of the milestones that took MLRIT from a 240-seat campus in 2005 to an autonomous institution in 2026.',
+    eyebrow: 'Two Decades',
+    title: 'The MLRIT',
+    italic: 'Legacy',
+    dek: 'From a single campus in Dundigal to a nationally recognised institution — a timeline of milestones and the leadership that built them.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Legacy' }],
     blocks: [
       {
@@ -117,80 +151,114 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           'MLRIT was founded by Sri Marri Laxman Reddy Garu and his family under the KMR Educational Society — with the conviction that engineering education in Telangana needed an institution that combined depth with discipline.',
       },
       {
-        kind: 'bullets',
-        title: 'Milestones',
+        kind: 'timeline',
+        eyebrow: 'Institutional Timeline',
+        title: 'Milestones that shaped MLRIT',
         items: [
-          '2005 — Foundation. Inaugural intake of 240 across CSE, ECE, MECH, EEE.',
-          '2008 — First B.Tech batch graduates. CSE earns the first NBA cycle.',
-          '2011 — M.Tech programmes launched across CSE, ECE, MECH, EEE.',
-          '2017 — IPFC established to support student patent filings and IPR awareness.',
-          '2019 — NAAC institutional accreditation granted.',
-          '2022 — UGC autonomous status. MLRIT now designs its own curriculum.',
-          '2024 — New UG programmes launched (AIML, CSE-CS, CSE-DS, CSIT, IT).',
-          '2025 — 20-year milestone. 11,000+ students, 7,000+ alumni placed worldwide.',
-          '2026 — Trishna 2K26: 621 placement offers, ₹51 LPA top package.',
+          { y: '2005', t: 'Founding of MLRIT', d: 'Established under the KMR Educational Society at Dundigal, Hyderabad — an inaugural intake of 240 across CSE, ECE, MECH and EEE.' },
+          { y: '2008', t: 'First Graduation', d: 'The inaugural batch of B.Tech graduates step out — placed across Wipro, Infosys and TCS. CSE earns its first NBA cycle.' },
+          { y: '2011', t: 'M.Tech Programmes', d: 'Postgraduate programmes launched across CSE, ECE, MECH and EEE, with JNTUH-recognised research centres.' },
+          { y: '2017', t: 'IPFC Established', d: 'The Intellectual Property Facilitation Centre opens — anchoring patent filings, IPR workshops and student-led invention.' },
+          { y: '2019', t: 'NAAC Accreditation', d: 'Institutional NAAC accreditation granted — formal recognition of quality, governance and learning outcomes.' },
+          { y: '2022', t: 'Autonomous Status — UGC', d: 'UGC grants autonomous status, allowing MLRIT to design its own curriculum and conduct independent examinations.' },
+          { y: '2024', t: 'AI, ML & Aerospace', d: 'New-age programmes launched — AIML, CSE-CS, CSE-DS, CSIT and Aerospace engineering.' },
+          { y: '2025', t: '20 Years of Excellence', d: '11,000+ students, 7,000+ alumni placed worldwide — capped by Trishna 2K26 with 621 offers and a ₹51 LPA top package.' },
         ],
       },
-      { kind: 'cta', label: 'See the full timeline on About →', href: '/about' },
+      { kind: 'heading', eyebrow: 'Governance', title: 'The MLRIT', italic: 'Governing Body.' },
+      {
+        kind: 'roster',
+        items: [
+          { name: 'Shri M. Laxman Reddy', detail: 'Chairman, KMR Educational Society', tag: 'Chairman' },
+          { name: 'Ms. M. Anushreya Reddy', detail: 'Secretary, KMR Educational Society', tag: 'Member' },
+          { name: 'Smt. M. Mamtha Reddy', detail: 'Treasurer, KMR Educational Society', tag: 'Member' },
+          { name: 'Mr. M. Dhiren Reddy', detail: 'Vice Chairman, KMR Educational Society', tag: 'Member' },
+          { name: 'Dr. K. Siva Kumar', detail: 'Professor, Electrical Engineering, IIT Hyderabad', tag: 'UGC Nominee' },
+          { name: 'Dr. D. Ramesh', detail: 'Professor of CSE, JNTUH University', tag: 'University Nominee' },
+          { name: 'Prof. Ch. Subramanyam', detail: 'Dean of Academic Affairs, IIT Hyderabad', tag: 'Academician' },
+          { name: 'Shri M. Murali Mohan Reddy', detail: 'Managing Director, Previlage Estates', tag: 'Member' },
+          { name: 'Shri D. Narendar Reddy', detail: 'SVS Food Processors Pvt. Ltd.', tag: 'Member' },
+          { name: 'Shri Ch. Satti Reddy', detail: 'Managing Director, Machine Tools Equipment Ltd.', tag: 'Member' },
+          { name: 'Dr. V. Radhika Devi', detail: 'Dean (S&H) & IQAC, MLRIT — Faculty Representative', tag: 'Principal' },
+        ],
+      },
     ],
   },
 
   'about/rankings-awards': {
-    eyebrow: 'About',
-    title: 'Rankings and',
-    italic: 'awards.',
-    dek: 'The accreditations, rankings and external recognitions that benchmark MLRIT against national engineering institutions.',
+    eyebrow: 'Recognition',
+    title: 'Rankings &',
+    italic: 'Awards',
+    dek: 'National rankings, institutional accreditations, research achievements, and recognitions that reflect the quality MLRIT delivers.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Rankings & Awards' }],
     blocks: [
       {
-        kind: 'cards',
+        kind: 'stat-strip',
+        variant: 'green',
         items: [
-          { title: 'NAAC Accredited',  body: 'Institutional accreditation — recognises overall quality of governance, learning and research.' },
-          { title: 'NBA Accredited',   body: 'Programme-level accreditation across CSE, ECE, EEE, MECH and IT.' },
-          { title: 'NIRF Engineering', body: 'Featured in the National Institutional Ranking Framework — engineering category, 201–300 band, three years running.' },
-          { title: 'UGC Autonomous',   body: 'Granted autonomous status. MLRIT designs its own curriculum, regulations and assessment systems.' },
-          { title: 'AICTE Approved',   body: 'All B.Tech, M.Tech and MBA programmes approved by the All India Council for Technical Education.' },
-          { title: 'JNTUH Affiliated', body: 'Degrees awarded by Jawaharlal Nehru Technological University, Hyderabad — under MLRIT autonomous regulations.' },
+          { num: 'NAAC', label: 'Accredited institution' },
+          { num: 'NBA', label: 'Accredited programmes' },
+          { num: '20+', label: 'Years of excellence' },
+          { num: '621+', label: 'Placements in 2025-26' },
         ],
       },
+      { kind: 'heading', eyebrow: 'National Rankings', title: 'Nationally Ranked &', italic: 'Recognised' },
       {
-        kind: 'bullets',
-        title: 'Departmental recognitions',
+        kind: 'ranking-cards',
         items: [
-          'CSE — NBA accredited since 2008, NIRF-featured for three consecutive years.',
-          'ECE — NBA accredited, Boeing-partnered avionics lab.',
-          'Mechanical — NBA accredited, industry MoUs with Tata Technologies and Cyient.',
-          'EEE — NBA accredited, Centres of Excellence in renewable energy systems.',
-          'IT — NBA accredited, EPAM-partnered curriculum.',
+          { icon: 'excellence', eyebrow: 'Category', title: 'Top Engineering Institutions — T-School Ranking', body: 'Recognised among India\'s top technical schools for academic quality, placements, and infrastructure.', badge: 'Top T' },
+          { icon: 'building', eyebrow: 'NIRF — Ministry of Education', title: 'National Institutional Ranking Framework', body: 'MLRIT participates in the NIRF rankings, evaluated across teaching, research, graduation outcomes, and perception.', badge: 'NIRF' },
+          { icon: 'award', eyebrow: 'Times Engineering Survey', title: 'Top Engineering Colleges — Telangana', body: 'Ranked among the leading private engineering colleges in Telangana for academic outcomes and student satisfaction.', badge: 'Top 10' },
+          { icon: 'star', eyebrow: 'Silicon India', title: 'Most Promising Engineering Colleges', body: 'Recognised as one of the most promising engineering colleges in Andhra Pradesh & Telangana for innovation and excellence.', badge: '★★★★' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Accreditations', title: 'Quality Certified at', italic: 'Every Level' },
+      {
+        kind: 'chips',
+        items: [
+          { label: 'NAAC', sub: 'National Assessment & Accreditation Council' },
+          { label: 'NBA', sub: 'National Board of Accreditation — multiple programmes' },
+          { label: 'AICTE', sub: 'All India Council for Technical Education' },
+          { label: 'JNTUH', sub: 'Affiliated to JNTU Hyderabad' },
+          { label: 'UGC Autonomous', sub: 'Autonomous status since 2015' },
         ],
       },
     ],
   },
 
   'about/brochure': {
-    eyebrow: 'About',
-    title: 'Institute',
-    italic: 'brochure.',
-    dek: 'Download the official MLRIT institute brochure — academics, admissions, campus, placements, and contact information.',
+    eyebrow: 'Official Brochure',
+    title: 'Everything about MLRIT,',
+    italic: 'in one document',
+    dek: 'Programmes, campus life, research, sports, facilities, admissions — the complete MLRIT story, ready to download.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Brochure' }],
     blocks: [
       {
-        kind: 'lead',
-        text:
-          'The MLRIT brochure is a single PDF that covers every aspect of the institute — programmes, faculty, infrastructure, placement records, fees, and admission timelines. Use it as a starting point or share it with prospective students.',
-      },
-      {
-        kind: 'cta',
-        label: 'Download the brochure (PDF) →',
+        kind: 'brochure-card',
+        title: 'MLR Institute of Technology',
+        subtitle: 'Institutional Brochure 2025–26',
+        meta: 'PDF · 30.5 MB · English',
         href: 'https://mlrit.ac.in/wp-content/uploads/2024/06/MLRIT-Brochure.pdf',
         external: true,
       },
+      { kind: 'heading', eyebrow: "What's Inside", title: 'A complete look at', italic: 'campus life.' },
       {
-        kind: 'cards',
+        kind: 'feature-cards',
         items: [
-          { title: 'Programmes',  body: '11 engineering and management departments. UG (B.Tech), PG (M.Tech, MBA), and Ph.D. across 5 disciplines.', href: '/academics' },
-          { title: 'Placements',  body: '₹51 LPA highest package. 98% placement rate. 7,000+ alumni placed worldwide.', href: '/placements' },
-          { title: 'Research',    body: 'Three research centres, 25+ doctoral faculty, IPFC support for patents.', href: '/research' },
+          { icon: 'academics', title: 'Academic Programmes', body: 'Complete list of UG, PG and Ph.D. programmes with curriculum highlights across departments.' },
+          { icon: 'building', title: 'Campus & Facilities', body: 'Libraries, sporting grounds, laboratories, cafeteria, and campus infrastructure detailed with photos.' },
+          { icon: 'employability', title: 'Placement & Careers', body: 'Placement statistics, top recruiters, salary trends, and career development programmes offered at MLRIT.' },
+          { icon: 'research', title: 'Research & Innovation', body: 'Research centres, funded projects, patents, publications, and the IPFC ecosystem at MLRIT.' },
+          { icon: 'graduation', title: 'Admissions & Scholarships', body: 'Eligibility criteria, application process, fee structure, and available scholarship programmes.' },
+          { icon: 'sports', title: 'Sports & Student Life', body: 'Sports scholarships, clubs, annual events, student organisations, and life on the MLRIT campus.' },
+        ],
+      },
+      {
+        kind: 'button-group',
+        items: [
+          { label: 'Apply Now', href: '/admissions/how-to-apply', variant: 'solid' },
+          { label: 'Explore Programmes', href: '/academics', variant: 'solid' },
+          { label: 'Rankings & Awards', href: '/about/rankings-awards', variant: 'outline' },
         ],
       },
     ],

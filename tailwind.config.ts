@@ -25,7 +25,8 @@ const config: Config = {
       colors: {
         // ── Brand
         primary:   { DEFAULT: '#e85d04', hover: '#f06a14', pressed: '#c44b00' },
-        secondary: { DEFAULT: '#2d8b55', hover: '#3dad6c', pressed: '#1f6b3e' },
+        // Brand green === the navbar green (#01741f), used consistently site-wide.
+        secondary: { DEFAULT: '#01741f', hover: '#018f28', pressed: '#015416' },
 
         // ── Orange / Green palettes
         orange: {
@@ -84,13 +85,15 @@ const config: Config = {
         // Premium glows — warm rather than cold
         'primary-glow':   '0 8px 28px rgba(232, 93, 4, 0.22)',
         'primary-soft':   '0 8px 28px rgba(232, 93, 4, 0.12)',
-        'secondary-glow': '0 8px 28px rgba(45, 139, 85, 0.22)',
+        'secondary-glow': '0 8px 28px rgba(1, 116, 31, 0.22)',
         'card-soft':      '0 12px 32px rgba(15, 15, 15, 0.06), 0 2px 6px rgba(15, 15, 15, 0.04)',
         'card-strong':    '0 24px 60px rgba(15, 15, 15, 0.10), 0 4px 10px rgba(15, 15, 15, 0.04)',
       },
 
       backgroundImage: {
         'cream-gradient': 'linear-gradient(135deg, #fff5ec 0%, #faf7f0 50%, #f1f8f4 100%)',
+        // Single source of truth for green surfaces — derived from the navbar green (#01741f).
+        'green-hero':     'linear-gradient(135deg, #015718 0%, #01741f 100%)',
         'ink-glow':       'radial-gradient(ellipse at 80% 10%, rgba(232,93,4,0.12) 0%, transparent 55%), radial-gradient(ellipse at 10% 90%, rgba(45,139,85,0.10) 0%, transparent 55%)',
       },
 

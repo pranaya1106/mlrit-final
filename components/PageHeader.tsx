@@ -8,6 +8,7 @@ export default function PageHeader({
   dek,
   crumbs,
   variant = 'green',
+  tone = 'dark',
 }: {
   eyebrow?: string;
   title: string;
@@ -15,9 +16,48 @@ export default function PageHeader({
   dek?: ReactNode;
   crumbs?: { label: string; href?: string }[];
   variant?: 'green' | 'navy' | 'orange';
+  /** 'dark' = the original gradient hero (default). 'light' = editorial cream hero. */
+  tone?: 'dark' | 'light';
 }) {
+  /* ── Light / editorial hero (cream gradient, green accent, orange pill) ── */
+  if (tone === 'light') {
+    return (
+      <section className="relative overflow-hidden bg-cream-gradient text-foreground">
+        <span aria-hidden className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-secondary via-primary to-secondary" />
+        <div aria-hidden className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-secondary/10 blur-[90px] pointer-events-none" />
+        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-20">
+          {crumbs && (
+            <div className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] tracking-[0.14em] uppercase text-muted mb-6">
+              {crumbs.map((c, i) => (
+                <span key={i} className="flex items-center gap-2">
+                  {c.href ? (
+                    <a href={c.href} className="hover:text-primary transition-colors">{c.label}</a>
+                  ) : (
+                    <span className="text-foreground/70">{c.label}</span>
+                  )}
+                  {i < crumbs.length - 1 && <span className="text-subtle">/</span>}
+                </span>
+              ))}
+            </div>
+          )}
+          {eyebrow && (
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-primary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              {eyebrow}
+            </span>
+          )}
+          <h1 className="font-sans font-black tracking-tighter-2 leading-[1.04] text-foreground text-[clamp(2rem,4vw,3.4rem)]">
+            {title}
+            {italic && <> <span className="font-display italic font-medium text-secondary">{italic}</span></>}
+          </h1>
+          {dek && <p className="mt-5 text-muted leading-relaxed text-[1.06rem] max-w-[720px]">{dek}</p>}
+        </div>
+      </section>
+    );
+  }
+
   const bg = {
-    green:  'bg-gradient-to-br from-[#0d3320] to-[#18453B]',
+    green:  'bg-green-hero',
     navy:   'bg-gradient-to-br from-[#0B0F1A] to-[#18283b]',
     orange: 'bg-gradient-to-br from-[#3a1503] to-[#6a2a0a]',
   }[variant];

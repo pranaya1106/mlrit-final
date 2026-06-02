@@ -8,6 +8,9 @@ node_modules/
 out/
 next-env.d.ts.bak
 
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+
 # Production build
 build/
 dist/
