@@ -35,17 +35,18 @@ export default function MilestonesTimeline() {
       const el = wrapperRef.current;
       if (!el) return;
       const { top, height } = el.getBoundingClientRect();
+      // scrolled = how many px of the wrapper have passed the top of viewport
       const scrolled = -top;
       const total    = height - window.innerHeight;
-      if (scrolled < 0) { setStarted(false); return; }
+      if (scrolled <= 0) { setStarted(false); setActive(0); setTxPx(0); return; }
+      if (scrolled >= total) { setStarted(true); setActive(TIMELINE.length - 1); setTxPx(-((TIMELINE.length - 1) * SLOT)); return; }
       setStarted(true);
-      const p       = Math.max(0, Math.min(1, scrolled / total));
-      const idx     = Math.min(TIMELINE.length - 1, Math.floor(p * TIMELINE.length));
-      // smooth sub-index progress within the current slot
-      const slotP   = (p * TIMELINE.length) - idx;
-      const tx      = -(idx * SLOT + slotP * SLOT);
+      const p     = scrolled / total;
+      const raw   = p * TIMELINE.length;
+      const idx   = Math.min(TIMELINE.length - 1, Math.floor(raw));
+      const slotP = raw - idx;
       setActive(idx);
-      setTxPx(tx);
+      setTxPx(-(idx * SLOT + slotP * SLOT));
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -55,7 +56,7 @@ export default function MilestonesTimeline() {
   return (
     <section className="bg-warm-light">
 
-      {/* ── Tall scroll container ── */}
+      {/* ── Tall scroll container — no top padding so sticky triggers immediately ── */}
       <div
         ref={wrapperRef}
         style={{ height: `${TIMELINE.length * 40}vh` }}
@@ -63,7 +64,7 @@ export default function MilestonesTimeline() {
         <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
 
           {/* ── Heading — pinned at top of sticky viewport ── */}
-          <div className="max-w-[1180px] mx-auto w-full px-6 md:px-12 lg:px-20 pt-8 pb-5 flex-shrink-0">
+          <div className="max-w-[1180px] mx-auto w-full px-6 md:px-12 lg:px-20 pt-16 pb-4 flex-shrink-0">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">
               Milestones
             </span>
