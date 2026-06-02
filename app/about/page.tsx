@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import PageHeader from '@/components/PageHeader';
 import MilestonesTimeline from '@/components/MilestonesTimeline';
+import LeadershipCards from '@/components/LeadershipCards';
 
 export const metadata: Metadata = {
   title: 'About MLRIT — Marri Laxman Reddy Institute of Technology',
@@ -17,14 +18,6 @@ const PILLARS = [
   { title: 'Ranked · NIRF',         body: 'Featured in the National Institutional Ranking Framework (NIRF) engineering category three years running — 201-300 band.' },
 ];
 
-const LEADERSHIP = [
-  { name: 'Sri Marri Laxman Reddy',   role: 'Founder, KMR Educational Society',           tag: 'Founder' },
-  { name: 'Sri Marri Rajashekhar Reddy', role: 'Founder Secretary · MLA, Malkajgiri',     tag: 'Patron' },
-  { name: 'Dr. K. Srinivas Rao',       role: 'Principal, MLR Institute of Technology',    tag: 'Leadership' },
-  { name: 'Dr. P. Rajashekar',         role: 'Dean, Academics',                            tag: 'Leadership' },
-  { name: 'Prof. Ravi Chandra P',      role: 'Head, Training & Placements',                tag: 'Leadership' },
-  { name: 'Dr. M. Anitha',             role: 'Dean, Research & Innovation',                tag: 'Leadership' },
-];
 
 
 export default function AboutPage() {
@@ -127,27 +120,7 @@ export default function AboutPage() {
       <MilestonesTimeline />
 
       {/* Leadership */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">People</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Leadership and <span className="font-display italic font-medium" style={gradientText}>governance.</span>
-            </h2>
-          </Reveal>
-          <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
-            {LEADERSHIP.map((l) => (
-              <StaggerItem key={l.name}>
-                <div className="rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all">
-                  <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{l.tag}</div>
-                  <div className="mt-2 font-sans font-extrabold text-foreground text-lg">{l.name}</div>
-                  <div className="mt-1 text-muted text-sm">{l.role}</div>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+      <LeadershipCards />
 
       {/* Campus */}
       <section className="bg-[#0a0d18] text-white py-20 md:py-28">
