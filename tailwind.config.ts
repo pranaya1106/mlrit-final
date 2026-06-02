@@ -93,7 +93,7 @@ const config: Config = {
       backgroundImage: {
         'cream-gradient': 'linear-gradient(135deg, #fff5ec 0%, #faf7f0 50%, #f1f8f4 100%)',
         // Single source of truth for green surfaces — derived from the navbar green (#01741f).
-        'green-hero':     'linear-gradient(135deg, #1a5e1f 0%, #1F6B24 100%)',
+        'green-hero':     'linear-gradient(135deg, #1F6B24 0%, #1F6B24 100%)',
         'ink-glow':       'radial-gradient(ellipse at 80% 10%, rgba(232,93,4,0.12) 0%, transparent 55%), radial-gradient(ellipse at 10% 90%, rgba(45,139,85,0.10) 0%, transparent 55%)',
       },
 
