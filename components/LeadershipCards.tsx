@@ -77,8 +77,7 @@ export default function LeadershipCards() {
         </div>
       </div>
 
-      {/* Fixed height scroll container — scoped Lenis inside */}
-      <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20" style={{ height: '85vh' }}>
+      <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
         <LeaderScrollStack
           itemDistance={80}
           itemScale={0.028}
