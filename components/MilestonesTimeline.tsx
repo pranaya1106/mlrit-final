@@ -60,10 +60,10 @@ export default function MilestonesTimeline() {
         ref={wrapperRef}
         style={{ height: `${TIMELINE.length * 40}vh` }}
       >
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+        <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
 
-          {/* ── Heading inside sticky so it stays visible ── */}
-          <div className="max-w-[1180px] mx-auto w-full px-6 md:px-12 lg:px-20 mb-6">
+          {/* ── Heading — pinned at top of sticky viewport ── */}
+          <div className="max-w-[1180px] mx-auto w-full px-6 md:px-12 lg:px-20 pt-8 pb-5 flex-shrink-0">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">
               Milestones
             </span>
@@ -75,8 +75,8 @@ export default function MilestonesTimeline() {
             </h2>
           </div>
 
-          {/* Clipping mask so cards slide in/out of view */}
-          <div className="overflow-hidden w-full">
+          {/* Cards — fill remaining height, centred */}
+          <div className="flex-1 flex flex-col justify-center overflow-hidden w-full">
 
             {/* ── Horizontal strip ── */}
             <div
@@ -189,6 +189,7 @@ export default function MilestonesTimeline() {
               })}
             </div>
           </div>
+          </div>{/* end flex-1 cards area */}
 
           {/* ── Progress dots ── */}
           <div className="flex justify-center gap-2 mt-8">
