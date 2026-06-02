@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import PageHeader from '@/components/PageHeader';
+import MilestonesTimeline from '@/components/MilestonesTimeline';
 
 export const metadata: Metadata = {
   title: 'About MLRIT — Marri Laxman Reddy Institute of Technology',
@@ -25,16 +26,6 @@ const LEADERSHIP = [
   { name: 'Dr. M. Anitha',             role: 'Dean, Research & Innovation',                tag: 'Leadership' },
 ];
 
-const TIMELINE = [
-  { y: '2005', t: 'Foundation Stone',  d: 'MLR Institute of Technology established under KMR Educational Society at Dundigal, Hyderabad.' },
-  { y: '2008', t: 'First Graduation',  d: 'First batch of B.Tech graduates step out — placed across Wipro, Infosys and TCS.' },
-  { y: '2012', t: 'NBA Cycle Begins',  d: 'CSE, ECE and Mechanical programmes earn first NBA accreditation cycle.' },
-  { y: '2017', t: 'IPFC Established',  d: 'Intellectual Property Facilitation Centre opens to support patent filings and IPR awareness.' },
-  { y: '2019', t: 'NAAC Accreditation', d: 'Institutional NAAC accreditation granted — recognises overall quality.' },
-  { y: '2022', t: 'Autonomous Status',  d: 'UGC grants autonomous status — institution designs its own regulations.' },
-  { y: '2025', t: 'Two Decades',        d: 'MLRIT crosses 20 years with 7,000+ alumni placed across the world.' },
-  { y: '2026', t: 'Trishna 2K26',       d: '21st Annual Day — 621 placement offers and a ₹51 LPA top package mark the strongest season yet.' },
-];
 
 export default function AboutPage() {
   return (
@@ -133,66 +124,7 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-warm-light py-20 md:py-28">
-        <div className="max-w-[1180px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Milestones</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Two decades, <span className="font-display italic font-medium" style={gradientText}>in eight moments.</span>
-            </h2>
-          </Reveal>
-
-          <Stagger className="mt-14 md:mt-16 relative" delay={0.08}>
-            {/* Center rail — fades in at the ends for a cleaner finish */}
-            <div className="absolute left-[19px] md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
-
-            <div className="space-y-6 md:space-y-10">
-              {TIMELINE.map((t, i) => {
-                const isRight = i % 2 === 1;
-                return (
-                  <StaggerItem key={t.y}>
-                    <div className="relative md:grid md:grid-cols-2 md:items-center md:gap-x-16">
-                      {/* Milestone card */}
-                      <div
-                        className={`pl-12 md:pl-0 ${
-                          isRight ? 'md:col-start-2' : 'md:col-start-1 md:text-right'
-                        }`}
-                      >
-                        <div className="group block rounded-2xl border border-border bg-white/85 backdrop-blur-sm p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
-                          <div
-                            className={`flex items-baseline gap-3 ${
-                              isRight ? '' : 'md:justify-end'
-                            }`}
-                          >
-                            <span
-                              className="font-display italic font-black text-[clamp(2rem,3vw,2.6rem)] leading-none tracking-tighter-2"
-                              style={gradientText}
-                            >
-                              {t.y}
-                            </span>
-                            <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-subtle">
-                              {String(i + 1).padStart(2, '0')} / {String(TIMELINE.length).padStart(2, '0')}
-                            </span>
-                          </div>
-                          <h3 className="mt-3 font-sans font-extrabold text-foreground text-[1.2rem] tracking-tight leading-snug">
-                            {t.t}
-                          </h3>
-                          <p className="mt-2 text-muted leading-relaxed text-[0.96rem]">{t.d}</p>
-                        </div>
-                      </div>
-
-                      {/* Node on the rail */}
-                      <span className="absolute left-[19px] md:left-1/2 top-7 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 z-10 grid place-items-center w-4 h-4 rounded-full border-2 border-primary bg-warm-light">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      </span>
-                    </div>
-                  </StaggerItem>
-                );
-              })}
-            </div>
-          </Stagger>
-        </div>
-      </section>
+      <MilestonesTimeline />
 
       {/* Leadership */}
       <section className="bg-white py-20 md:py-28">
