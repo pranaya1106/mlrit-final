@@ -188,7 +188,6 @@ export default function MilestonesTimeline() {
                 );
               })}
             </div>
-          </div>
           </div>{/* end flex-1 cards area */}
 
           {/* ── Progress dots ── */}
