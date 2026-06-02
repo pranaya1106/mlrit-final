@@ -166,7 +166,7 @@ const LeaderScrollStack = ({
 
   return (
     <div className={`relative w-full ${className}`.trim()} ref={scrollerRef}>
-      <div className="pt-[4vh] pb-[18rem]">
+      <div className="pt-[4vh] pb-[38rem]">
         {children}
         <div className="leader-stack-end w-full h-px" />
       </div>
