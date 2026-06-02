@@ -16,6 +16,7 @@ export default function UGPage() {
         italic="programmes."
         dek="A four-year B.Tech across ten engineering branches — built around an industry-integrated curriculum, hands-on labs and a culture of inquiry."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Undergraduate' }]}
+        variant="green"
       />
       <Section>
         <H2 italic="branches">Ten engineering</H2>

@@ -23,6 +23,7 @@ export default function PGPage() {
         italic="programmes."
         dek="Two-year M.Tech specialisations and a two-year MBA — research-led, industry-anchored, designed for postgraduate growth."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Postgraduate' }]}
+        variant="green"
       />
       <Section>
         <H2 italic="specialisations">M.Tech</H2>

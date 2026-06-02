@@ -41,7 +41,7 @@ export default function AcademicsPage() {
         italic="adapts faster than industry."
         dek="An autonomous, outcome-based, research-led academic system. Ten engineering branches at the undergraduate level, four M.Tech specialisations, an MBA programme, and doctoral research across five disciplines."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }]}
-        variant="navy"
+        variant="green"
       />
 
       {/* FRAMEWORK */}

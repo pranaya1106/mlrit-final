@@ -72,7 +72,7 @@ export default function SyllabusPage({ params }: { params: Params }) {
           { label: `Year ${params.year.replace('year', '')}` },
           { label: `Sem ${semNum}` },
         ]}
-        variant="navy"
+        variant="green"
       />
 
       <Section>

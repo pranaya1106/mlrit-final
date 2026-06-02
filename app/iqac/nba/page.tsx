@@ -20,6 +20,7 @@ export default function NBAPage() {
         italic="programme accreditation"
         dek="National Board of Accreditation — programme-level accreditation for MLRIT's engineering branches."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'IQAC', href: '/iqac' }, { label: 'NBA' }]}
+        variant="green"
       />
       <Section>
         <H2 italic="programmes">Accredited</H2>

@@ -25,6 +25,7 @@ export default function FacultyPage() {
         italic="profiles."
         dek="Department heads, professors and researchers — meet the people shaping MLRIT's academic and research programmes."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Faculty' }]}
+        variant="green"
       />
       <Section>
         <H2 italic="of Departments">Heads</H2>

@@ -36,6 +36,7 @@ export default function IQACPage() {
         italic="(IQAC)"
         dek="The IQAC at MLRIT plans, guides and monitors quality assurance and quality enhancement activities of the institution — a single cell coordinating all accreditation, audit and improvement initiatives."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'IQAC' }]}
+        variant="green"
       />
 
       <Section>

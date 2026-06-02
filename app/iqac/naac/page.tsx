@@ -13,6 +13,7 @@ export default function NAACPage() {
         italic="at MLRIT"
         dek="National Assessment and Accreditation Council — MLRIT's institutional accreditation, self-study reports and assessment cycle artefacts."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'IQAC', href: '/iqac' }, { label: 'NAAC' }]}
+        variant="green"
       />
       <Section>
         <H2 italic="snapshot">Accreditation</H2>

@@ -30,6 +30,7 @@ export default function ResearchSubPage({ params }: { params: { slug: string } }
           { label: 'Research', href: '/research' },
           { label: navItem?.label ?? params.slug },
         ]}
+        variant="green"
       />
 
       <div className="bg-white">
