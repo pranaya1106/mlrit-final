@@ -122,6 +122,8 @@ export default function Footer() {
             <span>Affiliated to JNTUH</span>
             <span className="text-subtle">·</span>
             <span>Approved by AICTE</span>
+            <span className="text-subtle">·</span>
+            <span>Crafted by students of MLRIT</span>
           </div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
