@@ -41,7 +41,7 @@ const STORY = [
 ];
 
 const GHOST = '#d4cfc8';
-const ACTIVE = '#01741f';
+const ACCENTS = ['#01741f', '#e85d04', '#01741f', '#e85d04', '#01741f'];
 
 export default function MLRITStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -90,7 +90,7 @@ export default function MLRITStory() {
               className="font-sans font-black tracking-tighter transition-all duration-500"
               style={{
                 fontSize:   'clamp(16vw, 20vw, 22vw)',
-                color:      i === active ? ACTIVE : GHOST,
+                color:      i === active ? ACCENTS[i] : GHOST,
                 lineHeight: 0.85,
               }}
             >
@@ -128,7 +128,7 @@ export default function MLRITStory() {
               style={{
                 width:      i === active ? '24px' : '6px',
                 height:     '6px',
-                background: i === active ? '#01741f' : '#d1d5db',
+                background: i === active ? ACCENTS[active] : '#d1d5db',
               }}
             />
           ))}
