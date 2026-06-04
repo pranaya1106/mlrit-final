@@ -42,7 +42,7 @@ export default function Header() {
 
           {/* Contact CTA */}
           <Link
-            href="#contact"
+            href="/admissions/support"
             className="inline-flex flex-shrink-0 items-center gap-2.5 h-10 pl-3 pr-5 rounded-[10px] bg-primary text-white font-semibold text-[0.86rem] border border-primary transition-all duration-300 ease-out-quart hover:bg-primary-hover hover:shadow-primary-glow hover:-translate-y-0.5"
           >
             <span className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-md bg-white/20">

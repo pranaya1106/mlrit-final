@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
+import MapEmbed from '@/components/MapEmbed';
 
 // ── FAQ data ───────────────────────────────────────────────────────────────
 const FAQS = [
@@ -201,7 +202,7 @@ export default function SupportPage() {
             )}
           </div>
 
-          {/* Contact section */}
+          {/* Quick contact strip */}
           <Reveal preset="up">
             <div className="bg-green-hero rounded-2xl overflow-hidden">
               <div className="px-8 pt-8 pb-2">
@@ -210,56 +211,112 @@ export default function SupportPage() {
               </div>
               <div className="grid md:grid-cols-3 gap-px bg-white/10">
                 {[
-                  {
-                    label: 'Call Us',
-                    value: '+91 40 2398 8101',
-                    sub: 'Mon–Sat, 9 AM – 5 PM',
-                    href: 'tel:+914023988101',
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <path d="M17 12.5a1 1 0 01-.33.66l-1.34 1.34A1 1 0 0114.33 15C7.33 15 6 8 6 8a1 1 0 01.33-1L7.67 5.67A1 1 0 018.33 5l2.5 5a1 1 0 01-.27 1.27L9.5 12a7 7 0 00.5.5 7 7 0 00.5.5l1.07-1.07A1 1 0 0112.83 12l5 2.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    ),
-                  },
-                  {
-                    label: 'Email Us',
-                    value: 'admissions@mlrit.ac.in',
-                    sub: 'Response within 1 business day',
-                    href: 'mailto:admissions@mlrit.ac.in',
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                        <path d="M2 7l8 5 8-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                      </svg>
-                    ),
-                  },
-                  {
-                    label: 'Visit Us',
-                    value: 'Dundigal, Hyderabad',
-                    sub: 'Quthbullapur, Hyderabad — 500043',
-                    href: 'https://maps.google.com/?q=MLRIT+Hyderabad',
-                    icon: (
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                        <path d="M10 2a6 6 0 016 6c0 4-6 10-6 10S4 12 4 8a6 6 0 016-6z" stroke="currentColor" strokeWidth="1.5"/>
-                        <circle cx="10" cy="8" r="2" stroke="currentColor" strokeWidth="1.5"/>
-                      </svg>
-                    ),
-                  },
+                  { label: 'Admissions Helpdesk', value: '+91 96522 26061', sub: 'Mon–Sat, 9 AM – 5 PM', href: 'tel:+919652226061' },
+                  { label: 'Email', value: 'admissions@mlrinstitutions.ac.in', sub: 'Response within 1 business day', href: 'mailto:admissions@mlrinstitutions.ac.in' },
+                  { label: 'Toll Free', value: '1800 572 4363', sub: 'Free from any network', href: 'tel:18005724363' },
                 ].map(c => (
-                  <a
-                    key={c.label}
-                    href={c.href}
-                    target={c.href.startsWith('http') ? '_blank' : undefined}
-                    rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex flex-col gap-3 px-8 py-7 bg-green-hero hover:bg-white/5 transition-colors group"
+                  <a key={c.label} href={c.href}
+                    className="flex flex-col gap-2 px-8 py-7 bg-green-hero hover:bg-white/5 transition-colors group"
                   >
-                    <span className="text-white/70 group-hover:text-white transition-colors">{c.icon}</span>
                     <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-white/60">{c.label}</span>
                     <span className="font-sans font-bold text-white text-[0.95rem] leading-snug">{c.value}</span>
                     <span className="text-white/55 text-[0.8rem]">{c.sub}</span>
                   </a>
                 ))}
               </div>
+            </div>
+          </Reveal>
+
+          {/* Key contacts table */}
+          <Reveal preset="up">
+            <div>
+              <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-5">Key Contacts</h2>
+              <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card-soft overflow-x-auto">
+                <table className="w-full text-left text-[0.88rem]">
+                  <thead className="bg-warm-light border-b border-border">
+                    <tr>
+                      <th className="px-5 py-3 font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted">Name</th>
+                      <th className="px-5 py-3 font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted hidden md:table-cell">Designation</th>
+                      <th className="px-5 py-3 font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted">Contact</th>
+                      <th className="px-5 py-3 font-mono text-[0.65rem] tracking-[0.14em] uppercase text-muted hidden lg:table-cell">Email</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { name: 'Dr. P. Sridhar',            role: 'Principal',                           phone: '91604 04636', email: 'principal@mlrinstitutions.ac.in' },
+                      { name: 'Dr. CH Achireddy',           role: 'Admissions I/C',                      phone: '98666 52122', email: 'admissions@mlrinstitutions.ac.in' },
+                      { name: 'Mr. P Ravi Chandra',         role: 'Head – Placements',                   phone: '98499 91299', email: 'ravichandra@mlrinstitutions.ac.in' },
+                      { name: 'Mr. S. Arun Kumar',          role: 'Asst. TPO',                           phone: '98661 93405', email: 'placements@mlrinstitutions.ac.in' },
+                      { name: 'Dr. Ajmeera Kiran',          role: 'HOD – CSE',                           phone: '97045 45364', email: 'hodcse@mlrinstitutions.ac.in' },
+                      { name: 'Dr. S.V.S Prasad',           role: 'HOD – ECE',                           phone: '91604 04638', email: 'hodece@mlrinstitutions.ac.in' },
+                      { name: 'Dr. Kashi Sai Prasad',       role: 'HOD – CSE (AIML)',                    phone: '95059 95544', email: 'hodaiml@mlrinstitutions.ac.in' },
+                      { name: 'Dr. M. Satyanarayana Gupta', role: 'HOD – Aeronautical & Hostel I/C',     phone: '91604 04640', email: 'aerohod@mlrinstitutions.ac.in' },
+                      { name: 'Mr. G. Prabhakar Reddy',     role: 'Controller of Examinations',          phone: '91009 63025', email: 'coe@mlrinstitutions.ac.in' },
+                      { name: 'Mr. A. Koti Reddy',          role: 'Head – Library',                      phone: '94406 53380', email: 'librarian@mlrinstitutions.ac.in' },
+                      { name: 'Mr. M. Ganesh',              role: 'Administrative Officer',              phone: '98663 92008', email: 'sao@mlrinstitutions.ac.in' },
+                      { name: 'Mr. Ravi',                   role: 'Scholarship Incharge',                phone: '91770 80807', email: 'scholarship@mlrinstitutions.ac.in' },
+                    ].map((c, i) => (
+                      <tr key={c.name} className={`border-t border-border ${i % 2 === 0 ? '' : 'bg-warm-light/20'}`}>
+                        <td className="px-5 py-3 font-sans font-semibold text-foreground">{c.name}</td>
+                        <td className="px-5 py-3 text-muted hidden md:table-cell">{c.role}</td>
+                        <td className="px-5 py-3">
+                          <a href={`tel:+91${c.phone.replace(/\s/g,'')}`} className="font-mono text-secondary hover:underline text-[0.85rem]">
+                            {c.phone}
+                          </a>
+                        </td>
+                        <td className="px-5 py-3 hidden lg:table-cell">
+                          <a href={`mailto:${c.email}`} className="text-muted hover:text-primary transition-colors text-[0.82rem]">
+                            {c.email}
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Address + Map */}
+          <Reveal preset="up">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div>
+                <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-5">Visit Us</h2>
+                <div className="bg-white border border-border rounded-2xl p-7 shadow-card-soft space-y-5">
+                  <div>
+                    <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Official Address</p>
+                    <p className="text-foreground leading-relaxed">
+                      Dundigal V, Survey No. 444, Dundigal,<br />
+                      Gandi Maisamma, Medchal Malkajgiri,<br />
+                      Telangana – 500 043
+                    </p>
+                  </div>
+                  <div className="h-px bg-border" />
+                  <div>
+                    <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">General Enquiries</p>
+                    <div className="space-y-1.5">
+                      <a href="tel:+919652226061" className="flex items-center gap-2 text-secondary font-semibold text-[0.93rem] hover:underline">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M12 9.17a.7.7 0 01-.23.46l-.94.94a.7.7 0 01-.55.19C4.61 10.76 3.28 4.67 3.28 4.67a.7.7 0 01.23-.7l.94-.94a.7.7 0 01.47-.19l1.75 3.5a.7.7 0 01-.19.89l-.56.56a4.2 4.2 0 00.35.35 4.2 4.2 0 00.35.35l.56-.56a.7.7 0 01.89-.19l3.5 1.75z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        +91 96522 26061
+                      </a>
+                      <a href="tel:18005724363" className="flex items-center gap-2 text-secondary font-semibold text-[0.93rem] hover:underline">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M12 9.17a.7.7 0 01-.23.46l-.94.94a.7.7 0 01-.55.19C4.61 10.76 3.28 4.67 3.28 4.67a.7.7 0 01.23-.7l.94-.94a.7.7 0 01.47-.19l1.75 3.5a.7.7 0 01-.19.89l-.56.56a4.2 4.2 0 00.35.35 4.2 4.2 0 00.35.35l.56-.56a.7.7 0 01.89-.19l3.5 1.75z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        1800 572 4363 (Toll Free)
+                      </a>
+                      <a href="mailto:info@mlrinstitutions.ac.in" className="flex items-center gap-2 text-secondary font-semibold text-[0.93rem] hover:underline">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden><rect x="1" y="3" width="12" height="8" rx="1" stroke="currentColor" strokeWidth="1.2"/><path d="M1 5l6 3.5L13 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                        info@mlrinstitutions.ac.in
+                      </a>
+                    </div>
+                  </div>
+                  <div className="h-px bg-border" />
+                  <div>
+                    <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">EAPCET Code</p>
+                    <p className="font-sans font-black text-foreground text-[1.2rem] tracking-tight">MLID</p>
+                  </div>
+                </div>
+              </div>
+              <MapEmbed className="h-[400px]" />
             </div>
           </Reveal>
         </div>
