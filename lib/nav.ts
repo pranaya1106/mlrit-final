@@ -51,11 +51,11 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'Resources',
         links: [
-          { label: 'ERP',               href: 'https://mlrit.ac.in/', external: true },
-          { label: 'LMS',               href: 'https://mlrit.ac.in/', external: true },
-          { label: 'Academic Calendar', href: 'https://mlrit.ac.in/examinations/', external: true },
-          { label: 'Edmit · Course Registration', href: 'https://mlrit.ac.in/admissions/', external: true },
-          { label: 'Exam Portal',       href: 'https://mlrit.ac.in/examinations/', external: true },
+          { label: 'ERP',               href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', external: true },
+          { label: 'LMS',               href: 'https://lms.mlrit.ac.in/', external: true },
+          { label: 'Academic Calendar', href: '/examinations#calendars' },
+          { label: 'Edmit · Course Registration', href: 'https://edmit.mlrit.ac.in/', external: true },
+          { label: 'Exam Portal',       href: 'https://exams.mlrinstitutions.ac.in/', external: true },
         ],
       },
     ],
