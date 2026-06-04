@@ -40,8 +40,8 @@ const STORY = [
   },
 ];
 
-const GHOST = '#232323';
-const ACTIVE = '#ffffff';
+const GHOST = '#d4cfc8';
+const ACTIVE = '#01741f';
 
 export default function MLRITStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -77,7 +77,7 @@ export default function MLRITStory() {
 
   return (
     <div ref={wrapperRef} style={{ height: `${STORY.length * 100}vh` }}>
-      <div className="sticky top-0 h-screen bg-[#0c0c0e] flex flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen bg-[#f7f5f0] flex flex-col justify-center overflow-hidden">
 
         {/* Full-width MLRIT letters */}
         <div
@@ -111,8 +111,8 @@ export default function MLRITStory() {
                 pointerEvents: i === active ? 'auto' : 'none',
               }}
             >
-              <p className="font-sans text-[0.95rem] leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                <strong style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>{s.label}</strong>{' '}
+              <p className="font-sans text-[0.95rem] leading-relaxed text-muted">
+                <strong className="text-foreground font-bold">{s.label}</strong>{' '}
                 {s.desc}
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function MLRITStory() {
               style={{
                 width:      i === active ? '24px' : '6px',
                 height:     '6px',
-                background: i === active ? '#ffffff' : '#444',
+                background: i === active ? '#01741f' : '#d1d5db',
               }}
             />
           ))}
