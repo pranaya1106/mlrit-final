@@ -100,24 +100,6 @@ const USEFUL_SECTIONS = [
       { label: 'ERP Login',           href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', ext: true },
     ],
   },
-  {
-    id: 'departments',
-    label: 'Departments',
-    links: [
-      { label: 'Computer Science & Engineering',      href: '/departments/cse' },
-      { label: 'AI & Machine Learning',              href: '/departments/aiml' },
-      { label: 'CSE — Cyber Security',               href: '/departments/cse-cs' },
-      { label: 'CSE — Data Science',                 href: '/departments/cse-ds' },
-      { label: 'CS & Information Technology',        href: '/departments/csit' },
-      { label: 'Information Technology',             href: '/departments/it' },
-      { label: 'Electronics & Communication',        href: '/departments/ece' },
-      { label: 'Electrical & Electronics',           href: '/departments/eee' },
-      { label: 'Mechanical Engineering',             href: '/departments/mechanical' },
-      { label: 'Aeronautical Engineering',           href: '/departments/aeronautical' },
-      { label: 'MBA',                                href: '/departments/mba' },
-      { label: 'Freshman Engineering',               href: '/departments/freshman' },
-    ],
-  },
 ];
 
 function UsefulLinkSection({ section }: { section: typeof USEFUL_SECTIONS[0] }) {
