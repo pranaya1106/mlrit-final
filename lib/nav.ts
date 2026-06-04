@@ -63,14 +63,24 @@ export const NAV_PRIMARY: NavItem[] = [
   },
   {
     label: 'Admissions',
+    href: '/admissions',
     cols: [
       {
         heading: 'Apply',
         links: [
-          { label: 'How to Apply',   href: '/admissions/how-to-apply' },
-          { label: 'Eligibility',    href: '/admissions/eligibility' },
-          { label: 'Fee Structure',  href: '/admissions/fee-structure' },
-          { label: 'Scholarships',   href: '/admissions/scholarships' },
+          { label: 'Overview',          href: '/admissions' },
+          { label: 'By Degree',         href: '/admissions/by-degree' },
+          { label: 'Counselling',       href: '/admissions/counselling' },
+          { label: 'Scholarships',      href: '/admissions/scholarships' },
+        ],
+      },
+      {
+        heading: 'Information',
+        links: [
+          { label: 'Fees',              href: '/admissions/fees' },
+          { label: 'Why MLRIT',         href: '/admissions/why-mlrit' },
+          { label: 'Admission Policies',href: '/admissions/policies' },
+          { label: 'Support & FAQ',     href: '/admissions/support' },
         ],
       },
     ],
