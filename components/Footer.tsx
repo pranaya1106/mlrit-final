@@ -1,61 +1,179 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ArrowUp } from './icons';
 
-type FooterLink = { label: string; href: string; external?: boolean; ext?: boolean };
-type FooterCol  = { head: string; links: FooterLink[] };
-
-const COLS: FooterCol[] = [
+// ── Main nav columns (kept clean — no Careers, no Academics) ──────────────
+const MAIN_COLS = [
   {
     head: 'About',
     links: [
-      { label: 'Our Story', href: 'https://mlrit.ac.in/about-us/', external: true },
-      { label: 'Leadership', href: 'https://mlrit.ac.in/about-us/governing-body/', external: true },
-      { label: 'Accreditations', href: '/iqac' },
-      { label: 'Careers at MLRIT', href: 'https://mlrit.ac.in/careers/', external: true },
-    ],
-  },
-  {
-    head: 'Academics',
-    links: [
-      { label: 'Undergraduate', href: '/departments/ug' },
-      { label: 'Postgraduate', href: '/departments/pg' },
-      { label: 'Research', href: '/research' },
-      { label: 'Faculty', href: '/departments/faculty-profile' },
+      { label: 'About MLRIT',       href: '/about' },
+      { label: 'Vision & Mission',  href: '/about/vision-mission/vision-mission' },
+      { label: 'Legacy',            href: '/about/legacy' },
+      { label: 'Rankings & Awards', href: '/about/rankings-awards' },
+      { label: 'Internal Governance', href: '/about/internal-governance' },
     ],
   },
   {
     head: 'Admissions',
     links: [
-      { label: 'Apply Now', href: 'https://mlrit.ac.in/admissions/', external: true },
-      { label: 'Fee Structure', href: 'https://mlrit.ac.in/admissions/', external: true },
-      { label: 'Scholarships', href: 'https://mlrit.ac.in/scholarships/', external: true },
-      { label: 'FAQs', href: 'https://mlrit.ac.in/admissions/', external: true },
+      { label: 'Overview',      href: '/admissions' },
+      { label: 'Counselling',   href: '/admissions/counselling' },
+      { label: 'Scholarships',  href: '/admissions/scholarships' },
+      { label: 'Fee Structure', href: '/admissions/fees' },
+      { label: 'Why MLRIT',     href: '/admissions/why-mlrit' },
     ],
   },
   {
-    head: 'Follow',
+    head: 'Examinations',
     links: [
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/school/mlr-institute-of-technology/', external: true, ext: true },
-      { label: 'Instagram', href: 'https://www.instagram.com/mlritofficial/', external: true, ext: true },
-      { label: 'Facebook', href: 'https://www.facebook.com/Mlrit/', external: true, ext: true },
-      { label: 'X.com', href: 'https://x.com/mlritin', external: true, ext: true },
-      { label: 'YouTube', href: 'https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA', external: true, ext: true },
+      { label: 'Overview',          href: '/examinations' },
+      { label: 'Syllabus Explorer', href: '/examinations/syllabus' },
+      { label: 'Timetable',         href: '/examinations/timetable' },
+      { label: 'Regulations',       href: '/examinations/regulations' },
+      { label: 'AQAR',              href: '/iqac/aqar' },
+    ],
+  },
+  {
+    head: 'Follow Us',
+    links: [
+      { label: 'LinkedIn',   href: 'https://www.linkedin.com/school/mlr-institute-of-technology/', ext: true },
+      { label: 'Instagram',  href: 'https://www.instagram.com/mlritofficial/',                     ext: true },
+      { label: 'Facebook',   href: 'https://www.facebook.com/Mlrit/',                              ext: true },
+      { label: 'X.com',      href: 'https://x.com/mlritin',                                        ext: true },
+      { label: 'YouTube',    href: 'https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA',    ext: true },
     ],
   },
 ];
 
+// ── Useful Links — categorised, expandable ────────────────────────────────
+const USEFUL_SECTIONS = [
+  {
+    id: 'accreditation',
+    label: 'Accreditation & Rankings',
+    links: [
+      { label: 'AICTE Approvals',       href: 'https://mlrit.ac.in/aicte-approvals/',                        ext: true  },
+      { label: 'NIRF Rankings',         href: 'https://mlrit.ac.in/nirf-ranked-institution/',                ext: true  },
+      { label: 'NAAC SSR',              href: 'https://naac.mlrit.ac.in/',                                    ext: true  },
+      { label: 'NBA — DCP',             href: '/iqac/nba' },
+      { label: 'AQAR Reports',          href: '/iqac/aqar' },
+      { label: 'Mandatory Disclosures', href: 'https://mlrit.ac.in/mandatory-disclosures/',                  ext: true  },
+    ],
+  },
+  {
+    id: 'governance',
+    label: 'Governance & Policies',
+    links: [
+      { label: 'UGC Undertaking',          href: 'https://files.mlrit.ac.in/uploads/UGC-2f_12b.pdf',                         ext: true },
+      { label: 'Service Rules',            href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/Recruitment-policy-service%20rules.pdf', ext: true },
+      { label: 'Financial Statements',     href: 'https://mlrit.ac.in/financial-statements/',                                 ext: true },
+      { label: 'DPR',                      href: 'https://files.mlrit.ac.in/university/DPR.pdf',                               ext: true },
+      { label: 'OBE Portal',               href: 'http://103.15.62.235/ioncudos_mlrit_tier1/',                                 ext: true },
+    ],
+  },
+  {
+    id: 'committees',
+    label: 'Committees & Cells',
+    links: [
+      { label: 'Anti-Ragging Committee',      href: 'https://files.mlrit.ac.in/uploads/Committees/Anti-Ragging_Disciplinary_Committee.pdf', ext: true },
+      { label: 'SC-ST Committee',             href: 'http://files.mlrit.ac.in/uploads/Committees/SC-ST_Committee.pdf',                       ext: true },
+      { label: 'ICC',                         href: 'https://files.mlrit.ac.in/ICC_Committee.pdf',                                           ext: true },
+      { label: 'Women Empowerment Cell',      href: "https://files.mlrit.ac.in/uploads/Committees/Women's_Empowerment_Cell.pdf",             ext: true },
+      { label: 'Student Counsellor Committee',href: 'https://files.mlrit.ac.in/uploads/Committees/Student_Counsellor.pdf',                   ext: true },
+      { label: 'IIC',                         href: 'https://files.mlrit.ac.in/uploads/Committees/Institution_Industry_Cell.pdf',             ext: true },
+      { label: 'RTI Committee',               href: 'http://files.mlrit.ac.in/uploads/Committees/RTI_Committee.pdf',                         ext: true },
+      { label: 'Grievance Redressal',         href: 'https://mlrit.edugrievance.com/',                                                       ext: true },
+    ],
+  },
+  {
+    id: 'student',
+    label: 'Student Resources',
+    links: [
+      { label: 'Scholarships',        href: '/admissions/scholarships' },
+      { label: 'NSS Event Reports',   href: 'https://mlrit.ac.in/nss-event-reports/',                      ext: true },
+      { label: 'Virtual Tour',        href: 'https://mlrit.ac.in/virtual-tour/',                           ext: true },
+      { label: 'Campus Life',         href: 'https://mlrit.ac.in/campus-life/',                            ext: true },
+      { label: 'Sports',              href: '/campus/sports' },
+      { label: 'LMS',                 href: 'https://lms.mlrit.ac.in/',                                    ext: true },
+      { label: 'ERP Login',           href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', ext: true },
+    ],
+  },
+  {
+    id: 'departments',
+    label: 'Departments',
+    links: [
+      { label: 'Computer Science & Engineering',      href: '/departments/cse' },
+      { label: 'AI & Machine Learning',              href: '/departments/aiml' },
+      { label: 'CSE — Cyber Security',               href: '/departments/cse-cs' },
+      { label: 'CSE — Data Science',                 href: '/departments/cse-ds' },
+      { label: 'CS & Information Technology',        href: '/departments/csit' },
+      { label: 'Information Technology',             href: '/departments/it' },
+      { label: 'Electronics & Communication',        href: '/departments/ece' },
+      { label: 'Electrical & Electronics',           href: '/departments/eee' },
+      { label: 'Mechanical Engineering',             href: '/departments/mechanical' },
+      { label: 'Aeronautical Engineering',           href: '/departments/aeronautical' },
+      { label: 'MBA',                                href: '/departments/mba' },
+      { label: 'Freshman Engineering',               href: '/departments/freshman' },
+    ],
+  },
+];
+
+function UsefulLinkSection({ section }: { section: typeof USEFUL_SECTIONS[0] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b border-border last:border-0">
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="w-full flex items-center justify-between py-3 text-left group"
+      >
+        <span className={`font-sans font-semibold text-[0.85rem] transition-colors ${open ? 'text-primary' : 'text-foreground group-hover:text-primary'}`}>
+          {section.label}
+        </span>
+        <svg
+          width="14" height="14" viewBox="0 0 14 14" fill="none"
+          className={`shrink-0 text-muted transition-transform duration-200 ${open ? 'rotate-180 text-primary' : ''}`}
+        >
+          <path d="M2.5 5l4.5 4 4.5-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      <div
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: open ? `${section.links.length * 36}px` : '0px' }}
+      >
+        <ul className="pb-3 space-y-0.5">
+          {section.links.map((l) => (
+            <li key={l.label}>
+              <Link
+                href={l.href}
+                target={l.ext ? '_blank' : undefined}
+                rel={l.ext ? 'noopener noreferrer' : undefined}
+                className="inline-flex items-center gap-1 py-1 text-[0.85rem] text-muted hover:text-primary transition-colors"
+              >
+                {l.label}
+                {l.ext && <span className="text-[0.68rem] opacity-60">↗</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-warm-light border-t border-border relative isolate">
-      {/* 4-column links */}
+
+      {/* Main footer grid */}
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-10 md:pb-14">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-14">
-          {COLS.map((c) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 md:gap-8">
+
+          {/* 4 main columns */}
+          {MAIN_COLS.map((c) => (
             <div key={c.head}>
-              <h5 className="text-primary font-bold text-[0.72rem] tracking-[0.2em] uppercase mb-4">
+              <h5 className="text-primary font-bold text-[0.7rem] tracking-[0.2em] uppercase mb-4">
                 {c.head}
               </h5>
               <ul className="space-y-1">
@@ -63,20 +181,33 @@ export default function Footer() {
                   <li key={l.label}>
                     <Link
                       href={l.href}
-                      target={l.external ? '_blank' : undefined}
-                      rel={l.external ? 'noopener' : undefined}
-                      className="inline-flex items-center gap-1.5 py-1.5 text-[0.95rem] font-normal text-foreground hover:text-primary transition-colors"
+                      target={'ext' in l && l.ext ? '_blank' : undefined}
+                      rel={'ext' in l && l.ext ? 'noopener noreferrer' : undefined}
+                      className="inline-flex items-center gap-1 py-1.5 text-[0.9rem] text-foreground hover:text-primary transition-colors"
                     >
                       {l.label}
-                      {l.ext && (
-                        <span className="text-[0.72rem] text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-                      )}
+                      {'ext' in l && l.ext && <span className="text-[0.68rem] text-muted">↗</span>}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
+
+          {/* Useful Links — 5th column with expandable sections */}
+          <div className="col-span-2 md:col-span-4 lg:col-span-1">
+            <h5 className="text-primary font-bold text-[0.7rem] tracking-[0.2em] uppercase mb-4">
+              Useful Links
+            </h5>
+            <div className="divide-y divide-border border border-border rounded-xl overflow-hidden bg-white/60">
+              {USEFUL_SECTIONS.map((s) => (
+                <div key={s.id} className="px-4">
+                  <UsefulLinkSection section={s} />
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -111,7 +242,6 @@ export default function Footer() {
         >
           MLRIT
         </div>
-        {/* Crafted line — display italic, matches screenshot */}
         <p className="mt-3 mb-6 tracking-[0.22em] uppercase select-none" style={{ fontSize: '0.68rem', color: '#9a9080' }}>
           <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}>Crafted with passion by </span>
           <span className="font-sans font-black not-italic" style={{ color: '#3d3328', letterSpacing: '0.22em' }}>The Students</span>
