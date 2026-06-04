@@ -1,5 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import MLRITStory from '@/components/MLRITStory';
 
 // ── Section data ───────────────────────────────────────────────────────────
 const SECTIONS = [
@@ -175,6 +176,9 @@ export default function WhyMLRITPage() {
           </div>
         </section>
       </div>
+
+      {/* ── MLRIT Letter Storytelling ── */}
+      <MLRITStory />
 
       {/* ── Typographic watermark ── */}
       <section className="bg-[#0c0c0e] overflow-hidden">
