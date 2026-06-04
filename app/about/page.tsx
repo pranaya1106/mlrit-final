@@ -3,6 +3,15 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
+const PILLARS = [
+  { title: 'Founded 2005',           body: 'Established by Sri Marri Laxman Reddy Garu through the KMR Educational Society to bring world-class engineering education to Telangana.' },
+  { title: 'Autonomous · UGC',       body: 'Granted autonomous status by the UGC — MLRIT designs its own curriculum, examinations, and assessment systems.' },
+  { title: 'Affiliated · JNTUH',     body: "Affiliated to Jawaharlal Nehru Technological University, Hyderabad. Degrees awarded by JNTUH under MLRIT's autonomous regulations." },
+  { title: 'Approved · AICTE',       body: 'All B.Tech, M.Tech and MBA programmes are approved by the All India Council for Technical Education.' },
+  { title: 'Accredited · NAAC, NBA', body: 'NAAC institutional accreditation and NBA programme-level accreditation across CSE, ECE, EEE, MECH and IT.' },
+  { title: 'Ranked · NIRF',          body: 'Featured in the National Institutional Ranking Framework engineering category — 201-300 band, three years running.' },
+];
+
 export const metadata: Metadata = {
   title: 'About MLRIT — Marri Laxman Reddy Institute of Technology',
   description: 'Founded in 2005, MLRIT is a premier autonomous engineering institution under KMR Educational Society, affiliated to JNTUH and approved by AICTE, located at Dundigal, Hyderabad.',
@@ -34,16 +43,16 @@ const SECTIONS = [
     body: 'NAAC, NBA, NIRF, AICTE — the accreditations and rankings that benchmark our commitment to quality.',
   },
   {
-    href: '/about/brochure',
-    tag: 'Brochure',
-    title: 'Download our brochure',
-    body: 'Programmes, fees, campus life and admissions — everything in one document.',
-  },
-  {
     href: '/about/internal-governance',
     tag: 'Internal Governance',
     title: 'Messages from leadership',
     body: "The Principal and Deans share their vision for MLRIT's academic mission, research culture and student development.",
+  },
+  {
+    href: '/about/brochure',
+    tag: 'Brochure',
+    title: 'Download our brochure',
+    body: 'Programmes, fees, campus life and admissions — everything in one document.',
   },
 ];
 
@@ -115,8 +124,31 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section cards */}
+      {/* Six Pillars */}
       <section className="bg-warm-light py-20 md:py-28">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+          <Reveal>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">What Defines Us</span>
+            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
+              Six pillars of <span className="font-display italic font-medium" style={gradientText}>MLRIT.</span>
+            </h2>
+          </Reveal>
+          <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.08}>
+            {PILLARS.map((p) => (
+              <StaggerItem key={p.title}>
+                <div className="rounded-2xl border border-border bg-white p-7 h-full hover:border-primary hover:-translate-y-1 transition-all">
+                  <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">Pillar</div>
+                  <h3 className="mt-2 font-sans font-extrabold text-foreground text-xl tracking-tight">{p.title}</h3>
+                  <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{p.body}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
+      {/* Section cards */}
+      <section className="bg-white py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Explore</span>
