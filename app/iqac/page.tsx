@@ -69,6 +69,10 @@ export default function IQACPage() {
             <H2 italic="">Head</H2>
             <Reveal preset="up">
               <div className="mt-6 rounded-2xl border border-border bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8">
+                {/* Photo */}
+                <div className="shrink-0 w-40 h-44 md:w-44 md:h-48 rounded-2xl overflow-hidden border border-border self-start">
+                  <img src="/images/leadership/dr-radhika-devi.jpg" alt="Dr. Radhika Devi V" className="w-full h-full object-cover object-top" />
+                </div>
                 <div className="flex-1">
                   <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2">Head IQAC</div>
                   <h3 className="font-sans font-black text-foreground text-[1.4rem] tracking-tight">Dr. Radhika Devi V</h3>
