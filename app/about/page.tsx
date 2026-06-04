@@ -43,7 +43,7 @@ const SECTIONS = [
     href: '/about/internal-governance',
     tag: 'Internal Governance',
     title: 'Messages from leadership',
-    body: 'The Principal and Deans share their vision for MLRIT's academic mission, research culture and student development.',
+    body: "The Principal and Deans share their vision for MLRIT's academic mission, research culture and student development.",
   },
 ];
 
