@@ -155,6 +155,7 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Timetable',         href: '/examinations/timetable' },
           { label: 'Regulations',       href: '/examinations/regulations' },
           { label: 'Academic Calendar', href: '/examinations#calendars' },
+          { label: 'Syllabus Explorer', href: '/examinations/syllabus' },
         ],
       },
       {
