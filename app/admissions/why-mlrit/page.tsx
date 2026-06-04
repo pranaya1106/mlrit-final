@@ -10,9 +10,9 @@ const SECTIONS = [
     italic: 'NBA Approved.',
     body: 'MLRIT holds NAAC accreditation and NBA approval for multiple programmes — the gold standard in Indian technical education. As an autonomous institution affiliated to JNTUH, we design our own curriculum that is current, industry-relevant and research-integrated.',
     stats: [
-      { val: 'NAAC',    sub: 'Accredited'             },
-      { val: 'NBA',     sub: '4 Programmes Approved'  },
-      { val: 'Auto.',   sub: 'Autonomous Institution' },
+      { val: 'NAAC',    sub: 'Accredited'          },
+      { val: 'NBA',     sub: '4 Programmes'         },
+      { val: 'Auto.',   sub: 'Autonomous'            },
     ],
     accent: 'text-secondary',
   },
@@ -72,7 +72,7 @@ const SECTIONS = [
     stats: [
       { val: '30+',     sub: 'Student Clubs'    },
       { val: 'INVENTE', sub: 'Annual Tech Fest'  },
-      { val: 'NSS+NCC', sub: 'Community Service' },
+      { val: 'NSS',     sub: 'NCC & Service'   },
     ],
     accent: 'text-primary',
   },
@@ -124,11 +124,11 @@ export default function WhyMLRITPage() {
                     <Stagger className="grid grid-cols-3 gap-4">
                       {sec.stats.map(st => (
                         <StaggerItem key={st.sub}>
-                          <div className="bg-white border border-border rounded-2xl p-5 text-center shadow-card-soft hover:shadow-card-strong transition-shadow">
-                            <div className={`font-sans font-black tracking-tighter-2 text-[1.5rem] leading-none ${sec.accent}`}>
+                          <div className="bg-white border border-border rounded-2xl p-5 text-center shadow-card-soft hover:shadow-card-strong transition-shadow h-[90px] flex flex-col items-center justify-center">
+                            <div className={`font-sans font-black tracking-tighter-2 text-[1.25rem] leading-none ${sec.accent}`}>
                               {st.val}
                             </div>
-                            <div className="mt-2 font-mono text-muted text-[0.68rem] tracking-wide leading-snug">
+                            <div className="mt-2 font-mono text-muted text-[0.65rem] tracking-wide leading-tight text-center">
                               {st.sub}
                             </div>
                           </div>
