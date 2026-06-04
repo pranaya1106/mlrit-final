@@ -100,16 +100,23 @@ export default function AdmissionsPage() {
   return (
     <>
       <style>{`
-        @keyframes floatPill {
-          0%, 100% { transform: translateY(0px); }
-          50%       { transform: translateY(-10px); }
-        }
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        .pill-float { animation: floatPill var(--dur,4s) ease-in-out var(--del,0s) infinite; }
-        .hero-fade  { animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
+        @keyframes marqueeLeft {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marqueeRight {
+          0%   { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        .hero-fade      { animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
+        .marquee-left   { animation: marqueeLeft  28s linear infinite; }
+        .marquee-right  { animation: marqueeRight 28s linear infinite; }
+        .marquee-left:hover,
+        .marquee-right:hover { animation-play-state: paused; }
       `}</style>
 
       {/* ── HERO ── full viewport, green bg, bold typographic */}
@@ -413,8 +420,9 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* ── VALUES — Anurag-style: large pills + circular student photos interleaved */}
+      {/* ── VALUES — Anurag-style: marquee rows, row1 → left, row2 → right */}
       <section className="bg-white py-20 md:py-28 overflow-hidden">
+        {/* Heading — full-width centred */}
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
             <div className="text-center mb-14">
@@ -427,35 +435,32 @@ export default function AdmissionsPage() {
               </p>
             </div>
           </Reveal>
+        </div>
 
-          {/* Row 1: pill · photo · pill · photo · pill */}
-          <div className="flex items-center justify-center gap-4 md:gap-6 flex-wrap mb-5">
-            {ROW1.map((item, i) =>
+        {/* Row 1 — scrolls LEFT continuously */}
+        <div className="relative mb-5 overflow-hidden">
+          {/* Fade edges */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to right, white, transparent)' }} />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to left, white, transparent)' }} />
+
+          <div className="flex items-center gap-5 marquee-left" style={{ width: 'max-content' }}>
+            {/* Duplicate for seamless loop */}
+            {[...ROW1, ...ROW1].map((item, i) =>
               item.type === 'pill' ? (
                 <div
                   key={i}
-                  className="pill-float px-10 py-5 font-sans font-bold text-[1.15rem] md:text-[1.5rem] select-none shadow-card-soft"
-                  style={{
-                    background: item.bg,
-                    color: item.color,
-                    borderRadius: '999px',
-                    '--dur': `${4 + i * 0.5}s`,
-                    '--del': `${i * 0.3}s`,
-                  } as React.CSSProperties}
+                  className="shrink-0 px-9 py-5 font-sans font-bold text-[1.1rem] md:text-[1.4rem] select-none shadow-card-soft"
+                  style={{ background: item.bg, color: item.color, borderRadius: '999px' }}
                 >
                   {item.label}
                 </div>
               ) : (
                 <div
                   key={i}
-                  className="pill-float w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white shadow-card-strong shrink-0"
-                  style={{
-                    '--dur': `${3.5 + i * 0.4}s`,
-                    '--del': `${i * 0.4}s`,
-                  } as React.CSSProperties}
+                  className="shrink-0 w-20 h-20 md:w-[88px] md:h-[88px] rounded-full overflow-hidden border-4 border-white shadow-card-strong"
                 >
                   <img
-                    src={item.src}
+                    src={item.src!}
                     alt="MLRIT student"
                     className="w-full h-full object-cover object-top"
                     onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2005.jpg'; }}
@@ -464,35 +469,30 @@ export default function AdmissionsPage() {
               )
             )}
           </div>
+        </div>
 
-          {/* Row 2: photo · pill · photo · pill */}
-          <div className="flex items-center justify-center gap-4 md:gap-6 flex-wrap">
-            {ROW2.map((item, i) =>
+        {/* Row 2 — scrolls RIGHT continuously */}
+        <div className="relative overflow-hidden">
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to right, white, transparent)' }} />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to left, white, transparent)' }} />
+
+          <div className="flex items-center gap-5 marquee-right" style={{ width: 'max-content' }}>
+            {[...ROW2, ...ROW2].map((item, i) =>
               item.type === 'pill' ? (
                 <div
                   key={i}
-                  className="pill-float px-10 py-5 font-sans font-bold text-[1.15rem] md:text-[1.5rem] select-none shadow-card-soft"
-                  style={{
-                    background: item.bg,
-                    color: item.color,
-                    borderRadius: '999px',
-                    '--dur': `${4.5 + i * 0.6}s`,
-                    '--del': `${1.2 + i * 0.35}s`,
-                  } as React.CSSProperties}
+                  className="shrink-0 px-9 py-5 font-sans font-bold text-[1.1rem] md:text-[1.4rem] select-none shadow-card-soft"
+                  style={{ background: item.bg, color: item.color, borderRadius: '999px' }}
                 >
                   {item.label}
                 </div>
               ) : (
                 <div
                   key={i}
-                  className="pill-float w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white shadow-card-strong shrink-0"
-                  style={{
-                    '--dur': `${3.8 + i * 0.5}s`,
-                    '--del': `${0.8 + i * 0.45}s`,
-                  } as React.CSSProperties}
+                  className="shrink-0 w-20 h-20 md:w-[88px] md:h-[88px] rounded-full overflow-hidden border-4 border-white shadow-card-strong"
                 >
                   <img
-                    src={item.src}
+                    src={item.src!}
                     alt="MLRIT student"
                     className="w-full h-full object-cover object-top"
                     onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2008.jpg'; }}
