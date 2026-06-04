@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
@@ -35,29 +35,37 @@ const STEPS = [
 // Row 1: pill · photo · pill · photo · pill
 // Row 2: photo · pill · photo · pill · arrow
 // Photos: s1=saree girl, s2=camera boy, s3=beach boy, s4=girl station, s5=girl campus
-const STUDENTS = [
+// 4 unique student photos — cycled
+const S = [
   '/images/students/s1.jpg',
   '/images/students/s2.jpg',
-  '/images/students/s3.jpg',
-  '/images/students/s4.jpg',
-  '/images/students/s5.jpg',
+  '/images/students/s3.png',
+  '/images/students/s4.png',
 ];
 
-// Row 1 items: alternating pill/photo
+// Row 1 — pill · photo · pill · photo · pill · photo · pill · photo · pill
 const ROW1 = [
-  { type: 'pill',  label: 'Integrity',   bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: STUDENTS[0] },
-  { type: 'pill',  label: 'Inclusivity', bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: STUDENTS[1] },
-  { type: 'pill',  label: 'Empathy',     bg: '#f5e8ea', color: '#3d1f24' },
+  { type: 'pill',  label: 'Integrity',        bg: '#f5e8ea', color: '#3d1f24' },
+  { type: 'photo', src: S[0] },
+  { type: 'pill',  label: 'Inclusivity',      bg: '#e8edf5', color: '#1f2d4a' },
+  { type: 'photo', src: S[1] },
+  { type: 'pill',  label: 'Empathy',          bg: '#f5e8ea', color: '#3d1f24' },
+  { type: 'photo', src: S[2] },
+  { type: 'pill',  label: 'Excellence',       bg: '#e8edf5', color: '#1f2d4a' },
+  { type: 'photo', src: S[3] },
+  { type: 'pill',  label: 'Innovation',       bg: '#edf5ea', color: '#1f3d20' },
 ];
 
-// Row 2 items
+// Row 2 — photo · pill · photo · pill · photo · pill · photo · pill
 const ROW2 = [
-  { type: 'photo', src: STUDENTS[2] },
-  { type: 'pill',  label: 'Excellence',    bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: STUDENTS[3] },
-  { type: 'pill',  label: 'Learning for Life', bg: '#f5e8ea', color: '#3d1f24' },
+  { type: 'photo', src: S[2] },
+  { type: 'pill',  label: 'Learning for Life', bg: '#e8edf5', color: '#1f2d4a' },
+  { type: 'photo', src: S[3] },
+  { type: 'pill',  label: 'Leadership',        bg: '#f5e8ea', color: '#3d1f24' },
+  { type: 'photo', src: S[0] },
+  { type: 'pill',  label: 'Research',          bg: '#edf5ea', color: '#1f3d20' },
+  { type: 'photo', src: S[1] },
+  { type: 'pill',  label: 'Community',         bg: '#e8edf5', color: '#1f2d4a' },
 ];
 
 const SCHOLARSHIPS = [
@@ -88,6 +96,108 @@ const STATS = [
   { value: '₹51 LPA',  label: 'Top Package',          sub: 'Highest offer 2025–26' },
 ];
 
+// ── Scroll-driven values marquee ─────────────────────────────────────────────
+function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) {
+  const sectionRef  = useRef<HTMLElement>(null);
+  const row1Ref     = useRef<HTMLDivElement>(null);
+  const row2Ref     = useRef<HTMLDivElement>(null);
+  const scrollRef   = useRef(0);
+  const rafRef      = useRef<number | null>(null);
+  const targetRef   = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => { targetRef.current = window.scrollY; };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const tick = () => {
+      // Smooth lerp toward target
+      scrollRef.current += (targetRef.current - scrollRef.current) * 0.08;
+
+      const section = sectionRef.current;
+      if (section) {
+        const rect   = section.getBoundingClientRect();
+        const top    = rect.top + window.scrollY;
+        const offset = scrollRef.current - top + window.innerHeight * 0.3;
+        const travel = offset * 0.18; // speed factor
+
+        if (row1Ref.current) row1Ref.current.style.transform = `translateX(${-travel}px)`;
+        if (row2Ref.current) row2Ref.current.style.transform = `translateX(${travel}px)`;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const renderRow = (items: typeof ROW1, ref: React.RefObject<HTMLDivElement>) => (
+    <div className="relative overflow-hidden mb-5">
+      <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-40 z-10"
+        style={{ background: 'linear-gradient(to right, white 0%, transparent 100%)' }} />
+      <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-40 z-10"
+        style={{ background: 'linear-gradient(to left, white 0%, transparent 100%)' }} />
+      <div
+        ref={ref}
+        className="flex items-center gap-5 py-2"
+        style={{ width: 'max-content', willChange: 'transform' }}
+      >
+        {/* Render items twice for seamless visual density */}
+        {[...items, ...items].map((item, i) =>
+          item.type === 'pill' ? (
+            <div
+              key={i}
+              className="shrink-0 px-9 py-5 font-sans font-bold text-[1.05rem] md:text-[1.35rem] select-none"
+              style={{
+                background: item.bg,
+                color: item.color,
+                borderRadius: '999px',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+              }}
+            >
+              {item.label}
+            </div>
+          ) : (
+            <div
+              key={i}
+              className="shrink-0 w-[88px] h-[88px] rounded-full overflow-hidden border-4 border-white"
+              style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.12)' }}
+            >
+              <img
+                src={item.src!}
+                alt="MLRIT student"
+                className="w-full h-full object-cover object-center"
+                onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2005.jpg'; }}
+              />
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <section ref={sectionRef} className="bg-white py-20 md:py-28 overflow-hidden">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 mb-14">
+        <div className="text-center">
+          <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
+          <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
+            Values that guide <span className="font-display italic font-medium" style={gradientText}>every decision.</span>
+          </h2>
+          <p className="mt-4 text-muted text-[1rem] max-w-[480px] mx-auto leading-relaxed">
+            These aren't just words on a wall — they shape how we teach, hire and welcome every student.
+          </p>
+        </div>
+      </div>
+
+      {renderRow(ROW1, row1Ref)}
+      {renderRow(ROW2, row2Ref)}
+    </section>
+  );
+}
+
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
   WebkitBackgroundClip: 'text', backgroundClip: 'text',
@@ -104,19 +214,7 @@ export default function AdmissionsPage() {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes marqueeLeft {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marqueeRight {
-          0%   { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .hero-fade      { animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
-        .marquee-left   { animation: marqueeLeft  28s linear infinite; }
-        .marquee-right  { animation: marqueeRight 28s linear infinite; }
-        .marquee-left:hover,
-        .marquee-right:hover { animation-play-state: paused; }
+        .hero-fade { animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
       `}</style>
 
       {/* ── HERO ── full viewport, green bg, bold typographic */}
@@ -420,89 +518,8 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* ── VALUES — Anurag-style: marquee rows, row1 → left, row2 → right */}
-      <section className="bg-white py-20 md:py-28 overflow-hidden">
-        {/* Heading — full-width centred */}
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <div className="text-center mb-14">
-              <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
-              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
-                Values that guide <span className="font-display italic font-medium" style={gradientText}>every decision.</span>
-              </h2>
-              <p className="mt-4 text-muted text-[1rem] max-w-[480px] mx-auto leading-relaxed">
-                These aren't just words on a wall — they shape how we teach, hire and welcome every student.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Row 1 — scrolls LEFT continuously */}
-        <div className="relative mb-5 overflow-hidden">
-          {/* Fade edges */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to right, white, transparent)' }} />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to left, white, transparent)' }} />
-
-          <div className="flex items-center gap-5 marquee-left" style={{ width: 'max-content' }}>
-            {/* Duplicate for seamless loop */}
-            {[...ROW1, ...ROW1].map((item, i) =>
-              item.type === 'pill' ? (
-                <div
-                  key={i}
-                  className="shrink-0 px-9 py-5 font-sans font-bold text-[1.1rem] md:text-[1.4rem] select-none shadow-card-soft"
-                  style={{ background: item.bg, color: item.color, borderRadius: '999px' }}
-                >
-                  {item.label}
-                </div>
-              ) : (
-                <div
-                  key={i}
-                  className="shrink-0 w-20 h-20 md:w-[88px] md:h-[88px] rounded-full overflow-hidden border-4 border-white shadow-card-strong"
-                >
-                  <img
-                    src={item.src!}
-                    alt="MLRIT student"
-                    className="w-full h-full object-cover object-top"
-                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2005.jpg'; }}
-                  />
-                </div>
-              )
-            )}
-          </div>
-        </div>
-
-        {/* Row 2 — scrolls RIGHT continuously */}
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to right, white, transparent)' }} />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10" style={{ background: 'linear-gradient(to left, white, transparent)' }} />
-
-          <div className="flex items-center gap-5 marquee-right" style={{ width: 'max-content' }}>
-            {[...ROW2, ...ROW2].map((item, i) =>
-              item.type === 'pill' ? (
-                <div
-                  key={i}
-                  className="shrink-0 px-9 py-5 font-sans font-bold text-[1.1rem] md:text-[1.4rem] select-none shadow-card-soft"
-                  style={{ background: item.bg, color: item.color, borderRadius: '999px' }}
-                >
-                  {item.label}
-                </div>
-              ) : (
-                <div
-                  key={i}
-                  className="shrink-0 w-20 h-20 md:w-[88px] md:h-[88px] rounded-full overflow-hidden border-4 border-white shadow-card-strong"
-                >
-                  <img
-                    src={item.src!}
-                    alt="MLRIT student"
-                    className="w-full h-full object-cover object-top"
-                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2008.jpg'; }}
-                  />
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </section>
+      {/* ── VALUES — scroll-driven: row1 moves left, row2 moves right on scroll */}
+      <ValuesMarquee gradientText={gradientText} />
 
       {/* ── BRAND CLOSE — "You're more than a score" */}
       <section
