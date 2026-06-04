@@ -379,45 +379,61 @@ export default function AdmissionsPage() {
                 <div
                   key={s.num}
                   ref={el => { stepRefs.current[i] = el; }}
-                  className="relative flex gap-6 pb-32 last:pb-0"
+                  className="relative flex gap-5 pb-4 last:pb-0"
                 >
                   {/* Vertical connector */}
                   {i < STEPS.length - 1 && (
                     <div
-                      className="absolute left-[18px] top-[44px] bottom-0 w-px transition-colors duration-500"
-                      style={{ background: activeStep > i ? '#1F6B24' : '#e2ddd6' }}
+                      className="absolute left-[22px] top-[52px] bottom-0 w-0.5 transition-colors duration-500"
+                      style={{ background: activeStep > i ? '#01741f' : '#d1cec9' }}
                     />
                   )}
 
                   {/* Circle node */}
                   <div
-                    className="shrink-0 mt-1 w-9 h-9 rounded-full border-2 flex items-center justify-center font-bold text-sm transition-all duration-500 z-10"
+                    className="shrink-0 mt-3 w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-500 z-10 border-2"
                     style={{
-                      borderColor: activeStep >= i ? '#1F6B24' : '#d1cec9',
-                      background:  activeStep === i ? '#1F6B24' : activeStep > i ? '#e8f4e8' : '#ffffff',
-                      color:       activeStep === i ? '#ffffff' : activeStep > i ? '#1F6B24' : '#9ca3af',
-                      transform:   activeStep === i ? 'scale(1.2)' : 'scale(1)',
+                      borderColor: activeStep >= i ? '#01741f' : '#d1cec9',
+                      background:  activeStep === i ? '#01741f' : activeStep > i ? '#d4f0d8' : '#ffffff',
+                      color:       activeStep === i ? '#ffffff' : activeStep > i ? '#01741f' : '#9ca3af',
+                      transform:   activeStep === i ? 'scale(1.15)' : 'scale(1)',
+                      boxShadow:   activeStep === i ? '0 0 0 4px rgba(1,116,31,0.15)' : 'none',
                     }}
                   >
                     {activeStep > i ? (
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                        <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     ) : s.num}
                   </div>
 
-                  {/* Content */}
+                  {/* Card — full highlighted when active */}
                   <div
-                    className="transition-all duration-500 pt-0.5"
-                    style={{ opacity: activeStep === i ? 1 : activeStep > i ? 0.6 : 0.35 }}
+                    className="flex-1 rounded-2xl border-2 px-6 py-5 mb-5 transition-all duration-500"
+                    style={{
+                      borderColor:  activeStep === i ? '#01741f' : activeStep > i ? '#d4f0d8' : '#e5e0d8',
+                      background:   activeStep === i ? '#f0faf1' : activeStep > i ? '#fafffe' : '#ffffff',
+                      boxShadow:    activeStep === i ? '0 4px 24px rgba(1,116,31,0.12)' : 'none',
+                      opacity:      activeStep < i ? 0.5 : 1,
+                    }}
                   >
+                    {/* Step label */}
+                    <div
+                      className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase mb-2 transition-colors duration-500"
+                      style={{ color: activeStep === i ? '#01741f' : '#9ca3af' }}
+                    >
+                      Step {s.num}
+                    </div>
                     <h3
-                      className="font-sans font-bold text-[1.15rem] transition-colors duration-500"
-                      style={{ color: activeStep === i ? 'var(--foreground)' : 'var(--muted)' }}
+                      className="font-sans font-extrabold text-[1.2rem] leading-snug transition-colors duration-500"
+                      style={{ color: activeStep === i ? '#0a2e0f' : activeStep > i ? '#4a5568' : '#6b7280' }}
                     >
                       {s.title}
                     </h3>
-                    <p className="mt-2 text-muted text-[0.95rem] leading-relaxed max-w-prose">
+                    <p
+                      className="mt-2 text-[0.95rem] leading-relaxed transition-colors duration-500"
+                      style={{ color: activeStep === i ? '#374151' : '#9ca3af' }}
+                    >
                       {s.desc}
                     </p>
                   </div>
