@@ -281,7 +281,8 @@ export default function SupportPage() {
           <Reveal preset="up">
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
-                <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-5">Visit Us</h2>
+                <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-2">Reach Us</h2>
+                <p className="text-muted text-[0.9rem] mb-5">Get in touch or find us on campus — we're always here to help.</p>
                 <div className="bg-white border border-border rounded-2xl p-7 shadow-card-soft space-y-5">
                   <div>
                     <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Official Address</p>
