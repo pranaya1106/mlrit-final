@@ -136,9 +136,9 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'Quality',
         links: [
-          { label: 'IQAC', href: '/iqac' },
-          { label: 'NAAC', href: 'https://naac.mlrit.ac.in/', external: true },
-          { label: 'NBA',  href: '/accreditation/nba' },
+          { label: 'IQAC',    href: '/iqac' },
+          { label: 'NBA',    href: '/iqac/nba' },
+          { label: 'AQAR',   href: 'https://mlrit.ac.in/aqar/', external: true },
         ],
       },
     ],
