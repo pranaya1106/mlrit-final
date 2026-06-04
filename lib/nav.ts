@@ -60,6 +60,27 @@ export const NAV_PRIMARY: NavItem[] = [
     ],
   },
   {
+    label: 'Campus',
+    cols: [
+      {
+        heading: 'Facilities',
+        links: [
+          { label: 'Hostels',    href: '/campus/hostels' },
+          { label: 'Sports',     href: '/campus/sports' },
+          { label: 'Cafeteria',  href: '/campus/cafeteria' },
+          { label: 'Transport',  href: '/campus/transport' },
+        ],
+      },
+      {
+        heading: 'Student Life',
+        links: [
+          { label: 'Clubs and Societies', href: '/campus/clubs' },
+          { label: 'Events',              href: '/campus/events' },
+        ],
+      },
+    ],
+  },
+  {
     label: 'Academics',
     cols: [
       {
@@ -104,27 +125,6 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Consultancy',         href: '/research/consultancy' },
           { label: 'Entrepreneurship',    href: '/research/entrepreneurship' },
           { label: 'Policies and Forms',  href: '/research/policies' },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Campus',
-    cols: [
-      {
-        heading: 'Facilities',
-        links: [
-          { label: 'Hostels',    href: '/campus/hostels' },
-          { label: 'Sports',     href: '/campus/sports' },
-          { label: 'Cafeteria',  href: '/campus/cafeteria' },
-          { label: 'Transport',  href: '/campus/transport' },
-        ],
-      },
-      {
-        heading: 'Student Life',
-        links: [
-          { label: 'Clubs and Societies', href: '/campus/clubs' },
-          { label: 'Events',              href: '/campus/events' },
         ],
       },
     ],
