@@ -167,13 +167,15 @@ export default function FeesPage() {
                       </p>
                     </div>
                     <a
-                      href="/fee-structure-2025.pdf"
+                      href="https://mlrit.ac.in/admissions/"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-bold font-sans text-sm hover:bg-primary-hover transition-colors shadow-primary-glow whitespace-nowrap"
                     >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                        <path d="M8 2v8m-3-3 3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      Download Fee Structure
+                      View on mlrit.ac.in
                     </a>
                   </div>
                 </Reveal>

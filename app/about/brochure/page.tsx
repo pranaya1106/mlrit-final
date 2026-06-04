@@ -47,7 +47,8 @@ export default function BrochurePage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-4 justify-center">
                 <a
-                  href="https://files.mlrit.ac.in/uploads/"
+                  href="/admissions/mlrit-brochure.pdf"
+                  download="MLRIT-Brochure-2025-26.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-secondary text-white font-bold text-sm hover:bg-secondary-hover transition-all shadow-[0_4px_16px_rgba(1,116,31,0.25)] hover:scale-105"
