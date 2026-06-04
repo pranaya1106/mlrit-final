@@ -27,24 +27,19 @@ export default function Header() {
               Institute of Technology
             </div>
             <div className="w-8 h-0.5 bg-primary rounded my-1.5" />
-            <div className="text-[0.58rem] font-bold tracking-[0.18em] uppercase text-muted">
-              ENGINEERING · SCIENCES · SPORT
-            </div>
-          </div>
-
-          {/* EST pill stack */}
-          <div className="flex flex-col items-center gap-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-orange-50 border border-orange-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="font-mono font-extrabold text-[0.62rem] tracking-[0.18em] uppercase text-primary">
-                EST · 2005
+            <div className="flex flex-col gap-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-orange-50 border border-orange-200 w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="font-mono font-extrabold text-[0.62rem] tracking-[0.18em] uppercase text-primary">
+                  EST · 2005
+                </span>
               </span>
-            </span>
-            <div className="font-mono font-bold text-[0.62rem] tracking-[0.14em] uppercase text-neutral-800">
-              DUNDIGAL · HYDERABAD
-            </div>
-            <div className="font-mono font-bold text-[0.55rem] tracking-[0.16em] text-gold-900 bg-gold-50 border border-[#f0d28e] rounded-full px-2.5 py-[2px]">
-              AUTONOMOUS · UGC '15
+              <div className="font-mono font-bold text-[0.62rem] tracking-[0.14em] uppercase text-neutral-800">
+                DUNDIGAL · HYDERABAD
+              </div>
+              <div className="font-mono font-bold text-[0.55rem] tracking-[0.16em] text-gold-900 bg-gold-50 border border-[#f0d28e] rounded-full px-2.5 py-[2px] w-fit">
+                AUTONOMOUS · UGC '15
+              </div>
             </div>
           </div>
 
