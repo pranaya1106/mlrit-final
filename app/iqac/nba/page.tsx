@@ -20,12 +20,12 @@ const gradientText: React.CSSProperties = {
 
 export default function NBAPage() {
   const programmes = [
-    { dept: 'Computer Science & Engineering',  code: 'CSE',  cycle: '2022–2025', status: 'Accredited', dcp: 'https://files.mlrit.ac.in/DCP_CSE.pdf'  },
-    { dept: 'Electronics & Communication',     code: 'ECE',  cycle: '2022–2025', status: 'Accredited', dcp: 'https://files.mlrit.ac.in/DCP_ECE.pdf'  },
-    { dept: 'Mechanical Engineering',          code: 'MECH', cycle: '2022–2025', status: 'Accredited', dcp: 'https://files.mlrit.ac.in/DCP_ME.pdf'   },
-    { dept: 'Aeronautical Engineering',        code: 'AERO', cycle: '2022–2025', status: 'Accredited', dcp: 'https://files.mlrit.ac.in/DCP_AERO.pdf' },
-    { dept: 'CSE — Data Science',              code: 'DS',   cycle: '2022–2025', status: 'Accredited', dcp: 'https://files.mlrit.ac.in/DCP_DS.pdf'   },
-    { dept: 'CSE — AI & Machine Learning',     code: 'AIML', cycle: '2022–2025', status: 'Accredited', dcp: 'https://files.mlrit.ac.in/DCP_AIML.pdf' },
+    { dept: 'Computer Science & Engineering',  code: 'CSE',  cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-cse.pdf'  },
+    { dept: 'Electronics & Communication',     code: 'ECE',  cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-ece.pdf'  },
+    { dept: 'Mechanical Engineering',          code: 'MECH', cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-mech.pdf'   },
+    { dept: 'Aeronautical Engineering',        code: 'AERO', cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-aero.pdf' },
+    { dept: 'CSE — Data Science',              code: 'DS',   cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-ds.pdf'   },
+    { dept: 'CSE — AI & Machine Learning',     code: 'AIML', cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-aiml.pdf' },
   ];
 
   return (

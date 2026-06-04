@@ -9,7 +9,7 @@ const TIMETABLES = [
     title: 'IV B.Tech II Sem — Regular & Supplementary',
     regulation: 'R22 / R25',
     period: 'April 2026',
-    href: 'https://files.mlrit.ac.in/exams/IV-B.Tech.-II-Sem.-Regular-and-Supplementary-Examinations-April-2026-Timetable.pdf',
+    href: '/examinations/timetable-iv-btech-ii-sem-2026.pdf',
     badge: 'B.Tech',
     badgeColor: 'bg-green-50 border-green-200 text-secondary',
     current: true,

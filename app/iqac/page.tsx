@@ -43,7 +43,7 @@ export default function IQACPage() {
 
           {/* Overview */}
           <Section id="overview">
-            <H2 italic="of IQAC">Overview</H2>
+            <H2 italic="">Overview</H2>
             <div className="mt-6 grid md:grid-cols-2 gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
@@ -66,7 +66,7 @@ export default function IQACPage() {
 
           {/* Head IQAC */}
           <Section id="head" surface>
-            <H2 italic="IQAC">Head</H2>
+            <H2 italic="">Head</H2>
             <Reveal preset="up">
               <div className="mt-6 rounded-2xl border border-border bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8">
                 <div className="flex-1">
@@ -116,7 +116,7 @@ export default function IQACPage() {
 
           {/* Objectives */}
           <Section id="objectives">
-            <H2 italic="of IQAC">Objectives</H2>
+            <H2 italic="">Objectives</H2>
             <Lede>The primary aim of IQAC is to drive conscious, consistent and catalytic improvement across all institutional activities.</Lede>
             <Stagger className="mt-8 grid md:grid-cols-2 gap-5" delay={0.07}>
               {[
@@ -139,7 +139,7 @@ export default function IQACPage() {
 
           {/* Functions */}
           <Section id="functions" surface>
-            <H2 italic="of IQAC">Functions</H2>
+            <H2 italic="">Functions</H2>
             <div className="mt-8 flex flex-col gap-3">
               {[
                 'Develop and apply quality benchmarks for the various academic and administrative activities of the institution.',
@@ -167,7 +167,7 @@ export default function IQACPage() {
 
           {/* Composition */}
           <Section id="composition">
-            <H2 italic="of IQAC">Composition</H2>
+            <H2 italic="">Composition</H2>
             <Lede>The cell brings together institutional leadership, faculty, alumni and external stakeholders to ensure comprehensive quality oversight.</Lede>
             <Stagger className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
               {[

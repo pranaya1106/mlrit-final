@@ -8,25 +8,25 @@ const REGS = [
   {
     badge: 'B.Tech', label: 'B.Tech Academic Regulations (R25)',
     desc: 'Current autonomous regulation for B.Tech programmes — 2022 intake onwards. Covers credits, promotions, examinations and grading.',
-    href: 'https://files.mlrit.ac.in/Service%20Rules/B.Tech.AcademicRegulations(R25).pdf',
+    href: '/examinations/btech-regulations-r25.pdf',
     color: 'border-secondary/30 bg-green-50/40', badgeColor: 'bg-green-50 border-green-200 text-secondary',
   },
   {
     badge: 'M.Tech', label: 'M.Tech Academic Regulations (R25)',
     desc: 'Regulation governing M.Tech programmes — course structure, minimum credits, thesis and evaluation norms.',
-    href: 'https://files.mlrit.ac.in/Service%20Rules/M.Tech-AcademicRegulations(R25).pdf',
+    href: '/examinations/mtech-regulations-r25.pdf',
     color: 'border-primary/30 bg-orange-50/40', badgeColor: 'bg-orange-50 border-orange-200 text-primary',
   },
   {
     badge: 'MBA', label: 'MBA Academic Regulations (R25)',
     desc: 'Academic regulation for the 2-year MBA programme — dual specialisation, credits, CGPA requirements and project evaluation.',
-    href: 'https://files.mlrit.ac.in/Service%20Rules/MBA-AcademicRegulations(R25).pdf',
+    href: '/examinations/mba-regulations-r25.pdf',
     color: 'border-secondary/30 bg-green-50/40', badgeColor: 'bg-green-50 border-green-200 text-secondary',
   },
   {
     badge: 'Policy', label: 'Examination Policy',
     desc: 'Institutional examination policy covering conduct, malpractice, evaluation, grievance redressal and re-evaluation procedures.',
-    href: 'https://files.mlrit.ac.in/policy/Examination-Policy.pdf',
+    href: '/examinations/exam-policy.pdf',
     color: 'border-primary/30 bg-orange-50/40', badgeColor: 'bg-orange-50 border-orange-200 text-primary',
   },
 ];

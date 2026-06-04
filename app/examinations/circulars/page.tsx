@@ -9,7 +9,7 @@ const CIRCULARS = [
   { title: 'I B.Tech II Semester Regular & Supplementary Examinations June 2026 — Timetable',                        href: 'https://mlrit.ac.in/circulars/', date: 'May 2026' },
   { title: 'IV B.Tech II Semester Advance Supplementary Examinations June 2026 — Fee Notification',                  href: 'https://mlrit.ac.in/circulars/', date: 'May 2026' },
   { title: 'II B.Tech I Semester (R22/MLR20/MLR18) Supplementary Examinations June 2026 — Timetable',                href: 'https://mlrit.ac.in/circulars/', date: 'Apr 2026' },
-  { title: 'IV B.Tech II Semester Regular & Supplementary Examinations April 2026 — Timetable',                      href: 'https://files.mlrit.ac.in/exams/IV-B.Tech.-II-Sem.-Regular-and-Supplementary-Examinations-April-2026-Timetable.pdf', date: 'Mar 2026' },
+  { title: 'IV B.Tech II Semester Regular & Supplementary Examinations April 2026 — Timetable',                      href: '/examinations/timetable-iv-btech-ii-sem-2026.pdf', date: 'Mar 2026' },
 ];
 
 const gradientText: React.CSSProperties = {
