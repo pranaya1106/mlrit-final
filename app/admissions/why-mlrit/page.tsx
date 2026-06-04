@@ -175,6 +175,27 @@ export default function WhyMLRITPage() {
           </div>
         </section>
       </div>
+
+      {/* ── Typographic watermark ── */}
+      <section className="bg-[#0c0c0e] overflow-hidden">
+        <div
+          className="relative select-none text-center leading-[0.85] tracking-tighter overflow-hidden pt-8"
+          style={{ fontSize: 'clamp(9rem, 26vw, 21rem)', fontWeight: 900, fontFamily: 'var(--font-manrope), sans-serif' }}
+        >
+          <span aria-hidden style={{ color: '#1e1e22' }}>MLRIT</span>
+          <span className="absolute inset-0 flex items-end justify-start pointer-events-none"
+            style={{ paddingLeft: '8vw' }}>
+            <span style={{ color: '#ffffff' }}>M</span>
+            <span style={{ color: '#1e1e22' }}>LRIT</span>
+          </span>
+        </div>
+        <div className="text-center px-6 pb-14 pt-4">
+          <p className="font-sans text-[0.9rem] text-white/50 max-w-[520px] mx-auto leading-relaxed">
+            <strong className="text-white/80 font-semibold">Unconventional.</strong>{' '}
+            We break away from conventional engineering colleges — blending industry-led classes, live projects, and hands-on learning instead of passive lectures.
+          </p>
+        </div>
+      </section>
     </>
   );
 }
