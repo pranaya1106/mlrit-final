@@ -138,7 +138,7 @@ export const NAV_PRIMARY: NavItem[] = [
         links: [
           { label: 'IQAC',    href: '/iqac' },
           { label: 'NBA',    href: '/iqac/nba' },
-          { label: 'AQAR',   href: 'https://mlrit.ac.in/aqar/', external: true },
+          { label: 'AQAR',   href: '/iqac/aqar' },
         ],
       },
     ],

@@ -197,7 +197,7 @@ export default function IQACPage() {
                 { label: 'Strategic Perspective Plan',  href: 'https://mlrit.ac.in/iqac/',        tag: 'Planning' },
                 { label: 'IQAC Minutes of Meeting',     href: 'https://mlrit.ac.in/iqac-mom/',    tag: 'Governance' },
                 { label: 'Policies',                    href: 'https://mlrit.ac.in/iqac/policies/', tag: 'Policy' },
-                { label: 'AQAR Reports',                href: 'https://mlrit.ac.in/aqar/',         tag: 'Annual Report' },
+                { label: 'AQAR Reports',                href: '/iqac/aqar',         tag: 'Annual Report' },
                 { label: 'Newsletters',                 href: 'https://mlrit.ac.in/iqac/',        tag: 'Publications' },
                 { label: 'NBA — Programme Accreditation', href: '/iqac/nba',                       tag: 'Accreditation' },
               ].map((r) => (
