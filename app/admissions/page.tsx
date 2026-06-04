@@ -39,8 +39,8 @@ const STEPS = [
 const S = [
   '/images/students/s1.jpg',
   '/images/students/s2.jpg',
-  '/images/students/s3.png',
-  '/images/students/s4.png',
+  '/images/students/s3.jpg',
+  '/images/students/s4.jpg',
 ];
 
 // Row 1 — pill · photo · pill · photo · pill · photo · pill · photo · pill
