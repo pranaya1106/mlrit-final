@@ -18,7 +18,7 @@ export const NAV_PRIMARY: NavItem[] = [
     label: 'About',
     cols: [
       {
-        heading: 'Institution',
+        heading: 'About',
         links: [
           { label: 'About MLRIT',         href: '/about' },
           { label: 'Introduction',        href: '/about/vision-mission/introduction' },
@@ -29,10 +29,9 @@ export const NAV_PRIMARY: NavItem[] = [
         ],
       },
       {
-        heading: 'Messages',
+        heading: 'Internal Governance',
         links: [
-          { label: "Principal's Message", href: '/about/messages/principal' },
-          { label: "Dean's Message",      href: '/about/messages/dean' },
+          { label: 'Internal Governance', href: '/about/internal-governance' },
         ],
       },
     ],

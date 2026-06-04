@@ -2,6 +2,7 @@
 
 import LeaderScrollStack, { LeaderStackItem } from './LeaderScrollStack';
 
+// Legacy page: Founding family leadership only
 const LEADERS = [
   {
     tag: 'Founder',
@@ -9,7 +10,7 @@ const LEADERS = [
     role: 'Founder, KMR Educational Society',
     img: '/images/about/milestone-2005.jpg',
     message: 'Our founding vision was simple — give every student from Telangana access to world-class engineering education, right here at home. In 2005, we laid the foundation stone at Dundigal with a single promise: right education, bright placements.',
-    accent: '#1F6B24',
+    accent: '#01741f',
   },
   {
     tag: 'Patron',
@@ -17,39 +18,15 @@ const LEADERS = [
     role: 'Founder Secretary · MLA, Malkajgiri',
     img: '/images/about/milestone-2019.jpg',
     message: 'MLRIT stands as proof that public service and quality education can go hand in hand. We continue to invest in infrastructure, faculty and student welfare because we believe every engineer we produce is a gift to the nation.',
-    accent: '#1a5e1f',
+    accent: '#015416',
   },
   {
-    tag: 'Principal',
-    name: 'Dr. K. Srinivas Rao',
-    role: 'Principal, MLR Institute of Technology',
-    img: '/images/about/milestone-2022.jpg',
-    message: 'Academic rigour and student welfare are not opposing goals — at MLRIT we have always pursued both, together. Our autonomous status lets us stay ahead of industry, while our NAAC and NBA accreditations validate our quality.',
-    accent: '#1F6B24',
-  },
-  {
-    tag: 'Dean — Academics',
-    name: 'Dr. P. Rajashekar',
-    role: 'Dean, Academics',
-    img: '/images/about/milestone-2012.jpg',
-    message: 'We design curricula that respond to where industry is going, not just where it has been. Autonomous status gives us the agility to refresh syllabi, integrate emerging tools, and keep our students ahead of the curve.',
-    accent: '#1a5e1f',
-  },
-  {
-    tag: 'Head — Placements',
-    name: 'Prof. Ravi Chandra P',
-    role: 'Head, Training & Placements',
-    img: '/images/about/milestone-2026.jpg',
-    message: 'Placement is not a season — it is a year-round culture of preparation, industry exposure and relentless follow-through. 621 offers in 2025–26 with a ₹51 LPA top package is the result of that culture.',
-    accent: '#1F6B24',
-  },
-  {
-    tag: 'Dean — Research',
-    name: 'Dr. M. Anitha',
-    role: 'Dean, Research & Innovation',
-    img: '/images/about/milestone-2017.jpg',
-    message: 'Research at MLRIT is not an afterthought — it is embedded in every department, every lab and every faculty development plan. Through our IPFC and three JNTUH-recognised research centres, we are building a genuine culture of inquiry.',
-    accent: '#1a5e1f',
+    tag: 'Treasurer',
+    name: 'Smt. Mamatha Reddy',
+    role: 'Treasurer, KMR Educational Society',
+    img: '/images/about/milestone-2008.jpg',
+    message: 'Financial stewardship at MLRIT has always meant investing in people first — in faculty, in laboratories, in student scholarships. Every rupee spent is a commitment to the institution\'s founding promise.',
+    accent: '#01741f',
   },
 ];
 

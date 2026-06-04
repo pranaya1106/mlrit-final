@@ -1,20 +1,27 @@
-import { notFound } from 'next/navigation';
-import InfoPageRenderer from '@/components/InfoPageRenderer';
-import { getInfoPage } from '@/lib/info-pages';
+import Link from 'next/link';
+import PageHeader from '@/components/PageHeader';
+import AboutQuickNav from '@/components/AboutQuickNav';
+import MilestonesTimeline from '@/components/MilestonesTimeline';
+import LeadershipCards from '@/components/LeadershipCards';
 
-const SLUG = 'about/legacy';
+export default function LegacyPage() {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Legacy"
+        title="Two decades of"
+        italic="building futures."
+        dek="From a foundation stone in 2005 to a nationally accredited institution — the story of MLRIT in milestones, leadership and enduring commitment."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Legacy' }]}
+        variant="green"
+      />
+      <AboutQuickNav active="/about/legacy" />
 
-export const metadata = (() => {
-  const p = getInfoPage(SLUG);
-  if (!p) return { title: 'MLRIT' };
-  return {
-    title: `${p.title}${p.italic ? ' ' + p.italic : ''} — MLRIT`,
-    description: p.dek,
-  };
-})();
+      {/* Institutional Timeline */}
+      <MilestonesTimeline />
 
-export default function Page() {
-  const page = getInfoPage(SLUG);
-  if (!page) notFound();
-  return <InfoPageRenderer page={page} />;
+      {/* Leadership & Governance */}
+      <LeadershipCards />
+    </>
+  );
 }
