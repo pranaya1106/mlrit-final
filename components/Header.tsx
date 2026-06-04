@@ -27,19 +27,13 @@ export default function Header() {
               Institute of Technology
             </div>
             <div className="w-8 h-0.5 bg-primary rounded my-1.5" />
-            <div className="flex flex-col gap-1">
-              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-orange-50 border border-orange-200 w-fit">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="font-mono font-extrabold text-[0.62rem] tracking-[0.18em] uppercase text-primary">
-                  EST · 2005
-                </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-50 border border-orange-200">
+                <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                <span className="font-mono font-bold text-[0.56rem] tracking-[0.14em] uppercase text-primary">EST · 2005</span>
               </span>
-              <div className="font-mono font-bold text-[0.62rem] tracking-[0.14em] uppercase text-neutral-800">
-                DUNDIGAL · HYDERABAD
-              </div>
-              <div className="font-mono font-bold text-[0.55rem] tracking-[0.16em] text-gold-900 bg-gold-50 border border-[#f0d28e] rounded-full px-2.5 py-[2px] w-fit">
-                AUTONOMOUS · UGC '15
-              </div>
+              <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase text-neutral-500">DUNDIGAL · HYDERABAD</span>
+              <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase px-2 py-0.5 rounded-full border border-[#f0d28e] text-[#a07820] bg-[#fffbf0]">AUTONOMOUS · UGC '15</span>
             </div>
           </div>
 
