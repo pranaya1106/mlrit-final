@@ -142,43 +142,44 @@ export default function WhyMLRITPage() {
           );
         })}
 
-        {/* Final CTA */}
-        <section className="bg-green-hero py-20 md:py-24">
-          <div className="max-w-[800px] mx-auto px-6 md:px-12 text-center">
-            <Reveal preset="up">
-              <h2 className="font-sans font-black tracking-tighter-2 text-[clamp(1.8rem,3vw,2.8rem)] text-white leading-tight">
-                Ready to be part of<br />
-                <span className="font-display italic font-medium text-warm">the MLRIT story?</span>
-              </h2>
-              <p className="mt-5 text-white/75 text-[1rem] max-w-xl mx-auto">
-                Admissions for AY 2025–26 are open. Apply today and take the first step towards an extraordinary career.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <a
-                  href="https://mlrit.ac.in/admissions"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-white font-bold font-sans hover:bg-primary-hover transition-colors shadow-primary-glow"
-                >
-                  Apply Now
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </a>
-                <a
-                  href="/admissions/by-degree"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold font-sans hover:bg-white/20 transition-colors"
-                >
-                  Explore Programmes
-                </a>
-              </div>
-            </Reveal>
-          </div>
-        </section>
       </div>
 
       {/* ── MLRIT Letter Storytelling ── */}
       <MLRITStory />
+
+      {/* Final CTA */}
+      <section className="bg-green-hero py-20 md:py-24">
+        <div className="max-w-[800px] mx-auto px-6 md:px-12 text-center">
+          <Reveal preset="up">
+            <h2 className="font-sans font-black tracking-tighter-2 text-[clamp(1.8rem,3vw,2.8rem)] text-white leading-tight">
+              Ready to be part of<br />
+              <span className="font-display italic font-medium text-warm">the MLRIT story?</span>
+            </h2>
+            <p className="mt-5 text-white/75 text-[1rem] max-w-xl mx-auto">
+              Admissions for AY 2025–26 are open. Apply today and take the first step towards an extraordinary career.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <a
+                href="https://mlrit.ac.in/admissions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-white font-bold font-sans hover:bg-primary-hover transition-colors shadow-primary-glow"
+              >
+                Apply Now
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+              <a
+                href="/departments/ug"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold font-sans hover:bg-white/20 transition-colors"
+              >
+                Explore Programmes
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </>
   );
 }

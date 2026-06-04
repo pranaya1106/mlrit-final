@@ -6,44 +6,42 @@ const STORY = [
   {
     letter: 'M',
     word: 'Merit',
-    title: 'Merit that opens every door.',
-    desc: 'At MLRIT, merit is not just a criterion — it is a culture. From EAMCET ranks to research fellowships, every student earns their place through ability, hard work and a drive to prove themselves on a national stage.',
-    accent: '#01741f',
-    stat: { val: '621', sub: 'Placements 2025–26' },
+    label: 'Merit.',
+    desc: 'At MLRIT, merit is the foundation. From EAMCET ranks to research fellowships, every student earns their place through ability, hard work and a drive to prove themselves on a national stage.',
+    accent: '#ffffff',
   },
   {
     letter: 'L',
     word: 'Learning',
-    title: 'Learning that never stops.',
+    label: 'Learning.',
     desc: 'Autonomous curriculum, industry-integrated labs, NPTEL certifications and live project capstones — learning at MLRIT goes far beyond the classroom. Our students graduate with portfolios, not just degrees.',
-    accent: '#e85d04',
-    stat: { val: '10+', sub: 'Programmes offered' },
+    accent: '#ffffff',
   },
   {
     letter: 'R',
     word: 'Research',
-    title: 'Research embedded in everything.',
-    desc: 'Three JNTUH-recognised research centres, an Intellectual Property Facilitation Centre, 1,200+ publications and 42+ patents — research at MLRIT is a living, breathing part of campus life, not an afterthought.',
-    accent: '#01741f',
-    stat: { val: '42+', sub: 'Patents filed' },
+    label: 'Research.',
+    desc: 'Three JNTUH-recognised research centres, an Intellectual Property Facilitation Centre, 1,200+ publications and 42+ patents — research at MLRIT is a living, breathing part of campus life.',
+    accent: '#ffffff',
   },
   {
     letter: 'I',
     word: 'Innovation',
-    title: 'Innovation as a daily habit.',
-    desc: 'Hackathons, drone labs, Boeing-partnered aerospace projects, Tata Technologies workshops and a campus culture that rewards curiosity. MLRIT graduates are engineers who build things, not just engineers who know things.',
-    accent: '#e85d04',
-    stat: { val: '200+', sub: 'Industry partners' },
+    label: 'Innovation.',
+    desc: 'Hackathons, drone labs, Boeing-partnered aerospace projects, Tata Technologies workshops — MLRIT graduates are engineers who build things, not just engineers who know things.',
+    accent: '#ffffff',
   },
   {
     letter: 'T',
     word: 'Transformation',
-    title: 'Transformation you can measure.',
-    desc: "From a first-generation engineering student in Dundigal to a placed professional in Bengaluru, Dubai or Frankfurt — MLRIT's placement engine, alumni network and career readiness programmes transform potential into reality.",
-    accent: '#01741f',
-    stat: { val: '₹51 LPA', sub: 'Top package 2025–26' },
+    label: 'Transformation.',
+    desc: "From Dundigal to Bengaluru, Dubai or Frankfurt — MLRIT's placement engine, alumni network and career readiness programmes transform potential into reality, one engineer at a time.",
+    accent: '#ffffff',
   },
 ];
+
+const GHOST = '#232323';
+const ACTIVE = '#ffffff';
 
 export default function MLRITStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -63,8 +61,7 @@ export default function MLRITStory() {
         const total = height - window.innerHeight;
         if (total > 0) {
           const p = Math.max(0, Math.min(1, scrolled / total));
-          const idx = Math.min(STORY.length - 1, Math.floor(p * STORY.length));
-          setActive(idx);
+          setActive(Math.min(STORY.length - 1, Math.floor(p * STORY.length)));
         }
       }
       rafRef.current = requestAnimationFrame(tick);
@@ -79,132 +76,65 @@ export default function MLRITStory() {
   const current = STORY[active];
 
   return (
-    <section className="bg-[#f7f5f0]">
-      {/* Section heading */}
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-6">
-        <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">What MLRIT Stands For</span>
-        <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-          Five letters,{' '}
-          <span
-            className="font-display italic font-medium"
-            style={{
-              backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
-              WebkitBackgroundClip: 'text', backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            five promises.
-          </span>
-        </h2>
-      </div>
+    <div ref={wrapperRef} style={{ height: `${STORY.length * 100}vh` }}>
+      <div className="sticky top-0 h-screen bg-[#0c0c0e] flex flex-col justify-center overflow-hidden">
 
-      {/* Tall scroll container */}
-      <div ref={wrapperRef} style={{ height: `${STORY.length * 100}vh` }}>
-        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-          <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-
-            {/* TOP — centered MLRIT letters with word below each */}
-            <div className="flex justify-center gap-6 md:gap-10 lg:gap-14 select-none mb-8">
-              {STORY.map((s, i) => {
-                const isActive = i === active;
-                const isPast   = i < active;
-                return (
-                  <div key={s.letter} className="flex flex-col items-center gap-2">
-                    <span
-                      className="font-sans font-black leading-none tracking-tighter transition-all duration-500"
-                      style={{
-                        fontSize:  isActive ? 'clamp(5rem, 10vw, 9rem)' : 'clamp(3.5rem, 7vw, 6rem)',
-                        color:     isActive ? s.accent : isPast ? '#b8b2a8' : '#d4cfc8',
-                        transform: isActive ? 'translateY(-6px)' : 'translateY(0)',
-                      }}
-                    >
-                      {s.letter}
-                    </span>
-                    <span
-                      className="font-mono font-bold tracking-wide transition-all duration-400 text-center"
-                      style={{
-                        fontSize: isActive ? '0.72rem' : '0.6rem',
-                        color:    isActive ? s.accent : '#b0a99f',
-                      }}
-                    >
-                      {s.word}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Progress bar — centred */}
-            <div className="flex justify-center mb-10">
-              <div className="h-0.5 w-[280px] rounded-full bg-border overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all duration-400"
-                  style={{ width: `${((active + 1) / STORY.length) * 100}%`, background: current.accent }}
-                />
-              </div>
-            </div>
-
-            {/* BOTTOM — content cross-fades, centred on mobile, two-col on md+ */}
-            <div className="relative min-h-[220px]">
-              {STORY.map((s, i) => {
-                const isActive = i === active;
-                return (
-                  <div
-                    key={s.letter}
-                    className="absolute inset-0 flex flex-col md:flex-row md:items-center gap-6 transition-all duration-500"
-                    style={{
-                      opacity:       isActive ? 1 : 0,
-                      transform:     isActive ? 'translateY(0)' : i < active ? 'translateY(-12px)' : 'translateY(12px)',
-                      pointerEvents: isActive ? 'auto' : 'none',
-                    }}
-                  >
-                    {/* Text */}
-                    <div className="flex-1">
-                      <span
-                        className="font-mono text-[0.65rem] font-bold tracking-[0.22em] uppercase mb-3 block"
-                        style={{ color: s.accent }}
-                      >
-                        {String(i + 1).padStart(2, '0')} / {String(STORY.length).padStart(2, '0')} — {s.word}
-                      </span>
-                      <h3
-                        className="font-sans font-black text-foreground tracking-tighter-2 leading-[1.06]"
-                        style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.4rem)' }}
-                      >
-                        {s.title}
-                      </h3>
-                      <p className="mt-3 text-muted leading-relaxed text-[0.98rem] max-w-[520px]">
-                        {s.desc}
-                      </p>
-                    </div>
-
-                    {/* Stat badge */}
-                    <div
-                      className="shrink-0 px-7 py-5 rounded-2xl border"
-                      style={{
-                        borderColor: s.accent + '30',
-                        background:  s.accent + '0c',
-                      }}
-                    >
-                      <div
-                        className="font-sans font-black tracking-tighter-2 leading-none"
-                        style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', color: s.accent }}
-                      >
-                        {s.stat.val}
-                      </div>
-                      <div className="mt-1.5 font-mono text-[0.62rem] font-bold tracking-[0.16em] uppercase text-muted">
-                        {s.stat.sub}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-          </div>
+        {/* Full-width MLRIT letters */}
+        <div
+          className="flex items-center justify-center select-none leading-none px-4 md:px-8"
+          style={{ gap: '0.5vw' }}
+        >
+          {STORY.map((s, i) => (
+            <span
+              key={s.letter}
+              className="font-sans font-black tracking-tighter transition-all duration-500"
+              style={{
+                fontSize:   'clamp(16vw, 20vw, 22vw)',
+                color:      i === active ? ACTIVE : GHOST,
+                lineHeight: 0.85,
+              }}
+            >
+              {s.letter}
+            </span>
+          ))}
         </div>
-      </div>
 
-      <div className="h-8 bg-[#f7f5f0]" />
-    </section>
+        {/* Description below — cross-fades */}
+        <div className="relative h-28 mt-8 flex items-center justify-center px-6">
+          {STORY.map((s, i) => (
+            <div
+              key={s.letter}
+              className="absolute max-w-[560px] text-center transition-all duration-500"
+              style={{
+                opacity:   i === active ? 1 : 0,
+                transform: i === active ? 'translateY(0)' : i < active ? 'translateY(-10px)' : 'translateY(10px)',
+                pointerEvents: i === active ? 'auto' : 'none',
+              }}
+            >
+              <p className="font-sans text-[0.95rem] leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                <strong style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>{s.label}</strong>{' '}
+                {s.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Dot nav */}
+        <div className="flex justify-center gap-2 mt-6">
+          {STORY.map((_, i) => (
+            <div
+              key={i}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width:      i === active ? '24px' : '6px',
+                height:     '6px',
+                background: i === active ? '#ffffff' : '#444',
+              }}
+            />
+          ))}
+        </div>
+
+      </div>
+    </div>
   );
 }
