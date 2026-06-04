@@ -1,54 +1,78 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import PageHeader from '@/components/PageHeader';
+import Link from 'next/link';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
-// ── Floating values data ───────────────────────────────────────────────────
-const VALUES = [
-  { label: 'Integrity',   color: 'bg-green-50 border-green-200 text-secondary',   delay: '0s',    dur: '4s'  },
-  { label: 'Inclusivity', color: 'bg-orange-50 border-orange-200 text-primary',   delay: '0.8s',  dur: '5s'  },
-  { label: 'Empathy',     color: 'bg-green-50 border-green-200 text-secondary',   delay: '1.6s',  dur: '4.5s'},
-  { label: 'Excellence',  color: 'bg-orange-50 border-orange-200 text-primary',   delay: '0.4s',  dur: '5.5s'},
-  { label: 'Innovation',  color: 'bg-green-50 border-green-200 text-secondary',   delay: '1.2s',  dur: '3.8s'},
-];
-
-// ── Steps data ─────────────────────────────────────────────────────────────
 const STEPS = [
   {
     num: 1,
-    title: 'Explore Programs',
-    desc: 'Browse our 10 B.Tech, M.Tech & MBA programmes and find the one that aligns with your passion and career goals.',
+    title: 'Choose Your Programme',
+    desc: 'Explore our 10 B.Tech branches, M.Tech specialisations and MBA — find the one that aligns with your passion and career goals.',
   },
   {
     num: 2,
     title: 'Check Eligibility',
-    desc: 'Review EAMCET / ICET / PGECET cutoffs, minimum qualifying marks and reservation criteria for each programme.',
+    desc: 'Review TS EAMCET / ICET / PGECET cutoffs and minimum qualifying marks. Most UG programmes accept TS EAMCET scores.',
   },
   {
     num: 3,
-    title: 'Submit Application',
-    desc: 'Apply online via mlrit.ac.in or walk in to the admissions office. Keep your hall ticket and score card handy.',
+    title: 'Apply Online',
+    desc: 'Fill out the application form on mlrit.ac.in, upload required documents and submit. Walk-in admissions are also welcome.',
   },
   {
     num: 4,
-    title: 'Document Verification',
-    desc: 'Submit original mark sheets, transfer certificate, caste certificate (if applicable) and passport-size photographs.',
+    title: 'Attend Counselling',
+    desc: 'Receive your counselling schedule. Bring originals of all documents — mark sheets, TC, caste certificate, photographs.',
   },
   {
     num: 5,
-    title: 'Admission Confirmation',
-    desc: 'Pay the semester fee, collect your allotment letter and student ID, and begin your MLRIT journey.',
+    title: 'Secure Your Seat',
+    desc: 'Pay the semester fee, collect your allotment letter and student ID. Your MLRIT journey begins here.',
   },
 ];
 
-// ── Stats data ─────────────────────────────────────────────────────────────
-const STATS = [
-  { value: '10+',     label: 'Programmes',       sub: 'B.Tech · M.Tech · MBA' },
-  { value: '621',     label: 'Placements',        sub: '2025–26 batch offers'  },
-  { value: '200+',    label: 'Hiring Partners',   sub: 'Campus recruiters'     },
-  { value: '₹51 LPA', label: 'Top Package',       sub: 'Highest offer 2025–26' },
+const VALUES = [
+  { label: 'Integrity',   bg: '#e8f4e8', color: '#1F6B24' },
+  { label: 'Inclusivity', bg: '#e8f0fa', color: '#2d5fa6' },
+  { label: 'Empathy',     bg: '#fdf0e8', color: '#c44b00' },
+  { label: 'Excellence',  bg: '#e8f4e8', color: '#1F6B24' },
+  { label: 'Innovation',  bg: '#fdf0e8', color: '#c44b00' },
 ];
+
+const SCHOLARSHIPS = [
+  {
+    type: 'Merit Based',
+    sub: 'Top 10% TS EAMCET rank',
+    img: '/images/about/milestone-2008.jpg',
+    href: '/admissions/scholarships',
+  },
+  {
+    type: 'Need Based',
+    sub: 'Students from low-income backgrounds',
+    img: '/images/about/milestone-2022.jpg',
+    href: '/admissions/scholarships',
+  },
+  {
+    type: 'Special Category',
+    sub: 'Sports · SC/ST · Women in STEM',
+    img: '/images/about/milestone-2026.jpg',
+    href: '/admissions/scholarships',
+  },
+];
+
+const STATS = [
+  { value: '10+',      label: 'Programmes Offered',  sub: 'B.Tech · M.Tech · MBA' },
+  { value: '621',      label: 'Placement Offers',     sub: '2025–26 season' },
+  { value: '200+',     label: 'Hiring Partners',      sub: 'Campus recruiters' },
+  { value: '₹51 LPA',  label: 'Top Package',          sub: 'Highest offer 2025–26' },
+];
+
+const gradientText: React.CSSProperties = {
+  backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
+  WebkitBackgroundClip: 'text', backgroundClip: 'text',
+  WebkitTextFillColor: 'transparent', color: 'transparent',
+};
 
 export default function AdmissionsPage() {
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -60,7 +84,7 @@ export default function AdmissionsPage() {
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveStep(i); },
-        { rootMargin: '-35% 0px -45% 0px', threshold: 0 },
+        { rootMargin: '-30% 0px -50% 0px', threshold: 0 },
       );
       obs.observe(el);
       observers.push(obs);
@@ -70,123 +94,182 @@ export default function AdmissionsPage() {
 
   return (
     <>
-      {/* ── Floating-values keyframes ──────────────────────────────────── */}
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(-1deg); }
-          50%       { transform: translateY(-14px) rotate(1deg); }
+        @keyframes floatPill {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-10px); }
         }
-        .value-float { animation: float var(--dur) ease-in-out var(--delay) infinite; }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .pill-float { animation: floatPill var(--dur,4s) ease-in-out var(--del,0s) infinite; }
+        .hero-fade  { animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
       `}</style>
 
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <PageHeader
-        variant="green"
-        eyebrow="Admissions 2025–26"
-        title="Your journey"
-        italic="starts here."
-        dek="MLRIT welcomes students who are curious, driven and ready to shape the future. Our streamlined admissions process is designed to be transparent, merit-based and accessible to all."
-        crumbs={[{ label: 'Home', href: '/' }, { label: 'Admissions' }]}
-      />
+      {/* ── HERO ── full viewport, green bg, bold typographic */}
+      <section
+        className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #0f2d13 0%, #1F6B24 60%, #2d8a35 100%)' }}
+      >
+        {/* Background texture circles */}
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-10"
+          style={{ background: 'radial-gradient(circle, #ffffff 0%, transparent 70%)' }} />
+        <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-10"
+          style={{ background: 'radial-gradient(circle, #e85d04 0%, transparent 70%)' }} />
 
-      {/* Hero CTAs */}
-      <section className="bg-green-hero -mt-1 pb-14 md:pb-20">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 flex flex-wrap gap-4">
-          <a
-            href="https://mlrit.ac.in/admissions"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-sans font-bold text-sm hover:bg-primary-hover transition-colors shadow-primary-glow"
-          >
-            Apply Now
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-          <a
-            href="/brochure-2025.pdf"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/25 text-white font-sans font-semibold text-sm hover:bg-white/20 transition-colors"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-              <path d="M8 2v8m-3-3 3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Download Brochure
-          </a>
+        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-20">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/50 mb-8 hero-fade" style={{ animationDelay: '0.1s' }}>
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-white/80">Admissions</span>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="hero-fade inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/80 mb-6"
+                style={{ animationDelay: '0.2s' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                Admissions 2025–26 Open
+              </span>
+
+              <h1 className="hero-fade font-sans font-black text-white leading-[1.02] tracking-tighter-2"
+                style={{ fontSize: 'clamp(2.8rem,5.5vw,5rem)', animationDelay: '0.3s' }}>
+                More than marks.<br />
+                <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
+                  More than a seat.
+                </span>
+              </h1>
+
+              <p className="hero-fade mt-6 text-white/75 text-[1.06rem] leading-relaxed max-w-[480px]"
+                style={{ animationDelay: '0.45s' }}>
+                MLRIT opens its doors to students who are curious, driven and ready to shape the future. A transparent, merit-based admissions process — designed for you.
+              </p>
+
+              <div className="hero-fade mt-10 flex flex-wrap gap-4" style={{ animationDelay: '0.6s' }}>
+                <a
+                  href="https://mlrit.ac.in/admissions"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
+                >
+                  Apply Now
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+                <a
+                  href="https://files.mlrit.ac.in/uploads/"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M8 2v8m-3-3 3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Download Brochure
+                </a>
+              </div>
+            </div>
+
+            {/* Stats on hero */}
+            <div className="hero-fade grid grid-cols-2 gap-4" style={{ animationDelay: '0.5s' }}>
+              {STATS.map(s => (
+                <div key={s.label} className="bg-white/10 border border-white/15 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/15 transition-colors">
+                  <div className="font-sans font-black text-white tracking-tighter-2" style={{ fontSize: 'clamp(1.8rem,3vw,2.4rem)' }}>
+                    {s.value}
+                  </div>
+                  <div className="mt-1 font-sans font-bold text-white/90 text-[0.9rem]">{s.label}</div>
+                  <div className="mt-0.5 font-mono text-white/50 text-[0.65rem] tracking-wide uppercase">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path d="M0 60 C360 0 1080 0 1440 60 L1440 60 L0 60Z" fill="#faf7f0"/>
+          </svg>
         </div>
       </section>
 
-      {/* ── How to Apply — Sticky heading + scroll-revealed steps ─────────── */}
-      <section className="bg-cream-2 py-20 md:py-28">
+      {/* ── HOW TO APPLY — sticky image left, timeline steps right */}
+      <section className="bg-warm-light py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
-            {/* Sticky left */}
-            <div className="lg:w-72 shrink-0">
-              <div className="lg:sticky lg:top-28">
-                <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">How to Apply</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.08] text-foreground">
-                  Five steps to<br />
-                  <span className="font-display italic font-medium text-secondary">your seat.</span>
-                </h2>
-                <p className="mt-4 text-muted text-[0.96rem] leading-relaxed">
-                  Our process is transparent and merit-driven. Follow these steps to secure your admission to MLRIT.
-                </p>
-                <div className="mt-8 hidden lg:flex flex-col gap-2">
-                  {STEPS.map((s, i) => (
-                    <button
-                      key={s.num}
-                      onClick={() => stepRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-                      className={`flex items-center gap-3 text-left px-3 py-2 rounded-lg transition-colors text-sm font-sans ${
-                        activeStep === i
-                          ? 'bg-secondary/10 text-secondary font-semibold'
-                          : 'text-muted hover:text-foreground'
-                      }`}
-                    >
-                      <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[0.65rem] font-bold shrink-0 transition-colors ${
-                        activeStep === i ? 'bg-secondary text-white' : 'bg-border text-muted'
-                      }`}>{s.num}</span>
-                      {s.title}
-                    </button>
-                  ))}
+          <Reveal>
+            <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">How to Apply</span>
+            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
+              Five steps to <span className="font-display italic font-medium" style={gradientText}>your seat.</span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-14 flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
+
+            {/* Sticky image */}
+            <div className="lg:sticky lg:top-28 lg:w-[420px] shrink-0">
+              <div className="relative rounded-2xl overflow-hidden shadow-card-strong aspect-[4/5]">
+                <img
+                  src="/images/about/milestone-2012.jpg"
+                  alt="MLRIT student"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl px-5 py-4">
+                    <p className="font-sans font-bold text-foreground text-[0.9rem]">
+                      Step {activeStep + 1} of {STEPS.length}
+                    </p>
+                    <p className="mt-0.5 font-display italic text-secondary text-[1rem]">
+                      {STEPS[activeStep].title}
+                    </p>
+                    {/* Progress bar */}
+                    <div className="mt-3 h-1.5 rounded-full bg-border overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{ width: `${((activeStep + 1) / STEPS.length) * 100}%`, background: '#1F6B24' }}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Steps list */}
-            <div className="flex-1 flex flex-col gap-0">
+            {/* Timeline steps */}
+            <div className="flex-1">
               {STEPS.map((s, i) => (
                 <div
                   key={s.num}
                   ref={el => { stepRefs.current[i] = el; }}
-                  className="relative flex gap-6 py-8 group"
+                  className="relative flex gap-6 pb-10 last:pb-0"
                 >
-                  {/* Connector line */}
+                  {/* Vertical line */}
                   {i < STEPS.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="absolute left-[22px] top-[68px] bottom-0 w-px bg-border"
-                    />
+                    <div className="absolute left-[18px] top-[44px] bottom-0 w-px transition-colors duration-500"
+                      style={{ background: activeStep > i ? '#1F6B24' : '#e2ddd6' }} />
                   )}
-                  {/* Number pill */}
+
+                  {/* Circle node */}
                   <div
-                    className={`shrink-0 w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-500 ${
-                      activeStep === i
-                        ? 'bg-secondary text-white shadow-secondary-glow scale-110'
-                        : 'bg-white border-2 border-border text-muted'
-                    }`}
+                    className="shrink-0 mt-1 w-9 h-9 rounded-full border-2 flex items-center justify-center font-bold text-sm transition-all duration-500 z-10"
+                    style={{
+                      borderColor:     activeStep === i ? '#1F6B24' : activeStep > i ? '#1F6B24' : '#d1cec9',
+                      background:      activeStep === i ? '#1F6B24' : activeStep > i ? '#e8f4e8' : '#ffffff',
+                      color:           activeStep === i ? '#ffffff' : activeStep > i ? '#1F6B24' : '#9ca3af',
+                      transform:       activeStep === i ? 'scale(1.15)' : 'scale(1)',
+                    }}
                   >
-                    {s.num}
+                    {activeStep > i ? (
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    ) : s.num}
                   </div>
+
                   {/* Content */}
-                  <div
-                    className={`transition-all duration-500 pt-1 ${
-                      activeStep === i ? 'opacity-100' : 'opacity-50'
-                    }`}
-                  >
-                    <h3
-                      className={`font-sans font-bold text-[1.12rem] transition-colors duration-500 ${
-                        activeStep === i ? 'text-foreground' : 'text-muted'
-                      }`}
-                    >
+                  <div className="transition-all duration-500 pt-0.5"
+                    style={{ opacity: activeStep === i ? 1 : activeStep > i ? 0.65 : 0.4 }}>
+                    <h3 className="font-sans font-bold text-[1.15rem] transition-colors duration-500"
+                      style={{ color: activeStep === i ? 'var(--foreground)' : 'var(--muted)' }}>
                       {s.title}
                     </h3>
                     <p className="mt-2 text-muted text-[0.95rem] leading-relaxed max-w-prose">
@@ -195,100 +278,240 @@ export default function AdmissionsPage() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── MLRIT Values — Floating cards ─────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-28 overflow-hidden">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal preset="up">
-            <div className="text-center mb-14">
-              <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
-              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.08] text-foreground">
-                Values that guide<br />
-                <span className="font-display italic font-medium text-primary">every decision.</span>
-              </h2>
-            </div>
-          </Reveal>
-
-          {/* Desktop floating cluster */}
-          <div className="hidden md:block relative h-80">
-            {VALUES.map((v, i) => {
-              const positions = [
-                { top: '10%',  left: '8%'  },
-                { top: '5%',   left: '32%' },
-                { top: '15%',  left: '56%' },
-                { top: '45%',  left: '20%' },
-                { top: '42%',  left: '62%' },
-              ];
-              const pos = positions[i];
-              return (
-                <div
-                  key={v.label}
-                  className={`value-float absolute px-6 py-4 rounded-2xl border-2 shadow-card-soft ${v.color} font-sans font-bold text-lg select-none cursor-default`}
-                  style={{ '--dur': v.dur, '--delay': v.delay, ...pos } as React.CSSProperties}
+              {/* Apply CTA below steps */}
+              <div className="mt-10 ml-[3.75rem]">
+                <a
+                  href="https://mlrit.ac.in/admissions"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
                 >
-                  {v.label}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Mobile grid */}
-          <div className="md:hidden flex flex-wrap gap-3 justify-center">
-            {VALUES.map(v => (
-              <span
-                key={v.label}
-                className={`px-5 py-3 rounded-2xl border-2 shadow-card-soft ${v.color} font-sans font-bold text-base`}
-              >
-                {v.label}
-              </span>
-            ))}
+                  Apply Now
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Key Highlights ─────────────────────────────────────────────────── */}
-      <section className="bg-green-hero py-20 md:py-28">
+      {/* ── SCHOLARSHIP TYPES — 3 photo cards */}
+      <section className="bg-white py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal preset="up">
-            <div className="text-center mb-14">
-              <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-primary font-bold">Key Highlights</span>
-              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.08] text-white">
-                Numbers that speak<br />
-                <span className="font-display italic font-medium text-warm">for themselves.</span>
+          <Reveal>
+            <div className="mb-12">
+              <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Financial Support</span>
+              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
+                Scholarship <span className="font-display italic font-medium" style={gradientText}>types.</span>
               </h2>
             </div>
           </Reveal>
 
-          <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {STATS.map(s => (
-              <StaggerItem key={s.label}>
-                <div className="bg-white/10 border border-white/15 rounded-2xl p-7 text-center hover:bg-white/15 transition-colors">
-                  <div className="font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,2.8rem)] text-white leading-none">
-                    {s.value}
+          <Stagger className="grid md:grid-cols-3 gap-6">
+            {SCHOLARSHIPS.map(s => (
+              <StaggerItem key={s.type}>
+                <Link href={s.href} className="group block">
+                  <div className="rounded-2xl overflow-hidden border border-border shadow-card-soft aspect-[4/3] relative">
+                    <img
+                      src={s.img}
+                      alt={s.type}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   </div>
-                  <div className="mt-2 font-sans font-bold text-white/90 text-[0.95rem]">{s.label}</div>
-                  <div className="mt-1 font-mono text-white/55 text-[0.72rem] tracking-wide">{s.sub}</div>
-                </div>
+                  <div className="mt-4 px-1">
+                    <h3 className="font-sans font-bold text-foreground text-[1.05rem]">{s.type}</h3>
+                    <p className="mt-1 text-muted text-[0.88rem]">{s.sub}</p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-foreground text-white text-[0.8rem] font-semibold group-hover:bg-primary transition-colors">
+                      Explore More
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                        <path d="M2 6h8M6 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
               </StaggerItem>
             ))}
           </Stagger>
+        </div>
+      </section>
 
-          {/* Bottom CTA */}
-          <Reveal preset="up" delay={0.3}>
-            <div className="mt-14 text-center">
-              <a
-                href="/admissions/by-degree"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-white font-bold font-sans hover:bg-primary-hover transition-colors shadow-primary-glow"
+      {/* ── FEES & SCHOLARSHIPS — brand card with overlapping image */}
+      <section className="py-20 md:py-28 bg-warm-light">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+          <Reveal>
+            <div
+              className="relative rounded-3xl overflow-hidden px-10 md:px-16 pt-14 pb-0 md:pb-0"
+              style={{ background: 'linear-gradient(135deg, #0f2d13 0%, #1F6B24 100%)' }}
+            >
+              {/* Decorative shapes */}
+              <div className="absolute top-0 right-0 w-64 h-64 opacity-10">
+                <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, #e85d04, transparent 70%)' }} />
+              </div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 opacity-10">
+                <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, #ffffff, transparent 70%)' }} />
+              </div>
+
+              <div className="relative grid md:grid-cols-2 gap-10 items-end">
+                {/* Text */}
+                <div className="pb-14">
+                  <h2 className="font-sans font-black text-white text-[clamp(2rem,3.5vw,3.2rem)] leading-[1.06] tracking-tighter-2">
+                    Fees &<br />Scholarships
+                  </h2>
+                  <p className="mt-5 text-white/75 text-[1rem] leading-relaxed max-w-[420px]">
+                    We believe no student should miss out on quality education for financial reasons. MLRIT disburses scholarships across merit, need, sports and SC/ST categories every year.
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <Link
+                      href="/admissions/fees"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-colors"
+                    >
+                      View Fee Structure
+                    </Link>
+                    <Link
+                      href="/admissions/scholarships"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-colors"
+                    >
+                      Explore Scholarships
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Overlapping image */}
+                <div className="relative mt-auto">
+                  <div className="rounded-t-2xl overflow-hidden shadow-card-strong" style={{ height: '320px' }}>
+                    <img
+                      src="/images/about/milestone-2025.jpg"
+                      alt="MLRIT students"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── VALUES — floating pills with animated layout */}
+      <section className="bg-white py-20 md:py-28 overflow-hidden">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+          <Reveal>
+            <div className="text-center mb-14">
+              <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
+              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
+                Values that guide <span className="font-display italic font-medium" style={gradientText}>every decision.</span>
+              </h2>
+              <p className="mt-4 text-muted text-[1rem] max-w-[480px] mx-auto leading-relaxed">
+                These aren't just words on a wall — they shape how we teach, hire and welcome every student.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Two-row pill layout, alternating row1 / row2 */}
+          <div className="flex flex-col gap-6 items-center">
+            {/* Row 1 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              {VALUES.slice(0, 3).map((v, i) => (
+                <div
+                  key={v.label}
+                  className="pill-float px-8 py-4 rounded-full border font-sans font-bold text-[1.1rem] md:text-[1.3rem] select-none shadow-card-soft"
+                  style={{
+                    '--dur': `${4 + i * 0.7}s`,
+                    '--del': `${i * 0.5}s`,
+                    background: v.bg,
+                    borderColor: v.color + '33',
+                    color: v.color,
+                  } as React.CSSProperties}
+                >
+                  {v.label}
+                </div>
+              ))}
+            </div>
+            {/* Row 2 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              {VALUES.slice(3).map((v, i) => (
+                <div
+                  key={v.label}
+                  className="pill-float px-8 py-4 rounded-full border font-sans font-bold text-[1.1rem] md:text-[1.3rem] select-none shadow-card-soft"
+                  style={{
+                    '--dur': `${5 + i * 0.8}s`,
+                    '--del': `${1.5 + i * 0.6}s`,
+                    background: v.bg,
+                    borderColor: v.color + '33',
+                    color: v.color,
+                  } as React.CSSProperties}
+                >
+                  {v.label}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BRAND CLOSE — "You're more than a score" */}
+      <section
+        className="relative py-24 md:py-36 overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #0f2d13 0%, #1F6B24 100%)' }}
+      >
+        {/* Decorative */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)',
+            backgroundSize: '20px 20px',
+          }} />
+
+        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-12 items-center">
+          <Reveal preset="right">
+            <h2 className="font-sans font-black text-white text-[clamp(2.2rem,4.5vw,4rem)] leading-[1.05] tracking-tighter-2">
+              You're more than<br />a score. And we're<br />
+              <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
+                more than a college.
+              </span>
+            </h2>
+            <p className="mt-6 text-white/70 text-[1rem] leading-relaxed max-w-[460px]">
+              At MLRIT, we look at who you are — your curiosity, your drive, your potential. Walk in with ambition. Walk out as an engineer the world needs.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="/admissions/why-mlrit"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow"
               >
-                Explore All Programmes
+                Why MLRIT
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>
+              </Link>
+              <Link
+                href="/admissions/by-degree"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
+              >
+                Browse Programmes
+              </Link>
+            </div>
+          </Reveal>
+
+          <Reveal preset="scale" delay={0.15}>
+            <div className="relative">
+              <div className="rounded-2xl overflow-hidden shadow-card-strong aspect-[4/3]">
+                <img
+                  src="/images/about/milestone-2019.jpg"
+                  alt="MLRIT campus"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Floating badge */}
+              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl px-5 py-4 shadow-card-strong">
+                <div className="font-sans font-black text-foreground text-[1.5rem] tracking-tighter-2">NAAC</div>
+                <div className="font-mono text-muted text-[0.62rem] tracking-[0.15em] uppercase">Accredited</div>
+              </div>
+              <div className="absolute -top-5 -right-5 bg-primary rounded-2xl px-5 py-4 shadow-card-strong">
+                <div className="font-sans font-black text-white text-[1.5rem] tracking-tighter-2">NBA</div>
+                <div className="font-mono text-white/80 text-[0.62rem] tracking-[0.15em] uppercase">Accredited</div>
+              </div>
             </div>
           </Reveal>
         </div>
