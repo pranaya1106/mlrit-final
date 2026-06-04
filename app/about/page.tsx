@@ -106,8 +106,8 @@ export default function AboutPage() {
       </nav>
 
       <div className="lg:flex lg:gap-0 items-start">
-        <aside className="hidden lg:block lg:w-56 shrink-0">
-          <div className="sticky top-28 pt-12 pl-6">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
             <SideQuickNav items={NAV_ITEMS} />
           </div>
         </aside>
