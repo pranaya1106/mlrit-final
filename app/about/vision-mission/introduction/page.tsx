@@ -36,6 +36,26 @@ export default function IntroductionPage() {
       />
       <AboutQuickNav active="/about/vision-mission/introduction" />
 
+      {/* Typographic watermark — MLRIT first letter highlight */}
+      <section className="bg-[#0c0c0e] overflow-hidden py-10 md:py-12">
+        <div className="relative select-none text-center leading-none tracking-tighter overflow-hidden"
+          style={{ fontSize: 'clamp(10rem, 28vw, 22rem)', fontWeight: 900, fontFamily: 'var(--font-manrope), sans-serif' }}>
+          {/* Ghost letters */}
+          <span style={{ color: '#1e1e22', letterSpacing: '-0.02em' }}>MLRIT</span>
+          {/* White first letter overlay */}
+          <span className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{ letterSpacing: '-0.02em' }}>
+            <span style={{ color: '#ffffff' }}>M</span>
+            <span style={{ color: '#1e1e22' }}>LRIT</span>
+          </span>
+        </div>
+        <div className="text-center pb-10 px-6">
+          <p className="font-sans text-[0.92rem] text-white/55 max-w-[520px] mx-auto leading-relaxed">
+            <strong className="text-white/85 font-semibold">Marri Laxman Reddy Institute of Technology</strong> — engineering education for Telangana and beyond, since 2005.
+          </p>
+        </div>
+      </section>
+
       {/* Story */}
       <section className="bg-white py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-start">
