@@ -160,7 +160,7 @@ export default function WhyMLRITPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
-                href="https://mlrit.ac.in/admissions"
+                href="https://qr-mlr.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-white font-bold font-sans hover:bg-primary-hover transition-colors shadow-primary-glow"

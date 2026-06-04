@@ -277,7 +277,7 @@ export default function AdmissionsPage() {
 
               <div className="hero-fade mt-10 flex flex-wrap gap-4" style={{ animationDelay: '0.6s' }}>
                 <a
-                  href="https://mlrit.ac.in/admissions"
+                  href="https://qr-mlr.vercel.app"
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
                 >
@@ -287,7 +287,7 @@ export default function AdmissionsPage() {
                   </svg>
                 </a>
                 <a
-                  href="https://files.mlrit.ac.in/uploads/"
+                  href="/about/brochure"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -435,7 +435,7 @@ export default function AdmissionsPage() {
 
               <div className="mt-10 ml-[3.75rem]">
                 <a
-                  href="https://mlrit.ac.in/admissions"
+                  href="https://qr-mlr.vercel.app"
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
                 >
