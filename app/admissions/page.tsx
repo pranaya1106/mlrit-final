@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
@@ -32,12 +32,32 @@ const STEPS = [
   },
 ];
 
-const VALUES = [
-  { label: 'Integrity',   bg: '#e8f4e8', color: '#1F6B24' },
-  { label: 'Inclusivity', bg: '#e8f0fa', color: '#2d5fa6' },
-  { label: 'Empathy',     bg: '#fdf0e8', color: '#c44b00' },
-  { label: 'Excellence',  bg: '#e8f4e8', color: '#1F6B24' },
-  { label: 'Innovation',  bg: '#fdf0e8', color: '#c44b00' },
+// Row 1: pill · photo · pill · photo · pill
+// Row 2: photo · pill · photo · pill · arrow
+// Photos: s1=saree girl, s2=camera boy, s3=beach boy, s4=girl station, s5=girl campus
+const STUDENTS = [
+  '/images/students/s1.jpg',
+  '/images/students/s2.jpg',
+  '/images/students/s3.jpg',
+  '/images/students/s4.jpg',
+  '/images/students/s5.jpg',
+];
+
+// Row 1 items: alternating pill/photo
+const ROW1 = [
+  { type: 'pill',  label: 'Integrity',   bg: '#f5e8ea', color: '#3d1f24' },
+  { type: 'photo', src: STUDENTS[0] },
+  { type: 'pill',  label: 'Inclusivity', bg: '#e8edf5', color: '#1f2d4a' },
+  { type: 'photo', src: STUDENTS[1] },
+  { type: 'pill',  label: 'Empathy',     bg: '#f5e8ea', color: '#3d1f24' },
+];
+
+// Row 2 items
+const ROW2 = [
+  { type: 'photo', src: STUDENTS[2] },
+  { type: 'pill',  label: 'Excellence',    bg: '#e8edf5', color: '#1f2d4a' },
+  { type: 'photo', src: STUDENTS[3] },
+  { type: 'pill',  label: 'Learning for Life', bg: '#f5e8ea', color: '#3d1f24' },
 ];
 
 const SCHOLARSHIPS = [
@@ -75,22 +95,7 @@ const gradientText: React.CSSProperties = {
 };
 
 export default function AdmissionsPage() {
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [activeStep, setActiveStep] = useState(0);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    stepRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveStep(i); },
-        { rootMargin: '-30% 0px -50% 0px', threshold: 0 },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach(o => o.disconnect());
-  }, []);
+  const [openStep, setOpenStep] = useState<number>(0);
 
   return (
     <>
@@ -193,7 +198,7 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* ── HOW TO APPLY — sticky image left, timeline steps right */}
+      {/* ── HOW TO APPLY — sticky image left, retractable accordion right */}
       <section className="bg-warm-light py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
@@ -205,28 +210,30 @@ export default function AdmissionsPage() {
 
           <div className="mt-14 flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
 
-            {/* Sticky image */}
+            {/* Sticky image — updates to show active step */}
             <div className="lg:sticky lg:top-28 lg:w-[420px] shrink-0">
               <div className="relative rounded-2xl overflow-hidden shadow-card-strong aspect-[4/5]">
                 <img
                   src="/images/about/milestone-2012.jpg"
-                  alt="MLRIT student"
+                  alt="MLRIT student applying"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="bg-white/95 backdrop-blur-sm rounded-xl px-5 py-4">
-                    <p className="font-sans font-bold text-foreground text-[0.9rem]">
-                      Step {activeStep + 1} of {STEPS.length}
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="font-mono text-[0.62rem] tracking-[0.15em] uppercase text-muted">
+                        Step {openStep + 1} of {STEPS.length}
+                      </p>
+                      <span className="font-mono text-[0.62rem] text-secondary font-bold">{Math.round(((openStep + 1) / STEPS.length) * 100)}%</span>
+                    </div>
+                    <p className="font-sans font-bold text-foreground text-[0.95rem]">
+                      {STEPS[openStep].title}
                     </p>
-                    <p className="mt-0.5 font-display italic text-secondary text-[1rem]">
-                      {STEPS[activeStep].title}
-                    </p>
-                    {/* Progress bar */}
                     <div className="mt-3 h-1.5 rounded-full bg-border overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
-                        style={{ width: `${((activeStep + 1) / STEPS.length) * 100}%`, background: '#1F6B24' }}
+                        style={{ width: `${((openStep + 1) / STEPS.length) * 100}%`, background: '#1F6B24' }}
                       />
                     </div>
                   </div>
@@ -234,65 +241,76 @@ export default function AdmissionsPage() {
               </div>
             </div>
 
-            {/* Timeline steps */}
-            <div className="flex-1">
-              {STEPS.map((s, i) => (
-                <div
-                  key={s.num}
-                  ref={el => { stepRefs.current[i] = el; }}
-                  className="relative flex gap-6 pb-10 last:pb-0"
-                >
-                  {/* Vertical line */}
-                  {i < STEPS.length - 1 && (
-                    <div className="absolute left-[18px] top-[44px] bottom-0 w-px transition-colors duration-500"
-                      style={{ background: activeStep > i ? '#1F6B24' : '#e2ddd6' }} />
-                  )}
+            {/* Retractable accordion steps */}
+            <div className="flex-1 divide-y divide-border border border-border rounded-2xl overflow-hidden bg-white shadow-card-soft">
+              {STEPS.map((s, i) => {
+                const isOpen = openStep === i;
+                return (
+                  <div key={s.num}>
+                    <button
+                      onClick={() => setOpenStep(isOpen ? i : i)}
+                      className="w-full flex items-center gap-5 px-7 py-5 text-left group transition-colors hover:bg-warm-light"
+                      style={{ background: isOpen ? '#f0f9f1' : undefined }}
+                    >
+                      {/* Number bubble */}
+                      <span
+                        className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300"
+                        style={{
+                          background: isOpen ? '#1F6B24' : '#f5f0e8',
+                          color:      isOpen ? '#ffffff' : '#9ca3af',
+                          transform:  isOpen ? 'scale(1.1)' : 'scale(1)',
+                        }}
+                      >
+                        {i + 1}
+                      </span>
 
-                  {/* Circle node */}
-                  <div
-                    className="shrink-0 mt-1 w-9 h-9 rounded-full border-2 flex items-center justify-center font-bold text-sm transition-all duration-500 z-10"
-                    style={{
-                      borderColor:     activeStep === i ? '#1F6B24' : activeStep > i ? '#1F6B24' : '#d1cec9',
-                      background:      activeStep === i ? '#1F6B24' : activeStep > i ? '#e8f4e8' : '#ffffff',
-                      color:           activeStep === i ? '#ffffff' : activeStep > i ? '#1F6B24' : '#9ca3af',
-                      transform:       activeStep === i ? 'scale(1.15)' : 'scale(1)',
-                    }}
-                  >
-                    {activeStep > i ? (
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                        <path d="M2.5 7l3 3 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      {/* Title */}
+                      <span
+                        className="flex-1 font-sans font-bold text-[1.05rem] transition-colors duration-300"
+                        style={{ color: isOpen ? '#0f2d13' : 'var(--foreground)' }}
+                      >
+                        {s.title}
+                      </span>
+
+                      {/* Chevron */}
+                      <svg
+                        width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        className="shrink-0 transition-transform duration-300"
+                        style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                      >
+                        <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke={isOpen ? '#1F6B24' : '#9ca3af'} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    ) : s.num}
-                  </div>
+                    </button>
 
-                  {/* Content */}
-                  <div className="transition-all duration-500 pt-0.5"
-                    style={{ opacity: activeStep === i ? 1 : activeStep > i ? 0.65 : 0.4 }}>
-                    <h3 className="font-sans font-bold text-[1.15rem] transition-colors duration-500"
-                      style={{ color: activeStep === i ? 'var(--foreground)' : 'var(--muted)' }}>
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 text-muted text-[0.95rem] leading-relaxed max-w-prose">
-                      {s.desc}
-                    </p>
+                    {/* Expandable content */}
+                    <div
+                      className="overflow-hidden transition-all duration-400 ease-in-out"
+                      style={{ maxHeight: isOpen ? '200px' : '0px' }}
+                    >
+                      <div className="px-7 pb-6 pt-1 pl-[4.75rem]">
+                        <p className="text-muted text-[0.96rem] leading-relaxed">
+                          {s.desc}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
-
-              {/* Apply CTA below steps */}
-              <div className="mt-10 ml-[3.75rem]">
-                <a
-                  href="https://mlrit.ac.in/admissions"
-                  target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
-                >
-                  Apply Now
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </a>
-              </div>
+                );
+              })}
             </div>
+          </div>
+
+          {/* Apply CTA */}
+          <div className="mt-10">
+            <a
+              href="https://mlrit.ac.in/admissions"
+              target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
+            >
+              Apply Now
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -395,7 +413,7 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* ── VALUES — floating pills with animated layout */}
+      {/* ── VALUES — Anurag-style: large pills + circular student photos interleaved */}
       <section className="bg-white py-20 md:py-28 overflow-hidden">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
@@ -410,44 +428,78 @@ export default function AdmissionsPage() {
             </div>
           </Reveal>
 
-          {/* Two-row pill layout, alternating row1 / row2 */}
-          <div className="flex flex-col gap-6 items-center">
-            {/* Row 1 */}
-            <div className="flex flex-wrap gap-4 justify-center">
-              {VALUES.slice(0, 3).map((v, i) => (
+          {/* Row 1: pill · photo · pill · photo · pill */}
+          <div className="flex items-center justify-center gap-4 md:gap-6 flex-wrap mb-5">
+            {ROW1.map((item, i) =>
+              item.type === 'pill' ? (
                 <div
-                  key={v.label}
-                  className="pill-float px-8 py-4 rounded-full border font-sans font-bold text-[1.1rem] md:text-[1.3rem] select-none shadow-card-soft"
+                  key={i}
+                  className="pill-float px-10 py-5 font-sans font-bold text-[1.15rem] md:text-[1.5rem] select-none shadow-card-soft"
                   style={{
-                    '--dur': `${4 + i * 0.7}s`,
-                    '--del': `${i * 0.5}s`,
-                    background: v.bg,
-                    borderColor: v.color + '33',
-                    color: v.color,
+                    background: item.bg,
+                    color: item.color,
+                    borderRadius: '999px',
+                    '--dur': `${4 + i * 0.5}s`,
+                    '--del': `${i * 0.3}s`,
                   } as React.CSSProperties}
                 >
-                  {v.label}
+                  {item.label}
                 </div>
-              ))}
-            </div>
-            {/* Row 2 */}
-            <div className="flex flex-wrap gap-4 justify-center">
-              {VALUES.slice(3).map((v, i) => (
+              ) : (
                 <div
-                  key={v.label}
-                  className="pill-float px-8 py-4 rounded-full border font-sans font-bold text-[1.1rem] md:text-[1.3rem] select-none shadow-card-soft"
+                  key={i}
+                  className="pill-float w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white shadow-card-strong shrink-0"
                   style={{
-                    '--dur': `${5 + i * 0.8}s`,
-                    '--del': `${1.5 + i * 0.6}s`,
-                    background: v.bg,
-                    borderColor: v.color + '33',
-                    color: v.color,
+                    '--dur': `${3.5 + i * 0.4}s`,
+                    '--del': `${i * 0.4}s`,
                   } as React.CSSProperties}
                 >
-                  {v.label}
+                  <img
+                    src={item.src}
+                    alt="MLRIT student"
+                    className="w-full h-full object-cover object-top"
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2005.jpg'; }}
+                  />
                 </div>
-              ))}
-            </div>
+              )
+            )}
+          </div>
+
+          {/* Row 2: photo · pill · photo · pill */}
+          <div className="flex items-center justify-center gap-4 md:gap-6 flex-wrap">
+            {ROW2.map((item, i) =>
+              item.type === 'pill' ? (
+                <div
+                  key={i}
+                  className="pill-float px-10 py-5 font-sans font-bold text-[1.15rem] md:text-[1.5rem] select-none shadow-card-soft"
+                  style={{
+                    background: item.bg,
+                    color: item.color,
+                    borderRadius: '999px',
+                    '--dur': `${4.5 + i * 0.6}s`,
+                    '--del': `${1.2 + i * 0.35}s`,
+                  } as React.CSSProperties}
+                >
+                  {item.label}
+                </div>
+              ) : (
+                <div
+                  key={i}
+                  className="pill-float w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-white shadow-card-strong shrink-0"
+                  style={{
+                    '--dur': `${3.8 + i * 0.5}s`,
+                    '--del': `${0.8 + i * 0.45}s`,
+                  } as React.CSSProperties}
+                >
+                  <img
+                    src={item.src}
+                    alt="MLRIT student"
+                    className="w-full h-full object-cover object-top"
+                    onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2008.jpg'; }}
+                  />
+                </div>
+              )
+            )}
           </div>
         </div>
       </section>
