@@ -207,29 +207,22 @@ export default function AdmissionsPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
-    const visible = new Set<number>();
-
-    const observers: IntersectionObserver[] = [];
-    stepRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            visible.add(i);
-          } else {
-            visible.delete(i);
-          }
-          // Always activate the topmost visible step
-          if (visible.size > 0) {
-            setActiveStep(Math.min(...visible));
-          }
-        },
-        { rootMargin: '-10% 0px -10% 0px', threshold: 0 },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach(o => o.disconnect());
+    const onScroll = () => {
+      const mid = window.innerHeight / 2;
+      let closest = 0;
+      let minDist = Infinity;
+      stepRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const elMid = rect.top + rect.height / 2;
+        const dist = Math.abs(elMid - mid);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      setActiveStep(closest);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
