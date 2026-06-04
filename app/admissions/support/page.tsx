@@ -202,31 +202,6 @@ export default function SupportPage() {
             )}
           </div>
 
-          {/* Quick contact strip */}
-          <Reveal preset="up">
-            <div className="bg-green-hero rounded-2xl overflow-hidden">
-              <div className="px-8 pt-8 pb-2">
-                <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-white">Still have questions?</h2>
-                <p className="text-white/75 text-[0.93rem] mt-2 mb-8">Our admissions team is available Monday to Saturday, 9 AM – 5 PM.</p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-px bg-white/10">
-                {[
-                  { label: 'Admissions Helpdesk', value: '+91 96522 26061', sub: 'Mon–Sat, 9 AM – 5 PM', href: 'tel:+919652226061' },
-                  { label: 'Email', value: 'admissions@mlrinstitutions.ac.in', sub: 'Response within 1 business day', href: 'mailto:admissions@mlrinstitutions.ac.in' },
-                  { label: 'Toll Free', value: '1800 572 4363', sub: 'Free from any network', href: 'tel:18005724363' },
-                ].map(c => (
-                  <a key={c.label} href={c.href}
-                    className="flex flex-col gap-2 px-8 py-7 bg-green-hero hover:bg-white/5 transition-colors group"
-                  >
-                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-white/60">{c.label}</span>
-                    <span className="font-sans font-bold text-white text-[0.95rem] leading-snug">{c.value}</span>
-                    <span className="text-white/55 text-[0.8rem]">{c.sub}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
           {/* Key contacts table */}
           <Reveal preset="up">
             <div>
@@ -277,6 +252,7 @@ export default function SupportPage() {
             </div>
           </Reveal>
 
+
           {/* Address + Map */}
           <Reveal preset="up">
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -320,6 +296,32 @@ export default function SupportPage() {
               <MapEmbed className="h-[400px]" />
             </div>
           </Reveal>
+
+          {/* Still have questions */}
+          <Reveal preset="up">
+            <div className="bg-green-hero rounded-2xl overflow-hidden">
+              <div className="px-8 pt-8 pb-2">
+                <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-white">Still have questions?</h2>
+                <p className="text-white/75 text-[0.93rem] mt-2 mb-8">Our admissions team is available Monday to Saturday, 9 AM – 5 PM.</p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-px bg-white/10">
+                {[
+                  { label: 'Admissions Helpdesk', value: '+91 96522 26061', sub: 'Mon–Sat, 9 AM – 5 PM', href: 'tel:+919652226061' },
+                  { label: 'Email', value: 'admissions@mlrinstitutions.ac.in', sub: 'Response within 1 business day', href: 'mailto:admissions@mlrinstitutions.ac.in' },
+                  { label: 'Toll Free', value: '1800 572 4363', sub: 'Free from any network', href: 'tel:18005724363' },
+                ].map(c => (
+                  <a key={c.label} href={c.href}
+                    className="flex flex-col gap-2 px-8 py-7 bg-green-hero hover:bg-white/5 transition-colors group"
+                  >
+                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-white/60">{c.label}</span>
+                    <span className="font-sans font-bold text-white text-[0.95rem] leading-snug">{c.value}</span>
+                    <span className="text-white/55 text-[0.8rem]">{c.sub}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
         </div>
       </section>
     </>
