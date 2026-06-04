@@ -162,7 +162,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
           ) : (
             <div
               key={i}
-              className="shrink-0 w-[88px] h-[88px] rounded-full overflow-hidden border-4 border-white"
+              className="shrink-0 w-[140px] h-[140px] rounded-full overflow-hidden border-4 border-white"
               style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.12)' }}
             >
               <img
