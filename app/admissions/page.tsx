@@ -224,7 +224,7 @@ export default function AdmissionsPage() {
             setActiveStep(Math.min(...visible));
           }
         },
-        { rootMargin: '-20% 0px -20% 0px', threshold: 0 },
+        { rootMargin: '-10% 0px -10% 0px', threshold: 0 },
       );
       obs.observe(el);
       observers.push(obs);
@@ -245,7 +245,7 @@ export default function AdmissionsPage() {
       {/* ── HERO ── full viewport, green bg, bold typographic */}
       <section
         className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #014d15 0%, #01741f 60%, #018f28 100%)' }}
+        style={{ background: '#01741f' }}
       >
         {/* Background texture circles */}
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-10"
@@ -379,7 +379,7 @@ export default function AdmissionsPage() {
                 <div
                   key={s.num}
                   ref={el => { stepRefs.current[i] = el; }}
-                  className="relative flex gap-6 pb-12 last:pb-0"
+                  className="relative flex gap-6 pb-32 last:pb-0"
                 >
                   {/* Vertical connector */}
                   {i < STEPS.length - 1 && (
@@ -488,7 +488,7 @@ export default function AdmissionsPage() {
           <Reveal>
             <div
               className="relative rounded-3xl overflow-hidden px-10 md:px-16 pt-14 pb-0 md:pb-0"
-              style={{ background: 'linear-gradient(135deg, #014d15 0%, #01741f 100%)' }}
+              style={{ background: '#01741f' }}
             >
               {/* Decorative shapes */}
               <div className="absolute top-0 right-0 w-64 h-64 opacity-10">
@@ -545,7 +545,7 @@ export default function AdmissionsPage() {
       {/* ── BRAND CLOSE — "You're more than a score" */}
       <section
         className="relative py-24 md:py-36 overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #014d15 0%, #01741f 100%)' }}
+        style={{ background: '#01741f' }}
       >
         {/* Decorative */}
         <div className="absolute inset-0 opacity-5 pointer-events-none"
