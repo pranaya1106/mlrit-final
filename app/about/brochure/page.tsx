@@ -59,12 +59,15 @@ export default function BrochurePage() {
                   Download PDF
                 </a>
                 <a
-                  href="https://mlrit.ac.in"
+                  href="https://qr-mlr.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-secondary text-secondary font-bold text-sm hover:bg-secondary/5 transition-all"
                 >
-                  Visit Official Website
+                  Apply Now
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                    <path d="M2 7h10M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </a>
               </div>
             </div>
