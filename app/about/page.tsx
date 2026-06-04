@@ -162,7 +162,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Section list — textual, no boxes */}
+          {/* Explore — two clean editorial paragraphs */}
           <section id="explore" className="bg-white py-20 md:py-28">
             <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
               <Reveal>
@@ -172,35 +172,50 @@ export default function AboutPage() {
                 </h2>
               </Reveal>
 
-              <div className="mt-10 divide-y divide-border">
-                {SECTIONS.map((s, i) => (
-                  <Reveal key={s.href} preset="right" delay={i * 0.05}>
-                    <Link
-                      href={s.href}
-                      className="group flex items-start justify-between gap-6 py-6 hover:bg-warm-light/40 -mx-4 px-4 rounded-xl transition-colors"
-                    >
-                      <div className="flex items-start gap-5 min-w-0">
-                        <span className="font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase text-primary shrink-0 pt-1 w-28">
-                          {s.tag}
-                        </span>
-                        <div className="min-w-0">
-                          <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] tracking-tight group-hover:text-primary transition-colors">
-                            {s.title}
-                          </h3>
-                          <p className="mt-1 text-muted text-[0.9rem] leading-relaxed line-clamp-2">
-                            {s.body}
-                          </p>
-                        </div>
-                      </div>
-                      <svg
-                        width="18" height="18" viewBox="0 0 18 18" fill="none"
-                        className="shrink-0 text-muted group-hover:text-primary group-hover:translate-x-1 transition-all mt-1"
-                      >
-                        <path d="M3.75 9h10.5M9.75 4.5l4.5 4.5-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+              <div className="mt-12 grid md:grid-cols-2 gap-14 lg:gap-20">
+
+                {/* Our Story */}
+                <Reveal preset="right" delay={0.05}>
+                  <div>
+                    <span className="font-mono text-[0.65rem] font-bold tracking-[0.2em] uppercase text-primary block mb-4">Our Story</span>
+                    <h3 className="font-sans font-black text-foreground text-[1.3rem] tracking-tight leading-snug mb-5">
+                      From a single campus in Dundigal to a nationally recognised institution.
+                    </h3>
+                    <div className="space-y-4 text-foreground leading-relaxed text-[1rem]">
+                      <p>
+                        MLR Institute of Technology was founded in 2005 by <strong>Sri Marri Laxman Reddy Garu</strong> and his family through the KMR Educational Society — with a single, clear purpose: to bring rigorous, industry-aligned engineering education to the students of Telangana. Starting with a handful of branches on a 38-acre campus at Dundigal, Hyderabad, MLRIT has grown steadily into one of the region's most trusted engineering institutions.
+                      </p>
+                      <p>
+                        Two decades on, the institution holds <strong>autonomous status</strong> granted by the UGC, <strong>NAAC institutional accreditation</strong>, <strong>NBA programme-level accreditation</strong> across five branches, and a consistent presence in the NIRF engineering rankings. Over 7,000 alumni now work across India and the world — in software, aerospace, finance, research and public service — each carrying forward the founding promise of <em>right education, bright placements.</em>
+                      </p>
+                    </div>
+                    <Link href="/about/vision-mission/introduction" className="mt-6 inline-flex items-center gap-2 text-primary font-semibold text-[0.88rem] hover:gap-3 transition-all">
+                      Read the full story →
                     </Link>
-                  </Reveal>
-                ))}
+                  </div>
+                </Reveal>
+
+                {/* What Drives Us */}
+                <Reveal preset="up" delay={0.1}>
+                  <div>
+                    <span className="font-mono text-[0.65rem] font-bold tracking-[0.2em] uppercase text-primary block mb-4">What Drives Us</span>
+                    <h3 className="font-sans font-black text-foreground text-[1.3rem] tracking-tight leading-snug mb-5">
+                      Academic excellence, human values and a commitment to the nation.
+                    </h3>
+                    <div className="space-y-4 text-foreground leading-relaxed text-[1rem]">
+                      <p>
+                        MLRIT's vision is to promote academic excellence, research, innovation and entrepreneurial thinking — producing graduates equipped not just with technical depth but with the values and leadership qualities needed to contribute meaningfully to society. Every curriculum decision, every faculty appointment, every lab investment flows from this single guiding purpose.
+                      </p>
+                      <p>
+                        The mission is lived daily: through student-centric teaching built on cutting-edge technologies, an environment that nurtures research and entrepreneurship, and a placement engine that prepares every student for a global career. MLRIT believes the best education is one that makes graduates both competent and compassionate — globally competitive and socially responsible in equal measure.
+                      </p>
+                    </div>
+                    <Link href="/about/vision-mission/vision-mission" className="mt-6 inline-flex items-center gap-2 text-primary font-semibold text-[0.88rem] hover:gap-3 transition-all">
+                      Read Vision & Mission →
+                    </Link>
+                  </div>
+                </Reveal>
+
               </div>
             </div>
           </section>
