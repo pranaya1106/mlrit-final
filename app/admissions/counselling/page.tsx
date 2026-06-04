@@ -4,6 +4,74 @@ import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
 
+// ── PDF Tab Viewer ─────────────────────────────────────────────────────────
+function CutoffPDFViewer() {
+  const [tab, setTab] = useState<'embed' | 'download'>('embed');
+  return (
+    <div className="rounded-2xl border border-border overflow-hidden shadow-card-soft bg-white">
+      {/* Tab bar */}
+      <div className="flex items-center border-b border-border bg-warm-light px-4 gap-1">
+        <button
+          onClick={() => setTab('embed')}
+          className={`px-4 py-3 font-sans font-semibold text-[0.85rem] border-b-2 transition-all ${
+            tab === 'embed' ? 'border-secondary text-secondary' : 'border-transparent text-muted hover:text-foreground'
+          }`}
+        >
+          View PDF
+        </button>
+        <button
+          onClick={() => setTab('download')}
+          className={`px-4 py-3 font-sans font-semibold text-[0.85rem] border-b-2 transition-all ${
+            tab === 'download' ? 'border-primary text-primary' : 'border-transparent text-muted hover:text-foreground'
+          }`}
+        >
+          Download
+        </button>
+        <div className="flex-1" />
+        <span className="font-mono text-[0.62rem] text-muted tracking-wide uppercase py-3 pr-2">
+          TS EAMCET Cutoff 2024–25
+        </span>
+      </div>
+
+      {/* PDF embed */}
+      {tab === 'embed' && (
+        <div className="w-full" style={{ height: '600px' }}>
+          <iframe
+            src="/admissions/cutoff-2024-25.pdf"
+            className="w-full h-full border-0"
+            title="TS EAMCET Cutoff Ranks 2024-25"
+          />
+        </div>
+      )}
+
+      {/* Download tab */}
+      {tab === 'download' && (
+        <div className="flex flex-col items-center justify-center gap-5 py-16 px-6 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
+              <path d="M14 4v14m-5-5 5 5 5-5M4 22h20" stroke="#01741f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p className="font-sans font-extrabold text-foreground text-[1.05rem]">TS EAMCET Cutoff Ranks 2024–25</p>
+            <p className="text-muted text-[0.88rem] mt-1">Official MLRIT branch-wise closing ranks · All categories</p>
+          </div>
+          <a
+            href="/admissions/cutoff-2024-25.pdf"
+            download="MLRIT-Cutoff-2024-25.pdf"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-secondary text-white font-bold text-sm hover:bg-secondary-hover transition-all shadow-[0_4px_16px_rgba(1,116,31,0.25)] hover:scale-105"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M8 2v8m-3-3 3 3 3-3M2 13h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Download PDF
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Accordion primitives ───────────────────────────────────────────────────
 function AccordionItem({
   id,
@@ -306,49 +374,11 @@ export default function CounsellingPage() {
                 Cutoff Ranks 2024–25
               </h2>
               <p className="text-muted text-[0.9rem] mb-5">
-                TS EAMCET closing ranks for MLRIT — Convener quota seats (AY 2024–25).{' '}
-                <a href="https://files.mlrit.ac.in/uploads/TSEAPCET-CUT-OFF-RANK-2024-2025.pdf" target="_blank" rel="noopener noreferrer" className="text-secondary font-semibold hover:underline">
-                  Download full PDF ↗
-                </a>
+                Official TS EAMCET closing ranks for MLRIT — Convener quota seats (AY 2024–25).
               </p>
-              <div className="overflow-x-auto rounded-2xl border border-border bg-white shadow-card-soft">
-                <table className="w-full text-left text-[0.88rem]">
-                  <thead className="bg-warm-light border-b border-border">
-                    <tr>
-                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Branch</th>
-                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">OC</th>
-                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">BC-A</th>
-                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">BC-B</th>
-                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">SC</th>
-                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">ST</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { branch: 'CSE',            oc: '27,144',  bca: '34,211',  bcb: '31,502',  sc: '58,923',   st: '14,211' },
-                      { branch: 'AI & ML',         oc: '34,892',  bca: '42,100',  bcb: '39,814',  sc: '72,341',   st: '18,902' },
-                      { branch: 'CSE – Cyber Sec', oc: '41,203',  bca: '51,432',  bcb: '47,991',  sc: '89,102',   st: '22,341' },
-                      { branch: 'CSE – DS',        oc: '38,741',  bca: '48,002',  bcb: '44,513',  sc: '81,234',   st: '20,112' },
-                      { branch: 'CSIT',            oc: '52,341',  bca: '63,211',  bcb: '58,902',  sc: '1,02,341', st: '28,901' },
-                      { branch: 'IT',              oc: '48,902',  bca: '59,341',  bcb: '55,012',  sc: '98,123',   st: '26,234' },
-                      { branch: 'ECE',             oc: '61,234',  bca: '74,512',  bcb: '69,341',  sc: '1,12,341', st: '34,512' },
-                      { branch: 'EEE',             oc: '78,341',  bca: '91,023',  bcb: '85,902',  sc: '1,31,234', st: '41,023' },
-                      { branch: 'Mechanical',      oc: '89,102',  bca: '1,02,341',bcb: '97,012',  sc: '1,52,341', st: '52,341' },
-                      { branch: 'Aeronautical',    oc: '72,341',  bca: '87,012',  bcb: '81,234',  sc: '1,28,902', st: '44,512' },
-                    ].map((r, i) => (
-                      <tr key={r.branch} className={`border-t border-border ${i % 2 === 0 ? '' : 'bg-warm-light/30'}`}>
-                        <td className="px-5 py-3 font-sans font-semibold text-foreground">{r.branch}</td>
-                        <td className="px-5 py-3 font-mono text-foreground">{r.oc}</td>
-                        <td className="px-5 py-3 font-mono text-muted">{r.bca}</td>
-                        <td className="px-5 py-3 font-mono text-muted">{r.bcb}</td>
-                        <td className="px-5 py-3 font-mono text-muted">{r.sc}</td>
-                        <td className="px-5 py-3 font-mono text-muted">{r.st}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="mt-3 text-muted text-[0.78rem]">* Approximate closing ranks based on 2024–25 data. Actual ranks may vary. Download the official PDF for complete branch-wise data.</p>
+
+              {/* PDF Tab Viewer */}
+              <CutoffPDFViewer />
             </section>
           </Reveal>
 
@@ -422,7 +452,7 @@ export default function CounsellingPage() {
                     ))}
                   </ul>
                   <a
-                    href="https://files.mlrit.ac.in/uploads/ADMISSION_FORM_2024-25.pdf"
+                    href="/admissions/admission-form-2024-25.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-bold text-sm hover:bg-secondary-hover transition-colors shadow-[0_4px_12px_rgba(1,116,31,0.2)]"
