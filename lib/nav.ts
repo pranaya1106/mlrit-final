@@ -69,9 +69,9 @@ export const NAV_PRIMARY: NavItem[] = [
         heading: 'Apply',
         links: [
           { label: 'Overview',          href: '/admissions' },
-          { label: 'By Degree',         href: '/admissions/by-degree' },
           { label: 'Counselling',       href: '/admissions/counselling' },
           { label: 'Scholarships',      href: '/admissions/scholarships' },
+          { label: 'Support & FAQ',     href: '/admissions/support' },
         ],
       },
       {
@@ -80,7 +80,6 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Fees',              href: '/admissions/fees' },
           { label: 'Why MLRIT',         href: '/admissions/why-mlrit' },
           { label: 'Admission Policies',href: '/admissions/policies' },
-          { label: 'Support & FAQ',     href: '/admissions/support' },
         ],
       },
     ],

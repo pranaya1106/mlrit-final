@@ -33,10 +33,7 @@ const STEPS = [
   },
 ];
 
-// Row 1: pill · photo · pill · photo · pill
-// Row 2: photo · pill · photo · pill · arrow
-// Photos: s1=saree girl, s2=camera boy, s3=beach boy, s4=girl station, s5=girl campus
-// 4 unique student photos — cycled
+// 4 unique student photos
 const S = [
   '/images/students/s1.jpg',
   '/images/students/s2.jpg',
@@ -210,12 +207,24 @@ export default function AdmissionsPage() {
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
+    const visible = new Set<number>();
+
     const observers: IntersectionObserver[] = [];
     stepRefs.current.forEach((el, i) => {
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveStep(i); },
-        { rootMargin: '-30% 0px -50% 0px', threshold: 0 },
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            visible.add(i);
+          } else {
+            visible.delete(i);
+          }
+          // Always activate the topmost visible step
+          if (visible.size > 0) {
+            setActiveStep(Math.min(...visible));
+          }
+        },
+        { rootMargin: '-20% 0px -20% 0px', threshold: 0 },
       );
       obs.observe(el);
       observers.push(obs);
@@ -567,7 +576,7 @@ export default function AdmissionsPage() {
                 </svg>
               </Link>
               <Link
-                href="/admissions/by-degree"
+                href="/departments/ug"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
               >
                 Browse Programmes
