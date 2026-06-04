@@ -245,7 +245,7 @@ export default function AdmissionsPage() {
       {/* ── HERO ── full viewport, green bg, bold typographic */}
       <section
         className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0f2d13 0%, #1F6B24 60%, #2d8a35 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #014d15 0%, #01741f 60%, #018f28 100%)' }}
       >
         {/* Background texture circles */}
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-10"
@@ -488,7 +488,7 @@ export default function AdmissionsPage() {
           <Reveal>
             <div
               className="relative rounded-3xl overflow-hidden px-10 md:px-16 pt-14 pb-0 md:pb-0"
-              style={{ background: 'linear-gradient(135deg, #0f2d13 0%, #1F6B24 100%)' }}
+              style={{ background: 'linear-gradient(135deg, #014d15 0%, #01741f 100%)' }}
             >
               {/* Decorative shapes */}
               <div className="absolute top-0 right-0 w-64 h-64 opacity-10">
@@ -545,7 +545,7 @@ export default function AdmissionsPage() {
       {/* ── BRAND CLOSE — "You're more than a score" */}
       <section
         className="relative py-24 md:py-36 overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0f2d13 0%, #1F6B24 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #014d15 0%, #01741f 100%)' }}
       >
         {/* Decorative */}
         <div className="absolute inset-0 opacity-5 pointer-events-none"

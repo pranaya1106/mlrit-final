@@ -69,7 +69,7 @@ export default function Header() {
         <ul className="flex items-stretch px-6">
           {NAV_PRIMARY.map((item) => (
             <li key={item.label} className="group relative flex-shrink-0">
-              {item.href ? (
+              {item.href && !item.cols ? (
                 <Link
                   href={item.href}
                   className="flex items-center h-[52px] px-3 text-[0.92rem] font-medium tracking-[-0.005em] hover:bg-white/10 transition-colors"

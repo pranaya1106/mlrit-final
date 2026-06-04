@@ -62,10 +62,14 @@ export default function PageHeader({
     orange: 'bg-gradient-to-br from-[#3a1503] to-[#6a2a0a]',
   }[variant];
 
+  // Wave fill colour matches the page background below (always warm-light / white)
+  const waveColor = '#faf7f0';
+
   return (
     <section className={`${bg} text-white relative overflow-hidden`}>
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/15 blur-[80px] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-secondary/20 blur-[80px] pointer-events-none" />
+
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-28">
         {crumbs && (
           <div className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] tracking-[0.14em] uppercase text-white/55 mb-6">
@@ -88,6 +92,13 @@ export default function PageHeader({
           {italic && <span className="block font-display italic font-medium text-warm">{italic}</span>}
         </h1>
         {dek && <p className="mt-6 text-white/78 leading-relaxed text-[1.08rem] max-w-[720px]">{dek}</p>}
+      </div>
+
+      {/* Curved bottom wave — same as admissions hero */}
+      <div className="absolute bottom-0 left-0 right-0 leading-none">
+        <svg viewBox="0 0 1440 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none" style={{ height: '56px' }}>
+          <path d="M0 56 C360 0 1080 0 1440 56 L1440 56 L0 56Z" fill={waveColor} />
+        </svg>
       </div>
     </section>
   );
