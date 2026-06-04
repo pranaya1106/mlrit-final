@@ -162,7 +162,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Section cards */}
+          {/* Section list — textual, no boxes */}
           <section id="explore" className="bg-white py-20 md:py-28">
             <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
               <Reveal>
@@ -171,18 +171,37 @@ export default function AboutPage() {
                   About <span className="font-display italic font-medium" style={gradientText}>MLRIT.</span>
                 </h2>
               </Reveal>
-              <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.07}>
-                {SECTIONS.map((s) => (
-                  <StaggerItem key={s.href}>
-                    <Link href={s.href} className="group block rounded-2xl border border-border bg-white p-7 h-full hover:border-primary hover:-translate-y-1 transition-all">
-                      <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{s.tag}</div>
-                      <h3 className="mt-2 font-sans font-extrabold text-foreground text-xl tracking-tight">{s.title}</h3>
-                      <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{s.body}</p>
-                      <div className="mt-5 inline-flex items-center gap-1.5 text-primary font-semibold text-sm group-hover:gap-3 transition-all">Open →</div>
+
+              <div className="mt-10 divide-y divide-border">
+                {SECTIONS.map((s, i) => (
+                  <Reveal key={s.href} preset="right" delay={i * 0.05}>
+                    <Link
+                      href={s.href}
+                      className="group flex items-start justify-between gap-6 py-6 hover:bg-warm-light/40 -mx-4 px-4 rounded-xl transition-colors"
+                    >
+                      <div className="flex items-start gap-5 min-w-0">
+                        <span className="font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase text-primary shrink-0 pt-1 w-28">
+                          {s.tag}
+                        </span>
+                        <div className="min-w-0">
+                          <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] tracking-tight group-hover:text-primary transition-colors">
+                            {s.title}
+                          </h3>
+                          <p className="mt-1 text-muted text-[0.9rem] leading-relaxed line-clamp-2">
+                            {s.body}
+                          </p>
+                        </div>
+                      </div>
+                      <svg
+                        width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        className="shrink-0 text-muted group-hover:text-primary group-hover:translate-x-1 transition-all mt-1"
+                      >
+                        <path d="M3.75 9h10.5M9.75 4.5l4.5 4.5-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </Link>
-                  </StaggerItem>
+                  </Reveal>
                 ))}
-              </Stagger>
+              </div>
             </div>
           </section>
 
