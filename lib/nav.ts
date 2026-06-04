@@ -45,7 +45,6 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Academics Overview',            href: '/academics' },
           { label: 'Undergraduate (B.Tech)',        href: '/departments/ug' },
           { label: 'Postgraduate (M.Tech and MBA)', href: '/departments/pg' },
-          { label: 'Faculty Profiles',              href: '/departments/faculty-profile' },
         ],
       },
       {
