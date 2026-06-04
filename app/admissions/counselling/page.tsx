@@ -4,70 +4,29 @@ import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
 
-// ── PDF Tab Viewer ─────────────────────────────────────────────────────────
+// ── Cutoff PDF Download Card ────────────────────────────────────────────────
 function CutoffPDFViewer() {
-  const [tab, setTab] = useState<'embed' | 'download'>('embed');
   return (
-    <div className="rounded-2xl border border-border overflow-hidden shadow-card-soft bg-white">
-      {/* Tab bar */}
-      <div className="flex items-center border-b border-border bg-warm-light px-4 gap-1">
-        <button
-          onClick={() => setTab('embed')}
-          className={`px-4 py-3 font-sans font-semibold text-[0.85rem] border-b-2 transition-all ${
-            tab === 'embed' ? 'border-secondary text-secondary' : 'border-transparent text-muted hover:text-foreground'
-          }`}
-        >
-          View PDF
-        </button>
-        <button
-          onClick={() => setTab('download')}
-          className={`px-4 py-3 font-sans font-semibold text-[0.85rem] border-b-2 transition-all ${
-            tab === 'download' ? 'border-primary text-primary' : 'border-transparent text-muted hover:text-foreground'
-          }`}
-        >
-          Download
-        </button>
-        <div className="flex-1" />
-        <span className="font-mono text-[0.62rem] text-muted tracking-wide uppercase py-3 pr-2">
-          TS EAMCET Cutoff 2024–25
-        </span>
+    <div className="rounded-2xl border border-border bg-warm-light p-8 shadow-card-soft flex flex-col sm:flex-row items-center gap-6">
+      <div className="w-14 h-14 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center shrink-0">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
+          <path d="M13 3v13m-5-5 5 5 5-5M3 21h20" stroke="#01741f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </div>
-
-      {/* PDF embed */}
-      {tab === 'embed' && (
-        <div className="w-full" style={{ height: '600px' }}>
-          <iframe
-            src="/admissions/cutoff-2024-25.pdf"
-            className="w-full h-full border-0"
-            title="TS EAMCET Cutoff Ranks 2024-25"
-          />
-        </div>
-      )}
-
-      {/* Download tab */}
-      {tab === 'download' && (
-        <div className="flex flex-col items-center justify-center gap-5 py-16 px-6 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden>
-              <path d="M14 4v14m-5-5 5 5 5-5M4 22h20" stroke="#01741f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <p className="font-sans font-extrabold text-foreground text-[1.05rem]">TS EAMCET Cutoff Ranks 2024–25</p>
-            <p className="text-muted text-[0.88rem] mt-1">Official MLRIT branch-wise closing ranks · All categories</p>
-          </div>
-          <a
-            href="/admissions/cutoff-2024-25.pdf"
-            download="MLRIT-Cutoff-2024-25.pdf"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-secondary text-white font-bold text-sm hover:bg-secondary-hover transition-all shadow-[0_4px_16px_rgba(1,116,31,0.25)] hover:scale-105"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-              <path d="M8 2v8m-3-3 3 3 3-3M2 13h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Download PDF
-          </a>
-        </div>
-      )}
+      <div className="flex-1 text-center sm:text-left">
+        <p className="font-sans font-extrabold text-foreground text-[1rem]">TS EAMCET Cutoff Ranks 2024–25</p>
+        <p className="text-muted text-[0.88rem] mt-0.5">Official MLRIT branch-wise closing ranks — all categories (OC / BC / SC / ST)</p>
+      </div>
+      <a
+        href="/admissions/cutoff-2024-25.pdf"
+        download="MLRIT-Cutoff-2024-25.pdf"
+        className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-white font-bold text-sm hover:bg-secondary-hover transition-all shadow-[0_4px_16px_rgba(1,116,31,0.25)] hover:scale-105"
+      >
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden>
+          <path d="M7.5 2v8m-3-3 3 3 3-3M1.5 13h12" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        Download PDF
+      </a>
     </div>
   );
 }
@@ -484,15 +443,23 @@ export default function CounsellingPage() {
                 <h3 className="font-sans font-bold text-[1.1rem]">Need help with admissions?</h3>
                 <p className="text-white/75 text-[0.9rem] mt-1">Our admissions team is available Mon–Sat, 9 AM – 5 PM.</p>
               </div>
-              <a
-                href="tel:+914023988101"
-                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-colors shadow-primary-glow"
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                  <path d="M14 10.67a1 1 0 01-.33.66l-1.34 1.34A1 1 0 0111.33 13C4.33 13 3 5.67 3 5.67a1 1 0 01.33-1L4.67 3.33A1 1 0 015.33 3l2 4a1 1 0 01-.27 1.27L6 9.33A6 6 0 006.67 10 6 6 0 009.33 10l1.07-1.07A1 1 0 0111.67 9l4 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                +91 40 2398 8101
-              </a>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="tel:+919652226061"
+                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-colors shadow-primary-glow"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M14 10.67a1 1 0 01-.33.66l-1.34 1.34A1 1 0 0111.33 13C4.33 13 3 5.67 3 5.67a1 1 0 01.33-1L4.67 3.33A1 1 0 015.33 3l2 4a1 1 0 01-.27 1.27L6 9.33A6 6 0 006.67 10 6 6 0 009.33 10l1.07-1.07A1 1 0 0111.67 9l4 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  +91 96522 26061
+                </a>
+                <a
+                  href="tel:+919866652122"
+                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 border border-white/25 text-white font-bold text-sm hover:bg-white/20 transition-colors"
+                >
+                  +91 98666 52122
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>
