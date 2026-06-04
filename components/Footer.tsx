@@ -54,60 +54,64 @@ const USEFUL_SECTIONS = [
     id: 'accreditation',
     label: 'Accreditation & Rankings',
     links: [
-      { label: 'AICTE Approvals',       href: 'https://mlrit.ac.in/aicte-approvals/',                        ext: true  },
-      { label: 'NIRF Rankings',         href: 'https://mlrit.ac.in/nirf-ranked-institution/',                ext: true  },
-      { label: 'NAAC SSR',              href: 'https://naac.mlrit.ac.in/',                                    ext: true  },
+      { label: 'AICTE Approvals',       href: 'https://mlrit.ac.in/aicte-approvals/',       ext: true },
+      { label: 'NIRF Rankings',         href: 'https://mlrit.ac.in/nirf-ranked-institution/', ext: true },
+      { label: 'NAAC SSR',              href: 'https://naac.mlrit.ac.in/',                   ext: true },
       { label: 'NBA — DCP',             href: '/iqac/nba' },
       { label: 'AQAR Reports',          href: '/iqac/aqar' },
-      { label: 'Mandatory Disclosures', href: 'https://mlrit.ac.in/mandatory-disclosures/',                  ext: true  },
+      { label: 'Rankings & Awards',     href: '/about/rankings-awards' },
+      { label: 'Mandatory Disclosures', href: 'https://mlrit.ac.in/mandatory-disclosures/',  ext: true },
     ],
   },
   {
     id: 'governance',
     label: 'Governance & Policies',
     links: [
-      { label: 'UGC Undertaking',          href: 'https://files.mlrit.ac.in/uploads/UGC-2f_12b.pdf',                         ext: true },
-      { label: 'Service Rules',            href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/Recruitment-policy-service%20rules.pdf', ext: true },
-      { label: 'Financial Statements',     href: 'https://mlrit.ac.in/financial-statements/',                                 ext: true },
-      { label: 'DPR',                      href: 'https://files.mlrit.ac.in/university/DPR.pdf',                               ext: true },
-      { label: 'OBE Portal',               href: 'http://103.15.62.235/ioncudos_mlrit_tier1/',                                 ext: true },
+      { label: 'UGC Undertaking',      href: 'https://files.mlrit.ac.in/uploads/UGC-2f_12b.pdf', ext: true },
+      { label: 'Service Rules',        href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/Recruitment-policy-service%20rules.pdf', ext: true },
+      { label: 'Financial Statements', href: 'https://mlrit.ac.in/financial-statements/',   ext: true },
+      { label: 'DPR',                  href: 'https://files.mlrit.ac.in/university/DPR.pdf', ext: true },
+      { label: 'Admission Policies',   href: '/admissions/policies' },
+      { label: 'OBE Portal',           href: 'http://103.15.62.235/ioncudos_mlrit_tier1/',   ext: true },
+      { label: 'Examination Policy',   href: '/examinations/exam-policy.pdf' },
     ],
   },
   {
     id: 'committees',
     label: 'Committees & Cells',
     links: [
-      { label: 'Anti-Ragging Committee',      href: 'https://files.mlrit.ac.in/uploads/Committees/Anti-Ragging_Disciplinary_Committee.pdf', ext: true },
-      { label: 'SC-ST Committee',             href: 'http://files.mlrit.ac.in/uploads/Committees/SC-ST_Committee.pdf',                       ext: true },
-      { label: 'ICC',                         href: 'https://files.mlrit.ac.in/ICC_Committee.pdf',                                           ext: true },
-      { label: 'Women Empowerment Cell',      href: "https://files.mlrit.ac.in/uploads/Committees/Women's_Empowerment_Cell.pdf",             ext: true },
-      { label: 'Student Counsellor Committee',href: 'https://files.mlrit.ac.in/uploads/Committees/Student_Counsellor.pdf',                   ext: true },
-      { label: 'IIC',                         href: 'https://files.mlrit.ac.in/uploads/Committees/Institution_Industry_Cell.pdf',             ext: true },
-      { label: 'RTI Committee',               href: 'http://files.mlrit.ac.in/uploads/Committees/RTI_Committee.pdf',                         ext: true },
-      { label: 'Grievance Redressal',         href: 'https://mlrit.edugrievance.com/',                                                       ext: true },
+      { label: 'Anti-Ragging Committee',       href: 'https://files.mlrit.ac.in/uploads/Committees/Anti-Ragging_Disciplinary_Committee.pdf', ext: true },
+      { label: 'SC-ST Committee',              href: 'http://files.mlrit.ac.in/uploads/Committees/SC-ST_Committee.pdf',  ext: true },
+      { label: 'ICC',                          href: 'https://files.mlrit.ac.in/ICC_Committee.pdf',  ext: true },
+      { label: 'Women Empowerment Cell',       href: "https://files.mlrit.ac.in/uploads/Committees/Women's_Empowerment_Cell.pdf", ext: true },
+      { label: 'Student Counsellor Committee', href: 'https://files.mlrit.ac.in/uploads/Committees/Student_Counsellor.pdf', ext: true },
+      { label: 'IIC',                          href: 'https://files.mlrit.ac.in/uploads/Committees/Institution_Industry_Cell.pdf', ext: true },
+      { label: 'RTI Committee',                href: 'http://files.mlrit.ac.in/uploads/Committees/RTI_Committee.pdf', ext: true },
+      { label: 'Grievance Portal',             href: 'https://mlrit.edugrievance.com/', ext: true },
     ],
   },
   {
     id: 'student',
     label: 'Student Resources',
     links: [
-      { label: 'Scholarships',        href: '/admissions/scholarships' },
-      { label: 'NSS Event Reports',   href: 'https://mlrit.ac.in/nss-event-reports/',                      ext: true },
-      { label: 'Virtual Tour',        href: 'https://mlrit.ac.in/virtual-tour/',                           ext: true },
-      { label: 'Campus Life',         href: 'https://mlrit.ac.in/campus-life/',                            ext: true },
-      { label: 'Sports',              href: '/campus/sports' },
-      { label: 'LMS',                 href: 'https://lms.mlrit.ac.in/',                                    ext: true },
-      { label: 'ERP Login',           href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', ext: true },
+      { label: 'Scholarships',      href: '/admissions/scholarships' },
+      { label: 'Admissions FAQ',    href: '/admissions/support' },
+      { label: 'Fee Structure',     href: '/admissions/fees' },
+      { label: 'Sports',            href: '/campus/sports' },
+      { label: 'Campus Clubs',      href: '/campus/clubs' },
+      { label: 'NSS Event Reports', href: 'https://mlrit.ac.in/nss-event-reports/', ext: true },
+      { label: 'Virtual Tour',      href: 'https://mlrit.ac.in/virtual-tour/',      ext: true },
+      { label: 'LMS',               href: 'https://lms.mlrit.ac.in/',              ext: true },
+      { label: 'ERP Login',         href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', ext: true },
     ],
   },
 ];
 
-function UsefulLinkSection({ section }: { section: typeof USEFUL_SECTIONS[0] }) {
-  const [open, setOpen] = useState(false);
+function UsefulLinkSection({ section, open, onToggle }: { section: typeof USEFUL_SECTIONS[0]; open: boolean; onToggle: () => void }) {
   return (
     <div className="border-b border-border last:border-0">
       <button
-        onClick={() => setOpen(v => !v)}
+        onClick={onToggle}
         className="w-full flex items-center justify-between py-3 text-left group"
       >
         <span className={`font-sans font-semibold text-[0.85rem] transition-colors ${open ? 'text-primary' : 'text-foreground group-hover:text-primary'}`}>
@@ -139,6 +143,28 @@ function UsefulLinkSection({ section }: { section: typeof USEFUL_SECTIONS[0] }) 
             </li>
           ))}
         </ul>
+      </div>
+    </div>
+  );
+}
+
+function UsefulLinksAccordion() {
+  const [openId, setOpenId] = useState<string | null>(null);
+  return (
+    <div className="col-span-2 md:col-span-4 lg:col-span-1">
+      <h5 className="text-primary font-bold text-[0.7rem] tracking-[0.2em] uppercase mb-4">
+        Useful Links
+      </h5>
+      <div className="divide-y divide-border border border-border rounded-xl overflow-hidden bg-white/60">
+        {USEFUL_SECTIONS.map((s) => (
+          <div key={s.id} className="px-4">
+            <UsefulLinkSection
+              section={s}
+              open={openId === s.id}
+              onToggle={() => setOpenId(openId === s.id ? null : s.id)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -176,19 +202,8 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* Useful Links — 5th column with expandable sections */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <h5 className="text-primary font-bold text-[0.7rem] tracking-[0.2em] uppercase mb-4">
-              Useful Links
-            </h5>
-            <div className="divide-y divide-border border border-border rounded-xl overflow-hidden bg-white/60">
-              {USEFUL_SECTIONS.map((s) => (
-                <div key={s.id} className="px-4">
-                  <UsefulLinkSection section={s} />
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Useful Links — 5th column with single-open accordion */}
+          <UsefulLinksAccordion />
 
         </div>
       </div>
