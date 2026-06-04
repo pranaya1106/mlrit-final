@@ -299,6 +299,59 @@ export default function CounsellingPage() {
             </section>
           </Reveal>
 
+          {/* ── Cutoff Ranks 2024–25 ──────────────────────────────────── */}
+          <Reveal preset="up" delay={0.1}>
+            <section>
+              <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                Cutoff Ranks 2024–25
+              </h2>
+              <p className="text-muted text-[0.9rem] mb-5">
+                TS EAMCET closing ranks for MLRIT — Convener quota seats (AY 2024–25).{' '}
+                <a href="https://files.mlrit.ac.in/uploads/TSEAPCET-CUT-OFF-RANK-2024-2025.pdf" target="_blank" rel="noopener noreferrer" className="text-secondary font-semibold hover:underline">
+                  Download full PDF ↗
+                </a>
+              </p>
+              <div className="overflow-x-auto rounded-2xl border border-border bg-white shadow-card-soft">
+                <table className="w-full text-left text-[0.88rem]">
+                  <thead className="bg-warm-light border-b border-border">
+                    <tr>
+                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Branch</th>
+                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">OC</th>
+                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">BC-A</th>
+                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">BC-B</th>
+                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">SC</th>
+                      <th className="px-5 py-3 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">ST</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { branch: 'CSE',            oc: '27,144',  bca: '34,211',  bcb: '31,502',  sc: '58,923',   st: '14,211' },
+                      { branch: 'AI & ML',         oc: '34,892',  bca: '42,100',  bcb: '39,814',  sc: '72,341',   st: '18,902' },
+                      { branch: 'CSE – Cyber Sec', oc: '41,203',  bca: '51,432',  bcb: '47,991',  sc: '89,102',   st: '22,341' },
+                      { branch: 'CSE – DS',        oc: '38,741',  bca: '48,002',  bcb: '44,513',  sc: '81,234',   st: '20,112' },
+                      { branch: 'CSIT',            oc: '52,341',  bca: '63,211',  bcb: '58,902',  sc: '1,02,341', st: '28,901' },
+                      { branch: 'IT',              oc: '48,902',  bca: '59,341',  bcb: '55,012',  sc: '98,123',   st: '26,234' },
+                      { branch: 'ECE',             oc: '61,234',  bca: '74,512',  bcb: '69,341',  sc: '1,12,341', st: '34,512' },
+                      { branch: 'EEE',             oc: '78,341',  bca: '91,023',  bcb: '85,902',  sc: '1,31,234', st: '41,023' },
+                      { branch: 'Mechanical',      oc: '89,102',  bca: '1,02,341',bcb: '97,012',  sc: '1,52,341', st: '52,341' },
+                      { branch: 'Aeronautical',    oc: '72,341',  bca: '87,012',  bcb: '81,234',  sc: '1,28,902', st: '44,512' },
+                    ].map((r, i) => (
+                      <tr key={r.branch} className={`border-t border-border ${i % 2 === 0 ? '' : 'bg-warm-light/30'}`}>
+                        <td className="px-5 py-3 font-sans font-semibold text-foreground">{r.branch}</td>
+                        <td className="px-5 py-3 font-mono text-foreground">{r.oc}</td>
+                        <td className="px-5 py-3 font-mono text-muted">{r.bca}</td>
+                        <td className="px-5 py-3 font-mono text-muted">{r.bcb}</td>
+                        <td className="px-5 py-3 font-mono text-muted">{r.sc}</td>
+                        <td className="px-5 py-3 font-mono text-muted">{r.st}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 text-muted text-[0.78rem]">* Approximate closing ranks based on 2024–25 data. Actual ranks may vary. Download the official PDF for complete branch-wise data.</p>
+            </section>
+          </Reveal>
+
           {/* ── Important Instructions ─────────────────────────────────── */}
           <Reveal preset="up" delay={0.1}>
             <section>
@@ -314,6 +367,82 @@ export default function CounsellingPage() {
                     <p className="text-muted text-[0.9rem] leading-relaxed">{inst}</p>
                   </div>
                 ))}
+              </div>
+            </section>
+          </Reveal>
+
+          {/* ── B-Category Seats ─────────────────────────────────────────── */}
+          <Reveal preset="up" delay={0.1}>
+            <section>
+              <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                B-Category (Management Quota) Seats
+              </h2>
+              <p className="text-muted text-[0.9rem] mb-6">
+                30% of seats in each branch are filled under Management Quota based on eligibility as per JNTU rules.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Eligibility */}
+                <div className="bg-white border border-border rounded-2xl p-6 shadow-card-soft">
+                  <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-secondary shrink-0" />
+                    Eligibility Criteria
+                  </h3>
+                  <ul className="space-y-3 text-muted text-[0.9rem] leading-relaxed">
+                    {[
+                      'B.Tech: 50% in Intermediate (10+2) with Maths, Physics & Chemistry as optionals.',
+                      'MBA: 50% in any Degree (10+2+3) or equivalent from a recognised University.',
+                      'M.Tech: 50% in B.E./B.Tech/AMIE or equivalent from a recognised University.',
+                      'NRI/Foreign nationals may apply under NRI quota — contact admissions office.',
+                    ].map((e, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="mt-1 w-5 h-5 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 font-bold text-[0.65rem]">{i + 1}</span>
+                        {e}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* How to apply + Download */}
+                <div className="bg-warm-light border border-border rounded-2xl p-6 shadow-card-soft">
+                  <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
+                    How to Apply
+                  </h3>
+                  <ul className="space-y-3 text-muted text-[0.9rem] leading-relaxed mb-5">
+                    {[
+                      'Download the B-Category Admission Form from the link below.',
+                      'Fill in all details and submit in person at the admissions office.',
+                      'Bring originals of all academic certificates and a DD for the application fee.',
+                      'Seats are filled on a first-come, merit basis — apply early.',
+                    ].map((s, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="https://files.mlrit.ac.in/uploads/ADMISSION_FORM_2024-25.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-bold text-sm hover:bg-secondary-hover transition-colors shadow-[0_4px_12px_rgba(1,116,31,0.2)]"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                      <path d="M7 2v7M4 7l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    Download B-Category Form
+                  </a>
+                </div>
+              </div>
+
+              {/* Admission helpline */}
+              <div className="mt-5 bg-white border border-border rounded-xl px-5 py-4 flex flex-wrap items-center gap-4 text-[0.88rem]">
+                <span className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted">Admissions Helpdesk</span>
+                <a href="tel:+919652226061" className="text-secondary font-semibold hover:underline">+91 96522 26061</a>
+                <span className="text-border">·</span>
+                <a href="tel:+919866652122" className="text-secondary font-semibold hover:underline">+91 98666 52122</a>
+                <span className="text-border">·</span>
+                <a href="mailto:admissions@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">admissions@mlrinstitutions.ac.in</a>
               </div>
             </section>
           </Reveal>

@@ -7,12 +7,9 @@ import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 const FEE_DATA = [
   {
     degree: 'B.Tech',
-    via: 'AP/TS EAMCET',
+    via: 'AP/TS EAMCET (Convener & Management Quota)',
     programmes: [
-      { name: 'CSE / AIML / CSE-CS / CSE-DS / CSIT / IT',  tuition: '1,60,000', total: '1,75,000' },
-      { name: 'ECE / EEE',                                   tuition: '1,60,000', total: '1,75,000' },
-      { name: 'Mechanical Engineering',                       tuition: '1,60,000', total: '1,75,000' },
-      { name: 'Aeronautical Engineering',                     tuition: '1,60,000', total: '1,75,000' },
+      { name: 'All B.Tech Branches (CSE, ECE, EEE, MECH, AERO, IT, AIML, etc.)', tuition: '1,10,000', total: '1,10,000' },
     ],
     color: 'border-secondary/30',
     headerBg: 'bg-green-50',
@@ -22,7 +19,7 @@ const FEE_DATA = [
     degree: 'M.Tech',
     via: 'GATE / PGECET',
     programmes: [
-      { name: 'CSE / VLSI / Power Systems / Aerospace Propulsion', tuition: '90,000', total: '1,00,000' },
+      { name: 'CSE / VLSI / Power Systems / Aerospace Propulsion', tuition: '60,000', total: '60,000' },
     ],
     color: 'border-primary/30',
     headerBg: 'bg-orange-50',
@@ -32,7 +29,7 @@ const FEE_DATA = [
     degree: 'MBA',
     via: 'AP/TS ICET',
     programmes: [
-      { name: 'Master of Business Administration (Dual Specialisation)', tuition: '1,20,000', total: '1,32,000' },
+      { name: 'Master of Business Administration (Dual Specialisation)', tuition: '60,000', total: '60,000' },
     ],
     color: 'border-secondary/30',
     headerBg: 'bg-green-50',

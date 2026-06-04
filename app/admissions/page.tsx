@@ -68,21 +68,21 @@ const ROW2 = [
 
 const SCHOLARSHIPS = [
   {
-    type: 'Merit Based',
-    sub: 'Top 10% TS EAMCET rank',
-    img: '/images/about/milestone-2008.jpg',
+    type: 'Sports',
+    sub: 'State · National · International athletes',
+    img: '/images/about/milestone-2026.jpg',
     href: '/admissions/scholarships',
   },
   {
-    type: 'Need Based',
-    sub: 'Students from low-income backgrounds',
+    type: 'Industry & External',
+    sub: 'Cybage Khushboo Trust · Partner schemes',
     img: '/images/about/milestone-2022.jpg',
     href: '/admissions/scholarships',
   },
   {
-    type: 'Special Category',
-    sub: 'Sports · SC/ST · Women in STEM',
-    img: '/images/about/milestone-2026.jpg',
+    type: 'SC / ST / EWS',
+    sub: 'Full fee reimbursement via state ePass',
+    img: '/images/about/milestone-2008.jpg',
     href: '/admissions/scholarships',
   },
 ];
