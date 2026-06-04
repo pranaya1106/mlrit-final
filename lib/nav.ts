@@ -143,6 +143,23 @@ export const NAV_PRIMARY: NavItem[] = [
       },
     ],
   },
+  {
+    label: 'Examinations',
+    href: '/examinations',
+    cols: [
+      {
+        heading: 'Examinations',
+        links: [
+          { label: 'Overview',            href: '/examinations' },
+          { label: 'Results',             href: 'https://exams.mlrinstitutions.ac.in/', external: true },
+          { label: 'Circulars',           href: 'https://mlrit.ac.in/circulars/', external: true },
+          { label: 'Previous Papers',     href: 'https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html', external: true },
+          { label: 'Fee Payments',        href: 'https://exams.mlrinstitutions.ac.in/', external: true },
+          { label: 'Academic Calendars',  href: '/examinations#calendars' },
+        ],
+      },
+    ],
+  },
   { label: 'Placements', href: '/placements' },
 ];
 
