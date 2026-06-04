@@ -20,14 +20,7 @@ const LEADERS = [
     message: 'MLRIT stands as proof that public service and quality education can go hand in hand. We continue to invest in infrastructure, faculty and student welfare because we believe every engineer we produce is a gift to the nation.',
     accent: '#015416',
   },
-  {
-    tag: 'Treasurer',
-    name: 'Smt. Mamatha Reddy',
-    role: 'Treasurer, KMR Educational Society',
-    img: '/images/about/milestone-2008.jpg',
-    message: 'Financial stewardship at MLRIT has always meant investing in people first — in faculty, in laboratories, in student scholarships. Every rupee spent is a commitment to the institution\'s founding promise.',
-    accent: '#01741f',
-  },
+
 ];
 
 const gradientText: React.CSSProperties = {

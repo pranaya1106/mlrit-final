@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction — About MLRIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/chronicles-dropdown.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
+  <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="../css/theme.css" />
+  <style>
+    /* Hero text block — institutional pull-quote style */
+    .ab-intro-hero {
+      background: linear-gradient(135deg, #1a5c20 0%, #1F6B24 100%);
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ab-intro-hero::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 10rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: rgba(255,255,255,0.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .ab-intro-hero__eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 14px;
+    }
+
+    .ab-intro-hero__headline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin: 0 0 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ab-main .ab-intro-hero p.ab-intro-hero__sub,
+    .ab-intro-hero__sub {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #fff !important;
+      -webkit-text-fill-color: #fff !important;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Philosophy tag row */
+    .ab-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0 0;
+    }
+
+    .ab-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      letter-spacing: 0.04em;
+    }
+
+    /* Pull quote for version 2 */
+    .ab-philosophy-line {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1F6B24;
+      text-align: center;
+      padding: 20px 0 10px;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      border-top: 2px solid #e8e8e8;
+      border-bottom: 2px solid #e8e8e8;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-navbar"></div>
+
+  <div class="ab-banner">
+    <div class="ab-banner__watermark" aria-hidden="true">MLRIT</div>
+    <span class="ab-banner__eyebrow">About Us · Vision &amp; Mission</span>
+    <h1>Introduction</h1>
+  </div>
+
+  <nav class="ab-breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="ab-breadcrumb__sep" aria-hidden="true">›</span>
+    <a href="introduction.html">About Us</a>
+    <span class="ab-breadcrumb__sep" aria-hidden="true">›</span>
+    <span class="ab-breadcrumb__current">Introduction</span>
+  </nav>
+
+  <main>
+    <div class="ab-page">
+
+      <!-- Sidebar -->
+      <aside class="ab-side" aria-label="About Us navigation">
+        <p class="ab-side__title">About Us</p>
+        <ul class="ab-side__list">
+          <li>
+            <a href="introduction.html" class="is-active">Vision &amp; Mission</a>
+            <ul class="ab-side__sublist">
+              <li><a href="introduction.html" class="is-active">Introduction</a></li>
+              <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+            </ul>
+          </li>
+          <li><a href="legacy.html">Legacy</a></li>
+          <li><a href="rankings.html">Rankings &amp; Awards</a></li>
+          <li><a href="brochure.html">Brochure</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main content -->
+      <div class="ab-main">
+
+        <!-- Hero pull-quote block -->
+        <div class="ab-intro-hero ab-reveal">
+          <span class="ab-intro-hero__eyebrow">Built Beyond Classrooms</span>
+          <p class="ab-intro-hero__sub">
+            Somewhere between deadlines, workshop submissions, lab records, hackathons, placements, sports practice, and team projects — college becomes more than a degree. At MLR Institute of Technology, it always was.
+          </p>
+          <div class="ab-tag-row">
+            <span class="ab-tag">Academics</span>
+            <span class="ab-tag">Innovation</span>
+            <span class="ab-tag">Employability</span>
+            <span class="ab-tag">Sports</span>
+            <span class="ab-tag">Research</span>
+          </div>
+        </div>
+
+        <section class="ab-section ab-reveal" id="about">
+          <h2>About MLRIT</h2>
+          <p>
+            Since 2005, MLRIT has grown into a campus where learning extends far beyond the classroom. Students here are encouraged to build, question, compete, collaborate, and evolve — through academics, practical experience, innovation, and the culture around them.
+          </p>
+          <p>
+            Located in Dundigal, Hyderabad, and autonomous since 2015, the Institute is built on a simple belief: how students learn matters just as much as what they learn. That belief shapes everything here.
+          </p>
+          <p>
+            From core engineering to emerging fields like Artificial Intelligence &amp; Machine Learning, Data Science, Aeronautical and Aerospace Engineering, MLRIT combines academic foundations with industry relevance and hands-on exposure. Affiliated to JNTUH, the institution continues to create an environment that prepares students not only for careers, but for a rapidly changing world beyond them.
+          </p>
+          <p>
+            But what truly defines the MLRIT experience cannot be measured only through classrooms or curriculum. It is found in the confidence built over time, the challenges solved together, the discipline shaped through sports and teamwork, and the people who become part of your journey along the way.
+          </p>
+          <div class="ab-highlight">
+            Because education was never meant to stop at placements. It was meant to prepare you for everything that comes after.
+          </div>
+        </section>
+
+        <section class="ab-section ab-reveal" id="philosophy">
+          <h2>What Defines MLRIT</h2>
+          <p>
+            Most colleges speak about holistic education. Marri Laxman Reddy Institute of Technology was built to demonstrate what that truly means.
+          </p>
+          <p>
+            Since 2005, the Institute has believed that education should extend beyond classrooms, examinations, and transcripts. The goal has never been limited to producing graduates, but to shape individuals who can think independently, solve confidently, collaborate effectively, and adapt to a world that evolves faster than any syllabus.
+          </p>
+          <p>
+            That philosophy reflects across the institution. From core engineering disciplines to emerging fields such as Artificial Intelligence &amp; Machine Learning, Data Science, Aeronautical Engineering, and Aerospace Engineering, the academic structure is designed to balance strong fundamentals with practical relevance.
+          </p>
+          <p>
+            Autonomous since 2015 and affiliated to JNTUH, MLRIT has built an ecosystem where academics, innovation, employability, research, and sports are not treated as isolated achievements, but as connected parts of a meaningful education.
+          </p>
+          <p>
+            Located in Dundigal, on the edge of Hyderabad, the Institute continues to grow with the same clarity it began with: preparing students not only for careers, but for responsibility, change, and the ability to contribute wherever they go.
+          </p>
+          <div class="ab-philosophy-line">
+            Academics. Innovation. Employability. Sports.<br />Not as separate priorities. As one philosophy.
+          </div>
+        </section>
+
+        <section class="ab-section ab-reveal" id="at-a-glance">
+          <h2>At a Glance</h2>
+          <div class="ab-stats-bar">
+            <div class="ab-stat">
+              <span class="ab-stat__value">2005</span>
+              <span class="ab-stat__label">Established</span>
+            </div>
+            <div class="ab-stat">
+              <span class="ab-stat__value">2015</span>
+              <span class="ab-stat__label">UGC Autonomous</span>
+            </div>
+            <div class="ab-stat">
+              <span class="ab-stat__value">5,000+</span>
+              <span class="ab-stat__label">Students</span>
+            </div>
+            <div class="ab-stat">
+              <span class="ab-stat__value">400+</span>
+              <span class="ab-stat__label">Faculty</span>
+            </div>
+            <div class="ab-stat">
+              <span class="ab-stat__value">621</span>
+              <span class="ab-stat__label">Placements 2026</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="ab-section ab-reveal" id="programmes">
+          <h2>Programmes</h2>
+          <h3>Undergraduate (B.Tech)</h3>
+          <ul>
+            <li>Computer Science and Engineering (CSE)</li>
+            <li>CSE (Cyber Security)</li>
+            <li>CSE (Data Science)</li>
+            <li>CSE (Artificial Intelligence &amp; Machine Learning)</li>
+            <li>Computer Science and Information Technology (CSIT)</li>
+            <li>Electronics and Communication Engineering (ECE)</li>
+            <li>Electrical and Electronics Engineering (EEE)</li>
+            <li>Information Technology (IT)</li>
+            <li>Mechanical Engineering (ME)</li>
+            <li>Aeronautical Engineering (AE)</li>
+          </ul>
+          <h3>Postgraduate</h3>
+          <ul>
+            <li>M.Tech — Computer Science &amp; Engineering</li>
+            <li>MBA — Master of Business Administration</li>
+          </ul>
+        </section>
+
+        <section class="ab-section ab-reveal" id="accreditation">
+          <h2>Accreditation &amp; Recognition</h2>
+          <div class="ab-card-grid">
+            <div class="ab-card">
+              <div class="ab-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="ab-card__label">Accreditation</span>
+              <div class="ab-card__title">NAAC Grade A</div>
+              <p class="ab-card__body">2nd Cycle accreditation. National Assessment and Accreditation Council.</p>
+            </div>
+            <div class="ab-card">
+              <div class="ab-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+              </div>
+              <span class="ab-card__label">Accreditation</span>
+              <div class="ab-card__title">NBA — 6 Programmes</div>
+              <p class="ab-card__body">National Board of Accreditation — CSE, ECE, ME, Aero, DS, AI&amp;ML.</p>
+            </div>
+            <div class="ab-card">
+              <div class="ab-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+              <span class="ab-card__label">Autonomy</span>
+              <div class="ab-card__title">UGC Autonomous</div>
+              <p class="ab-card__body">Granted 2015. Freedom to design curriculum and conduct examinations independently.</p>
+            </div>
+            <div class="ab-card">
+              <div class="ab-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <span class="ab-card__label">Ranking</span>
+              <div class="ab-card__title">NIRF 2025: 201–300</div>
+              <p class="ab-card__body">Engineering category. National Institutional Ranking Framework 2025.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="nf-footer" id="footer">
+    <div class="nf-cols">
+      <div class="nf-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="introduction.html">Introduction</a></li>
+          <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+          <li><a href="legacy.html">Legacy</a></li>
+          <li><a href="rankings.html">Rankings &amp; Awards</a></li>
+        </ul>
+      </div>
+      <div class="nf-col">
+        <h5>Academics</h5>
+        <ul>
+          <li><a href="../departments/ug.html">Undergraduate</a></li>
+          <li><a href="../departments/pg.html">Postgraduate</a></li>
+          <li><a href="../homepage/research/research.html">Research</a></li>
+          <li><a href="../departments/faculty-profile.html">Faculty</a></li>
+        </ul>
+      </div>
+      <div class="nf-col">
+        <h5>Admissions</h5>
+        <ul>
+          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Apply Now</a></li>
+          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Fee Structure</a></li>
+          <li><a href="https://mlrit.ac.in/scholarships/" target="_blank" rel="noopener">Scholarships</a></li>
+          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="nf-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/school/mlr-institute-of-technology/" target="_blank" rel="noopener">LinkedIn <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.instagram.com/mlritofficial/" target="_blank" rel="noopener">Instagram <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.facebook.com/Mlrit/" target="_blank" rel="noopener">Facebook <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://x.com/mlritin" target="_blank" rel="noopener">X.com <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" target="_blank" rel="noopener">YouTube <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nf-accred">
+      <span class="nf-accred-label">Accredited by</span>
+      <div class="nf-accred-logos">
+        <img src="../nirf/naac.svg" alt="NAAC" />
+        <img src="../nirf/aicte.svg" alt="AICTE" />
+        <img src="../nirf/nba.svg"  alt="NBA" />
+      </div>
+      <button type="button" class="nf-back-top" id="nfBackTop" aria-label="Back to top">
+        Back to top
+        <span class="nf-back-top__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </span>
+      </button>
+    </div>
+    <div class="nf-watermark-row" aria-hidden="true">
+      <div class="nf-watermark">MLRIT</div>
+    </div>
+    <div class="nf-crafted"><em>Crafted with passion by</em> <strong>the Students</strong> <em>of MLRIT</em></div>
+    <div class="nf-bottom">
+      <div class="nf-bottom__left">
+        <span>© 2026 KMR Educational Society</span>
+        <span class="dot">·</span>
+        <span>Affiliated to JNTUH</span>
+        <span class="dot">·</span>
+        <span>Approved by AICTE</span>
+      </div>
+      <div class="nf-bottom__right">
+        <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener">Privacy</a>
+        <a href="https://mlrit.ac.in/aicte-approvals/" target="_blank" rel="noopener">Terms</a>
+        <a href="#footer">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/site-navbar.js" data-base="../"></script>
+  <script>
+  (function () {
+    var btn = document.getElementById('nfBackTop');
+    if (btn) btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    var reveals = document.querySelectorAll('.ab-reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function (el) { io.observe(el); });
+    }
+  }());
+  </script>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { DEPARTMENTS } from '@/lib/departments';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Academics — MLR Institute of Technology',
@@ -32,6 +33,19 @@ const REGULATIONS = [
   { code: 'MLR-18', note: 'Earlier JNTUH regulation 2018 — archive only.', live: false },
 ];
 
+const gradientText: React.CSSProperties = {
+  backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
+  WebkitBackgroundClip: 'text', backgroundClip: 'text',
+  WebkitTextFillColor: 'transparent', color: 'transparent',
+};
+
+const NAV_ITEMS = [
+  { id: 'framework',   label: 'Framework'   },
+  { id: 'explore',     label: 'Explore'     },
+  { id: 'departments', label: 'Departments' },
+  { id: 'regulations', label: 'Regulations' },
+];
+
 export default function AcademicsPage() {
   return (
     <>
@@ -44,120 +58,125 @@ export default function AcademicsPage() {
         variant="green"
       />
 
-      {/* FRAMEWORK */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">How We Teach</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              The four <span className="font-display italic font-medium" style={gradientText}>frameworks.</span>
-            </h2>
-            <p className="mt-4 max-w-[720px] text-muted leading-relaxed">
-              Every academic decision at MLRIT runs through four lenses — outcome-based teaching, autonomy of regulation, industry integration, and research-led depth.
-            </p>
-          </Reveal>
-          <Stagger className="mt-12 grid md:grid-cols-2 gap-5" delay={0.1}>
-            {FRAMEWORKS.map((f) => (
-              <StaggerItem key={f.tag}>
-                <div className="rounded-2xl border border-border bg-white p-8 h-full hover:border-primary transition-colors">
-                  <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{f.tag}</div>
-                  <h3 className="mt-3 font-sans font-extrabold text-foreground text-xl md:text-2xl tracking-tighter-2">{f.title}</h3>
-                  <p className="mt-3 text-muted leading-relaxed">{f.body}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0">
+          <div className="sticky top-28 pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
-      {/* HUB LINKS */}
-      <section className="bg-warm-light py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Explore</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Pick your <span className="font-display italic font-medium" style={gradientText}>thread.</span>
-            </h2>
-          </Reveal>
-          <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.08}>
-            {HUB_LINKS.map((h) => (
-              <StaggerItem key={h.href}>
-                <Link href={h.href} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all h-full">
-                  <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{h.tag}</div>
-                  <h3 className="mt-2 font-sans font-extrabold text-foreground text-xl">{h.title}</h3>
-                  <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{h.body}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 text-primary font-semibold text-sm">Open →</div>
+          {/* FRAMEWORK */}
+          <section id="framework" className="bg-white py-20 md:py-28">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+              <Reveal>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">How We Teach</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
+                  The four <span className="font-display italic font-medium" style={gradientText}>frameworks.</span>
+                </h2>
+                <p className="mt-4 max-w-[720px] text-muted leading-relaxed">
+                  Every academic decision at MLRIT runs through four lenses — outcome-based teaching, autonomy of regulation, industry integration, and research-led depth.
+                </p>
+              </Reveal>
+              <Stagger className="mt-12 grid md:grid-cols-2 gap-5" delay={0.1}>
+                {FRAMEWORKS.map((f) => (
+                  <StaggerItem key={f.tag}>
+                    <div className="rounded-2xl border border-border bg-white p-8 h-full hover:border-primary transition-colors">
+                      <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{f.tag}</div>
+                      <h3 className="mt-3 font-sans font-extrabold text-foreground text-xl md:text-2xl tracking-tighter-2">{f.title}</h3>
+                      <p className="mt-3 text-muted leading-relaxed">{f.body}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          </section>
+
+          {/* HUB LINKS */}
+          <section id="explore" className="bg-warm-light py-20 md:py-28">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+              <Reveal>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Explore</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
+                  Pick your <span className="font-display italic font-medium" style={gradientText}>thread.</span>
+                </h2>
+              </Reveal>
+              <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.08}>
+                {HUB_LINKS.map((h) => (
+                  <StaggerItem key={h.href}>
+                    <Link href={h.href} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all h-full">
+                      <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{h.tag}</div>
+                      <h3 className="mt-2 font-sans font-extrabold text-foreground text-xl">{h.title}</h3>
+                      <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{h.body}</p>
+                      <div className="mt-5 inline-flex items-center gap-2 text-primary font-semibold text-sm">Open →</div>
+                    </Link>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          </section>
+
+          {/* DEPARTMENTS */}
+          <section id="departments" className="bg-white py-20 md:py-28">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+              <Reveal>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Departments</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
+                  Nine <span className="font-display italic font-medium" style={gradientText}>departments.</span>
+                </h2>
+                <p className="mt-4 max-w-[680px] text-muted leading-relaxed">
+                  From core engineering to emerging specialisations — every department runs its own labs, research and placement track.
+                </p>
+              </Reveal>
+              <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.05}>
+                {DEPARTMENTS.map((d) => (
+                  <StaggerItem key={d.slug}>
+                    <Link href={`/departments/${d.slug}`} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all">
+                      <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-secondary">{d.code} · {d.degree}</div>
+                      <div className="mt-2 font-sans font-extrabold text-foreground text-lg leading-tight">{d.short}</div>
+                      <p className="mt-2 text-muted text-[0.94rem] leading-relaxed">{d.tagline}</p>
+                    </Link>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          </section>
+
+          {/* SYLLABUS REGULATIONS */}
+          <section id="regulations" className="bg-ink text-white py-20 md:py-28">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+              <Reveal>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Curriculum</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
+                  Active <span className="font-display italic font-medium text-warm">regulations.</span>
+                </h2>
+                <p className="mt-4 max-w-[640px] text-white/65 leading-relaxed">
+                  MLRIT operates under autonomous regulations from 2022 onwards. Earlier JNTUH-affiliated regulations remain on file for graduating batches.
+                </p>
+              </Reveal>
+              <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5" delay={0.08}>
+                {REGULATIONS.map((r) => (
+                  <StaggerItem key={r.code}>
+                    <div className={`rounded-2xl border p-7 h-full transition-all ${r.live ? 'border-warm/40 bg-white/[0.04] hover:bg-white/[0.08]' : 'border-white/10 bg-white/[0.02] opacity-70'}`}>
+                      <div className={`font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase ${r.live ? 'text-warm' : 'text-white/40'}`}>
+                        {r.live ? 'Live' : 'Archive'}
+                      </div>
+                      <div className="mt-2 font-sans font-black text-white text-2xl tracking-tighter-2">{r.code}</div>
+                      <p className="mt-3 text-white/70 text-[0.94rem]">{r.note}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+              <Reveal delay={0.2} className="mt-10 text-center">
+                <Link href="/departments/syllabus/cse/r25/year1/sem1" className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-warm text-foreground font-semibold text-sm hover:bg-white transition-colors">
+                  Open R25 · CSE · Sem 1 →
                 </Link>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+              </Reveal>
+            </div>
+          </section>
 
-      {/* DEPARTMENTS */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Departments</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Nine <span className="font-display italic font-medium" style={gradientText}>departments.</span>
-            </h2>
-            <p className="mt-4 max-w-[680px] text-muted leading-relaxed">
-              From core engineering to emerging specialisations — every department runs its own labs, research and placement track.
-            </p>
-          </Reveal>
-          <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.05}>
-            {DEPARTMENTS.map((d) => (
-              <StaggerItem key={d.slug}>
-                <Link href={`/departments/${d.slug}`} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all">
-                  <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-secondary">{d.code} · {d.degree}</div>
-                  <div className="mt-2 font-sans font-extrabold text-foreground text-lg leading-tight">{d.short}</div>
-                  <p className="mt-2 text-muted text-[0.94rem] leading-relaxed">{d.tagline}</p>
-                </Link>
-              </StaggerItem>
-            ))}
-          </Stagger>
         </div>
-      </section>
-
-      {/* SYLLABUS REGULATIONS */}
-      <section className="bg-ink text-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Curriculum</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Active <span className="font-display italic font-medium text-warm">regulations.</span>
-            </h2>
-            <p className="mt-4 max-w-[640px] text-white/65 leading-relaxed">
-              MLRIT operates under autonomous regulations from 2022 onwards. Earlier JNTUH-affiliated regulations remain on file for graduating batches.
-            </p>
-          </Reveal>
-          <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5" delay={0.08}>
-            {REGULATIONS.map((r) => (
-              <StaggerItem key={r.code}>
-                <div className={`rounded-2xl border p-7 h-full transition-all ${r.live ? 'border-warm/40 bg-white/[0.04] hover:bg-white/[0.08]' : 'border-white/10 bg-white/[0.02] opacity-70'}`}>
-                  <div className={`font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase ${r.live ? 'text-warm' : 'text-white/40'}`}>
-                    {r.live ? 'Live' : 'Archive'}
-                  </div>
-                  <div className="mt-2 font-sans font-black text-white text-2xl tracking-tighter-2">{r.code}</div>
-                  <p className="mt-3 text-white/70 text-[0.94rem]">{r.note}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-          <Reveal delay={0.2} className="mt-10 text-center">
-            <Link href="/departments/syllabus/cse/r25/year1/sem1" className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-warm text-foreground font-semibold text-sm hover:bg-white transition-colors">
-              Open R25 · CSE · Sem 1 →
-            </Link>
-          </Reveal>
-        </div>
-      </section>
+      </div>
     </>
   );
 }
-
-const gradientText: React.CSSProperties = {
-  backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
-  WebkitBackgroundClip: 'text', backgroundClip: 'text',
-  WebkitTextFillColor: 'transparent', color: 'transparent',
-};

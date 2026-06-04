@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brochure — About MLRIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/chronicles-dropdown.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
+  <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="../css/theme.css" />
+  <style>
+    .ab-brochure-mockup {
+      width: 100%;
+      max-width: 340px;
+      background: linear-gradient(145deg, #1a5c20 0%, #1F6B24 60%, #2a7d30 100%);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      aspect-ratio: 3 / 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #fff;
+      text-align: center;
+      padding: 28px;
+      position: relative;
+    }
+
+    .ab-brochure-mockup::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #E85D1F, #C8960C, #E85D1F);
+    }
+
+    .ab-brochure-mockup__logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .ab-brochure-mockup__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.3;
+    }
+
+    .ab-brochure-mockup__year {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .ab-brochure-mockup__stripe {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .ab-other-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .ab-other-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .ab-other-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .ab-other-card__name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .ab-other-card__desc {
+      font-size: 0.81rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .ab-other-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1F6B24;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .ab-other-card__link:hover { color: #E85D1F; }
+    .ab-other-card__link svg { width: 13px; height: 13px; stroke: currentColor; }
+
+    .ab-contact-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .ab-contact-item {
+      flex: 1 1 200px;
+      background: #f9fdf9;
+      border: 1px solid #d7eedd;
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+
+    .ab-contact-item__label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E85D1F;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .ab-contact-item a {
+      color: #1F6B24;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+
+    .ab-contact-item a:hover { color: #E85D1F; }
+  </style>
+</head>
+<body>
+
+  <div id="site-navbar"></div>
+
+  <div class="ab-banner">
+    <div class="ab-banner__watermark" aria-hidden="true">MLRIT</div>
+    <span class="ab-banner__eyebrow">About Us</span>
+    <h1>Brochure</h1>
+  </div>
+
+  <nav class="ab-breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="ab-breadcrumb__sep" aria-hidden="true">›</span>
+    <a href="introduction.html">About Us</a>
+    <span class="ab-breadcrumb__sep" aria-hidden="true">›</span>
+    <span class="ab-breadcrumb__current">Brochure</span>
+  </nav>
+
+  <main>
+    <div class="ab-page">
+
+      <!-- Sidebar -->
+      <aside class="ab-side" aria-label="About Us navigation">
+        <p class="ab-side__title">About Us</p>
+        <ul class="ab-side__list">
+          <li>
+            <a href="introduction.html">Vision &amp; Mission</a>
+            <ul class="ab-side__sublist">
+              <li><a href="introduction.html">Introduction</a></li>
+              <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+            </ul>
+          </li>
+          <li><a href="legacy.html">Legacy</a></li>
+          <li><a href="rankings.html">Rankings &amp; Awards</a></li>
+          <li><a href="brochure.html" class="is-active">Brochure</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main -->
+      <div class="ab-main">
+
+        <section class="ab-section ab-reveal" id="main-brochure">
+          <h2>MLRIT Prospectus 2025–26</h2>
+
+          <div class="ab-brochure-wrap">
+            <!-- Mockup cover -->
+            <div class="ab-brochure-mockup" aria-hidden="true">
+              <div class="ab-brochure-mockup__logo">MLRIT</div>
+              <div class="ab-brochure-mockup__title">M·L·R Institute of Technology<br />Dundigal, Hyderabad</div>
+              <div class="ab-brochure-mockup__year">Prospectus 2025 – 26</div>
+              <div class="ab-brochure-mockup__stripe">Engineering · Sciences · Sport</div>
+            </div>
+
+            <div class="ab-brochure-info">
+              <h3>MLRIT Prospectus 2025–26</h3>
+              <p>
+                The official MLRIT prospectus provides a comprehensive overview of the institute's programmes, academic calendar, admission procedures, fee structure, scholarships, facilities, and campus life. It is the definitive guide for prospective students and their families.
+              </p>
+              <p>
+                The prospectus covers all undergraduate B.Tech programmes, postgraduate M.Tech and MBA programmes, and includes details on the MLRIT campus, hostel facilities, sports infrastructure, and the placement track record.
+              </p>
+              <a href="https://mlrit.ac.in/" target="_blank" rel="noopener" class="ab-download-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Prospectus
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="ab-section ab-reveal" id="other-resources">
+          <h2>Other Resources</h2>
+          <p>
+            MLRIT publishes a range of official documents and reports to ensure transparency and provide comprehensive information to all stakeholders. Below are key documents available for download.
+          </p>
+
+          <div class="ab-other-grid">
+            <div class="ab-other-card">
+              <div class="ab-other-card__name">NIRF Report 2025</div>
+              <div class="ab-other-card__desc">National Institutional Ranking Framework data submission for 2025 — Engineering category, Rank 201–300.</div>
+              <a href="https://mlrit.ac.in/nirf-ranked-institution/" target="_blank" rel="noopener" class="ab-other-card__link">
+                View Report
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+            <div class="ab-other-card">
+              <div class="ab-other-card__name">NAAC SSR</div>
+              <div class="ab-other-card__desc">Self-Study Report submitted to NAAC for the 2nd Cycle accreditation — full institutional profile and evidence.</div>
+              <a href="https://naac.mlrit.ac.in/assets/2ndcyclessr.pdf" target="_blank" rel="noopener" class="ab-other-card__link">
+                Download PDF
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </a>
+            </div>
+            <div class="ab-other-card">
+              <div class="ab-other-card__name">Strategic Plan 2022–27</div>
+              <div class="ab-other-card__desc">MLRIT's five-year strategic perspective plan setting targets for research, placements, infrastructure, and international engagement.</div>
+              <a href="https://files.mlrit.ac.in/uploads/Committees/Strategic_Plan_2022-27.pdf" target="_blank" rel="noopener" class="ab-other-card__link">
+                Download PDF
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </a>
+            </div>
+            <div class="ab-other-card">
+              <div class="ab-other-card__name">AICTE Approvals</div>
+              <div class="ab-other-card__desc">Archive of AICTE annual approvals for all programmes. Confirms regulatory compliance and sanctioned intake for each year.</div>
+              <a href="https://mlrit.ac.in/aicte-approvals/" target="_blank" rel="noopener" class="ab-other-card__link">
+                View Approvals
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+            <div class="ab-other-card">
+              <div class="ab-other-card__name">IQAC Reports</div>
+              <div class="ab-other-card__desc">Annual Quality Assurance Reports (AQAR) and IQAC meeting minutes documenting quality initiatives and outcomes.</div>
+              <a href="https://mlrit.ac.in/iqac/" target="_blank" rel="noopener" class="ab-other-card__link">
+                View Reports
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+            <div class="ab-other-card">
+              <div class="ab-other-card__name">Mandatory Disclosures</div>
+              <div class="ab-other-card__desc">AICTE mandatory disclosures including details of management, faculty, infrastructure, and financial information.</div>
+              <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener" class="ab-other-card__link">
+                View Disclosures
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="ab-section ab-reveal" id="contact">
+          <h2>Request a Brochure</h2>
+          <p>
+            Prefer a physical copy of the MLRIT prospectus? Contact the Admissions Office directly and our team will be happy to assist. You can also visit the campus to collect a copy in person and take a guided campus tour.
+          </p>
+
+          <div class="ab-contact-row">
+            <div class="ab-contact-item">
+              <span class="ab-contact-item__label">Phone</span>
+              <a href="tel:18005724363">1800 572 4363 (Toll Free)</a>
+            </div>
+            <div class="ab-contact-item">
+              <span class="ab-contact-item__label">Email</span>
+              <a href="mailto:admissions@mlrit.ac.in">admissions@mlrit.ac.in</a>
+            </div>
+            <div class="ab-contact-item">
+              <span class="ab-contact-item__label">Address</span>
+              <span style="font-size:0.84rem;color:#444;">Dundigal V, Survey No. 444,<br />Dundigal, Hyderabad — 500 043</span>
+            </div>
+            <div class="ab-contact-item">
+              <span class="ab-contact-item__label">Apply Online</span>
+              <a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">mlrit.ac.in/admissions</a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="nf-footer" id="footer">
+    <div class="nf-cols">
+      <div class="nf-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="introduction.html">Introduction</a></li>
+          <li><a href="vision-mission.html">Vision &amp; Mission</a></li>
+          <li><a href="legacy.html">Legacy</a></li>
+          <li><a href="rankings.html">Rankings &amp; Awards</a></li>
+        </ul>
+      </div>
+      <div class="nf-col">
+        <h5>Academics</h5>
+        <ul>
+          <li><a href="../departments/ug.html">Undergraduate</a></li>
+          <li><a href="../departments/pg.html">Postgraduate</a></li>
+          <li><a href="../homepage/research/research.html">Research</a></li>
+          <li><a href="../departments/faculty-profile.html">Faculty</a></li>
+        </ul>
+      </div>
+      <div class="nf-col">
+        <h5>Admissions</h5>
+        <ul>
+          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Apply Now</a></li>
+          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">Fee Structure</a></li>
+          <li><a href="https://mlrit.ac.in/scholarships/" target="_blank" rel="noopener">Scholarships</a></li>
+          <li><a href="https://mlrit.ac.in/admissions/" target="_blank" rel="noopener">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="nf-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="https://www.linkedin.com/school/mlr-institute-of-technology/" target="_blank" rel="noopener">LinkedIn <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.instagram.com/mlritofficial/" target="_blank" rel="noopener">Instagram <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.facebook.com/Mlrit/" target="_blank" rel="noopener">Facebook <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://x.com/mlritin" target="_blank" rel="noopener">X.com <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA" target="_blank" rel="noopener">YouTube <span class="nf-ext" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nf-accred">
+      <span class="nf-accred-label">Accredited by</span>
+      <div class="nf-accred-logos">
+        <img src="../nirf/naac.svg" alt="NAAC" />
+        <img src="../nirf/aicte.svg" alt="AICTE" />
+        <img src="../nirf/nba.svg"  alt="NBA" />
+      </div>
+      <button type="button" class="nf-back-top" id="nfBackTop" aria-label="Back to top">
+        Back to top
+        <span class="nf-back-top__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </span>
+      </button>
+    </div>
+    <div class="nf-watermark-row" aria-hidden="true">
+      <div class="nf-watermark">MLRIT</div>
+    </div>
+    <div class="nf-crafted"><em>Crafted with passion by</em> <strong>the Students</strong> <em>of MLRIT</em></div>
+    <div class="nf-bottom">
+      <div class="nf-bottom__left">
+        <span>© 2026 KMR Educational Society</span>
+        <span class="dot">·</span>
+        <span>Affiliated to JNTUH</span>
+        <span class="dot">·</span>
+        <span>Approved by AICTE</span>
+      </div>
+      <div class="nf-bottom__right">
+        <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener">Privacy</a>
+        <a href="https://mlrit.ac.in/aicte-approvals/" target="_blank" rel="noopener">Terms</a>
+        <a href="#footer">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/site-navbar.js" data-base="../"></script>
+  <script>
+  (function () {
+    var btn = document.getElementById('nfBackTop');
+    if (btn) btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    var reveals = document.querySelectorAll('.ab-reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function (el) { io.observe(el); });
+    }
+  }());
+  </script>
+
+</body>
+</html>

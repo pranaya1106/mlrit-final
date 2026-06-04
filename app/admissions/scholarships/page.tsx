@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
+import SideQuickNav from '@/components/SideQuickNav';
 
 // ── Scholarship data ───────────────────────────────────────────────────────
 const SCHOLARSHIPS = [
@@ -91,6 +92,10 @@ function ScholarshipCard({ s }: { s: (typeof SCHOLARSHIPS)[number] }) {
   );
 }
 
+const NAV_ITEMS = [
+  { id: 'scholarships', label: 'Scholarships' },
+];
+
 export default function ScholarshipsPage() {
   return (
     <>
@@ -107,57 +112,68 @@ export default function ScholarshipsPage() {
         ]}
       />
 
-      <section className="bg-warm-light min-h-screen py-16 md:py-24">
-        <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20">
-          {/* Intro note */}
-          <Reveal preset="up">
-            <div className="bg-white border border-border rounded-2xl p-6 shadow-card-soft mb-12 flex gap-4 items-start">
-              <span className="shrink-0 w-9 h-9 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-0.5">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-                  <circle cx="9" cy="9" r="7.5" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M9 8v5M9 6v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                </svg>
-              </span>
-              <div>
-                <p className="font-sans font-semibold text-foreground text-[0.95rem]">Applications are processed at the time of admission</p>
-                <p className="text-muted text-[0.88rem] mt-1">
-                  All scholarship and fee-reimbursement applications must be submitted during or within 30 days of admission. Late applications may not be considered. For queries, contact the accounts or student affairs office.
-                </p>
+      <div className="bg-warm-light min-h-screen">
+        <div className="lg:flex lg:gap-0 items-start">
+          <aside className="hidden lg:block lg:w-56 shrink-0">
+            <div className="sticky top-28 pt-12 pl-6">
+              <SideQuickNav items={NAV_ITEMS} />
+            </div>
+          </aside>
+          <div className="flex-1 min-w-0 py-16 md:py-24">
+            <section id="scholarships">
+              <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20">
+                {/* Intro note */}
+                <Reveal preset="up">
+                  <div className="bg-white border border-border rounded-2xl p-6 shadow-card-soft mb-12 flex gap-4 items-start">
+                    <span className="shrink-0 w-9 h-9 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-0.5">
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                        <circle cx="9" cy="9" r="7.5" stroke="currentColor" strokeWidth="1.5"/>
+                        <path d="M9 8v5M9 6v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="font-sans font-semibold text-foreground text-[0.95rem]">Applications are processed at the time of admission</p>
+                      <p className="text-muted text-[0.88rem] mt-1">
+                        All scholarship and fee-reimbursement applications must be submitted during or within 30 days of admission. Late applications may not be considered. For queries, contact the accounts or student affairs office.
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+
+                {/* Scholarship cards */}
+                <div className="flex flex-col gap-5">
+                  {SCHOLARSHIPS.map((s, i) => (
+                    <Reveal key={s.id} preset="up" delay={i * 0.08}>
+                      <ScholarshipCard s={s} />
+                    </Reveal>
+                  ))}
+                </div>
+
+                {/* External schemes note */}
+                <Reveal preset="up" delay={0.2}>
+                  <div className="mt-12 bg-green-hero rounded-2xl p-7 text-white">
+                    <h3 className="font-sans font-bold text-[1.05rem] mb-3">Government & External Schemes</h3>
+                    <p className="text-white/80 text-[0.9rem] leading-relaxed mb-4">
+                      Students may also benefit from the following state and central government schemes: AP ePass / TS ePass fee reimbursement, Post-Matric Scholarship for SC/ST/OBC, EWS scholarships, and AICTE/UGC sponsored fellowships.
+                    </p>
+                    <a
+                      href="https://mlrit.ac.in/scholarships"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 border border-white/25 text-white font-semibold text-sm hover:bg-white/25 transition-colors"
+                    >
+                      View all schemes
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>
+                  </div>
+                </Reveal>
               </div>
-            </div>
-          </Reveal>
-
-          {/* Scholarship cards */}
-          <div className="flex flex-col gap-5">
-            {SCHOLARSHIPS.map((s, i) => (
-              <Reveal key={s.id} preset="up" delay={i * 0.08}>
-                <ScholarshipCard s={s} />
-              </Reveal>
-            ))}
+            </section>
           </div>
-
-          {/* External schemes note */}
-          <Reveal preset="up" delay={0.2}>
-            <div className="mt-12 bg-green-hero rounded-2xl p-7 text-white">
-              <h3 className="font-sans font-bold text-[1.05rem] mb-3">Government & External Schemes</h3>
-              <p className="text-white/80 text-[0.9rem] leading-relaxed mb-4">
-                Students may also benefit from the following state and central government schemes: AP ePass / TS ePass fee reimbursement, Post-Matric Scholarship for SC/ST/OBC, EWS scholarships, and AICTE/UGC sponsored fellowships.
-              </p>
-              <a
-                href="https://mlrit.ac.in/scholarships"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 border border-white/25 text-white font-semibold text-sm hover:bg-white/25 transition-colors"
-              >
-                View all schemes
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
-          </Reveal>
         </div>
-      </section>
+      </div>
     </>
   );
 }
