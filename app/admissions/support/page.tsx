@@ -254,6 +254,7 @@ export default function SupportPage() {
 
 
           {/* Address + Map */}
+          <div className="mt-14" />
           <Reveal preset="up">
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
@@ -297,6 +298,7 @@ export default function SupportPage() {
             </div>
           </Reveal>
 
+          <div className="mt-14" />
           {/* Still have questions */}
           <Reveal preset="up">
             <div className="bg-green-hero rounded-2xl overflow-hidden">
