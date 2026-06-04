@@ -587,50 +587,138 @@ function FacultyPanel({ d, data }: PanelProps) {
    Panel 4 — ACADEMICS
    ═════════════════════════════════════════════════════════ */
 
+const SYLLABUS_REGS: { code: string; slug: string; label: string }[] = [
+  { code: 'R25',   slug: 'r25',   label: '2025 regulation' },
+  { code: 'R22',   slug: 'r22',   label: '2022 regulation' },
+  { code: 'MLR20', slug: 'mlr20', label: 'MLR 2020 regulation' },
+  { code: 'MLR18', slug: 'mlr18', label: 'MLR 2018 regulation' },
+];
+
+function ExplorerSelect({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+}) {
+  return (
+    <label className="block">
+      <span className="font-mono text-[0.62rem] font-extrabold tracking-[0.16em] uppercase text-secondary">
+        {label}
+      </span>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-1.5 w-full rounded-lg border border-border bg-white px-3.5 py-2.5 font-sans font-semibold text-foreground text-[0.9rem] cursor-pointer transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 function AcademicsPanel({ d }: PanelProps) {
-  const regs = ['MLR-20', 'R22', 'R25'];
+  const [reg, setReg] = useState('r25');
+  const [year, setYear] = useState('1');
+  const [semInYear, setSemInYear] = useState('1');
+  const semNum = (parseInt(year, 10) - 1) * 2 + parseInt(semInYear, 10);
+  const explorerHref = `/departments/syllabus/${d.slug}/${reg}/year${year}/sem${semNum}`;
+
   return (
     <div>
       <PanelHeading id="syllabus-pdfs">Academics</PanelHeading>
-      <p className="mt-6 text-muted max-w-[700px] leading-relaxed">
-        Syllabus, course catalog and the regulation-wise explorer for {d.degree} {d.short}.
-      </p>
 
+      {/* ── Syllabus PDFs ── */}
       <SubHeading>Syllabus PDFs</SubHeading>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {regs.map((r) => (
+      <div className="space-y-4">
+        {SYLLABUS_REGS.map((r) => (
           <div
-            key={r}
-            className="flex items-center gap-3 rounded-xl bg-white p-5 shadow-card-soft border-l-[3px] border-secondary hover:-translate-y-1 hover:shadow-card-strong transition-all"
+            key={r.slug}
+            className="flex flex-col gap-4 rounded-xl bg-white p-5 md:p-6 shadow-card-soft border-l-[3px] border-secondary transition-all hover:-translate-y-0.5 hover:shadow-card-strong sm:flex-row sm:items-center sm:justify-between"
           >
-            <div className="w-10 h-10 rounded-md bg-primary/10 text-primary grid place-items-center font-bold text-sm">PDF</div>
-            <div className="flex-1 min-w-0">
-              <div className="font-sans font-bold text-foreground text-[0.92rem]">{r} Syllabus</div>
-              <div className="text-subtle text-[0.74rem]">Complete regulation</div>
+            <div className="min-w-0">
+              <div className="font-sans font-bold text-foreground text-[1rem]">{r.code} Complete Syllabus</div>
+              <div className="mt-0.5 text-muted text-[0.82rem]">{r.label}</div>
             </div>
-            <a href="#" className="font-mono text-[0.72rem] font-bold text-primary hover:underline">Open ↗</a>
+            <div className="flex flex-shrink-0 items-center gap-3">
+              <a
+                href="#"
+                className="inline-flex items-center justify-center rounded-lg border-[1.5px] border-primary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-primary transition-colors hover:bg-primary/[0.06]"
+              >
+                View
+              </a>
+              <a
+                href="#"
+                className="inline-flex items-center justify-center rounded-lg bg-secondary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-white transition-colors hover:bg-secondary-pressed"
+              >
+                Download
+              </a>
+            </div>
           </div>
         ))}
       </div>
 
-      <SubHeading id="catalog">Course Catalog</SubHeading>
-      <Link
-        href={`/departments/syllabus/${d.slug}/r22/year1/sem1`}
-        className="inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-secondary hover:bg-secondary-pressed text-white font-sans font-bold text-[0.92rem] transition-colors"
-      >
-        Open course catalog →
-      </Link>
+      {/* ── Online Course Catalog ── */}
+      <SubHeading id="catalog">Online Course Catalog</SubHeading>
+      <div className="space-y-4">
+        {SYLLABUS_REGS.map((r) => (
+          <Link
+            key={r.slug}
+            href={`/departments/syllabus/${d.slug}/${r.slug}/year1/sem1`}
+            className="group flex items-center justify-between gap-4 rounded-xl bg-white p-5 md:p-6 shadow-card-soft border-l-[3px] border-secondary transition-all hover:-translate-y-0.5 hover:shadow-card-strong"
+          >
+            <div className="min-w-0">
+              <div className="font-sans font-bold text-foreground text-[1rem]">{r.code} Course Catalog</div>
+              <div className="mt-0.5 text-muted text-[0.82rem]">{r.label}</div>
+            </div>
+            <span className="inline-flex flex-shrink-0 items-center gap-2 font-mono text-[0.76rem] font-bold text-primary transition-all group-hover:gap-3">
+              Open ↗
+            </span>
+          </Link>
+        ))}
+      </div>
 
-      <SubHeading id="explorer">Syllabus Explorer</SubHeading>
-      <p className="text-muted leading-relaxed max-w-[700px]">
-        Browse semester-by-semester with full subject codes, credit hours, and topic-level detail.
-      </p>
-      <Link
-        href={`/departments/syllabus/${d.slug}/r22/year1/sem1`}
-        className="mt-5 inline-flex items-center gap-2 font-sans font-bold text-[0.92rem] text-primary"
-      >
-        Launch explorer →
-      </Link>
+      {/* ── Semester-wise Syllabus Explorer ── */}
+      <SubHeading id="explorer">Semester-wise Syllabus Explorer</SubHeading>
+      <div className="rounded-xl bg-white p-6 md:p-7 shadow-card-soft border-l-[3px] border-secondary">
+        <p className="max-w-[720px] text-muted leading-relaxed text-[0.92rem]">
+          Browse semester-by-semester with full subject codes, credit hours and topic-level detail.
+        </p>
+        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <ExplorerSelect
+            label="Regulation"
+            value={reg}
+            onChange={setReg}
+            options={SYLLABUS_REGS.map((r) => ({ value: r.slug, label: r.code }))}
+          />
+          <ExplorerSelect
+            label="Year"
+            value={year}
+            onChange={setYear}
+            options={[1, 2, 3, 4].map((y) => ({ value: String(y), label: `Year ${y}` }))}
+          />
+          <ExplorerSelect
+            label="Semester"
+            value={semInYear}
+            onChange={setSemInYear}
+            options={[1, 2].map((s) => ({ value: String(s), label: `Semester ${s}` }))}
+          />
+        </div>
+        <Link
+          href={explorerHref}
+          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-secondary px-7 py-3 font-sans font-bold text-[0.9rem] text-white transition-colors hover:bg-secondary-pressed"
+        >
+          View syllabus →
+        </Link>
+      </div>
     </div>
   );
 }

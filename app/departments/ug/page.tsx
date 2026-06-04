@@ -14,12 +14,12 @@ export default function UGPage() {
         eyebrow="B.Tech Programmes"
         title="Undergraduate"
         italic="programmes."
-        dek="A four-year B.Tech across ten engineering branches — built around an industry-integrated curriculum, hands-on labs and a culture of inquiry."
+        dek="A four-year B.Tech across seven engineering branches — built around an industry-integrated curriculum, hands-on labs and a culture of inquiry."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Undergraduate' }]}
         variant="green"
       />
       <Section>
-        <H2 italic="branches">Ten engineering</H2>
+        <H2 italic="branches">Seven engineering</H2>
         <Lede>Every B.Tech branch at MLRIT is JNTUH-affiliated, AICTE-approved and offered as a 4-year programme.</Lede>
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {ugs.map((d) => (

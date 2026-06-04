@@ -100,7 +100,7 @@ export default function AcademicsPage() {
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Departments</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Twelve <span className="font-display italic font-medium" style={gradientText}>departments.</span>
+              Nine <span className="font-display italic font-medium" style={gradientText}>departments.</span>
             </h2>
             <p className="mt-4 max-w-[680px] text-muted leading-relaxed">
               From core engineering to emerging specialisations — every department runs its own labs, research and placement track.

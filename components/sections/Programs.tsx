@@ -16,10 +16,7 @@ type Card = {
 const UG: Card[] = [
   { slug: 'cse',          dept: 'CSE',     name: 'Computer Science & Engineering',  meta: 'B.Tech · 4 Years · 240 seats', desc: 'Industry-aligned curriculum across AI/ML, systems, web and cybersecurity.',     accent: 'green'  },
   { slug: 'aiml',         dept: 'AIML',    name: 'AI & Machine Learning',           meta: 'B.Tech · 4 Years',             desc: 'Foundational ML, deep learning and applied AI research on dedicated GPU hardware.', accent: 'orange' },
-  { slug: 'cse-cs',       dept: 'CSE-CS',  name: 'CSE — Cyber Security',            meta: 'B.Tech · 4 Years',             desc: 'Cryptography, ethical hacking and forensics with a campus SOC and red-team lab.', accent: 'navy'   },
   { slug: 'cse-ds',       dept: 'CSE-DS',  name: 'CSE — Data Science',              meta: 'B.Tech · 4 Years',             desc: 'Statistics, ML, deep learning, big-data and visualisation with industry capstones.', accent: 'orange' },
-  { slug: 'csit',         dept: 'CSIT',    name: 'CS & Information Technology',     meta: 'B.Tech · 4 Years',             desc: 'Cloud, DevOps and full-stack engineering for modern enterprise systems.',         accent: 'green'  },
-  { slug: 'it',           dept: 'IT',      name: 'Information Technology',          meta: 'B.Tech · 4 Years',             desc: 'Systems, networks, software, security and IT service management.',                accent: 'navy'   },
   { slug: 'ece',          dept: 'ECE',     name: 'Electronics & Communication',     meta: 'B.Tech · 4 Years',             desc: 'VLSI, embedded systems, signal processing and RF — anchored in industry projects.', accent: 'orange' },
   { slug: 'eee',          dept: 'EEE',     name: 'Electrical & Electronics',        meta: 'B.Tech · 4 Years',             desc: 'Power systems, electronics, control and renewable-energy engineering.',           accent: 'green'  },
   { slug: 'mechanical',   dept: 'MECH',    name: 'Mechanical Engineering',          meta: 'B.Tech · 4 Years',             desc: 'CAD/CAM, thermal sciences and manufacturing with industry-grade workshops.',      accent: 'navy'   },

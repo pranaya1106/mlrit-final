@@ -5,7 +5,7 @@ import { Section, H2, Lede } from '@/components/PageSection';
 
 type Params = { program: string; regulation: string; year: string; sem: string };
 
-const PROGRAMS = ['cse', 'cse-cs', 'cse-ds', 'aiml', 'csit', 'it', 'ece', 'eee', 'mechanical', 'aeronautical'];
+const PROGRAMS = ['cse', 'cse-ds', 'aiml', 'ece', 'eee', 'mechanical', 'aeronautical'];
 const REGULATIONS = ['mlr18', 'mlr20', 'r22', 'r25'];
 const YEARS = ['year1', 'year2', 'year3', 'year4'];
 const SEMS  = ['sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8'];
