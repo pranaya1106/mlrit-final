@@ -42,8 +42,8 @@ export default function IQACPage() {
     <>
       <PageHeader
         eyebrow="Quality Assurance"
-        title="Internal Quality Assurance Cell"
-        italic="(IQAC)"
+        title="Internal Quality Assurance Cell (IQAC)"
+        italic=""
         dek="The IQAC at MLRIT plans, guides and monitors quality assurance and quality enhancement activities of the institution — a single cell coordinating all accreditation, audit and improvement initiatives."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'IQAC' }]}
         variant="green"
