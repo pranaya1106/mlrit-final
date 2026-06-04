@@ -19,8 +19,8 @@ export default function HomePage() {
       <SuccessStories />
       <Programs />
       <Placements />
-      <Events />
       <Testimonials />
+      <Events />
     </>
   );
 }
