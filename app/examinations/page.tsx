@@ -19,14 +19,38 @@ const NAV_ITEMS = [
 ];
 
 const QUICK_LINKS = [
-  { label: 'Results',               href: 'https://exams.mlrinstitutions.ac.in/',                       icon: '📊', desc: 'Check semester and supplementary exam results' },
-  { label: 'Fee Payments',          href: 'https://exams.mlrinstitutions.ac.in/',                       icon: '💳', desc: 'Pay examination fees online' },
-  { label: 'Circulars',             href: 'https://mlrit.ac.in/circulars/',                             icon: '📢', desc: 'Latest examination notifications and circulars' },
-  { label: 'Previous Question Papers', href: 'https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html', icon: '📝', desc: 'Previous year question papers for all branches' },
-  { label: 'Student Verification',  href: 'https://mlrit.ac.in/wp-content/uploads/2022/07/Student-Verifications.pdf',   icon: '✅', desc: 'Certificate and degree verification process' },
-  { label: 'Citizen Charter',       href: 'https://mlrit.ac.in/wp-content/uploads/2022/07/Citizen-Charter.pdf',        icon: '📋', desc: 'Commitments and timelines for exam services' },
-  { label: 'Apply for Certificates',href: 'https://mlrit.ac.in/wp-content/uploads/2022/07/Apply-for-Certificates.pdf', icon: '🎓', desc: 'Apply for transcripts, bonafide and other certificates' },
-  { label: 'Academic Results',      href: 'https://exams.mlrinstitutions.ac.in/',                       icon: '🏆', desc: 'View published academic results' },
+  {
+    label: 'Results', href: 'https://exams.mlrinstitutions.ac.in/', desc: 'Check semester and supplementary exam results',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><rect x="3" y="3" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M7 11h8M7 7h8M7 15h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  },
+  {
+    label: 'Fee Payments', href: 'https://exams.mlrinstitutions.ac.in/', desc: 'Pay examination fees online',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><rect x="2" y="5" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M2 9h18" stroke="currentColor" strokeWidth="1.6"/><circle cx="7" cy="14" r="1.5" fill="currentColor"/></svg>,
+  },
+  {
+    label: 'Circulars', href: 'https://mlrit.ac.in/circulars/', desc: 'Latest examination notifications and circulars',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M11 2a9 9 0 100 18A9 9 0 0011 2z" stroke="currentColor" strokeWidth="1.6"/><path d="M11 7v5l3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  },
+  {
+    label: 'Previous Question Papers', href: 'https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html', desc: 'Previous year question papers for all branches',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M6 2h10a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.6"/><path d="M8 7h6M8 11h6M8 15h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  },
+  {
+    label: 'Student Verification', href: 'https://mlrit.ac.in/wp-content/uploads/2022/07/Student-Verifications.pdf', desc: 'Certificate and degree verification process',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><circle cx="11" cy="11" r="9" stroke="currentColor" strokeWidth="1.6"/></svg>,
+  },
+  {
+    label: 'Citizen Charter', href: 'https://mlrit.ac.in/wp-content/uploads/2022/07/Citizen-Charter.pdf', desc: 'Commitments and timelines for exam services',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M11 2l2.09 6.26H20l-5.47 3.97 2.09 6.27L11 14.53l-5.62 3.97 2.09-6.27L2 8.26h6.91L11 2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>,
+  },
+  {
+    label: 'Apply for Certificates', href: 'https://mlrit.ac.in/wp-content/uploads/2022/07/Apply-for-Certificates.pdf', desc: 'Apply for transcripts, bonafide and other certificates',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M4 4h14v10H4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/><path d="M8 18h6M11 14v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
+  },
+  {
+    label: 'Academic Results', href: 'https://exams.mlrinstitutions.ac.in/', desc: 'View published academic results',
+    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M3 17l5-5 4 4 6-8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  },
 ];
 
 const DOWNLOADS = [
@@ -153,7 +177,9 @@ export default function ExaminationsPage() {
                       rel="noopener noreferrer"
                       className="group flex flex-col gap-3 rounded-2xl border border-border bg-white p-6 h-full hover:border-secondary hover:-translate-y-1 transition-all"
                     >
-                      <span className="text-[1.8rem] leading-none">{q.icon}</span>
+                      <span className="w-10 h-10 rounded-xl bg-warm-light border border-border flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white group-hover:border-secondary transition-all">
+                        {q.icon}
+                      </span>
                       <span className="font-sans font-extrabold text-foreground text-[1rem] group-hover:text-secondary transition-colors">{q.label}</span>
                       <span className="text-muted text-[0.85rem] leading-relaxed">{q.desc}</span>
                       <span className="mt-auto inline-flex items-center gap-1 text-secondary font-semibold text-[0.8rem] group-hover:gap-2 transition-all">
@@ -278,15 +304,21 @@ export default function ExaminationsPage() {
                     <h3 className="font-sans font-extrabold text-foreground text-[1.1rem] mb-5">Controller of Examinations</h3>
                     <div className="space-y-4 text-[0.93rem]">
                       <div className="flex items-start gap-3">
-                        <span className="w-5 h-5 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5 text-[0.65rem] font-bold">@</span>
+                        <span className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden><path d="M1 3l5.5 4L12 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><rect x="1" y="2" width="11" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5"/></svg>
+                        </span>
                         <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">coe@mlrinstitutions.ac.in</a>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="w-5 h-5 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5 text-[0.65rem] font-bold">📍</span>
+                        <span className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden><path d="M6.5 1C4.015 1 2 3.015 2 5.5c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5C11 3.015 8.985 1 6.5 1z" stroke="currentColor" strokeWidth="1.5"/><circle cx="6.5" cy="5.5" r="1.5" stroke="currentColor" strokeWidth="1.3"/></svg>
+                        </span>
                         <span className="text-muted leading-relaxed">Dundigal V, Survey No. 444, Dundigal, Medchal Malkajgiri, Telangana – 500 043</span>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="w-5 h-5 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5 text-[0.65rem] font-bold">☎</span>
+                        <span className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden><path d="M11.5 9.17a1 1 0 01-.33.66l-1 1A1 1 0 019.5 11C4.5 11 2 5.5 2 5.5a1 1 0 01.33-1L3.5 3.33A1 1 0 014.17 3l1.5 3a1 1 0 01-.2.95l-.8.8A5 5 0 006.2 9l.8-.8a1 1 0 01.95-.2l3 1.17z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </span>
                         <a href="tel:18005724363" className="text-secondary font-semibold hover:underline">1800 572 4363 (Toll Free)</a>
                       </div>
                     </div>
