@@ -280,7 +280,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
         kind: 'quote',
         text:
           'We believe that engineering education is most powerful when it is hands-on, industry-aligned and research-driven. At MLRIT, we have built that — across 11 departments, with a faculty team that mentors every student from the first class to the final capstone. Welcome to a place where ideas turn into engineering.',
-        attribution: 'Dr. K. Srinivas Rao',
+        attribution: 'M.Radhika Devi',
         role: 'Principal, MLR Institute of Technology',
       },
       {
@@ -308,7 +308,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
         kind: 'quote',
         text:
           'Academic excellence at MLRIT is not a slogan — it is a practice. Outcome-Based Education, regular curriculum review with industry experts, and a culture of measurable assessment combine to produce graduates ready for the world they will shape.',
-        attribution: 'Dr. P. Rajashekar',
+        attribution: 'M.Radhika Devi',
         role: 'Dean, Academics — MLRIT',
       },
       {

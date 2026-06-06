@@ -16,7 +16,7 @@ const ABOUT_NAV = [
 const LEADERS = [
   {
     tag: 'Principal',
-    name: 'Dr. K. Srinivas Rao',
+    name: 'M.Radhika Devi',
     role: 'Principal, MLR Institute of Technology',
     img: '/images/about/milestone-2022.jpg',
     message: 'Academic rigour and student welfare are not opposing goals — at MLRIT we have always pursued both, together. Our autonomous status lets us stay ahead of industry, while our NAAC and NBA accreditations validate our quality every cycle.',
@@ -24,7 +24,7 @@ const LEADERS = [
   },
   {
     tag: 'Dean — Academics',
-    name: 'Dr. P. Rajashekar',
+    name: 'M.Radhika Devi',
     role: 'Dean, Academics',
     img: '/images/about/milestone-2012.jpg',
     message: 'We design curricula that respond to where industry is going, not just where it has been. Autonomous status gives us the agility to refresh syllabi, integrate emerging tools, and keep our students ahead of the curve every year.',
