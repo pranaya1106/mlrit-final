@@ -7,29 +7,29 @@ export default function BrochureTab() {
       download="MLRIT-Brochure-2025-26.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed right-0 top-1/2 -translate-y-1/2 z-50 group"
+      className="fixed right-0 z-50 group"
+      style={{ top: 'calc(50% - 56px)' }}
       aria-label="Download Brochure"
     >
       <div
-        className="flex items-center justify-center font-sans font-bold text-white text-[0.78rem] tracking-[0.18em] uppercase transition-all duration-300 group-hover:pr-3"
+        className="flex items-center justify-center font-sans font-bold text-white text-[0.68rem] tracking-[0.16em] uppercase"
         style={{
           background: '#01741f',
           writingMode: 'vertical-rl',
           textOrientation: 'mixed',
           transform: 'rotate(180deg)',
-          padding: '14px 10px',
-          borderRadius: '0 8px 8px 0',
-          boxShadow: '-2px 0 12px rgba(1,116,31,0.25)',
-          gap: '8px',
+          padding: '10px 8px',
+          borderRadius: '0 6px 6px 0',
+          boxShadow: '-2px 0 10px rgba(1,116,31,0.22)',
+          gap: '6px',
         }}
       >
-        {/* Download icon */}
         <svg
-          width="14"
-          height="14"
+          width="12"
+          height="12"
           viewBox="0 0 14 14"
           fill="none"
-          style={{ transform: 'rotate(90deg)', marginBottom: '4px' }}
+          style={{ transform: 'rotate(90deg)', marginBottom: '3px' }}
           aria-hidden
         >
           <path
