@@ -90,16 +90,6 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Postgraduate (M.Tech and MBA)', href: '/departments/pg' },
         ],
       },
-      {
-        heading: 'Resources',
-        links: [
-          { label: 'ERP',               href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', external: true },
-          { label: 'LMS',               href: 'https://lms.mlrit.ac.in/', external: true },
-          { label: 'Academic Calendar', href: '/examinations#calendars' },
-          { label: 'Edmit · Course Registration', href: 'https://edmit.mlrit.ac.in/', external: true },
-          { label: 'Exam Portal',       href: 'https://exams.mlrinstitutions.ac.in/', external: true },
-        ],
-      },
     ],
   },
   {
@@ -154,8 +144,6 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Circulars',         href: '/examinations/circulars' },
           { label: 'Timetable',         href: '/examinations/timetable' },
           { label: 'Regulations',       href: '/examinations/regulations' },
-          { label: 'Academic Calendar', href: '/examinations#calendars' },
-          { label: 'Syllabus Explorer', href: '/examinations/syllabus' },
         ],
       },
       {

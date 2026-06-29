@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import BrochureTab from '@/components/BrochureTab';
+import StudentExplorer from '@/components/StudentExplorer';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="pt-[var(--header-h)]">{children}</main>
         <Footer />
         <BrochureTab />
+        <StudentExplorer />
       </body>
     </html>
   );
