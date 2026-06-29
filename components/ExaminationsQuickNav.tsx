@@ -4,7 +4,6 @@ const EXAMS_NAV = [
   { label: 'Overview',        href: '/examinations' },
   { label: 'Timetable',       href: '/examinations/timetable' },
   { label: 'Regulations',     href: '/examinations/regulations' },
-  { label: 'Previous Papers', href: '/examinations/pyqs' },
   { label: 'Circulars',       href: '/examinations/circulars' },
   { label: 'Support',         href: '/examinations/support' },
 ];
