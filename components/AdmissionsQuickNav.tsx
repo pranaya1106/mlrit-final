@@ -4,9 +4,9 @@ const ADMISSIONS_NAV = [
   { label: 'Overview',       href: '/admissions' },
   { label: 'How to Apply',   href: '/admissions/how-to-apply' },
   { label: 'Eligibility',    href: '/admissions/eligibility' },
+  { label: 'Counselling',    href: '/admissions/counselling' },
   { label: 'Fee Structure',  href: '/admissions/fees' },
   { label: 'Scholarships',   href: '/admissions/scholarships' },
-  { label: 'Counselling',    href: '/admissions/counselling' },
   { label: 'Why MLRIT',      href: '/admissions/why-mlrit' },
   { label: 'Support',        href: '/admissions/support' },
 ];
