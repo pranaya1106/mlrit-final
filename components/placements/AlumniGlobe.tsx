@@ -231,7 +231,7 @@ export default function AlumniGlobe() {
         glowColor:   [0.60, 0.28, 0.06] as [number, number, number],
         markers: ALUMNI.map(a => ({
           location: [a.lat, a.lon] as [number, number],
-          size: 0.07,
+          size: 0.03,
         })),
       });
 
@@ -289,7 +289,7 @@ export default function AlumniGlobe() {
           </h2>
           <p className="mt-4 text-white/50 max-w-[560px] leading-relaxed text-[0.95rem]">
             Our graduates are placed at leading companies worldwide.{' '}
-            <span className="text-[#e8600a]/60">Tap any glowing dot</span> to see where they landed.
+            <span className="text-[#e8600a]/60">Tap any pin</span> to see where they landed.
           </p>
         </Reveal>
       </div>
@@ -314,36 +314,39 @@ export default function AlumniGlobe() {
             </span>
           </div>
 
-          {/* invisible clickable dot hit-targets */}
+          {/* clickable pin markers */}
           {ALUMNI.map((a, i) => (
             <button
               key={i}
               ref={el => { dotRefs.current[i] = el; }}
               onClick={() => handleDotClick(a, i)}
               aria-label={`${a.company} — ${a.location}`}
-              className="absolute z-[5] -translate-x-1/2 -translate-y-1/2 focus:outline-none group"
+              className="absolute z-[5] -translate-x-1/2 -translate-y-full focus:outline-none group"
               style={{
                 left: '50%', top: '50%',
                 opacity: 0,
-                width: 28, height: 28,
+                width: 18, height: 22,
                 transition: 'opacity 0.2s',
               }}
             >
-              {/* visible pulse ring + dot */}
+              {/* pin head */}
+              <span className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full
+                bg-[#e8600a] group-hover:bg-[#ff7020] transition-colors
+                shadow-[0_0_6px_2px_rgba(232,96,10,0.55)]"
+                style={{ width: 8, height: 8 }}
+              />
+              {/* pin stem */}
+              <span className="absolute top-[7px] left-1/2 -translate-x-1/2
+                bg-[#e8600a]/70 group-hover:bg-[#e8600a] transition-colors rounded-full"
+                style={{ width: 2, height: 8 }}
+              />
+              {/* subtle pulse ring — only on hover */}
               <span
-                className="absolute inset-0 rounded-full flex items-center justify-center"
-              >
-                {/* outer pulse ring */}
-                <span
-                  className="absolute rounded-full border border-[#e8600a]/50 animate-ping"
-                  style={{ width: 22, height: 22, animationDuration: '2s' }}
-                />
-                {/* inner glow dot */}
-                <span
-                  className="relative rounded-full bg-[#e8600a] group-hover:bg-[#ff8040] transition-colors shadow-[0_0_8px_3px_rgba(232,96,10,0.6)]"
-                  style={{ width: 10, height: 10 }}
-                />
-              </span>
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[1px]
+                  rounded-full border border-[#e8600a]/0 group-hover:border-[#e8600a]/50
+                  transition-all duration-300"
+                style={{ width: 16, height: 16 }}
+              />
             </button>
           ))}
         </div>
@@ -378,12 +381,6 @@ export default function AlumniGlobe() {
       {/* Popup */}
       <Popup state={popup} onClose={() => setPopup(null)} />
 
-      <style jsx>{`
-        @keyframes ping {
-          75%, 100% { transform: scale(1.8); opacity: 0; }
-        }
-        .animate-ping { animation: ping 2s cubic-bezier(0,0,0.2,1) infinite; }
-      `}</style>
     </section>
   );
 }
