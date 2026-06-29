@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { Department } from '@/lib/departments';
 import { DEPT_DATA, type DeptData, type FacultyMember } from '@/lib/dept-data';
+import { getSyllabusCourses } from '@/lib/syllabus-data';
 
 type Props = { department: Department };
 type PanelProps = { d: Department; data: DeptData };
@@ -594,43 +595,46 @@ const SYLLABUS_REGS: { code: string; slug: string; label: string }[] = [
   { code: 'MLR18', slug: 'mlr18', label: 'MLR 2018 regulation' },
 ];
 
-function ExplorerSelect({
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: { value: string; label: string }[];
-}) {
-  return (
-    <label className="block">
-      <span className="font-mono text-[0.62rem] font-extrabold tracking-[0.16em] uppercase text-secondary">
-        {label}
-      </span>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="mt-1.5 w-full rounded-lg border border-border bg-white px-3.5 py-2.5 font-sans font-semibold text-foreground text-[0.9rem] cursor-pointer transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-      >
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
+// Department slug → prefix used by the complete-syllabus PDFs in /public/syllabus.
+// Most departments match their slug; mechanical/aeronautical use shortened prefixes.
+const SYLLABUS_FILE_PREFIX: Record<string, string> = {
+  mechanical: 'mech',
+  aeronautical: 'aero',
+};
+
+// Which regulations have a complete-syllabus PDF on disk, per department.
+// Source: scraped from mlrit.ac.in and saved to /public/syllabus/<prefix>-<reg>-syllabus.pdf.
+const SYLLABUS_AVAILABLE: Record<string, string[]> = {
+  cse:          ['r25', 'r22', 'mlr20', 'mlr18'],
+  'cse-ds':     ['r25', 'r22', 'mlr20'],
+  aiml:         ['r25', 'r22', 'mlr20'],
+  ece:          ['r25', 'r22', 'mlr20'],
+  eee:          ['r25', 'r22', 'mlr20', 'mlr18'],
+  mechanical:   ['r25', 'r22', 'mlr20', 'mlr18'],
+  aeronautical: ['r25', 'r22', 'mlr18'],
+};
+
+function syllabusPdfHref(deptSlug: string, regSlug: string): string {
+  const prefix = SYLLABUS_FILE_PREFIX[deptSlug] ?? deptSlug;
+  return `/syllabus/${prefix}-${regSlug}-syllabus.pdf`;
 }
 
 function AcademicsPanel({ d }: PanelProps) {
-  const [reg, setReg] = useState('r25');
-  const [year, setYear] = useState('1');
-  const [semInYear, setSemInYear] = useState('1');
-  const semNum = (parseInt(year, 10) - 1) * 2 + parseInt(semInYear, 10);
-  const explorerHref = `/departments/syllabus/${d.slug}/${reg}/year${year}/sem${semNum}`;
+  const availableRegSlugs = SYLLABUS_AVAILABLE[d.slug] ?? [];
+  const availableRegs = SYLLABUS_REGS.filter((r) => availableRegSlugs.includes(r.slug));
+  const regsForCatalog = availableRegs.length ? availableRegs : SYLLABUS_REGS;
+
+  // Regulations that actually have per-subject data in SYLLABUS_DATA
+  const regsWithData = SYLLABUS_REGS.filter((r) =>
+    [1, 2, 3, 4, 5, 6, 7, 8].some((sem) => getSyllabusCourses(d.slug, r.slug, sem).length > 0)
+  );
+
+  const [activeReg, setActiveReg] = useState(regsWithData[0]?.slug ?? regsForCatalog[0]?.slug ?? 'r25');
+
+  const semesters = Array.from({ length: 8 }, (_, i) => {
+    const semNum = i + 1;
+    return { semNum, courses: getSyllabusCourses(d.slug, activeReg, semNum) };
+  }).filter((s) => s.courses.length > 0);
 
   return (
     <div>
@@ -638,46 +642,58 @@ function AcademicsPanel({ d }: PanelProps) {
 
       {/* ── Syllabus PDFs ── */}
       <SubHeading>Syllabus PDFs</SubHeading>
-      <div className="space-y-4">
-        {SYLLABUS_REGS.map((r) => (
-          <div
-            key={r.slug}
-            className="flex flex-col gap-4 rounded-xl bg-white p-5 md:p-6 shadow-card-soft border-l-[3px] border-secondary transition-all hover:-translate-y-0.5 hover:shadow-card-strong sm:flex-row sm:items-center sm:justify-between"
-          >
-            <div className="min-w-0">
-              <div className="font-sans font-bold text-foreground text-[1rem]">{r.code} Complete Syllabus</div>
-              <div className="mt-0.5 text-muted text-[0.82rem]">{r.label}</div>
-            </div>
-            <div className="flex flex-shrink-0 items-center gap-3">
-              <a
-                href="#"
-                className="inline-flex items-center justify-center rounded-lg border-[1.5px] border-primary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-primary transition-colors hover:bg-primary/[0.06]"
+      {availableRegs.length === 0 ? (
+        <p className="text-muted leading-relaxed text-[0.92rem]">
+          Complete syllabus PDFs for this programme will be published here soon.
+        </p>
+      ) : (
+        <div className="space-y-4">
+          {availableRegs.map((r) => {
+            const pdfHref = syllabusPdfHref(d.slug, r.slug);
+            return (
+              <div
+                key={r.slug}
+                className="flex flex-col gap-4 rounded-xl bg-white p-5 md:p-6 shadow-card-soft border-l-[3px] border-secondary transition-all hover:-translate-y-0.5 hover:shadow-card-strong sm:flex-row sm:items-center sm:justify-between"
               >
-                View
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center justify-center rounded-lg bg-secondary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-white transition-colors hover:bg-secondary-pressed"
-              >
-                Download
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
+                <div className="min-w-0">
+                  <div className="font-sans font-bold text-foreground text-[1rem]">{r.code} Complete Syllabus</div>
+                  <div className="mt-0.5 text-muted text-[0.82rem]">{r.label}</div>
+                </div>
+                <div className="flex flex-shrink-0 items-center gap-3">
+                  <a
+                    href={pdfHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-lg border-[1.5px] border-primary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-primary transition-colors hover:bg-primary/[0.06]"
+                  >
+                    View
+                  </a>
+                  <a
+                    href={pdfHref}
+                    download
+                    className="inline-flex items-center justify-center rounded-lg bg-secondary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-white transition-colors hover:bg-secondary-pressed"
+                  >
+                    Download
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* ── Online Course Catalog ── */}
       <SubHeading id="catalog">Online Course Catalog</SubHeading>
       <div className="space-y-4">
-        {SYLLABUS_REGS.map((r) => (
+        {regsForCatalog.map((r) => (
           <Link
             key={r.slug}
-            href={`/departments/syllabus/${d.slug}/${r.slug}/year1/sem1`}
+            href={`/departments/syllabus/${d.slug}/${r.slug}`}
             className="group flex items-center justify-between gap-4 rounded-xl bg-white p-5 md:p-6 shadow-card-soft border-l-[3px] border-secondary transition-all hover:-translate-y-0.5 hover:shadow-card-strong"
           >
             <div className="min-w-0">
               <div className="font-sans font-bold text-foreground text-[1rem]">{r.code} Course Catalog</div>
-              <div className="mt-0.5 text-muted text-[0.82rem]">{r.label}</div>
+              <div className="mt-0.5 text-muted text-[0.82rem]">{r.label} · all semesters</div>
             </div>
             <span className="inline-flex flex-shrink-0 items-center gap-2 font-mono text-[0.76rem] font-bold text-primary transition-all group-hover:gap-3">
               Open ↗
@@ -686,39 +702,82 @@ function AcademicsPanel({ d }: PanelProps) {
         ))}
       </div>
 
-      {/* ── Semester-wise Syllabus Explorer ── */}
-      <SubHeading id="explorer">Semester-wise Syllabus Explorer</SubHeading>
-      <div className="rounded-xl bg-white p-6 md:p-7 shadow-card-soft border-l-[3px] border-secondary">
-        <p className="max-w-[720px] text-muted leading-relaxed text-[0.92rem]">
-          Browse semester-by-semester with full subject codes, credit hours and topic-level detail.
-        </p>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <ExplorerSelect
-            label="Regulation"
-            value={reg}
-            onChange={setReg}
-            options={SYLLABUS_REGS.map((r) => ({ value: r.slug, label: r.code }))}
-          />
-          <ExplorerSelect
-            label="Year"
-            value={year}
-            onChange={setYear}
-            options={[1, 2, 3, 4].map((y) => ({ value: String(y), label: `Year ${y}` }))}
-          />
-          <ExplorerSelect
-            label="Semester"
-            value={semInYear}
-            onChange={setSemInYear}
-            options={[1, 2].map((s) => ({ value: String(s), label: `Semester ${s}` }))}
-          />
-        </div>
-        <Link
-          href={explorerHref}
-          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-secondary px-7 py-3 font-sans font-bold text-[0.9rem] text-white transition-colors hover:bg-secondary-pressed"
-        >
-          View syllabus →
-        </Link>
+      {/* ── Inline Syllabus ── */}
+      <SubHeading id="syllabus-inline">Subject-wise Syllabus</SubHeading>
+
+      {/* Regulation pills */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {regsWithData.map((r) => (
+          <button
+            key={r.slug}
+            onClick={() => setActiveReg(r.slug)}
+            className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
+              activeReg === r.slug
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white border-border text-foreground hover:border-primary hover:text-primary'
+            }`}
+          >
+            {r.code}
+          </button>
+        ))}
       </div>
+
+      {semesters.length === 0 ? (
+        <p className="text-muted text-[0.92rem]">
+          Subject-wise data for {activeReg.toUpperCase()} hasn&apos;t been published yet.
+        </p>
+      ) : (
+        <div className="space-y-10">
+          {semesters.map(({ semNum, courses }) => (
+            <div key={semNum}>
+              <p className="font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase text-primary mb-1">
+                Year {Math.ceil(semNum / 2)} · Semester {((semNum - 1) % 2) + 1}
+              </p>
+              <h4 className="font-sans font-extrabold text-foreground text-lg tracking-tight mb-4">
+                Semester {semNum}
+              </h4>
+              <div className="overflow-x-auto overflow-hidden rounded-xl border border-border bg-white">
+                <table className="w-full text-left text-[0.9rem]">
+                  <thead className="bg-warm-light/50">
+                    <tr>
+                      <th className="px-4 py-3 font-mono text-[0.62rem] tracking-[0.14em] uppercase text-muted">Code</th>
+                      <th className="px-4 py-3 font-mono text-[0.62rem] tracking-[0.14em] uppercase text-muted">Subject</th>
+                      <th className="px-4 py-3 font-mono text-[0.62rem] tracking-[0.14em] uppercase text-muted text-right">PDF</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courses.map((c, i) => (
+                      <tr key={`${c.code}-${i}`} className="border-t border-border hover:bg-warm-light/40 transition-colors">
+                        <td className="px-4 py-3 font-bold text-foreground whitespace-nowrap align-top">{c.code}</td>
+                        <td className="px-4 py-3">
+                          <a
+                            href={c.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-foreground hover:text-primary hover:underline"
+                          >
+                            {c.title}
+                          </a>
+                        </td>
+                        <td className="px-4 py-3 text-right whitespace-nowrap">
+                          <a
+                            href={c.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-[0.72rem] font-bold text-primary hover:underline"
+                          >
+                            View ↗
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
