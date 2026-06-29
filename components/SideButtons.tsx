@@ -3,7 +3,73 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-const ITEMS = [
+/* ── Sub-popup for Syllabus & PYQs ─────────────────────────────── */
+function SyllabusSubPopup({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="absolute right-full top-0 mr-2 rounded-xl border border-border/50 overflow-hidden"
+      style={{
+        background: 'rgba(255,255,255,0.99)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+        width: '210px',
+      }}
+    >
+      <div className="px-3 py-2 border-b border-border/40">
+        <p className="font-sans font-bold text-foreground text-[0.8rem]">Syllabus &amp; PYQs</p>
+      </div>
+      <div className="p-2 flex flex-col gap-1.5">
+        <Link
+          href="/examinations/syllabus"
+          onClick={onClose}
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-orange-50 transition-colors group"
+        >
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[#e8600a] shrink-0"
+            style={{ background: 'rgba(232,96,10,0.09)' }}>
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden>
+              <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.6"/>
+              <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p className="font-sans font-semibold text-foreground text-[0.8rem]">Syllabus Explorer</p>
+            <p className="font-mono text-muted text-[0.62rem]">Browse by department</p>
+          </div>
+        </Link>
+        <a
+          href="https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClose}
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-orange-50 transition-colors group"
+        >
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[#e8600a] shrink-0"
+            style={{ background: 'rgba(232,96,10,0.09)' }}>
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden>
+              <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" strokeWidth="1.6"/>
+              <path d="M7 6h6M7 9.5h6M7 13h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+              <path d="M13 12l2 2-2 2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p className="font-sans font-semibold text-foreground text-[0.8rem]">Previous Papers</p>
+            <p className="font-mono text-muted text-[0.62rem]">PYQs on exam portal</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ── Main items ─────────────────────────────────────────────────── */
+type Item = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  subPopup?: boolean;
+  icon: React.ReactNode;
+};
+
+const ITEMS: Item[] = [
   {
     label: 'ERP',
     href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad',
@@ -51,9 +117,8 @@ const ITEMS = [
     ),
   },
   {
-    label: 'Syllabus',
-    href: '/examinations/syllabus',
-    external: false,
+    label: 'Syllabus & PYQs',
+    subPopup: true,
     icon: (
       <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden>
         <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.6"/>
@@ -96,7 +161,8 @@ const TAB_STYLE: React.CSSProperties = {
 
 export default function SideButtons() {
   const [open, setOpen] = useState(false);
-  const close = useCallback(() => setOpen(false), []);
+  const [subOpen, setSubOpen] = useState(false);
+  const close = useCallback(() => { setOpen(false); setSubOpen(false); }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -134,7 +200,6 @@ export default function SideButtons() {
           </div>
         </a>
 
-        {/* 4px gap between tabs */}
         <div style={{ height: '4px' }} />
 
         {/* Student Corner tab */}
@@ -154,7 +219,7 @@ export default function SideButtons() {
         </button>
       </div>
 
-      {/* Popup */}
+      {/* Main popup */}
       {open && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-end"
@@ -203,28 +268,52 @@ export default function SideButtons() {
             {/* 2-col icon grid */}
             <div className="p-3 grid grid-cols-2 gap-2">
               {ITEMS.map((item) => {
-                const cls = `flex flex-col items-center gap-2 rounded-xl border border-border/50 py-4 px-2
-                  hover:border-primary/50 hover:bg-orange-50/60 transition-all group cursor-pointer`;
-                const inner = (
+                const cls = `flex flex-col items-center gap-2 rounded-xl border py-4 px-2
+                  transition-all group cursor-pointer ${
+                    item.subPopup && subOpen
+                      ? 'border-primary/60 bg-orange-50/70'
+                      : 'border-border/50 hover:border-primary/50 hover:bg-orange-50/60'
+                  }`;
+                const iconEl = (
                   <>
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-[#e8600a]
-                        group-hover:bg-[#e8600a] group-hover:text-white transition-colors"
-                      style={{ background: 'rgba(232,96,10,0.09)' }}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+                        item.subPopup && subOpen
+                          ? 'bg-[#e8600a] text-white'
+                          : 'text-[#e8600a] group-hover:bg-[#e8600a] group-hover:text-white'
+                      }`}
+                      style={!(item.subPopup && subOpen) ? { background: 'rgba(232,96,10,0.09)' } : {}}
                     >
                       {item.icon}
                     </div>
-                    <span className="font-sans font-semibold text-foreground text-[0.78rem] text-center leading-tight">
+                    <span className="font-sans font-semibold text-foreground text-[0.72rem] text-center leading-tight">
                       {item.label}
                     </span>
                   </>
                 );
 
+                if (item.subPopup) {
+                  return (
+                    <div key={item.label} className="relative">
+                      <button
+                        className={cls + ' w-full'}
+                        onClick={() => setSubOpen(s => !s)}
+                        aria-expanded={subOpen}
+                      >
+                        {iconEl}
+                      </button>
+                      {subOpen && (
+                        <SyllabusSubPopup onClose={close} />
+                      )}
+                    </div>
+                  );
+                }
+
                 return item.external ? (
                   <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer"
-                    onClick={close} className={cls}>{inner}</a>
+                    onClick={close} className={cls}>{iconEl}</a>
                 ) : (
-                  <Link key={item.label} href={item.href} onClick={close} className={cls}>{inner}</Link>
+                  <Link key={item.label} href={item.href!} onClick={close} className={cls}>{iconEl}</Link>
                 );
               })}
             </div>

@@ -30,7 +30,7 @@ const MAIN_COLS = [
     head: 'Examinations',
     links: [
       { label: 'Overview',          href: '/examinations' },
-      { label: 'Syllabus Explorer', href: '/examinations/syllabus' },
+
       { label: 'Timetable',         href: '/examinations/timetable' },
       { label: 'Regulations',       href: '/examinations/regulations' },
       { label: 'AQAR',              href: '/iqac/aqar' },
