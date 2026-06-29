@@ -12,46 +12,10 @@ export const metadata: Metadata = {
 
 const NAV_ITEMS = [
   { id: 'overview',     label: 'Overview'         },
-  { id: 'quicklinks',   label: 'Quick Links'      },
   { id: 'downloads',    label: 'Downloads'        },
   { id: 'regulations',  label: 'Regulations'      },
   { id: 'calendars',    label: 'Academic Calendar'},
   { id: 'contact',      label: 'Contact'          },
-];
-
-const QUICK_LINKS = [
-  {
-    label: 'Results', href: 'https://exams.mlrinstitutions.ac.in/', desc: 'Check semester and supplementary exam results',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><rect x="3" y="3" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M7 11h8M7 7h8M7 15h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
-  },
-  {
-    label: 'Fee Payments', href: 'https://exams.mlrinstitutions.ac.in/', desc: 'Pay examination fees online',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><rect x="2" y="5" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M2 9h18" stroke="currentColor" strokeWidth="1.6"/><circle cx="7" cy="14" r="1.5" fill="currentColor"/></svg>,
-  },
-  {
-    label: 'Circulars', href: 'https://mlrit.ac.in/circulars/', desc: 'Latest examination notifications and circulars',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M11 2a9 9 0 100 18A9 9 0 0011 2z" stroke="currentColor" strokeWidth="1.6"/><path d="M11 7v5l3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
-  },
-  {
-    label: 'Previous Question Papers', href: 'https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html', desc: 'Previous year question papers for all branches',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M6 2h10a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.6"/><path d="M8 7h6M8 11h6M8 15h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
-  },
-  {
-    label: 'Student Verification', href: '/examinations/student-verification.pdf', desc: 'Certificate and degree verification process',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><circle cx="11" cy="11" r="9" stroke="currentColor" strokeWidth="1.6"/></svg>,
-  },
-  {
-    label: 'Citizen Charter', href: '/examinations/citizen-charter.pdf', desc: 'Commitments and timelines for exam services',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M11 2l2.09 6.26H20l-5.47 3.97 2.09 6.27L11 14.53l-5.62 3.97 2.09-6.27L2 8.26h6.91L11 2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>,
-  },
-  {
-    label: 'Apply for Certificates', href: '/examinations/apply-for-certificates.pdf', desc: 'Apply for transcripts, bonafide and other certificates',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M4 4h14v10H4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/><path d="M8 18h6M11 14v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>,
-  },
-  {
-    label: 'Academic Results', href: 'https://exams.mlrinstitutions.ac.in/', desc: 'View published academic results',
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden><path d="M3 17l5-5 4 4 6-8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  },
 ];
 
 const DOWNLOADS = [
@@ -159,39 +123,6 @@ export default function ExaminationsPage() {
                   </div>
                 </Reveal>
               </div>
-            </div>
-          </section>
-
-          {/* Quick Links */}
-          <section id="quicklinks" className="bg-warm-light py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-              <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Quick Links</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  Student <span className="font-display italic font-medium" style={gradientText}>services.</span>
-                </h2>
-              </Reveal>
-              <Stagger className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-4" delay={0.06}>
-                {QUICK_LINKS.map(q => (
-                  <StaggerItem key={q.label}>
-                    <a
-                      href={q.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex flex-col gap-3 rounded-2xl border border-border bg-white p-6 h-full hover:border-secondary hover:-translate-y-1 transition-all"
-                    >
-                      <span className="w-10 h-10 rounded-xl bg-warm-light border border-border flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white group-hover:border-secondary transition-all">
-                        {q.icon}
-                      </span>
-                      <span className="font-sans font-extrabold text-foreground text-[1rem] group-hover:text-secondary transition-colors">{q.label}</span>
-                      <span className="text-muted text-[0.85rem] leading-relaxed">{q.desc}</span>
-                      <span className="mt-auto inline-flex items-center gap-1 text-secondary font-semibold text-[0.8rem] group-hover:gap-2 transition-all">
-                        Open ↗
-                      </span>
-                    </a>
-                  </StaggerItem>
-                ))}
-              </Stagger>
             </div>
           </section>
 
