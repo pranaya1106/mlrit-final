@@ -4,39 +4,90 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import createGlobe from 'cobe';
 import Reveal from '@/components/motion/Reveal';
 
-/* ─── Data ───────────────────────────────────────────────────── */
-type AlumniEntry = {
-  company: string;
-  location: string;
-  package: string;
-  role: string;
-  src: string;
-  lat: number;
-  lon: number;
+/* ─── Data grouped by country ────────────────────────────────── */
+type Company = { company: string; location: string; role: string; package: string; src: string; };
+
+type Country = {
+  name: string;
+  flag: string;
+  lat: number;   // label anchor lat
+  lon: number;   // label anchor lon
+  companies: Company[];
 };
 
-const ALUMNI: AlumniEntry[] = [
-  { company: 'TCS',           location: 'Hyderabad',  role: 'Systems Engineer',    package: '4 LPA',    src: '/placements/p4.jpg',  lat:  17.38, lon:  78.47 },
-  { company: 'Infosys',       location: 'Bengaluru',  role: 'Software Engineer',   package: '4 LPA',    src: '/placements/p6.jpg',  lat:  12.97, lon:  77.59 },
-  { company: 'ServiceNow',    location: 'San Jose',   role: 'Software Engineer',   package: '33 LPA',   src: '/placements/p1.jpg',  lat:  37.33, lon: -121.88 },
-  { company: 'Amazon',        location: 'Seattle',    role: 'SDE I',               package: '58 LPA',   src: '/placements/p2.jpg',  lat:  47.60, lon: -122.33 },
-  { company: 'Capgemini',     location: 'London',     role: 'Assoc. Consultant',   package: '4.5 LPA',  src: '/placements/p3.jpg',  lat:  51.50, lon:   -0.12 },
-  { company: 'Tech Mahindra', location: 'Dubai',      role: 'Software Engineer',   package: '6 LPA',    src: '/placements/p5.jpg',  lat:  25.20, lon:  55.27 },
-  { company: 'Virtusa',       location: 'Singapore',  role: 'Data Engineer',       package: '5.5 LPA',  src: '/placements/p7.png',  lat:   1.35, lon: 103.82 },
-  { company: 'Wipro',         location: 'Toronto',    role: 'Project Engineer',    package: '4 LPA',    src: '/placements/p8.png',  lat:  43.65, lon: -79.38 },
-  { company: 'EPAM Systems',  location: 'Munich',     role: 'Fullstack Developer', package: '8 LPA',    src: '/placements/p9.png',  lat:  48.14, lon:  11.58 },
-  { company: 'Boeing',        location: 'Melbourne',  role: 'Aerospace Engineer',  package: '28.5 LPA', src: '/placements/p10.png', lat: -37.81, lon: 144.96 },
-  { company: 'LTI Mindtree',  location: 'Pune',       role: 'Software Engineer',   package: '5.5 LPA',  src: '/placements/p11.png', lat:  18.52, lon:  73.86 },
-  { company: 'NTT Data',      location: 'Tokyo',      role: 'Associate Analyst',   package: '4.5 LPA',  src: '/placements/p12.png', lat:  35.68, lon: 139.69 },
-  { company: 'Cognizant',     location: 'Chennai',    role: 'Programmer Analyst',  package: '4 LPA',    src: '/placements/p13.png', lat:  13.08, lon:  80.27 },
-  { company: 'Mphasis',       location: 'Bengaluru',  role: 'Software Engineer',   package: '5 LPA',    src: '/placements/p14.png', lat:  12.95, lon:  77.65 },
-  { company: 'Cyient',        location: 'Hyderabad',  role: 'Engineer Trainee',    package: '4.5 LPA',  src: '/placements/p15.png', lat:  17.40, lon:  78.48 },
-  { company: 'ValueLabs',     location: 'Hyderabad',  role: 'Software Engineer',   package: '4.5 LPA',  src: '/placements/p16.png', lat:  17.45, lon:  78.36 },
+const COUNTRIES: Country[] = [
+  {
+    name: 'India', flag: '🇮🇳', lat: 20.5, lon: 78.9,
+    companies: [
+      { company: 'Tech Mahindra', location: 'Hyderabad', role: 'Software Engineer',  package: '6 LPA',   src: '/placements/p4.jpg'  },
+      { company: 'Infosys',       location: 'Bengaluru', role: 'Software Engineer',  package: '4 LPA',   src: '/placements/p5.jpg'  },
+      { company: 'Cognizant',     location: 'Chennai',   role: 'Programmer Analyst', package: '4 LPA',   src: '/placements/p6.jpg'  },
+      { company: 'Hyundai Transys',location: 'Hyderabad',role: 'Engineer Trainee',   package: '4.5 LPA', src: '/placements/p11.png' },
+      { company: 'NTT Data',      location: 'Hyderabad', role: 'Associate Analyst',  package: '4.5 LPA', src: '/placements/p13.png' },
+      { company: 'Boeing India',  location: 'Bengaluru', role: 'Systems Engineer',   package: '12 LPA',  src: '/placements/p14.png' },
+      { company: 'Wipro',         location: 'Hyderabad', role: 'Project Engineer',   package: '4 LPA',   src: '/placements/p15.png' },
+      { company: 'DXC Technology',location: 'Hyderabad', role: 'Software Engineer',  package: '5 LPA',   src: '/placements/p16.png' },
+    ],
+  },
+  {
+    name: 'USA', flag: '🇺🇸', lat: 39.5, lon: -98.35,
+    companies: [
+      { company: 'Capgemini',  location: 'San Jose', role: 'Software Engineer', package: '33 LPA', src: '/placements/p1.jpg'  },
+      { company: 'Amazon',     location: 'Seattle',  role: 'SDE I',             package: '58 LPA', src: '/placements/p12.png' },
+    ],
+  },
+  {
+    name: 'UK', flag: '🇬🇧', lat: 51.5, lon: -0.12,
+    companies: [
+      { company: 'Capgemini', location: 'London', role: 'Assoc. Consultant', package: '4.5 LPA', src: '/placements/p1.jpg' },
+    ],
+  },
+  {
+    name: 'UAE', flag: '🇦🇪', lat: 23.4, lon: 53.8,
+    companies: [
+      { company: 'Tata Technologies', location: 'Dubai', role: 'Software Engineer', package: '6 LPA', src: '/placements/p3.jpg' },
+    ],
+  },
+  {
+    name: 'Singapore', flag: '🇸🇬', lat: 1.35, lon: 103.82,
+    companies: [
+      { company: 'Virtusa', location: 'Singapore', role: 'Data Engineer', package: '5.5 LPA', src: '/placements/p2.jpg' },
+    ],
+  },
+  {
+    name: 'Canada', flag: '🇨🇦', lat: 56.13, lon: -106.35,
+    companies: [
+      { company: 'Wipro', location: 'Toronto', role: 'Project Engineer', package: '4 LPA', src: '/placements/p15.png' },
+    ],
+  },
+  {
+    name: 'Germany', flag: '🇩🇪', lat: 51.16, lon: 10.45,
+    companies: [
+      { company: 'EPAM Systems', location: 'Munich', role: 'Fullstack Developer', package: '8 LPA', src: '/placements/p9.png' },
+    ],
+  },
+  {
+    name: 'Australia', flag: '🇦🇺', lat: -25.27, lon: 133.78,
+    companies: [
+      { company: 'Cyient', location: 'Melbourne', role: 'Engineer Trainee', package: '6 LPA', src: '/placements/p10.png' },
+    ],
+  },
+  {
+    name: 'Japan', flag: '🇯🇵', lat: 36.2, lon: 138.25,
+    companies: [
+      { company: 'NTT Data', location: 'Tokyo', role: 'Associate Analyst', package: '4.5 LPA', src: '/placements/p13.png' },
+    ],
+  },
 ];
 
-const THETA = 0.3; // fixed tilt — must match cobe theta
+const THETA = 0.3;
 
-/* ─── lat/lon → cobe unit vector ────────────────────────────── */
+/* ─── cobe marker list (one per company for density on globe) ── */
+const ALL_MARKERS = COUNTRIES.flatMap(c =>
+  c.companies.map(() => ({ location: [c.lat, c.lon] as [number, number], size: 0.04 }))
+);
+
+/* ─── Projection math (mirrors cobe W()) ─────────────────────── */
 function latLonToVec(lat: number, lon: number): [number, number, number] {
   const phi   = (lat * Math.PI) / 180;
   const theta = (lon * Math.PI) / 180 - Math.PI;
@@ -44,163 +95,116 @@ function latLonToVec(lat: number, lon: number): [number, number, number] {
   return [-cosP * Math.cos(theta), Math.sin(phi), cosP * Math.sin(theta)];
 }
 
-/* ─── Project unit-vector → {x,y} fraction + visible flag ───── *
- * Mirrors cobe's internal W() projection function.              */
-function projectMarker(
-  vec: [number, number, number],
-  phi: number,
-): { x: number; y: number; visible: boolean } {
-  const elevation = 0.05;
-  const r = 0.8 + elevation;
-
+function projectVec(vec: [number, number, number], phi: number) {
+  const r    = 0.85;
   const cosP = Math.cos(phi),  sinP = Math.sin(phi);
   const cosT = Math.cos(THETA), sinT = Math.sin(THETA);
-
   const [ux, uy, uz] = vec;
   const rx1 =  ux * cosP + uz * sinP;
   const rz1 = -ux * sinP + uz * cosP;
-  const ry2 =  uy  * cosT - rz1 * sinT;
-  const rz2 =  uy  * sinT + rz1 * cosT;
-
-  const ex = rx1 * r;
-  const ey = ry2 * r;
-
-  // aspect=1 (square canvas), scale=1, offset=[0,0]
-  const cx = ex;
-  const cy = -ey;
-
-  const x = (cx + 1) / 2;
-  const y = (cy + 1) / 2;
-  const visible = !(rz2 < 0 && cx * cx + cy * cy < 0.64);
-
-  return { x, y, visible };
+  const ry2 =  uy * cosT - rz1 * sinT;
+  const rz2 =  uy * sinT + rz1 * cosT;
+  const cx = rx1 * r, cy = -ry2 * r;
+  return {
+    x: (cx + 1) / 2,
+    y: (cy + 1) / 2,
+    visible: !(rz2 < 0 && cx * cx + cy * cy < 0.64),
+  };
 }
 
-/* ─── Popup card ─────────────────────────────────────────────── */
-type PopupState = { entry: AlumniEntry; px: number; py: number } | null;
-
-function Popup({ state, onClose }: { state: PopupState; onClose: () => void }) {
+/* ─── Country panel (slide-in from right) ────────────────────── */
+function CountryPanel({ country, onClose }: { country: Country; onClose: () => void }) {
   useEffect(() => {
-    if (!state) return;
     const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', h);
-    return () => window.removeEventListener('keydown', h);
-  }, [state, onClose]);
-
-  if (!state) return null;
+    document.body.style.overflow = 'hidden';
+    return () => { window.removeEventListener('keydown', h); document.body.style.overflow = ''; };
+  }, [onClose]);
 
   return (
-    <>
-      {/* backdrop hit area — click outside to close */}
-      <div className="fixed inset-0 z-[90]" onClick={onClose} />
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-end"
+      onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      {/* dim backdrop */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
-      {/* card */}
+      {/* panel */}
       <div
-        className="fixed z-[100] pointer-events-auto"
-        style={{
-          left: state.px,
-          top:  state.py,
-          transform: 'translate(-50%, calc(-100% - 16px))',
-        }}
+        className="relative w-full md:w-[420px] md:h-full md:max-h-screen overflow-y-auto
+          rounded-t-3xl md:rounded-none md:rounded-l-3xl border-t md:border-t-0 md:border-l border-white/10"
+        style={{ background: 'rgba(10,7,5,0.97)', backdropFilter: 'blur(20px)', maxHeight: '88vh' }}
       >
-        <div
-          className="rounded-2xl overflow-hidden border border-white/15 shadow-2xl"
-          style={{
-            background: 'rgba(12,9,6,0.96)',
-            backdropFilter: 'blur(16px)',
-            width: 220,
-            boxShadow: '0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(232,96,10,0.2)',
-          }}
-        >
-          {/* Logo area */}
-          <div className="flex items-center justify-center bg-white" style={{ height: 110 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={state.entry.src}
-              alt={state.entry.company}
-              className="max-h-[70%] max-w-[80%] object-contain"
-            />
-          </div>
-
-          {/* Info */}
-          <div className="px-4 py-3.5">
-            <p className="font-sans font-extrabold text-white text-[1rem] leading-tight">
-              {state.entry.company}
-            </p>
-            <p className="font-mono text-white/50 text-[0.72rem] mt-1">
-              {state.entry.role}
-            </p>
-            <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
-              <span className="font-mono text-white/40 text-[0.68rem]">
-                📍 {state.entry.location}
-              </span>
-              <span className="font-mono font-bold text-[#e8600a] text-[0.82rem]">
-                {state.entry.package}
-              </span>
+        {/* header */}
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-5 border-b border-white/10"
+          style={{ background: 'rgba(10,7,5,0.97)' }}>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl leading-none">{country.flag}</span>
+              <h3 className="font-sans font-extrabold text-white text-xl">{country.name}</h3>
             </div>
+            <p className="font-mono text-white/40 text-[0.7rem] mt-1 tracking-wide">
+              {country.companies.length} {country.companies.length === 1 ? 'placement' : 'placements'}
+            </p>
           </div>
-
-          {/* close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20
-              flex items-center justify-center transition-colors"
-            aria-label="Close"
-          >
-            <svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden>
-              <path d="M1 1l8 8M9 1L1 9" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+          <button onClick={onClose}
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+            aria-label="Close">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M1 1l8 8M9 1L1 9" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
             </svg>
           </button>
+        </div>
 
-          {/* anchor arrow */}
-          <div
-            className="absolute left-1/2 -translate-x-1/2 -bottom-[7px]"
-            style={{
-              width: 0, height: 0,
-              borderLeft: '8px solid transparent',
-              borderRight: '8px solid transparent',
-              borderTop: '8px solid rgba(232,96,10,0.25)',
-            }}
-          />
+        {/* company cards */}
+        <div className="p-4 flex flex-col gap-3">
+          {country.companies.map((c, i) => (
+            <div key={i}
+              className="flex gap-4 items-center rounded-2xl border border-white/10 p-3"
+              style={{ background: 'rgba(255,255,255,0.03)' }}>
+              {/* logo */}
+              <div className="shrink-0 w-20 h-14 rounded-xl bg-white flex items-center justify-center p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={c.src} alt={c.company}
+                  className="max-w-full max-h-full object-contain" />
+              </div>
+              {/* info */}
+              <div className="min-w-0">
+                <p className="font-sans font-bold text-white text-[0.92rem] truncate">{c.company}</p>
+                <p className="font-mono text-white/45 text-[0.68rem] mt-0.5 truncate">{c.role}</p>
+                <div className="flex items-center gap-3 mt-2">
+                  <span className="font-mono text-white/35 text-[0.62rem]">📍 {c.location}</span>
+                  <span className="font-mono font-bold text-[#e8600a] text-[0.75rem]">{c.package}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-/* ─── Main Component ─────────────────────────────────────────── */
+/* ─── Main ───────────────────────────────────────────────────── */
 export default function AlumniGlobe() {
-  const canvasRef   = useRef<HTMLCanvasElement>(null);
-  const wrapperRef  = useRef<HTMLDivElement>(null);
-  const dotRefs     = useRef<(HTMLButtonElement | null)[]>([]);
-  const globeRef    = useRef<{ destroy: () => void; update: (s: object) => void } | null>(null);
-  const phiRef      = useRef(0);
-  const rafRef      = useRef<number>(0);
+  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const btnRefs    = useRef<(HTMLButtonElement | null)[]>([]);
+  const globeRef   = useRef<{ destroy: () => void; update: (s: object) => void } | null>(null);
+  const phiRef     = useRef(0);
+  const rafRef     = useRef<number>(0);
 
-  const [popup, setPopup] = useState<PopupState>(null);
+  const [active, setActive] = useState<Country | null>(null);
 
-  /* precompute unit vectors once */
-  const vecs = useRef(ALUMNI.map(a => latLonToVec(a.lat, a.lon)));
+  const vecs = useRef(COUNTRIES.map(c => latLonToVec(c.lat, c.lon)));
 
-  const updateDots = useCallback((phi: number) => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-    const wRect = wrapper.getBoundingClientRect();
-    const size  = wRect.width; // square
-
-    ALUMNI.forEach((_, i) => {
-      const btn = dotRefs.current[i];
+  const updateLabels = useCallback((phi: number) => {
+    COUNTRIES.forEach((_, i) => {
+      const btn = btnRefs.current[i];
       if (!btn) return;
-      const { x, y, visible } = projectMarker(vecs.current[i], phi);
-
+      const { x, y, visible } = projectVec(vecs.current[i], phi);
       btn.style.left    = `${x * 100}%`;
       btn.style.top     = `${y * 100}%`;
       btn.style.opacity = visible ? '1' : '0';
       btn.style.pointerEvents = visible ? 'auto' : 'none';
-
-      // pulse ring scale = visible depth proxy
-      const depth = visible ? 0.5 + (1 - Math.abs(x - 0.5) * 2) * 0.5 : 0;
-      btn.style.setProperty('--dot-depth', depth.toFixed(3));
     });
   }, []);
 
@@ -211,7 +215,6 @@ export default function AlumniGlobe() {
 
     const init = () => {
       const size = wrapper.clientWidth;
-
       if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = 0; }
       if (globeRef.current) { globeRef.current.destroy(); globeRef.current = null; }
 
@@ -219,64 +222,43 @@ export default function AlumniGlobe() {
         devicePixelRatio: window.devicePixelRatio || 2,
         width:  size * (window.devicePixelRatio || 2),
         height: size * (window.devicePixelRatio || 2),
-        phi: 0,
-        theta: THETA,
-        dark: 1,
-        diffuse: 1.4,
-        scale: 1,
-        mapSamples: 16000,
-        mapBrightness: 6,
-        baseColor:   [0.15, 0.08, 0.03] as [number, number, number],
+        phi: 0, theta: THETA,
+        dark: 1, diffuse: 1.4, scale: 1,
+        mapSamples: 16000, mapBrightness: 6,
+        baseColor:   [0.14, 0.08, 0.03] as [number, number, number],
         markerColor: [1.00, 0.42, 0.04] as [number, number, number],
         glowColor:   [0.60, 0.28, 0.06] as [number, number, number],
-        markers: ALUMNI.map(a => ({
-          location: [a.lat, a.lon] as [number, number],
-          size: 0.03,
-        })),
+        markers: ALL_MARKERS,
       });
 
       globeRef.current = globe;
-
       const tick = () => {
         phiRef.current += 0.003;
         globe.update({ phi: phiRef.current });
-        updateDots(phiRef.current);
+        updateLabels(phiRef.current);
         rafRef.current = requestAnimationFrame(tick);
       };
       rafRef.current = requestAnimationFrame(tick);
     };
 
     init();
-
     const ro = new ResizeObserver(() => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      globeRef.current?.destroy();
-      globeRef.current = null;
+      globeRef.current?.destroy(); globeRef.current = null;
       init();
     });
     ro.observe(wrapper);
     return () => {
       ro.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      globeRef.current?.destroy();
-      globeRef.current = null;
+      globeRef.current?.destroy(); globeRef.current = null;
     };
-  }, [updateDots]);
-
-  const handleDotClick = useCallback((entry: AlumniEntry, i: number) => {
-    const btn = dotRefs.current[i];
-    if (!btn) return;
-    const rect = btn.getBoundingClientRect();
-    const cx = rect.left + rect.width  / 2;
-    const cy = rect.top  + rect.height / 2;
-    setPopup(p => (p?.entry === entry ? null : { entry, px: cx, py: cy }));
-  }, []);
+  }, [updateLabels]);
 
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse at 50% 55%, #2a1200 0%, #0d0806 50%, #07060a 100%)' }}
-    >
+    <section className="relative overflow-hidden"
+      style={{ background: 'radial-gradient(ellipse at 50% 55%, #2a1200 0%, #0d0806 50%, #07060a 100%)' }}>
+
       {/* Heading */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-10">
         <Reveal>
@@ -289,98 +271,85 @@ export default function AlumniGlobe() {
           </h2>
           <p className="mt-4 text-white/50 max-w-[560px] leading-relaxed text-[0.95rem]">
             Our graduates are placed at leading companies worldwide.{' '}
-            <span className="text-[#e8600a]/60">Tap any pin</span> to see where they landed.
+            <span className="text-[#e8600a]/60">Click a country</span> to see who landed there.
           </p>
         </Reveal>
       </div>
 
       {/* Globe — desktop */}
       <div className="hidden md:block relative w-full pb-16">
-        <div
-          ref={wrapperRef}
-          className="relative mx-auto"
-          style={{ width: 'min(720px, 88vw)', aspectRatio: '1/1' }}
-        >
-          {/* cobe canvas */}
+        <div ref={wrapperRef} className="relative mx-auto"
+          style={{ width: 'min(720px, 88vw)', aspectRatio: '1/1' }}>
+
           <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
           {/* ghost MLR */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[1]">
-            <span
-              className="font-sans font-black text-[#e8600a]/[0.055] tracking-tighter"
-              style={{ fontSize: 'clamp(5rem,15vw,12rem)', lineHeight: 1 }}
-            >
+            <span className="font-sans font-black text-[#e8600a]/[0.055] tracking-tighter"
+              style={{ fontSize: 'clamp(5rem,15vw,12rem)', lineHeight: 1 }}>
               MLR
             </span>
           </div>
 
-          {/* clickable pin markers */}
-          {ALUMNI.map((a, i) => (
+          {/* Country label buttons */}
+          {COUNTRIES.map((c, i) => (
             <button
               key={i}
-              ref={el => { dotRefs.current[i] = el; }}
-              onClick={() => handleDotClick(a, i)}
-              aria-label={`${a.company} — ${a.location}`}
-              className="absolute z-[5] -translate-x-1/2 -translate-y-full focus:outline-none group"
-              style={{
-                left: '50%', top: '50%',
-                opacity: 0,
-                width: 18, height: 22,
-                transition: 'opacity 0.2s',
-              }}
+              ref={el => { btnRefs.current[i] = el; }}
+              onClick={() => setActive(c)}
+              aria-label={`${c.name} — ${c.companies.length} placements`}
+              className="absolute z-[5] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+              style={{ left: '50%', top: '50%', opacity: 0, transition: 'opacity 0.25s' }}
             >
-              {/* pin head */}
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full
-                bg-[#e8600a] group-hover:bg-[#ff7020] transition-colors
-                shadow-[0_0_6px_2px_rgba(232,96,10,0.55)]"
-                style={{ width: 8, height: 8 }}
-              />
-              {/* pin stem */}
-              <span className="absolute top-[7px] left-1/2 -translate-x-1/2
-                bg-[#e8600a]/70 group-hover:bg-[#e8600a] transition-colors rounded-full"
-                style={{ width: 2, height: 8 }}
-              />
-              {/* subtle pulse ring — only on hover */}
+              {/* pill label */}
               <span
-                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[1px]
-                  rounded-full border border-[#e8600a]/0 group-hover:border-[#e8600a]/50
-                  transition-all duration-300"
-                style={{ width: 16, height: 16 }}
-              />
+                className="flex items-center gap-1.5 rounded-full border px-2.5 py-1
+                  font-mono font-semibold whitespace-nowrap transition-all duration-200
+                  group-hover:scale-110 group-hover:border-[#e8600a]/70"
+                style={{
+                  fontSize: '0.68rem',
+                  background: 'rgba(10,7,5,0.80)',
+                  backdropFilter: 'blur(6px)',
+                  borderColor: 'rgba(232,96,10,0.35)',
+                  color: 'rgba(255,255,255,0.85)',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.5)',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                <span>{c.flag}</span>
+                <span>{c.name}</span>
+                {c.companies.length > 1 && (
+                  <span className="ml-0.5 rounded-full bg-[#e8600a]/80 text-white px-1.5 py-0.5"
+                    style={{ fontSize: '0.58rem' }}>
+                    {c.companies.length}
+                  </span>
+                )}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Mobile: grid of cards */}
+      {/* Mobile: country cards grid */}
       <div className="md:hidden px-6 pb-10">
-        <p className="font-mono text-[0.7rem] text-white/40 mb-5 tracking-wide uppercase">
-          Companies · Tap to explore
-        </p>
+        <p className="font-mono text-[0.7rem] text-white/40 mb-4 tracking-wide uppercase">Tap a country</p>
         <div className="grid grid-cols-2 gap-3">
-          {ALUMNI.map((a, i) => (
-            <button
-              key={i}
-              onClick={() => setPopup({ entry: a, px: window.innerWidth / 2, py: window.innerHeight / 2 })}
-              className="rounded-xl overflow-hidden border border-white/10 bg-white/[0.04] text-left
-                hover:border-[#e8600a]/40 transition-colors active:scale-95"
-            >
-              <div className="flex items-center justify-center h-[72px] bg-white/[0.05] p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={a.src} alt={a.company} className="max-h-full max-w-full object-contain" />
-              </div>
-              <div className="px-3 py-2">
-                <p className="font-sans font-bold text-white text-[0.78rem] truncate">{a.company}</p>
-                <p className="font-mono text-[#e8600a] text-[0.65rem] font-semibold mt-0.5">{a.package}</p>
-              </div>
+          {COUNTRIES.map((c, i) => (
+            <button key={i} onClick={() => setActive(c)}
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-left
+                hover:border-[#e8600a]/40 active:scale-95 transition-all">
+              <div className="text-2xl mb-2">{c.flag}</div>
+              <p className="font-sans font-bold text-white text-[0.88rem]">{c.name}</p>
+              <p className="font-mono text-[#e8600a] text-[0.65rem] mt-1">
+                {c.companies.length} {c.companies.length === 1 ? 'company' : 'companies'}
+              </p>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Popup */}
-      <Popup state={popup} onClose={() => setPopup(null)} />
-
+      {/* Panel */}
+      {active && <CountryPanel country={active} onClose={() => setActive(null)} />}
     </section>
   );
 }

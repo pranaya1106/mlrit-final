@@ -1,11 +1,12 @@
 import Link from 'next/link';
 
 const ABOUT_NAV = [
-  { label: 'Introduction',       href: '/about/vision-mission/introduction' },
-  { label: 'Vision & Mission',   href: '/about/vision-mission/vision-mission' },
-  { label: 'Legacy',             href: '/about/legacy' },
-  { label: 'Rankings & Awards',  href: '/about/rankings-awards' },
-  { label: 'Brochure',           href: '/about/brochure' },
+  { label: 'Introduction',        href: '/about/vision-mission/introduction' },
+  { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
+  { label: 'Legacy',              href: '/about/legacy' },
+  { label: 'Timeline',            href: '/about/timeline' },
+  { label: 'Leadership',          href: '/about/leadership' },
+  { label: 'Rankings & Awards',   href: '/about/rankings-awards' },
   { label: 'Internal Governance', href: '/about/internal-governance' },
 ];
 

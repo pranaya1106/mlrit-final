@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
 import MapEmbed from '@/components/MapEmbed';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── FAQ data ───────────────────────────────────────────────────────────────
 const FAQS = [
@@ -115,6 +116,7 @@ export default function SupportPage() {
           { label: 'Support & FAQs' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/support" />
 
       <section className="bg-warm-light min-h-screen py-16 md:py-24">
         <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20">

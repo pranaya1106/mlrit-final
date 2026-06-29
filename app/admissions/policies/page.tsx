@@ -1,5 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── Policy sections ────────────────────────────────────────────────────────
 const POLICIES = [
@@ -200,6 +201,7 @@ export default function PoliciesPage() {
           { label: 'Policies' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/policies" />
 
       <section className="bg-warm-light min-h-screen py-16 md:py-24">
         <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-10">

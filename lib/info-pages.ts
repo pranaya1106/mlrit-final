@@ -354,7 +354,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           'Select MLRIT during web-options and report after allocation.',
         ],
       },
-      { kind: 'cta', label: 'Visit MLRIT admissions →', href: 'https://mlrit.ac.in/admissions/', external: true },
+      { kind: 'cta', label: 'Enroll Now →', href: 'https://qr-mlr.vercel.app', external: true },
     ],
   },
 

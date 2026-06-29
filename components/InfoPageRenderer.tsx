@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import PageHeader from '@/components/PageHeader';
+import AboutQuickNav from '@/components/AboutQuickNav';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 import type { InfoPage, InfoBlock } from '@/lib/info-pages';
 
 /* ── Icon registry — string name → lucide icon ───────────────────────── */
@@ -53,40 +55,36 @@ function initials(name: string) {
   return (first + last).toUpperCase();
 }
 
-/* ── Sub-nav tabs (only on the core About sub-pages) ─────────────────── */
-const ABOUT_TABS = [
-  { label: 'Introduction', href: '/about/vision-mission/introduction' },
-  { label: 'Vision & Mission', href: '/about/vision-mission/vision-mission' },
-  { label: 'Legacy', href: '/about/legacy' },
-  { label: 'Rankings & Awards', href: '/about/rankings-awards' },
-  { label: 'Brochure', href: '/about/brochure' },
+const ABOUT_PATHS = [
+  '/about/vision-mission/introduction',
+  '/about/vision-mission/vision-mission',
+  '/about/legacy',
+  '/about/timeline',
+  '/about/leadership',
+  '/about/rankings-awards',
+  '/about/internal-governance',
 ];
 
-function AboutTabs() {
+const ADMISSIONS_PATHS = [
+  '/admissions',
+  '/admissions/how-to-apply',
+  '/admissions/eligibility',
+  '/admissions/fees',
+  '/admissions/scholarships',
+  '/admissions/counselling',
+  '/admissions/why-mlrit',
+  '/admissions/support',
+];
+
+function PageQuickNav() {
   const pathname = usePathname();
-  if (!ABOUT_TABS.some((t) => t.href === pathname)) return null;
-  return (
-    <div className="border-b border-border bg-snow">
-      <nav className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 flex gap-1 overflow-x-auto">
-        {ABOUT_TABS.map((t) => {
-          const active = t.href === pathname;
-          return (
-            <Link
-              key={t.href}
-              href={t.href}
-              className={`whitespace-nowrap px-4 py-3.5 text-[0.86rem] font-sans font-semibold border-b-2 transition-colors ${
-                active
-                  ? 'border-primary text-foreground'
-                  : 'border-transparent text-muted hover:text-foreground'
-              }`}
-            >
-              {t.label}
-            </Link>
-          );
-        })}
-      </nav>
-    </div>
-  );
+  if (ABOUT_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'))) {
+    return <AboutQuickNav active={pathname} />;
+  }
+  if (ADMISSIONS_PATHS.some((p) => pathname === p)) {
+    return <AdmissionsQuickNav active={pathname} />;
+  }
+  return null;
 }
 
 /* Reusable block list — lets other sections (e.g. Research) compose their own
@@ -112,7 +110,7 @@ export default function InfoPageRenderer({ page }: { page: InfoPage }) {
         dek={page.dek}
         crumbs={page.crumbs}
       />
-      <AboutTabs />
+      <PageQuickNav />
       <div className="bg-white">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 space-y-14 md:space-y-20">
           {page.blocks.map((block, i) => (

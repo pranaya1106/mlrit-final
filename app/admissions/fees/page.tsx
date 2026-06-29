@@ -3,6 +3,7 @@
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── Fee data ───────────────────────────────────────────────────────────────
 const FEE_DATA = [
@@ -66,6 +67,7 @@ export default function FeesPage() {
           { label: 'Fee Structure' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/fees" />
 
       <div className="bg-warm-light min-h-screen">
         <div className="lg:flex lg:gap-0 items-start">

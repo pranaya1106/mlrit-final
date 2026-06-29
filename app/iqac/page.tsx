@@ -3,6 +3,7 @@ import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import IQACQuickNav from '@/components/IQACQuickNav';
 
 export const metadata: Metadata = { title: 'IQAC — MLRIT' };
 
@@ -32,6 +33,8 @@ export default function IQACPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'IQAC' }]}
         variant="green"
       />
+
+      <IQACQuickNav active="/iqac" />
 
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">

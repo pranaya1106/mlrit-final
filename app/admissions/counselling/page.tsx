@@ -4,6 +4,7 @@ import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── Cutoff PDF Download Card ────────────────────────────────────────────────
 function CutoffPDFViewer() {
@@ -262,6 +263,7 @@ export default function CounsellingPage() {
           { label: 'Counselling' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/counselling" />
 
       <div className="bg-warm-light min-h-screen">
         <div className="lg:flex lg:gap-0 items-start">

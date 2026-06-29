@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import PageHeader from '@/components/PageHeader';
 import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_PAGES, RESEARCH_NAV } from '@/lib/research';
+import ResearchQuickNav from '@/components/ResearchQuickNav';
 
 export function generateStaticParams() {
   return Object.keys(RESEARCH_PAGES).map((slug) => ({ slug }));
@@ -32,6 +33,8 @@ export default function ResearchSubPage({ params }: { params: { slug: string } }
         ]}
         variant="green"
       />
+
+      <ResearchQuickNav active={`/research/${params.slug}`} />
 
       <div className="bg-white">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 space-y-14 md:space-y-20">

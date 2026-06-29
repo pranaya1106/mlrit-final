@@ -49,12 +49,6 @@ const SECTIONS = [
     title: 'Messages from leadership',
     body: "The Principal and Deans share their vision for MLRIT's academic mission, research culture and student development.",
   },
-  {
-    href: '/about/brochure',
-    tag: 'Brochure',
-    title: 'Download our brochure',
-    body: 'Programmes, fees, campus life and admissions — everything in one document.',
-  },
 ];
 
 const gradientText: React.CSSProperties = {
@@ -86,11 +80,12 @@ export default function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
             {[
-              { label: 'Introduction',      href: '/about/vision-mission/introduction' },
-              { label: 'Vision & Mission',  href: '/about/vision-mission/vision-mission' },
-              { label: 'Legacy',            href: '/about/legacy' },
-              { label: 'Rankings & Awards', href: '/about/rankings-awards' },
-              { label: 'Brochure',          href: '/about/brochure' },
+              { label: 'Introduction',        href: '/about/vision-mission/introduction' },
+              { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
+              { label: 'Legacy',              href: '/about/legacy' },
+              { label: 'Timeline',            href: '/about/timeline' },
+              { label: 'Leadership',          href: '/about/leadership' },
+              { label: 'Rankings & Awards',   href: '/about/rankings-awards' },
               { label: 'Internal Governance', href: '/about/internal-governance' },
             ].map((l) => (
               <Link

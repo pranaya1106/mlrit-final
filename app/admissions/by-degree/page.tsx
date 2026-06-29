@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── Programme data ─────────────────────────────────────────────────────────
 const BTECH = [
@@ -192,6 +193,7 @@ export default function ByDegreePage() {
           { label: 'Programmes by Degree' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/by-degree" />
 
       <section className="bg-warm-light min-h-screen py-16 md:py-24">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">

@@ -45,21 +45,19 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
-export default function InternalGovernancePage() {
+export default function LeadershipPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Internal Governance"
+        eyebrow="Leadership"
         title="Leadership"
         italic="in their own words."
         dek="The Principal and Deans share their vision for MLRIT's academic mission, research culture and student development."
-        crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Internal Governance' }]}
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Leadership' }]}
         variant="green"
       />
+      <AboutQuickNav active="/about/leadership" />
 
-      <AboutQuickNav active="/about/internal-governance" />
-
-      {/* Leadership cards using smooth ScrollStack */}
       <section className="bg-[#f7f5f0] py-16">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 mb-6">
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">People</span>
@@ -79,7 +77,7 @@ export default function InternalGovernancePage() {
             baseScale={0.88}
           >
             {LEADERS.map((l, i) => (
-              <LeaderStackItem key={l.name}>
+              <LeaderStackItem key={l.name + l.tag}>
                 <div
                   className="rounded-2xl overflow-hidden bg-white border border-border shadow-card-soft grid grid-cols-1 md:grid-cols-[340px_1fr]"
                   style={{ borderTop: `3px solid ${l.accent}` }}

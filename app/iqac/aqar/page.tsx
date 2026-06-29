@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import IQACQuickNav from '@/components/IQACQuickNav';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
@@ -38,6 +39,7 @@ export default function AQARPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'IQAC', href: '/iqac' }, { label: 'AQAR' }]}
         variant="green"
       />
+      <IQACQuickNav active="/iqac/aqar" />
 
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">

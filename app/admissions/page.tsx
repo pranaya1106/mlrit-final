@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 
 const STEPS = [
@@ -264,9 +265,9 @@ export default function AdmissionsPage() {
 
               <h1 className="hero-fade font-sans font-black text-white leading-[1.02] tracking-tighter-2"
                 style={{ fontSize: 'clamp(2.8rem,5.5vw,5rem)', animationDelay: '0.3s' }}>
-                More than marks.<br />
+                You're more than<br />a score. And we're<br />
                 <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
-                  More than a seat.
+                  more than a college.
                 </span>
               </h1>
 
@@ -276,18 +277,20 @@ export default function AdmissionsPage() {
               </p>
 
               <div className="hero-fade mt-10 flex flex-wrap gap-4" style={{ animationDelay: '0.6s' }}>
-                <a
-                  href="https://qr-mlr.vercel.app"
-                  target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
+                <Link
+                  href="/admissions/why-mlrit"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-all hover:scale-105"
                 >
-                  Apply Now
+                  Why MLRIT
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                </a>
+                </Link>
                 <a
-                  href="/about/brochure"
+                  href="/admissions/mlrit-brochure.pdf"
+                  download="MLRIT-Brochure-2025-26.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -491,6 +494,9 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
+      {/* ── VALUES — scroll-driven: row1 moves left, row2 moves right on scroll */}
+      <ValuesMarquee gradientText={gradientText} />
+
       {/* ── FEES & SCHOLARSHIPS — brand card with overlapping image */}
       <section className="py-20 md:py-28 bg-warm-light">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
@@ -548,73 +554,6 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* ── VALUES — scroll-driven: row1 moves left, row2 moves right on scroll */}
-      <ValuesMarquee gradientText={gradientText} />
-
-      {/* ── BRAND CLOSE — "You're more than a score" */}
-      <section
-        className="relative py-24 md:py-36 overflow-hidden"
-        style={{ background: '#01741f' }}
-      >
-        {/* Decorative */}
-        <div className="absolute inset-0 opacity-5 pointer-events-none"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)',
-            backgroundSize: '20px 20px',
-          }} />
-
-        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-12 items-center">
-          <Reveal preset="right">
-            <h2 className="font-sans font-black text-white text-[clamp(2.2rem,4.5vw,4rem)] leading-[1.05] tracking-tighter-2">
-              You're more than<br />a score. And we're<br />
-              <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
-                more than a college.
-              </span>
-            </h2>
-            <p className="mt-6 text-white/70 text-[1rem] leading-relaxed max-w-[460px]">
-              At MLRIT, we look at who you are — your curiosity, your drive, your potential. Walk in with ambition. Walk out as an engineer the world needs.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link
-                href="/admissions/why-mlrit"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow"
-              >
-                Why MLRIT
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-              <Link
-                href="/departments/ug"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
-              >
-                Browse Programmes
-              </Link>
-            </div>
-          </Reveal>
-
-          <Reveal preset="scale" delay={0.15}>
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-card-strong aspect-[4/3]">
-                <img
-                  src="/images/about/milestone-2019.jpg"
-                  alt="MLRIT campus"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl px-5 py-4 shadow-card-strong">
-                <div className="font-sans font-black text-foreground text-[1.5rem] tracking-tighter-2">NAAC</div>
-                <div className="font-mono text-muted text-[0.62rem] tracking-[0.15em] uppercase">Accredited</div>
-              </div>
-              <div className="absolute -top-5 -right-5 bg-primary rounded-2xl px-5 py-4 shadow-card-strong">
-                <div className="font-sans font-black text-white text-[1.5rem] tracking-tighter-2">NBA</div>
-                <div className="font-mono text-white/80 text-[0.62rem] tracking-[0.15em] uppercase">Accredited</div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </>
   );
 }

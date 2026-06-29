@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
 export const metadata: Metadata = { title: 'Regulations — Examinations — MLRIT' };
@@ -48,6 +49,7 @@ export default function RegulationsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Examinations', href: '/examinations' }, { label: 'Regulations' }]}
         variant="green"
       />
+      <ExaminationsQuickNav active="/examinations/regulations" />
 
       <section className="bg-white py-20 md:py-28">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">

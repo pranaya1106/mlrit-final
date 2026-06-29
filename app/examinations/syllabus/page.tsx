@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
+import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import SideQuickNav from '@/components/SideQuickNav';
 
 // ─────────────────────────────────────────────
@@ -1351,6 +1352,7 @@ export default function SyllabusPage() {
         ]}
         variant="green"
       />
+      <ExaminationsQuickNav active="/examinations/syllabus" />
 
       <div className="lg:flex items-start bg-white">
         {/* Side nav */}

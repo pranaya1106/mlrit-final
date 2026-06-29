@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 
 export const metadata: Metadata = { title: 'Circulars — Examinations — MLRIT' };
@@ -29,6 +30,7 @@ export default function CircularsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Examinations', href: '/examinations' }, { label: 'Circulars' }]}
         variant="green"
       />
+      <ExaminationsQuickNav active="/examinations/circulars" />
 
       <section className="bg-white py-20 md:py-28">
         <div className="max-w-[900px] mx-auto px-6 md:px-12 lg:px-20">

@@ -1,11 +1,12 @@
 'use client';
 
-import Link from 'next/link';
-
 export default function BrochureTab() {
   return (
-    <Link
-      href="/about/brochure"
+    <a
+      href="/admissions/mlrit-brochure.pdf"
+      download="MLRIT-Brochure-2025-26.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
       className="fixed right-0 top-1/2 -translate-y-1/2 z-50 group"
       aria-label="Download Brochure"
     >
@@ -41,6 +42,6 @@ export default function BrochureTab() {
         </svg>
         Brochure
       </div>
-    </Link>
+    </a>
   );
 }

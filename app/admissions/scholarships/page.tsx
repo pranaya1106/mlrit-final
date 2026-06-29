@@ -4,6 +4,7 @@ import { useState } from 'react';
 import PageHeader from '@/components/PageHeader';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── Scholarship data ───────────────────────────────────────────────────────
 const SCHOLARSHIPS = [
@@ -111,6 +112,7 @@ export default function ScholarshipsPage() {
           { label: 'Scholarships' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/scholarships" />
 
       <div className="bg-warm-light min-h-screen">
         <div className="lg:flex lg:gap-0 items-start">

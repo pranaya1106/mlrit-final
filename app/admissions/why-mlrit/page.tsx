@@ -1,6 +1,7 @@
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import MLRITStory from '@/components/MLRITStory';
+import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 
 // ── Section data ───────────────────────────────────────────────────────────
 const SECTIONS = [
@@ -93,6 +94,7 @@ export default function WhyMLRITPage() {
           { label: 'Why MLRIT' },
         ]}
       />
+      <AdmissionsQuickNav active="/admissions/why-mlrit" />
 
       <div className="bg-warm-light min-h-screen">
         {SECTIONS.map((sec, i) => {
