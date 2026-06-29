@@ -79,9 +79,39 @@ export default function MLRITStory() {
     <div ref={wrapperRef} style={{ height: `${STORY.length * 100}vh` }}>
       <div className="sticky top-0 h-screen bg-[#f7f5f0] flex flex-col justify-center overflow-hidden">
 
+        {/* Dot-grid texture */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #b8b2a8 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+            opacity: 0.35,
+          }}
+        />
+
+        {/* Radial glow behind active letter */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 transition-opacity duration-700"
+          style={{
+            background: `radial-gradient(ellipse 55% 50% at 50% 48%, ${ACCENTS[active]}18 0%, transparent 70%)`,
+          }}
+        />
+
+        {/* Diagonal rule lines */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(135deg, transparent, transparent 40px, #c8c2b808 40px, #c8c2b808 41px)',
+            opacity: 0.6,
+          }}
+        />
+
         {/* Full-width MLRIT letters */}
         <div
-          className="flex items-center justify-center select-none leading-none px-4 md:px-8"
+          className="relative flex items-center justify-center select-none leading-none px-4 md:px-8"
           style={{ gap: '0.5vw' }}
         >
           {STORY.map((s, i) => (
@@ -100,7 +130,7 @@ export default function MLRITStory() {
         </div>
 
         {/* Description below — cross-fades */}
-        <div className="relative h-28 mt-8 flex items-center justify-center px-6">
+        <div className="relative z-10 h-28 mt-8 flex items-center justify-center px-6">
           {STORY.map((s, i) => (
             <div
               key={s.letter}
@@ -120,7 +150,7 @@ export default function MLRITStory() {
         </div>
 
         {/* Dot nav */}
-        <div className="flex justify-center gap-2 mt-6">
+        <div className="relative z-10 flex justify-center gap-2 mt-6">
           {STORY.map((_, i) => (
             <div
               key={i}
