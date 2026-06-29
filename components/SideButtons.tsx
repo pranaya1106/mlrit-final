@@ -35,10 +35,8 @@ function SyllabusSubPopup({ onClose }: { onClose: () => void }) {
             <p className="font-mono text-muted text-[0.62rem]">Browse by department</p>
           </div>
         </Link>
-        <a
-          href="https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/examinations/pyqs"
           onClick={onClose}
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-orange-50 transition-colors group"
         >
@@ -52,9 +50,9 @@ function SyllabusSubPopup({ onClose }: { onClose: () => void }) {
           </div>
           <div>
             <p className="font-sans font-semibold text-foreground text-[0.8rem]">Previous Papers</p>
-            <p className="font-mono text-muted text-[0.62rem]">PYQs on exam portal</p>
+            <p className="font-mono text-muted text-[0.62rem]">PYQs — all years</p>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );
