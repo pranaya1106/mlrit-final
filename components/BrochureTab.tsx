@@ -7,9 +7,8 @@ export default function BrochureTab() {
       download="MLRIT-Brochure-2025-26.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed right-0 z-50 group"
-      style={{ top: 'calc(50% - 56px)' }}
       aria-label="Download Brochure"
+      className="group"
     >
       <div
         className="flex items-center justify-center font-sans font-bold text-white text-[0.68rem] tracking-[0.16em] uppercase"
@@ -18,7 +17,7 @@ export default function BrochureTab() {
           writingMode: 'vertical-rl',
           textOrientation: 'mixed',
           transform: 'rotate(180deg)',
-          padding: '10px 8px',
+          padding: '12px 8px',
           borderRadius: '0 6px 6px 0',
           boxShadow: '-2px 0 10px rgba(1,116,31,0.22)',
           gap: '6px',
