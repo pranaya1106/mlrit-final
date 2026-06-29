@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 
 export const metadata: Metadata = {
   title: 'Examinations — MLRIT',
@@ -112,6 +113,8 @@ export default function ExaminationsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Examinations' }]}
         variant="green"
       />
+
+      <ExaminationsQuickNav active="/examinations" />
 
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
@@ -289,61 +292,22 @@ export default function ExaminationsPage() {
             </div>
           </section>
 
-          {/* Contact */}
-          <section id="contact" className="bg-warm-light py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-              <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Contact</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  Exam <span className="font-display italic font-medium" style={gradientText}>section.</span>
+          {/* Contact CTA */}
+          <section id="contact" className="bg-warm-light border-t border-border py-14">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <p className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">COE Office</p>
+                <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.3rem] leading-tight">
+                  Questions about examinations?
                 </h2>
-              </Reveal>
-              <div className="mt-10 grid md:grid-cols-2 gap-6">
-                <Reveal preset="right" delay={0.05}>
-                  <div className="bg-white rounded-2xl border border-border p-8 shadow-card-soft">
-                    <h3 className="font-sans font-extrabold text-foreground text-[1.1rem] mb-5">Controller of Examinations</h3>
-                    <div className="space-y-4 text-[0.93rem]">
-                      <div className="flex items-start gap-3">
-                        <span className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden><path d="M1 3l5.5 4L12 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><rect x="1" y="2" width="11" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5"/></svg>
-                        </span>
-                        <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">coe@mlrinstitutions.ac.in</a>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <span className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden><path d="M6.5 1C4.015 1 2 3.015 2 5.5c0 3.5 4.5 6.5 4.5 6.5s4.5-3 4.5-6.5C11 3.015 8.985 1 6.5 1z" stroke="currentColor" strokeWidth="1.5"/><circle cx="6.5" cy="5.5" r="1.5" stroke="currentColor" strokeWidth="1.3"/></svg>
-                        </span>
-                        <span className="text-muted leading-relaxed">Dundigal V, Survey No. 444, Dundigal, Medchal Malkajgiri, Telangana – 500 043</span>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <span className="w-7 h-7 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
-                          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden><path d="M11.5 9.17a1 1 0 01-.33.66l-1 1A1 1 0 019.5 11C4.5 11 2 5.5 2 5.5a1 1 0 01.33-1L3.5 3.33A1 1 0 014.17 3l1.5 3a1 1 0 01-.2.95l-.8.8A5 5 0 006.2 9l.8-.8a1 1 0 01.95-.2l3 1.17z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        </span>
-                        <a href="tel:18005724363" className="text-secondary font-semibold hover:underline">1800 572 4363 (Toll Free)</a>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-                <Reveal preset="up" delay={0.1}>
-                  <div className="bg-green-hero rounded-2xl p-8 text-white">
-                    <h3 className="font-sans font-extrabold text-white text-[1.1rem] mb-3">Exam Portal</h3>
-                    <p className="text-white/75 text-[0.9rem] leading-relaxed mb-6">
-                      Access results, fee payments, timetables and all exam-related services through the MLRIT Examinations portal.
-                    </p>
-                    <a
-                      href="https://exams.mlrinstitutions.ac.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
-                    >
-                      Open Exam Portal
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                        <path d="M2 7h10M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </Reveal>
+                <p className="text-muted text-[0.9rem] mt-1">Contact the Controller of Examinations for results, timetables, regulations and certificates.</p>
               </div>
+              <Link
+                href="/examinations/support"
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
+              >
+                Visit Examinations Support →
+              </Link>
             </div>
           </section>
 

@@ -25,7 +25,6 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
           { label: 'Legacy',              href: '/about/legacy' },
           { label: 'Rankings & Awards',   href: '/about/rankings-awards' },
-          { label: 'Brochure',            href: '/about/brochure' },
         ],
       },
       {
@@ -125,6 +124,7 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Consultancy',         href: '/research/consultancy' },
           { label: 'Entrepreneurship',    href: '/research/entrepreneurship' },
           { label: 'Policies and Forms',  href: '/research/policies' },
+          { label: 'Support',             href: '/research/support' },
         ],
       },
     ],
@@ -136,8 +136,9 @@ export const NAV_PRIMARY: NavItem[] = [
         heading: 'Quality',
         links: [
           { label: 'IQAC',    href: '/iqac' },
-          { label: 'NBA',    href: '/iqac/nba' },
-          { label: 'AQAR',   href: '/iqac/aqar' },
+          { label: 'NBA',     href: '/iqac/nba' },
+          { label: 'AQAR',    href: '/iqac/aqar' },
+          { label: 'Support', href: '/iqac/support' },
         ],
       },
     ],
@@ -163,11 +164,28 @@ export const NAV_PRIMARY: NavItem[] = [
           { label: 'Results',           href: 'https://exams.mlrinstitutions.ac.in/', external: true },
           { label: 'Fee Payments',      href: 'https://exams.mlrinstitutions.ac.in/', external: true },
           { label: 'Previous Papers',   href: 'https://exams.mlrinstitutions.ac.in/Old_Qp/Old_QP.html', external: true },
+          { label: 'Support',           href: '/examinations/support' },
         ],
       },
     ],
   },
-  { label: 'Placements', href: '/placements' },
+  {
+    label: 'Placements',
+    href: '/placements',
+    cols: [
+      {
+        heading: 'Placements',
+        links: [
+          { label: 'Overview',          href: '/placements/overview' },
+          { label: 'Training & Statistics', href: '/placements/training' },
+          { label: 'Recruiters & MoUs', href: '/placements/recruiters' },
+          { label: 'Placement Drives',   href: '/placements/statistics' },
+          { label: 'Alumni',            href: '/placements/alumni' },
+          { label: 'Support',           href: '/placements/support' },
+        ],
+      },
+    ],
+  },
 ];
 
 export const NAV_RIGHT: NavItem = {
