@@ -54,10 +54,10 @@ export default function SuccessStories() {
           <div className="overflow-hidden">
             <div className="flex transition-transform duration-700 ease-out-quart" style={{ transform: `translateX(-${active * 100}%)` }}>
               {CARDS.map((c, i) => (
-                <article key={i} className="min-w-full px-2">
-                  <a href="#" className="group relative block rounded-3xl overflow-hidden border border-border bg-neutral-100 aspect-[16/9]">
+                <article key={i} className="min-w-full">
+                  <a href="#" className="group relative block rounded-3xl overflow-hidden border border-border bg-neutral-50 aspect-[16/9]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.img} alt={c.name} loading={i === 0 ? 'eager' : 'lazy'} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={c.img} alt={c.name} loading={i === 0 ? 'eager' : 'lazy'} className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
                     {/* Overlay — hidden until hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute left-6 right-6 bottom-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 text-white">
