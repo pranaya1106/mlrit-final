@@ -60,7 +60,6 @@ const ABOUT_PATHS = [
   '/about/vision-mission/vision-mission',
   '/about/legacy',
   '/about/timeline',
-  '/about/leadership',
   '/about/rankings-awards',
   '/about/internal-governance',
 ];

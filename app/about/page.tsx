@@ -84,7 +84,6 @@ export default function AboutPage() {
               { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
               { label: 'Legacy',              href: '/about/legacy' },
               { label: 'Timeline',            href: '/about/timeline' },
-              { label: 'Leadership',          href: '/about/leadership' },
               { label: 'Rankings & Awards',   href: '/about/rankings-awards' },
               { label: 'Internal Governance', href: '/about/internal-governance' },
             ].map((l) => (

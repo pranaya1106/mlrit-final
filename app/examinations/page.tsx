@@ -38,8 +38,9 @@ const REGULATIONS = [
 ];
 
 const CALENDARS = [
-  { label: 'Academic Calendar 2025–26', href: '/examinations/academic-calendar-2025-26.pdf',  year: '2025–26', current: true  },
-  { label: 'Academic Calendar 2024–25', href: '/examinations/academic-calendar-2024-25.pdf',     year: '2024–25', current: false },
+  { label: 'Academic Calendar 2026–27', href: '/examinations/academic-calendar-2026-27.pdf',  year: '2026–27', current: true  },
+  { label: 'Academic Calendar 2025–26', href: '/examinations/academic-calendar-2025-26.pdf',  year: '2025–26', current: false },
+  { label: 'Academic Calendar 2024–25', href: '/examinations/academic-calendar-2024-25.pdf',  year: '2024–25', current: false },
 ];
 
 const gradientText: React.CSSProperties = {

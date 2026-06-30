@@ -79,34 +79,6 @@ export default function MLRITStory() {
     <div ref={wrapperRef} style={{ height: `${STORY.length * 100}vh` }}>
       <div className="sticky top-0 h-screen bg-[#f7f5f0] flex flex-col justify-center overflow-hidden">
 
-        {/* Dot-grid texture */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: 'radial-gradient(circle, #a09890 1.5px, transparent 1.5px)',
-            backgroundSize: '32px 32px',
-            opacity: 0.55,
-          }}
-        />
-
-        {/* Outer radial glow — wide bloom */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 transition-all duration-700"
-          style={{
-            background: `radial-gradient(ellipse 80% 70% at 50% 46%, ${ACCENTS[active]}55 0%, ${ACCENTS[active]}00 65%)`,
-          }}
-        />
-
-        {/* Inner radial glow — tight hot-spot */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 transition-all duration-700"
-          style={{
-            background: `radial-gradient(ellipse 40% 35% at 50% 46%, ${ACCENTS[active]}40 0%, transparent 100%)`,
-          }}
-        />
 
         {/* Full-width MLRIT letters */}
         <div
