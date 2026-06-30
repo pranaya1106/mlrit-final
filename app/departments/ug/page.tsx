@@ -32,13 +32,6 @@ export default function UGPage() {
           ))}
         </div>
       </Section>
-      <Section surface>
-        <H2 italic="(year 1)">Freshman Engineering</H2>
-        <Lede>The shared first-year experience across every B.Tech branch — maths, sciences, humanities and design fundamentals.</Lede>
-        <Link href="/departments/freshman" className="mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-white font-semibold hover:bg-primary transition-colors">
-          Explore Freshman programme →
-        </Link>
-      </Section>
     </>
   );
 }
