@@ -47,7 +47,7 @@ export default function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
             {[
-              { label: 'Overview',            href: '/about' },
+              { label: 'In MLR',              href: '/about' },
               { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
               { label: 'Legacy',              href: '/about/legacy' },
               { label: 'Timeline',            href: '/about/timeline' },

@@ -1,11 +1,9 @@
 import Link from 'next/link';
 
 const IQAC_NAV = [
-  { label: 'Overview',  href: '/iqac' },
-  { label: 'AQAR',      href: '/iqac/aqar' },
-  { label: 'NAAC',      href: '/iqac/naac' },
-  { label: 'NBA',       href: '/iqac/nba' },
-  { label: 'Support',   href: '/iqac/support' },
+  { label: 'Overview',            href: '/iqac' },
+  { label: 'AQAR',                href: '/iqac/aqar' },
+  { label: 'NBA',                 href: '/iqac/nba' },
 ];
 
 export default function IQACQuickNav({ active }: { active: string }) {

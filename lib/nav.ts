@@ -123,10 +123,9 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'Quality',
         links: [
-          { label: 'IQAC',    href: '/iqac' },
-          { label: 'NBA',     href: '/iqac/nba' },
-          { label: 'AQAR',    href: '/iqac/aqar' },
-          { label: 'Support', href: '/iqac/support' },
+          { label: 'IQAC', href: '/iqac' },
+          { label: 'AQAR', href: '/iqac/aqar' },
+          { label: 'NBA',  href: '/iqac/nba' },
         ],
       },
     ],
