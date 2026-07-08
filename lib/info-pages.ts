@@ -615,18 +615,9 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           { title: 'Sports Clubs',          body: 'Cricket, football, kabaddi, basketball, badminton, athletics.' },
         ],
       },
-    ],
-  },
-
-  'campus/events': {
-    eyebrow: 'Campus · Life',
-    title: 'Events',
-    italic: 'on campus.',
-    dek: 'The annual cultural and technical calendar — Trishna, Symphony, hackathons, and department fests.',
-    crumbs: [{ label: 'Home', href: '/' }, { label: 'Campus' }, { label: 'Events' }],
-    blocks: [
+      { kind: 'heading', eyebrow: 'Campus · Life', title: 'Events on', italic: 'campus.' },
       {
-        kind: 'lead',
+        kind: 'paragraph',
         text:
           'MLRIT\'s event calendar runs year-round — anchored by the annual Trishna celebration, the cultural festival Symphony, departmental tech-fests and a continuous stream of guest lectures, hackathons and industry workshops.',
       },

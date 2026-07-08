@@ -73,7 +73,6 @@ export const NAV_PRIMARY: NavItem[] = [
         heading: 'Student Life',
         links: [
           { label: 'Clubs and Societies', href: '/campus/clubs' },
-          { label: 'Events',              href: '/campus/events' },
         ],
       },
     ],

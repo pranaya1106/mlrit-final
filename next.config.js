@@ -19,6 +19,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/about/vision-mission/introduction', destination: '/about', permanent: true },
+      { source: '/campus/events', destination: '/campus/clubs', permanent: true },
     ];
   },
 };
