@@ -16,7 +16,7 @@
  *   └──────┴───────────────────────────────────────────────┘
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Department } from '@/lib/departments';
 import { DEPT_DATA, type DeptData, type FacultyMember } from '@/lib/dept-data';
@@ -155,11 +155,8 @@ export default function DepartmentDetail({ department: d }: Props) {
       </section>
 
       {/* ── STICKY TAB BAR ─────────────────────────────────── */}
-      <nav
-        className="sticky z-40 border-b-[3px] border-secondary overflow-x-auto"
-        style={{ top: 'var(--header-h)', backgroundColor: '#0c0c0e' }}
-      >
-        <div className="flex gap-0 max-w-[1600px] mx-auto px-2 md:px-6">
+      <nav className="bg-white border-b border-border sticky z-40 overflow-x-auto" style={{ top: 'var(--header-h)' }}>
+        <div className="flex items-center gap-1 max-w-[1600px] mx-auto px-2 md:px-6" style={{ scrollbarWidth: 'none' }}>
           {TABS.map((t) => {
             const active = t.id === tab;
             return (
@@ -173,19 +170,13 @@ export default function DepartmentDetail({ department: d }: Props) {
                     behavior: 'auto',
                   });
                 }}
-                className={`relative whitespace-nowrap px-5 md:px-6 py-4 font-sans font-bold text-[0.78rem] uppercase tracking-[0.05em] transition-colors duration-200 ${
-                  active ? 'text-white' : 'text-white/55 hover:text-white/85 hover:bg-primary/[0.08]'
+                className={`shrink-0 px-4 py-4 font-sans font-medium text-[0.88rem] border-b-2 transition-all whitespace-nowrap ${
+                  active
+                    ? 'text-foreground border-primary font-semibold'
+                    : 'text-muted hover:text-foreground border-transparent hover:border-primary'
                 }`}
-                style={active ? { backgroundColor: 'rgba(232,93,4,0.10)' } : undefined}
               >
                 {t.label}
-                <span
-                  aria-hidden
-                  className={`absolute left-1/2 bottom-0 h-[3px] -translate-x-1/2 transition-transform duration-300 ${
-                    active ? 'scale-x-100' : 'scale-x-0'
-                  }`}
-                  style={{ width: '70%', backgroundColor: '#e85d04' }}
-                />
               </button>
             );
           })}
@@ -272,16 +263,33 @@ function Accordion({
   id,
   title,
   defaultOpen,
+  autoToggle,
   children,
 }: {
   id?: string;
   title: string;
   defaultOpen?: boolean;
+  autoToggle?: boolean;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(!!defaultOpen);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!autoToggle || !id) return;
+    const el = rootRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setOpen(entry.isIntersecting),
+      { rootMargin: '-220px 0px -40% 0px', threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [autoToggle, id]);
+
   return (
     <div
+      ref={rootRef}
       id={id}
       className="mb-4 rounded-xl bg-white shadow-card-soft overflow-hidden scroll-mt-[220px]"
     >
@@ -417,7 +425,7 @@ function OverviewPanel({ d, data }: PanelProps) {
 
       {/* History */}
       <div className="mt-12 space-y-3">
-        <Accordion id="history" title="History of the Department">
+        <Accordion id="history" title="History of the Department" autoToggle>
           <p className="text-foreground/80 leading-[1.75] text-[0.94rem]">
             {data.history ||
               `The Department of ${d.short} was established as part of MLRIT's founding commitment to engineering excellence. Intake has expanded steadily as demand from industry and PG programmes grew.`}
@@ -426,7 +434,7 @@ function OverviewPanel({ d, data }: PanelProps) {
 
         {/* Labs */}
         {data.labs.length > 0 && (
-          <Accordion id="labs" title={`Academic Laboratories (${data.labs.length} Labs)`} defaultOpen>
+          <Accordion id="labs" title={`Academic Laboratories (${data.labs.length} Labs)`} autoToggle>
             <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {data.labs.map((lab) => (
                 <div
