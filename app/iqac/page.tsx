@@ -143,6 +143,54 @@ export default function IQACPage() {
                 </StaggerItem>
               ))}
             </Stagger>
+
+            {/* Head IQAC profile — under Members */}
+            <Reveal preset="up" delay={0.1}>
+              <div className="mt-8 rounded-2xl border border-border bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8">
+                <div className="shrink-0 w-40 h-44 md:w-44 md:h-48 rounded-2xl overflow-hidden border border-border self-start">
+                  <img src="/images/leadership/dr-radhika-devi.jpg" alt="Dr. Radhika Devi V" className="w-full h-full object-cover object-top" />
+                </div>
+                <div className="flex-1">
+                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2">Head IQAC</div>
+                  <h3 className="font-sans font-black text-foreground text-[1.4rem] tracking-tight">Dr. Radhika Devi V</h3>
+                  <p className="mt-1 font-mono text-muted text-[0.78rem] tracking-wide uppercase">Director · Dean H&S · Head IQAC</p>
+                  <div className="mt-5 h-px bg-border" />
+                  <p className="mt-5 text-foreground leading-relaxed text-[1rem]">
+                    An acclaimed academician and administrator in the field of technical education with more than 21 years of academic experience. Former Head of the Science and Humanities Department at MLR Institute of Technology.
+                  </p>
+                  <p className="mt-3 text-muted leading-relaxed text-[0.95rem]">
+                    She has organised and attended several National and International Conferences, Seminars and Workshops, and has published nearly 20 research papers in Journals of National and International Repute.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    {[
+                      'IUCEE Showcase Award — Excellence in Academic Leadership',
+                      'Swarna Jayanti Puruskar — Best Research Paper (NASI)',
+                      'IUCEE Showcase Award — Leadership of Teaching & Learning Centre',
+                    ].map((a) => (
+                      <span key={a} className="px-3 py-1.5 rounded-full bg-warm-light border border-border font-sans text-[0.82rem] text-foreground">{a}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="md:w-64 shrink-0">
+                  <div className="rounded-2xl border border-border bg-warm-light p-6 space-y-4">
+                    <div>
+                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Qualification</div>
+                      <p className="text-foreground text-[0.93rem]">M.Sc., Ph.D — Physics<br /><span className="text-muted text-[0.85rem]">Hyderabad Central University</span></p>
+                    </div>
+                    <div className="h-px bg-border" />
+                    <div>
+                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Specialisation</div>
+                      <p className="text-foreground text-[0.93rem]">Density Functional Theory · Transparent Conducting Oxides</p>
+                    </div>
+                    <div className="h-px bg-border" />
+                    <div>
+                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Research Focus</div>
+                      <p className="text-foreground text-[0.93rem]">TCOs · Smart Materials · Higher Education · ICT in Education</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </Section>
 
           {/* Quality Initiatives */}
