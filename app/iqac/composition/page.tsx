@@ -3,8 +3,15 @@ import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = { title: 'IQAC Composition — IQAC — MLRIT' };
+
+const NAV_ITEMS = [
+  { id: 'members', label: 'Members' },
+  { id: 'head-iqac', label: 'Head IQAC' },
+  { id: 'roles-responsibilities', label: 'Roles & Responsibilities' },
+];
 
 const MEMBERS = [
   { role: 'Chairperson',           name: 'Principal',                               tag: 'Leadership'    },
@@ -27,7 +34,16 @@ export default function CompositionPage() {
         variant="green"
       />
       <IQACQuickNav active="/iqac/composition" />
-      <Section>
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+      <Section id="members">
         <H2 italic="">Members</H2>
         <Lede>The cell brings together institutional leadership, faculty, alumni and external stakeholders to ensure comprehensive quality oversight.</Lede>
         <Stagger className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
@@ -41,8 +57,9 @@ export default function CompositionPage() {
             </StaggerItem>
           ))}
         </Stagger>
+      </Section>
 
-        {/* Head IQAC profile */}
+      <Section id="head-iqac">
         <Reveal preset="up" delay={0.1}>
           <div className="mt-8 rounded-2xl border border-border bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8">
             <div className="shrink-0 w-40 h-44 md:w-44 md:h-48 rounded-2xl overflow-hidden border border-border self-start">
@@ -90,6 +107,16 @@ export default function CompositionPage() {
           </div>
         </Reveal>
       </Section>
+
+      <Section id="roles-responsibilities">
+        <H2 italic="">Roles & Responsibilities</H2>
+        <div className="mt-6 rounded-2xl border border-dashed border-border bg-warm-light/40 p-8 text-center">
+          <p className="text-muted italic text-[0.95rem]">Content to be updated.</p>
+        </div>
+      </Section>
+
+        </div>
+      </div>
     </>
   );
 }

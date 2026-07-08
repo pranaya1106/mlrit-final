@@ -3,8 +3,14 @@ import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = { title: 'Objectives — IQAC — MLRIT' };
+
+const NAV_ITEMS = [
+  { id: 'goals', label: 'IQAC Goals' },
+  { id: 'quality-policy', label: 'Quality Policy' },
+];
 
 const OBJECTIVES = [
   { n: '01', t: 'Develop Quality Systems', d: 'Develop a system for conscious, consistent and catalytic action to improve the academic and administrative performance of the institution.' },
@@ -26,21 +32,40 @@ export default function ObjectivesPage() {
         variant="green"
       />
       <IQACQuickNav active="/iqac/objectives" />
-      <Section>
-        <H2 italic="">Objectives</H2>
-        <Lede>The primary aim of IQAC is to drive conscious, consistent and catalytic improvement across all institutional activities.</Lede>
-        <Stagger className="mt-8 grid md:grid-cols-2 gap-5" delay={0.07}>
-          {OBJECTIVES.map((o) => (
-            <StaggerItem key={o.n}>
-              <div className="rounded-2xl border border-border bg-white p-7 h-full hover:border-secondary transition-colors">
-                <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-3">{o.n}</div>
-                <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-2">{o.t}</h3>
-                <p className="text-muted leading-relaxed text-[0.93rem]">{o.d}</p>
-              </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </Section>
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+          <Section id="goals">
+            <H2 italic="">IQAC Goals</H2>
+            <Lede>The primary aim of IQAC is to drive conscious, consistent and catalytic improvement across all institutional activities.</Lede>
+            <Stagger className="mt-8 grid md:grid-cols-2 gap-5" delay={0.07}>
+              {OBJECTIVES.map((o) => (
+                <StaggerItem key={o.n}>
+                  <div className="rounded-2xl border border-border bg-white p-7 h-full hover:border-secondary transition-colors">
+                    <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-3">{o.n}</div>
+                    <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-2">{o.t}</h3>
+                    <p className="text-muted leading-relaxed text-[0.93rem]">{o.d}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </Section>
+
+          <Section id="quality-policy">
+            <H2 italic="">Quality Policy</H2>
+            <div className="mt-6 rounded-2xl border border-dashed border-border bg-warm-light/40 p-8 text-center">
+              <p className="text-muted italic text-[0.95rem]">Content to be updated.</p>
+            </div>
+          </Section>
+
+        </div>
+      </div>
     </>
   );
 }

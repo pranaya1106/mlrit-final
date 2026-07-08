@@ -3,8 +3,13 @@ import PageHeader from '@/components/PageHeader';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = { title: 'IQAC — MLRIT' };
+
+const NAV_ITEMS = [
+  { id: 'overview', label: 'About IQAC' },
+];
 
 export default function IQACPage() {
   return (
@@ -19,27 +24,38 @@ export default function IQACPage() {
       />
       <IQACQuickNav active="/iqac" />
 
-      <Section id="overview">
-        <H2 italic="">Overview</H2>
-        <div className="mt-6 grid md:grid-cols-2 gap-8">
-          <Reveal preset="right">
-            <p className="text-foreground leading-relaxed text-[1.05rem]">
-              IQAC is a part of the institution's system and works towards realisation of the goals of quality enhancement and sustenance. All the efforts and measures of the institute are channelised towards promoting holistic academic excellence through IQAC.
-            </p>
-            <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-              The cell coordinates self-study reports, AQAR submissions, external audits, outcome-based education initiatives and benchmarking activities — acting as the nodal agency for all internal quality assurance activities.
-            </p>
-          </Reveal>
-          <Reveal preset="up" delay={0.1}>
-            <div className="rounded-2xl border-2 border-secondary bg-green-50/40 p-7">
-              <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-3">Vision</div>
-              <p className="font-sans font-extrabold text-foreground text-[1.1rem] leading-snug">
-                To ensure quality culture as the prime concern of the Institution through institutionalising and internalising of all the initiatives taken with internal and external support.
-              </p>
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+          <Section id="overview">
+            <H2 italic="">Overview</H2>
+            <div className="mt-6 grid md:grid-cols-2 gap-8">
+              <Reveal preset="right">
+                <p className="text-foreground leading-relaxed text-[1.05rem]">
+                  IQAC is a part of the institution's system and works towards realisation of the goals of quality enhancement and sustenance. All the efforts and measures of the institute are channelised towards promoting holistic academic excellence through IQAC.
+                </p>
+                <p className="mt-4 text-muted leading-relaxed text-[1rem]">
+                  The cell coordinates self-study reports, AQAR submissions, external audits, outcome-based education initiatives and benchmarking activities — acting as the nodal agency for all internal quality assurance activities.
+                </p>
+              </Reveal>
+              <Reveal preset="up" delay={0.1}>
+                <div className="rounded-2xl border-2 border-secondary bg-green-50/40 p-7">
+                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-3">Vision</div>
+                  <p className="font-sans font-extrabold text-foreground text-[1.1rem] leading-snug">
+                    To ensure quality culture as the prime concern of the Institution through institutionalising and internalising of all the initiatives taken with internal and external support.
+                  </p>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
+          </Section>
+
         </div>
-      </Section>
+      </div>
     </>
   );
 }
