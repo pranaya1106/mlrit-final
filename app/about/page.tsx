@@ -18,39 +18,6 @@ export const metadata: Metadata = {
   description: 'Founded in 2005, MLRIT is a premier autonomous engineering institution under KMR Educational Society, affiliated to JNTUH and approved by AICTE, located at Dundigal, Hyderabad.',
 };
 
-const SECTIONS = [
-  {
-    href: '/about/vision-mission/introduction',
-    tag: 'Introduction',
-    title: 'Our Story',
-    body: 'From a single campus in Dundigal to a nationally accredited institution — twenty years of engineering education, research and placement excellence.',
-  },
-  {
-    href: '/about/vision-mission/vision-mission',
-    tag: 'Vision & Mission',
-    title: 'What drives us',
-    body: 'Promote academic excellence, research and innovation to produce graduates with human values and leadership qualities to serve the nation.',
-  },
-  {
-    href: '/about/legacy',
-    tag: 'Legacy',
-    title: 'Two decades in eight moments',
-    body: 'Our institutional timeline — milestones, leadership and the people who have shaped MLRIT since 2005.',
-  },
-  {
-    href: '/about/rankings-awards',
-    tag: 'Rankings & Awards',
-    title: 'Recognised nationally',
-    body: 'NAAC, NBA, NIRF, AICTE — the accreditations and rankings that benchmark our commitment to quality.',
-  },
-  {
-    href: '/about/internal-governance',
-    tag: 'Internal Governance',
-    title: 'Messages from leadership',
-    body: "The Principal and Deans share their vision for MLRIT's academic mission, research culture and student development.",
-  },
-];
-
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
   WebkitBackgroundClip: 'text', backgroundClip: 'text',
@@ -80,7 +47,7 @@ export default function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
             {[
-              { label: 'Introduction',        href: '/about/vision-mission/introduction' },
+              { label: 'Overview',            href: '/about' },
               { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
               { label: 'Legacy',              href: '/about/legacy' },
               { label: 'Timeline',            href: '/about/timeline' },
@@ -116,9 +83,6 @@ export default function AboutPage() {
                   From a vision in 2005<br />
                   <span className="font-display italic font-medium" style={gradientText}>to a benchmark today.</span>
                 </h2>
-                <Link href="/about/vision-mission/introduction" className="mt-6 inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all">
-                  Read full story →
-                </Link>
               </Reveal>
               <Reveal preset="up" delay={0.1}>
                 <div className="space-y-4 text-foreground leading-relaxed text-[1.05rem]">
@@ -183,9 +147,6 @@ export default function AboutPage() {
                         Two decades on, the institution holds <strong>autonomous status</strong> granted by the UGC, <strong>NAAC institutional accreditation</strong>, <strong>NBA programme-level accreditation</strong> across five branches, and a consistent presence in the NIRF engineering rankings. Over 7,000 alumni now work across India and the world — in software, aerospace, finance, research and public service — each carrying forward the founding promise of <em>right education, bright placements.</em>
                       </p>
                     </div>
-                    <Link href="/about/vision-mission/introduction" className="mt-6 inline-flex items-center gap-2 text-primary font-semibold text-[0.88rem] hover:gap-3 transition-all">
-                      Read the full story →
-                    </Link>
                   </div>
                 </Reveal>
 

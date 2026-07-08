@@ -7,7 +7,9 @@ import { DEPARTMENTS } from '@/lib/departments';
 export const metadata: Metadata = { title: 'Undergraduate Programmes — MLRIT' };
 
 export default function UGPage() {
-  const ugs = DEPARTMENTS.filter((d) => d.level === 'ug' && d.slug !== 'freshman');
+  const ugs = DEPARTMENTS
+    .filter((d) => d.level === 'ug' && d.slug !== 'freshman')
+    .sort((a, b) => a.short.localeCompare(b.short));
   return (
     <>
       <PageHeader

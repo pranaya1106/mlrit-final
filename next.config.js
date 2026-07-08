@@ -16,6 +16,11 @@ const nextConfig = {
       { source: '/legacy/:path*', destination: '/legacy/:path*' },
     ];
   },
+  async redirects() {
+    return [
+      { source: '/about/vision-mission/introduction', destination: '/about', permanent: true },
+    ];
+  },
 };
 
 module.exports = nextConfig;

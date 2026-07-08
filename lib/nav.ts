@@ -20,8 +20,7 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'About',
         links: [
-          { label: 'About MLRIT',         href: '/about' },
-          { label: 'Introduction',        href: '/about/vision-mission/introduction' },
+          { label: 'Overview',            href: '/about' },
           { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
           { label: 'Legacy',              href: '/about/legacy' },
           { label: 'Rankings & Awards',   href: '/about/rankings-awards' },

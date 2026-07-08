@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const ABOUT_NAV = [
-  { label: 'Introduction',        href: '/about/vision-mission/introduction' },
+  { label: 'Overview',            href: '/about' },
   { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
   { label: 'Legacy',              href: '/about/legacy' },
   { label: 'Timeline',            href: '/about/timeline' },
