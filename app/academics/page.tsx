@@ -17,12 +17,8 @@ const FRAMEWORKS = [
 ];
 
 const HUB_LINKS = [
-  { href: '/departments/ug',              title: 'Undergraduate Programmes', body: 'Ten B.Tech branches — from CSE and AI/ML to Aeronautical Engineering.', tag: 'B.Tech' },
-  { href: '/departments/pg',              title: 'Postgraduate Programmes',  body: 'M.Tech specialisations across CSE, VLSI, Power Systems and Aerospace — plus the MBA programme.', tag: 'M.Tech / MBA' },
-  { href: '/departments/faculty-profile', title: 'Faculty Profiles',         body: 'Department heads, professors and researchers — meet the people shaping the academic programmes.', tag: 'Faculty' },
-  { href: '/research',                    title: 'Research and Development',  body: 'Three JNTUH-recognised centres, 1,200+ publications, 42 patents, ongoing DRDO/DST/AICTE projects.', tag: 'R&D' },
-  { href: '/iqac',                        title: 'Internal Quality Assurance',body: 'IQAC — coordinating audits, AQAR submissions, NAAC and NBA accreditation cycles.', tag: 'Quality' },
-  { href: '/chronicles',                  title: 'Chronicles',               body: 'The campus broadsheet — stories from students, faculty and alumni.', tag: 'Stories' },
+  { href: '/departments/ug', title: 'Undergraduate Programmes', body: 'Ten B.Tech branches — from CSE and AI/ML to Aeronautical Engineering.', tag: 'B.Tech' },
+  { href: '/departments/pg', title: 'Postgraduate Programmes',  body: 'M.Tech specialisations across CSE, VLSI, Power Systems and Aerospace — plus the MBA programme.', tag: 'M.Tech / MBA' },
 ];
 
 const gradientText: React.CSSProperties = {
@@ -91,7 +87,7 @@ export default function AcademicsPage() {
                   Pick your <span className="font-display italic font-medium" style={gradientText}>thread.</span>
                 </h2>
               </Reveal>
-              <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.08}>
+              <Stagger className="mt-12 grid md:grid-cols-2 gap-5" delay={0.08}>
                 {HUB_LINKS.map((h) => (
                   <StaggerItem key={h.href}>
                     <Link href={h.href} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all h-full">
