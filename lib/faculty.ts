@@ -618,7 +618,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/pages/feedback/author/review-profile?authorIds=57226634845",
       orcid: "0000-0002-3024-5725"
     },
-    imageAlt: "Portrait of Dr.Banda varija",
+        image: "/faculty-new/cse/cse-dr-banda-varija.jpg",
+imageAlt: "Portrait of Dr.Banda varija",
   },
   {
     id: "bhattiprolu-sushma-cse",
@@ -654,7 +655,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://myaccount.google.com/personal-info?hl=en",
       orcid: "0000---304944052"
     },
-    imageAlt: "Portrait of bhattiprolu sushma",
+        image: "/faculty-new/cse/cse-bhattiprolu-sushma.jpg",
+imageAlt: "Portrait of bhattiprolu sushma",
   },
   {
     id: "boddu-srilatha-cse",
@@ -1034,7 +1036,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/authid/detail.uri?authorId=59778317700",
       orcid: "0009-0003-7139-4289"
     },
-    imageAlt: "Portrait of Chaleendra Upendar Rao",
+        image: "/faculty-new/cse/cse-chaleendra-upendar-rao.jpg",
+imageAlt: "Portrait of Chaleendra Upendar Rao",
   },
   {
     id: "dbk-kamesh-cse",
@@ -1356,7 +1359,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/pages/feedback/author/review-profile?authorIds=57204766394",
       orcid: "0000-0002-9297-9679"
     },
-    imageAlt: "Portrait of J.Pradeep Kumar",
+        image: "/faculty-new/cse/cse-j-pradeep-kumar.jpg",
+imageAlt: "Portrait of J.Pradeep Kumar",
   },
   {
     id: "jeethu-philip-cse",
@@ -1428,7 +1432,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/results/authorNamesList.uri?sort=count-f&src=al&orcidId=0000-0002-5495-8957&sid=08868ecb6794a46c0adb180bdf528663&sot=al&sdt=al&sl=36&s=AUTH--ORCID--ID%280000-0002-5495-8957%29&selectionPageSearch=anl&reselectAuthor=false&activeFlag=true&showDocument=false&resultsPerPage=20&offset=1&jtp=false&currentPage=1&previousSelectionCount=0&tooManySelections=false&previousResultCount=0&authSubject=LFSC&authSubject=HLSC&authSubject=PHSC&authSubject=SOSC&exactAuthorSearch=false&showFullList=false&authorPreferredName=&origin=searchauthorfreelookup&affiliationId=&txGid=7df04b0bfa7b1d5f56a2a91a87fcff2c",
       orcid: "000-0002-5495-8957"
     },
-    imageAlt: "Portrait of JEETHU PHILIP",
+        image: "/faculty-new/cse/cse-jeethu-philip.jpg",
+imageAlt: "Portrait of JEETHU PHILIP",
   },
   {
     id: "jetti-sri-lakshmi-cse",
@@ -2163,7 +2168,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://scholar.google.com/citations?hl=en&user=0-LQLgcAAAAJ&view_op=list_works&sortby=pubdate",
       orcid: "0000-0002-4660-8930"
     },
-    imageAlt: "Portrait of M. Harshini",
+        image: "/faculty-new/cse/cse-m-harshini.jpg",
+imageAlt: "Portrait of M. Harshini",
   },
   {
     id: "m-s-sabitha-cse",
@@ -2278,7 +2284,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://scholar.google.com/citations?user=8bkmr9EAAAAJ&hl=en",
       orcid: "0009-0009-1139-431"
     },
-    imageAlt: "Portrait of madhavi",
+        image: "/faculty-new/cse/cse-madhavi.jpg",
+imageAlt: "Portrait of madhavi",
   },
   {
     id: "mohd-anwar-ali-cse",
@@ -2322,7 +2329,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/authid/detail.uri?authorId=59128555600",
       orcid: "0000-0001-8532-5776"
     },
-    imageAlt: "Portrait of Mohd Anwar Ali",
+        image: "/faculty-new/cse/cse-mohd-anwar-ali.jpg",
+imageAlt: "Portrait of Mohd Anwar Ali",
   },
   {
     id: "n-thulasi-chitra-cse",
@@ -2678,7 +2686,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/authid/detail.uri?authorId=58209555600",
       orcid: "0009-0007-8707-2232"
     },
-    imageAlt: "Portrait of P.Nishitha",
+        image: "/faculty-new/cse/cse-p-nishitha.jpg",
+imageAlt: "Portrait of P.Nishitha",
   },
   {
     id: "palelli-purushotham-cse",
@@ -2798,7 +2807,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://www.google.com/search?q=fBaKEvwAAAAJ&sca_esv=26b92b3855b956f4&sxsrf=ANbL-n7EQLyfvec8vtitbQG3ulN0xDYQgg%3A1780587099427&ei=W5ohas3sGdWtseMP59OumAI&biw=1536&bih=738&ved=0ahUKEwiNhrbs8-2UAxXVVmwGHeepCyMQ4dUDCBA&uact=5&oq=fBaKEvwAAAAJ&gs_lp=Egxnd3Mtd2l6LXNlcnAiDGZCYUtFdndBQUFBSjIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzIKEAAYRxjWBBiwAzINEAAYgAQYigUYQxiwAzINEAAYgAQYigUYQxiwAzINEAAYgAQYigUYQxiwAzINEAAYgAQYigUYQxiwAzIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQEyFxAuGNwGGLgGGNoGGNgCGMgDGLAD2AEBMhcQLhjcBhi4BhjaBhjYAhjIAxiwA9gBATIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQEyFxAuGNwGGLgGGNoGGNgCGMgDGLAD2AEBSPwrUMcGWN8dcAN4AZABBJgB_wGgAaYIqgEFMC4yLjO4AQPIAQD4AQH4AQKYAgSgAqgDqAIUwgIIEAAYgAQYogTCAgUQABjvBcICFhAAGIAEGIoFGEMY5wYY6gIYtALYAQLCAhAQABgDGI8BGOoCGLQC2AEBwgIQEC4YAxiPARjqAhi0AtgBAZgDWOIDBRIBMSBA8QUmI9XBf8nuG4gGAZAGEboGBggBEAEYGboGBAgCGAeSBwUzLjAuMaAH4S6yBwMyLTG4B4ACwgcJMi0xLjAuMi4xyAedAYAIAQ&sclient=gws-wiz-serp",
       orcid: "0009-0003-6479-2270"
     },
-    imageAlt: "Portrait of PARAMATI CHANDINI",
+        image: "/faculty-new/cse/cse-paramati-chandini.jpg",
+imageAlt: "Portrait of PARAMATI CHANDINI",
   },
   {
     id: "puligilla-laxmaiah-cse",
@@ -2837,7 +2847,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://scholar.google.com/citations?hl=en&user=nYPHzcwAAAAJ",
       orcid: "0000-0001-8694-4835"
     },
-    imageAlt: "Portrait of PULIGILLA  LAXMAIAH",
+        image: "/faculty-new/cse/cse-puligilla-laxmaiah.jpg",
+imageAlt: "Portrait of PULIGILLA  LAXMAIAH",
   },
   {
     id: "s-k-lokesh-naik-cse",
@@ -3138,7 +3149,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "(https://www.scopus.com/authid/detail.uri?authorId=58145544200",
       orcid: "https://orcid.org/0000-0002-2934-0864"
     },
-    imageAlt: "Portrait of Soleti Navya",
+        image: "/faculty-new/cse/cse-soleti-navya.jpg",
+imageAlt: "Portrait of Soleti Navya",
   },
   {
     id: "srividya-mudunuru-cse",
@@ -3300,37 +3312,6 @@ export const FACULTY: FacultyProfile[] = [
     designation: "Assistant professor",
     department: "cse",
     qualifications: [
-    "KLU ,Vijayawada",
-    "Vasi reddy venkatadri institute of technology (VVIT),Guntur Andhra Pradesh",
-    "Pursuing Ph.D from Anurag University",
-  ],
-    specialization: [
-    "Cyber Security, Cloud Computing, IoT, Networks",
-  ],
-    subjectsTaught: [
-    "Not yet taught",
-  ],
-    publications: [],
-    patents: [],
-    books: [],
-    description: "No",
-    email: "priyanka06@mlrit.ac.in",
-    profileLinks: {
-      linkedin: "No",
-      googleScholar: "No",
-      scopus: "No",
-      orcid: "No"
-    },
-    image: "/faculty-new/cse/cse-tirumalasetty-sai-priyanka.jpg",
-    imageAlt: "Portrait of Tirumalasetty Sai Priyanka",
-  },
-  {
-    id: "tirumalasetty-sai-priyanka-cse",
-    slug: "tirumalasetty-sai-priyanka-cse",
-    name: "Tirumalasetty Sai Priyanka",
-    designation: "Assistant professor",
-    department: "cse",
-    qualifications: [
     "B.Tech:- Electronics and Computer Engineering(KL University,Vijayawada,AP)",
     "M.Tech:- Computer Science and Engineering(Vasireddy Venkatadri Institue of Technology,AP)",
     "Ph.D:- Computer Science and Engineering(Anurag University,Hyderabad)(Pursuing)",
@@ -3345,13 +3326,14 @@ export const FACULTY: FacultyProfile[] = [
     patents: [],
     books: [],
     description: "I am Tirumalasetty Sai Priyanka, working as an Assistant Professor in the Department of Computer Science and Engineering at MLR Institute of Technology, Hyderabad. I began my academic journey as a fresher with a strong passion for teaching, research, and guiding students in the field of computer science. My areas of interest include artificial intelligence, machine learning, and advanced computing technologies, where I focus on connecting theoretical concepts with practical applications. I am committed to fostering innovation, critical thinking, and continuous learning, while striving to inspire students to achieve excellence in both academics and professional growth. My goal is to contribute meaningfully to the academic community and to the advancement of technology-driven education.",
-    email: "srchaituk@gmail.com",
+    email: "priyanka06@mlrit.ac.in",
     profileLinks: {
       linkedin: "https://www.linkedin.com/in/sai-priyanka-tirumalasetty-564929132/?skipRedirect=true",
       googleScholar: "https://scholar.google.com/citations?pli=1&authuser=1&user=qW6rVooAAAAJ",
       scopus: "60594555400.0",
       orcid: "0009-0009-7574-7946"
     },
+    image: "/faculty-new/cse/cse-tirumalasetty-sai-priyanka.jpg",
     imageAlt: "Portrait of Tirumalasetty Sai Priyanka",
   },
   {
@@ -3718,7 +3700,8 @@ export const FACULTY: FacultyProfile[] = [
     profileLinks: {
       orcid: "0000-0002-1744-7015"
     },
-    imageAlt: "Portrait of Zohanna Pulipati",
+        image: "/faculty-new/cse/cse-zohanna-pulipati.jpg",
+imageAlt: "Portrait of Zohanna Pulipati",
   },
   {
     id: "p-subhashini-cse-ds",
@@ -4444,7 +4427,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AIqSsVtZxLO96k-k5Dm_4AIFmUOD9DmtpT8bEkY_9RZA7YvoBWjPD3uBmK_60lb5ahL1-BlR59Ap_9MM7Hix9w&user=deLKD3AAAAAJ",
       orcid: "0009-0008-5981-0231"
     },
-    imageAlt: "Portrait of Kommula Rani",
+        image: "/faculty-new/cse-ds/cse-ds-kommula-rani.jpg",
+imageAlt: "Portrait of Kommula Rani",
   },
   {
     id: "manisha-kandukuri-cse-ds",
@@ -7406,7 +7390,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://scholar.google.com/citations?user=8yTzScAAAAAJ&hl=en",
       orcid: "0009-0005-1143-5549"
     },
-    imageAlt: "Portrait of Mudavath Raju Naik",
+        image: "/faculty-new/ece/ece-mudavath-raju-naik.jpg",
+imageAlt: "Portrait of Mudavath Raju Naik",
   },
   {
     id: "n-poornima-deepthi-ece",
@@ -9956,7 +9941,8 @@ export const FACULTY: FacultyProfile[] = [
       googleScholar: "https://scholar.google.com/citations?user=t2ubBPQAAAAJ&hl=en",
       orcid: "0000-0003-3217-5430"
     },
-    imageAlt: "Portrait of Dr. Aruna Gudimetla",
+        image: "/faculty-new/mba/mba-dr-aruna-gudimetla.jpg",
+imageAlt: "Portrait of Dr. Aruna Gudimetla",
   },
   {
     id: "hridayama-dev-varma-mba",
@@ -10919,7 +10905,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "https://www.scopus.com/dashboard.uri?origin=userDashboard&zone=TopNavBar",
       orcid: "0000-0001-8801-8149"
     },
-    imageAlt: "Portrait of NEELA AMAR NATH",
+        image: "/faculty-new/hs/hs-neela-amar-nath.jpg",
+imageAlt: "Portrait of NEELA AMAR NATH",
   },
   {
     id: "neela-praveen-kumar-hs",
