@@ -19,7 +19,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Department } from '@/lib/departments';
-import { DEPT_DATA, type DeptData, type FacultyMember } from '@/lib/dept-data';
+import { DEPT_DATA, type DeptData } from '@/lib/dept-data';
+import { getFacultyByDepartment, type FacultyProfile } from '@/lib/faculty';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
 
 type Props = { department: Department };
@@ -528,10 +529,77 @@ function ObjectivesPanel({ d, data }: PanelProps) {
    ═════════════════════════════════════════════════════════ */
 
 function FacultyPanel({ d, data }: PanelProps) {
-  const faculty: FacultyMember[] =
-    data.faculty.length > 0
-      ? data.faculty
-      : [{ name: d.hod.name, role: 'Head of Department', specialization: d.short }];
+  const newFaculty = getFacultyByDepartment(d.slug);
+
+  // Fall back to old data only if no new records exist for this dept
+  const useNew = newFaculty.length > 0;
+
+  if (useNew) {
+    return (
+      <div>
+        <PanelHeading id="all-faculty">Faculty Profiles</PanelHeading>
+        <p className="mt-6 text-muted max-w-[700px] leading-relaxed">
+          The department is led by a doctoral-strong team across teaching, research and industry engagement.
+          Total faculty: <strong className="text-foreground">{newFaculty.length}</strong>.
+        </p>
+        <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {newFaculty.map((f: FacultyProfile) => {
+            const initials = getInitials(f.name);
+            return (
+              <Link
+                key={f.slug}
+                href={`/faculty/${f.slug}`}
+                className="group relative aspect-[3/4] rounded-xl overflow-hidden shadow-card-soft hover:shadow-card-strong transition-shadow duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                style={{ background: 'linear-gradient(135deg, #2a2f40, #3a4050)' }}
+                aria-label={`View profile of ${f.name}`}
+              >
+                {f.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={f.image}
+                    alt={f.imageAlt}
+                    className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-400 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="absolute inset-0 grid place-items-center font-sans font-black text-4xl text-white/35 group-hover:opacity-0 transition-opacity">
+                    {initials}
+                  </div>
+                )}
+
+                {/* Bottom name strip */}
+                <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/55 to-transparent text-white group-hover:opacity-0 transition-opacity">
+                  <div className="font-sans font-bold text-[0.84rem] leading-tight line-clamp-2">{f.name}</div>
+                  <div className="text-white/65 text-[0.66rem] mt-0.5">{f.designation}</div>
+                </div>
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-ink/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 grid place-items-center text-center p-5">
+                  <div>
+                    <div className="font-sans font-bold text-white text-[0.98rem] leading-tight">{f.name}</div>
+                    <div className="mt-1 text-white/55 text-[0.7rem]">{f.designation}</div>
+                    {f.specialization.length > 0 && (
+                      <div className="mt-3 font-mono font-bold text-primary text-[0.7rem] tracking-[0.04em] leading-snug">
+                        {f.specialization.slice(0, 2).join(' · ')}
+                      </div>
+                    )}
+                    <div className="mt-5 inline-block px-4 py-1.5 rounded-md border border-white/30 text-white text-[0.7rem] font-bold">
+                      View profile
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Legacy fallback for departments without new data yet
+  const faculty = data.faculty.length > 0
+    ? data.faculty
+    : [{ name: d.hod.name, role: 'Head of Department', specialization: d.short }];
 
   return (
     <div>
@@ -562,14 +630,10 @@ function FacultyPanel({ d, data }: PanelProps) {
                   {initials}
                 </div>
               )}
-
-              {/* Bottom name strip (always visible) */}
               <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/90 via-black/55 to-transparent text-white group-hover:opacity-0 transition-opacity">
                 <div className="font-sans font-bold text-[0.84rem] leading-tight line-clamp-2">{f.name}</div>
                 <div className="text-white/65 text-[0.66rem] mt-0.5">{f.role}</div>
               </div>
-
-              {/* Hover overlay */}
               <div className="absolute inset-0 bg-ink/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 grid place-items-center text-center p-5">
                 <div>
                   <div className="font-sans font-bold text-white text-[0.98rem] leading-tight">{f.name}</div>
@@ -579,9 +643,6 @@ function FacultyPanel({ d, data }: PanelProps) {
                       {f.specialization}
                     </div>
                   )}
-                  <div className="mt-5 inline-block px-4 py-1.5 rounded-md border border-white/30 text-white text-[0.7rem] font-bold">
-                    View profile
-                  </div>
                 </div>
               </div>
             </div>
