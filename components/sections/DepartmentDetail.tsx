@@ -353,9 +353,9 @@ function getInitials(name: string): string {
 }
 
 function OverviewPanel({ d, data }: PanelProps) {
-  const hodFromData = data.faculty.find((f) =>
-    /head|hod/i.test(f.role)
-  );
+  const allFaculty = getFacultyByDepartment(d.slug);
+  const hod = allFaculty.find((f) => f.isHod);
+  const hodPhoto = hod?.image ?? data.faculty.find((f) => /head|hod/i.test(f.role))?.photo;
   const initials = getInitials(d.hod.name);
   const message =
     data.hodMessage ||
@@ -368,9 +368,9 @@ function OverviewPanel({ d, data }: PanelProps) {
       {/* HOD card */}
       <div className="mt-8 flex flex-col md:flex-row gap-7 items-start rounded-2xl bg-white shadow-card-soft p-7 md:p-9 border-l-[4px] border-secondary">
         <div className="w-[110px] h-[110px] rounded-full overflow-hidden flex-shrink-0 grid place-items-center bg-secondary/10 border-[3px] border-secondary relative">
-          {hodFromData?.photo ? (
+          {hodPhoto ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={hodFromData.photo} alt={d.hod.name} className="absolute inset-0 w-full h-full object-cover object-top" />
+            <img src={hodPhoto} alt={d.hod.name} className="absolute inset-0 w-full h-full object-cover object-top" />
           ) : (
             <span
               className="text-white font-sans font-black text-2xl tracking-wider"

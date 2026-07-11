@@ -10443,7 +10443,8 @@ export const FACULTY: FacultyProfile[] = [
     id: "ch-achi-reddy-hs",
     slug: "ch-achi-reddy-hs",
     name: "Dr. Ch. Achi Reddy",
-    designation: "Professor",
+    designation: "Head of Department",
+    isHod: true,
     department: "hs",
     qualifications: [
     "B.Sc(MPC)",
