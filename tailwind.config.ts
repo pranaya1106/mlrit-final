@@ -104,6 +104,7 @@ const config: Config = {
 
       animation: {
         'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+        'marquee':    'marquee 32s linear infinite',
       },
 
       keyframes: {
@@ -111,10 +112,26 @@ const config: Config = {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
           '50%':      { opacity: '0.55', transform: 'scale(0.85)' },
         },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to:   { transform: 'translateX(-50%)' },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: { addUtilities: (u: Record<string, Record<string, string>>) => void }) {
+      addUtilities({
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
+        },
+      });
+    },
+  ],
 };
 
 export default config;

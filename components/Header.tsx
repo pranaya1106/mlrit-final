@@ -127,8 +127,8 @@ export default function Header() {
               )}
               {/* Dropdown */}
               {item.cols && (
-                <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-0 top-full mt-1.5 bg-white border border-border rounded-2xl shadow-[0_18px_48px_rgba(17,17,17,0.10)] p-6 grid gap-6 min-w-max z-50"
-                     style={{ gridTemplateColumns: `repeat(${item.cols.length}, minmax(180px, 1fr))` }}>
+                <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-0 top-full mt-1.5 bg-white border border-border rounded-2xl shadow-[0_18px_48px_rgba(17,17,17,0.10)] p-6 grid gap-6 min-w-max max-w-[calc(100vw-2rem)] z-50"
+                     style={{ gridTemplateColumns: `repeat(${item.cols.length}, minmax(${item.colMinWidth ?? 180}px, 1fr))` }}>
                   {item.cols.map((col) => (
                     <div key={col.heading}>
                       <h4 className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted mb-3">

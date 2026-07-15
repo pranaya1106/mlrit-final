@@ -98,7 +98,7 @@ const USEFUL_SECTIONS = [
       { label: 'Admissions FAQ',    href: '/admissions/support' },
       { label: 'Fee Structure',     href: '/admissions/fees' },
       { label: 'Sports',            href: '/campus/sports' },
-      { label: 'Campus Clubs',      href: '/campus/clubs' },
+      { label: 'Student Clubs',      href: '/campus/clubs' },
       { label: 'NSS Event Reports', href: 'https://mlrit.ac.in/nss-event-reports/', ext: true },
       { label: 'Virtual Tour',      href: 'https://mlrit.ac.in/virtual-tour/',      ext: true },
       { label: 'LMS',               href: 'https://lms.mlrit.ac.in/',              ext: true },

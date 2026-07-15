@@ -6,6 +6,8 @@ export type NavItem = {
   label: string;
   href?: string;
   cols?: NavDropdownCol[];
+  /** Minimum column width in px for this dropdown. Defaults to 180. */
+  colMinWidth?: number;
 };
 
 export type NavDropdownCol = {
@@ -58,21 +60,25 @@ export const NAV_PRIMARY: NavItem[] = [
     ],
   },
   {
-    label: 'Campus',
+    label: 'Student Life',
+    colMinWidth: 200,
     cols: [
       {
-        heading: 'Facilities',
+        heading: 'Explore',
         links: [
-          { label: 'Hostels',    href: '/campus/hostels' },
-          { label: 'Sports',     href: '/campus/sports' },
-          { label: 'Cafeteria',  href: '/campus/cafeteria' },
-          { label: 'Transport',  href: '/campus/transport' },
+          // TODO: replace interim routes once /student-life/* pages are built
+          { label: 'Overview',                    href: '/student-life' },
+          { label: 'Discover MLR',                href: '/campus/sports' },    // interim → /student-life/discover-mlr
+          { label: 'Facilities & Amenities', href: '/campus/cafeteria' }, // interim → /student-life/facilities
+          { label: 'Hostel',                      href: '/campus/hostels' },
+          { label: 'Sports',                      href: '/campus/sports' },
+          { label: 'Transport',                   href: '/campus/transport' },
         ],
       },
       {
-        heading: 'Student Life',
+        heading: 'Student Community',
         links: [
-          { label: 'Clubs and Societies', href: '/campus/clubs' },
+          { label: 'Student Clubs', href: '/campus/clubs' },
         ],
       },
     ],
