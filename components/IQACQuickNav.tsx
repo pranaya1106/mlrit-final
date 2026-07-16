@@ -14,7 +14,7 @@ const IQAC_NAV = [
 
 export default function IQACQuickNav({ active }: { active: string }) {
   return (
-    <nav className="bg-white border-b border-border sticky top-[var(--header-h)] z-30">
+    <nav className="bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top] duration-300 ease-out-quart">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {IQAC_NAV.map((l) => (

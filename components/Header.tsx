@@ -1,10 +1,61 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight } from './icons';
 
 export default function Header() {
+  const [hidden, setHidden] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Keep --header-h in sync with the header's real rendered height (the
+  // badge row can wrap to a second line at some widths) so the sticky
+  // sub-nav bars and main's padding never drift out of sync with it.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    const setHeight = () => {
+      document.documentElement.style.setProperty('--header-h', `${el.offsetHeight}px`);
+    };
+    setHeight();
+
+    const ro = new ResizeObserver(setHeight);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 140) {
+        setHidden(false);
+      } else if (y > lastY + 4) {
+        setHidden(true); // scrolling down
+      } else if (y < lastY - 4) {
+        setHidden(false); // scrolling up
+      }
+      lastY = y;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-header-hidden', String(hidden));
+  }, [hidden]);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-[1000] bg-white border-b border-border">
+    <header
+      ref={headerRef}
+      className={`fixed inset-x-0 top-0 z-[1000] bg-white border-b border-border transition-transform duration-300 ease-out-quart ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
+    >
       {/* MASTHEAD */}
       <div className="bg-white">
         <div className="flex items-center justify-start gap-7 px-7 py-3 min-h-[78px]">

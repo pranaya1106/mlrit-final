@@ -8,6 +8,7 @@ export type InfoBlock =
   | { kind: 'lead'; text: string }
   | { kind: 'paragraph'; text: string }
   | { kind: 'bullets'; title?: string; items: string[] }
+  | { kind: 'bullet-groups'; items: { title: string; items: string[] }[] }
   | { kind: 'stat-grid'; items: { num: string; label: string }[] }
   | { kind: 'cards'; items: { title: string; body: string; href?: string }[] }
   | { kind: 'quote'; text: string; attribution: string; role?: string }
@@ -20,8 +21,9 @@ export type InfoBlock =
   | { kind: 'ranking-cards'; items: { icon?: string; eyebrow?: string; title: string; body: string; badge?: string }[] }
   | { kind: 'pillars'; items: { variant: 'green' | 'light'; icon?: string; eyebrow: string; title: string; body?: string; bullets?: string[] }[] }
   | { kind: 'leadership'; items: { name: string; role: string; quote: string; href?: string; accent?: 'green' | 'orange' }[] }
-  | { kind: 'roster'; items: { name: string; detail?: string; tag?: string }[] }
+  | { kind: 'roster'; items: { name: string; detail?: string; tag?: string; photo?: string }[] }
   | { kind: 'chips'; items: { label: string; sub?: string }[] }
+  | { kind: 'pill-band'; video?: string; image?: string; title?: string; items: { label: string }[] }
   | { kind: 'brochure-card'; title: string; subtitle?: string; meta?: string; href: string; external?: boolean }
   | { kind: 'button-group'; items: { label: string; href: string; variant?: 'solid' | 'outline'; external?: boolean }[] }
   | { kind: 'table'; columns: string[]; rows: string[][]; caption?: string }
@@ -501,34 +503,146 @@ export const INFO_PAGES: Record<string, InfoPage> = {
     eyebrow: 'Campus · Life',
     title: 'Sports',
     italic: 'at MLRIT.',
-    dek: 'A full-spectrum sports programme — cricket, football, kabaddi, basketball, badminton, athletics — plus dedicated coaching.',
+    dek: 'World-class indoor and outdoor sports infrastructure, resident coaching staff, and a legacy of champions — cricket, volleyball, football, basketball, badminton and table tennis.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'Campus' }, { label: 'Sports' }],
     blocks: [
       {
         kind: 'lead',
         text:
-          'MLRIT runs one of the strongest sports programmes among Hyderabad engineering colleges. From cricket and football to kabaddi and athletics, the institute fields competitive teams at the JNTU, state and national levels.',
+          'Sports play an important role in shaping the personality and fitness of every MLRIT student. Since its founding in 2005, the institute has fielded undisputed champions in volleyball, badminton, kabaddi, basketball and cricket — backed by sporting environments built to global standards.',
       },
       {
-        kind: 'bullets',
-        title: 'Facilities',
+        kind: 'paragraph',
+        text:
+          'A world-class indoor stadium spans more than 26,000 sq. ft. across two floors, with a gallery seating up to 1,000 people. It houses 10 badminton courts, a table-tennis hall with 20 tables, and a fully-equipped gym with modern strength equipment. The same stadium makes room for 4 snooker tables, space for 6+ carom boards, a squash court, a dedicated fencing hall, and Zumba and meditation halls — plus guest accommodation across 32 rooms.',
+      },
+      {
+        kind: 'paragraph',
+        text:
+          'Outdoors, MLRIT fields two volleyball courts, a throwball court, a basketball court, two kabaddi courts, a kho-kho field, a football field and an athletic track. The dedicated cricket ground is equipped with four floodlights delivering 77,000 watts of lighting, enabling matches to continue after dark.',
+      },
+      {
+        kind: 'stat-grid',
         items: [
-          'Full-size cricket field and football ground.',
-          'Indoor courts for basketball, badminton and table tennis.',
-          'Synthetic athletics track and dedicated kabaddi pit.',
-          'Gymnasium with strength and conditioning equipment.',
-          'Resident coaches across cricket, kabaddi, athletics and team sports.',
+          { num: '26,000+', label: 'Sq ft indoor stadium, 2 floors' },
+          { num: '1,000',   label: 'Stadium seating capacity' },
+          { num: '10',      label: 'Badminton courts' },
+          { num: '20',      label: 'Table-tennis tables' },
+          { num: '4',       label: 'Cricket-ground floodlights' },
+          { num: '32',      label: 'Stadium guest rooms' },
         ],
       },
       {
-        kind: 'bullets',
-        title: 'Achievements',
+        kind: 'pillars',
         items: [
-          'JNTU-H inter-college champions across multiple sports.',
-          'Student-athletes representing Telangana at the South Zone level.',
-          'Annual sports meet attracting cross-college participation.',
+          {
+            variant: 'green',
+            icon: 'sports',
+            eyebrow: 'Goal',
+            title: 'Sportsmanship & Teamwork',
+            body: 'To inculcate the spirit of sportsmanship and teamwork among the students of MLR Institute.',
+          },
+          {
+            variant: 'light',
+            icon: 'award',
+            eyebrow: 'Motto',
+            title: 'Win If You Can.',
+            body: 'Lose if you must. But never quit.',
+          },
         ],
       },
+      { kind: 'heading', eyebrow: 'Facilities', title: 'Sports offered', italic: 'at MLRIT.' },
+      {
+        kind: 'pill-band',
+        video: '/videos/sports.mp4',
+        items: [
+          { label: 'Cricket' },
+          { label: 'Volleyball' },
+          { label: 'Football' },
+          { label: 'Indoor Stadium' },
+          { label: 'Gym' },
+          { label: 'Basketball' },
+          { label: 'Table Tennis' },
+          { label: 'Badminton' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Coaching Staff', title: 'Sports', italic: 'trainers.' },
+      {
+        kind: 'roster',
+        items: [
+          { name: 'Sardar Inderpal Singh', detail: 'Head of Department, Physical Education', tag: 'HOD', photo: '/images/sports/trainers/sardar-inderpal-singh.jpg' },
+          { name: 'P. Srinivas',           detail: 'Senior Physical Director',               tag: 'Senior Physical Director', photo: '/images/sports/trainers/p-srinivas.jpg' },
+          { name: 'Ch. Ramesh',            detail: 'Assistant Physical Director',             tag: 'Asst. Physical Director', photo: '/images/sports/trainers/ch-ramesh.jpg' },
+          { name: 'K. Srinivas',           detail: 'Physical Director',                       tag: 'Physical Director', photo: '/images/sports/trainers/k-srinivas.jpg' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Sports Accolades', title: 'Champions', italic: 'in the making.' },
+      {
+        kind: 'roster',
+        items: [
+          { name: 'Sanskruthi',        detail: 'Softball',    tag: 'National' },
+          { name: 'Harikishore',       detail: 'Gymnastics',  tag: 'All India University Medalist', photo: '/images/sports/accolades/harikishore.jpg' },
+          { name: 'Sindhu',            detail: 'Weight Lifting', tag: 'All India University Medalist', photo: '/images/sports/accolades/sindhu.jpg' },
+          { name: 'A. Nithin',         detail: 'Cricket',     tag: 'State U-25', photo: '/images/sports/accolades/a-nithin.jpg' },
+          { name: 'N. Surya Teja',     detail: 'Cricket',     tag: 'Ranji Trophy', photo: '/images/sports/accolades/n-surya-teja.jpg' },
+          { name: 'A. Vinay',          detail: 'Cricket',     tag: 'Ranji Trophy', photo: '/images/sports/accolades/a-vinay.jpg' },
+          { name: 'A. Prudhvi Reddy',  detail: 'Basketball',  tag: 'International', photo: '/images/sports/accolades/a-prudhvi-reddy.jpg' },
+          { name: 'K. Tarun Reddy',    detail: 'Badminton',   tag: 'International', photo: '/images/sports/accolades/k-tarun-reddy.jpg' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Sports Quota', title: 'Seats reserved for', italic: 'athletes.' },
+      {
+        kind: 'stat-strip',
+        variant: 'green',
+        items: [
+          { num: '10',      label: 'Free sports-quota seats every year' },
+          { num: '2020–26', label: 'Continuous intake, year on year' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Sports Life', title: 'Activities &', italic: 'benefits.' },
+      {
+        kind: 'bullet-groups',
+        items: [
+          {
+            title: 'Activities',
+            items: [
+              'Daily practice with a coach for all sports',
+              'Inter-college tournaments all round the year',
+              'Friendly faculty matches',
+              'Departmental competitions',
+              'Annual sports fest',
+            ],
+          },
+          {
+            title: 'Physiological Benefits',
+            items: [
+              'Assertive',
+              'Competent',
+              'Responsible',
+              'Self-control',
+              'Youth development',
+              'Helps overcome depression',
+            ],
+          },
+          {
+            title: 'Sociological Benefits',
+            items: [
+              'Cooperation',
+              'Teamwork',
+              'Discipline',
+              'Responsibility',
+              'Respect for others',
+              'Patience',
+            ],
+          },
+        ],
+      },
+      {
+        kind: 'paragraph',
+        text:
+          'Every academic year, MLRIT publishes a consolidated sports-achievements record spanning inter-university, state, national and international-level results across every sport the institute fields teams in.',
+      },
+      { kind: 'cta', label: 'Explore Clubs & Societies →', href: '/campus/clubs' },
     ],
   },
 

@@ -156,7 +156,7 @@ export default function DepartmentDetail({ department: d }: Props) {
       </section>
 
       {/* ── STICKY TAB BAR ─────────────────────────────────── */}
-      <nav className="bg-white border-b border-border sticky z-40 overflow-x-auto" style={{ top: 'var(--header-h)' }}>
+      <nav className="bg-white border-b border-border sticky z-40 overflow-x-auto transition-[top] duration-300 ease-out-quart" style={{ top: 'var(--subnav-top)' }}>
         <div className="flex items-center gap-1 max-w-[1600px] mx-auto px-2 md:px-6" style={{ scrollbarWidth: 'none' }}>
           {TABS.map((t) => {
             const active = t.id === tab;
@@ -188,7 +188,7 @@ export default function DepartmentDetail({ department: d }: Props) {
       <div className="bg-white">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 py-8 md:py-12 grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-10 lg:gap-14">
           {/* Sidebar */}
-          <aside className="lg:sticky lg:self-start lg:top-[calc(var(--header-h)+80px)]">
+          <aside className="lg:sticky lg:self-start lg:top-[calc(var(--subnav-top)+80px)] transition-[top] duration-300 ease-out-quart">
             <div className="font-mono text-[0.62rem] font-extrabold tracking-[0.22em] uppercase text-secondary mb-4">
               Quick Nav
             </div>

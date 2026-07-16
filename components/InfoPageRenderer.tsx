@@ -158,6 +158,29 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
         </Reveal>
       );
 
+    case 'bullet-groups':
+      return (
+        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
+          {block.items.map((g) => (
+            <StaggerItem key={g.title}>
+              <div className="rounded-2xl border border-border bg-white p-7 h-full">
+                <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] tracking-tight mb-4">
+                  {g.title}
+                </h3>
+                <ul className="space-y-3">
+                  {g.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-foreground/85 leading-[1.6] text-[0.92rem]">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      );
+
     case 'stat-grid':
       return (
         <Stagger className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6" delay={0.06}>
@@ -517,6 +540,49 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
         </Stagger>
       );
 
+    case 'pill-band':
+      return (
+        <Reveal preset="scale">
+          <div className="relative rounded-3xl overflow-hidden bg-ink">
+            {block.video ? (
+              <video
+                src={block.video}
+                muted
+                loop
+                playsInline
+                autoPlay
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : block.image ? (
+              <img src={block.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            ) : null}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
+            <div className="relative px-6 md:px-12 py-14 md:py-20">
+              {block.title && (
+                <h3 className="text-center font-display italic font-bold text-white text-[clamp(1.8rem,3.6vw,2.8rem)] mb-10 md:mb-12">
+                  {block.title}
+                </h3>
+              )}
+              <Stagger
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 max-w-[880px] mx-auto"
+                delay={0.05}
+              >
+                {block.items.map((it) => (
+                  <StaggerItem key={it.label}>
+                    <div className="rounded-full bg-white/95 hover:bg-white transition-colors aspect-[1.7/1] flex items-center justify-center text-center px-4 shadow-lg">
+                      <span className="font-sans font-extrabold text-foreground text-[0.92rem] md:text-[0.98rem] tracking-tight leading-tight">
+                        {it.label}
+                      </span>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+          </div>
+        </Reveal>
+      );
+
     case 'brochure-card':
       return (
         <Reveal preset="scale">
@@ -581,9 +647,17 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
             return (
               <StaggerItem key={m.name}>
                 <div className="flex items-start gap-4 rounded-2xl border border-border bg-white p-5 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
-                  <span className="inline-flex w-12 h-12 rounded-full bg-secondary/10 text-secondary items-center justify-center font-sans font-extrabold text-[0.9rem] flex-shrink-0">
-                    {initials(m.name)}
-                  </span>
+                  {m.photo ? (
+                    <img
+                      src={m.photo}
+                      alt={`Portrait of ${m.name}`}
+                      className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                    />
+                  ) : (
+                    <span className="inline-flex w-12 h-12 rounded-full bg-secondary/10 text-secondary items-center justify-center font-sans font-extrabold text-[0.9rem] flex-shrink-0">
+                      {initials(m.name)}
+                    </span>
+                  )}
                   <div className="min-w-0">
                     <div className="font-sans font-bold text-foreground text-[0.98rem] leading-tight">{m.name}</div>
                     {m.detail && <div className="mt-1 text-muted text-[0.82rem] leading-snug">{m.detail}</div>}

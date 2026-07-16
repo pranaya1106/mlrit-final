@@ -71,7 +71,16 @@
 
   /* ── Layout ── */
   --header-h: 132px;
+  /* Offset for the per-page secondary nav bar's `top`. Mirrors
+     --header-h by default; Header.tsx flips it to 0px once the
+     masthead + green nav slide out of view on scroll-down, so the
+     secondary nav rises to take its place. */
+  --subnav-top: var(--header-h);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-header-hidden="true"] {
+  --subnav-top: 0px;
 }
 
 * { box-sizing: border-box; }
