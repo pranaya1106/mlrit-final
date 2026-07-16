@@ -60,7 +60,7 @@ export const NAV_PRIMARY: NavItem[] = [
     ],
   },
   {
-    label: 'Student Life',
+    label: 'Life at MLR',
     colMinWidth: 200,
     cols: [
       {
