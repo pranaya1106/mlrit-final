@@ -118,3 +118,16 @@ button { font: inherit; cursor: pointer; }
   font-style: italic;
   font-weight: 500;
 }
+
+/* Transport page — detail panel entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes fadeUp {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}

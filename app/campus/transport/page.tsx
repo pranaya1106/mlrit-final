@@ -1,20 +1,19 @@
-import { notFound } from 'next/navigation';
-import InfoPageRenderer from '@/components/InfoPageRenderer';
-import { getInfoPage } from '@/lib/info-pages';
+import type { Metadata } from 'next';
+import TransportHero from './TransportHero';
+import TransportRoutes from './TransportRoutes';
+import { BUS_ROUTES } from '@/lib/transport-routes';
 
-const SLUG = 'campus/transport';
+export const metadata: Metadata = {
+  title: 'Transport — MLRIT',
+  description:
+    'Institute-operated bus services connecting Hyderabad to the MLRIT campus at Dundigal. Find your route, stops and timings.',
+};
 
-export const metadata = (() => {
-  const p = getInfoPage(SLUG);
-  if (!p) return { title: 'MLRIT' };
-  return {
-    title: `${p.title}${p.italic ? ' ' + p.italic : ''} — MLRIT`,
-    description: p.dek,
-  };
-})();
-
-export default function Page() {
-  const page = getInfoPage(SLUG);
-  if (!page) notFound();
-  return <InfoPageRenderer page={page} />;
+export default function TransportPage() {
+  return (
+    <>
+      <TransportHero />
+      <TransportRoutes routes={BUS_ROUTES} />
+    </>
+  );
 }
