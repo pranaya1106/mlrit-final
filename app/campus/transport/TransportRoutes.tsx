@@ -189,7 +189,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             WebkitBackfaceVisibility: 'hidden',
             background: '#fff',
             border: `1.5px solid ${flipped ? '#f5a96a' : '#e8e3d9'}`,
-            borderRadius: 20,
+            borderRadius: 12,
             display: 'flex', flexDirection: 'column', alignItems: 'center',
             justifyContent: 'center', textAlign: 'center',
             padding: '28px 20px',
@@ -235,7 +235,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             transform: 'rotateY(180deg)',
             background: 'radial-gradient(ellipse at 50% 0%, rgba(232,93,4,0.07) 0%, #fff 60%)',
             border: '1.5px solid #f5a96a',
-            borderRadius: 20,
+            borderRadius: 12,
             display: 'flex', flexDirection: 'column',
             padding: '18px 18px 16px',
             boxShadow: '0 0 0 4px rgba(232,93,4,0.08), 0 8px 32px rgba(232,93,4,0.12)',
@@ -293,7 +293,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             style={{
               marginTop: 'auto',
               width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-              background: '#e85d04', border: 'none', borderRadius: 12,
+              background: '#e85d04', border: 'none', borderRadius: 8,
               padding: '10px 0', color: '#fff', fontSize: '0.8rem', fontWeight: 700,
               cursor: 'pointer', letterSpacing: '0.03em',
               transition: 'background 0.2s ease',
@@ -312,34 +312,41 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
 
 /* ══════════════════════════════════════ PARALLAX CARD GRID ═══════ */
 
-// Cards in odd columns scroll at a different rate — creates depth illusion
-const PARALLAX_SPEEDS = [0, -30, 20, -20, 30]; // px offset per column at full scroll
+// Each column scrolls at a different speed — alternating up/down creates depth
+const COL_SPEEDS = [40, -40, 60, -60, 40]; // px travel per column over the scroll range
 
-function ParallaxCard({
-  route,
-  index,
+function ParallaxColumn({
+  routes,
+  colIndex,
   containerRef,
   onViewDetails,
 }: {
-  route: BusRoute;
-  index: number;
+  routes: BusRoute[];
+  colIndex: number;
   containerRef: React.RefObject<HTMLDivElement | null>;
   onViewDetails: (r: BusRoute) => void;
 }) {
   const prefersReduced = useReducedMotion();
-  const col = index % PARALLAX_SPEEDS.length;
-  const speed = PARALLAX_SPEEDS[col];
+  const speed = COL_SPEEDS[colIndex % COL_SPEEDS.length];
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], prefersReduced ? [0, 0] : [speed * -1, speed]);
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReduced ? [0, 0] : [-speed, speed]
+  );
 
   return (
-    <motion.div style={{ y }}>
-      <RouteCard route={route} onViewDetails={onViewDetails} />
+    <motion.div
+      style={{ y, display: 'flex', flexDirection: 'column', gap: 16 }}
+    >
+      {routes.map((route) => (
+        <RouteCard key={route.id} route={route} onViewDetails={onViewDetails} />
+      ))}
     </motion.div>
   );
 }
@@ -352,22 +359,26 @@ function ParallaxCardGrid({
   onViewDetails: (r: BusRoute) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const NUM_COLS = 5;
+
+  // Distribute routes into columns in order: col0=[0,5,10…], col1=[1,6,11…]
+  const columns: BusRoute[][] = Array.from({ length: NUM_COLS }, () => []);
+  routes.forEach((r, i) => columns[i % NUM_COLS].push(r));
 
   return (
-    <div
-      ref={containerRef}
-      className="grid gap-4"
-      style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}
-    >
-      {routes.map((route, i) => (
-        <ParallaxCard
-          key={route.id}
-          route={route}
-          index={i}
-          containerRef={containerRef}
-          onViewDetails={onViewDetails}
-        />
-      ))}
+    // Overflow hidden so fast columns don't bleed outside the section
+    <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 40 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16 }}>
+        {columns.map((col, ci) => (
+          <ParallaxColumn
+            key={ci}
+            routes={col}
+            colIndex={ci}
+            containerRef={containerRef}
+            onViewDetails={onViewDetails}
+          />
+        ))}
+      </div>
     </div>
   );
 }
