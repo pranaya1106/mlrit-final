@@ -6,7 +6,7 @@ import {
   useRef,
   type KeyboardEvent,
 } from 'react';
-import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, useReducedMotion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
 import { X, Search, Phone, ChevronRight, MapPin } from 'lucide-react';
 import type { BusRoute } from '@/lib/transport-routes';
 import { searchRoutes } from '@/lib/transport-routes';
@@ -312,54 +312,33 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
 
 /* ══════════════════════════════════════ PARALLAX CARD GRID ═══════ */
 
-const COLS = 5; // cards per "row band" for stagger grouping
+// Cards in odd columns scroll at a different rate — creates depth illusion
+const PARALLAX_SPEEDS = [0, -30, 20, -20, 30]; // px offset per column at full scroll
 
 function ParallaxCard({
   route,
   index,
+  containerRef,
   onViewDetails,
 }: {
   route: BusRoute;
   index: number;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   onViewDetails: (r: BusRoute) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
-  const inView = useInView(ref, { once: true, margin: '0px 0px -60px 0px' });
+  const col = index % PARALLAX_SPEEDS.length;
+  const speed = PARALLAX_SPEEDS[col];
 
-  const col = index % COLS;
-  const entryDelay = prefersReduced ? 0 : (col * 0.06) + (Math.floor(index / COLS) * 0.04);
-  // each column floats at a different phase so they're never in sync
-  const floatDuration = 3.2 + (col % 3) * 0.6;
-  const floatDelay = -(col * 0.7);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], prefersReduced ? [0, 0] : [speed * -1, speed]);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={prefersReduced ? false : { opacity: 0, y: 36, scale: 0.96 }}
-      animate={inView
-        ? {
-            opacity: 1,
-            scale: 1,
-            y: prefersReduced ? 0 : [0, -8, 0],
-          }
-        : {}
-      }
-      transition={inView
-        ? {
-            opacity: { duration: 0.5, delay: entryDelay, ease: [0.16, 1, 0.3, 1] },
-            scale:   { duration: 0.5, delay: entryDelay, ease: [0.16, 1, 0.3, 1] },
-            y: {
-              duration: floatDuration,
-              delay: entryDelay + floatDelay,
-              repeat: Infinity,
-              repeatType: 'mirror',
-              ease: 'easeInOut',
-            },
-          }
-        : {}
-      }
-    >
+    <motion.div style={{ y }}>
       <RouteCard route={route} onViewDetails={onViewDetails} />
     </motion.div>
   );
@@ -372,13 +351,22 @@ function ParallaxCardGrid({
   routes: BusRoute[];
   onViewDetails: (r: BusRoute) => void;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
     <div
+      ref={containerRef}
       className="grid gap-4"
       style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}
     >
       {routes.map((route, i) => (
-        <ParallaxCard key={route.id} route={route} index={i} onViewDetails={onViewDetails} />
+        <ParallaxCard
+          key={route.id}
+          route={route}
+          index={i}
+          containerRef={containerRef}
+          onViewDetails={onViewDetails}
+        />
       ))}
     </div>
   );
