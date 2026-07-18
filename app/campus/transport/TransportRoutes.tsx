@@ -42,7 +42,7 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
         exit={{ y: 56, opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="relative w-full sm:max-w-[520px] max-h-[88vh] overflow-y-auto"
-        style={{ background: '#13131a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24 }}
+        style={{ background: '#13131a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 4 }}
       >
         {/* Sticky header */}
         <div className="sticky top-0 z-10 flex items-center justify-between px-6 pt-6 pb-5"
@@ -189,7 +189,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             WebkitBackfaceVisibility: 'hidden',
             background: '#fff',
             border: `1.5px solid ${flipped ? '#f5a96a' : '#e8e3d9'}`,
-            borderRadius: 12,
+            borderRadius: 4,
             display: 'flex', flexDirection: 'column', alignItems: 'center',
             justifyContent: 'center', textAlign: 'center',
             padding: '28px 20px',
@@ -235,7 +235,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             transform: 'rotateY(180deg)',
             background: 'radial-gradient(ellipse at 50% 0%, rgba(232,93,4,0.07) 0%, #fff 60%)',
             border: '1.5px solid #f5a96a',
-            borderRadius: 12,
+            borderRadius: 4,
             display: 'flex', flexDirection: 'column',
             padding: '18px 18px 16px',
             boxShadow: '0 0 0 4px rgba(232,93,4,0.08), 0 8px 32px rgba(232,93,4,0.12)',
@@ -264,7 +264,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
 
           {/* Origin → Destination */}
           <div style={{
-            padding: '10px 12px', borderRadius: 12,
+            padding: '10px 12px', borderRadius: 4,
             background: '#faf7f0', border: '1px solid #e8e3d9',
             marginBottom: 12, flex: '0 0 auto',
           }}>
@@ -293,7 +293,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             style={{
               marginTop: 'auto',
               width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-              background: '#e85d04', border: 'none', borderRadius: 8,
+              background: '#e85d04', border: 'none', borderRadius: 4,
               padding: '10px 0', color: '#fff', fontSize: '0.8rem', fontWeight: 700,
               cursor: 'pointer', letterSpacing: '0.03em',
               transition: 'background 0.2s ease',
@@ -414,7 +414,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
               ].map(({ label, name, phone }) => (
                 <a key={label} href={`tel:${phone.replace(/\s/g, '')}`}
                   className="flex items-center gap-3 transition-all"
-                  style={{ background: '#fff', border: '1.5px solid #e4e0d7', borderRadius: 14, padding: '12px 18px', textDecoration: 'none' }}
+                  style={{ background: '#fff', border: '1.5px solid #e4e0d7', borderRadius: 4, padding: '12px 18px', textDecoration: 'none' }}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#f5a96a'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 0 3px rgba(232,93,4,0.08)'; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#e4e0d7'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none'; }}
                 >
@@ -462,7 +462,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
                 className="w-full focus:outline-none transition-all"
                 style={{
                   background: '#fff', border: '1.5px solid #e4e0d7', color: '#0f0f0f',
-                  borderRadius: 14, paddingLeft: 44, paddingRight: query ? 40 : 16,
+                  borderRadius: 4, paddingLeft: 44, paddingRight: query ? 40 : 16,
                   paddingTop: 13, paddingBottom: 13, fontSize: '0.88rem',
                   boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
                 }}
