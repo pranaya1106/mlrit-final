@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -77,13 +78,15 @@ export default function BCategoryPage() {
       <section style={{ background: '#faf7f0' }} className="py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
 
-          {/* Full image — uncompressed, full resolution */}
+          {/* Full image — no cropping, natural aspect ratio */}
           <div className="rounded-3xl overflow-hidden shadow-card-strong mb-16">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/admissions/b-category.jpeg"
               alt="B-Category Admissions — MLRIT"
-              className="w-full h-auto block"
+              width={1280}
+              height={1800}
+              className="w-full h-auto"
+              priority
             />
           </div>
 
