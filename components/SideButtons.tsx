@@ -178,7 +178,7 @@ export default function SideButtons() {
       {/* Single fixed container — both tabs stacked, centered on right edge */}
       <div
         className="fixed right-0 z-50 flex flex-col items-end"
-        style={{ top: '50%', transform: 'translateY(-50%)' }}
+        style={{ top: '62%', transform: 'translateY(-50%)' }}
       >
         {/* Brochure tab */}
         <a
