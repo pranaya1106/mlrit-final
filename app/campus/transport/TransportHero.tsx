@@ -82,7 +82,7 @@ export default function TransportHero() {
               className="object-cover"
               style={{
                 objectPosition: slide.pos,
-                filter: 'brightness(0.72) saturate(0.95)',
+                filter: 'brightness(0.88) saturate(0.95)',
               }}
             />
           </div>
@@ -91,12 +91,12 @@ export default function TransportHero() {
         {/* Bottom fade — fades photo into near-black so wave blends cleanly */}
         <div style={{
           position: 'absolute', inset: 'auto 0 0 0', height: 340,
-          background: 'linear-gradient(to bottom, transparent, rgba(12,12,14,0.88) 50%, #0c0c0e 100%)',
+          background: 'linear-gradient(to bottom, transparent, rgba(12,12,14,0.55) 70%, rgba(12,12,14,0.82) 100%)',
         }} />
         {/* Left tint — keeps heading readable over busy image areas */}
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(to right, rgba(12,12,14,0.38) 0%, transparent 55%)',
+          background: 'linear-gradient(to right, rgba(12,12,14,0.20) 0%, transparent 55%)',
         }} />
       </div>
 

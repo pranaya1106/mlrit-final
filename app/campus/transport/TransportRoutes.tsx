@@ -165,7 +165,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDetails(route); } }}
       style={{
         perspective: 1000,
-        height: 240,
+        height: 320,
         cursor: 'pointer',
         userSelect: 'none',
       }}
@@ -368,7 +368,7 @@ function ParallaxCardGrid({
   return (
     // Overflow hidden so fast columns don't bleed outside the section
     <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 40 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))', gap: 16 }}>
         {columns.map((col, ci) => (
           <ParallaxColumn
             key={ci}
