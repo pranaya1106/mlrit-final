@@ -188,7 +188,7 @@ export default function SideButtons() {
           rel="noopener noreferrer"
           aria-label="Download Brochure"
         >
-          <div style={{ ...TAB_STYLE, background: '#01741f', boxShadow: '-2px 0 10px rgba(1,116,31,0.22)' }}>
+          <div style={{ ...TAB_STYLE, background: '#01741f', boxShadow: '-2px 0 16px rgba(1,116,31,0.55), -4px 0 32px rgba(1,116,31,0.30), 0 0 8px rgba(1,116,31,0.40)' }}>
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none"
               style={{ transform: 'rotate(90deg)', marginBottom: '3px' }} aria-hidden>
               <path d="M7 2v7M4 7l3 3 3-3M2 12h10"
@@ -206,7 +206,7 @@ export default function SideButtons() {
           aria-label="Open Student Corner"
           className="focus:outline-none"
         >
-          <div style={{ ...TAB_STYLE, background: '#e8600a', boxShadow: '-2px 0 10px rgba(232,96,10,0.25)' }}>
+          <div style={{ ...TAB_STYLE, background: '#e8600a', boxShadow: '-2px 0 16px rgba(232,96,10,0.60), -4px 0 32px rgba(232,96,10,0.32), 0 0 8px rgba(232,96,10,0.45)' }}>
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none"
               style={{ transform: 'rotate(90deg)', marginBottom: '3px' }} aria-hidden>
               <circle cx="7" cy="7" r="5.5" stroke="white" strokeWidth="1.6"/>
