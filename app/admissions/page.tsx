@@ -286,6 +286,16 @@ export default function AdmissionsPage() {
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </Link>
+                <Link
+                  href="/admissions/b-category"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all hover:scale-105"
+                  style={{ boxShadow: '0 0 0 2px rgba(232,93,4,0.35)' }}
+                >
+                  B-Category
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </Link>
                 <a
                   href="/admissions/mlrit-brochure.pdf"
                   download="MLRIT-Brochure-2025-26.pdf"
