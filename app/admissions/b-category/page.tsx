@@ -78,16 +78,14 @@ export default function BCategoryPage() {
       <section style={{ background: '#faf7f0' }} className="py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
 
-          {/* Full-width image */}
-          <div className="rounded-3xl overflow-hidden shadow-card-strong mb-16"
-            style={{ maxHeight: 600, position: 'relative' }}>
+          {/* Full image — no cropping, natural aspect ratio */}
+          <div className="rounded-3xl overflow-hidden shadow-card-strong mb-16">
             <Image
               src="/admissions/b-category.jpeg"
               alt="B-Category Admissions — MLRIT"
               width={1280}
-              height={600}
-              className="w-full object-cover"
-              style={{ objectPosition: 'center' }}
+              height={1800}
+              className="w-full h-auto"
               priority
             />
           </div>
