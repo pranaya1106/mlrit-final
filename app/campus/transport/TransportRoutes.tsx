@@ -328,16 +328,37 @@ function ParallaxCard({
   const inView = useInView(ref, { once: true, margin: '0px 0px -60px 0px' });
 
   const col = index % COLS;
-  // odd columns start slightly lower for a brickwork parallax feel
-  const yOffset = prefersReduced ? 0 : col % 2 === 1 ? 40 : 0;
-  const delay = prefersReduced ? 0 : (col * 0.06) + (Math.floor(index / COLS) * 0.04);
+  const entryDelay = prefersReduced ? 0 : (col * 0.06) + (Math.floor(index / COLS) * 0.04);
+  // each column floats at a different phase so they're never in sync
+  const floatDuration = 3.2 + (col % 3) * 0.6;
+  const floatDelay = -(col * 0.7);
 
   return (
     <motion.div
       ref={ref}
-      initial={prefersReduced ? false : { opacity: 0, y: 32 + yOffset, scale: 0.96 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={prefersReduced ? false : { opacity: 0, y: 36, scale: 0.96 }}
+      animate={inView
+        ? {
+            opacity: 1,
+            scale: 1,
+            y: prefersReduced ? 0 : [0, -8, 0],
+          }
+        : {}
+      }
+      transition={inView
+        ? {
+            opacity: { duration: 0.5, delay: entryDelay, ease: [0.16, 1, 0.3, 1] },
+            scale:   { duration: 0.5, delay: entryDelay, ease: [0.16, 1, 0.3, 1] },
+            y: {
+              duration: floatDuration,
+              delay: entryDelay + floatDelay,
+              repeat: Infinity,
+              repeatType: 'mirror',
+              ease: 'easeInOut',
+            },
+          }
+        : {}
+      }
     >
       <RouteCard route={route} onViewDetails={onViewDetails} />
     </motion.div>
