@@ -313,7 +313,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
 /* ══════════════════════════════════════ PARALLAX CARD GRID ═══════ */
 
 // Each column scrolls at a different speed — alternating up/down creates depth
-const COL_SPEEDS = [40, -40, 60, -60, 40]; // px travel per column over the scroll range
+const COL_SPEEDS = [40, -50, 40]; // px travel per column over the scroll range
 
 function ParallaxColumn({
   routes,
@@ -359,16 +359,16 @@ function ParallaxCardGrid({
   onViewDetails: (r: BusRoute) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const NUM_COLS = 5;
+  const NUM_COLS = 3;
 
-  // Distribute routes into columns in order: col0=[0,5,10…], col1=[1,6,11…]
+  // Distribute routes into columns in order: col0=[0,3,6…], col1=[1,4,7…]
   const columns: BusRoute[][] = Array.from({ length: NUM_COLS }, () => []);
   routes.forEach((r, i) => columns[i % NUM_COLS].push(r));
 
   return (
     // Overflow hidden so fast columns don't bleed outside the section
     <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 40 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
         {columns.map((col, ci) => (
           <ParallaxColumn
             key={ci}
