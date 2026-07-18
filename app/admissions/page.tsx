@@ -446,12 +446,21 @@ export default function AdmissionsPage() {
                 </div>
               ))}
 
-              <div className="mt-10 ml-[3.75rem]">
+              <div className="mt-10 ml-[3.75rem] flex flex-wrap gap-4">
                 <Link
                   href="/admissions/how-to-apply"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
                 >
                   Check Details
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </Link>
+                <Link
+                  href="/admissions/b-category"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-primary text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all hover:scale-105"
+                >
+                  B-Cat Details
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
