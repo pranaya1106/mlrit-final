@@ -3,9 +3,10 @@
 import {
   useState,
   useEffect,
+  useRef,
   type KeyboardEvent,
 } from 'react';
-import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { motion, useReducedMotion, AnimatePresence, useInView } from 'framer-motion';
 import { X, Search, Phone, ChevronRight, MapPin } from 'lucide-react';
 import type { BusRoute } from '@/lib/transport-routes';
 import { searchRoutes } from '@/lib/transport-routes';
@@ -309,6 +310,59 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
   );
 }
 
+/* ══════════════════════════════════════ PARALLAX CARD GRID ═══════ */
+
+const COLS = 5; // cards per "row band" for stagger grouping
+
+function ParallaxCard({
+  route,
+  index,
+  onViewDetails,
+}: {
+  route: BusRoute;
+  index: number;
+  onViewDetails: (r: BusRoute) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
+  const inView = useInView(ref, { once: true, margin: '0px 0px -60px 0px' });
+
+  const col = index % COLS;
+  // odd columns start slightly lower for a brickwork parallax feel
+  const yOffset = prefersReduced ? 0 : col % 2 === 1 ? 40 : 0;
+  const delay = prefersReduced ? 0 : (col * 0.06) + (Math.floor(index / COLS) * 0.04);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={prefersReduced ? false : { opacity: 0, y: 32 + yOffset, scale: 0.96 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <RouteCard route={route} onViewDetails={onViewDetails} />
+    </motion.div>
+  );
+}
+
+function ParallaxCardGrid({
+  routes,
+  onViewDetails,
+}: {
+  routes: BusRoute[];
+  onViewDetails: (r: BusRoute) => void;
+}) {
+  return (
+    <div
+      className="grid gap-4"
+      style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}
+    >
+      {routes.map((route, i) => (
+        <ParallaxCard key={route.id} route={route} index={i} onViewDetails={onViewDetails} />
+      ))}
+    </div>
+  );
+}
+
 /* ══════════════════════════════════════ MAIN COMPONENT ═══════════ */
 
 export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
@@ -420,15 +474,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
               <p style={{ fontSize: '0.9rem', color: '#9d9b94' }}>No routes match that area or stop.</p>
             </div>
           ) : (
-            <motion.div
-              layout
-              className="grid gap-4"
-              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}
-            >
-              {filtered.map((route) => (
-                <RouteCard key={route.id} route={route} onViewDetails={setActiveRoute} />
-              ))}
-            </motion.div>
+            <ParallaxCardGrid routes={filtered} onViewDetails={setActiveRoute} />
           )}
 
         </div>
