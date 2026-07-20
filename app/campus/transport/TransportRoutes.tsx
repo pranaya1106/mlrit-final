@@ -139,174 +139,180 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
 
 /* ══════════════════════════════════════ FLIP ROUTE CARD ══════════ */
 
+/* ── Bus wheel — purely decorative ──────────────────────────────── */
+function BusWheel({ hovered }: { hovered: boolean }) {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        width: 36, height: 36,
+        borderRadius: '50%',
+        background: '#1a1a22',
+        border: '3px solid #2e2e3a',
+        boxShadow: 'inset 0 0 0 6px #0f0f14, inset 0 0 0 8px #2e2e3a',
+        flexShrink: 0,
+        transition: 'transform 0.35s ease',
+        transform: hovered ? 'rotate(18deg)' : 'rotate(0deg)',
+      }}
+    />
+  );
+}
+
+/* ── Destination board ───────────────────────────────────────────── */
+function DestBoard({ routeNumber, origin, destination }: { routeNumber: number; origin: string; destination: string }) {
+  return (
+    <div style={{
+      background: '#0f0f14',
+      borderBottom: '2px solid #e85d04',
+      padding: '8px 14px 7px',
+      borderRadius: '10px 10px 0 0',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+        <span style={{
+          fontFamily: 'monospace', fontWeight: 900, fontSize: '0.62rem',
+          letterSpacing: '0.18em', color: '#e85d04', textTransform: 'uppercase',
+        }}>
+          ROUTE {String(routeNumber).padStart(2, '0')}
+        </span>
+        <span style={{
+          fontFamily: 'monospace', fontSize: '0.55rem',
+          letterSpacing: '0.12em', color: '#ffffff40', textTransform: 'uppercase',
+        }}>
+          MLRIT TRANSPORT
+        </span>
+      </div>
+      <p style={{
+        fontFamily: 'sans-serif', fontWeight: 800, fontSize: '0.78rem',
+        color: '#fff', lineHeight: 1.2, letterSpacing: '-0.01em',
+        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+      }}>
+        <span style={{ color: '#f5a96a' }}>{origin}</span>
+        <span style={{ color: '#ffffff50', margin: '0 5px', fontWeight: 400 }}>→</span>
+        {destination}
+      </p>
+    </div>
+  );
+}
+
+/* ── Bus body card ───────────────────────────────────────────────── */
 interface RouteCardProps {
   route: BusRoute;
   onViewDetails: (r: BusRoute) => void;
 }
 
 function RouteCard({ route, onViewDetails }: RouteCardProps) {
-  const [flipped, setFlipped] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const prefersReduced = useReducedMotion();
   const origin = route.stops[0] ?? '—';
   const destination = route.stops[route.stops.length - 1] ?? '—';
-  const duration = prefersReduced ? 0 : 0.52;
+  const midStop = route.stops[Math.floor(route.stops.length / 2)] ?? '';
 
   return (
-    /* Perspective wrapper — fixed height so the card doesn't expand */
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label={`Route ${route.routeNumber} — ${origin} to ${destination}`}
-      aria-pressed={flipped}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onFocus={() => setFlipped(true)}
-      onBlur={() => setFlipped(false)}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDetails(route); } }}
+    <article
+      aria-labelledby={`route-${route.id}-title`}
       style={{
-        perspective: 1000,
-        height: 320,
-        cursor: 'pointer',
         userSelect: 'none',
+        // Extra bottom clearance for wheels
+        paddingBottom: 20,
       }}
     >
-      {/* Flipper — rotates the whole card */}
+      {/* ── Bus body ── */}
       <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         style={{
           position: 'relative',
-          width: '100%',
-          height: '100%',
-          transformStyle: 'preserve-3d',
-          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-          transition: `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`,
+          borderRadius: 10,
+          border: `1.5px solid ${hovered ? '#e85d04' : '#d6cfc4'}`,
+          background: '#fff',
+          boxShadow: hovered
+            ? '0 8px 32px rgba(232,93,4,0.16), 0 2px 8px rgba(0,0,0,0.08)'
+            : '0 2px 12px rgba(0,0,0,0.06)',
+          transform: hovered && !prefersReduced ? 'translateY(-4px)' : 'translateY(0)',
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+          overflow: 'hidden',
         }}
       >
-        {/* ── FRONT FACE ── */}
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-            background: '#fff',
-            border: `1.5px solid ${flipped ? '#f5a96a' : '#e8e3d9'}`,
-            borderRadius: 4,
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', textAlign: 'center',
-            padding: '28px 20px',
-            boxShadow: flipped ? '0 0 0 4px rgba(232,93,4,0.10), 0 8px 32px rgba(232,93,4,0.12)' : '0 2px 12px rgba(0,0,0,0.06)',
-            transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
-          }}
-        >
-          {/* Large circle badge */}
-          <div style={{
-            width: 80, height: 80, borderRadius: '50%',
-            background: '#fdf5ee',
-            border: '1.5px solid #f5d9c0',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            marginBottom: 16,
-          }}>
-            <span style={{
-              fontFamily: 'sans-serif', fontWeight: 900, fontSize: 30,
-              color: '#e85d04', lineHeight: 1, letterSpacing: '-0.02em',
-            }}>
-              {route.routeNumber}
-            </span>
-          </div>
-          <p style={{
-            fontWeight: 800, fontSize: '1rem', color: '#0f0f0f',
-            lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: 5,
-          }}>
-            Route {route.routeNumber}
-          </p>
-          <p style={{
-            fontSize: '0.73rem', color: '#9d9b94',
-            fontFamily: 'monospace', letterSpacing: '0.01em',
-          }}>
-            {route.stops.length} stops
-          </p>
+        {/* Destination board (roof/front face) */}
+        <DestBoard routeNumber={route.routeNumber} origin={origin} destination={destination} />
+
+        {/* Window row */}
+        <div style={{
+          display: 'flex', gap: 5, padding: '8px 10px',
+          background: '#f5f3ef',
+          borderBottom: '1px solid #e4e0d7',
+        }}>
+          {[0, 1, 2, 3].map((w) => (
+            <div key={w} aria-hidden="true" style={{
+              flex: 1, height: 28,
+              borderRadius: 3,
+              background: hovered ? 'rgba(232,93,4,0.07)' : '#e8e3d8',
+              border: `1px solid ${hovered ? 'rgba(232,93,4,0.18)' : '#d6d0c8'}`,
+              transition: 'background 0.3s ease, border-color 0.3s ease',
+            }} />
+          ))}
         </div>
 
-        {/* ── BACK FACE ── */}
-        <div
-          style={{
-            position: 'absolute', inset: 0,
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
-            background: 'radial-gradient(ellipse at 50% 0%, rgba(232,93,4,0.07) 0%, #fff 60%)',
-            border: '1.5px solid #f5a96a',
-            borderRadius: 4,
-            display: 'flex', flexDirection: 'column',
-            padding: '18px 18px 16px',
-            boxShadow: '0 0 0 4px rgba(232,93,4,0.08), 0 8px 32px rgba(232,93,4,0.12)',
-          }}
-        >
-          {/* Route badge row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-            <div style={{
-              width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
-              background: '#fdf5ee', border: '1.5px solid #f5a96a',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+        {/* Lower body — route info */}
+        <div style={{ padding: '12px 14px 14px', background: '#fff' }}>
+          {/* Stop count + mid stop */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+            <span style={{
+              fontFamily: 'monospace', fontSize: '0.62rem',
+              letterSpacing: '0.1em', color: '#9d9b94', textTransform: 'uppercase',
             }}>
-              <span style={{ fontWeight: 900, fontSize: 14, color: '#e85d04', lineHeight: 1 }}>
-                {route.routeNumber}
-              </span>
-            </div>
-            <div>
-              <p style={{ fontWeight: 800, fontSize: '0.88rem', color: '#0f0f0f', lineHeight: 1.1 }}>
-                Route {route.routeNumber}
-              </p>
-              <p style={{ fontSize: '0.62rem', color: '#9d9b94', fontFamily: 'monospace', marginTop: 2 }}>
-                {route.stops.length} stops
-              </p>
-            </div>
-          </div>
-
-          {/* Origin → Destination */}
-          <div style={{
-            padding: '10px 12px', borderRadius: 4,
-            background: '#faf7f0', border: '1px solid #e8e3d9',
-            marginBottom: 12, flex: '0 0 auto',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 3 }}>
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#e85d04' }} />
-                <div style={{ width: 1, height: 14, background: '#d6cfc4', margin: '3px 0' }} />
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#fff', border: '1.5px solid #c4bdb0' }} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: '0.72rem', color: '#0f0f0f', fontWeight: 600, lineHeight: 1.3,
-                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {origin}
-                </p>
-                <p style={{ fontSize: '0.72rem', color: '#6a6a64', marginTop: 10, lineHeight: 1.3,
-                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {destination}
-                </p>
-              </div>
-            </div>
+              {route.stops.length} stops
+            </span>
+            {midStop && (
+              <>
+                <span aria-hidden="true" style={{ width: 3, height: 3, borderRadius: '50%', background: '#d6cfc4', flexShrink: 0 }} />
+                <span style={{
+                  fontFamily: 'monospace', fontSize: '0.62rem', color: '#b5b0a8',
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1,
+                }}>
+                  via {midStop}
+                </span>
+              </>
+            )}
           </div>
 
           {/* CTA */}
           <button
-            onClick={(e) => { e.stopPropagation(); onViewDetails(route); }}
+            id={`route-${route.id}-title`}
+            onClick={() => onViewDetails(route)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDetails(route); } }}
             style={{
-              marginTop: 'auto',
               width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-              background: '#e85d04', border: 'none', borderRadius: 4,
-              padding: '10px 0', color: '#fff', fontSize: '0.8rem', fontWeight: 700,
-              cursor: 'pointer', letterSpacing: '0.03em',
-              transition: 'background 0.2s ease',
+              background: hovered ? '#e85d04' : '#fdf5ee',
+              border: `1.5px solid ${hovered ? '#e85d04' : '#f5d9c0'}`,
+              borderRadius: 5,
+              padding: '8px 0',
+              color: hovered ? '#fff' : '#e85d04',
+              fontSize: '0.76rem', fontWeight: 700,
+              cursor: 'pointer', letterSpacing: '0.04em',
+              transition: 'all 0.25s ease',
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f06a14'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#e85d04'; }}
+            aria-label={`View full route details for Route ${route.routeNumber}`}
           >
-            Full route details
-            <ChevronRight className="w-3.5 h-3.5" />
+            View full route
+            <ChevronRight className="w-3 h-3" aria-hidden="true" />
           </button>
         </div>
       </div>
-    </div>
+
+      {/* ── Wheels — sit below the bus body ── */}
+      <div
+        aria-hidden="true"
+        style={{
+          display: 'flex', justifyContent: 'space-between',
+          paddingInline: 20,
+          marginTop: -10,
+        }}
+      >
+        <BusWheel hovered={hovered} />
+        <BusWheel hovered={hovered} />
+      </div>
+    </article>
   );
 }
 
@@ -342,7 +348,7 @@ function ParallaxColumn({
 
   return (
     <motion.div
-      style={{ y, display: 'flex', flexDirection: 'column', gap: 16 }}
+      style={{ y, display: 'flex', flexDirection: 'column', gap: 8 }}
     >
       {routes.map((route) => (
         <RouteCard key={route.id} route={route} onViewDetails={onViewDetails} />
@@ -367,7 +373,7 @@ function ParallaxCardGrid({
 
   return (
     // Overflow hidden so fast columns don't bleed outside the section
-    <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 40 }}>
+    <div ref={containerRef} style={{ overflow: 'hidden', paddingTop: 20, paddingBottom: 60 }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))', gap: 16 }}>
         {columns.map((col, ci) => (
           <ParallaxColumn
