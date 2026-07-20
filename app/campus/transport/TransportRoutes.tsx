@@ -6,7 +6,7 @@ import {
   useRef,
   type KeyboardEvent,
 } from 'react';
-import { motion, useReducedMotion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useReducedMotion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { X, Search, Phone, ChevronRight, MapPin } from 'lucide-react';
 import type { BusRoute } from '@/lib/transport-routes';
 import { searchRoutes } from '@/lib/transport-routes';
@@ -137,180 +137,222 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
   );
 }
 
-/* ══════════════════════════════════════ FLIP ROUTE CARD ══════════ */
+/* ══════════════════════════════════════ BUS ROUTE CARD ══════════ */
 
-/* ── Bus wheel — purely decorative ──────────────────────────────── */
-function BusWheel({ hovered }: { hovered: boolean }) {
-  return (
-    <div
-      aria-hidden="true"
-      style={{
-        width: 36, height: 36,
-        borderRadius: '50%',
-        background: '#1a1a22',
-        border: '3px solid #2e2e3a',
-        boxShadow: 'inset 0 0 0 6px #0f0f14, inset 0 0 0 8px #2e2e3a',
-        flexShrink: 0,
-        transition: 'transform 0.35s ease',
-        transform: hovered ? 'rotate(18deg)' : 'rotate(0deg)',
-      }}
-    />
-  );
-}
-
-/* ── Destination board ───────────────────────────────────────────── */
-function DestBoard({ routeNumber, origin, destination }: { routeNumber: number; origin: string; destination: string }) {
-  return (
-    <div style={{
-      background: '#0f0f14',
-      borderBottom: '2px solid #e85d04',
-      padding: '8px 14px 7px',
-      borderRadius: '10px 10px 0 0',
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-        <span style={{
-          fontFamily: 'monospace', fontWeight: 900, fontSize: '0.62rem',
-          letterSpacing: '0.18em', color: '#e85d04', textTransform: 'uppercase',
-        }}>
-          ROUTE {String(routeNumber).padStart(2, '0')}
-        </span>
-        <span style={{
-          fontFamily: 'monospace', fontSize: '0.55rem',
-          letterSpacing: '0.12em', color: '#ffffff40', textTransform: 'uppercase',
-        }}>
-          MLRIT TRANSPORT
-        </span>
-      </div>
-      <p style={{
-        fontFamily: 'sans-serif', fontWeight: 800, fontSize: '0.78rem',
-        color: '#fff', lineHeight: 1.2, letterSpacing: '-0.01em',
-        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-      }}>
-        <span style={{ color: '#f5a96a' }}>{origin}</span>
-        <span style={{ color: '#ffffff50', margin: '0 5px', fontWeight: 400 }}>→</span>
-        {destination}
-      </p>
-    </div>
-  );
-}
-
-/* ── Bus body card ───────────────────────────────────────────────── */
 interface RouteCardProps {
   route: BusRoute;
   onViewDetails: (r: BusRoute) => void;
 }
 
 function RouteCard({ route, onViewDetails }: RouteCardProps) {
-  const [hovered, setHovered] = useState(false);
+  const [flipped, setFlipped] = useState(false);
   const prefersReduced = useReducedMotion();
   const origin = route.stops[0] ?? '—';
   const destination = route.stops[route.stops.length - 1] ?? '—';
-  const midStop = route.stops[Math.floor(route.stops.length / 2)] ?? '';
+
+  const flip = () => setFlipped(f => !f);
+  const unflip = () => setFlipped(false);
+
+  // Shared face style
+  const faceBase: React.CSSProperties = {
+    position: 'absolute', inset: 0,
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    borderRadius: 12,
+    overflow: 'hidden',
+  };
 
   return (
     <article
-      aria-labelledby={`route-${route.id}-title`}
-      style={{
-        userSelect: 'none',
-        // Extra bottom clearance for wheels
-        paddingBottom: 20,
-      }}
+      aria-labelledby={`route-${route.id}-num`}
+      style={{ userSelect: 'none', paddingBottom: 22 }}
     >
-      {/* ── Bus body ── */}
+      {/* ── Flip wrapper ── */}
       <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{
-          position: 'relative',
-          borderRadius: 10,
-          border: `1.5px solid ${hovered ? '#e85d04' : '#d6cfc4'}`,
-          background: '#fff',
-          boxShadow: hovered
-            ? '0 8px 32px rgba(232,93,4,0.16), 0 2px 8px rgba(0,0,0,0.08)'
-            : '0 2px 12px rgba(0,0,0,0.06)',
-          transform: hovered && !prefersReduced ? 'translateY(-4px)' : 'translateY(0)',
-          transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
-          overflow: 'hidden',
-        }}
+        style={{ perspective: 900 }}
+        onMouseEnter={() => !prefersReduced && setFlipped(true)}
+        onMouseLeave={() => !prefersReduced && setFlipped(false)}
       >
-        {/* Destination board (roof/front face) */}
-        <DestBoard routeNumber={route.routeNumber} origin={origin} destination={destination} />
+        <div
+          role="button"
+          tabIndex={0}
+          aria-pressed={flipped}
+          aria-label={`Route ${route.routeNumber} — tap to see details`}
+          onClick={flip}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+            if (e.key === 'Escape') unflip();
+          }}
+          style={{
+            position: 'relative',
+            height: 220,
+            transformStyle: 'preserve-3d',
+            transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            transition: prefersReduced ? 'none' : 'transform 0.55s cubic-bezier(0.4,0,0.2,1)',
+            cursor: 'pointer',
+          }}
+        >
 
-        {/* Window row */}
-        <div style={{
-          display: 'flex', gap: 5, padding: '8px 10px',
-          background: '#f5f3ef',
-          borderBottom: '1px solid #e4e0d7',
-        }}>
-          {[0, 1, 2, 3].map((w) => (
-            <div key={w} aria-hidden="true" style={{
-              flex: 1, height: 28,
-              borderRadius: 3,
-              background: hovered ? 'rgba(232,93,4,0.07)' : '#e8e3d8',
-              border: `1px solid ${hovered ? 'rgba(232,93,4,0.18)' : '#d6d0c8'}`,
-              transition: 'background 0.3s ease, border-color 0.3s ease',
+          {/* ════ FRONT FACE ════ */}
+          <div style={{ ...faceBase, background: '#16161e', border: '1.5px solid #2a2a36' }}>
+
+            {/* Roof stripe */}
+            <div aria-hidden="true" style={{
+              height: 8, background: '#e85d04',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
             }} />
-          ))}
-        </div>
 
-        {/* Lower body — route info */}
-        <div style={{ padding: '12px 14px 14px', background: '#fff' }}>
-          {/* Stop count + mid stop */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-            <span style={{
-              fontFamily: 'monospace', fontSize: '0.62rem',
-              letterSpacing: '0.1em', color: '#9d9b94', textTransform: 'uppercase',
+            {/* Window band */}
+            <div aria-hidden="true" style={{
+              display: 'flex', gap: 4, padding: '0 12px',
+              height: 52,
+              background: '#0f0f18',
+              borderBottom: '2px solid #e85d04',
+              alignItems: 'center',
             }}>
-              {route.stops.length} stops
-            </span>
-            {midStop && (
-              <>
-                <span aria-hidden="true" style={{ width: 3, height: 3, borderRadius: '50%', background: '#d6cfc4', flexShrink: 0 }} />
-                <span style={{
-                  fontFamily: 'monospace', fontSize: '0.62rem', color: '#b5b0a8',
-                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1,
-                }}>
-                  via {midStop}
-                </span>
-              </>
-            )}
+              {/* Windshield — taller, front pane */}
+              <div style={{
+                width: 38, height: 38, flexShrink: 0,
+                borderRadius: '4px 4px 2px 2px',
+                background: 'rgba(232,93,4,0.12)',
+                border: '1px solid rgba(232,93,4,0.3)',
+              }} />
+              {/* Passenger windows */}
+              {[0, 1, 2].map(w => (
+                <div key={w} style={{
+                  flex: 1, height: 32,
+                  borderRadius: 3,
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }} />
+              ))}
+            </div>
+
+            {/* Route number — centrepiece */}
+            <div style={{
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              flex: 1, paddingTop: 18, paddingBottom: 8,
+            }}>
+              <span
+                id={`route-${route.id}-num`}
+                style={{
+                  fontFamily: 'sans-serif', fontWeight: 900,
+                  fontSize: 'clamp(2.6rem,5vw,3.2rem)',
+                  color: '#fff', lineHeight: 1,
+                  letterSpacing: '-0.04em',
+                }}
+              >
+                {route.routeNumber}
+              </span>
+              <span style={{
+                fontFamily: 'monospace', fontSize: '0.56rem',
+                letterSpacing: '0.22em', color: '#e85d04',
+                textTransform: 'uppercase', marginTop: 5,
+              }}>
+                ROUTE
+              </span>
+            </div>
+
+            {/* Lower body panel */}
+            <div aria-hidden="true" style={{
+              height: 14, background: '#0f0f18',
+              borderTop: '1px solid #2a2a36',
+            }} />
           </div>
 
-          {/* CTA */}
-          <button
-            id={`route-${route.id}-title`}
-            onClick={() => onViewDetails(route)}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDetails(route); } }}
-            style={{
-              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-              background: hovered ? '#e85d04' : '#fdf5ee',
-              border: `1.5px solid ${hovered ? '#e85d04' : '#f5d9c0'}`,
-              borderRadius: 5,
-              padding: '8px 0',
-              color: hovered ? '#fff' : '#e85d04',
-              fontSize: '0.76rem', fontWeight: 700,
-              cursor: 'pointer', letterSpacing: '0.04em',
-              transition: 'all 0.25s ease',
-            }}
-            aria-label={`View full route details for Route ${route.routeNumber}`}
-          >
-            View full route
-            <ChevronRight className="w-3 h-3" aria-hidden="true" />
-          </button>
+          {/* ════ BACK FACE ════ */}
+          <div style={{
+            ...faceBase,
+            transform: 'rotateY(180deg)',
+            background: '#fff',
+            border: '1.5px solid #e4e0d7',
+            display: 'flex', flexDirection: 'column',
+          }}>
+            {/* Header strip */}
+            <div style={{
+              padding: '10px 14px 9px',
+              background: '#16161e',
+              borderBottom: '2px solid #e85d04',
+              flexShrink: 0,
+            }}>
+              <span style={{
+                fontFamily: 'monospace', fontWeight: 900, fontSize: '0.6rem',
+                letterSpacing: '0.2em', color: '#e85d04', textTransform: 'uppercase',
+              }}>
+                ROUTE {String(route.routeNumber).padStart(2, '0')}
+              </span>
+            </div>
+
+            {/* Origin → Destination */}
+            <div style={{
+              flex: 1, padding: '14px 14px 0',
+              display: 'flex', flexDirection: 'column', justifyContent: 'center',
+            }}>
+              <p style={{
+                fontSize: '0.82rem', fontWeight: 700, color: '#0f0f0f',
+                lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+              }}>
+                {origin}
+              </p>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 6, margin: '5px 0',
+              }}>
+                <div aria-hidden="true" style={{ width: 6, height: 6, borderRadius: '50%', background: '#e85d04', flexShrink: 0 }} />
+                <div aria-hidden="true" style={{ flex: 1, height: 1, background: '#e4e0d7' }} />
+                <div aria-hidden="true" style={{ width: 6, height: 6, borderRadius: '50%', background: '#c4bdb0', flexShrink: 0 }} />
+              </div>
+              <p style={{
+                fontSize: '0.82rem', fontWeight: 700, color: '#6a6a64',
+                lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+              }}>
+                {destination}
+              </p>
+              <p style={{
+                fontFamily: 'monospace', fontSize: '0.6rem', color: '#b5b0a8',
+                marginTop: 6, letterSpacing: '0.06em',
+              }}>
+                {route.stops.length} stops
+              </p>
+            </div>
+
+            {/* CTA */}
+            <button
+              onClick={(e) => { e.stopPropagation(); onViewDetails(route); }}
+              style={{
+                margin: '10px 14px 14px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
+                background: '#e85d04', border: 'none', borderRadius: 6,
+                padding: '9px 0', color: '#fff',
+                fontSize: '0.75rem', fontWeight: 700,
+                cursor: 'pointer', letterSpacing: '0.04em',
+                flexShrink: 0,
+              }}
+              aria-label={`View all details for Route ${route.routeNumber}`}
+            >
+              View all details
+              <ChevronRight className="w-3 h-3" aria-hidden="true" />
+            </button>
+          </div>
+
         </div>
       </div>
 
-      {/* ── Wheels — sit below the bus body ── */}
-      <div
-        aria-hidden="true"
-        style={{
-          display: 'flex', justifyContent: 'space-between',
-          paddingInline: 20,
-          marginTop: -10,
-        }}
-      >
-        <BusWheel hovered={hovered} />
-        <BusWheel hovered={hovered} />
+      {/* ── Wheels — decorative, below body ── */}
+      <div aria-hidden="true" style={{
+        display: 'flex', justifyContent: 'space-between',
+        paddingInline: 18, marginTop: -8,
+      }}>
+        {[0, 1].map(w => (
+          <div key={w} style={{
+            width: 30, height: 30, borderRadius: '50%',
+            background: '#1a1a22',
+            border: '3px solid #2e2e3a',
+            boxShadow: 'inset 0 0 0 5px #0f0f14, inset 0 0 0 7px #2e2e3a',
+            transition: prefersReduced ? 'none' : 'transform 0.4s ease',
+            transform: flipped ? 'rotate(12deg)' : 'rotate(0deg)',
+          }} />
+        ))}
       </div>
     </article>
   );
