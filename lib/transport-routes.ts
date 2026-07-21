@@ -62,7 +62,7 @@ export const BUS_ROUTES: BusRoute[] = [
       'Sangareddy Old Bus Stop', 'Sangareddy New Bus Stop', 'Collector Office',
       'Kowlampet', 'Rudraram', 'Isnapur', 'Muthangi', 'MLRIT',
     ],
-    inchargeName: 'Mr. Shiva Raj',
+    inchargeName: 'Mr. Shiva raj',
     inchargeContact: '9951781050',
     driverName: 'Mr. Raheem',
     driverContact: '9030347995',

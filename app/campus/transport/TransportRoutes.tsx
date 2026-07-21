@@ -4,392 +4,391 @@ import {
   useState,
   useEffect,
   useRef,
-  useCallback,
   type KeyboardEvent,
 } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { X, Search, Phone, MapPin } from 'lucide-react';
+import { motion, useReducedMotion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion';
+import { X, Search, Phone, ChevronRight, MapPin } from 'lucide-react';
 import type { BusRoute } from '@/lib/transport-routes';
 import { searchRoutes } from '@/lib/transport-routes';
 
-/* ══════════════════════════════════════ DETAIL MODAL ════════════ */
 
-function RouteDetail({ route, onClose }: { route: BusRoute; onClose: () => void }) {
+/* ══════════════════════════════════════ ROUTE DETAIL MODAL ═══════ */
+
+function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }) {
+  const origin = route.stops[0] ?? '—';
+  const destination = route.stops[route.stops.length - 1] ?? '—';
+
   useEffect(() => {
     const fn = (e: globalThis.KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', fn);
     document.body.style.overflow = 'hidden';
-    return () => { window.removeEventListener('keydown', fn); document.body.style.overflow = ''; };
+    return () => {
+      window.removeEventListener('keydown', fn);
+      document.body.style.overflow = '';
+    };
   }, [onClose]);
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 200,
-        background: 'rgba(0,0,0,0.82)', backdropFilter: 'blur(10px)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: '16px',
-      }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.18 }}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center px-4"
+      style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <motion.div
-        initial={{ y: 40, opacity: 0, scale: 0.97 }}
+        initial={{ y: 56, opacity: 0, scale: 0.98 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: 30, opacity: 0, scale: 0.97 }}
+        exit={{ y: 56, opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          width: '100%', maxWidth: 540,
-          background: '#13131a',
-          border: '1px solid rgba(255,255,255,0.09)',
-          borderRadius: 20,
-          display: 'flex', flexDirection: 'column',
-          maxHeight: '88vh',
-          overflow: 'hidden',
-        }}
+        className="relative w-full sm:max-w-[520px] max-h-[88vh] overflow-y-auto"
+        style={{ background: '#faf7f0', border: '1px solid #e8e3d9', borderRadius: 4, boxShadow: '0 24px 64px rgba(0,0,0,0.18)' }}
       >
-        {/* Header — always visible, never scrolls */}
-        <div style={{
-          flexShrink: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '20px 24px 18px',
-          background: '#13131a',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div style={{
-              width: 48, height: 48, borderRadius: 14, flexShrink: 0,
-              background: 'rgba(232,93,4,0.12)', border: '1px solid rgba(232,93,4,0.28)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: 'monospace', fontWeight: 900, fontSize: '1.15rem', color: '#e85d04',
-            }}>
+        {/* Sticky header */}
+        <div className="sticky top-0 z-10 flex items-center justify-between px-6 pt-6 pb-5"
+          style={{ background: 'linear-gradient(to bottom, #faf7f0 80%, rgba(250,247,240,0))', borderBottom: '1px solid #e8e3d9' }}>
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center font-mono font-black text-xl flex-shrink-0"
+              style={{ background: 'rgba(232,93,4,0.1)', border: '1.5px solid rgba(232,93,4,0.28)', color: '#e85d04' }}>
               {route.routeNumber}
             </div>
             <div>
-              <p style={{ fontWeight: 800, color: '#fff', fontSize: '1rem', lineHeight: 1.2 }}>
-                Route {route.routeNumber}
-              </p>
-              <p style={{ fontFamily: 'monospace', fontSize: '0.63rem', color: 'rgba(255,255,255,0.28)', marginTop: 4, letterSpacing: '0.07em' }}>
-                {route.stops[0]} → {route.stops[route.stops.length - 1]}
-              </p>
+              <p className="font-sans font-bold leading-tight" style={{ fontSize: '1.02rem', color: '#0f0f0f' }}>Route {route.routeNumber}</p>
+              <p className="font-mono mt-0.5" style={{ fontSize: '0.72rem', color: '#9d9b94' }}>{route.stops.length} stops</p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              width: 36, height: 36, borderRadius: '50%', border: 'none',
-              background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <X style={{ width: 16, height: 16 }} />
+          <button onClick={onClose} aria-label="Close"
+            className="w-9 h-9 rounded-full flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            style={{ color: '#9d9b94' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#f0ede6'; (e.currentTarget as HTMLButtonElement).style.color = '#0f0f0f'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#9d9b94'; }}>
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Scrollable body */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
-        <div style={{ padding: '20px 24px 32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-          {/* Stops */}
-          <div>
-            <p style={{ fontFamily: 'monospace', fontSize: '0.58rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', marginBottom: 14 }}>
-              {route.stops.length} stops
-            </p>
-            <ol>
-              {route.stops.map((stop, i) => {
-                const first = i === 0, last = i === route.stops.length - 1;
-                return (
-                  <li key={i} style={{ display: 'flex', alignItems: 'stretch', gap: 12 }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 16, flexShrink: 0 }}>
-                      <div style={{
-                        borderRadius: '50%', marginTop: 10, flexShrink: 0,
-                        width: first || last ? 9 : 6, height: first || last ? 9 : 6,
-                        background: first || last ? '#e85d04' : 'rgba(255,255,255,0.18)',
-                        boxShadow: first || last ? '0 0 0 3px rgba(232,93,4,0.18)' : 'none',
-                      }} />
-                      {!last && <div style={{ flex: 1, width: 1, marginTop: 3, background: 'linear-gradient(to bottom,rgba(255,255,255,0.1),rgba(255,255,255,0.02))' }} />}
-                    </div>
-                    <div style={{ padding: '6px 0', flex: 1 }}>
-                      <span style={{ fontSize: '0.82rem', color: first || last ? '#fff' : 'rgba(255,255,255,0.4)', fontWeight: first || last ? 600 : 400, lineHeight: 1.4 }}>
-                        {stop}
-                      </span>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
+        <div className="px-6 pb-8 pt-4">
+          {/* Origin → Destination */}
+          <div className="flex items-center gap-3 mb-6 px-4 py-3.5 rounded-2xl"
+            style={{ background: 'rgba(232,93,4,0.06)', border: '1.5px solid rgba(232,93,4,0.18)' }}>
+            <div className="flex-1 min-w-0">
+              <p className="font-mono mb-0.5" style={{ fontSize: '0.62rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b5afa6' }}>From</p>
+              <p className="font-sans font-semibold truncate" style={{ fontSize: '0.92rem', color: '#0f0f0f' }}>{origin}</p>
+            </div>
+            <div className="w-px h-8 flex-shrink-0" style={{ background: '#d6cfc4' }} />
+            <div className="flex-1 min-w-0 text-right">
+              <p className="font-mono mb-0.5" style={{ fontSize: '0.62rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b5afa6' }}>To</p>
+              <p className="font-sans font-semibold truncate" style={{ fontSize: '0.92rem', color: '#0f0f0f' }}>{destination}</p>
+            </div>
           </div>
 
-          {/* Contacts */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <p style={{ fontFamily: 'monospace', fontSize: '0.58rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', marginBottom: 2 }}>
-              Contacts
-            </p>
+          {/* All stops */}
+          <p className="font-mono mb-3" style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b5afa6' }}>
+            Route Map — {route.stops.length} stops
+          </p>
+          <ol aria-label={`Stops for Route ${route.routeNumber}`} className="mb-6">
+            {route.stops.map((stop, i) => {
+              const isFirst = i === 0, isLast = i === route.stops.length - 1;
+              return (
+                <li key={i} className="flex items-stretch gap-3.5">
+                  <div className="flex flex-col items-center flex-shrink-0" style={{ width: 18 }}>
+                    <div
+                      style={{
+                        flexShrink: 0, borderRadius: '50%',
+                        width: isFirst || isLast ? 9 : 6, height: isFirst || isLast ? 9 : 6,
+                        marginTop: 11,
+                        background: isFirst || isLast ? '#e85d04' : '#d6cfc4',
+                        boxShadow: isFirst || isLast ? '0 0 0 3px rgba(232,93,4,0.18)' : 'none',
+                      }} />
+                    {!isLast && (
+                      <div className="flex-1 mt-1" style={{ width: 1, minHeight: 6,
+                        background: 'linear-gradient(to bottom, #d6cfc4, #ece8e0)' }} />
+                    )}
+                  </div>
+                  <div className="py-2 flex-1">
+                    <span style={{
+                      fontSize: '0.88rem', lineHeight: 1.45,
+                      fontWeight: isFirst || isLast ? 600 : 400,
+                      color: isFirst || isLast ? '#0f0f0f' : '#6a6a64',
+                    }}>
+                      {stop}
+                    </span>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* Driver & Incharge */}
+          <div className="grid grid-cols-2 gap-3 mb-5">
             {[
-              { label: 'Incharge', name: route.inchargeName, contact: route.inchargeContact, Icon: Phone },
-              { label: 'Driver', name: route.driverName, contact: route.driverContact, Icon: MapPin },
-            ].map(({ label, name, contact, Icon }) => (
-              <div key={label} style={{ borderRadius: 12, padding: '14px 16px', background: '#1c1c26', border: '1px solid rgba(255,255,255,0.07)' }}>
-                <p style={{ fontFamily: 'monospace', fontSize: '0.56rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
-                  <Icon style={{ width: 11, height: 11 }} /> {label}
+              { icon: <MapPin className="w-3 h-3" />, label: 'Driver', name: route.driverName, contact: route.driverContact },
+              { icon: <Phone className="w-3 h-3" />, label: 'Incharge', name: route.inchargeName, contact: route.inchargeContact },
+            ].map(({ icon, label, name, contact }) => (
+              <div key={label} className="rounded-2xl p-4"
+                style={{ background: '#fff', border: '1.5px solid #e8e3d9' }}>
+                <p className="font-mono mb-2 flex items-center gap-1.5"
+                  style={{ fontSize: '0.62rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b5afa6' }}>
+                  {icon} {label}
                 </p>
-                <p style={{ fontSize: '0.84rem', fontWeight: 600, color: 'rgba(255,255,255,0.82)', lineHeight: 1.3, marginBottom: 6 }}>{name}</p>
-                <a href={`tel:${contact}`} style={{ fontFamily: 'monospace', fontSize: '0.79rem', color: '#e85d04', textDecoration: 'none' }}>{contact}</a>
+                <p className="font-semibold leading-snug mb-1.5" style={{ fontSize: '0.86rem', color: '#0f0f0f' }}>{name}</p>
+                <a href={`tel:${contact}`}
+                  className="hover:underline focus-visible:outline-none font-mono block"
+                  style={{ fontSize: '0.82rem', color: '#e85d04' }}>
+                  {contact}
+                </a>
               </div>
             ))}
-            <p style={{ fontSize: '0.63rem', color: 'rgba(255,255,255,0.13)', lineHeight: 1.5, marginTop: 4 }}>
-              Confirm timings with the transport office.
-            </p>
           </div>
+
+          <p className="leading-relaxed" style={{ fontSize: '0.7rem', color: '#b5afa6' }}>
+            Source: mlrit.ac.in/campus-life/transport-facility/ — confirm current details with the transport office.
+          </p>
         </div>
-        </div>{/* end scrollable body */}
       </motion.div>
     </motion.div>
   );
 }
 
-/* ══════════════════════════════════════ DECK STACK CAROUSEL ═════ */
+/* ══════════════════════════════════════ FLIP ROUTE CARD ══════════ */
 
-const CARD_W = 520;
-const CARD_H = 360;
-// Back cards shift upward so their top edges peek above the card in front
-const PEEK_Y   = 18;   // px upward each card sits above the previous
-const PEEK_SCL = 0.04; // scale shrink per depth
-const VISIBLE_STACK = 4;
-const AUTO_MS = 2500;
+interface RouteCardProps {
+  route: BusRoute;
+  onViewDetails: (r: BusRoute) => void;
+}
 
-function DeckCarousel({
-  routes,
-  paused,
-  onTap,
-}: {
-  routes: BusRoute[];
-  paused: boolean;
-  onTap: (r: BusRoute) => void;
-}) {
+function RouteCard({ route, onViewDetails }: RouteCardProps) {
+  const [flipped, setFlipped] = useState(false);
   const prefersReduced = useReducedMotion();
-  const [topIdx, setTopIdx] = useState(0);
-  const [ejecting, setEjecting] = useState(false);
-
-  // Keep mutable refs so the interval callback never goes stale
-  const pausedRef   = useRef(paused);
-  const routesLen   = useRef(routes.length);
-  const ejectingRef = useRef(false);
-  const dirRef      = useRef<1 | -1>(1); // alternates: 1=right, -1=left
-  const [ejectDir, setEjectDir] = useState<1 | -1>(1);
-  useEffect(() => { pausedRef.current = paused; }, [paused]);
-  useEffect(() => { routesLen.current = routes.length; }, [routes.length]);
-
-  const doEject = useCallback(() => {
-    if (ejectingRef.current || pausedRef.current) return;
-    ejectingRef.current = true;
-    const dir = dirRef.current;
-    dirRef.current = dir === 1 ? -1 : 1; // flip for next time
-    setEjectDir(dir);
-    setEjecting(true);
-    setTimeout(() => {
-      setTopIdx(i => (i + 1) % routesLen.current);
-      setEjecting(false);
-      ejectingRef.current = false;
-    }, 300);
-  }, []);
-
-  // Single stable interval — never torn down except on unmount
-  useEffect(() => {
-    const id = setInterval(doEject, AUTO_MS);
-    return () => clearInterval(id);
-  }, [doEject]);
-
-  const jumpTo = (i: number) => {
-    if (ejectingRef.current) return;
-    setTopIdx(i);
-  };
-
-  const goBack = () => {
-    if (ejectingRef.current) return;
-    setTopIdx(i => (i - 1 + routes.length + routes.length) % routes.length);
-  };
-
-  // Build the visible stack: index 0 = top card, 1 = second, …
-  const stackIndices: number[] = [];
-  for (let k = 0; k < VISIBLE_STACK; k++) {
-    stackIndices.push((topIdx + k) % routes.length);
-  }
-
-  // Reset to Route 1 when carousel scrolls out of view
-  const sectionRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          // scrolled past — reset silently
-          setTopIdx(0);
-          ejectingRef.current = false;
-          setEjecting(false);
-          dirRef.current = 1;
-        }
-      },
-      { threshold: 0 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  // Stage height: top card + space for back cards peeking above
-  const peekTotal = PEEK_Y * (VISIBLE_STACK - 1);
-  const stageH = CARD_H + peekTotal + 32;
-
-  const springCfg = prefersReduced
-    ? { type: 'tween' as const, duration: 0 }
-    : { type: 'spring' as const, stiffness: 320, damping: 32, mass: 0.85 };
+  const origin = route.stops[0] ?? '—';
+  const destination = route.stops[route.stops.length - 1] ?? '—';
+  const duration = prefersReduced ? 0 : 0.52;
 
   return (
-    <div ref={sectionRef} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 48, paddingBottom: 64 }}>
+    /* Perspective wrapper — fixed height so the card doesn't expand */
+    <div
+      role="button"
+      tabIndex={0}
+      aria-label={`Route ${route.routeNumber} — ${origin} to ${destination}`}
+      aria-pressed={flipped}
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+      onFocus={() => setFlipped(true)}
+      onBlur={() => setFlipped(false)}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDetails(route); } }}
+      style={{
+        perspective: 1000,
+        height: 320,
+        cursor: 'pointer',
+        userSelect: 'none',
+      }}
+    >
+      {/* Flipper — rotates the whole card */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          transformStyle: 'preserve-3d',
+          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transition: `transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`,
+        }}
+      >
+        {/* ── FRONT FACE ── */}
+        <div
+          style={{
+            position: 'absolute', inset: 0,
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            background: '#fff',
+            border: `1.5px solid ${flipped ? '#f5a96a' : '#e8e3d9'}`,
+            borderRadius: 4,
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            justifyContent: 'center', textAlign: 'center',
+            padding: '28px 20px',
+            boxShadow: flipped ? '0 0 0 4px rgba(232,93,4,0.10), 0 8px 32px rgba(232,93,4,0.12)' : '0 2px 12px rgba(0,0,0,0.06)',
+            transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
+          }}
+        >
+          {/* Large circle badge */}
+          <div style={{
+            width: 80, height: 80, borderRadius: '50%',
+            background: '#fdf5ee',
+            border: '1.5px solid #f5d9c0',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            marginBottom: 16,
+          }}>
+            <span style={{
+              fontFamily: 'sans-serif', fontWeight: 900, fontSize: 30,
+              color: '#e85d04', lineHeight: 1, letterSpacing: '-0.02em',
+            }}>
+              {route.routeNumber}
+            </span>
+          </div>
+          <p style={{
+            fontWeight: 800, fontSize: '1.1rem', color: '#0f0f0f',
+            lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: 5,
+          }}>
+            Route {route.routeNumber}
+          </p>
+          <p style={{
+            fontSize: '0.8rem', color: '#9d9b94',
+            fontFamily: 'monospace', letterSpacing: '0.01em',
+          }}>
+            {route.stops.length} stops
+          </p>
+        </div>
 
-      {/* ── Stack stage ── */}
-      <div style={{ position: 'relative', width: CARD_W, height: stageH, overflow: 'visible', marginTop: peekTotal }}>
-        {/* Render back→front so top card paints last */}
-        {[...stackIndices].reverse().map((routeIdx) => {
-          const depth = stackIndices.indexOf(routeIdx); // 0 = top
-          const route = routes[routeIdx];
-          const isTop  = depth === 0;
-          const isEjecting = isTop && ejecting;
-
-          const scl  = 1 - depth * PEEK_SCL;
-          // depth 0 (top) is at y=0; depth 1 is PEEK_Y above, depth 2 is 2*PEEK_Y above
-          // so back cards peek ABOVE the top card like a real stack viewed from top-down
-          const yPos = -depth * PEEK_Y;
-          const dim  = 1 - depth * 0.13;
-
-          return (
-            <motion.div
-              key={routeIdx}
-              onClick={() => { if (isTop && !isEjecting) { onTap(route); } }}
-              animate={
-                isEjecting
-                  ? { translateX: ejectDir * 520, rotate: ejectDir * 22, opacity: 0, scale: scl * 0.9 }
-                  : { translateX: 0, rotate: 0, opacity: 1, scale: scl }
-              }
-              transition={
-                isEjecting
-                  ? { duration: 0.28, ease: [0.55, 0, 0.85, 0.06] }
-                  : springCfg
-              }
-              style={{
-                position: 'absolute',
-                top: yPos,
-                left: '50%',
-                marginLeft: -CARD_W / 2,
-                width: CARD_W,
-                height: CARD_H,
-                cursor: isTop ? 'pointer' : 'default',
-                zIndex: VISIBLE_STACK - depth,
-                transformOrigin: 'bottom center',
-                userSelect: 'none',
-                filter: `brightness(${dim})`,
-              }}
-            >
-              <div style={{
-                width: '100%', height: '100%',
-                borderRadius: 18,
-                overflow: 'hidden',
-                background: '#e8e4dd',
-                position: 'relative',
-                boxShadow: isTop
-                  ? '0 28px 64px rgba(0,0,0,0.46), 0 8px 24px rgba(0,0,0,0.28)'
-                  : `0 ${4 + depth * 2}px ${16 + depth * 8}px rgba(0,0,0,0.20)`,
-              }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/images/campus/transport/buses/Route ${route.routeNumber} Bus.${route.routeNumber === 2 ? 'jpg' : 'png'}`}
-                  alt={`Route ${route.routeNumber} bus`}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0'; }}
-                  draggable={false}
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center center', padding: '16px 20px' }}
-                />
-
-                {/* Top card label */}
-                {isTop && !isEjecting && (
-                  <div style={{
-                    position: 'absolute', inset: 'auto 0 0 0',
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.18) 65%, transparent 100%)',
-                    padding: '36px 18px 18px',
-                    borderRadius: '0 0 18px 18px',
-                  }}>
-                    <p style={{ fontFamily: 'monospace', fontSize: '0.57rem', letterSpacing: '0.17em', color: 'rgba(255,255,255,0.44)', textTransform: 'uppercase', marginBottom: 5 }}>
-                      {route.stops[0]} → {route.stops[route.stops.length - 1]}
-                    </p>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <p style={{ fontWeight: 900, fontSize: '0.9rem', color: '#fff' }}>
-                        Tap to view details
-                      </p>
-                      <div style={{
-                        background: 'rgba(232,93,4,0.2)', border: '1px solid rgba(232,93,4,0.55)',
-                        borderRadius: 8, padding: '3px 11px',
-                        fontFamily: 'monospace', fontWeight: 800, fontSize: '0.76rem', color: '#e85d04',
-                      }}>
-                        Route {route.routeNumber}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Back-card dimming tint so image is still visible */}
-                {!isTop && (
-                  <div style={{ position: 'absolute', inset: 0, background: `rgba(0,0,0,${0.18 + depth * 0.1})`, borderRadius: 18 }} />
-                )}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Route counter */}
-      <div style={{ marginTop: 18, display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#e85d04', fontWeight: 800, letterSpacing: '0.04em' }}>
-          Route {routes[topIdx].routeNumber}
-        </span>
-        <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.75rem' }}>/ {routes.length}</span>
-      </div>
-
-      {/* Dot track */}
-      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 5, marginTop: 14, maxWidth: 340 }}>
-        {routes.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => jumpTo(i)}
-            aria-label={`Go to route ${i + 1}`}
-            style={{
-              width: i === topIdx ? 22 : 6, height: 6, borderRadius: 99,
-              background: i === topIdx ? '#e85d04' : 'rgba(0,0,0,0.15)',
-              border: 'none', padding: 0, cursor: 'pointer',
-              transition: 'all 0.28s cubic-bezier(0.4,0,0.2,1)', flexShrink: 0,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Prev / Next */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 16 }}>
-        {[
-          { label: '←', action: goBack },
-          { label: '→', action: doEject },
-        ].map(({ label, action }) => (
-          <button key={label} onClick={action} aria-label={label === '←' ? 'Previous' : 'Next'}
-            style={{
-              width: 42, height: 42, borderRadius: '50%', border: 'none',
-              background: '#e85d04', color: '#fff',
-              cursor: 'pointer', fontSize: '1.05rem',
+        {/* ── BACK FACE ── */}
+        <div
+          style={{
+            position: 'absolute', inset: 0,
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            background: 'radial-gradient(ellipse at 50% 0%, rgba(232,93,4,0.07) 0%, #fff 60%)',
+            border: '1.5px solid #f5a96a',
+            borderRadius: 4,
+            display: 'flex', flexDirection: 'column',
+            padding: '18px 18px 16px',
+            boxShadow: '0 0 0 4px rgba(232,93,4,0.08), 0 8px 32px rgba(232,93,4,0.12)',
+          }}
+        >
+          {/* Route badge row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+            <div style={{
+              width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+              background: '#fdf5ee', border: '1.5px solid #f5a96a',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ fontWeight: 900, fontSize: 14, color: '#e85d04', lineHeight: 1 }}>
+                {route.routeNumber}
+              </span>
+            </div>
+            <div>
+              <p style={{ fontWeight: 800, fontSize: '0.96rem', color: '#0f0f0f', lineHeight: 1.1 }}>
+                Route {route.routeNumber}
+              </p>
+              <p style={{ fontSize: '0.7rem', color: '#9d9b94', fontFamily: 'monospace', marginTop: 2 }}>
+                {route.stops.length} stops
+              </p>
+            </div>
+          </div>
+
+          {/* Origin → Destination */}
+          <div style={{
+            padding: '10px 12px', borderRadius: 4,
+            background: '#faf7f0', border: '1px solid #e8e3d9',
+            marginBottom: 12, flex: '0 0 auto',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 3 }}>
+                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#e85d04' }} />
+                <div style={{ width: 1, height: 14, background: '#d6cfc4', margin: '3px 0' }} />
+                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#fff', border: '1.5px solid #c4bdb0' }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ fontSize: '0.8rem', color: '#0f0f0f', fontWeight: 600, lineHeight: 1.3,
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {origin}
+                </p>
+                <p style={{ fontSize: '0.8rem', color: '#6a6a64', marginTop: 10, lineHeight: 1.3,
+                  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {destination}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <button
+            onClick={(e) => { e.stopPropagation(); onViewDetails(route); }}
+            style={{
+              marginTop: 'auto',
+              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+              background: '#e85d04', border: 'none', borderRadius: 4,
+              padding: '11px 0', color: '#fff', fontSize: '0.87rem', fontWeight: 700,
+              cursor: 'pointer', letterSpacing: '0.03em',
+              transition: 'background 0.2s ease',
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#f06a14'; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#e85d04'; }}
           >
-            {label}
+            Full route details
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════ PARALLAX CARD GRID ═══════ */
+
+// Each column scrolls at a different speed — alternating up/down creates depth
+const COL_SPEEDS = [40, -50, 40]; // px travel per column over the scroll range
+
+function ParallaxColumn({
+  routes,
+  colIndex,
+  containerRef,
+  onViewDetails,
+}: {
+  routes: BusRoute[];
+  colIndex: number;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  onViewDetails: (r: BusRoute) => void;
+}) {
+  const prefersReduced = useReducedMotion();
+  const speed = COL_SPEEDS[colIndex % COL_SPEEDS.length];
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReduced ? [0, 0] : [-speed, speed]
+  );
+
+  return (
+    <motion.div
+      style={{ y, display: 'flex', flexDirection: 'column', gap: 16 }}
+    >
+      {routes.map((route) => (
+        <RouteCard key={route.id} route={route} onViewDetails={onViewDetails} />
+      ))}
+    </motion.div>
+  );
+}
+
+function ParallaxCardGrid({
+  routes,
+  onViewDetails,
+}: {
+  routes: BusRoute[];
+  onViewDetails: (r: BusRoute) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const NUM_COLS = 3;
+
+  // Distribute routes into columns in order: col0=[0,3,6…], col1=[1,4,7…]
+  const columns: BusRoute[][] = Array.from({ length: NUM_COLS }, () => []);
+  routes.forEach((r, i) => columns[i % NUM_COLS].push(r));
+
+  return (
+    // Overflow hidden so fast columns don't bleed outside the section
+    <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 40 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))', gap: 16 }}>
+        {columns.map((col, ci) => (
+          <ParallaxColumn
+            key={ci}
+            routes={col}
+            colIndex={ci}
+            containerRef={containerRef}
+            onViewDetails={onViewDetails}
+          />
         ))}
       </div>
     </div>
@@ -454,12 +453,12 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
               Find your route
             </h2>
             <p style={{ fontSize: '0.9rem', color: '#6a6a64', lineHeight: 1.6, maxWidth: 480 }}>
-              {routes.length} routes — auto-cycling from Route 1. Tap the top card for stops and contacts.
+              {routes.length} official routes across Hyderabad. Hover a card to preview stops — then open full details for driver and incharge info.
             </p>
           </div>
 
           {/* ── Search ── */}
-          <div className="mb-2 flex flex-wrap items-center gap-3">
+          <div className="mb-8 flex flex-wrap items-center gap-3">
             <div className="relative min-w-[260px] max-w-[480px] flex-1">
               <label htmlFor="route-search" className="sr-only">Search routes</label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: '#9d9b94' }} />
@@ -500,27 +499,23 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
             )}
           </div>
 
-          {/* ── Deck carousel ── */}
+          {/* ── Card grid ── */}
           {filtered.length === 0 ? (
             <div className="py-20 text-center">
               <MapPin className="w-8 h-8 mx-auto mb-3" style={{ color: '#c4bdb0' }} />
               <p style={{ fontSize: '0.9rem', color: '#9d9b94' }}>No routes match that area or stop.</p>
             </div>
           ) : (
-            <DeckCarousel
-              routes={filtered}
-              paused={activeRoute !== null}
-              onTap={setActiveRoute}
-            />
+            <ParallaxCardGrid routes={filtered} onViewDetails={setActiveRoute} />
           )}
 
         </div>
       </section>
 
-      {/* Detail modal — mounts over everything, pauses carousel while open */}
+      {/* Detail modal */}
       <AnimatePresence>
         {activeRoute && (
-          <RouteDetail route={activeRoute} onClose={() => setActiveRoute(null)} />
+          <RouteModal route={activeRoute} onClose={() => setActiveRoute(null)} />
         )}
       </AnimatePresence>
     </>
