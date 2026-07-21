@@ -37,3 +37,7 @@ Thumbs.db
 homepage/hero.mov
 legacy/homepage/hero.mov
 homepage/*.mp4
+
+# Backend (Python news scraper)
+backend/venv/
+backend/data/*.db

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { LEAD, LEAD_BODY, MID_STORIES, MOST_READ, IN_BRIEF, TIER_STORIES, ARCHIVE, PHOTO_ESSAY, type Story } from '@/lib/chronicles';
+import { type Story } from '@/lib/chronicles';
+import { getLiveNews, getAchievements, formatNewsDate } from '@/lib/newsApi';
+import { CATEGORY_ORDER } from '@/lib/achievementCategories';
+import { buildFrontPage } from '@/lib/frontPage';
 
 export const metadata: Metadata = {
   title: 'MLRIT Chronicles — The campus broadsheet',
@@ -9,7 +12,15 @@ export const metadata: Metadata = {
 
 const SECTIONS = ['Front Page', 'Campus', 'Placements', 'Research', 'Sports', 'Student Voice', 'Alumni', 'Events', 'Faculty', 'Opinion', 'Archive'];
 
-export default function ChroniclesPage() {
+export default async function ChroniclesPage() {
+  const [liveNewsFeed, achievements] = await Promise.all([getLiveNews(60), getAchievements()]);
+  const liveWireTicker = liveNewsFeed.slice(0, 8);
+  const { lead: LEAD, leadBody: LEAD_BODY, midStories: MID_STORIES, mostRead: MOST_READ, inBrief: IN_BRIEF, tierStories: TIER_STORIES, archive: ARCHIVE, photoEssay: PHOTO_ESSAY } = buildFrontPage(liveNewsFeed);
+  const orderedCategories = [
+    ...CATEGORY_ORDER.filter((c) => achievements[c]?.length),
+    ...Object.keys(achievements).filter((c) => !CATEGORY_ORDER.includes(c)),
+  ];
+
   return (
     <div className="bg-white text-foreground font-display">
       {/* MASTHEAD */}
@@ -70,13 +81,12 @@ export default function ChroniclesPage() {
               <span key={i} className={i > 0 ? 'before:mx-2 before:text-muted before:content-["•"]' : ''}>{s.trim()}</span>
             ))}
           </div>
-          <a href={LEAD.href} target="_blank" rel="noopener" className="block border border-black overflow-hidden mb-3.5 group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={LEAD.img!} alt="" className="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-105" />
-          </a>
-          <p className="font-mono text-[0.7rem] tracking-[0.06em] uppercase text-muted border-b border-border pb-3.5 mb-4">
-            <strong className="text-black">FILE PHOTO ·</strong> Trishna 2K26 — the 21st Annual Day at MLR Institute of Technology, Dundigal.
-          </p>
+          {LEAD.img && (
+            <a href={LEAD.href} target="_blank" rel="noopener" className="block border border-black overflow-hidden mb-3.5 group">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={LEAD.img} alt="" className="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-105" />
+            </a>
+          )}
           <div className="space-y-3.5 font-display text-[1.04rem] leading-[1.65]">
             {LEAD_BODY.map((p, i) => (
               <p key={i} className={i === 0 ? "first-letter:font-black first-letter:text-[4.2em] first-letter:float-left first-letter:leading-[0.86] first-letter:mr-3 first-letter:mt-1.5" : undefined}>{p}</p>
@@ -138,6 +148,73 @@ export default function ChroniclesPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          {/* LIVE WIRE — auto-scraped news */}
+          <section>
+            <RailHead label="Live Wire" pill={liveWireTicker.length ? 'Auto-updated' : 'Warming up'} />
+            {liveWireTicker.length === 0 ? (
+              <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
+                No live items yet — the scraper hasn't run, or the news service isn't reachable.
+              </p>
+            ) : (
+              <div className="flex flex-col">
+                {liveWireTicker.map((n) => (
+                  <a
+                    key={n.id}
+                    href={n.link}
+                    target="_blank"
+                    rel="noopener"
+                    className="py-3 border-b border-dashed border-border last:border-b-0 group"
+                  >
+                    <span className="font-mono text-[0.6rem] font-bold tracking-[0.14em] uppercase text-muted">
+                      {n.category} · {formatNewsDate(n.published_at)}
+                    </span>
+                    <p className="font-display font-bold text-[0.96rem] leading-[1.25] tracking-tight mt-1 group-hover:underline group-hover:underline-offset-[3px] group-hover:decoration-2">
+                      {n.title}
+                    </p>
+                    <p className="font-mono text-[0.64rem] tracking-[0.1em] uppercase text-muted mt-1">{n.source}</p>
+                  </a>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* ACHIEVEMENTS — hierarchy by category, newest first within each */}
+          <section>
+            <RailHead label="Achievements" pill="All-time" />
+            {orderedCategories.length === 0 ? (
+              <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
+                Nothing scraped yet — check back once the news service has run.
+              </p>
+            ) : (
+              <div className="flex flex-col gap-5">
+                {orderedCategories.map((category) => (
+                  <div key={category}>
+                    <h4 className="font-sans font-extrabold text-[0.72rem] tracking-[0.16em] uppercase text-black border-b border-black pb-1.5 mb-2">
+                      {category}
+                    </h4>
+                    <ul className="list-none p-0 m-0 flex flex-col gap-2">
+                      {achievements[category].map((item) => (
+                        <li key={item.id}>
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener"
+                            className="font-display text-[0.9rem] leading-[1.3] hover:underline hover:underline-offset-[3px] hover:decoration-2"
+                          >
+                            {item.title}
+                          </a>
+                          <span className="block font-mono text-[0.6rem] tracking-[0.1em] uppercase text-muted mt-0.5">
+                            {formatNewsDate(item.published_at)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         </aside>
       </main>
