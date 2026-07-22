@@ -1,15 +1,14 @@
 import Link from 'next/link';
 
 const IQAC_NAV = [
-  { label: 'Overview',          href: '/iqac' },
-  { label: 'Objectives',        href: '/iqac/objectives' },
-  { label: 'Functions',         href: '/iqac/functions' },
-  { label: 'IQAC Composition',  href: '/iqac/composition' },
+  { label: 'Overview',           href: '/iqac' },
+  { label: 'Objectives',         href: '/iqac/objectives' },
+  { label: 'Functions',          href: '/iqac/functions' },
+  { label: 'IQAC Composition',   href: '/iqac/composition' },
   { label: 'Quality Initiatives', href: '/iqac/initiatives' },
   { label: 'Reports & Documents', href: '/iqac/reports' },
-  { label: 'Feedback',          href: '/iqac/feedback' },
-  { label: 'Best Practices',    href: '/iqac/best-practices' },
-  { label: 'Contact IQAC',      href: '/iqac/contact' },
+  { label: 'Best Practices',     href: '/iqac/best-practices' },
+  { label: 'Support',            href: '/iqac/contact' },
 ];
 
 export default function IQACQuickNav({ active }: { active: string }) {
