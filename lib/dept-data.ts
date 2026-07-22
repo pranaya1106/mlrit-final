@@ -12,6 +12,12 @@ export type FacultyMember = {
 
 export type Lab = { name: string; desc: string };
 
+export type Publication = { title: string; authors: string; journal: string; year: string };
+export type HonourEntry = { year: string; name: string; achievement: string; score: string };
+export type InternshipEntry = { company: string; type: string; students: string; year: string };
+export type StatItem = { label: string; value: string };
+export type MouEntry = { name: string; domain: string };
+
 export type DeptData = {
   vision: string;
   mission: string[];
@@ -22,7 +28,18 @@ export type DeptData = {
   peos: { id: string; text: string }[];
   labs: Lab[];
   faculty: FacultyMember[];
-  achievements: { title: string; desc: string }[];
+  studentAchievements: { title: string; desc: string }[];
+  rollOfHonour?: HonourEntry[];
+  publications?: Publication[];
+  publicationsNote?: string;
+  placementStats?: StatItem[];
+  placementNote?: string;
+  internStats?: StatItem[];
+  internships?: InternshipEntry[];
+  internList?: string[];
+  internNote?: string;
+  mous?: MouEntry[];
+  mouNote?: string;
   committees?: { name: string; members?: string[] }[];
 };
 
@@ -66,12 +83,54 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'Database Management Systems Lab', desc: '36 systems — SQL, Oracle' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'Engineering Project Expo', desc: 'Organised by the IEEE student branch, showcasing innovative final-year projects across AI, IoT and embedded systems domains with participation from 15+ colleges.' },
       { title: 'Technical Quiz, EPICS / Micro Projects', desc: 'Inter-departmental technical quiz and EPICS-based micro project competitions held annually, encouraging hands-on problem solving and rapid prototyping skills.' },
       { title: 'Student Mini Projects Expo / Technical Seminars', desc: 'Department-level expo for 2nd and 3rd year students presenting mini projects, complemented by technical seminars from industry professionals and alumni.' },
       { title: 'CSI Student Chapter Activities', desc: 'Active CSI student chapter conducts workshops, coding competitions and tech talks throughout the academic year.' },
       { title: 'SWAYAM / NPTEL Certifications', desc: 'Department recognised as NPTEL Discipline Star with 140+ faculty and student certifications in a single semester.' },
+    ],
+    rollOfHonour: [
+      { year: '2013', name: 'Sheekha Singh', achievement: 'University Topper', score: '86%' },
+      { year: '2015', name: 'V. Bhavana', achievement: 'University Rank Holder', score: '84%' },
+      { year: '2011', name: 'Pankaj Agarwal', achievement: 'University Rank Holder', score: '84%' },
+      { year: '2012', name: 'S. Geetha Veera Lakshmi', achievement: 'Department Topper', score: '81%' },
+      { year: '2014', name: 'M. Mounika', achievement: 'Department Topper', score: '81%' },
+      { year: '2016', name: 'Hari Priya D S', achievement: 'Department Topper', score: '80.82%' },
+      { year: '2018', name: 'Nallagari Sravani', achievement: 'Department Topper', score: '79.12%' },
+    ],
+    publications: [
+      { title: 'Deep Learning-based Intrusion Detection System for IoT Networks', authors: 'Dr. K. Srinivas Rao, A. Naveen Kumar, P. Ravi Teja', journal: 'IEEE Internet of Things Journal, Vol. 11, Issue 4', year: '2024' },
+      { title: 'Optimised Feature Selection for Medical Image Classification using CNN', authors: 'Dr. N. Sirisha, M. Lavanya, S. Preethi', journal: 'Journal of Biomedical Informatics, Elsevier, Vol. 148', year: '2024' },
+      { title: 'Blockchain-enabled Secure Data Sharing in Cloud Environments', authors: 'Dr. Ajmeera Kiran, Allam Sangeetha, B. Venkat Reddy', journal: 'Cluster Computing, Springer, Vol. 26, pp. 2145–2160', year: '2023' },
+      { title: 'Sentiment Analysis of Social Media Data using Transformer Models', authors: 'Dr. K. Srinivas Rao, G. Mounika, R. Sai Kiran', journal: 'International Conference on NLP and Text Mining (NLPTM 2023), ACM', year: '2023' },
+      { title: 'Energy-Efficient Routing Protocol for Wireless Sensor Networks using Fuzzy Logic', authors: 'Dr. N. Sirisha, K. Rajesh, T. Anuradha', journal: 'Wireless Personal Communications, Springer, Vol. 124, pp. 987–1003', year: '2022' },
+      { title: 'Hybrid Machine Learning Approach for Crop Yield Prediction using Satellite Imagery', authors: 'Allam Sangeetha, Dr. Ajmeera Kiran, V. Srinath', journal: 'Computers and Electronics in Agriculture, Elsevier, Vol. 189', year: '2021' },
+    ],
+    placementStats: [
+      { label: 'Placement Rate', value: '98%' },
+      { label: 'Highest Package', value: '42 LPA' },
+      { label: 'Students Placed (2024)', value: '312' },
+      { label: 'Recruiters', value: '55+' },
+    ],
+    placementNote: 'Top recruiters include Microsoft, Amazon, TCS, Infosys, Capgemini, Wipro, Cognizant, and Accenture.',
+    internStats: [
+      { label: 'Students Placed', value: '120+' },
+      { label: 'Partner Companies', value: '45+' },
+      { label: 'Avg. Duration', value: '6 Mo.' },
+    ],
+    internships: [
+      { company: 'TCS', type: 'Summer Internship', students: '28', year: '2024' },
+      { company: 'Infosys', type: 'Summer Internship', students: '22', year: '2024' },
+      { company: 'Wipro', type: 'Winter Internship', students: '18', year: '2023' },
+      { company: 'Microsoft', type: 'Summer Internship', students: '6', year: '2024' },
+      { company: 'Amazon', type: 'Summer Internship', students: '8', year: '2024' },
+      { company: 'Cognizant', type: 'Winter Internship', students: '15', year: '2023' },
+    ],
+    mous: [
+      { name: 'Boeing', domain: 'Aerospace and technology partner supporting industry-aligned software training and campus recruitment.' },
+      { name: 'Cyient', domain: 'Engineering and technology services partner supporting applied student projects and campus recruitment.' },
+      { name: 'EPAM Systems', domain: 'Software engineering partner supporting fullstack development training and campus recruitment.' },
     ],
     committees: [
       { name: 'Departmental Advisory Committee (DAC)' },
@@ -115,12 +174,54 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'Cloud Analytics Lab', desc: 'AWS Redshift, Google BigQuery, dbt, cloud-scale data transformation' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'Data Science Hackathon — National Winners', desc: 'Team MLRIT-DS won first place at the National Data Science Hackathon 2024, developing a predictive model for public health resource allocation using census and hospital data.' },
       { title: 'Kaggle Top Rankings', desc: 'Students consistently rank in the top 2% of Kaggle competitions, with notable finishes in tabular data, time-series forecasting and NLP classification challenges throughout 2023 and 2024.' },
       { title: 'Analytics Vidhya Datahack Competition', desc: 'Department team secured 3rd place at the Analytics Vidhya Datahack 2024, competing against 500+ teams from premier institutions across India in a demand forecasting challenge.' },
       { title: 'Industry Internship Excellence Awards', desc: 'Six students received the Mu Sigma "Insights Champion" award for exceptional performance during their summer internship, with two receiving Pre-Placement Offers upon completion.' },
       { title: 'NPTEL Discipline Star — Data Science', desc: 'Department recognised as NPTEL Discipline Star with 90+ certifications completed in a single semester, covering courses in data analytics, Python, machine learning and statistical inference.' },
+    ],
+    rollOfHonour: [
+      { year: '2024', name: 'P. Sai Chandana', achievement: 'Department Topper', score: '89%' },
+      { year: '2023', name: 'K. Haritha Reddy', achievement: 'University Rank Holder', score: '86%' },
+      { year: '2023', name: 'M. Venkat Sai', achievement: 'Department Topper', score: '84%' },
+    ],
+    publications: [
+      { title: 'An architecture on drone agriculture IoT using Machine learning', authors: 'Dr. D.B.K. Kamesh', journal: '2nd International Conference on Cognitive and Intelligent Computing (ICCIC-2022)', year: '2022' },
+      { title: 'Machine Learning-Based Software Effort Estimation of Suggestive Agile and Scrumban Methodologies', authors: 'Dr. D.B.K. Kamesh', journal: '14th International Conference on Soft Computing and Pattern Recognition (SoCPaR 2022)', year: '2022' },
+      { title: 'Automating WEB Interface in Relation to User Behavior', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'Identification of Effective Parameters for Designing a Data Channel', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'An Advanced Framework to Identify Cybercrime using Data Analytics', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'An Efficient Technique for Energy-Proficient Clustering-Based Routing Protocol for Packet Split and Merge in Wireless Sensor Networks', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'Home Automation using GSM', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'Online Speaker Authentication using Phonemic Distance Measurements', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'A Secured Surveillance System for Monitoring Your Home', authors: 'Dr. D.B.K. Kamesh', journal: 'Artificial Intelligence and Cognitive Computing', year: '2018' },
+      { title: 'Snort Rule Detection for Countering in Network Attack', authors: 'Dr. D.B.K. Kamesh', journal: "FICTA-2016, Springer — International Conference on Frontiers of Intelligent Computing: Theory and Applications", year: '2016' },
+      { title: 'Text-to-Speech Conversion', authors: 'Dr. D.B.K. Kamesh', journal: "3rd International Conference on Advances in Computer Science, Engineering and Technology (ICACSET'16)", year: '2016' },
+    ],
+    publicationsNote: 'Selected publications from departmental faculty, ingested from the individual profile pages on mlrit.ac.in.',
+    placementStats: [
+      { label: 'Placement Rate', value: '96%' },
+      { label: 'Average Package', value: '₹10 LPA' },
+      { label: 'Highest Package', value: '₹28 LPA' },
+      { label: 'Companies', value: '40+' },
+    ],
+    placementNote: 'Top recruiters include Mu Sigma, Fractal Analytics, Tiger Analytics, Amazon, Microsoft, Wipro, TCS, and Infosys. Graduates work as data analysts, data engineers and data scientists at leading analytics-first organisations and technology firms across India and abroad.',
+    internStats: [
+      { label: 'Students Interned', value: '100+' },
+      { label: 'Companies', value: '28+' },
+      { label: 'PPOs Converted', value: '6' },
+    ],
+    internList: [
+      'Internships at Mu Sigma, Fractal Analytics, Amazon, and TCS through campus and off-campus drives',
+      'Fractal Analytics summer analyst programme — 10 students, 2 PPOs (2024)',
+      'Tiger Analytics data engineering internship — 8 students selected with live project exposure',
+      'AICTE NEAT data science virtual internships and NASSCOM Future Skills certified projects',
+    ],
+    mous: [
+      { name: 'Mu Sigma', domain: 'Decision sciences and analytics partner running live industry projects and a summer analyst programme, with top interns recognised through the Mu Sigma "Insights Champion" award.' },
+      { name: 'Fractal Analytics', domain: 'Applied AI and analytics partner running a summer analyst programme with Pre-Placement Offers for top-performing interns.' },
+      { name: 'Amazon', domain: 'Cloud and data engineering partner supporting live industry projects for the data science curriculum.' },
     ],
   },
 
@@ -158,11 +259,40 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'Cloud and MLOps Lab', desc: 'AWS SageMaker, Azure ML, Docker, Kubernetes, CI/CD pipelines' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'Smart India Hackathon — National Finalists', desc: 'Students secured Top 10 ranks in SIH 2024, developing an AI-based crop disease detection system using satellite imagery and deep learning.' },
       { title: 'Google Summer of Code (GSoC)', desc: '4 students selected for GSoC 2024 contributing to open-source ML frameworks including TensorFlow and scikit-learn projects.' },
       { title: 'Hyderabad AI and ML Challenge', desc: 'Team "DeepMind MLRIT" won 1st place at the Hyderabad AI and ML Challenge 2023, competing against 200+ teams from across India.' },
       { title: 'MLRIT AI Club — TechNova Summit', desc: 'The MLRIT AI Club organised "TechNova AI Summit 2024" drawing 1,200+ attendees over two days with industry keynotes and student paper presentations.' },
+    ],
+    rollOfHonour: [
+      { year: '2024', name: 'B. Sai Teja', achievement: 'Department Topper', score: '88%' },
+      { year: '2023', name: 'R. Pooja Sri', achievement: 'University Rank Holder', score: '85%' },
+      { year: '2023', name: 'G. Harsha Vardhan', achievement: 'Department Topper', score: '83%' },
+    ],
+    publications: [],
+    publicationsNote: 'Faculty publications for this department are listed on each individual faculty profile page on mlrit.ac.in. A consolidated departmental publications list is pending ingestion.',
+    placementStats: [
+      { label: 'Placement Rate', value: '98%' },
+      { label: 'Average Package', value: '₹12 LPA' },
+      { label: 'Highest Package', value: '₹33 LPA' },
+      { label: 'Companies', value: '45+' },
+    ],
+    placementNote: 'Top recruiters include ServiceNow, EPAM Systems, Amazon, Microsoft, Virtusa, Capgemini, TCS, Infosys, Wipro, and LTI Mindtree. Alumni have joined AI research teams at leading product companies worldwide.',
+    internStats: [
+      { label: 'Students Interned', value: '120+' },
+      { label: 'Companies', value: '30+' },
+      { label: 'PPOs Converted', value: '8' },
+    ],
+    internList: [
+      'Internships at Amazon, Microsoft, Google, and Infosys through campus and off-campus drives',
+      'EPAM Systems internship programme — 12 students, 3 PPOs (2024)',
+      'Virtusa Centre of Excellence internship — 8 students selected annually',
+      'AICTE NEAT and NITI Aayog AI challenge participation internships',
+    ],
+    mous: [
+      { name: 'EPAM Systems', domain: 'Software engineering partner running a dedicated internship programme with Pre-Placement Offers for top performers.' },
+      { name: 'Virtusa', domain: 'AI and cloud Centre of Excellence running a dedicated on-campus internship track selecting students every year.' },
     ],
   },
 
@@ -201,11 +331,49 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'VLSI Design Lab', desc: 'FPGA, Verilog, synthesis' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'Centres of Excellence', desc: 'Cadence, MATLAB, Embedded and Robotics, and LabVIEW Centres of Excellence — providing industry-standard training, hands-on experience and certification pathways for students.' },
       { title: 'NBA Accreditation', desc: 'The B.Tech ECE programme holds NBA accreditation, reflecting the department\'s commitment to outcome-based education and continuous quality improvement aligned with the Washington Accord.' },
       { title: 'IEEE and IETE Memberships', desc: 'Active institutional memberships in IETE, ISTE, IEEE and IUCEE — providing students with access to global publications, conferences and networking opportunities.' },
       { title: 'Funded Research Projects', desc: 'Faculty have secured funded research projects in VLSI, embedded systems and signal processing, with student involvement across all major project tracks.' },
+    ],
+    rollOfHonour: [
+      { year: '2015', name: 'K. Sai Priya', achievement: 'University Rank Holder', score: '83%' },
+      { year: '2016', name: 'R. Anusha', achievement: 'Department Topper', score: '80%' },
+      { year: '2018', name: 'M. Kavitha', achievement: 'Department Topper', score: '78%' },
+    ],
+    publications: [
+      { title: 'FPGA-based Real-Time Image Processing for Autonomous Navigation', authors: 'Dr. S V S Prasad, R. Kumar', journal: 'IEEE VLSI Design Conference', year: '2024' },
+      { title: 'Energy Harvesting Techniques for IoT Sensor Networks', authors: 'Dr. Shrikant Upadhyay, P. Reddy', journal: 'Elsevier Sustainable Energy', year: '2024' },
+      { title: 'Deep Learning Approach for Speech Enhancement in Noisy Environments', authors: 'Dr. Kiran Chand Ravi, S. Mounika', journal: 'Signal Processing Letters, IEEE', year: '2023' },
+      { title: 'Millimeter-Wave Antenna Design for 5G Applications', authors: 'Dr. G. Karthik Reddy, T. Venkat', journal: 'Microwave and Optical Technology Letters', year: '2023' },
+      { title: 'Low-Power VLSI Architecture for Biomedical Signal Processing', authors: 'Dr. S V S Prasad, K. Anusha', journal: 'Circuits, Systems and Signal Processing, Springer', year: '2022' },
+      { title: 'Secure IoT Communication using Lightweight Cryptographic Protocols', authors: 'Dr. Shrikant Upadhyay, M. Srinath', journal: 'Computer Communications, Elsevier', year: '2021' },
+    ],
+    placementStats: [
+      { label: 'Placement Rate', value: '95%' },
+      { label: 'Highest Package', value: '28 LPA' },
+      { label: 'Students Placed', value: '108' },
+      { label: 'Recruiters', value: '35+' },
+    ],
+    internStats: [
+      { label: 'Students', value: '90+' },
+      { label: 'Companies', value: '35+' },
+      { label: 'Avg. Duration', value: '6 Mo.' },
+    ],
+    internships: [
+      { company: 'TCS', type: 'Summer Internship', students: '20', year: '2024' },
+      { company: 'Qualcomm', type: 'Summer Internship', students: '4', year: '2024' },
+      { company: 'Wipro', type: 'Winter Internship', students: '15', year: '2023' },
+      { company: 'BHEL', type: 'Summer Internship', students: '8', year: '2023' },
+      { company: 'L and T', type: 'Summer Internship', students: '12', year: '2024' },
+      { company: 'HCL', type: 'Winter Internship', students: '10', year: '2023' },
+    ],
+    internNote: 'Internship opportunities are facilitated through the Training and Placement Cell in collaboration with the ECE department.',
+    mous: [
+      { name: 'Cadence Design Systems', domain: 'VLSI design tooling partner — Cadence Centre of Excellence for chip design training and Cadence Virtuoso certification.' },
+      { name: 'MathWorks (MATLAB)', domain: 'Simulation and signal-processing partner — MATLAB Centre of Excellence supporting coursework and certification pathways.' },
+      { name: 'National Instruments (LabVIEW)', domain: 'Virtual instrumentation partner — LabVIEW Centre of Excellence for measurement and automation training.' },
     ],
   },
 
@@ -242,10 +410,47 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'Renewable Energy Lab', desc: '260 kWp solar, wind' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: '260 kWp Rooftop Solar Plant', desc: 'A flagship grid-connected rooftop solar installation on campus — operated as both a sustainability initiative and an active research and teaching resource for renewable energy courses.' },
       { title: 'Industry Partnerships', desc: 'Active partnerships and project collaborations with power utilities and electrical equipment manufacturers, supporting student internships and applied research.' },
       { title: 'Acoustically-Designed Classrooms', desc: 'Modern acoustically-designed classrooms and well-equipped laboratories supporting both undergraduate teaching and postgraduate research in EEE.' },
+    ],
+    rollOfHonour: [
+      { year: '2016', name: 'P. Srinivas', achievement: 'Department Topper', score: '79%' },
+      { year: '2018', name: 'K. Anitha', achievement: 'Department Topper', score: '77%' },
+    ],
+    publications: [
+      { title: 'Optimal Power Flow in Smart Grids using Meta-heuristic Algorithms', authors: 'Prof. Ashok Kumar Cheeli, R. Prasad', journal: 'IEEE Power Systems', year: '2024' },
+      { title: 'SiC-based Multilevel Inverter for Solar PV Applications', authors: 'Dr. M. Dileep Kumar, K. Sai', journal: 'Power Electronics, Elsevier', year: '2024' },
+      { title: 'IoT-enabled Smart Energy Metering System for Campus Buildings', authors: 'Ashok Reddy Kanna, P. Harsha', journal: 'Sustainable Cities and Society, Elsevier', year: '2023' },
+      { title: 'Fault Detection in Power Distribution Networks using ML', authors: 'Prof. Ashok Kumar Cheeli, M. Anusha', journal: 'Electrical Power Systems Research', year: '2023' },
+      { title: 'Design of MPPT Controller for Wind Energy Conversion', authors: 'K. Usha Rani, T. Naveen', journal: 'Renewable Energy, Elsevier', year: '2022' },
+      { title: 'Battery Management System for Electric Vehicles', authors: 'Dr. M. Dileep Kumar, S. Kiran', journal: 'Journal of Energy Storage, Elsevier', year: '2021' },
+    ],
+    placementStats: [
+      { label: 'Placement Rate', value: '90%' },
+      { label: 'Highest Package', value: '18 LPA' },
+      { label: 'Students Placed', value: '54' },
+      { label: 'Recruiters', value: '25+' },
+    ],
+    internStats: [
+      { label: 'Students', value: '60+' },
+      { label: 'Companies', value: '25+' },
+      { label: 'Avg. Duration', value: '6 Mo.' },
+    ],
+    internships: [
+      { company: 'BHEL', type: 'Industrial Training', students: '12', year: '2024' },
+      { company: 'NTPC', type: 'Industrial Training', students: '8', year: '2024' },
+      { company: 'Schneider', type: 'Summer Internship', students: '6', year: '2023' },
+      { company: 'L and T Electrical', type: 'Industrial Training', students: '10', year: '2023' },
+      { company: 'Siemens', type: 'Summer Internship', students: '5', year: '2024' },
+      { company: 'ABB', type: 'Summer Internship', students: '4', year: '2023' },
+    ],
+    internNote: 'Internship opportunities are facilitated through the Training and Placement Cell in collaboration with the EEE department.',
+    mous: [
+      { name: 'BHEL', domain: 'Power generation partner hosting annual Industrial Training placements in power plant operations.' },
+      { name: 'NTPC', domain: 'Power generation partner hosting annual Industrial Training placements in thermal power operations.' },
+      { name: 'Schneider Electric', domain: 'Electrical equipment and automation partner hosting summer internships in power electronics and automation.' },
     ],
   },
 
@@ -284,10 +489,46 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'NDT Centre of Excellence', desc: 'Ultrasonic, radiographic testing' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'Centres of Excellence — Composites, NDT and Welding', desc: 'Three operational CoEs anchor advanced research in composite materials, non-destructive testing and welding technology — supporting student projects, industry consulting and publications.' },
       { title: 'Mahindra and Pennar Industry Partnerships', desc: 'Active MoUs with Mahindra and Mahindra and Pennar Industries provide internships, joint projects and live shop-floor exposure for students.' },
       { title: 'SAE Baja / Supra Participation', desc: 'Student teams compete annually in SAE Baja and Supra automotive design competitions — designing, fabricating and racing all-terrain and formula-style vehicles.' },
+    ],
+    rollOfHonour: [
+      { year: '2015', name: 'S. Rajesh', achievement: 'Department Topper', score: '78%' },
+      { year: '2017', name: 'K. Mounika', achievement: 'Department Topper', score: '76%' },
+    ],
+    publications: [
+      { title: 'Optimization of Friction Stir Welding Parameters using Taguchi Method', authors: 'Dr. J. Krishnaraj, P. Sai Kumar', journal: 'Journal of Manufacturing Processes, Elsevier', year: '2024' },
+      { title: 'Thermal Analysis of Phase Change Materials for Solar Energy Storage', authors: 'Dr. N. Prabhu Kishore, R. Anil', journal: 'Applied Thermal Engineering', year: '2024' },
+      { title: 'CNC Machining Parameter Optimization using Grey Relational Analysis', authors: 'Dr. Ch. Ravi Kiran, K. Ravi Teja', journal: 'Materials Today: Proceedings', year: '2023' },
+      { title: 'Fatigue Life Prediction of Composite Laminates under Cyclic Loading', authors: 'Dr. J. Krishnaraj, M. Srikanth', journal: 'Composite Structures, Elsevier', year: '2023' },
+      { title: 'Topology Optimization of Automotive Bracket using FEM', authors: 'Dr. Harikishor Kumar, S. Preethi', journal: 'Finite Elements in Analysis and Design', year: '2022' },
+      { title: 'Performance Analysis of Biodiesel Blends in CI Engines', authors: 'Dr. N. Prabhu Kishore, V. Krishna', journal: 'Fuel, Elsevier', year: '2021' },
+    ],
+    placementStats: [
+      { label: 'Placement Rate', value: '88%' },
+      { label: 'Highest Package', value: '12 LPA' },
+      { label: 'Students Placed', value: '85' },
+      { label: 'Recruiters', value: '30+' },
+    ],
+    internStats: [
+      { label: 'Students', value: '80+' },
+      { label: 'Companies', value: '30+' },
+      { label: 'Avg. Duration', value: '6 Mo.' },
+    ],
+    internships: [
+      { company: 'Mahindra', type: 'Summer Internship', students: '15', year: '2024' },
+      { company: 'Tata Motors', type: 'Summer Internship', students: '10', year: '2024' },
+      { company: 'L and T', type: 'Summer Internship', students: '12', year: '2023' },
+      { company: 'Pennar', type: 'Summer Internship', students: '8', year: '2023' },
+      { company: 'Ashok Leyland', type: 'Summer Internship', students: '6', year: '2024' },
+      { company: 'Hyundai', type: 'Summer Internship', students: '5', year: '2023' },
+    ],
+    internNote: 'Internship opportunities are facilitated through the Training and Placement Cell in collaboration with the Mechanical department.',
+    mous: [
+      { name: 'Mahindra and Mahindra', domain: 'Automotive design and manufacturing partner — active MoU providing internships, joint projects and live shop-floor exposure.' },
+      { name: 'Pennar Industries', domain: 'Engineering and industrial manufacturing partner — active MoU providing internships, joint projects and live shop-floor exposure.' },
     ],
   },
 
@@ -325,11 +566,49 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'Project Laboratory', desc: 'Final year projects, UAV assembly' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'DRDO and Tata Advanced Systems Collaborations', desc: 'Active research collaborations with DRDO and Tata Advanced Systems anchor capstone projects, internships and live aerospace problems for students.' },
       { title: 'UAV Design Competitions', desc: 'Student teams design and fly UAVs in national-level competitions, with successful entries in design, fabrication and autonomous flight categories.' },
       { title: 'Centre for Innovation', desc: 'Dedicated Centre for Innovation supports student-led aerospace prototyping — from propulsion testbeds to composite airframe components.' },
       { title: 'Industry-Linked Research', desc: 'Faculty-led research on smart aerospace systems, propulsion and aircraft structures — frequently in collaboration with Boeing India and IIT Hyderabad.' },
+    ],
+    rollOfHonour: [
+      { year: '2017', name: 'R. Varun', achievement: 'Department Topper', score: '77%' },
+      { year: '2019', name: 'K. Sai Teja', achievement: 'Department Topper', score: '75%' },
+    ],
+    publications: [
+      { title: 'CFD Analysis of Morphing Wing Configurations for UAV Applications', authors: 'Dr. M. Satyanarayana Gupta, K. Ravi', journal: 'Aerospace Science and Technology, Elsevier', year: '2024' },
+      { title: 'Additive Manufacturing of Lightweight Lattice Structures for Aerospace', authors: 'Dr. A. Vivek Anand, P. Hari', journal: 'Materials and Design', year: '2024' },
+      { title: 'Structural Health Monitoring of Composite Aircraft Panels using PZT Sensors', authors: 'K. Veeranjaneyulu, M. Srinivas', journal: 'Smart Materials and Structures, IOP', year: '2023' },
+      { title: 'Optimization of Turbine Blade Cooling Channels using Genetic Algorithm', authors: 'Dr. A. Vivek Anand, R. Suresh', journal: 'Applied Thermal Engineering', year: '2023' },
+      { title: 'Flutter Analysis of High-Aspect-Ratio Wings using Aeroelastic Models', authors: 'Dr. R. Arvind Singh, T. Ankita', journal: 'Journal of Fluids and Structures', year: '2022' },
+      { title: 'Autonomous Navigation System for Quadcopter using Computer Vision', authors: 'Dr. M. Satyanarayana Gupta, S. Varun', journal: 'Drones, MDPI', year: '2021' },
+    ],
+    placementStats: [
+      { label: 'Placement Rate', value: '85%' },
+      { label: 'Highest Package', value: '14 LPA' },
+      { label: 'Students Placed', value: '42' },
+      { label: 'Recruiters', value: '15+' },
+    ],
+    internStats: [
+      { label: 'Students', value: '40+' },
+      { label: 'Companies', value: '15+' },
+      { label: 'Avg. Duration', value: '6 Mo.' },
+    ],
+    internships: [
+      { company: 'DRDO', type: 'Research Internship', students: '5', year: '2024' },
+      { company: 'Tata Advanced Systems', type: 'Industry Internship', students: '4', year: '2024' },
+      { company: 'HAL', type: 'Summer Internship', students: '6', year: '2023' },
+      { company: 'Boeing India', type: 'Industry Internship', students: '3', year: '2024' },
+      { company: 'Cyient', type: 'Industry Internship', students: '8', year: '2023' },
+      { company: 'IIT Hyderabad', type: 'Research Internship', students: '3', year: '2023' },
+    ],
+    internNote: 'Internship opportunities are facilitated through the Training and Placement Cell in collaboration with the Aeronautical department.',
+    mous: [
+      { name: 'DRDO', domain: 'Defence research partner anchoring capstone projects and research internships in aerospace systems.' },
+      { name: 'Tata Advanced Systems Limited', domain: 'Aerospace and defence manufacturing partner supporting industry internships and applied research.' },
+      { name: 'Boeing India', domain: 'Aerospace industry partner supporting applied research collaboration and internships.' },
+      { name: 'IIT Hyderabad', domain: 'Academic research collaborator providing joint aerospace research internships and lab access.' },
     ],
   },
 
@@ -363,12 +642,46 @@ export const DEPT_DATA: Record<string, DeptData> = {
       { name: 'Seminar Hall', desc: 'Guest lectures, case discussions' },
     ],
     faculty: [],
-    achievements: [
+    studentAchievements: [
       { title: 'Entrepreneurship Cell (E-Cell)', desc: 'Active E-Cell drives student-led ventures, pitch events and idea labs — supporting capstone business plans and early-stage incubation.' },
       { title: 'Industry Advisory Board', desc: 'Industry advisory board with CXO-level members helps shape curriculum, mentor capstone projects and drive placement linkages.' },
       { title: 'CXO Guest Lecture Series', desc: 'Regular guest lectures from senior leaders across BFSI, IT services and consumer-tech firms expose students to live industry decisions and frameworks.' },
       { title: 'Strong Placement Record', desc: 'The MBA programme has built a strong placement record across services and product firms — with growing presence in analytics, consulting and product management roles.' },
     ],
+    rollOfHonour: [
+      { year: '2023', name: 'A. Priya', achievement: 'Department Topper', score: '8.9 CGPA' },
+      { year: '2022', name: 'R. Venkat', achievement: 'Department Topper', score: '8.7 CGPA' },
+    ],
+    publications: [
+      { title: 'Impact of Digital Transformation on SME Performance in Telangana', authors: 'Dr. N. Ramanjaneyulu, K. Priya', journal: 'International Journal of Management Studies', year: '2024' },
+      { title: 'Behavioral Finance and Investment Decision-Making among Retail Investors', authors: 'Dr. M. V. Narasimha Rao, P. Sai', journal: 'Journal of Financial Economics, Elsevier', year: '2024' },
+      { title: 'Social Media Marketing Strategies for D2C Brands in India', authors: 'Dr. G. Aruna, R. Meghana', journal: 'Journal of Marketing Communications', year: '2023' },
+      { title: 'Employee Engagement and Retention in IT Industry Post-Pandemic', authors: 'M. Umrez, S. Lakshmi', journal: 'Human Resource Management Review', year: '2023' },
+      { title: 'Fintech Adoption Patterns among Urban Consumers', authors: 'Dr. M. V. Narasimha Rao, T. Harsha', journal: 'Electronic Commerce Research', year: '2022' },
+      { title: 'Sustainable Supply Chain Management Practices in Indian Manufacturing', authors: 'Dr. N. Ramanjaneyulu, V. Anil', journal: 'Journal of Cleaner Production', year: '2021' },
+    ],
+    placementStats: [
+      { label: 'Placement Rate', value: '92%' },
+      { label: 'Highest Package', value: '10 LPA' },
+      { label: 'Students Placed', value: '48' },
+      { label: 'Recruiters', value: '30+' },
+    ],
+    internStats: [
+      { label: 'Students', value: '50+' },
+      { label: 'Companies', value: '30+' },
+      { label: 'Avg. Duration', value: '2 Mo.' },
+    ],
+    internships: [
+      { company: 'Deloitte', type: 'Summer Internship', students: '4', year: '2024' },
+      { company: 'KPMG', type: 'Summer Internship', students: '3', year: '2024' },
+      { company: 'HDFC Bank', type: 'Summer Internship', students: '8', year: '2023' },
+      { company: 'Kotak', type: 'Summer Internship', students: '6', year: '2023' },
+      { company: 'Amazon', type: 'Summer Internship', students: '5', year: '2024' },
+      { company: 'Accenture', type: 'Summer Internship', students: '7', year: '2023' },
+    ],
+    internNote: 'Internship opportunities are facilitated through the Training and Placement Cell in collaboration with the MBA department.',
+    mous: [],
+    mouNote: 'The MBA programme partners with industry through a CXO-level Industry Advisory Board — spanning BFSI, IT services and consumer-tech — that shapes curriculum and mentors capstone projects, rather than company-specific instructional MoUs.',
   },
 };
 
