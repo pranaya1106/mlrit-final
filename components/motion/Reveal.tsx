@@ -5,7 +5,7 @@
 // HTML tags. Pass `delay` to stagger when multiple Reveals appear in sequence.
 
 import { motion, type Variants, type HTMLMotionProps } from 'framer-motion';
-import { ElementType, ReactNode } from 'react';
+import React, { ElementType, ReactNode } from 'react';
 
 type Preset = 'fade' | 'up' | 'right' | 'scale' | 'down';
 
@@ -60,6 +60,7 @@ export default function Reveal({
 export function Stagger({
   children,
   className,
+  style,
   delay = 0.08,
   staggerInitial = 0.05,
   once = true,
@@ -67,6 +68,7 @@ export function Stagger({
 }: {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   delay?: number;
   staggerInitial?: number;
   once?: boolean;
@@ -82,6 +84,7 @@ export function Stagger({
         show: { transition: { staggerChildren: delay, delayChildren: staggerInitial } },
       }}
       className={className}
+      style={style}
     >
       {children}
     </motion.div>
