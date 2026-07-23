@@ -69,7 +69,7 @@ export const NAV_PRIMARY: NavItem[] = [
           // TODO: replace interim routes once /student-life/* pages are built
           { label: 'Overview',                    href: '/student-life' },
           { label: 'Discover MLR',                href: '/campus/sports' },    // interim → /student-life/discover-mlr
-          { label: 'Facilities & Amenities', href: '/campus/cafeteria' }, // interim → /student-life/facilities
+          { label: 'Facilities & Amenities', href: '/student-life/facilities' },
           { label: 'Hostel',                      href: '/campus/hostels' },
           { label: 'Sports',                      href: '/campus/sports' },
           { label: 'Transport',                   href: '/campus/transport' },
