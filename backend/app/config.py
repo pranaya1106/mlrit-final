@@ -20,6 +20,12 @@ LANGUAGE_EDITIONS = [
     "hl=te-IN&gl=IN&ceid=IN:te",  # Telugu — Sakshi, Eenadu, Namasthe Telangana, ETV Bharat Telugu etc.
 ]
 
+# MLRIT's own newsroom — a direct source, not just whatever third-party press
+# Google News happens to have indexed. Every item here is already about MLRIT
+# and already vetted by the college, so it skips is_target_college/is_positive.
+OFFICIAL_NEWS_URL = "https://mlrit.ac.in/category/news/"
+OFFICIAL_NEWS_MAX_PAGES = 8
+
 SCRAPE_INTERVAL_HOURS = 6
 
 CORS_ORIGINS = [
@@ -60,6 +66,12 @@ POSITIVE_KEYWORDS = [
     "gold medallist", "first place", "1st place", "represent",
     "bag ", "bags ", "bagged", "first prize", "1st prize", "clinches",
     "clinched", "laurels", "state-level", "national-level",
+    # Everyday campus-event coverage — most legitimate press about the college
+    # describes an event rather than an explicit "win", and was being dropped.
+    "hosts", "hosted", "organizes", "organises", "organized", "organised",
+    "celebrat", "inaugurat", "concludes", "conducted", "conducts",
+    "participat", "delegation", "launch", "felicitates",
+    "workshop", "seminar", "conclave", "fest", "graduation", "orientation",
     # Telugu equivalents — regional press expresses these concepts in Telugu script
     # even when the institution name/acronyms stay in English.
     "పురస్కారం", "సత్కారం", "సత్కరించారు", "అవార్డు", "సాధించారు",

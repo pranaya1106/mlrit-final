@@ -1,0 +1,10 @@
+name = "mlrit-chronicles-api"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# One-time setup (see worker/README.md):
+#   wrangler kv namespace create NEWS_KV
+# then replace REPLACE_WITH_KV_NAMESPACE_ID below with the id it prints.
+kv_namespaces = [
+  { binding = "NEWS_KV", id = "0f02e4a348c542b4b7e81831cd31395e" }
+]

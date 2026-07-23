@@ -2,6 +2,7 @@ import sqlite3
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
+from .aggregate import group_achievements
 from .config import DB_PATH
 
 SCHEMA = """
@@ -50,6 +51,16 @@ def link_exists(link: str) -> bool:
         conn.close()
 
 
+def get_all_links() -> set[str]:
+    """One roundtrip dedup set for a whole scrape run, instead of a link_exists()
+    query per candidate — also what run_scrape() hands to scraper.fetch_candidates()."""
+    conn = get_conn()
+    try:
+        return {row["link"] for row in conn.execute("SELECT link FROM news_items")}
+    finally:
+        conn.close()
+
+
 def get_items_missing_image() -> list[dict]:
     conn = get_conn()
     try:
@@ -76,7 +87,15 @@ def _normalize_published(published_raw: str) -> str:
     try:
         return parsedate_to_datetime(published_raw).astimezone(timezone.utc).isoformat()
     except (TypeError, ValueError):
-        return datetime.now(timezone.utc).isoformat()
+        pass
+    # MLRIT's own newsroom (app/scraper.py's _scrape_official_site) gives dates
+    # as "13-07-2026", not RFC-822 — parsedate_to_datetime can't touch that.
+    for fmt in ("%d-%m-%Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(published_raw, fmt).replace(tzinfo=timezone.utc).isoformat()
+        except ValueError:
+            continue
+    return datetime.now(timezone.utc).isoformat()
 
 
 def upsert_news_item(
@@ -149,10 +168,4 @@ def get_achievements(per_category_limit: int = 15) -> dict[str, list[dict]]:
     finally:
         conn.close()
 
-    grouped: dict[str, list[dict]] = {}
-    for row in rows:
-        item = _row_to_dict(row)
-        bucket = grouped.setdefault(item["category"] or "Campus News", [])
-        if len(bucket) < per_category_limit:
-            bucket.append(item)
-    return grouped
+    return group_achievements([_row_to_dict(r) for r in rows], per_category_limit)
