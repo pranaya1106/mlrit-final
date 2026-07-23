@@ -5,10 +5,10 @@ import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import Reveal from '@/components/motion/Reveal';
 
 const WALL_STATS = [
-  { val: '₹33 LPA', lbl: 'Highest Package' },
-  { val: '536+',    lbl: 'Offers · 2025'   },
-  { val: '62+',     lbl: 'Companies'       },
-  { val: '7000+',   lbl: 'Alumni Placed'   },
+  { val: '81%',     lbl: 'Students getting placed' },
+  { val: '7000+',   lbl: 'Alumni in MNCs'          },
+  { val: '200+',    lbl: 'Campus visiting partners' },
+  { val: '₹58 LPA', lbl: 'Highest package'         },
 ];
 
 export default function PlacementsWall() {
@@ -82,7 +82,7 @@ export default function PlacementsWall() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-white/72 font-light leading-relaxed text-[1.1rem] max-w-[720px] mb-14">
-            80% and above placements every year — engineers from MLRIT land roles at the world's most respected organisations.
+            81% students placed every year — engineers from MLRIT land roles at the world's most respected organisations.
           </p>
         </Reveal>
         <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 pt-8 border-t border-white/15 max-w-[920px]" delay={0.1}>

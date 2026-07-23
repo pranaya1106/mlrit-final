@@ -6,9 +6,11 @@ import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 
 export default function PlacementsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isOverview = pathname === '/placements/overview';
+
   return (
     <div className="bg-white">
-      <PlacementsWall />
+      {isOverview && <PlacementsWall />}
       <PlacementsQuickNav active={pathname} />
       {children}
     </div>

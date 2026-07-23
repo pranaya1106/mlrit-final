@@ -1,22 +1,14 @@
 'use client';
 
+import type { Metadata } from 'next';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
-import { PLACEMENT_OVERVIEW } from '@/lib/placements';
+import { PLACEMENT_HIGHLIGHTS, PLACEMENT_OVERVIEW } from '@/lib/placements';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
   WebkitBackgroundClip: 'text', backgroundClip: 'text',
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
-
-const HIGHLIGHTS = [
-  { val: '80%+',   label: 'Placement Rate',      sub: 'Consistently every year'        },
-  { val: '20+',    label: 'Years of Excellence',  sub: 'Since inception'                },
-  { val: '7000+',  label: 'Alumni Placed',        sub: 'Across industries'              },
-  { val: '200+',   label: 'Hiring Partners',      sub: 'MNCs to startups'               },
-  { val: '₹58 LPA',label: 'Highest Package',      sub: 'Amazon SDE · 2023'              },
-  { val: '1236',   label: 'Offers in a Season',   sub: 'Record · 2022'                  },
-];
 
 const WHY_MLRIT = [
   {
@@ -25,7 +17,7 @@ const WHY_MLRIT = [
   },
   {
     heading: 'Centres of Excellence',
-    body: 'On-campus Centres of Excellence with Virtusa and EPAM Systems give students hands-on exposure to live industry projects before they graduate.',
+    body: 'On-campus Centres of Excellence with Virtusa, EPAM Systems, HCL Tech, and Tata Technologies give students hands-on exposure to live industry projects before they graduate.',
   },
   {
     heading: 'Top-Tier Recruiters',
@@ -48,7 +40,7 @@ const WHY_MLRIT = [
 export default function PlacementsOverviewPage() {
   return (
     <>
-      {/* Overview hero text */}
+      {/* Overview intro */}
       <section className="bg-white py-20 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
@@ -59,14 +51,21 @@ export default function PlacementsOverviewPage() {
             <p className="mt-5 max-w-[760px] text-muted leading-relaxed text-[1.06rem]">{PLACEMENT_OVERVIEW}</p>
           </Reveal>
 
-          {/* Highlight numbers */}
+          {/* Placement highlights */}
           <Stagger className="mt-14 grid grid-cols-2 md:grid-cols-3 gap-5" delay={0.07}>
-            {HIGHLIGHTS.map((h) => (
+            {PLACEMENT_HIGHLIGHTS.map((h) => (
               <StaggerItem key={h.label}>
                 <div className="rounded-2xl border border-border bg-warm-light p-7 h-full">
-                  <div className="font-sans font-black text-foreground leading-none tracking-tighter-2 text-[clamp(1.8rem,3vw,2.8rem)]">{h.val}</div>
+                  <div
+                    className="font-sans font-black text-foreground leading-none tracking-tighter-2 text-[clamp(1.8rem,3vw,2.8rem)]"
+                    aria-label={`${h.value} — ${h.label}`}
+                  >
+                    {h.value}
+                  </div>
                   <div className="mt-2 font-sans font-semibold text-foreground text-[0.95rem]">{h.label}</div>
-                  <div className="mt-1 font-mono text-[0.72rem] tracking-[0.12em] text-muted">{h.sub}</div>
+                  {h.sub && (
+                    <div className="mt-1 font-mono text-[0.72rem] tracking-[0.12em] text-muted">{h.sub}</div>
+                  )}
                 </div>
               </StaggerItem>
             ))}
