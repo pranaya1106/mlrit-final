@@ -749,6 +749,132 @@ export const INFO_PAGES: Record<string, InfoPage> = {
       { kind: 'cta', label: 'See homepage events showcase →', href: '/#events' },
     ],
   },
+
+  /* ──────────────────── FACILITIES & AMENITIES ──────────────────── */
+
+  'student-life/facilities': {
+    eyebrow: 'Campus · Life',
+    title: 'Facilities &',
+    italic: 'Amenities',
+    dek: 'A campus built for the complete student — 26,000 sq ft indoor stadium, dual hostels, a central cafeteria, 27 bus routes, and over 30 active student clubs.',
+    crumbs: [{ label: 'Home', href: '/' }, { label: 'Life at MLR', href: '/student-life' }, { label: 'Facilities & Amenities' }],
+    blocks: [
+      {
+        kind: 'lead',
+        text:
+          'MLRIT was designed around the premise that infrastructure shapes character. Every facility on campus — from the floodlit cricket ground to the 24×7 hostel wi-fi — exists to keep students focused, comfortable, and growing.',
+      },
+      {
+        kind: 'stat-strip',
+        variant: 'ink',
+        items: [
+          { num: '26,000+', label: 'Sq ft indoor sports complex' },
+          { num: '27',      label: 'Institute bus routes' },
+          { num: '4',       label: 'Meals served daily in hostels' },
+          { num: '30+',     label: 'Active student clubs' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Sports & Fitness', title: 'A stadium built for', italic: 'champions.' },
+      {
+        kind: 'paragraph',
+        text:
+          'The MLRIT indoor stadium spans more than 26,000 sq ft across two floors with gallery seating for 1,000. Inside: 10 badminton courts, 20 table-tennis tables, a fully-equipped gym, 4 snooker tables, a squash court, a dedicated fencing hall, and Zumba and meditation halls. Outdoors, a cricket ground with four 77,000-watt floodlights enables evening matches — alongside volleyball, basketball, kabaddi, kho-kho and football facilities.',
+      },
+      {
+        kind: 'stat-grid',
+        items: [
+          { num: '26,000+', label: 'Sq ft indoor stadium' },
+          { num: '10',      label: 'Badminton courts' },
+          { num: '20',      label: 'Table-tennis tables' },
+          { num: '1,000',   label: 'Stadium seating capacity' },
+          { num: '4',       label: 'Cricket floodlights' },
+          { num: '32',      label: 'Stadium guest rooms' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Hostel Life', title: 'On-campus living,', italic: 'sorted.' },
+      {
+        kind: 'paragraph',
+        text:
+          'Separate, fully managed hostels for boys and girls sit within 100 metres of the academic blocks. All rooms are air-cooled with attached washrooms and study furniture. Resident wardens, a medical room, and 24×7 security keep campus life safe; four meals a day and a weekly-rotating mess menu keep it comfortable.',
+      },
+      {
+        kind: 'pillars',
+        items: [
+          {
+            variant: 'green',
+            icon: 'building',
+            eyebrow: 'Boys Hostel',
+            title: 'Secure, connected, comfortable.',
+            bullets: [
+              'Air-cooled rooms with study furniture',
+              '24×7 wi-fi and security',
+              'Recreation room with indoor games',
+              'Medical room and resident warden',
+            ],
+          },
+          {
+            variant: 'light',
+            icon: 'building',
+            eyebrow: 'Girls Hostel',
+            title: 'Same standards, dedicated block.',
+            bullets: [
+              'Separate block with female wardens',
+              'Attached washrooms in every room',
+              'Reading lounge and common areas',
+              '4 meals a day from qualified caterers',
+            ],
+          },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Cafeteria', title: 'Campus food that keeps you', italic: 'going.' },
+      {
+        kind: 'bullets',
+        title: 'What to expect',
+        items: [
+          'Central cafeteria open 8 am – 8 pm, serving South Indian, North Indian, Chinese and continental menus.',
+          'Food courts inside the engineering and management blocks for between-class convenience.',
+          'Weekly rotating menus — quality-audited kitchens with routine hygiene checks.',
+          'Pre-paid card system for cashless transactions across all food outlets.',
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Transport', title: '27 routes. Every', italic: 'working day.' },
+      {
+        kind: 'paragraph',
+        text:
+          'MLRIT operates a GPS-tracked fleet of buses spanning Hyderabad, Secunderabad and the surrounding suburbs. The first bus departs at 6:30 AM; special evening shuttles run after extended labs and project sessions. A parent app provides live tracking for every route.',
+      },
+      {
+        kind: 'stat-grid',
+        items: [
+          { num: '27',     label: 'Active routes' },
+          { num: '400+',   label: 'Stops covered' },
+          { num: '6:30 AM', label: 'First departure' },
+          { num: 'GPS',    label: 'Tracked in real-time' },
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Student Community', title: 'Clubs for every', italic: 'interest.' },
+      {
+        kind: 'cards',
+        items: [
+          { title: 'Coding & Robotics',    body: 'Hackathons, ACM-ICPC training, robotics competitions, IEEE student branch.', href: '/campus/clubs' },
+          { title: 'Cultural Societies',   body: 'Dance crews, music ensembles, theatre, photography, fine arts.' },
+          { title: 'Literary & Debate',    body: 'Literary club, debate society, model UN, quizzing teams.' },
+          { title: 'Social & Service',     body: 'NSS unit, Rotaract, blood-donation drives, rural outreach.' },
+          { title: 'Department Societies', body: 'Tech societies across CSE, ECE, EEE, MECH, IT and AI&ML.' },
+          { title: 'Sports Clubs',         body: 'Cricket, football, kabaddi, basketball, badminton, athletics.', href: '/campus/sports' },
+        ],
+      },
+      {
+        kind: 'button-group',
+        items: [
+          { label: 'Explore Sports →',   href: '/campus/sports' },
+          { label: 'Hostel info →',      href: '/campus/hostels',   variant: 'outline' },
+          { label: 'Plan your route →',  href: '/campus/transport', variant: 'outline' },
+          { label: 'Student Clubs →',    href: '/campus/clubs',     variant: 'outline' },
+        ],
+      },
+    ],
+  },
 };
 
 export function getInfoPage(slug: string): InfoPage | undefined {
