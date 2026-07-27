@@ -41,6 +41,8 @@ export type DeptData = {
   mous?: MouEntry[];
   mouNote?: string;
   committees?: { name: string; members?: string[] }[];
+  /** Optional subject-wise filter for the Faculty Profiles tab, keyed by faculty slug. */
+  facultySubjects?: Record<string, string>;
 };
 
 export const DEPT_DATA: Record<string, DeptData> = {
@@ -682,6 +684,90 @@ export const DEPT_DATA: Record<string, DeptData> = {
     internNote: 'Internship opportunities are facilitated through the Training and Placement Cell in collaboration with the MBA department.',
     mous: [],
     mouNote: 'The MBA programme partners with industry through a CXO-level Industry Advisory Board — spanning BFSI, IT services and consumer-tech — that shapes curriculum and mentors capstone projects, rather than company-specific instructional MoUs.',
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // H&S (Freshman Engineering — Department of Humanities and Sciences)
+  // ═══════════════════════════════════════════════════════════════
+  hs: {
+    vision:
+      'To attain excellence in pedagogy in the areas of humanities and basic sciences, to face the emerging global challenges efficiently and to make the students expert professionals in their fields.',
+    mission: [
+      'Encourage the students to know the practical applications of concepts through experience and participation.',
+      'Develop students’ ability to converse rationally, speculatively and inventively in ways that are appropriate across the disciplines.',
+      'Endeavor to excel in knowledge and human resource capacity building in science without sacrificing quality and quantity.',
+      'Provide students with soft skills and behavioral training programs in order to develop their overall personality and social consciousness.',
+      'Provide an amicable ambience to inspire the students to indulge in creativity and innovation.',
+    ],
+    history:
+      'The Department of Humanities and Sciences delivers the common first-year foundation shared by every B.Tech branch at MLRIT — covering mathematics, physics, chemistry, programming and communication skills before students specialise in their chosen engineering discipline.',
+    introduction:
+      'Engineering is all about applying science and mathematics practically to come up with solutions to problems we face in our daily lives. STEM education is an important learning tool for today\'s students — it encourages critical thinking, problem management skills, and uses real-world applications to promote innovation. The department\'s programme supports educators in providing students with more personalised learning, often supported by innovative technologies.',
+    hodMessage:
+      'We build the common foundation every engineering branch stands on — strong fundamentals in mathematics, sciences and communication, delivered through active learning, micro-projects and community-oriented engineering practice. Our goal is to make every first-year student an expert professional in the making.',
+    teachingMethodology:
+      'Key differentiators of the department\'s innovative practices include Micro Projects in the first-year to help students understand concepts deeply, COTS (Concept Oriented Tutorials) to build students\' strategic knowledge, EPICS (Engineering Projects in Community Service) encouraging engineering for community improvement, SPEED (Student Platform for Engineering Education Development) empowering students to drive change in engineering education, active learning methodologies that promote critical thinking, and Seminar Hours with COSHISS (Consortium of Students Helping Improve Speaking Skills) to teach the art of communication.',
+    peos: [],
+    labs: [
+      { name: 'Advanced Engineering Physics Lab', desc: 'Physics experiments and instrumentation for first-year engineering foundations' },
+      { name: 'Computer Aided Engineering Drawing Lab', desc: 'CAD fundamentals and engineering graphics' },
+      { name: 'Chemistry Lab', desc: 'Engineering chemistry experiments and analysis' },
+      { name: 'Programming Problem Solving Lab', desc: 'Foundational programming logic and problem solving' },
+      { name: 'Basic Electric Engineering Lab', desc: 'Core electrical circuits and measurement' },
+      { name: 'English Language and Communication Skills Lab', desc: 'Spoken English, presentation and communication skills' },
+      { name: 'Engineering Workshop', desc: 'Hands-on fabrication and workshop practice' },
+      { name: 'Python Programming Lab', desc: 'Python programming fundamentals' },
+      { name: 'Data Structures Lab', desc: 'Foundational data structures and algorithms' },
+      { name: 'IOT and IT Workshop Lab', desc: 'Introductory IoT and IT workshop practice' },
+    ],
+    faculty: [],
+    studentAchievements: [
+      { title: 'ISRO Space Centre Visit', desc: 'First-year students visited the Satish Dhawan Space Centre, ISRO, Sriharikota, as part of an industry and research exposure programme.' },
+      { title: 'Leadership and Study Skills Workshop', desc: 'A one-day training programme on Leadership Skills, Study Skills and Memory Skills was organised for first-year students by Dr. C. S. Vepa, Director of the National School of Banking.' },
+      { title: 'Cambridge BEC Certification Overview', desc: 'An overview of the Cambridge BEC (Business English Certificate) programme and its importance was presented to registered students by the Associate Territory Manager for Cambridge.' },
+    ],
+    publications: [
+      { title: 'Multimodal Molecular Logic System: Designed on the Unimolecular Platform of an ICT Based Hydrazone Probe', authors: 'M. Karar, H. V. Barkale, N. Dey', journal: 'ChemPlusChem', year: '2025' },
+      { title: 'Evanescent Wave in Multiple Slit Diffraction and n-Array Antennas in Metamaterial using Cesàro Convergence', authors: 'Dr. N. Yuganand', journal: 'Scientific Reports, Nature Portfolio', year: '2023' },
+      { title: 'Red Edge Effect of Chalcone Derivatives and Their Application in Bio-Sensing', authors: 'A. Saha, M. Karar, S. Choudhury', journal: 'RSC Advances', year: '2025' },
+      { title: 'Probing New Physics in Semileptonic Λb Decays', authors: 'Dr. Atasi Ray', journal: 'Physical Review D, Vol. 99', year: '2019' },
+      { title: 'Singularly Perturbed Two-Point Boundary Value Problem by Applying Hyperbolic Descent Dynamic Method', authors: 'Neela Amar Nath', journal: 'International Journal of Engineering Applied Sciences and Technology', year: '2022' },
+      { title: 'A Doll\'s House', authors: 'Dr. Nirmala Kumari Velpula', journal: 'Criterion', year: '2017' },
+    ],
+    publicationsNote: 'A curated selection of faculty publications — full individual publication and patent records are available on each faculty member\'s profile page.',
+    facultySubjects: {
+      'atasi-ray-hs': 'Physics',
+      'ayyadevara-venkata-laxman-rao-hs': 'Physics',
+      'ch-lakshmi-rajesh-hs': 'Physics',
+      'k-krishnudu-hs': 'Physics',
+      'n-yuganand-hs': 'Physics',
+      'dr-s-deepthi-hs': 'Physics',
+      'sri-ram-shiva-kumar-hs': 'Physics',
+      'subhasish-saha-hs': 'Physics',
+      'dr-y-anantha-lakshmi-hs': 'Physics',
+      'andugula-shilpa-hs': 'Mathematics',
+      'ch-achi-reddy-hs': 'Mathematics',
+      'g-ravindranath-reddy-hs': 'Mathematics',
+      'j-anilreddy-hs': 'Mathematics',
+      'l-ratna-priya-hs': 'Mathematics',
+      'manduva-sudheer-kumar-hs': 'Mathematics',
+      'neela-amar-nath-hs': 'Mathematics',
+      'neela-praveen-kumar-hs': 'Mathematics',
+      'sujatha-mannava-hs': 'Mathematics',
+      'amrita-saha-hs': 'Chemistry',
+      'monaj-karar-hs': 'Chemistry',
+      'mopur-vijaya-bhaskar-reddy-hs': 'Chemistry',
+      'srinivas-indla-hs': 'Chemistry',
+      'sumalatha-manne-hs': 'Chemistry',
+      'v-haripriya-hs': 'Chemistry',
+      'arif-ahammed-hs': 'English',
+      'momin-ali-hs': 'English',
+      'nirmala-kumari-velpula-hs': 'English',
+      'subhadeep-kumar-hs': 'English',
+      'umamaheswara-rao-bontha-hs': 'English',
+      'veera-raghavulu-t-hs': 'English',
+      'vishal-nakka-hs': 'English',
+    },
   },
 };
 

@@ -54,7 +54,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'overview',     label: 'Overview' },
   { id: 'objectives',   label: 'Objectives and Outcomes' },
   { id: 'faculty',      label: 'Faculty Profiles' },
-  { id: 'academics',    label: 'Academics' },
+  { id: 'academics',    label: 'Curriculum' },
   { id: 'achievements', label: 'Achievements' },
   { id: 'publications', label: 'Publications and Research' },
   { id: 'placements',   label: 'Internships and Placements' },
@@ -114,9 +114,35 @@ export default function DepartmentDetail({ department: d }: Props) {
     peos: d.peos.map((p) => ({ id: p.id, text: p.text })),
   };
 
+  // Some departments (e.g. the shared first-year foundation) have no
+  // placements/internships or industry MoUs — hide those tabs rather than
+  // showing an empty section.
+  const showPlacements = !!(
+    data.placementStats?.length ||
+    data.internStats?.length ||
+    data.internships?.length ||
+    data.internList?.length
+  );
+  const showMous = !!(data.mous?.length || data.mouNote);
+  const visibleTabs = TABS.filter((t) => {
+    if (t.id === 'placements') return showPlacements;
+    if (t.id === 'mous') return showMous;
+    return true;
+  });
+
+  // The H&S Curriculum tab shows each branch's Year 1 syllabus instead of the
+  // usual PDFs/catalog/explorer layout — give it its own quick-nav.
+  const quickNavItems: { id: string; label: string }[] =
+    tab === 'academics' && d.slug === 'hs'
+      ? [
+          { id: 'syllabus-pdfs',   label: 'Syllabus PDF' },
+          { id: 'syllabus-inline', label: 'Year 1 Syllabus' },
+        ]
+      : QUICK_NAV[tab];
+
   // Scroll-spy — highlight nav item matching the section in view
   useEffect(() => {
-    const items = QUICK_NAV[tab];
+    const items = quickNavItems;
     if (!items.length) return;
     setActiveNav(items[0].id);
     const observer = new IntersectionObserver(
@@ -177,7 +203,7 @@ export default function DepartmentDetail({ department: d }: Props) {
       {/* ── STICKY TAB BAR ─────────────────────────────────── */}
       <nav className="bg-white border-b border-border sticky z-40 overflow-x-auto transition-[top] duration-300 ease-out-quart" style={{ top: 'var(--subnav-top)' }}>
         <div className="flex items-center gap-1 max-w-[1600px] mx-auto px-2 md:px-6" style={{ scrollbarWidth: 'none' }}>
-          {TABS.map((t) => {
+          {visibleTabs.map((t) => {
             const active = t.id === tab;
             return (
               <button
@@ -212,7 +238,7 @@ export default function DepartmentDetail({ department: d }: Props) {
               Quick Nav
             </div>
             <nav className="flex flex-col gap-0.5">
-              {QUICK_NAV[tab].map((n) => {
+              {quickNavItems.map((n) => {
                 const active = activeNav === n.id;
                 return (
                   <button
@@ -552,11 +578,18 @@ function ObjectivesPanel({ d, data }: PanelProps) {
 
 function FacultyPanel({ d, data }: PanelProps) {
   const newFaculty = getFacultyByDepartment(d.slug);
+  const subjectMap = data.facultySubjects;
+  const [subjectFilter, setSubjectFilter] = useState<string>('all');
 
   // Fall back to old data only if no new records exist for this dept
   const useNew = newFaculty.length > 0;
 
   if (useNew) {
+    const subjects = subjectMap ? Array.from(new Set(Object.values(subjectMap))).sort() : [];
+    const visibleFaculty = subjectMap && subjectFilter !== 'all'
+      ? newFaculty.filter((f) => subjectMap[f.slug] === subjectFilter)
+      : newFaculty;
+
     return (
       <div>
         <PanelHeading id="all-faculty">Faculty Profiles</PanelHeading>
@@ -564,8 +597,35 @@ function FacultyPanel({ d, data }: PanelProps) {
           The department is led by a doctoral-strong team across teaching, research and industry engagement.
           Total faculty: <strong className="text-foreground">{newFaculty.length}</strong>.
         </p>
+
+        {subjects.length > 0 && (
+          <div className="mt-6 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setSubjectFilter('all')}
+              className={`px-4 py-1.5 rounded-full font-sans font-bold text-[0.8rem] transition-all ${
+                subjectFilter === 'all' ? 'bg-primary text-white' : 'bg-subtle/40 text-muted hover:text-foreground'
+              }`}
+            >
+              All Subjects
+            </button>
+            {subjects.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setSubjectFilter(s)}
+                className={`px-4 py-1.5 rounded-full font-sans font-bold text-[0.8rem] transition-all ${
+                  subjectFilter === s ? 'bg-primary text-white' : 'bg-subtle/40 text-muted hover:text-foreground'
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {newFaculty.map((f: FacultyProfile) => {
+          {visibleFaculty.map((f: FacultyProfile) => {
             const initials = getInitials(f.name);
             return (
               <Link
@@ -710,7 +770,176 @@ function syllabusPdfHref(deptSlug: string, regSlug: string): string {
   return `/syllabus/${prefix}-${regSlug}-syllabus.pdf`;
 }
 
+// The Department of Humanities and Sciences teaches the shared first year of
+// every B.Tech branch — its own curriculum is each branch's Year 1 (semesters
+// 1 and 2), not a syllabus of its own.
+const FIRST_YEAR_BRANCHES: { slug: string; code: string; label: string }[] = [
+  { slug: 'cse',          code: 'CSE',    label: 'Computer Science and Engineering' },
+  { slug: 'cse-ds',       code: 'CSE-DS', label: 'CSE (Data Science)' },
+  { slug: 'aiml',         code: 'AIML',   label: 'CSE (AI and ML)' },
+  { slug: 'ece',          code: 'ECE',    label: 'Electronics and Communication Engineering' },
+  { slug: 'eee',          code: 'EEE',    label: 'Electrical and Electronics Engineering' },
+  { slug: 'mechanical',   code: 'MECH',   label: 'Mechanical Engineering' },
+  { slug: 'aeronautical', code: 'AERO',   label: 'Aeronautical Engineering' },
+];
+
+function FreshmanCurriculumPanel() {
+  const [branch, setBranch] = useState(FIRST_YEAR_BRANCHES[0].slug);
+  const availableRegSlugs = SYLLABUS_AVAILABLE[branch] ?? [];
+  const availableRegs = SYLLABUS_REGS.filter((r) => availableRegSlugs.includes(r.slug));
+
+  const regsWithData = SYLLABUS_REGS.filter((r) =>
+    [1, 2].some((sem) => getSyllabusCourses(branch, r.slug, sem).length > 0)
+  );
+  const [activeReg, setActiveReg] = useState(regsWithData[0]?.slug ?? 'r25');
+  const effectiveReg = regsWithData.some((r) => r.slug === activeReg) ? activeReg : (regsWithData[0]?.slug ?? 'r25');
+
+  const semesters = [1, 2].map((semNum) => ({
+    semNum,
+    courses: getSyllabusCourses(branch, effectiveReg, semNum),
+  })).filter((s) => s.courses.length > 0);
+
+  const activeBranch = FIRST_YEAR_BRANCHES.find((b) => b.slug === branch);
+
+  return (
+    <div>
+      <PanelHeading id="syllabus-pdfs">Curriculum</PanelHeading>
+      <p className="mt-6 text-muted max-w-[760px] leading-relaxed text-[0.94rem]">
+        Every B.Tech branch shares a common first year — mathematics, sciences, programming and communication —
+        delivered by the Department of Humanities and Sciences. Select a branch below to view its Year 1 syllabus.
+      </p>
+
+      <SubHeading>Branch</SubHeading>
+      <div className="flex flex-wrap gap-2 mb-8">
+        {FIRST_YEAR_BRANCHES.map((b) => (
+          <button
+            key={b.slug}
+            onClick={() => setBranch(b.slug)}
+            className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
+              branch === b.slug
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white border-border text-foreground hover:border-primary hover:text-primary'
+            }`}
+          >
+            {b.code}
+          </button>
+        ))}
+      </div>
+
+      {activeBranch && (
+        <p className="text-muted text-[0.88rem] mb-8">
+          Showing Year 1 of the <strong className="text-foreground">{activeBranch.label}</strong> syllabus.
+        </p>
+      )}
+
+      {availableRegs.length > 0 && (
+        <div className="mb-8 flex flex-col gap-4 rounded-xl bg-white p-5 md:p-6 shadow-card-soft border-l-[3px] border-secondary sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <div className="font-sans font-bold text-foreground text-[1rem]">
+              {activeBranch?.code} Complete Syllabus
+            </div>
+            <div className="mt-0.5 text-muted text-[0.82rem]">Full 4-year programme document</div>
+          </div>
+          <div className="flex flex-shrink-0 items-center gap-3">
+            <a
+              href={syllabusPdfHref(branch, effectiveReg)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-lg border-[1.5px] border-primary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-primary transition-colors hover:bg-primary/[0.06]"
+            >
+              View
+            </a>
+            <a
+              href={syllabusPdfHref(branch, effectiveReg)}
+              download
+              className="inline-flex items-center justify-center rounded-lg bg-secondary px-5 py-2.5 font-sans font-bold text-[0.86rem] text-white transition-colors hover:bg-secondary-pressed"
+            >
+              Download
+            </a>
+          </div>
+        </div>
+      )}
+
+      <SubHeading id="syllabus-inline">Year 1 — Subject-wise Syllabus</SubHeading>
+      <div className="flex flex-wrap gap-2 mb-8">
+        {regsWithData.map((r) => (
+          <button
+            key={r.slug}
+            onClick={() => setActiveReg(r.slug)}
+            className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors ${
+              effectiveReg === r.slug
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white border-border text-foreground hover:border-primary hover:text-primary'
+            }`}
+          >
+            {r.code}
+          </button>
+        ))}
+      </div>
+
+      {semesters.length === 0 ? (
+        <p className="text-muted text-[0.92rem]">
+          Subject-wise data for {effectiveReg.toUpperCase()} hasn&apos;t been published yet.
+        </p>
+      ) : (
+        <div className="space-y-10">
+          {semesters.map(({ semNum, courses }) => (
+            <div key={semNum}>
+              <p className="font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase text-primary mb-1">
+                Year 1 · Semester {semNum}
+              </p>
+              <h4 className="font-sans font-extrabold text-foreground text-lg tracking-tight mb-4">
+                Semester {semNum}
+              </h4>
+              <div className="overflow-x-auto overflow-hidden rounded-xl border border-border bg-white">
+                <table className="w-full text-left text-[0.9rem]">
+                  <thead className="bg-warm-light/50">
+                    <tr>
+                      <th className="px-4 py-3 font-mono text-[0.62rem] tracking-[0.14em] uppercase text-muted">Code</th>
+                      <th className="px-4 py-3 font-mono text-[0.62rem] tracking-[0.14em] uppercase text-muted">Subject</th>
+                      <th className="px-4 py-3 font-mono text-[0.62rem] tracking-[0.14em] uppercase text-muted text-right">PDF</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courses.map((c, i) => (
+                      <tr key={`${c.code}-${i}`} className="border-t border-border hover:bg-warm-light/40 transition-colors">
+                        <td className="px-4 py-3 font-bold text-foreground whitespace-nowrap align-top">{c.code}</td>
+                        <td className="px-4 py-3">
+                          <a
+                            href={c.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-foreground hover:text-primary hover:underline"
+                          >
+                            {c.title}
+                          </a>
+                        </td>
+                        <td className="px-4 py-3 text-right whitespace-nowrap">
+                          <a
+                            href={c.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-[0.72rem] font-bold text-primary hover:underline"
+                          >
+                            View ↗
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AcademicsPanel({ d }: PanelProps) {
+  if (d.slug === 'hs') return <FreshmanCurriculumPanel />;
+
   const availableRegSlugs = SYLLABUS_AVAILABLE[d.slug] ?? [];
   const availableRegs = SYLLABUS_REGS.filter((r) => availableRegSlugs.includes(r.slug));
   const regsForCatalog = availableRegs.length ? availableRegs : SYLLABUS_REGS;
@@ -729,7 +958,7 @@ function AcademicsPanel({ d }: PanelProps) {
 
   return (
     <div>
-      <PanelHeading id="syllabus-pdfs">Academics</PanelHeading>
+      <PanelHeading id="syllabus-pdfs">Curriculum</PanelHeading>
 
       {/* ── Syllabus PDFs ── */}
       <SubHeading>Syllabus PDFs</SubHeading>
