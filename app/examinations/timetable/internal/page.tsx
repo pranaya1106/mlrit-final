@@ -23,26 +23,6 @@ export default function InternalTimetablePage() {
       />
       <ExaminationsQuickNav active="/examinations/timetable/internal" />
 
-      {/* Internal / External sub-tab strip */}
-      <div className="bg-white border-b border-border">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="flex gap-1">
-            <a
-              href="/examinations/timetable/internal"
-              className="px-5 py-3 font-sans font-semibold text-[0.85rem] border-b-2 border-foreground text-foreground whitespace-nowrap"
-              aria-current="page"
-            >
-              Internal (CIE)
-            </a>
-            <a
-              href="/examinations/timetable/external"
-              className="px-5 py-3 font-sans font-medium text-[0.85rem] border-b-2 border-transparent text-muted hover:text-foreground hover:border-foreground/30 whitespace-nowrap transition-all"
-            >
-              External (SEE)
-            </a>
-          </div>
-        </div>
-      </div>
 
       <section className="bg-warm-light min-h-[60vh] py-16 md:py-24">
         <div className="max-w-[800px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
