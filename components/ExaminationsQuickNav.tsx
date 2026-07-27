@@ -6,11 +6,13 @@ import { EXAMS_NAV } from '@/lib/examinations';
 
 export default function ExaminationsQuickNav({ active }: { active: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft,  setCanScrollLeft]  = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   const checkScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 2);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 2);
   }, []);
 
@@ -24,9 +26,8 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
     return () => { el.removeEventListener('scroll', checkScroll); ro.disconnect(); };
   }, [checkScroll]);
 
-  function scrollRight() {
-    scrollRef.current?.scrollBy({ left: 220, behavior: 'smooth' });
-  }
+  function scrollLeft()  { scrollRef.current?.scrollBy({ left: -220, behavior: 'smooth' }); }
+  function scrollRight() { scrollRef.current?.scrollBy({ left:  220, behavior: 'smooth' }); }
 
   return (
     <nav
@@ -34,9 +35,25 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
       aria-label="Examinations sections"
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 relative">
+
+        {/* ← Left arrow */}
+        <button
+          onClick={scrollLeft}
+          aria-label="Scroll tabs left"
+          className={`absolute left-0 top-0 bottom-0 z-10 flex items-center pl-1 pr-3
+            bg-gradient-to-r from-white via-white/90 to-transparent
+            text-muted hover:text-foreground transition-all duration-200
+            ${canScrollLeft ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+            <path d="M11 5l-4 4 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+
+        {/* Tab strip */}
         <div
           ref={scrollRef}
-          className="flex items-center gap-1 overflow-x-auto"
+          className="flex items-center gap-1 overflow-x-auto scroll-smooth"
           style={{ scrollbarWidth: 'none' }}
         >
           {EXAMS_NAV.map((item) => {
@@ -53,7 +70,6 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
                     isActive ? 'border-primary' : 'border-transparent'
                   }`}
                 >
-                  {/* The parent label — not clickable on its own */}
                   <span
                     className={`pl-4 pr-2 py-4 font-sans font-medium text-[0.88rem] whitespace-nowrap ${
                       isActive ? 'text-foreground font-semibold' : 'text-muted'
@@ -104,11 +120,11 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
           })}
         </div>
 
-        {/* Scroll-right arrow — fades in when content overflows */}
+        {/* → Right arrow */}
         <button
           onClick={scrollRight}
           aria-label="Scroll tabs right"
-          className={`absolute right-0 top-0 bottom-0 flex items-center px-2
+          className={`absolute right-0 top-0 bottom-0 z-10 flex items-center pr-1 pl-3
             bg-gradient-to-l from-white via-white/90 to-transparent
             text-muted hover:text-foreground transition-all duration-200
             ${canScrollRight ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
@@ -117,6 +133,7 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
             <path d="M7 5l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
+
       </div>
     </nav>
   );
