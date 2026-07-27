@@ -180,20 +180,28 @@ export const EXAM_TIMETABLES_EXTERNAL: ExaminationDocument[] = [
 
 export const EXAM_TIMETABLES_INTERNAL: ExaminationDocument[] = [
   {
-    label: 'Internal Exam Portal — all timetables',
-    desc: 'Internal (CIE) mid-term and end-term timetables are published on the MLRIT Exam Portal.',
-    href: 'https://exams.mlrinstitutions.ac.in/',
+    label: 'I M.Tech. II Sem — CIE II (R25, July 2026)',
+    desc: 'Internal mid-term timetable for I M.Tech. II Semester, R25 regulation.',
+    href: '/examinations/timetables/I-M.Tech.-II-Semester-R25-CIE-II-Examinations-July-2026-Timetable.pdf',
     category: 'timetable',
-    badge: 'Portal',
-    external: true,
+    badge: 'M.Tech',
+    external: false,
   },
   {
-    label: 'Circulars — mlrit.ac.in',
-    desc: 'Official internal exam circulars published on the institutional site.',
-    href: 'https://mlrit.ac.in/circulars/',
+    label: 'I MBA II Sem — CIE II (R25, July 2026)',
+    desc: 'Internal mid-term timetable for I MBA II Semester, R25 regulation.',
+    href: '/examinations/timetables/I-MBA-II-Semester-R25-CIE-II-Examinations-July-2026-Timetable.pdf',
     category: 'timetable',
-    badge: 'Circular',
-    external: true,
+    badge: 'MBA',
+    external: false,
+  },
+  {
+    label: 'Ph.D. Course Work — MID II (R25, July 2026)',
+    desc: 'Internal mid-term timetable for Ph.D. Course Work, R25 regulation.',
+    href: '/examinations/timetables/Ph.D.-Course-Work-R25-MID-II-Examinations-July-2026-Timetable.pdf',
+    category: 'timetable',
+    badge: 'Ph.D.',
+    external: false,
   },
 ];
 

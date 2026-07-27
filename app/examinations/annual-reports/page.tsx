@@ -13,24 +13,24 @@ const REPORTS = [
     year: '2024–25',
     title: 'Annual Examination Report 2024–25',
     desc: 'Summary of examination outcomes, pass rates, re-evaluation statistics and process improvements for A.Y. 2024–25.',
-    href: 'https://exams.mlrinstitutions.ac.in/',
-    external: true,
+    href: '/examinations/contact',
+    external: false,
     current: false,
   },
   {
     year: '2023–24',
     title: 'Annual Examination Report 2023–24',
     desc: 'Examination performance data, regulation-wise analysis and COE activity report for A.Y. 2023–24.',
-    href: 'https://exams.mlrinstitutions.ac.in/',
-    external: true,
+    href: '/examinations/contact',
+    external: false,
     current: false,
   },
   {
     year: '2022–23',
     title: 'Annual Examination Report 2022–23',
     desc: 'Transition to R22 regulation — performance overview, OBE alignment and examination infrastructure report.',
-    href: 'https://exams.mlrinstitutions.ac.in/',
-    external: true,
+    href: '/examinations/contact',
+    external: false,
     current: false,
   },
 ];
@@ -97,7 +97,7 @@ export default function AnnualReportsPage() {
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                       <path d="M7 2v7M4 7l3 3 3-3M2 12h10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    {r.external ? 'Access on Exam Portal ↗' : 'Download Report'}
+                    {r.external ? 'Request Report ↗' : 'Request from COE →'}
                   </a>
                 </div>
               </StaggerItem>
@@ -112,10 +112,15 @@ export default function AnnualReportsPage() {
                 <path d="M8 7v5M8 5v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
-                Annual reports are published on the MLRIT Exam Portal after the close of each academic year. For reports older than 3 years, contact the COE office at{' '}
+                Annual examination reports are available on request from the COE office. Contact{' '}
                 <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
                   coe@mlrinstitutions.ac.in
-                </a>.
+                </a>{' '}
+                or visit the{' '}
+                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">
+                  Contact Us
+                </a>{' '}
+                page.
               </p>
             </div>
           </Reveal>
