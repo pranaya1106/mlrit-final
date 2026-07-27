@@ -61,44 +61,21 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
               item.href === active ||
               (item.children?.some((c) => c.href === active) ?? false);
 
-            /* ── Timetables: inline pill toggle ─────────────────────── */
+            /* ── Timetables: single tab linking to first child ─────── */
             if (item.children) {
               return (
-                <div
+                <Link
                   key={item.href}
-                  className={`shrink-0 flex items-center border-b-2 transition-all ${
-                    isActive ? 'border-primary' : 'border-transparent'
+                  href={item.children[0].href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`shrink-0 px-4 py-4 font-sans font-medium text-[0.88rem] border-b-2 transition-all whitespace-nowrap ${
+                    isActive
+                      ? 'text-foreground border-primary font-semibold'
+                      : 'text-muted hover:text-foreground border-transparent hover:border-primary'
                   }`}
                 >
-                  <span
-                    className={`pl-4 pr-2 py-4 font-sans font-medium text-[0.88rem] whitespace-nowrap ${
-                      isActive ? 'text-foreground font-semibold' : 'text-muted'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-
-                  {/* Pill toggle — matches DepartmentDetail AchievementsPanel */}
-                  <div className="inline-flex items-center rounded-full bg-warm-light border border-border p-0.5 gap-0.5 my-2 mr-2">
-                    {item.children.map((child) => {
-                      const childActive = child.href === active;
-                      return (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          aria-current={childActive ? 'page' : undefined}
-                          className={`px-3.5 py-1.5 rounded-full font-sans font-bold text-[0.75rem] whitespace-nowrap transition-all duration-200 ${
-                            childActive
-                              ? 'bg-primary text-white shadow-card-soft'
-                              : 'text-muted hover:text-foreground'
-                          }`}
-                        >
-                          {child.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
+                  {item.label}
+                </Link>
               );
             }
 
