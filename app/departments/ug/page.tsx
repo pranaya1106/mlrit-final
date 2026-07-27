@@ -8,23 +8,25 @@ export const metadata: Metadata = { title: 'Undergraduate Programmes — MLRIT' 
 
 export default function UGPage() {
   const ugs = DEPARTMENTS
-    .filter((d) => d.level === 'ug' && d.slug !== 'freshman')
+    .filter((d) => d.level === 'ug' && d.slug !== 'hs')
     .sort((a, b) => a.short.localeCompare(b.short));
+  const freshman = DEPARTMENTS.find((d) => d.slug === 'hs');
+  const allUgs = freshman ? [freshman, ...ugs] : ugs;
   return (
     <>
       <PageHeader
         eyebrow="B.Tech Programmes"
         title="Undergraduate"
         italic="programmes."
-        dek="A four-year B.Tech across seven engineering branches — built around an industry-integrated curriculum, hands-on labs and a culture of inquiry."
+        dek="A four-year B.Tech across seven engineering branches, built on a shared first-year foundation — with an industry-integrated curriculum, hands-on labs and a culture of inquiry."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Undergraduate' }]}
         variant="green"
       />
       <Section>
-        <H2 italic="branches">Seven engineering</H2>
+        <H2 italic="branches">Engineering</H2>
         <Lede>Every B.Tech branch at MLRIT is JNTUH-affiliated, AICTE-approved and offered as a 4-year programme.</Lede>
         <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ugs.map((d) => (
+          {allUgs.map((d) => (
             <Link key={d.slug} href={`/departments/${d.slug}`} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all group">
               <div className="font-mono text-[0.7rem] tracking-[0.16em] uppercase text-secondary">{d.code}</div>
               <div className="mt-2 font-sans font-extrabold text-foreground text-xl">{d.short}</div>
