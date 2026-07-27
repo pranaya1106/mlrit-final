@@ -2,19 +2,9 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useState } from 'react';
 
-/**
- * Chronicles nav button with expanding-pill + sliding-arrow hover effect.
- * On hover: orange pill grows from left to fill full width; arrow slides right.
- * Outer glow ring + pulse halo remain as ambient decorators.
- */
 export default function ChroniclesAttentionButton({ href }: { href: string }) {
   const reduce = useReducedMotion();
-  const [hovered, setHovered] = useState(false);
-
-  const spring = { type: 'spring' as const, damping: 28, stiffness: 260, mass: 0.9 };
-  const ease   = { duration: 0.38, ease: [0.65, 0, 0.076, 1] as const };
 
   return (
     <Link
@@ -45,23 +35,28 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         />
       )}
 
+      {/* CSS rule: shell:hover → fill scaleX(1) */}
+      <style>{`
+        .chron-shell:hover .chron-fill,
+        .chron-shell:focus-within .chron-fill {
+          transform: scaleX(1) !important;
+        }
+      `}</style>
+
       {/* Button shell */}
-      <motion.span
-        className="relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
+      <span
+        className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
         style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
-        whileTap={reduce ? {} : { scale: 0.96 }}
-        transition={{ type: 'spring', damping: 28, stiffness: 260, mass: 0.9 }}
       >
-        {/* Fill layer — scaleX 0→1 from left on hover */}
-        <motion.span
+        {/* Fill layer */}
+        <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[#e85d04]"
-          style={{ originX: 0 }}
-          initial={{ scaleX: 0 }}
-          animate={!reduce && hovered ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.35, ease: [0.65, 0, 0.076, 1] }}
+          className="chron-fill pointer-events-none absolute inset-0 bg-[#e85d04]"
+          style={{
+            transformOrigin: 'left center',
+            transform: 'scaleX(0)',
+            transition: reduce ? 'none' : 'transform 0.35s cubic-bezier(0.65,0,0.076,1)',
+          }}
         />
 
         {/* Label */}
@@ -77,7 +72,7 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         >
           New
         </span>
-      </motion.span>
+      </span>
     </Link>
   );
 }
