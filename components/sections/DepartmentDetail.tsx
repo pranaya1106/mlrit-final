@@ -37,16 +37,28 @@ const FALLBACK_DATA: DeptData = {
   peos: [],
   labs: [],
   faculty: [],
-  achievements: [],
+  studentAchievements: [],
 };
-type TabId = 'overview' | 'objectives' | 'faculty' | 'academics' | 'achievements' | 'committees';
+type TabId =
+  | 'overview'
+  | 'objectives'
+  | 'faculty'
+  | 'academics'
+  | 'achievements'
+  | 'publications'
+  | 'placements'
+  | 'mous'
+  | 'committees';
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'overview',     label: 'Overview' },
-  { id: 'objectives',   label: 'Objectives' },
+  { id: 'objectives',   label: 'Objectives and Outcomes' },
   { id: 'faculty',      label: 'Faculty Profiles' },
   { id: 'academics',    label: 'Academics' },
   { id: 'achievements', label: 'Achievements' },
+  { id: 'publications', label: 'Publications and Research' },
+  { id: 'placements',   label: 'Internships and Placements' },
+  { id: 'mous',         label: 'MOUs' },
   { id: 'committees',   label: 'Committees' },
 ];
 
@@ -72,11 +84,18 @@ const QUICK_NAV: Record<TabId, { id: string; label: string }[]> = {
     { id: 'explorer',      label: 'Syllabus Explorer' },
   ],
   achievements: [
-    { id: 'achieve',     label: 'Achievements' },
-    { id: 'honour',      label: 'Roll of Honour' },
-    { id: 'pubs',        label: 'Publications' },
-    { id: 'internships', label: 'Internships' },
-    { id: 'placements',  label: 'Placements' },
+    { id: 'achieve', label: 'Achievements' },
+    { id: 'honour',  label: 'Roll of Honour' },
+  ],
+  publications: [
+    { id: 'pubs', label: 'Publications' },
+  ],
+  placements: [
+    { id: 'placement-stats', label: 'Placement Highlights' },
+    { id: 'intern-stats',    label: 'Internships' },
+  ],
+  mous: [
+    { id: 'mous', label: 'MOUs' },
   ],
   committees: [
     { id: 'dac',     label: 'DAC' },
@@ -225,6 +244,9 @@ export default function DepartmentDetail({ department: d }: Props) {
             {tab === 'faculty'      && <FacultyPanel d={d} data={data} />}
             {tab === 'academics'    && <AcademicsPanel d={d} data={data} />}
             {tab === 'achievements' && <AchievementsPanel d={d} data={data} />}
+            {tab === 'publications' && <PublicationsPanel data={data} />}
+            {tab === 'placements'   && <PlacementsPanel data={data} />}
+            {tab === 'mous'         && <MousPanel data={data} />}
             {tab === 'committees'   && <CommitteesPanel data={data} />}
           </div>
         </div>
@@ -856,53 +878,269 @@ function AcademicsPanel({ d }: PanelProps) {
    ═════════════════════════════════════════════════════════ */
 
 function AchievementsPanel({ d, data }: PanelProps) {
-  const items = data.achievements.length
-    ? data.achievements
+  const [view, setView] = useState<'student' | 'faculty'>('student');
+
+  const studentItems = data.studentAchievements.length
+    ? data.studentAchievements
     : [
         { title: 'NBA Accreditation', desc: `${d.code} programme accredited by the National Board of Accreditation.` },
         { title: 'Highest package',   desc: '44 LPA in 2024-25 — top quartile placements.' },
-        { title: 'Research output',   desc: 'Active publications in IEEE/Springer/Elsevier indexed venues.' },
         { title: 'Industry MoUs',     desc: 'Active partnerships with Virtusa, EPAM, Boeing, Cyient and TATA.' },
       ];
+
+  const facultyItems = data.publications && data.publications.length
+    ? data.publications.slice(0, 4).map((p) => ({
+        title: p.title,
+        desc: `${p.authors} — ${p.journal} (${p.year})`,
+      }))
+    : [];
+
+  const items = view === 'student' ? studentItems : facultyItems;
 
   return (
     <div>
       <PanelHeading id="achieve">Achievements</PanelHeading>
-      <div className="mt-8 grid sm:grid-cols-2 gap-5 max-w-[900px]">
-        {items.map((a) => (
-          <div
-            key={a.title}
-            className="rounded-xl bg-white p-6 shadow-card-soft border-l-[3px] border-primary hover:-translate-y-1 hover:shadow-card-strong transition-all"
+
+      <div className="mt-6 inline-flex rounded-full bg-subtle/40 p-1 gap-1">
+        {(['student', 'faculty'] as const).map((v) => (
+          <button
+            key={v}
+            type="button"
+            onClick={() => setView(v)}
+            className={`px-5 py-2 rounded-full font-sans font-bold text-[0.82rem] transition-all duration-200 ${
+              view === v ? 'bg-primary text-white shadow-card-soft' : 'text-muted hover:text-foreground'
+            }`}
           >
-            <h4 className="font-sans font-bold text-foreground text-[0.98rem] mb-1.5">{a.title}</h4>
-            <p className="text-muted text-[0.88rem] leading-relaxed">{a.desc}</p>
-          </div>
+            {v === 'student' ? 'Student Achievements' : 'Faculty Achievements'}
+          </button>
         ))}
       </div>
 
+      {items.length > 0 ? (
+        <div className="mt-8 grid sm:grid-cols-2 gap-5 max-w-[900px]">
+          {items.map((a) => (
+            <div
+              key={a.title}
+              className="rounded-xl bg-white p-6 shadow-card-soft border-l-[3px] border-primary hover:-translate-y-1 hover:shadow-card-strong transition-all"
+            >
+              <h4 className="font-sans font-bold text-foreground text-[0.98rem] mb-1.5">{a.title}</h4>
+              <p className="text-muted text-[0.88rem] leading-relaxed">{a.desc}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-8 text-muted leading-relaxed max-w-[720px]">
+          {data.publicationsNote || 'Faculty achievements for this department will be updated soon.'}
+        </p>
+      )}
+
       <SubHeading id="honour">Roll of Honour</SubHeading>
-      <p className="text-muted leading-relaxed max-w-[720px]">
-        Student achievers, gold-medalists and university rank-holders are honoured each year.
-      </p>
+      {data.rollOfHonour && data.rollOfHonour.length > 0 ? (
+        <div className="max-w-[720px] overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="text-[0.72rem] font-sans font-extrabold tracking-[0.08em] uppercase text-muted border-b border-foreground/10">
+                <th className="py-2 pr-4">Year</th>
+                <th className="py-2 pr-4">Name</th>
+                <th className="py-2 pr-4">Achievement</th>
+                <th className="py-2">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.rollOfHonour.map((h, i) => (
+                <tr key={i} className="border-b border-foreground/[0.06] text-[0.9rem]">
+                  <td className="py-2.5 pr-4 text-muted">{h.year}</td>
+                  <td className="py-2.5 pr-4 font-sans font-semibold text-foreground">{h.name}</td>
+                  <td className="py-2.5 pr-4 text-foreground/80">{h.achievement}</td>
+                  <td className="py-2.5 font-sans font-bold text-primary">{h.score}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-muted leading-relaxed max-w-[720px]">
+          Student achievers, gold-medalists and university rank-holders are honoured each year.
+        </p>
+      )}
+    </div>
+  );
+}
 
-      <SubHeading id="pubs">Publications</SubHeading>
-      <p className="text-muted leading-relaxed max-w-[720px]">
-        Faculty publications across journals and conferences. Browse by year on the department&apos;s research portal.
-      </p>
+/* ═════════════════════════════════════════════════════════
+   Panel 5b — PUBLICATIONS AND RESEARCH
+   ═════════════════════════════════════════════════════════ */
 
-      <SubHeading id="internships">Internships</SubHeading>
-      <p className="text-muted leading-relaxed max-w-[720px]">
-        Live internships with MoU partners and industry mentors during summer and final-year semesters.
-      </p>
+function PublicationsPanel({ data }: { data: DeptData }) {
+  const pubs = data.publications ?? [];
+  const years = Array.from(new Set(pubs.map((p) => p.year))).sort((a, b) => Number(b) - Number(a));
+  const [year, setYear] = useState<string>('all');
+  const filtered = year === 'all' ? pubs : pubs.filter((p) => p.year === year);
 
-      <SubHeading id="placements">Placements</SubHeading>
-      <p className="text-muted leading-relaxed max-w-[720px]">
-        See the full placement performance on the{' '}
+  return (
+    <div>
+      <PanelHeading id="pubs">Publications and Research</PanelHeading>
+
+      {pubs.length > 0 ? (
+        <>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setYear('all')}
+              className={`px-4 py-1.5 rounded-full font-sans font-bold text-[0.8rem] transition-all ${
+                year === 'all' ? 'bg-primary text-white' : 'bg-subtle/40 text-muted hover:text-foreground'
+              }`}
+            >
+              All
+            </button>
+            {years.map((y) => (
+              <button
+                key={y}
+                type="button"
+                onClick={() => setYear(y)}
+                className={`px-4 py-1.5 rounded-full font-sans font-bold text-[0.8rem] transition-all ${
+                  year === y ? 'bg-primary text-white' : 'bg-subtle/40 text-muted hover:text-foreground'
+                }`}
+              >
+                {y}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-6 space-y-4 max-w-[820px]">
+            {filtered.map((p, i) => (
+              <div
+                key={i}
+                className="rounded-xl bg-white p-5 shadow-card-soft border-l-[3px] border-secondary hover:-translate-y-0.5 hover:shadow-card-strong transition-all flex items-start justify-between gap-4"
+              >
+                <div>
+                  <h4 className="font-sans font-bold text-foreground text-[0.95rem] leading-snug mb-1.5">{p.title}</h4>
+                  <p className="text-muted text-[0.82rem] mb-1">{p.authors}</p>
+                  <p className="text-secondary text-[0.82rem] font-semibold">{p.journal}</p>
+                </div>
+                <span className="flex-shrink-0 font-mono text-[0.72rem] font-extrabold text-muted">{p.year}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <p className="mt-8 text-muted leading-relaxed max-w-[720px]">
+          {data.publicationsNote || "Faculty publications for this department are being compiled."}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ═════════════════════════════════════════════════════════
+   Panel 5c — INTERNSHIPS AND PLACEMENTS
+   ═════════════════════════════════════════════════════════ */
+
+function StatTiles({ stats }: { stats: { label: string; value: string }[] }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-[720px]">
+      {stats.map((s) => (
+        <div key={s.label} className="rounded-xl bg-white p-5 shadow-card-soft text-center">
+          <div className="font-sans font-black text-primary text-[1.5rem] leading-none">{s.value}</div>
+          <div className="mt-2 text-muted text-[0.72rem] font-semibold uppercase tracking-[0.06em]">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PlacementsPanel({ data }: { data: DeptData }) {
+  return (
+    <div>
+      <PanelHeading id="placement-stats">Internships and Placements</PanelHeading>
+
+      {data.placementStats && data.placementStats.length > 0 && (
+        <>
+          <SubHeading>Placement Highlights</SubHeading>
+          <StatTiles stats={data.placementStats} />
+          {data.placementNote && (
+            <p className="mt-5 text-muted leading-relaxed max-w-[720px]">{data.placementNote}</p>
+          )}
+        </>
+      )}
+
+      <SubHeading id="intern-stats">Internships</SubHeading>
+      {data.internStats && data.internStats.length > 0 && <StatTiles stats={data.internStats} />}
+
+      {data.internships && data.internships.length > 0 && (
+        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[900px]">
+          {data.internships.map((it, i) => (
+            <div
+              key={i}
+              className="rounded-xl bg-white p-5 shadow-card-soft border-l-[3px] border-primary hover:-translate-y-1 hover:shadow-card-strong transition-all"
+            >
+              <h4 className="font-sans font-bold text-foreground text-[0.95rem] mb-1">{it.company}</h4>
+              <p className="text-muted text-[0.8rem] mb-2">{it.type}</p>
+              <p className="text-[0.82rem] font-sans font-semibold text-secondary">
+                {it.students} Students — {it.year}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {data.internList && data.internList.length > 0 && (
+        <ul className="mt-6 space-y-2.5 max-w-[820px]">
+          {data.internList.map((li) => (
+            <li key={li} className="flex items-start gap-3 text-foreground/85 leading-[1.7] text-[0.92rem]">
+              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+              {li}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {data.internNote && (
+        <p className="mt-6 text-muted leading-relaxed max-w-[720px]">{data.internNote}</p>
+      )}
+
+      <p className="mt-8 text-muted leading-relaxed max-w-[720px]">
+        See the full institute-wide placement performance on the{' '}
         <Link href="/placements" className="text-primary font-semibold hover:underline">
           Placements page
         </Link>
         .
       </p>
+    </div>
+  );
+}
+
+/* ═════════════════════════════════════════════════════════
+   Panel 5d — MOUs
+   ═════════════════════════════════════════════════════════ */
+
+function MousPanel({ data }: { data: DeptData }) {
+  const mous = data.mous ?? [];
+
+  return (
+    <div>
+      <PanelHeading id="mous">MOUs</PanelHeading>
+      <p className="mt-6 text-muted leading-relaxed max-w-[820px]">
+        Memorandums of Understanding with industry, research and academic organisations specific to this department.
+      </p>
+
+      {mous.length > 0 ? (
+        <div className="mt-8 grid sm:grid-cols-2 gap-5 max-w-[900px]">
+          {mous.map((m) => (
+            <div
+              key={m.name}
+              className="rounded-xl bg-white p-6 shadow-card-soft border-l-[3px] border-secondary hover:-translate-y-1 hover:shadow-card-strong transition-all"
+            >
+              <h4 className="font-sans font-bold text-foreground text-[0.98rem] mb-1.5">{m.name}</h4>
+              <p className="text-muted text-[0.88rem] leading-relaxed">{m.domain}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="mt-8 text-muted leading-relaxed max-w-[720px]">
+          {data.mouNote || 'MoU details for this department will be added soon.'}
+        </p>
+      )}
     </div>
   );
 }
