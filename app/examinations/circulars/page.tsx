@@ -31,7 +31,7 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'Issue of Provisional Certificate and Consolidated Grade Memo — B.Tech 2022–26 Batch',
-    file: 'Issue-of-Provisional-Certificate-and-Consolidated-Grade-Memo-for-B.Tech-2022_26-Batch-Students.pdf',
+    file: 'Issue-of-Provisional-Certificate-and-Consolidated-Grade-Memo-for-B.Tech-2022-26-Batch-Students.pdf',
     category: 'Notice',
     date: 'July 2026',
   },
@@ -43,13 +43,13 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'MBA Special Supplementary OTC End Semester Examinations July–August 2026',
-    file: 'FINAL_TIMETABLE_MBA_OTC_2026.pdf',
+    file: 'FINAL-TIMETABLE-MBA-OTC-2026.pdf',
     category: 'Timetable',
     date: 'July 2026',
   },
   {
     title: 'B.Tech Special Supplementary OTC End Semester Examinations July–August 2026',
-    file: 'FINAL_TIMETABLE_BTECH_OTC_2026.pdf',
+    file: 'FINAL-TIMETABLE-BTECH-OTC-2026.pdf',
     category: 'Timetable',
     date: 'July 2026',
   },
@@ -73,7 +73,7 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'JNTUH B.Tech, M.Tech & MBA Special Supplementary OTC — June/July 2026 Fee Notification',
-    file: 'JNTUH-B.Tech.-M.Tech.-and-MBA-Special-Supplementary-One-Time-Chance-Examinations-June-July-2026_Fee-Notification.pdf',
+    file: 'JNTUH-B.Tech.-M.Tech.-and-MBA-Special-Supplementary-One-Time-Chance-Examinations-June-July-2026-Fee-Notification.pdf',
     category: 'Fee',
     date: 'June 2026',
   },
@@ -97,7 +97,7 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'Autonomous I B.Tech II Sem — Condonation Fee Circular (Last Date: 11-06-2026)',
-    file: 'Autonomous-I-B.Tech.-II-Sem.-Condonation-Fee-Circular.-Last-Date-For-Payment-Of-Condonation-Fee-is-11-06-2026-Through--Online.pdf',
+    file: 'Autonomous-I-B.Tech.-II-Sem.-Condonation-Fee-Circular.-Last-Date-For-Payment-Of-Condonation-Fee-is-11-06-2026-Through-Online.pdf',
     category: 'Condonation',
     date: 'June 2026',
   },
@@ -115,13 +115,13 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'III B.Tech I & II Sem Examination April 2026 — Results Declaration and Revaluation',
-    file: 'III B.Tech I and II Sem Examionation April-2026 Declaration and Revaluation.pdf',
+    file: 'III-B.Tech-I-and-II-Sem-Examionation-April-2026-Declaration-and-Revaluation.pdf',
     category: 'Results',
     date: 'April 2026',
   },
   {
     title: 'II B.Tech II Semester — Condonation Notification (Submit by 01-05-2026)',
-    file: 'II-B.Tech. II-Semester Condonation Notification _ Submission of Undertaking and Medical Certificate on or before 01-05-2026.pdf',
+    file: 'II-B.Tech.-II-Semester-Condonation-Notification-Submission-of-Undertaking-and-Medical-Certificate-on-or-before-01-05-2026.pdf',
     category: 'Condonation',
     date: 'April 2026',
   },
@@ -139,13 +139,13 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'I M.Tech & MBA I & II Semester — Feb 2026 Results Released & Revaluation Notification',
-    file: 'I M.Tech and MBA I and II Semester Regular and Supple Examinations February-2026 Results Released _ Revaluation-Notification.pdf',
+    file: 'I-M.Tech-and-MBA-I-and-II-Semester-Regular-and-Supple-Examinations-February-2026-Results-Released-Revaluation-Notification.pdf',
     category: 'Results',
     date: 'February 2026',
   },
   {
     title: 'One Time Chance Special Supply Examination Feb 2026 — Revaluation Results & Challenge Valuation',
-    file: 'One Time chance Special Supply Examination Feb-2026 Revaluation Results Opportunity Challange Valuation (1).pdf',
+    file: 'One-Time-chance-Special-Supply-Examination-Feb-2026-Revaluation-Results-Opportunity-Challange-Valuation-1.pdf',
     category: 'Results',
     date: 'February 2026',
   },
@@ -157,7 +157,7 @@ const CIRCULARS: Circular[] = [
   },
   {
     title: 'Data Corrections Reminder — B.Tech, M.Tech & MBA Students (Verification of Student Details)',
-    file: 'Data-Corrections-Reminder-for-B.Tech.-M.Tech.-and-MBA-Students_Verification-of-Student-Details.pdf',
+    file: 'Data-Corrections-Reminder-for-B.Tech.-M.Tech.-and-MBA-Students-Verification-of-Student-Details.pdf',
     category: 'Notice',
     date: '2026',
   },
@@ -225,7 +225,7 @@ export default function CircularsPage() {
                     </p>
                   </div>
                   <DocActions
-                    href={`/examinations/circulars/${encodeURIComponent(c.file)}`}
+                    href={`/examinations/circulars/${c.file}`}
                     filename={c.file}
                     viewLabel="View"
                     downloadLabel="Download"
