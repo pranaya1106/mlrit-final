@@ -45,48 +45,38 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         />
       )}
 
-      {/* Button shell — fixed size, clips the expanding pill */}
+      {/* Button shell */}
       <motion.span
-        className="relative z-10 flex items-center h-[38px] w-[168px] rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer"
+        className="relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
         style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
         whileTap={reduce ? {} : { scale: 0.96 }}
-        transition={spring}
+        transition={{ type: 'spring', damping: 28, stiffness: 260, mass: 0.9 }}
       >
-        {/* Expanding pill — starts as a circle (w=38), expands to full width */}
+        {/* Fill layer — scaleX 0→1 from left on hover */}
         <motion.span
           aria-hidden
-          className="pointer-events-none absolute left-0 top-0 h-full rounded-[10px] bg-[#e85d04]"
+          className="pointer-events-none absolute inset-0 bg-[#e85d04]"
           style={{ originX: 0 }}
-          animate={!reduce && hovered ? { width: '100%' } : { width: 38 }}
-          transition={ease}
+          initial={{ scaleX: 0 }}
+          animate={!reduce && hovered ? { scaleX: 1 } : { scaleX: 0 }}
+          transition={{ duration: 0.35, ease: [0.65, 0, 0.076, 1] }}
         />
 
-        {/* Arrow — slides from pill-center to near right edge */}
-        <motion.span
-          aria-hidden
-          className="absolute flex items-center justify-center"
-          animate={!reduce && hovered ? { left: 'calc(100% - 26px)' } : { left: '11px' }}
-          transition={ease}
-          style={{ top: '50%', translateY: '-50%' }}
-        >
-          {/* Chevron arrow — two lines forming > */}
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
-            <path d="M2 2.5l4.5 4L2 10.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M6.5 2.5l4.5 4-4.5 4.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </motion.span>
-
-        {/* Label — indented right of the pill circle, shifts slightly on hover */}
-        <motion.span
-          className="relative z-10 font-sans font-semibold text-[0.85rem] tracking-[-0.01em] text-white whitespace-nowrap"
-          animate={!reduce && hovered ? { x: -6, opacity: 1 } : { x: 0, opacity: 1 }}
-          transition={ease}
-          style={{ paddingLeft: 52 }}
-        >
+        {/* Label */}
+        <span className="relative z-10 font-sans font-semibold text-[0.85rem] tracking-[-0.01em] text-white">
           MLRIT Chronicles
-        </motion.span>
+        </span>
+
+        {/* New badge */}
+        <span
+          aria-hidden
+          className="relative z-10 ml-2 px-1.5 py-px rounded-full text-[0.58rem] font-mono font-black tracking-wider uppercase"
+          style={{ background: 'rgba(255,255,255,0.2)', color: '#fff' }}
+        >
+          New
+        </span>
       </motion.span>
     </Link>
   );
