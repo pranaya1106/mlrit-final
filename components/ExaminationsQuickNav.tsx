@@ -26,8 +26,8 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
     return () => { el.removeEventListener('scroll', checkScroll); ro.disconnect(); };
   }, [checkScroll]);
 
-  function scrollLeft()  { scrollRef.current?.scrollBy({ left: -220, behavior: 'smooth' }); }
-  function scrollRight() { scrollRef.current?.scrollBy({ left:  220, behavior: 'smooth' }); }
+  function scrollLeft()  { scrollRef.current?.scrollBy({ left: -220 }); }
+  function scrollRight() { scrollRef.current?.scrollBy({ left:  220 }); }
 
   return (
     <nav
@@ -53,8 +53,8 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
         {/* Tab strip */}
         <div
           ref={scrollRef}
-          className="flex items-center gap-1 overflow-x-auto scroll-smooth"
-          style={{ scrollbarWidth: 'none' }}
+          className="flex items-center gap-1 overflow-x-auto"
+          style={{ scrollbarWidth: 'none', scrollBehavior: 'smooth' }}
         >
           {EXAMS_NAV.map((item) => {
             const isActive =
