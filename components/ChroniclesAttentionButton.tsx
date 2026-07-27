@@ -72,15 +72,18 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         />
 
         {/* Text with highlighter sweep */}
-        <span className="relative font-sans font-semibold text-[0.88rem] tracking-[-0.01em] text-white">
+        <span className="relative inline-flex items-center font-sans font-semibold text-[0.88rem] tracking-[-0.01em] text-white">
           {/* Highlighter layer — sweeps left→right on hover */}
           <motion.span
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-0 right-0 rounded-[3px]"
+            className="pointer-events-none absolute left-0 right-0"
             style={{
-              background: 'rgba(255, 210, 122, 0.28)',
+              top: '10%',
+              bottom: '10%',
+              background: 'rgba(255, 210, 122, 0.35)',
+              borderRadius: 3,
               originX: 0,
-              skewX: '-6deg',
+              skewX: '-4deg',
             }}
             initial={{ scaleX: 0 }}
             animate={!reduce && hovered ? { scaleX: 1 } : { scaleX: 0 }}
