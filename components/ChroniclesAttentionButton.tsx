@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
+import { useState } from 'react';
 
 /**
  * Animated attention-grabbing nav button for MLRIT Chronicles.
@@ -16,6 +17,7 @@ import { motion, useReducedMotion } from 'framer-motion';
  */
 export default function ChroniclesAttentionButton({ href }: { href: string }) {
   const reduce = useReducedMotion();
+  const [hovered, setHovered] = useState(false);
 
   return (
     <Link
@@ -56,6 +58,8 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
       <motion.span
         className="relative z-10 flex items-center gap-2 h-[38px] px-4 rounded-[10px] bg-[#01741f] whitespace-nowrap select-none"
         style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
         whileHover={reduce ? {} : { scale: 1.025 }}
         whileTap={reduce ? {} : { scale: 0.975 }}
         transition={{ type: 'spring', damping: 22, stiffness: 350, mass: 0.8 }}
@@ -67,7 +71,21 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
           style={{ boxShadow: '0 0 5px rgba(255,210,122,0.9)' }}
         />
 
-        <span className="font-sans font-semibold text-[0.88rem] tracking-[-0.01em] text-white">
+        {/* Text with highlighter sweep */}
+        <span className="relative font-sans font-semibold text-[0.88rem] tracking-[-0.01em] text-white">
+          {/* Highlighter layer — sweeps left→right on hover */}
+          <motion.span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 right-0 rounded-[3px]"
+            style={{
+              background: 'rgba(255, 210, 122, 0.28)',
+              originX: 0,
+              skewX: '-6deg',
+            }}
+            initial={{ scaleX: 0 }}
+            animate={!reduce && hovered ? { scaleX: 1 } : { scaleX: 0 }}
+            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+          />
           MLRIT Chronicles
         </span>
 
