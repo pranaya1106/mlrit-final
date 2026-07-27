@@ -138,15 +138,34 @@ export const NAV_PRIMARY: NavItem[] = [
   },
   {
     label: 'Examinations',
-    href: '/examinations',
+    href: '/examinations/coe',
     cols: [
       {
-        heading: 'Examinations',
+        heading: 'About & Notices',
         links: [
-          { label: 'Overview',      href: '/examinations' },
-          { label: 'Timetable',     href: '/examinations/timetable' },
-          { label: 'Regulations',   href: '/examinations/regulations' },
-          { label: 'Support',       href: '/examinations/support' },
+          { label: 'COE',                        href: '/examinations/coe'                   },
+          { label: 'Circulars',                  href: '/examinations/circulars'             },
+          { label: 'Notifications',              href: '/examinations/notifications'         },
+          { label: 'Annual Reports',             href: '/examinations/annual-reports'        },
+        ],
+      },
+      {
+        heading: 'Academics & Downloads',
+        links: [
+          { label: 'Timetables',                 href: '/examinations/timetable/external'    },
+          { label: 'Exam Fee & Results',         href: '/examinations/fee-results'           },
+          { label: 'Regulations',                href: '/examinations/regulations'           },
+          { label: 'PYQs',                       href: '/examinations/pyqs'                  },
+          { label: 'Downloads',                  href: '/examinations/downloads'             },
+        ],
+      },
+      {
+        heading: 'Services',
+        links: [
+          { label: 'Student Verifications',      href: '/examinations/student-verifications' },
+          { label: 'Citizen Charter',            href: '/examinations/citizen-charter'       },
+          { label: 'Application of Certificates',href: '/examinations/certificates'          },
+          { label: 'Contact Us',                 href: '/examinations/contact'               },
         ],
       },
     ],

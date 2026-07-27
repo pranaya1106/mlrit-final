@@ -117,7 +117,7 @@ export default function SyllabusPage() {
         dek="Browse the official subject-wise syllabus for any branch, regulation, and semester. Subjects match exactly what's in the Departments section. Click a subject to download its PDF."
         crumbs={[
           { label: 'Home', href: '/' },
-          { label: 'Examinations', href: '/examinations' },
+          { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Syllabus Explorer' },
         ]}
         variant="green"

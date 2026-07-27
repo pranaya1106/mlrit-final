@@ -253,7 +253,7 @@ export default function PYQsPage() {
         dek="Download past examination question papers for B.Tech and PG (M.Tech / MBA) programmes. All files are RAR archives — extract with WinRAR or 7-Zip."
         crumbs={[
           { label: 'Home', href: '/' },
-          { label: 'Examinations', href: '/examinations' },
+          { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Previous Papers' },
         ]}
         variant="green"

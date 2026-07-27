@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import DocActions from '@/components/examinations/DocActions';
 
 export const metadata: Metadata = { title: 'Regulations — Examinations — MLRIT' };
 
@@ -146,7 +147,7 @@ export default function RegulationsPage() {
         dek="All active and historical academic regulations governing B.Tech, M.Tech and MBA programmes at MLRIT — R25, R22, MLR20 and MLR18."
         crumbs={[
           { label: 'Home', href: '/' },
-          { label: 'Examinations', href: '/examinations' },
+          { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Regulations' },
         ]}
         variant="green"
@@ -196,28 +197,16 @@ export default function RegulationsPage() {
                   <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" delay={0.06}>
                     {g.docs.map((d) => (
                       <StaggerItem key={d.label}>
-                        <a
-                          href={d.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex flex-col gap-3 rounded-2xl border-2 border-border bg-white p-6
-                            hover:border-secondary hover:-translate-y-1 transition-all h-full"
-                        >
+                        <div className="flex flex-col gap-3 rounded-2xl border-2 border-border bg-white p-6 h-full">
                           <span className={`inline-flex items-center px-2.5 py-1 rounded-full border text-[0.62rem] font-mono font-bold tracking-widest uppercase w-fit ${d.badgeColor}`}>
                             {d.badge}
                           </span>
-                          <h3 className="font-sans font-extrabold text-foreground text-[0.95rem] leading-snug group-hover:text-secondary transition-colors">
+                          <h3 className="font-sans font-extrabold text-foreground text-[0.95rem] leading-snug">
                             {d.label}
                           </h3>
                           <p className="text-muted text-[0.82rem] leading-relaxed flex-1">{d.desc}</p>
-                          <div className="mt-2 inline-flex items-center gap-2 text-secondary font-bold text-[0.78rem] group-hover:gap-3 transition-all">
-                            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
-                              <path d="M7 2v7M4 7l3 3 3-3M2 12h10"
-                                stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            Download PDF
-                          </div>
-                        </a>
+                          <DocActions href={d.href} />
+                        </div>
                       </StaggerItem>
                     ))}
                   </Stagger>
