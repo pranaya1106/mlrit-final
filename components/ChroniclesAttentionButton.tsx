@@ -17,21 +17,29 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         .chron-shell:focus-within .chron-fill {
           transform: scaleX(1) !important;
         }
-        @keyframes chron-glow {
-          0%   { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(232,93,4,0.9),   0 0 14px 3px rgba(232,93,4,0.5); }
-          25%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(244,162,58,0.9),  0 0 14px 3px rgba(244,162,58,0.5); }
-          50%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(1,116,31,0.9),    0 0 14px 3px rgba(1,116,31,0.5); }
-          75%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(14,165,233,0.9),  0 0 14px 3px rgba(14,165,233,0.5); }
-          100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(232,93,4,0.9),   0 0 14px 3px rgba(232,93,4,0.5); }
+        @keyframes chron-spin {
+          to { --chron-angle: 360deg; }
         }
-        .chron-shell {
-          animation: chron-glow 3s ease-in-out infinite;
+        @property --chron-angle {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
+        }
+        .chron-border {
+          animation: chron-spin 3s linear infinite;
+          background: conic-gradient(from var(--chron-angle), #e85d04, #f4a23a, #ffd27a, #01741f, #0ea5e9, #a855f7, #e85d04);
         }
       `}</style>
 
+      {/* Spinning gradient border — sits behind the shell */}
       <span
-        className="chron-shell relative flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
-        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1.5px rgba(232,93,4,0.55), 0 0 8px 2px rgba(232,93,4,0.25)' }}
+        aria-hidden
+        className="chron-border pointer-events-none absolute inset-[-2px] rounded-[12px] z-0"
+      />
+
+      <span
+        className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
+        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18)' }}
       >
         {/* Orange fill — sweeps left → right on hover */}
         <span
