@@ -2,7 +2,8 @@ export type VirtualTourCategory =
   | 'campus'
   | 'departments'
   | 'sports-events'
-  | 'facilities';
+  | 'facilities'
+  | 'student-spaces';
 
 export interface VirtualTourLocation {
   id: string;
@@ -17,10 +18,11 @@ export const VIRTUAL_TOUR_CATEGORIES: {
   id: VirtualTourCategory;
   label: string;
 }[] = [
-  { id: 'campus',        label: 'Campus' },
-  { id: 'departments',   label: 'Departments' },
-  { id: 'sports-events', label: 'Sports & Events' },
-  { id: 'facilities',    label: 'Facilities' },
+  { id: 'campus',         label: 'Campus' },
+  { id: 'departments',    label: 'Departments' },
+  { id: 'sports-events',  label: 'Sports & Events' },
+  { id: 'facilities',     label: 'Facilities' },
+  { id: 'student-spaces', label: 'Student Spaces' },
 ];
 
 export const VIRTUAL_TOUR_LOCATIONS: VirtualTourLocation[] = [
@@ -192,42 +194,6 @@ export const VIRTUAL_TOUR_LOCATIONS: VirtualTourLocation[] = [
 
   // ── Sports & Events Tour ──────────────────────────────────────────────────
   {
-    id: 'sports-rnd-cell',
-    title: 'Research & Development Cell',
-    category: 'sports-events',
-    embedUrl:
-      'https://www.google.com/maps/embed?pb=!4v1665325558258!6m8!1m7!1sCAoSLEFGMVFpcE5yc1ZtZGlYQWRySlo1X1RBaFBUYlNCanB1REJzam1CM19hQmMz!2m2!1d17.59452890366131!2d78.4414207389584!3f140.59183!4f-3.0932540000000017!5f0.4000000000000002',
-    iframeTitle: 'Virtual tour of MLRIT Research & Development Cell',
-    allowFullScreen: true,
-  },
-  {
-    id: 'sports-student-clubs',
-    title: 'Student Clubs',
-    category: 'sports-events',
-    embedUrl:
-      'https://www.google.com/maps/embed?pb=!4v1665368330879!6m8!1m7!1sCAoSLEFGMVFpcE43YVp5YXk5dUJOQXEtc3lycW1LTm1DclMzQXQySjd6bWtEeXIz!2m2!1d17.5944451!2d78.4411892!3f131.60223!4f-10.796530000000004!5f0.4000000000000002',
-    iframeTitle: 'Virtual tour of MLRIT Student Clubs',
-    allowFullScreen: true,
-  },
-  {
-    id: 'sports-auditorium',
-    title: 'Auditorium',
-    category: 'sports-events',
-    embedUrl:
-      'https://www.google.com/maps/embed?pb=!4v1665368034202!6m8!1m7!1sCAoSLEFGMVFpcE1sUjZLeV9xaDlsMng2ODRBS1NuTHBKWVJuV2FDQkpwdmFNMl9Q!2m2!1d17.5944184620495!2d78.44119348620396!3f347.23996!4f-3.7720900000000057!5f0.4000000000000002',
-    iframeTitle: 'Virtual tour of MLRIT Auditorium',
-    allowFullScreen: true,
-  },
-  {
-    id: 'sports-seminar-hall',
-    title: 'Seminar Hall',
-    category: 'sports-events',
-    embedUrl:
-      'https://www.google.com/maps/embed?pb=!4v1665368498257!6m8!1m7!1sCAoSLEFGMVFpcE1UR1d4YXZoS2tIQUFnczkycjV1ZW5GLW8weFB3RnNCLXc0dUlv!2m2!1d17.59438142569758!2d78.44115228935172!3f310.8817!4f-1.7646900000000016!5f0.4000000000000002',
-    iframeTitle: 'Virtual tour of MLRIT Seminar Hall',
-    allowFullScreen: true,
-  },
-  {
     id: 'sports-indoor-stadium',
     title: 'Indoor Stadium',
     category: 'sports-events',
@@ -362,6 +328,44 @@ export const VIRTUAL_TOUR_LOCATIONS: VirtualTourLocation[] = [
     embedUrl:
       'https://www.google.com/maps/embed?pb=!4v1665366014502!6m8!1m7!1sCAoSLEFGMVFpcE9Mbk9pRVotOVltUTFtaVVTenhkdHZoT3kyajlLMUNOZzVSQ1dk!2m2!1d17.59441815123146!2d78.44118899769138!3f352.0214!4f-8.169470000000004!5f0.4000000000000002',
     iframeTitle: 'Virtual tour of MLRIT Entrance',
+    allowFullScreen: true,
+  },
+
+  // ── Student Spaces Tour ───────────────────────────────────────────────────
+  {
+    id: 'student-rnd-cell',
+    title: 'Research & Development Cell',
+    category: 'student-spaces',
+    embedUrl:
+      'https://www.google.com/maps/embed?pb=!4v1665325558258!6m8!1m7!1sCAoSLEFGMVFpcE5yc1ZtZGlYQWRySlo1X1RBaFBUYlNCanB1REJzam1CM19hQmMz!2m2!1d17.59452890366131!2d78.4414207389584!3f140.59183!4f-3.0932540000000017!5f0.4000000000000002',
+    iframeTitle: 'Virtual tour of MLRIT Research & Development Cell',
+    allowFullScreen: true,
+  },
+  {
+    id: 'student-clubs',
+    title: 'Student Clubs',
+    category: 'student-spaces',
+    embedUrl:
+      'https://www.google.com/maps/embed?pb=!4v1665368330879!6m8!1m7!1sCAoSLEFGMVFpcE43YVp5YXk5dUJOQXEtc3lycW1LTm1DclMzQXQySjd6bWtEeXIz!2m2!1d17.5944451!2d78.4411892!3f131.60223!4f-10.796530000000004!5f0.4000000000000002',
+    iframeTitle: 'Virtual tour of MLRIT Student Clubs',
+    allowFullScreen: true,
+  },
+  {
+    id: 'student-auditorium',
+    title: 'Auditorium',
+    category: 'student-spaces',
+    embedUrl:
+      'https://www.google.com/maps/embed?pb=!4v1665368034202!6m8!1m7!1sCAoSLEFGMVFpcE1sUjZLeV9xaDlsMng2ODRBS1NuTHBKWVJuV2FDQkpwdmFNMl9Q!2m2!1d17.5944184620495!2d78.44119348620396!3f347.23996!4f-3.7720900000000057!5f0.4000000000000002',
+    iframeTitle: 'Virtual tour of MLRIT Auditorium',
+    allowFullScreen: true,
+  },
+  {
+    id: 'student-seminar-hall',
+    title: 'Seminar Hall',
+    category: 'student-spaces',
+    embedUrl:
+      'https://www.google.com/maps/embed?pb=!4v1665368498257!6m8!1m7!1sCAoSLEFGMVFpcE1UR1d4YXZoS2tIQUFnczkycjV1ZW5GLW8weFB3RnNCLXc0dUlv!2m2!1d17.59438142569758!2d78.44115228935172!3f310.8817!4f-1.7646900000000016!5f0.4000000000000002',
+    iframeTitle: 'Virtual tour of MLRIT Seminar Hall',
     allowFullScreen: true,
   },
 ];

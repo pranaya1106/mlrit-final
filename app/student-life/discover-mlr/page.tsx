@@ -15,8 +15,6 @@ export default function DiscoverMLRPage() {
         tone="light"
         eyebrow="Life at MLR · Explore"
         title="Discover MLR"
-        italic="in 360°."
-        dek="Step inside every corner of our campus through official Google Street View panoramas — no flight required."
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Life at MLR', href: '/student-life' },
