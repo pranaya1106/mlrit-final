@@ -38,6 +38,8 @@ const nextConfig = {
               "img-src 'self' data: blob: https://mlrit.ac.in https://files.mlrit.ac.in https://res.cloudinary.com https://i.ibb.co https://mlrit-next.vercel.app",
               // News API fetch target + self
               "connect-src 'self' https://mlrit.ac.in",
+              // Google Street View / Maps panorama embeds (Virtual Tour)
+              "frame-src https://www.google.com",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
