@@ -30,14 +30,15 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         className="chron-shell relative flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
         style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1.5px rgba(232,93,4,0.55), 0 0 8px 2px rgba(232,93,4,0.25)' }}
       >
-        {/* Orange fill — sweeps left → right on hover */}
+        {/* Multicolor fill — sweeps left → right on hover */}
         <span
           aria-hidden
-          className="chron-fill pointer-events-none absolute inset-0 bg-[#e85d04]"
+          className="chron-fill pointer-events-none absolute inset-0"
           style={{
+            background: 'linear-gradient(90deg, #e85d04 0%, #f4a23a 30%, #01741f 60%, #0ea5e9 100%)',
             transformOrigin: 'left center',
             transform: 'scaleX(0)',
-            transition: reduce ? 'none' : 'transform 0.35s cubic-bezier(0.65,0,0.076,1)',
+            transition: reduce ? 'none' : 'transform 0.45s cubic-bezier(0.65,0,0.076,1)',
           }}
         />
 
