@@ -17,11 +17,18 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         .chron-shell:focus-within .chron-fill {
           transform: scaleX(1) !important;
         }
+        @keyframes chron-glow {
+          0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1.5px rgba(232,93,4,0.55), 0 0 8px 2px rgba(232,93,4,0.25); }
+          50%       { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px   rgba(232,93,4,0.9),  0 0 16px 4px rgba(232,93,4,0.45); }
+        }
+        .chron-shell {
+          animation: chron-glow 2.8s ease-in-out infinite;
+        }
       `}</style>
 
       <span
         className="chron-shell relative flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
-        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
+        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1.5px rgba(232,93,4,0.55), 0 0 8px 2px rgba(232,93,4,0.25)' }}
       >
         {/* Orange fill — sweeps left → right on hover */}
         <span
