@@ -18,11 +18,14 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
           transform: scaleX(1) !important;
         }
         @keyframes chron-glow {
-          0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1.5px rgba(232,93,4,0.55), 0 0 8px 2px rgba(232,93,4,0.25); }
-          50%       { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px   rgba(232,93,4,0.9),  0 0 16px 4px rgba(232,93,4,0.45); }
+          0%   { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(232,93,4,0.9),   0 0 14px 3px rgba(232,93,4,0.5); }
+          25%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(244,162,58,0.9),  0 0 14px 3px rgba(244,162,58,0.5); }
+          50%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(1,116,31,0.9),    0 0 14px 3px rgba(1,116,31,0.5); }
+          75%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(14,165,233,0.9),  0 0 14px 3px rgba(14,165,233,0.5); }
+          100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 2px rgba(232,93,4,0.9),   0 0 14px 3px rgba(232,93,4,0.5); }
         }
         .chron-shell {
-          animation: chron-glow 2.8s ease-in-out infinite;
+          animation: chron-glow 3s ease-in-out infinite;
         }
       `}</style>
 
@@ -30,15 +33,14 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         className="chron-shell relative flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
         style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1.5px rgba(232,93,4,0.55), 0 0 8px 2px rgba(232,93,4,0.25)' }}
       >
-        {/* Multicolor fill — sweeps left → right on hover */}
+        {/* Orange fill — sweeps left → right on hover */}
         <span
           aria-hidden
-          className="chron-fill pointer-events-none absolute inset-0"
+          className="chron-fill pointer-events-none absolute inset-0 bg-[#e85d04]"
           style={{
-            background: 'linear-gradient(90deg, #e85d04 0%, #f4a23a 30%, #01741f 60%, #0ea5e9 100%)',
             transformOrigin: 'left center',
             transform: 'scaleX(0)',
-            transition: reduce ? 'none' : 'transform 0.45s cubic-bezier(0.65,0,0.076,1)',
+            transition: reduce ? 'none' : 'transform 0.35s cubic-bezier(0.65,0,0.076,1)',
           }}
         />
 
