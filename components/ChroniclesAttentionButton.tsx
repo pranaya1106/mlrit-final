@@ -17,10 +17,32 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         .chron-shell:focus-within .chron-fill {
           transform: scaleX(1) !important;
         }
+        @property --chron-a {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
+        }
+        @keyframes chron-shine {
+          to { --chron-a: 360deg; }
+        }
+        .chron-border {
+          animation: ${reduce ? 'none' : 'chron-shine 3s linear infinite'};
+          background: conic-gradient(
+            from var(--chron-a),
+            transparent 70%,
+            rgba(255,255,255,0.9) 82%,
+            rgba(255,210,122,1) 86%,
+            rgba(255,255,255,0.9) 90%,
+            transparent 100%
+          );
+        }
       `}</style>
 
+      {/* Spinning shine border — sits 2px behind the shell */}
+      <span aria-hidden className="chron-border pointer-events-none absolute inset-[-2px] rounded-[12px] z-0" />
+
       <span
-        className="chron-shell relative flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
+        className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
         style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
       >
         {/* Orange fill — sweeps left → right on hover */}
