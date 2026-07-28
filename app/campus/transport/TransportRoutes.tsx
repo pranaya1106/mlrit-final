@@ -177,7 +177,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onViewDetails(route); } }}
       style={{
         perspective: 1000,
-        height: 320,
+        height: 200,
         cursor: 'pointer',
         userSelect: 'none',
       }}
@@ -204,34 +204,34 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             borderRadius: 4,
             display: 'flex', flexDirection: 'column', alignItems: 'center',
             justifyContent: 'center', textAlign: 'center',
-            padding: '28px 20px',
+            padding: '16px 14px',
             boxShadow: flipped ? '0 0 0 4px rgba(232,93,4,0.10), 0 8px 32px rgba(232,93,4,0.12)' : '0 2px 12px rgba(0,0,0,0.06)',
             transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
           }}
         >
-          {/* Large circle badge */}
+          {/* Circle badge */}
           <div style={{
-            width: 80, height: 80, borderRadius: '50%',
+            width: 52, height: 52, borderRadius: '50%',
             background: '#fdf5ee',
             border: '1.5px solid #f5d9c0',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            marginBottom: 16,
+            marginBottom: 10,
           }}>
             <span style={{
-              fontFamily: 'sans-serif', fontWeight: 900, fontSize: 30,
+              fontFamily: 'sans-serif', fontWeight: 900, fontSize: 20,
               color: '#e85d04', lineHeight: 1, letterSpacing: '-0.02em',
             }}>
               {route.routeNumber}
             </span>
           </div>
           <p style={{
-            fontWeight: 800, fontSize: '1.1rem', color: '#0f0f0f',
-            lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: 5,
+            fontWeight: 800, fontSize: '0.92rem', color: '#0f0f0f',
+            lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: 3,
           }}>
             Route {route.routeNumber}
           </p>
           <p style={{
-            fontSize: '0.8rem', color: '#9d9b94',
+            fontSize: '0.72rem', color: '#9d9b94',
             fontFamily: 'monospace', letterSpacing: '0.01em',
           }}>
             {route.stops.length} stops
@@ -249,26 +249,26 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             border: '1.5px solid #f5a96a',
             borderRadius: 4,
             display: 'flex', flexDirection: 'column',
-            padding: '18px 18px 16px',
+            padding: '12px 12px 10px',
             boxShadow: '0 0 0 4px rgba(232,93,4,0.08), 0 8px 32px rgba(232,93,4,0.12)',
           }}
         >
           {/* Route badge row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <div style={{
-              width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+              width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
               background: '#fdf5ee', border: '1.5px solid #f5a96a',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <span style={{ fontWeight: 900, fontSize: 14, color: '#e85d04', lineHeight: 1 }}>
+              <span style={{ fontWeight: 900, fontSize: 11, color: '#e85d04', lineHeight: 1 }}>
                 {route.routeNumber}
               </span>
             </div>
             <div>
-              <p style={{ fontWeight: 800, fontSize: '0.96rem', color: '#0f0f0f', lineHeight: 1.1 }}>
+              <p style={{ fontWeight: 800, fontSize: '0.82rem', color: '#0f0f0f', lineHeight: 1.1 }}>
                 Route {route.routeNumber}
               </p>
-              <p style={{ fontSize: '0.7rem', color: '#9d9b94', fontFamily: 'monospace', marginTop: 2 }}>
+              <p style={{ fontSize: '0.62rem', color: '#9d9b94', fontFamily: 'monospace', marginTop: 1 }}>
                 {route.stops.length} stops
               </p>
             </div>
@@ -276,22 +276,22 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
 
           {/* Origin → Destination */}
           <div style={{
-            padding: '10px 12px', borderRadius: 4,
+            padding: '7px 9px', borderRadius: 4,
             background: '#faf7f0', border: '1px solid #e8e3d9',
-            marginBottom: 12, flex: '0 0 auto',
+            marginBottom: 8, flex: '0 0 auto',
           }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 7 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 3 }}>
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#e85d04' }} />
-                <div style={{ width: 1, height: 14, background: '#d6cfc4', margin: '3px 0' }} />
-                <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#fff', border: '1.5px solid #c4bdb0' }} />
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#e85d04' }} />
+                <div style={{ width: 1, height: 10, background: '#d6cfc4', margin: '2px 0' }} />
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#fff', border: '1.5px solid #c4bdb0' }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: '0.8rem', color: '#0f0f0f', fontWeight: 600, lineHeight: 1.3,
+                <p style={{ fontSize: '0.72rem', color: '#0f0f0f', fontWeight: 600, lineHeight: 1.3,
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {origin}
                 </p>
-                <p style={{ fontSize: '0.8rem', color: '#6a6a64', marginTop: 10, lineHeight: 1.3,
+                <p style={{ fontSize: '0.72rem', color: '#6a6a64', marginTop: 6, lineHeight: 1.3,
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {destination}
                 </p>
@@ -304,9 +304,9 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             onClick={(e) => { e.stopPropagation(); onViewDetails(route); }}
             style={{
               marginTop: 'auto',
-              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
               background: '#e85d04', border: 'none', borderRadius: 4,
-              padding: '11px 0', color: '#fff', fontSize: '0.87rem', fontWeight: 700,
+              padding: '7px 0', color: '#fff', fontSize: '0.76rem', fontWeight: 700,
               cursor: 'pointer', letterSpacing: '0.03em',
               transition: 'background 0.2s ease',
             }}
@@ -314,7 +314,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#e85d04'; }}
           >
             Full route details
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3 h-3" />
           </button>
         </div>
       </div>
@@ -354,7 +354,7 @@ function ParallaxColumn({
 
   return (
     <motion.div
-      style={{ y, display: 'flex', flexDirection: 'column', gap: 16 }}
+      style={{ y, display: 'flex', flexDirection: 'column', gap: 12 }}
     >
       {routes.map((route) => (
         <RouteCard key={route.id} route={route} onViewDetails={onViewDetails} />
@@ -379,8 +379,8 @@ function ParallaxCardGrid({
 
   return (
     // Overflow hidden so fast columns don't bleed outside the section
-    <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 40 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))', gap: 16 }}>
+    <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 32 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))', gap: 12 }}>
         {columns.map((col, ci) => (
           <ParallaxColumn
             key={ci}
