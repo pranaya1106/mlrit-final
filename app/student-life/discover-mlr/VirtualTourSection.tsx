@@ -215,78 +215,76 @@ export default function VirtualTourSection() {
           </p>
         </div>
 
-        {/* Two-column layout on desktop */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-start">
-          {/* ── Left: category + location nav ─────────────────────────── */}
-          <div className="flex-none lg:w-[220px] xl:w-[240px]">
-            {/* Category tabs */}
-            <div
-              role="tablist"
-              aria-label="Tour categories"
-              id={catTabsId}
-              className="flex lg:flex-col gap-1.5"
-            >
-              {VIRTUAL_TOUR_CATEGORIES.map((cat, idx) => {
-                const isActive = cat.id === activeCategory;
-                return (
-                  <button
-                    key={cat.id}
-                    role="tab"
-                    data-cat-tab
-                    aria-selected={isActive}
-                    aria-controls="vt-stage-panel"
-                    tabIndex={isActive ? 0 : -1}
-                    onClick={() => handleCategoryChange(cat.id)}
-                    onKeyDown={(e) => handleCategoryKeyDown(e, idx)}
-                    className={`relative text-left px-4 py-2.5 rounded-xl font-sans font-semibold text-[0.88rem] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 flex-1 lg:flex-none ${
-                      isActive
-                        ? 'bg-foreground text-white'
-                        : 'text-muted hover:text-foreground hover:bg-white'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
-            </div>
+        {/* ── Category tabs — horizontal pill row ───────────────────────── */}
+        <div
+          role="tablist"
+          aria-label="Tour categories"
+          id={catTabsId}
+          className="flex flex-wrap gap-2 mb-5"
+        >
+          {VIRTUAL_TOUR_CATEGORIES.map((cat, idx) => {
+            const isActive = cat.id === activeCategory;
+            return (
+              <button
+                key={cat.id}
+                role="tab"
+                data-cat-tab
+                aria-selected={isActive}
+                aria-controls="vt-stage-panel"
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => handleCategoryChange(cat.id)}
+                onKeyDown={(e) => handleCategoryKeyDown(e, idx)}
+                className={`px-5 py-2 rounded-full font-sans font-semibold text-[0.85rem] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 ${
+                  isActive
+                    ? 'bg-foreground text-white shadow-sm'
+                    : 'bg-white text-muted border border-border hover:text-foreground hover:border-foreground/30'
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
 
-            {/* Location list */}
-            <div
-              className="mt-4 lg:mt-6 flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 no-scrollbar"
-              aria-label={`Locations in ${VIRTUAL_TOUR_CATEGORIES.find((c) => c.id === activeCategory)?.label}`}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCategory}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.25, ease: EASE }}
-                  className="flex lg:flex-col gap-1.5 lg:gap-1"
-                >
-                  {locations.map((loc) => {
-                    const isActive = loc.id === activeLocation.id;
-                    return (
-                      <button
-                        key={loc.id}
-                        onClick={() => handleLocationChange(loc)}
-                        aria-pressed={isActive}
-                        className={`flex-none lg:w-full text-left px-3.5 py-2 rounded-lg text-[0.82rem] font-sans leading-snug transition-all duration-150 whitespace-nowrap lg:whitespace-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-1 ${
-                          isActive
-                            ? 'bg-primary/10 text-primary font-semibold'
-                            : 'text-muted hover:text-foreground hover:bg-white'
-                        }`}
-                      >
-                        {loc.title}
-                      </button>
-                    );
-                  })}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+        {/* ── Main content: location list + tour stage side by side ─── */}
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:items-start">
+
+          {/* Location list — vertical, scrollable */}
+          <div
+            className="lg:w-[200px] xl:w-[220px] flex-none"
+            aria-label={`Locations in ${VIRTUAL_TOUR_CATEGORIES.find((c) => c.id === activeCategory)?.label}`}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2, ease: EASE }}
+                className="flex flex-col gap-0.5"
+              >
+                {locations.map((loc) => {
+                  const isActive = loc.id === activeLocation.id;
+                  return (
+                    <button
+                      key={loc.id}
+                      onClick={() => handleLocationChange(loc)}
+                      aria-pressed={isActive}
+                      className={`w-full text-left px-3.5 py-2 rounded-lg text-[0.82rem] font-sans leading-snug transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-1 ${
+                        isActive
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-muted hover:text-foreground hover:bg-white'
+                      }`}
+                    >
+                      {loc.title}
+                    </button>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          {/* ── Right: tour stage ─────────────────────────────────────── */}
+          {/* Tour stage */}
           <div className="flex-1 min-w-0">
             {/* Stage wrapper */}
             <div
@@ -337,9 +335,9 @@ export default function VirtualTourSection() {
                 · {VIRTUAL_TOUR_CATEGORIES.find((c) => c.id === activeCategory)?.label}
               </span>
             </div>
-          </div>
-        </div>
-      </div>
+          </div>{/* end tour stage */}
+        </div>{/* end location list + stage row */}
+      </div>{/* end container */}
     </section>
   );
 }
