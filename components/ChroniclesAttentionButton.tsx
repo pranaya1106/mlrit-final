@@ -29,10 +29,12 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
           animation: ${reduce ? 'none' : 'chron-shine 3s linear infinite'};
           background: conic-gradient(
             from var(--chron-a),
-            transparent 70%,
-            rgba(255,255,255,0.9) 82%,
-            rgba(255,210,122,1) 86%,
-            rgba(255,255,255,0.9) 90%,
+            rgba(255,210,122,0.15) 0%,
+            rgba(255,255,255,0.85) 20%,
+            rgba(255,210,122,1) 35%,
+            rgba(255,255,255,0.85) 50%,
+            rgba(255,210,122,0.15) 70%,
+            transparent 85%,
             transparent 100%
           );
         }
