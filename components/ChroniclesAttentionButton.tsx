@@ -12,36 +12,50 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
       aria-label="MLRIT Chronicles — read the latest edition"
       className="relative inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-[10px]"
     >
+      {/* All CSS is static — no JS interpolation, no hydration mismatch */}
       <style>{`
         .chron-shell:hover .chron-fill,
         .chron-shell:focus-within .chron-fill {
           transform: scaleX(1) !important;
         }
-        @property --chron-a {
-          syntax: '<angle>';
-          initial-value: 0deg;
-          inherits: false;
+        @keyframes chron-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
         }
-        @keyframes chron-shine {
-          to { --chron-a: 360deg; }
+        .chron-border-wrap {
+          position: absolute;
+          inset: -2px;
+          border-radius: 12px;
+          overflow: hidden;
+          z-index: 0;
+          pointer-events: none;
         }
-        .chron-border {
-          animation: ${reduce ? 'none' : 'chron-shine 3s linear infinite'};
+        .chron-border-inner {
+          position: absolute;
+          inset: -100%;
+          animation: chron-spin 3s linear infinite;
           background: conic-gradient(
-            from var(--chron-a),
-            rgba(255,210,122,0.15) 0%,
-            rgba(255,255,255,0.85) 20%,
-            rgba(255,210,122,1) 35%,
-            rgba(255,255,255,0.85) 50%,
-            rgba(255,210,122,0.15) 70%,
-            transparent 85%,
+            from 0deg,
+            transparent 0%,
+            rgba(255,210,122,0.2) 15%,
+            rgba(255,255,255,0.95) 30%,
+            rgba(255,210,122,1) 40%,
+            rgba(255,255,255,0.95) 50%,
+            rgba(255,210,122,0.2) 65%,
+            transparent 80%,
             transparent 100%
           );
         }
+        /* prefers-reduced-motion handled in CSS, not JS */
+        @media (prefers-reduced-motion: reduce) {
+          .chron-border-inner { animation: none; }
+        }
       `}</style>
 
-      {/* Spinning shine border — sits 2px behind the shell */}
-      <span aria-hidden className="chron-border pointer-events-none absolute inset-[-2px] rounded-[12px] z-0" />
+      {/* Spinning shine border */}
+      <span aria-hidden className="chron-border-wrap">
+        <span aria-hidden className="chron-border-inner" />
+      </span>
 
       <span
         className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
