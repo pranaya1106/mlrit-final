@@ -141,14 +141,10 @@ const ACCOLADES = [
   { name: 'Sanskruthi',       sport: 'Softball',        level: 'National',             photo: null },
 ];
 
+// Sports quota lists — only 2022-23 document is publicly available from the official site.
+// Later years require updated PDFs from the Sports office.
 const QUOTA_DOCS = [
-  { year: '2026–27', label: 'Sports Quota List 2026–27', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
-  { year: '2025–26', label: 'Sports Quota List 2025–26', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
-  { year: '2024–25', label: 'Sports Quota List 2024–25', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
-  { year: '2023–24', label: 'Sports Quota List 2023–24', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
   { year: '2022–23', label: 'Sports Quota List 2022–23', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
-  { year: '2021–22', label: 'Sports Quota List 2021–22', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
-  { year: '2020–21', label: 'Sports Quota List 2020–21', href: 'https://mlrit.ac.in/wp-content/uploads/2022/12/Sports-Quota-Students-List-2022-23.pdf' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────

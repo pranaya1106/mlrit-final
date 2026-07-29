@@ -125,18 +125,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           },
         ],
       },
-      { kind: 'heading', title: 'Core Values' },
-      {
-        kind: 'numbered-cards',
-        items: [
-          { title: 'Academic Excellence', body: 'Rigorous, industry-relevant curriculum that builds strong engineering fundamentals across all disciplines.' },
-          { title: 'Innovation & Research', body: 'A culture that encourages students and faculty to pursue new ideas, publish research, and protect intellectual property.' },
-          { title: 'Human Values & Ethics', body: 'Instilling integrity, responsibility, and compassion — qualities that define leaders in every walk of life.' },
-          { title: 'Entrepreneurship', body: 'Supporting ventures, startups, and creative initiatives through mentorship, incubation, and hands-on exposure.' },
-          { title: 'Sports & Holistic Growth', body: 'Athletics are as central as academics — nurturing discipline, teamwork, and resilience through sport.' },
-          { title: 'Social Responsibility', body: 'Preparing graduates who contribute meaningfully to society, communities, and the nation.' },
-        ],
-      },
+
     ],
   },
 
@@ -181,7 +170,8 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           { name: 'Shri M. Murali Mohan Reddy', detail: 'Managing Director, Previlage Estates', tag: 'Member' },
           { name: 'Shri D. Narendar Reddy', detail: 'SVS Food Processors Pvt. Ltd.', tag: 'Member' },
           { name: 'Shri Ch. Satti Reddy', detail: 'Managing Director, Machine Tools Equipment Ltd.', tag: 'Member' },
-          { name: 'Dr. V. Radhika Devi', detail: 'Dean (S&H) & IQAC, MLRIT — Faculty Representative', tag: 'Principal' },
+          { name: 'Dr. K. Srinivasa Rao', detail: 'MLRIT', tag: 'Member Secretary' },
+          { name: 'Dr. V. Radhika Devi', detail: 'Dean S&H & IQAC, MLRIT — Faculty Representative', tag: 'Member' },
         ],
       },
     ],
@@ -282,7 +272,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
         kind: 'quote',
         text:
           'We believe that engineering education is most powerful when it is hands-on, industry-aligned and research-driven. At MLRIT, we have built that — across 11 departments, with a faculty team that mentors every student from the first class to the final capstone. Welcome to a place where ideas turn into engineering.',
-        attribution: 'M.Radhika Devi',
+        attribution: 'Dr. S.V.S. Prasad',
         role: 'Principal, MLR Institute of Technology',
       },
       {
@@ -296,22 +286,22 @@ export const INFO_PAGES: Record<string, InfoPage> = {
 
   'about/messages/dean': {
     eyebrow: 'About · Messages',
-    title: "Dean's",
+    title: "Director's",
     italic: 'message.',
-    dek: 'From the desk of the Dean, Academics.',
+    dek: 'From the desk of the Director, MLR Institute of Technology.',
     crumbs: [
       { label: 'Home', href: '/' },
       { label: 'About', href: '/about' },
       { label: 'Messages' },
-      { label: "Dean's Message" },
+      { label: "Director's Message" },
     ],
     blocks: [
       {
         kind: 'quote',
         text:
           'Academic excellence at MLRIT is not a slogan — it is a practice. Outcome-Based Education, regular curriculum review with industry experts, and a culture of measurable assessment combine to produce graduates ready for the world they will shape.',
-        attribution: 'M.Radhika Devi',
-        role: 'Dean, Academics — MLRIT',
+        attribution: 'Dr. V. Radhika Devi',
+        role: 'Director, MLR Institute of Technology',
       },
       {
         kind: 'paragraph',
@@ -328,35 +318,51 @@ export const INFO_PAGES: Record<string, InfoPage> = {
     eyebrow: 'Admissions',
     title: 'How to',
     italic: 'apply.',
-    dek: 'A step-by-step guide to applying to MLRIT — across B.Tech, M.Tech and MBA programmes.',
-    crumbs: [{ label: 'Home', href: '/' }, { label: 'Admissions' }, { label: 'How to Apply' }],
+    dek: 'A step-by-step guide to applying to MLRIT — across B.Tech, M.Tech and MBA programmes. Source: mlrit.ac.in/admissions/.',
+    crumbs: [{ label: 'Home', href: '/' }, { label: 'Admissions', href: '/admissions' }, { label: 'How to Apply' }],
     blocks: [
       {
         kind: 'lead',
         text:
-          'Admissions to MLRIT are managed through TS-EAMCET (B.Tech), GATE / PGECET (M.Tech) and TS-ICET (MBA). A small percentage of seats are filled through management-quota counselling.',
+          'Admissions to MLRIT are managed through TS-EAMCET (B.Tech), GATE / TS-PGECET (M.Tech) and TS-ICET (MBA). 30% of B.Tech seats are filled under Management Quota.',
       },
       {
-        kind: 'bullets',
-        title: 'Application steps — B.Tech',
+        kind: 'numbered-cards',
         items: [
-          'Appear for TS EAMCET and qualify with a valid rank.',
-          'Register and participate in TS EAMCET counselling.',
-          'Select MLRIT (institute code: MLRD) as a preference during web-options.',
-          'Pay the counselling-allocation fee and report to MLRIT with original certificates.',
-          'For management-quota seats, contact the MLRIT admissions office directly.',
+          { title: 'Choose your programme', body: 'Explore MLRIT\'s 10+ B.Tech branches, M.Tech specialisations and MBA. Confirm eligibility for your chosen programme.' },
+          { title: 'Appear for the entrance exam', body: 'B.Tech — TS EAMCET. M.Tech — GATE or TS PGECET. MBA — TS ICET or AP ICET. Qualify with a valid rank.' },
+          { title: 'Participate in counselling', body: 'Register for the respective state counselling. Select MLRIT as your preference. 70% of seats are allotted through counselling.' },
+          { title: 'Report to MLRIT', body: 'Bring originals of all certificates — 10th & 12th mark sheets, TC, migration, caste certificate, photographs. Pay the semester fee.' },
+          { title: 'B-Category / Walk-in', body: 'For the remaining 30% management-quota seats, contact the MLRIT admissions office directly. Walk-in admissions are welcome.' },
         ],
       },
       {
         kind: 'bullets',
-        title: 'Application steps — M.Tech / MBA',
+        title: 'Documents required at reporting',
         items: [
-          'M.Tech: qualify GATE or TS PGECET; participate in PGECET counselling.',
-          'MBA: qualify TS ICET; participate in ICET counselling.',
-          'Select MLRIT during web-options and report after allocation.',
+          '10th and 12th / Intermediate mark sheets (original + copies).',
+          'Transfer Certificate and Migration Certificate.',
+          'Caste Certificate (OBC/SC/ST — if applicable).',
+          'Aadhaar card.',
+          '6 passport-size photographs.',
+          'Counselling allotment letter (for convener-quota candidates).',
         ],
       },
-      { kind: 'cta', label: 'Enroll Now →', href: 'https://qr-mlr.vercel.app', external: true },
+      {
+        kind: 'cards',
+        items: [
+          { title: 'Admissions Help Desk', body: '+91 96522 26061 · Dr. CH Achireddy (Admissions I/C): +91 98666 52122 · admissions@mlrinstitutions.ac.in' },
+          { title: 'Download Application Form', body: 'Available on mlrit.ac.in/admissions/ — download, fill, and submit in person or by post. B-Category form also available.' },
+        ],
+      },
+      {
+        kind: 'button-group',
+        items: [
+          { label: 'Check Eligibility', href: '/admissions/eligibility', variant: 'solid' },
+          { label: 'Fee Structure', href: '/admissions/fees', variant: 'outline' },
+          { label: 'Download Application', href: 'https://mlrit.ac.in/admissions/', variant: 'outline', external: true },
+        ],
+      },
     ],
   },
 
@@ -364,36 +370,62 @@ export const INFO_PAGES: Record<string, InfoPage> = {
     eyebrow: 'Admissions',
     title: 'Eligibility',
     italic: 'criteria.',
-    dek: 'Programme-wise eligibility requirements for B.Tech, M.Tech and MBA admissions.',
-    crumbs: [{ label: 'Home', href: '/' }, { label: 'Admissions' }, { label: 'Eligibility' }],
+    dek: 'Programme-wise eligibility requirements for B.Tech, M.Tech and MBA admissions at MLRIT. Source: mlrit.ac.in/admissions/.',
+    crumbs: [{ label: 'Home', href: '/' }, { label: 'Admissions', href: '/admissions' }, { label: 'Eligibility' }],
     blocks: [
+      { kind: 'heading', eyebrow: 'Undergraduate', title: 'B.Tech', italic: 'Eligibility' },
       {
-        kind: 'cards',
+        kind: 'bullets',
+        title: 'Convener Quota (70% of seats)',
         items: [
-          {
-            title: 'B.Tech',
-            body:
-              '10+2 (or equivalent) with Mathematics, Physics and Chemistry — minimum 45% aggregate (40% for reserved categories). Valid TS-EAMCET rank required.',
-          },
-          {
-            title: 'M.Tech',
-            body:
-              'Bachelor\'s degree in Engineering / Technology (or equivalent) in the relevant discipline with minimum 50% aggregate (45% reserved). Valid GATE or TS-PGECET rank.',
-          },
-          {
-            title: 'MBA',
-            body:
-              'Bachelor\'s degree in any discipline with minimum 50% aggregate (45% reserved). Valid TS-ICET / CAT / MAT / XAT rank.',
-          },
+          'Pass in Intermediate (10+2) conducted by the Board of Intermediate Education, Govt. of Telangana or equivalent.',
+          'Subjects: Mathematics, Physics and Chemistry as optional subjects.',
+          'Minimum 45% aggregate marks (40% for reserved categories).',
+          'Valid TS-EAMCET rank required for allotment.',
         ],
       },
       {
         kind: 'bullets',
-        title: 'Additional notes',
+        title: 'Management Quota (30% of seats)',
         items: [
-          'Lateral entry to B.Tech (3-year) is available through TS ECET — for diploma holders.',
-          'Ph.D. eligibility follows JNTUH Ph.D. regulations — Master\'s degree in the relevant discipline.',
-          'For management-quota admissions, contact the MLRIT admissions office for current-year cut-offs.',
+          'Same academic eligibility as convener quota.',
+          'Admissions are direct — based on eligibility as per JNTU Rules.',
+          'Contact MLRIT Admissions Office for seat availability.',
+        ],
+      },
+      {
+        kind: 'bullets',
+        title: 'Lateral Entry to B.Tech (2nd Year)',
+        items: [
+          'Diploma holders in relevant engineering branch — minimum 50% aggregate.',
+          'Valid TS-ECET rank required.',
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Postgraduate', title: 'M.Tech', italic: 'Eligibility' },
+      {
+        kind: 'bullets',
+        title: 'Admission criteria',
+        items: [
+          'B.E. / B.Tech in relevant branch (or equivalent) — minimum 50% aggregate.',
+          'Valid GATE score or rank obtained in JNTUH PGECET.',
+          'Branch-wise eligibility varies — see programme catalogue or contact admissions.',
+        ],
+      },
+      { kind: 'heading', eyebrow: 'Postgraduate', title: 'MBA', italic: 'Eligibility' },
+      {
+        kind: 'bullets',
+        title: 'Admission criteria',
+        items: [
+          'Pass in undergraduate course (10+2+3) — any discipline.',
+          '70% of seats allotted based on TS-ICET / AP-ICET merit.',
+          '30% of seats reserved for Management / NRI candidates.',
+        ],
+      },
+      {
+        kind: 'cards',
+        items: [
+          { title: 'Admissions Help Desk', body: '+91 96522 26061 · Dr. CH Achireddy (Admissions I/C): +91 98666 52122' },
+          { title: 'Application', body: 'Download application form from mlrit.ac.in or collect in person at the admissions office. Walk-in admissions are welcome.' },
         ],
       },
     ],
@@ -403,21 +435,22 @@ export const INFO_PAGES: Record<string, InfoPage> = {
     eyebrow: 'Admissions',
     title: 'Fee',
     italic: 'structure.',
-    dek: 'Annual fee structure across UG and PG programmes at MLRIT.',
-    crumbs: [{ label: 'Home', href: '/' }, { label: 'Admissions' }, { label: 'Fee Structure' }],
+    dek: 'Annual fee structure across UG and PG programmes at MLRIT for 2025–26. Source: mlrit.ac.in/admissions/.',
+    crumbs: [{ label: 'Home', href: '/' }, { label: 'Admissions', href: '/admissions' }, { label: 'Fee Structure' }],
     blocks: [
       {
         kind: 'lead',
         text:
-          'MLRIT fees are determined by the Telangana State Higher Education Council (TSCHE) under the convener-quota structure. Management-quota fees are notified separately each year.',
+          'Fees shown are for AY 2025–26 as published on the official MLRIT admissions page. Convener-quota and management-quota fees are the same for the current academic year. Fees are subject to revision by the Telangana Fee Regulation Committee (TSFRC) / APSCHE.',
       },
       {
-        kind: 'cards',
-        items: [
-          { title: 'B.Tech (Convener)', body: 'As fixed by TSCHE. Annual tuition typically includes academic fee, university fee, and student welfare charges.' },
-          { title: 'B.Tech (Management)', body: 'Notified each academic year. Contact the admissions office for the current management-quota fee schedule.' },
-          { title: 'M.Tech', body: 'As fixed by TSCHE. Stipend-eligible candidates (GATE-qualified) may receive AICTE-funded scholarships.' },
-          { title: 'MBA', body: 'As fixed by TSCHE. ICET-allocated seats follow the convener-quota fee schedule.' },
+        kind: 'table',
+        caption: 'Annual fee structure — AY 2025–26 (Source: mlrit.ac.in/admissions/)',
+        columns: ['Programme', 'Convener Quota', 'Management / NRI Quota'],
+        rows: [
+          ['B.Tech (All Branches)', '₹1,10,000 / year', '₹1,10,000 / year'],
+          ['M.Tech (All Specialisations)', '₹60,000 / year', '₹60,000 / year'],
+          ['MBA', '₹60,000 / year', '₹60,000 / year'],
         ],
       },
       {
@@ -429,7 +462,16 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           'Hostel, transport and food are charged separately as opted.',
         ],
       },
-      { kind: 'cta', label: 'View current fee schedule (mlrit.ac.in) →', href: 'https://mlrit.ac.in/admissions/', external: true },
+      {
+        kind: 'bullets',
+        title: 'Payment modes',
+        items: [
+          'Online portal — debit / credit card, UPI, net banking.',
+          'Demand Draft in favour of "MLRIT" payable at Hyderabad.',
+          'Cash or card at the MLRIT accounts office.',
+        ],
+      },
+      { kind: 'cta', label: 'View fee details at mlrit.ac.in →', href: 'https://mlrit.ac.in/admissions/', external: true },
     ],
   },
 

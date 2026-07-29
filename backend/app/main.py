@@ -1,7 +1,7 @@
 import threading
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import CORS_ORIGINS
@@ -39,7 +39,7 @@ def health():
 
 
 @app.get("/api/news")
-def news(limit: int = 30):
+def news(limit: int = Query(default=30, ge=1, le=200)):
     return {"items": get_news(limit=limit)}
 
 

@@ -159,15 +159,12 @@ export default function ScholarshipsPage() {
                       Students may also benefit from the following state and central government schemes: AP ePass / TS ePass fee reimbursement, Post-Matric Scholarship for SC/ST/OBC, EWS scholarships, and AICTE/UGC sponsored fellowships.
                     </p>
                     <a
-                      href="https://mlrit.ac.in/scholarships"
+                      href="https://telanganaepass.cgg.gov.in"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 border border-white/25 text-white font-semibold text-sm hover:bg-white/25 transition-colors"
                     >
-                      View all schemes
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      Telangana ePass Portal ↗
                     </a>
                   </div>
                 </Reveal>

@@ -1,4 +1,3 @@
-'use client';
 
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { READINESS_MODULES, BRANCH_CURRICULA, MOUS } from '@/lib/placements';

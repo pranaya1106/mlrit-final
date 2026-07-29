@@ -1,4 +1,3 @@
-'use client';
 
 import type { Metadata } from 'next';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';

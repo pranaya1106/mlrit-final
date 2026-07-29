@@ -20,7 +20,7 @@ const STEPS = [
   {
     num: 3,
     title: 'Apply Online',
-    desc: 'Fill out the application form on mlrit.ac.in, upload required documents and submit. Walk-in admissions are also welcome.',
+    desc: 'Download the application form from the MLRIT admissions office or apply during state counselling. Walk-in admissions are also welcome.',
   },
   {
     num: 4,

@@ -1,4 +1,3 @@
-'use client';
 
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { CERTIFICATIONS } from '@/lib/placements';

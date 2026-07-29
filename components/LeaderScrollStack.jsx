@@ -10,7 +10,7 @@ import { useLayoutEffect, useRef, useCallback, useEffect } from 'react';
 
 export const LeaderStackItem = ({ children, itemClassName = '' }) => (
   <div
-    className={`leader-stack-card relative w-full my-8 box-border origin-top ${itemClassName}`.trim()}
+    className={`leader-stack-card relative w-full my-4 box-border origin-top ${itemClassName}`.trim()}
     style={{ willChange: 'transform', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden' }}
   >
     {children}
@@ -26,6 +26,7 @@ const LeaderScrollStack = ({
   stackPosition  = '20%',
   scaleEndPosition = '10%',
   baseScale      = 0.85,
+  bottomSpace,
   onStackComplete,
 }) => {
   const scrollerRef  = useRef(null);
@@ -171,7 +172,7 @@ const LeaderScrollStack = ({
         {/* end marker — pinEnd formula: endTop - vh/2, so place it far enough down */}
         <div className="leader-stack-end w-full h-px" />
         {/* extra breathing room so last card stays pinned before next section */}
-        <div style={{ height: '60vh' }} />
+        <div style={{ height: bottomSpace ?? '60vh' }} />
       </div>
     </div>
   );

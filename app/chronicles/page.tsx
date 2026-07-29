@@ -148,7 +148,9 @@ export default async function ChroniclesPage() {
               {IN_BRIEF.map((b, i) => (
                 <li key={i} className={`py-3 grid grid-cols-[auto_1fr] gap-3 items-baseline ${i < IN_BRIEF.length - 1 ? 'border-b border-border' : ''}`}>
                   <span className="font-mono font-bold text-[0.62rem] tracking-[0.14em] uppercase bg-black text-white px-1.5 py-0.5 whitespace-nowrap">{b.date}</span>
-                  <span className="font-display text-[0.98rem] leading-[1.45]" dangerouslySetInnerHTML={{ __html: b.body.replace(/^([^—]+?)\s—/, '<strong class="font-sans font-bold">$1</strong> —') }} />
+                  <span className="font-display text-[0.98rem] leading-[1.45]">
+                    {(([head, ...tail]) => tail.length ? <><strong className="font-sans font-bold">{head}</strong>{' — '}{tail.join(' — ')}</> : <>{head}</>)(b.body.split(/\s—\s/))}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -188,7 +190,7 @@ export default async function ChroniclesPage() {
       </main>
 
       {/* TIER — More from this issue */}
-      <TierGrid label="More from" italicLabel="this issue" trail="See all stories" trailHref="https://mlrit.ac.in/category/news/" stories={TIER_STORIES} />
+      <TierGrid label="More from" italicLabel="this issue" trail="See all stories" trailHref="/chronicles" stories={TIER_STORIES} />
 
       {/* PHOTO ESSAY (inverted) */}
       <section className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">

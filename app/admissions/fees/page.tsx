@@ -1,4 +1,3 @@
-'use client';
 
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -169,15 +168,13 @@ export default function FeesPage() {
                       </p>
                     </div>
                     <a
-                      href="https://mlrit.ac.in/admissions/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/admissions/how-to-apply"
                       className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-bold font-sans text-sm hover:bg-primary-hover transition-colors shadow-primary-glow whitespace-nowrap"
                     >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      View on mlrit.ac.in
+                      How to Apply
                     </a>
                   </div>
                 </Reveal>

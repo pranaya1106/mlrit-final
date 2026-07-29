@@ -100,7 +100,7 @@ const USEFUL_SECTIONS = [
       { label: 'Sports',            href: '/campus/sports' },
       { label: 'Student Clubs',      href: '/campus/clubs' },
       { label: 'NSS Event Reports', href: 'https://mlrit.ac.in/nss-event-reports/', ext: true },
-      { label: 'Virtual Tour',      href: 'https://mlrit.ac.in/virtual-tour/',      ext: true },
+      { label: 'Virtual Tour',      href: '/student-life/discover-mlr' },
       { label: 'LMS',               href: 'https://lms.mlrit.ac.in/',              ext: true },
       { label: 'ERP Login',         href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', ext: true },
     ],

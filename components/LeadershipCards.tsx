@@ -31,7 +31,7 @@ const gradientText: React.CSSProperties = {
 
 export default function LeadershipCards() {
   return (
-    <section className="bg-[#f7f5f0] py-20 md:py-28">
+    <section className="bg-[#f7f5f0] py-14 md:py-20">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
 
         {/* Heading */}
@@ -49,12 +49,13 @@ export default function LeadershipCards() {
 
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
         <LeaderScrollStack
-          itemDistance={160}
+          itemDistance={60}
           itemScale={0.028}
-          itemStackDistance={24}
+          itemStackDistance={20}
           stackPosition="18%"
           scaleEndPosition="8%"
-          baseScale={0.88}
+          baseScale={0.92}
+          bottomSpace="10vh"
         >
           {LEADERS.map((l, i) => (
             <LeaderStackItem key={l.name}>
@@ -63,7 +64,7 @@ export default function LeadershipCards() {
                 style={{ borderTop: `3px solid ${l.accent}` }}
               >
                 {/* Short image */}
-                <div className="relative overflow-hidden" style={{ minHeight: '240px' }}>
+                <div className="relative overflow-hidden" style={{ minHeight: '180px' }}>
                   <img
                     src={l.img}
                     alt={l.name}
@@ -76,7 +77,7 @@ export default function LeadershipCards() {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-col justify-between p-7 md:p-9">
+                <div className="flex flex-col justify-between p-6 md:p-7">
                   <div>
                     <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-primary">
                       {l.tag}
