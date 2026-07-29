@@ -186,7 +186,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
             Values that guide <span className="font-display italic font-medium" style={gradientText}>every decision.</span>
           </h2>
           <p className="mt-4 text-muted text-[1rem] max-w-[480px] mx-auto leading-relaxed">
-            These aren't just words on a wall — they shape how we teach, hire and welcome every student.
+            These aren&apos;t just words on a wall — they shape how we teach, hire and welcome every student.
           </p>
         </div>
       </div>
@@ -265,7 +265,7 @@ export default function AdmissionsPage() {
 
               <h1 className="hero-fade font-sans font-black text-white leading-[1.02] tracking-tighter-2"
                 style={{ fontSize: 'clamp(2.8rem,5.5vw,5rem)', animationDelay: '0.3s' }}>
-                You're more than<br />a score. And we're<br />
+                You&apos;re more than<br />a score. And we&apos;re<br />
                 <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
                   more than a college.
                 </span>

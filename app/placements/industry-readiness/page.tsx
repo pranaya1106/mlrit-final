@@ -20,7 +20,7 @@ export default function IndustryReadinessPage() {
               Built for <span className="font-display italic font-medium" style={gradientText}>the industry.</span>
             </h1>
             <p className="mt-4 max-w-[700px] text-muted leading-relaxed">
-              MLRIT's Training & Placement Cell runs a structured, year-round programme spanning aptitude, communication, domain skills,
+              MLRIT&apos;s Training & Placement Cell runs a structured, year-round programme spanning aptitude, communication, domain skills,
               and professional readiness — ensuring every graduate is prepared to compete and succeed.
             </p>
           </Reveal>

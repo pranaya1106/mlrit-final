@@ -950,18 +950,53 @@ function SportsDisciplineIndex() {
 // 7. SPORTS QUOTA — scroll entry
 // ─────────────────────────────────────────────────────────────────────────────
 
+function QuotaDocRow({ doc }: { doc: (typeof QUOTA_DOCS)[number] }) {
+  const prefersReduced = useReducedMotion();
+  const rowRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: rp } = useScroll({ target: rowRef, offset: ['start 96%', 'start 70%'] });
+  const rx = useTransform(rp, [0, 1], [-20, 0]);
+  const ro = useTransform(rp, [0, 0.7], [0, 1]);
+  const springX = useSpring(rx, SPRING_SLOW);
+  const springO = useSpring(ro, SPRING_FAST);
+  return (
+    <motion.div
+      ref={rowRef}
+      role="listitem"
+      style={prefersReduced ? {} : { x: springX, opacity: springO }}
+      className="flex items-center justify-between gap-4 rounded-xl border border-border bg-white px-5 py-4 hover:border-primary hover:shadow-card-soft transition-all duration-200"
+    >
+      <div className="flex items-center gap-4 min-w-0">
+        <span className="font-mono text-[0.6rem] font-bold tracking-[0.14em] uppercase text-primary flex-none">{doc.year}</span>
+        <span className="font-sans font-medium text-foreground text-[0.92rem] truncate">{doc.label}</span>
+      </div>
+      <div className="flex items-center gap-2 flex-none">
+        <a href={doc.href} target="_blank" rel="noopener noreferrer" aria-label={`View ${doc.label}`}
+           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[0.78rem] font-sans font-semibold text-muted hover:text-foreground border border-border hover:border-foreground transition-colors">
+          <Eye className="w-3.5 h-3.5" aria-hidden="true" /> View
+        </a>
+        <a href={doc.href} download target="_blank" rel="noopener noreferrer" aria-label={`Download ${doc.label}`}
+           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[0.78rem] font-sans font-semibold bg-foreground text-white hover:bg-primary transition-colors">
+          <Download className="w-3.5 h-3.5" aria-hidden="true" /> PDF
+        </a>
+      </div>
+    </motion.div>
+  );
+}
+
 function QuotaSection() {
   const prefersReduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'start 55%'] });
   const y  = useTransform(scrollYProgress, [0, 1], [50, 0]);
   const op = useTransform(scrollYProgress, [0, 0.7], [0, 1]);
+  const springY = useSpring(y, SPRING_SLOW);
+  const springO = useSpring(op, SPRING_FAST);
 
   return (
     <section ref={sectionRef} aria-labelledby="quota-heading" className="bg-white">
       <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
         <motion.div
-          style={prefersReduced ? {} : { y: useSpring(y, SPRING_SLOW), opacity: useSpring(op, SPRING_FAST) }}
+          style={prefersReduced ? {} : { y: springY, opacity: springO }}
           className="mb-10 md:mb-14"
         >
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
@@ -988,36 +1023,9 @@ function QuotaSection() {
         </motion.div>
 
         <div className="space-y-3" role="list" aria-label="Sports quota documents">
-          {QUOTA_DOCS.map((doc, i) => {
-            const rowRef = useRef<HTMLDivElement>(null);
-            const { scrollYProgress: rp } = useScroll({ target: rowRef, offset: ['start 96%', 'start 70%'] });
-            const rx = useTransform(rp, [0, 1], [-20, 0]);
-            const ro = useTransform(rp, [0, 0.7], [0, 1]);
-            return (
-              <motion.div
-                key={doc.year}
-                ref={rowRef}
-                role="listitem"
-                style={prefersReduced ? {} : { x: useSpring(rx, SPRING_SLOW), opacity: useSpring(ro, SPRING_FAST) }}
-                className="flex items-center justify-between gap-4 rounded-xl border border-border bg-white px-5 py-4 hover:border-primary hover:shadow-card-soft transition-all duration-200"
-              >
-                <div className="flex items-center gap-4 min-w-0">
-                  <span className="font-mono text-[0.6rem] font-bold tracking-[0.14em] uppercase text-primary flex-none">{doc.year}</span>
-                  <span className="font-sans font-medium text-foreground text-[0.92rem] truncate">{doc.label}</span>
-                </div>
-                <div className="flex items-center gap-2 flex-none">
-                  <a href={doc.href} target="_blank" rel="noopener noreferrer" aria-label={`View ${doc.label}`}
-                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[0.78rem] font-sans font-semibold text-muted hover:text-foreground border border-border hover:border-foreground transition-colors">
-                    <Eye className="w-3.5 h-3.5" aria-hidden="true" /> View
-                  </a>
-                  <a href={doc.href} download target="_blank" rel="noopener noreferrer" aria-label={`Download ${doc.label}`}
-                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[0.78rem] font-sans font-semibold bg-foreground text-white hover:bg-primary transition-colors">
-                    <Download className="w-3.5 h-3.5" aria-hidden="true" /> PDF
-                  </a>
-                </div>
-              </motion.div>
-            );
-          })}
+          {QUOTA_DOCS.map((doc) => (
+            <QuotaDocRow key={doc.year} doc={doc} />
+          ))}
         </div>
       </div>
     </section>
@@ -1028,18 +1036,46 @@ function QuotaSection() {
 // 8. TRAINERS
 // ─────────────────────────────────────────────────────────────────────────────
 
+function TrainerCard({ t }: { t: (typeof TRAINERS)[number] }) {
+  const prefersReduced = useReducedMotion();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: cp } = useScroll({ target: cardRef, offset: ['start 95%', 'start 60%'] });
+  const cy = useTransform(cp, [0, 1], [40, 0]);
+  const co = useTransform(cp, [0, 0.8], [0, 1]);
+  const springY = useSpring(cy, SPRING_SLOW);
+  const springO = useSpring(co, SPRING_FAST);
+  return (
+    <motion.div
+      ref={cardRef}
+      style={prefersReduced ? {} : { y: springY, opacity: springO }}
+      className="group rounded-2xl bg-white border border-border overflow-hidden hover:-translate-y-1.5 hover:shadow-card-strong transition-all duration-300"
+    >
+      <div className="aspect-[3/4] overflow-hidden bg-neutral-100">
+        <img src={t.photo} alt={`Portrait of ${t.name}`}
+          className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-700" loading="lazy" />
+      </div>
+      <div className="p-5">
+        <p className="font-sans font-bold text-foreground text-[1rem] leading-snug">{t.name}</p>
+        <p className="mt-1 font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted">{t.role}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 function TrainersSection() {
   const prefersReduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'start 60%'] });
   const headY  = useTransform(scrollYProgress, [0, 1], [32, 0]);
   const headOp = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
+  const springHeadY = useSpring(headY, SPRING_SLOW);
+  const springHeadO = useSpring(headOp, SPRING_FAST);
 
   return (
     <section ref={sectionRef} aria-labelledby="trainers-heading" className="bg-white overflow-hidden">
       <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
         <motion.div
-          style={prefersReduced ? {} : { y: useSpring(headY, SPRING_SLOW), opacity: useSpring(headOp, SPRING_FAST) }}
+          style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
           className="mb-12 md:mb-16"
         >
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
@@ -1056,29 +1092,9 @@ function TrainersSection() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {TRAINERS.map((t, i) => {
-            const cardRef = useRef<HTMLDivElement>(null);
-            const { scrollYProgress: cp } = useScroll({ target: cardRef, offset: ['start 95%', 'start 60%'] });
-            const cy = useTransform(cp, [0, 1], [40, 0]);
-            const co = useTransform(cp, [0, 0.8], [0, 1]);
-            return (
-              <motion.div
-                key={t.name}
-                ref={cardRef}
-                style={prefersReduced ? {} : { y: useSpring(cy, SPRING_SLOW), opacity: useSpring(co, SPRING_FAST) }}
-                className="group rounded-2xl bg-white border border-border overflow-hidden hover:-translate-y-1.5 hover:shadow-card-strong transition-all duration-300"
-              >
-                <div className="aspect-[3/4] overflow-hidden bg-neutral-100">
-                  <img src={t.photo} alt={`Portrait of ${t.name}`}
-                    className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-700" loading="lazy" />
-                </div>
-                <div className="p-5">
-                  <p className="font-sans font-bold text-foreground text-[1rem] leading-snug">{t.name}</p>
-                  <p className="mt-1 font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted">{t.role}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+          {TRAINERS.map((t) => (
+            <TrainerCard key={t.name} t={t} />
+          ))}
         </div>
       </div>
     </section>
@@ -1089,18 +1105,58 @@ function TrainersSection() {
 // 9. ACCOLADES
 // ─────────────────────────────────────────────────────────────────────────────
 
+function AccoladeCard({ a, idx }: { a: (typeof ACCOLADES)[number]; idx: number }) {
+  const prefersReduced = useReducedMotion();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: cp } = useScroll({ target: cardRef, offset: ['start 95%', 'start 65%'] });
+  const cy  = useTransform(cp, [0, 1], [48, 0]);
+  const co  = useTransform(cp, [0, 0.8], [0, 1]);
+  const crz = useTransform(cp, [0, 1], [idx % 2 === 0 ? -2 : 2, 0]);
+  const springY = useSpring(cy, SPRING_SLOW);
+  const springO = useSpring(co, SPRING_FAST);
+  const springRZ = useSpring(crz, SPRING_SLOW);
+  return (
+    <motion.div
+      ref={cardRef}
+      style={prefersReduced ? {} : { y: springY, opacity: springO, rotateZ: springRZ }}
+      whileHover={prefersReduced ? {} : { y: -6, rotateZ: 0.5 }}
+      className="group rounded-2xl border border-border bg-white overflow-hidden shadow-card-soft hover:shadow-card-strong transition-shadow duration-300"
+    >
+      <div className="aspect-square overflow-hidden bg-neutral-100 relative">
+        {a.photo ? (
+          <img src={a.photo} alt={`${a.name} — ${a.sport}`}
+            className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-700" loading="lazy" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-secondary/10">
+            <Trophy className="w-10 h-10 text-secondary/30" aria-hidden="true" />
+          </div>
+        )}
+        <div className="absolute bottom-0 inset-x-0 px-3 pb-2 pt-10 bg-gradient-to-t from-black/70 to-transparent">
+          <span className="font-mono text-[0.56rem] font-bold tracking-[0.15em] uppercase text-white/90">{a.level}</span>
+        </div>
+      </div>
+      <div className="p-4">
+        <p className="font-sans font-bold text-foreground text-[0.95rem]">{a.name}</p>
+        <p className="mt-0.5 text-muted text-[0.8rem]">{a.sport}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 function AccoladesSection() {
   const prefersReduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'start 60%'] });
   const headY  = useTransform(scrollYProgress, [0, 1], [32, 0]);
   const headOp = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
+  const springHeadY = useSpring(headY, SPRING_SLOW);
+  const springHeadO = useSpring(headOp, SPRING_FAST);
 
   return (
     <section ref={sectionRef} aria-labelledby="accolades-heading" className="bg-cream">
       <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
         <motion.div
-          style={prefersReduced ? {} : { y: useSpring(headY, SPRING_SLOW), opacity: useSpring(headOp, SPRING_FAST) }}
+          style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
           className="mb-12 md:mb-16"
         >
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
@@ -1117,44 +1173,9 @@ function AccoladesSection() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {ACCOLADES.map((a, i) => {
-            const cardRef = useRef<HTMLDivElement>(null);
-            const { scrollYProgress: cp } = useScroll({ target: cardRef, offset: ['start 95%', 'start 65%'] });
-            const cy  = useTransform(cp, [0, 1], [48, 0]);
-            const co  = useTransform(cp, [0, 0.8], [0, 1]);
-            const crz = useTransform(cp, [0, 1], [i % 2 === 0 ? -2 : 2, 0]);
-            return (
-              <motion.div
-                key={a.name}
-                ref={cardRef}
-                style={prefersReduced ? {} : {
-                  y: useSpring(cy, SPRING_SLOW),
-                  opacity: useSpring(co, SPRING_FAST),
-                  rotateZ: useSpring(crz, SPRING_SLOW),
-                }}
-                whileHover={prefersReduced ? {} : { y: -6, rotateZ: 0.5 }}
-                className="group rounded-2xl border border-border bg-white overflow-hidden shadow-card-soft hover:shadow-card-strong transition-shadow duration-300"
-              >
-                <div className="aspect-square overflow-hidden bg-neutral-100 relative">
-                  {a.photo ? (
-                    <img src={a.photo} alt={`${a.name} — ${a.sport}`}
-                      className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-700" loading="lazy" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-secondary/10">
-                      <Trophy className="w-10 h-10 text-secondary/30" aria-hidden="true" />
-                    </div>
-                  )}
-                  <div className="absolute bottom-0 inset-x-0 px-3 pb-2 pt-10 bg-gradient-to-t from-black/70 to-transparent">
-                    <span className="font-mono text-[0.56rem] font-bold tracking-[0.15em] uppercase text-white/90">{a.level}</span>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <p className="font-sans font-bold text-foreground text-[0.95rem]">{a.name}</p>
-                  <p className="mt-0.5 text-muted text-[0.8rem]">{a.sport}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+          {ACCOLADES.map((a, i) => (
+            <AccoladeCard key={a.name} a={a} idx={i} />
+          ))}
         </div>
       </div>
     </section>
@@ -1171,12 +1192,18 @@ function ClosingStatement() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'center center'] });
   const y  = useTransform(scrollYProgress, [0, 1], [60, 0]);
   const op = useTransform(scrollYProgress, [0, 0.7], [0, 1]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [40, 0]);
+  const op2 = useTransform(scrollYProgress, [0.2, 0.9], [0, 1]);
+  const springY  = useSpring(y, SPRING_SLOW);
+  const springO  = useSpring(op, SPRING_FAST);
+  const springY2 = useSpring(y2, SPRING_SLOW);
+  const springO2 = useSpring(op2, SPRING_FAST);
 
   return (
     <section ref={sectionRef} aria-label="Closing" className="bg-foreground overflow-hidden">
       <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-24 md:py-32 text-center">
         <motion.p
-          style={prefersReduced ? {} : { y: useSpring(y, SPRING_SLOW), opacity: useSpring(op, SPRING_FAST) }}
+          style={prefersReduced ? {} : { y: springY, opacity: springO }}
           className="font-display italic font-bold text-white text-[clamp(2rem,4.5vw,4rem)] leading-[1.18] tracking-tight max-w-[860px] mx-auto"
         >
           &ldquo;The discipline, focus, and resilience you build on the field
@@ -1184,10 +1211,7 @@ function ClosingStatement() {
         </motion.p>
 
         <motion.div
-          style={prefersReduced ? {} : {
-            y: useSpring(useTransform(scrollYProgress, [0, 1], [40, 0]), SPRING_SLOW),
-            opacity: useSpring(useTransform(scrollYProgress, [0.2, 0.9], [0, 1]), SPRING_FAST),
-          }}
+          style={prefersReduced ? {} : { y: springY2, opacity: springO2 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link

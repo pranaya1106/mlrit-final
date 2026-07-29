@@ -1,13 +1,25 @@
+import os
 import threading
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, Security
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import APIKeyHeader
 
 from .config import CORS_ORIGINS
 from .db import get_achievements, get_news, init_db
 from .scheduler import start_scheduler
 from .scraper import backfill_images, run_scrape
+
+_SCRAPE_API_KEY = os.environ.get("SCRAPE_API_KEY", "")
+_api_key_header = APIKeyHeader(name="X-Scrape-Key", auto_error=False)
+
+
+def _require_scrape_key(key: str | None = Security(_api_key_header)) -> None:
+    if not _SCRAPE_API_KEY:
+        raise HTTPException(status_code=503, detail="Scrape key not configured on server.")
+    if key != _SCRAPE_API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid or missing X-Scrape-Key header.")
 
 
 def _startup_scrape():
@@ -28,8 +40,8 @@ app = FastAPI(title="MLRIT Chronicles News API", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
 
@@ -48,13 +60,13 @@ def achievements():
     return {"categories": get_achievements()}
 
 
-@app.post("/api/scrape/run")
+@app.post("/api/scrape/run", dependencies=[Depends(_require_scrape_key)])
 def trigger_scrape():
     new_count = run_scrape()
     return {"new_items": new_count}
 
 
-@app.post("/api/scrape/backfill-images")
+@app.post("/api/scrape/backfill-images", dependencies=[Depends(_require_scrape_key)])
 def trigger_backfill():
     updated = backfill_images()
     return {"updated": updated}

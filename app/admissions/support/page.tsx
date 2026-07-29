@@ -156,7 +156,7 @@ export default function SupportPage() {
           {/* Results count */}
           {query && (
             <p className="text-muted text-[0.85rem] font-mono mb-5">
-              {filtered.length} {filtered.length === 1 ? 'result' : 'results'} for "{query}"
+              {filtered.length} {filtered.length === 1 ? 'result' : 'results'} for &ldquo;{query}&rdquo;
             </p>
           )}
 
@@ -164,7 +164,7 @@ export default function SupportPage() {
           <div className="flex flex-col gap-3 mb-16">
             {filtered.length === 0 ? (
               <div className="bg-white border border-border rounded-2xl p-10 text-center shadow-card-soft">
-                <p className="text-muted">No results found for "<strong className="text-foreground">{query}</strong>". Try a different keyword or contact us below.</p>
+                <p className="text-muted">No results found for &ldquo;<strong className="text-foreground">{query}</strong>&rdquo;. Try a different keyword or contact us below.</p>
               </div>
             ) : (
               filtered.map((faq, i) => {
@@ -261,7 +261,7 @@ export default function SupportPage() {
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div>
                 <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-2">Reach Us</h2>
-                <p className="text-muted text-[0.9rem] mb-5">Get in touch or find us on campus — we're always here to help.</p>
+                <p className="text-muted text-[0.9rem] mb-5">Get in touch or find us on campus — we&apos;re always here to help.</p>
                 <div className="bg-white border border-border rounded-2xl p-7 shadow-card-soft space-y-5">
                   <div>
                     <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Official Address</p>

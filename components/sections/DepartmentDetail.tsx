@@ -141,7 +141,8 @@ export default function DepartmentDetail({ department: d }: Props) {
         ]
       : QUICK_NAV[tab];
 
-  // Scroll-spy — highlight nav item matching the section in view
+  // Scroll-spy — highlight nav item matching the section in view.
+  // quickNavItems is derived synchronously from tab — listing tab alone is correct.
   useEffect(() => {
     const items = quickNavItems;
     if (!items.length) return;
@@ -160,6 +161,7 @@ export default function DepartmentDetail({ department: d }: Props) {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
   const handleNavClick = (id: string) => {
@@ -943,8 +945,6 @@ function FreshmanCurriculumPanel() {
 }
 
 function AcademicsPanel({ d }: PanelProps) {
-  if (d.slug === 'hs') return <FreshmanCurriculumPanel />;
-
   const availableRegSlugs = SYLLABUS_AVAILABLE[d.slug] ?? [];
   const availableRegs = SYLLABUS_REGS.filter((r) => availableRegSlugs.includes(r.slug));
   const regsForCatalog = availableRegs.length ? availableRegs : SYLLABUS_REGS;
@@ -955,6 +955,8 @@ function AcademicsPanel({ d }: PanelProps) {
   );
 
   const [activeReg, setActiveReg] = useState(regsWithData[0]?.slug ?? regsForCatalog[0]?.slug ?? 'r25');
+
+  if (d.slug === 'hs') return <FreshmanCurriculumPanel />;
 
   const semesters = Array.from({ length: 8 }, (_, i) => {
     const semNum = i + 1;

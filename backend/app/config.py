@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,11 +29,13 @@ OFFICIAL_NEWS_MAX_PAGES = 8
 
 SCRAPE_INTERVAL_HOURS = 6
 
+_extra = [o.strip() for o in os.environ.get("CORS_EXTRA_ORIGINS", "").split(",") if o.strip()]
 CORS_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:3001",
+    *_extra,
 ]
 
 # Real college terms — at least one must appear for an article to count as "about us".

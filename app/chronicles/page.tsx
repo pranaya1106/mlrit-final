@@ -30,7 +30,7 @@ export default async function ChroniclesPage() {
       {/* MASTHEAD */}
       <header className="border-t-4 border-black border-b border-black px-6 md:px-12 lg:px-20 pt-8 md:pt-12 lg:pt-14 pb-5 md:pb-7 text-center">
         <div className="flex justify-between items-center font-mono text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-muted border-b border-border pb-3 mb-5">
-          <span><span className="inline-block w-1.5 h-1.5 rounded-full bg-black mr-2 align-middle animate-pulse" /> Live · Spring '26 Edition</span>
+          <span><span className="inline-block w-1.5 h-1.5 rounded-full bg-black mr-2 align-middle animate-pulse" /> Live · Spring &apos;26 Edition</span>
           <span>Vol. V · Issue 23</span>
         </div>
         <div className="h-1 bg-black my-2" />
@@ -38,7 +38,7 @@ export default async function ChroniclesPage() {
           MLRIT <span className="italic font-normal">Chronicles</span>
         </h1>
         <p className="italic text-muted text-[clamp(0.92rem,1.1vw,1.1rem)] mt-4">
-          "All the campus that's fit to print" — a broadsheet of stories, ideas and updates from MLR Institute of Technology.
+          &ldquo;All the campus that&apos;s fit to print&rdquo; — a broadsheet of stories, ideas and updates from MLR Institute of Technology.
         </p>
         <div className="h-0.5 bg-black mt-5" />
         <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-muted border-t border-border mt-5 pt-3.5">
@@ -161,7 +161,7 @@ export default async function ChroniclesPage() {
             <RailHead label="Live Wire" pill={liveWireTicker.length ? 'Auto-updated' : 'Warming up'} />
             {liveWireTicker.length === 0 ? (
               <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
-                No live items yet — the scraper hasn't run, or the news service isn't reachable.
+                No live items yet — the scraper hasn&apos;t run, or the news service isn&apos;t reachable.
               </p>
             ) : (
               <div className="flex flex-col">

@@ -86,7 +86,7 @@ export default function IQACPage() {
               </Reveal>
               <Reveal preset="right" delay={0.1}>
                 <p className="text-muted leading-relaxed text-[1rem]">
-                  Through continuous monitoring and periodic reviews, IQAC strengthens teaching-learning processes, research, extension activities, governance, infrastructure, and student support systems, thereby contributing to the realization of the institution's vision and mission.
+                  Through continuous monitoring and periodic reviews, IQAC strengthens teaching-learning processes, research, extension activities, governance, infrastructure, and student support systems, thereby contributing to the realization of the institution&apos;s vision and mission.
                 </p>
               </Reveal>
             </div>
@@ -94,7 +94,7 @@ export default function IQACPage() {
             <Reveal preset="up" delay={0.12}>
               <blockquote className="mt-8 rounded-2xl border-l-4 border-secondary bg-green-50/40 px-7 py-5">
                 <p className="font-sans font-semibold text-foreground text-[1rem] leading-relaxed italic">
-                  "Quality is not an event; it is a continuous journey towards excellence."
+                  &ldquo;Quality is not an event; it is a continuous journey towards excellence.&rdquo;
                 </p>
                 <footer className="mt-2 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-secondary">IQAC Motto</footer>
               </blockquote>

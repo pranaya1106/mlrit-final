@@ -85,7 +85,7 @@ export default function Header() {
                 <span className="font-mono font-bold text-[0.56rem] tracking-[0.14em] uppercase text-primary">EST · 2005</span>
               </span>
               <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase text-neutral-500">DUNDIGAL · HYDERABAD</span>
-              <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase px-2 py-0.5 rounded-full border border-[#f0d28e] text-[#a07820] bg-[#fffbf0]">AUTONOMOUS · UGC '15</span>
+              <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase px-2 py-0.5 rounded-full border border-[#f0d28e] text-[#a07820] bg-[#fffbf0]">AUTONOMOUS · UGC &apos;15</span>
             </div>
           </div>
 

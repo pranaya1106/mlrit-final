@@ -58,7 +58,7 @@ export default function NBAPage() {
                   The National Board of Accreditation (NBA) is an autonomous body that evaluates the quality of technical programmes in India. NBA accreditation signifies that a programme meets the defined standards of quality in terms of curriculum, infrastructure, faculty, and outcomes.
                 </p>
                 <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-                  MLRIT holds NBA accreditation for multiple engineering programmes under the Tier-1 framework — affirming the institution's commitment to outcome-based education (OBE) and continuous quality improvement.
+                  MLRIT holds NBA accreditation for multiple engineering programmes under the Tier-1 framework — affirming the institution&apos;s commitment to outcome-based education (OBE) and continuous quality improvement.
                 </p>
               </Reveal>
               <Reveal preset="up" delay={0.1}>

@@ -72,8 +72,8 @@ const USEFUL_SECTIONS = [
       { label: 'Financial Statements', href: 'https://mlrit.ac.in/financial-statements/',   ext: true },
       { label: 'DPR',                  href: 'https://files.mlrit.ac.in/university/DPR.pdf', ext: true },
       { label: 'Admission Policies',   href: '/admissions/policies' },
-      { label: 'OBE Portal',           href: 'http://103.15.62.235/ioncudos_mlrit_tier1/',   ext: true },
-      { label: 'Examination Policy',   href: '/examinations/exam-policy.pdf' },
+      { label: 'OBE Portal',           href: 'https://103.15.62.235/ioncudos_mlrit_tier1/',  ext: true },
+      { label: 'Examination Policy',   href: '/examinations/exam-policy.pdf',                 ext: true },
     ],
   },
   {
@@ -81,12 +81,12 @@ const USEFUL_SECTIONS = [
     label: 'Committees & Cells',
     links: [
       { label: 'Anti-Ragging Committee',       href: 'https://files.mlrit.ac.in/uploads/Committees/Anti-Ragging_Disciplinary_Committee.pdf', ext: true },
-      { label: 'SC-ST Committee',              href: 'http://files.mlrit.ac.in/uploads/Committees/SC-ST_Committee.pdf',  ext: true },
+      { label: 'SC-ST Committee',              href: 'https://files.mlrit.ac.in/uploads/Committees/SC-ST_Committee.pdf', ext: true },
       { label: 'ICC',                          href: 'https://files.mlrit.ac.in/ICC_Committee.pdf',  ext: true },
       { label: 'Women Empowerment Cell',       href: "https://files.mlrit.ac.in/uploads/Committees/Women's_Empowerment_Cell.pdf", ext: true },
       { label: 'Student Counsellor Committee', href: 'https://files.mlrit.ac.in/uploads/Committees/Student_Counsellor.pdf', ext: true },
       { label: 'IIC',                          href: 'https://files.mlrit.ac.in/uploads/Committees/Institution_Industry_Cell.pdf', ext: true },
-      { label: 'RTI Committee',                href: 'http://files.mlrit.ac.in/uploads/Committees/RTI_Committee.pdf', ext: true },
+      { label: 'RTI Committee',                href: 'https://files.mlrit.ac.in/uploads/Committees/RTI_Committee.pdf', ext: true },
       { label: 'Grievance Portal',             href: 'https://mlrit.edugrievance.com/', ext: true },
     ],
   },
@@ -257,9 +257,7 @@ export default function Footer() {
             <span>Approved by AICTE</span>
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms</a>
-            <a href="#" className="hover:text-primary transition-colors">Sitemap</a>
+            <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Disclosures</a>
           </div>
         </div>
       </div>

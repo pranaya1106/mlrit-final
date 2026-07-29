@@ -40,11 +40,11 @@ export default function PlacementsAlumniPage() {
             <Reveal delay={0.12}>
               <p className="mt-6 text-white/65 leading-relaxed text-[1.06rem] max-w-[640px]">
                 Remember the late nights before exams, the friendships forged over group projects, the thrill of your first placement call?
-                Re-Member is MLRIT's invitation to return — as a part of the community that shaped you.
+                Re-Member is MLRIT&apos;s invitation to return — as a part of the community that shaped you.
               </p>
               <p className="mt-4 text-white/55 leading-relaxed text-[0.96rem] max-w-[600px]">
                 Reconnect with batchmates, mentor current students, attend alumni events, and stay part of an institution that never stopped being your home.
-                Whether you graduated last year or two decades ago, your story is still part of MLRIT's story.
+                Whether you graduated last year or two decades ago, your story is still part of MLRIT&apos;s story.
               </p>
             </Reveal>
 

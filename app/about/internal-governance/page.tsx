@@ -108,7 +108,7 @@ export default function InternalGovernancePage() {
                       <div className="my-5 h-px bg-border" />
                       <blockquote className="pl-4 border-l-2 border-primary">
                         <p className="font-display italic text-[0.98rem] text-foreground/72 leading-relaxed">
-                          "{l.message}"
+                          &ldquo;{l.message}&rdquo;
                         </p>
                       </blockquote>
                     </div>

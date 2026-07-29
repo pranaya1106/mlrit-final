@@ -82,7 +82,7 @@ export default function PlacementsWall() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-white/72 font-light leading-relaxed text-[1.1rem] max-w-[720px] mb-14">
-            81% students placed every year — engineers from MLRIT land roles at the world's most respected organisations.
+            81% students placed every year — engineers from MLRIT land roles at the world&apos;s most respected organisations.
           </p>
         </Reveal>
         <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 pt-8 border-t border-white/15 max-w-[920px]" delay={0.1}>

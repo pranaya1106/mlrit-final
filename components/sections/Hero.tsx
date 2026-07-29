@@ -75,7 +75,7 @@ export default function Hero() {
           className="mt-5 max-w-[480px] text-white/90 leading-[1.55] text-[1.02rem] font-normal"
           style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
         >
-          Two decades of shaping minds. 11,000+ engineers and counting. At MLRIT, we don't just teach the future — we build it.
+          Two decades of shaping minds. 11,000+ engineers and counting. At MLRIT, we don&apos;t just teach the future — we build it.
         </motion.p>
         <motion.div variants={lineUp} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
           <Link

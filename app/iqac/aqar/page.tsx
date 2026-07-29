@@ -55,7 +55,7 @@ export default function AQARPage() {
             <div className="mt-6 grid md:grid-cols-2 gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
-                  The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT's Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year.
+                  The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT&apos;s Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year.
                 </p>
                 <p className="mt-4 text-muted leading-relaxed text-[1rem]">
                   AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance.

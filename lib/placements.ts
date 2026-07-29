@@ -157,12 +157,7 @@ export const MOUS: Mou[] = [
     domain: 'Talend Data Integration and AWS — hands-on training with live industry projects through a dedicated on-campus Centre of Excellence.',
     package: '5.5 – 7 LPA',
     type: 'Centre of Excellence',
-    docs: [
-      { label: 'MoU Agreement',     file: '/placements/mou/Virtusa_MOU_COE_Partner_2025_Signed.pdf' },
-      { label: 'AWS Track',         file: '/placements/mou/Virtusa_AWS.pdf'                          },
-      { label: 'Dot Net Track',     file: '/placements/mou/Virtusa_DotNet.pdf'                       },
-      { label: 'Talend + Big Data', file: '/placements/mou/Virtusa_Talend.pdf'                       },
-    ],
+    // docs: pending upload to /public/placements/mou/
   },
   {
     name: 'EPAM Systems',
@@ -189,19 +184,19 @@ export const MOUS: Mou[] = [
     name: 'Cyient',
     domain: 'Engineering and Technology Services — strategic MoU covering campus recruitment, joint technical training, and faculty development.',
     type: 'MoU Partner',
-    docs: [{ label: 'MoU Agreement', file: '/placements/mou/Cyient_MLRIT_MoU.pdf' }],
+    // docs: pending upload to /public/placements/mou/
   },
   {
     name: 'Infosys',
     domain: 'Campus Connect Programme — structured industry partnership providing Infosys-designed curriculum, certification, and campus recruitment.',
     type: 'MoU Partner',
-    docs: [{ label: 'Campus Connect', file: '/placements/mou/Infosys_Campus_Connect.pdf' }],
+    // docs: pending upload to /public/placements/mou/
   },
   {
     name: 'Revature',
     domain: 'Technology staffing and training partnership — placing graduates into software development roles at Fortune 500 clients through Revature\'s workforce model.',
     type: 'MoU Partner',
-    docs: [{ label: 'MoU Agreement', file: '/placements/mou/Revature_MoU.pdf' }],
+    // docs: pending upload to /public/placements/mou/
   },
 ];
 

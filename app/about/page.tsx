@@ -142,7 +142,7 @@ export default function AboutPage() {
                   </p>
                   <p>
                     Starting with a handful of branches on a 38-acre campus at Dundigal, the institution has grown steadily
-                    into one of the region's most trusted engineering colleges. Two decades on, MLRIT holds{' '}
+                    into one of the region&apos;s most trusted engineering colleges. Two decades on, MLRIT holds{' '}
                     <strong>autonomous status</strong> from the UGC,{' '}
                     <strong>NAAC institutional accreditation</strong>,{' '}
                     <strong>NBA programme-level accreditation</strong> across five branches, and a consistent place in NIRF
