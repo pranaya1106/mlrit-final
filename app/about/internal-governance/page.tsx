@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import AboutQuickNav from '@/components/AboutQuickNav';
 import PageHeader from '@/components/PageHeader';
 import LeaderScrollStack, { LeaderStackItem } from '@/components/LeaderScrollStack';
@@ -150,8 +150,10 @@ type DeptHead = { dept: string; name: string; title: string; video?: string };
 function HodModal({ d, onClose }: { d: DeptHead; onClose: () => void }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
     // Animate in
     const t = setTimeout(() => setVisible(true), 10);
     // Play video
@@ -173,7 +175,9 @@ function HodModal({ d, onClose }: { d: DeptHead; onClose: () => void }) {
     setTimeout(onClose, 250);
   };
 
-  return ReactDOM.createPortal(
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10"
       style={{
