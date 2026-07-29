@@ -16,6 +16,7 @@ export interface LeaderScrollStackProps {
   stackPosition?: string;
   scaleEndPosition?: string;
   baseScale?: number;
+  bottomSpace?: string | number;
   onStackComplete?: () => void;
 }
 
