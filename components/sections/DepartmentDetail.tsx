@@ -127,6 +127,7 @@ export default function DepartmentDetail({ department: d }: Props) {
   const visibleTabs = TABS.filter((t) => {
     if (t.id === 'placements') return showPlacements;
     if (t.id === 'mous') return showMous;
+    if (t.id === 'academics') return d.level !== 'pg';
     return true;
   });
 
@@ -528,7 +529,9 @@ function ObjectivesPanel({ d, data }: PanelProps) {
 
       <SubHeading id="obe">Outcome Based Education (OBE)</SubHeading>
       <div className="grid md:grid-cols-2 gap-10">
-        {(['B.Tech', 'M.Tech'] as const).map((level) => (
+        {(['B.Tech', 'M.Tech'] as const).filter((level) =>
+          d.level === 'pg' ? level === 'M.Tech' : level === 'B.Tech'
+        ).map((level) => (
           <div key={level}>
             <h4 className="font-sans font-extrabold text-[0.82rem] tracking-[0.08em] uppercase text-secondary mb-3">
               {level}
@@ -788,9 +791,11 @@ function FreshmanCurriculumPanel() {
   const availableRegSlugs = SYLLABUS_AVAILABLE[branch] ?? [];
   const availableRegs = SYLLABUS_REGS.filter((r) => availableRegSlugs.includes(r.slug));
 
-  const regsWithData = SYLLABUS_REGS.filter((r) =>
+  const allRegsWithData = SYLLABUS_REGS.filter((r) =>
     [1, 2].some((sem) => getSyllabusCourses(branch, r.slug, sem).length > 0)
   );
+  // Show only the most recent regulation for the freshman department
+  const regsWithData = allRegsWithData.slice(0, 1);
   const [activeReg, setActiveReg] = useState(regsWithData[0]?.slug ?? 'r25');
   const effectiveReg = regsWithData.some((r) => r.slug === activeReg) ? activeReg : (regsWithData[0]?.slug ?? 'r25');
 
