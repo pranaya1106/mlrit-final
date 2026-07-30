@@ -9,14 +9,12 @@ import {
   useSpring,
   useReducedMotion,
   useInView,
-  AnimatePresence,
 } from 'framer-motion';
 
 // ─── Shared constants ────────────────────────────────────────────────────────
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const SP   = { stiffness: 110, damping: 26, mass: 0.7 } as const;
-const SP_F = { stiffness: 200, damping: 30, mass: 0.5 } as const;
 
 // ─── ArrowLink ────────────────────────────────────────────────────────────────
 
@@ -210,18 +208,14 @@ function GreenCampusStory() {
   const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
 
-  // All springs declared unconditionally at top level
-  const rawY  = useTransform(scrollYProgress, [0, 1], ['-7%', '7%']);
-  const rawY2 = useTransform(scrollYProgress, [0, 1], ['3%', '-5%']);
+  const rawY     = useTransform(scrollYProgress, [0, 1], ['-7%', '7%']);
   const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1, 0.97]);
-  const y     = useSpring(rawY,  SP);
-  const y2    = useSpring(rawY2, SP);
-  const scale = useSpring(rawScale, SP);
+  const y        = useSpring(rawY, SP);
+  const scale    = useSpring(rawScale, SP);
 
-  // [0] hero · [1] float thumbnail · [2-4] mosaic strip
+  // [0] hero · [1-3] mosaic strip
   const IMGS = [
     '/images/facilities/campus/campus-7P5A1967.jpg',  // wide campus aerial — hero
-    '/images/facilities/campus/campus-7P5A2322.jpg',  // tree-lined path — float
     '/images/facilities/campus/campus-7P5A2397.jpg',  // mosaic 1
     '/images/facilities/campus/campus-7P5A1225.jpg',  // mosaic 2
     '/images/facilities/campus/campus-7P5A1958.jpg',  // mosaic 3
@@ -236,13 +230,13 @@ function GreenCampusStory() {
   return (
     <section ref={ref} className="relative bg-[#f7f5f0] overflow-hidden" aria-label="Green Campus">
       {/* Oversized watermark */}
-      <motion.div
+      <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none text-[#e8e3da] select-none"
-        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0, y: prefersReduced ? 0 : y2 }}
+        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0 }}
       >
         01
-      </motion.div>
+      </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
@@ -291,7 +285,7 @@ function GreenCampusStory() {
             {/* Primary image — clip-path reveal + parallax scale */}
             <motion.div
               className="relative w-full rounded-3xl overflow-hidden shadow-card-strong"
-              style={{ height: 'clamp(340px, 42vw, 540px)', y: prefersReduced ? 0 : y, scale: prefersReduced ? 1 : scale }}
+              style={{ height: 'clamp(420px, 52vw, 640px)', y: prefersReduced ? 0 : y, scale: prefersReduced ? 1 : scale }}
             >
               <ImageReveal
                 src={IMGS[0]}
@@ -305,23 +299,13 @@ function GreenCampusStory() {
                 </span>
               </div>
             </motion.div>
-
-            {/* Floating secondary image — independent spring, normal flow to avoid clipping */}
-            <Reveal preset="left" delay={0.22}>
-              <motion.div
-                className="relative mt-3 ml-auto w-[52%] rounded-2xl overflow-hidden border-[3px] border-white shadow-card-strong"
-                style={{ height: 'clamp(140px, 16vw, 200px)', y: prefersReduced ? 0 : y2 }}
-              >
-                <img src={IMGS[1]} alt="MLRIT campus tree-lined walkway" className="w-full h-full object-cover" loading="lazy" />
-              </motion.div>
-            </Reveal>
           </div>
         </div>
       </div>
 
-      {/* Mosaic strip — uses imgs[2-4], distinct from hero and float */}
+      {/* Mosaic strip — uses imgs[1-3], distinct from hero */}
       <div className="mt-3 flex gap-1.5 overflow-hidden" style={{ height: 'clamp(100px, 14vw, 170px)' }}>
-        {IMGS.slice(2).map((src, i) => (
+        {IMGS.slice(1).map((src, i) => (
           <motion.div
             key={i}
             className="flex-1 min-w-0 overflow-hidden"
@@ -347,7 +331,7 @@ function PlacementStory() {
 
   const rawOverlay = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 0.35, 0.55]);
   const textY = useSpring(useTransform(scrollYProgress, [0, 1], ['5%', '-5%']), SP);
-  const overlayOpacity = useSpring(rawOverlay, SP_F);
+  const overlayOpacity = useSpring(rawOverlay, SP);
 
   const STATS = [
     { val: 81,  suffix: '%',  sub: 'Students placed annually' },
@@ -795,12 +779,12 @@ function FacilitiesStory() {
   const col2Y = useSpring(useTransform(scrollYProgress, [0, 1], ['6%', '-6%']), SP);
 
   const ITEMS = [
-    { img: '/images/facilities/campus/library-wide-1.jpg',    label: 'Marri Balreddy Library', sub: '50,000+ volumes' },
-    { img: '/images/facilities/campus/cafeteria-1.jpg',       label: 'Campus Cafeteria',        sub: 'Multi-cuisine · 8AM–8PM' },
-    { img: '/images/facilities/campus/hospital-1.jpg',        label: 'On-Campus Hospital',      sub: '24/7 medical care' },
-    { img: '/images/facilities/campus/sti-hub-3.jpg',         label: 'STI Hub',                 sub: 'Innovation & startups' },
-    { img: '/images/facilities/campus/library-reading-1.jpg', label: 'Reading Spaces',          sub: 'IEEE & Springer access' },
-    { img: '/images/facilities/campus/cafeteria-3.jpg',       label: 'Dining Hall',             sub: 'Open-air seating' },
+    { img: '/images/facilities/campus/library-wide-1.jpg',   label: 'Marri Balreddy Library', sub: '50,000+ volumes' },
+    { img: '/images/facilities/campus/cafeteria-2.jpg',      label: 'Campus Cafeteria',        sub: 'Multi-cuisine · 8AM–8PM' },
+    { img: '/images/facilities/campus/hospital-1.jpg',       label: 'On-Campus Hospital',      sub: '24/7 medical care' },
+    { img: '/images/facilities/campus/sti-hub-2.jpg',        label: 'STI Hub',                 sub: 'Innovation & startups' },
+    { img: '/images/facilities/campus/library-stacks-1.jpg', label: 'Reading Stacks',          sub: 'IEEE & Springer access' },
+    { img: '/images/facilities/campus/cafeteria-4.jpg',      label: 'Dining Hall',             sub: 'Open-air seating' },
   ];
 
   return (
@@ -849,29 +833,29 @@ function FacilitiesStory() {
             </StaggerGroup>
           </div>
 
-          {/* Parallax mosaic — two offset columns, no overlap */}
+          {/* Parallax mosaic — two offset columns */}
           <div className="flex-1 min-w-0 grid grid-cols-2 gap-3 md:gap-4">
             <motion.div className="flex flex-col gap-3 md:gap-4" style={{ y: prefersReduced ? 0 : col1Y }}>
               {ITEMS.slice(0, 3).map((item, i) => (
-                <div key={item.label} className="relative rounded-2xl overflow-hidden shadow-card-soft" style={{ height: 'clamp(150px, 17vw, 230px)' }}>
-                  <ImageReveal
-                    src={item.img}
-                    alt={item.label}
-                    delay={0.08 * i}
-                    className="absolute inset-0 w-full h-full"
-                  />
+                <div key={item.label} className="relative rounded-2xl overflow-hidden shadow-card-soft group" style={{ height: 'clamp(150px, 17vw, 230px)' }}>
+                  <ImageReveal src={item.img} alt={item.label} delay={0.08 * i} className="absolute inset-0 w-full h-full" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <p className="font-sans font-bold text-white text-[0.78rem] leading-tight truncate">{item.label}</p>
+                    <p className="font-mono text-[0.58rem] text-white/60 tracking-wide mt-0.5">{item.sub}</p>
+                  </div>
                 </div>
               ))}
             </motion.div>
             <motion.div className="flex flex-col gap-3 md:gap-4 mt-10" style={{ y: prefersReduced ? 0 : col2Y }}>
               {ITEMS.slice(3).map((item, i) => (
-                <div key={item.label} className="relative rounded-2xl overflow-hidden shadow-card-soft" style={{ height: 'clamp(150px, 17vw, 230px)' }}>
-                  <ImageReveal
-                    src={item.img}
-                    alt={item.label}
-                    delay={0.12 + 0.08 * i}
-                    className="absolute inset-0 w-full h-full"
-                  />
+                <div key={item.label} className="relative rounded-2xl overflow-hidden shadow-card-soft group" style={{ height: 'clamp(150px, 17vw, 230px)' }}>
+                  <ImageReveal src={item.img} alt={item.label} delay={0.12 + 0.08 * i} className="absolute inset-0 w-full h-full" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <p className="font-sans font-bold text-white text-[0.78rem] leading-tight truncate">{item.label}</p>
+                    <p className="font-mono text-[0.58rem] text-white/60 tracking-wide mt-0.5">{item.sub}</p>
+                  </div>
                 </div>
               ))}
             </motion.div>
@@ -884,73 +868,32 @@ function FacilitiesStory() {
 
 // ─── 6. STUDENT CLUBS ────────────────────────────────────────────────────────
 
-function ClubsMarquee({ prefersReduced }: { prefersReduced: boolean | null }) {
+function StudentCommunitiesStory() {
+  const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const col1Y = useSpring(useTransform(scrollYProgress, [0, 1], ['-5%', '5%']), SP);
+  const col2Y = useSpring(useTransform(scrollYProgress, [0, 1], ['5%', '-5%']), SP);
+  const col3Y = useSpring(useTransform(scrollYProgress, [0, 1], ['-3%', '3%']), SP);
+
+  const PHOTOS = [
+    { src: '/images/students/s1.jpg', alt: 'MLRIT students on campus' },
+    { src: '/images/students/s3.jpg', alt: 'MLRIT student group activity' },
+    { src: '/images/students/s2.jpg', alt: 'MLRIT cultural event' },
+    { src: '/images/students/s4.jpg', alt: 'MLRIT campus life' },
+    { src: '/images/facilities/campus/campus-7P5A2322.jpg', alt: 'Students on tree-lined campus walkway' },
+    { src: '/images/facilities/campus/campus-7P5A1225.jpg', alt: 'MLRIT open campus grounds' },
+  ];
+
   const CLUBS = [
-    'INVENTE Tech Fest', 'Coding Club', 'IEEE Student Branch', 'Robotics Team',
+    'INVENTE Tech Fest', 'IEEE Student Branch', 'Coding Club', 'Robotics Team',
     'Photography Club', 'NSS', 'NCC', 'Drama Society', 'Music Club', 'AI & ML Club',
     'E-Cell', 'Environmental Club', 'Dance Troupe', 'Literary Society', 'Quizzing Club',
     'Zignasa Cultural Fest', 'Equinox Events', 'Blockchain Enthusiasts', 'Gaming Guild',
   ];
 
-  if (prefersReduced) {
-    return (
-      <ul className="flex flex-wrap gap-2 mt-8" aria-label="Student clubs and societies">
-        {CLUBS.map((c) => (
-          <li key={c}>
-            <span className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-[0.7rem] tracking-wide">
-              {c}
-            </span>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
-  const strip = [...CLUBS, ...CLUBS];
   return (
-    <div className="mt-8 overflow-hidden" aria-label="Student clubs and societies">
-      <div className="flex gap-3 w-max animate-marquee" style={{ animationDuration: '34s' }}>
-        {strip.map((c, i) => (
-          <span key={i} aria-hidden={i >= CLUBS.length}
-            className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-[0.7rem] tracking-wide whitespace-nowrap">
-            {c}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function StudentCommunitiesStory() {
-  const prefersReduced = useReducedMotion();
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const videoScale = useSpring(useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 1.04]), SP);
-  const overlayRaw = useTransform(scrollYProgress, [0, 0.4, 1], [0.72, 0.6, 0.75]);
-  const overlayOp  = useSpring(overlayRaw, SP_F);
-
-  const STATS = [
-    { val: 30, suffix: '+', label: 'Student clubs' },
-    { val: 5000, suffix: '+', label: 'Students involved' },
-  ];
-
-  return (
-    <section ref={ref} className="relative overflow-hidden" aria-label="Student clubs and communities">
-      {/* Full-bleed video background */}
-      <div className="absolute inset-0 z-0">
-        {prefersReduced ? (
-          <div className="absolute inset-0 bg-foreground" />
-        ) : (
-          <motion.video
-            src="/videos/equinox.mp4"
-            autoPlay muted loop playsInline
-            className="w-full h-full object-cover"
-            aria-hidden="true"
-            style={{ scale: videoScale }}
-          />
-        )}
-        <motion.div className="absolute inset-0 bg-foreground" style={{ opacity: prefersReduced ? 0.88 : overlayOp }} />
-      </div>
+    <section ref={ref} className="relative bg-foreground overflow-hidden py-20 md:py-28" aria-label="Student clubs and communities">
 
       <div aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none select-none z-[1]"
@@ -958,11 +901,11 @@ function StudentCommunitiesStory() {
         06
       </div>
 
-      <div className="relative z-10 py-24 md:py-32 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-center">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
 
-          {/* Text */}
-          <div className="lg:w-[48%] shrink-0">
+          {/* Text col */}
+          <div className="lg:w-[40%] shrink-0 lg:sticky lg:top-32">
             <Reveal><SectionLabel n="06" label="Clubs &amp; Communities" dark /></Reveal>
 
             <Reveal delay={0.07}>
@@ -973,63 +916,75 @@ function StudentCommunitiesStory() {
             </Reveal>
 
             <Reveal delay={0.14}>
-              <p className="mt-6 text-white/60 text-[0.97rem] leading-relaxed max-w-[42ch]">
+              <p className="mt-6 text-white/55 text-[0.97rem] leading-relaxed max-w-[40ch]">
                 Technical clubs, cultural societies, NSS, NCC, and inter-collegiate competitions —
-                MLRIT student life is vibrant outside the classroom. Every student finds their people here.
+                every student finds their people here.
               </p>
             </Reveal>
 
-            <Reveal delay={0.2}>
-              <ClubsMarquee prefersReduced={prefersReduced} />
+            {/* Stat row */}
+            <StaggerGroup className="mt-8 flex gap-4" stagger={0.1} delayChildren={0.2}>
+              {[
+                { val: 30, suffix: '+', sub: 'Student clubs' },
+                { val: 5000, suffix: '+', sub: 'Members' },
+              ].map((s) => (
+                <StaggerItem key={s.sub}>
+                  <div className="bg-white/[0.07] border border-white/10 rounded-2xl px-5 py-4">
+                    <div className="font-sans font-black tracking-tighter-2 text-[1.8rem] leading-none text-primary">
+                      <Counter to={s.val} suffix={s.suffix} />
+                    </div>
+                    <div className="mt-1.5 font-mono text-[0.6rem] tracking-wide text-white/40">{s.sub}</div>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+
+            {/* Club chips */}
+            <Reveal delay={0.25}>
+              <div className="mt-8">
+                <p className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-white/30 mb-4">Active clubs &amp; societies</p>
+                <div className="flex flex-wrap gap-2">
+                  {CLUBS.map((c) => (
+                    <span key={c}
+                      className="px-3 py-1.5 rounded-full bg-white/[0.07] border border-white/10 text-white/65 font-mono text-[0.65rem] tracking-wide">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </Reveal>
 
-            <Reveal delay={0.28}>
+            <Reveal delay={0.32}>
               <div className="mt-10"><ArrowLink href="/campus/clubs" dark>Explore Clubs &amp; Societies</ArrowLink></div>
             </Reveal>
           </div>
 
-          {/* Animated stat cards */}
-          <div className="flex-1">
-            <StaggerGroup className="grid grid-cols-1 gap-4" stagger={0.12} delayChildren={0.2}>
-              {STATS.map((s) => (
-                <StaggerItem key={s.label}>
-                  <div className="bg-white/[0.07] border border-white/10 backdrop-blur-sm rounded-3xl p-8 text-center">
-                    <div className="font-sans font-black tracking-tighter-2 text-[3.5rem] leading-none text-primary">
-                      <Counter to={s.val} suffix={s.suffix} />
-                    </div>
-                    <div className="mt-2 font-mono text-[0.72rem] tracking-widest uppercase text-white/45">{s.label}</div>
-                  </div>
-                </StaggerItem>
-              ))}
-
-              <StaggerItem>
-                <div className="bg-white/[0.07] border border-white/10 backdrop-blur-sm rounded-3xl p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                      <path d="M11 2l2.5 6H20l-5.5 4 2 6L11 14.5 5.5 18l2-6L2 8h6.5L11 2z" fill="#e85d04"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-sans font-black text-white text-[1.1rem] tracking-tighter-2">INVENTE</div>
-                    <div className="font-mono text-[0.62rem] tracking-wide text-white/40 mt-0.5">Annual Tech &amp; Cultural Fest</div>
-                  </div>
-                </div>
-              </StaggerItem>
-
-              <StaggerItem>
-                <div className="bg-white/[0.07] border border-white/10 backdrop-blur-sm rounded-3xl p-6 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-secondary/20 border border-secondary/30 flex items-center justify-center shrink-0">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                      <path d="M11 2l2.5 6H20l-5.5 4 2 6L11 14.5 5.5 18l2-6L2 8h6.5L11 2z" fill="#01741f"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-sans font-black text-white text-[1.1rem] tracking-tighter-2">Zignasa</div>
-                    <div className="font-mono text-[0.62rem] tracking-wide text-white/40 mt-0.5">Cultural &amp; Arts Festival</div>
-                  </div>
-                </div>
-              </StaggerItem>
-            </StaggerGroup>
+          {/* Photo mosaic — 3 parallax columns */}
+          <div className="flex-1 min-w-0 grid grid-cols-3 gap-2.5">
+            <motion.div className="flex flex-col gap-2.5" style={{ y: prefersReduced ? 0 : col1Y }}>
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: 'clamp(160px, 18vw, 240px)' }}>
+                <img src={PHOTOS[0].src} alt={PHOTOS[0].alt} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: 'clamp(110px, 12vw, 160px)' }}>
+                <img src={PHOTOS[3].src} alt={PHOTOS[3].alt} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+            </motion.div>
+            <motion.div className="flex flex-col gap-2.5 mt-8" style={{ y: prefersReduced ? 0 : col2Y }}>
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: 'clamp(110px, 12vw, 160px)' }}>
+                <img src={PHOTOS[1].src} alt={PHOTOS[1].alt} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: 'clamp(160px, 18vw, 240px)' }}>
+                <img src={PHOTOS[4].src} alt={PHOTOS[4].alt} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+            </motion.div>
+            <motion.div className="flex flex-col gap-2.5 mt-4" style={{ y: prefersReduced ? 0 : col3Y }}>
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: 'clamp(130px, 15vw, 200px)' }}>
+                <img src={PHOTOS[2].src} alt={PHOTOS[2].alt} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="relative rounded-2xl overflow-hidden" style={{ height: 'clamp(130px, 15vw, 200px)' }}>
+                <img src={PHOTOS[5].src} alt={PHOTOS[5].alt} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -1043,21 +998,6 @@ function WhyMLRITClosing() {
   const prefersReduced = useReducedMotion();
   return (
     <section className="relative bg-green-hero py-24 md:py-32 overflow-hidden" aria-label="Admissions invitation">
-
-      {/* Decorative MLRIT echo — visual continuity with MLRITStory */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden"
-        initial={prefersReduced ? {} : { opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, ease: EASE }}
-      >
-        <span className="font-sans font-black tracking-tighter-2 leading-none text-white/[0.04]"
-          style={{ fontSize: 'clamp(160px, 36vw, 520px)' }}>
-          MLRIT
-        </span>
-      </motion.div>
 
       <div className="relative z-10 max-w-[800px] mx-auto px-6 md:px-12 text-center">
         <Reveal>
