@@ -62,8 +62,8 @@ const SPORTS_DISCIPLINES = [
     name: 'Basketball',
     facility: 'Full-size outdoor court · marked and lit',
     color: '#c2410c',
-    thumb: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=480&q=75&auto=format',
-    images: ['/images/sports/basketball-1.jpg'],
+    thumb: '/images/sports/basketball-court.png',
+    images: ['/images/sports/basketball-court.png', '/images/sports/basketball-1.jpg'],
   },
   {
     name: 'Badminton',
@@ -118,8 +118,8 @@ const SPORTS_DISCIPLINES = [
     name: 'Athletics',
     facility: 'Running track · field events area · all-weather surface',
     color: '#b91c1c',
-    thumb: 'https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=480&q=75&auto=format',
-    images: ['/images/sports/athletics-1.jpg'],
+    thumb: '/images/sports/marathon-runner.png',
+    images: ['/images/sports/marathon-runner.png', '/images/sports/athletics-1.jpg'],
   },
 ];
 
@@ -1155,22 +1155,32 @@ function AccoladesSection() {
   return (
     <section ref={sectionRef} aria-labelledby="accolades-heading" className="bg-cream">
       <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
-        <motion.div
-          style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
-          className="mb-12 md:mb-16"
-        >
-          <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-            Sports Accolades
-          </span>
-          <h2
-            id="accolades-heading"
-            className="mt-4 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.9rem,3.2vw,2.8rem)] leading-[1.05]"
+        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start mb-12 md:mb-16">
+          <motion.div
+            style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
+            className="md:w-[45%] shrink-0"
           >
-            Our athletes.{' '}
-            <span className="font-display italic font-medium text-secondary">Our pride.</span>
-          </h2>
-        </motion.div>
+            <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
+              Sports Accolades
+            </span>
+            <h2
+              id="accolades-heading"
+              className="mt-4 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.9rem,3.2vw,2.8rem)] leading-[1.05]"
+            >
+              Our athletes.{' '}
+              <span className="font-display italic font-medium text-secondary">Our pride.</span>
+            </h2>
+          </motion.div>
+          <div className="flex-1 rounded-2xl overflow-hidden" style={{ height: 'clamp(160px,18vw,240px)' }}>
+            <img
+              src="/images/sports/trophy-cabinet.png"
+              alt="MLRIT trophy cabinet — decades of sports achievements"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+        </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {ACCOLADES.map((a, i) => (

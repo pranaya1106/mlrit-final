@@ -148,8 +148,8 @@ export default function StudentLifeOverviewPage() {
             }}
           >
             <Image
-              src="/images/student-life/hero.jpg"
-              alt="Students celebrating on campus"
+              src="/images/campus/campus-life-collage.png"
+              alt="Students celebrating on campus — classroom, canteen, and sports"
               fill
               quality={85}
               sizes="(max-width: 1360px) 100vw, 1360px"

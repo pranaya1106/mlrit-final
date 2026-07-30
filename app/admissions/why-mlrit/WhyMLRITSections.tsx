@@ -154,10 +154,10 @@ function GreenCampusStory() {
   const scale = useSpring(useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1, 0.97]), SP);
 
   const IMGS = [
+    '/images/campus/entrance.png',
     '/images/facilities/campus/campus-7P5A1967.jpg',
     '/images/facilities/campus/campus-7P5A2397.jpg',
     '/images/facilities/campus/campus-7P5A1225.jpg',
-    '/images/facilities/campus/campus-7P5A1958.jpg',
   ];
 
   const STATS = [
@@ -695,12 +695,12 @@ function FacilitiesStory() {
 // ─── 6. STUDENT CLUBS ────────────────────────────────────────────────────────
 
 const CLUB_PHOTOS = [
-  { src: '/images/about/milestone-2022.jpg',           alt: 'MLRIT campus milestone 2022' },
-  { src: '/images/sports/accolades/a-nithin.jpg',      alt: 'MLRIT sports achiever A Nithin' },
-  { src: '/images/about/milestone-2019.jpg',           alt: 'MLRIT campus milestone 2019' },
-  { src: '/images/sports/accolades/sindhu.jpg',        alt: 'MLRIT sports achiever Sindhu' },
-  { src: '/images/about/milestone-2025.jpg',           alt: 'MLRIT campus milestone 2025' },
-  { src: '/images/sports/accolades/k-tarun-reddy.jpg', alt: 'MLRIT sports achiever K Tarun Reddy' },
+  { src: '/images/students/classroom-chat.png',  alt: 'Students chatting between classes at MLRIT' },
+  { src: '/images/students/club-event.png',      alt: 'Students at a club event handshake' },
+  { src: '/images/students/campus-steps.png',    alt: 'Students gathered on campus steps' },
+  { src: '/images/students/students-laughing.png', alt: 'Students laughing together in class' },
+  { src: '/images/campus/canteen-friends.png',   alt: 'Friends at the MLRIT canteen' },
+  { src: '/images/students/campus-group.png',    alt: 'Group of MLRIT students on campus' },
 ];
 
 const CLUBS = [
