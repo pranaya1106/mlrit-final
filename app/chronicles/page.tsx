@@ -28,7 +28,7 @@ export default async function ChroniclesPage() {
   return (
     <div className="bg-white text-foreground font-display">
       {/* MASTHEAD */}
-      <header className="border-t-4 border-black border-b border-black px-6 md:px-12 lg:px-20 pt-8 md:pt-12 lg:pt-14 pb-5 md:pb-7 text-center">
+      <header className="border-t-4 border-black border-b border-black px-6 md:px-12 lg:px-20 pt-8 md:pt-12 lg:pt-14 pb-6 md:pb-8 text-center">
         <div className="flex justify-between items-center font-mono text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-muted border-b border-border pb-3 mb-5">
           <span><span className="inline-block w-1.5 h-1.5 rounded-full bg-black mr-2 align-middle animate-pulse" /> Live · Spring &apos;26 Edition</span>
           <span>Vol. V · Issue 23</span>
@@ -37,11 +37,29 @@ export default async function ChroniclesPage() {
         <h1 className="font-display font-black uppercase leading-[0.88] tracking-tighter-2 text-[clamp(3rem,12vw,13rem)] mt-0 mb-0">
           MLRIT <span className="italic font-normal">Chronicles</span>
         </h1>
-        <p className="italic text-muted text-[clamp(0.92rem,1.1vw,1.1rem)] mt-4">
-          &ldquo;All the campus that&apos;s fit to print&rdquo; — a broadsheet of stories, ideas and updates from MLR Institute of Technology.
+        <p className="italic text-muted text-[clamp(0.95rem,1.1vw,1.15rem)] mt-4 max-w-[820px] mx-auto">
+          The campus newsroom — <strong className="not-italic text-black font-bold">news clippings, recent events and official announcements</strong> from MLR Institute of Technology, updated continuously.
         </p>
         <div className="h-0.5 bg-black mt-5" />
-        <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-muted border-t border-border mt-5 pt-3.5">
+
+        {/* "What's on this page" — 3 labelled zones */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-b border-black">
+          {[
+            { k: '01', label: 'News Clippings', sub: 'Press coverage of MLRIT — Indian Express, The Hindu, industry press.' },
+            { k: '02', label: 'Recent Events',  sub: 'Annual Day, Equinox, Zignasa, sports meets — with photo essays.' },
+            { k: '03', label: 'Announcements',  sub: 'Official notices, NIRF results, orientation, holidays and academic updates.' },
+          ].map((z, i) => (
+            <div key={z.k} className={`px-4 py-4 text-left ${i < 2 ? 'md:border-r border-border' : ''}`}>
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono font-black text-black text-[1.4rem] leading-none">{z.k}</span>
+                <span className="font-sans font-extrabold uppercase tracking-[0.18em] text-[0.72rem] text-black">{z.label}</span>
+              </div>
+              <p className="mt-2 font-display text-muted text-[0.92rem] leading-[1.45]">{z.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-muted mt-4 pt-3.5">
           <span>Saturday, <strong className="text-black font-bold">16 May 2026</strong></span>
           <span>Dundigal · Hyderabad</span>
           <span>62 pages · ₹0</span>
@@ -66,8 +84,20 @@ export default async function ChroniclesPage() {
         </div>
       </nav>
 
+      {/* Zone header — Recent Events */}
+      <div className="px-6 md:px-12 lg:px-20 pt-10 md:pt-12">
+        <div className="flex items-end gap-4 border-b-[3px] border-double border-black pb-3">
+          <span className="font-mono font-black text-black text-[1.4rem] leading-none">01</span>
+          <h2 className="font-display font-black uppercase tracking-[0.06em] text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none">
+            Recent <em className="italic font-normal">Events</em>
+          </h2>
+          <div className="flex-1 h-px bg-black mb-1" />
+          <span className="font-mono text-[0.68rem] font-semibold tracking-[0.2em] uppercase text-muted">Cover story · this fortnight</span>
+        </div>
+      </div>
+
       {/* FRONT PAGE 3-col */}
-      <main className="px-6 md:px-12 lg:px-20 py-10 md:py-14 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12">
+      <main className="px-6 md:px-12 lg:px-20 py-8 md:py-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12">
 
         {/* LEAD STORY */}
         <article className="flex flex-col">
@@ -128,12 +158,13 @@ export default async function ChroniclesPage() {
         {/* RIGHT — Most Read + In Brief */}
         <aside className="flex flex-col gap-10 lg:border-l lg:border-border lg:pl-10">
           <section>
-            <RailHead label="Most Read" pill="This week" />
+            <RailHead label="02 · News Clippings" pill="In the press" />
             <div className="flex flex-col">
               {MOST_READ.map((s, i) => (
                 <a key={i} href={s.href} target="_blank" rel="noopener" className="grid grid-cols-[36px_1fr] gap-3.5 py-3.5 border-b border-dashed border-border last:border-b-0 group">
                   <div className="font-display font-black italic text-[1.6rem] leading-none tracking-tighter-2 text-black">{String(i + 1).padStart(2, '0')}</div>
                   <div>
+                    <span className="inline-block font-mono text-[0.58rem] font-extrabold tracking-[0.18em] uppercase bg-white border border-black text-black px-1.5 py-0.5 mb-1.5">{s.section}</span>
                     <p className="font-display font-bold text-[1.02rem] leading-[1.22] tracking-tight group-hover:underline group-hover:underline-offset-[3px] group-hover:decoration-2 mb-1">{s.title}</p>
                     <p className="font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">{s.meta}</p>
                   </div>
@@ -143,7 +174,7 @@ export default async function ChroniclesPage() {
           </section>
 
           <section>
-            <RailHead label="In Brief" pill="Today" />
+            <RailHead label="03 · Announcements" pill="Official" />
             <ul className="list-none p-0 m-0">
               {IN_BRIEF.map((b, i) => (
                 <li key={i} className={`py-3 grid grid-cols-[auto_1fr] gap-3 items-baseline ${i < IN_BRIEF.length - 1 ? 'border-b border-border' : ''}`}>
@@ -158,7 +189,7 @@ export default async function ChroniclesPage() {
 
           {/* LIVE WIRE — auto-scraped news */}
           <section>
-            <RailHead label="Live Wire" pill={liveWireTicker.length ? 'Auto-updated' : 'Warming up'} />
+            <RailHead label="Live Wire · Auto-scraped" pill={liveWireTicker.length ? 'Live' : 'Warming up'} />
             {liveWireTicker.length === 0 ? (
               <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
                 No live items yet — the scraper hasn&apos;t run, or the news service isn&apos;t reachable.
@@ -189,8 +220,8 @@ export default async function ChroniclesPage() {
         </aside>
       </main>
 
-      {/* TIER — More from this issue */}
-      <TierGrid label="More from" italicLabel="this issue" trail="See all stories" trailHref="/chronicles" stories={TIER_STORIES} />
+      {/* TIER — More recent events */}
+      <TierGrid label="More recent" italicLabel="events & coverage" trail="See all stories" trailHref="/chronicles" stories={TIER_STORIES} />
 
       {/* PHOTO ESSAY (inverted) */}
       <section className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">
@@ -201,6 +232,9 @@ export default async function ChroniclesPage() {
           <div className="flex-1 h-px bg-white/40 mb-2" />
           <span className="font-mono text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-white/70">Twelve months, one campus</span>
         </div>
+        <p className="font-display italic text-white/60 mb-6 max-w-[720px] leading-[1.55]">
+          The year&apos;s biggest events, retold in photographs.
+        </p>
         <div className="grid md:grid-cols-3 gap-4 md:gap-5 min-h-[300px] md:min-h-[440px]">
           {PHOTO_ESSAY.map((p, i) => (
             <a key={i} href={p.href} target="_blank" rel="noopener" className="relative block overflow-hidden border border-white/20 group">
@@ -216,8 +250,8 @@ export default async function ChroniclesPage() {
         </div>
       </section>
 
-      {/* TIER — From the archives */}
-      <TierGrid label="From the" italicLabel="archives" trail="2024 · in review" stories={ARCHIVE} />
+      {/* TIER — Archive of past announcements & events */}
+      <TierGrid label="From the" italicLabel="archives" trail="Older stories · 2024 in review" stories={ARCHIVE} />
     </div>
   );
 }

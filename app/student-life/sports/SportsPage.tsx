@@ -460,7 +460,7 @@ function GoalSection() {
   });
   return (
     <section ref={sectionRef} aria-labelledby="goal-heading" className="bg-foreground">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
+      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
         <div className="grid md:grid-cols-2 gap-6">
           <GoalCard sectionProgress={scrollYProgress} />
           <MottoCard sectionProgress={scrollYProgress} />
@@ -901,7 +901,7 @@ function SportsDisciplineIndex() {
 
   return (
     <section ref={sectionRef} aria-labelledby="disciplines-heading" className="bg-cream relative">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
+      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
         <motion.div
           style={prefersReduced ? {} : { y: headY, opacity: headOp }}
           className="mb-12 md:mb-16"
@@ -1006,7 +1006,7 @@ function QuotaSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="quota-heading" className="bg-white">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
+      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
         <motion.div
           style={prefersReduced ? {} : { y: springY, opacity: springO }}
           className="mb-10 md:mb-14"
@@ -1085,7 +1085,7 @@ function TrainersSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="trainers-heading" className="bg-white overflow-hidden">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
+      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
         <motion.div
           style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
           className="mb-12 md:mb-16"
@@ -1166,7 +1166,7 @@ function AccoladesSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="accolades-heading" className="bg-cream">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-28">
+      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start mb-12 md:mb-16">
           <motion.div
             style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}

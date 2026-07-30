@@ -65,7 +65,7 @@ export default function Programs() {
   const rows = pairs(tab === 'ug' ? UG : PG);
 
   return (
-    <section id="programs" className="bg-cream py-20 md:py-28 relative">
+    <section id="programs" className="bg-cream py-10 md:py-14 relative">
       {/* Header */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">

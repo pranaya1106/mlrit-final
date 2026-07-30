@@ -2,12 +2,12 @@ import { TestimonialCarousel } from '@/components/ui/profile-card-testimonial-ca
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="bg-ink text-white py-20 md:py-28 relative overflow-hidden">
+    <section id="testimonials" className="bg-ink text-white py-10 md:py-14 relative overflow-hidden">
       {/* Soft brand glows */}
       <div className="absolute -top-40 -left-40 w-[460px] h-[460px] rounded-full bg-primary/[0.08] blur-[120px] pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-[460px] h-[460px] rounded-full bg-secondary/[0.10] blur-[120px] pointer-events-none" />
 
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative w-full px-6 md:px-10 lg:px-12">
         <div className="text-center max-w-[680px] mx-auto mb-12 md:mb-16">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-warm font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />

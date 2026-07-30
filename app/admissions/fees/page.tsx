@@ -75,8 +75,8 @@ export default function FeesPage() {
               <SideQuickNav items={NAV_ITEMS} />
             </div>
           </aside>
-          <div className="flex-1 min-w-0 py-16 md:py-24">
-            <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-12">
+          <div className="flex-1 min-w-0 py-10 md:py-14">
+            <div className="w-full px-6 md:px-10 lg:px-12 flex flex-col gap-12">
 
               {/* Programme fee tables */}
               <section id="fees" className="flex flex-col gap-12">

@@ -20,8 +20,8 @@ const gradientText: React.CSSProperties = {
 };
 
 // Card width + gap in px — must match CSS
-const CARD_W = 320;
-const GAP     = 40;
+const CARD_W = 460;
+const GAP     = 56;
 const SLOT    = CARD_W + GAP;
 
 export default function MilestonesTimeline() {
@@ -54,21 +54,44 @@ export default function MilestonesTimeline() {
   }, []);
 
   return (
-    <section className="bg-warm-light">
+    <section className="bg-warm-light relative">
 
       {/* ── Tall scroll container — no top padding so sticky triggers immediately ── */}
       <div
         ref={wrapperRef}
-        style={{ height: `${TIMELINE.length * 40}vh` }}
+        style={{ height: `${TIMELINE.length * 55}vh` }}
       >
         <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
 
-          {/* ── Heading — pinned at top of sticky viewport ── */}
-          <div className="max-w-[1180px] mx-auto w-full px-6 md:px-12 lg:px-20 pt-16 pb-4 flex-shrink-0">
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">
-              Milestones
+          {/* ── Giant background year watermark ── */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 flex items-center justify-center select-none"
+          >
+            <span
+              className="font-display italic font-black leading-none tracking-tighter-2"
+              style={{
+                fontSize: 'clamp(18rem,32vw,32rem)',
+                color: 'transparent',
+                WebkitTextStroke: '2px rgba(31,107,36,0.09)',
+                transition: 'opacity 0.5s ease',
+              }}
+            >
+              {TIMELINE[active].y}
             </span>
-            <h2 className="mt-2 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.6rem,3vw,2.6rem)] leading-[1.04]">
+          </div>
+
+          {/* ── Heading — pinned at top of sticky viewport ── */}
+          <div className="relative w-full px-6 md:px-12 lg:px-16 pt-14 pb-2 flex-shrink-0">
+            <div className="flex items-baseline gap-4">
+              <span className="font-mono text-[0.78rem] font-extrabold tracking-[0.28em] uppercase text-primary">
+                Milestones
+              </span>
+              <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-muted">
+                {String(active + 1).padStart(2, '0')} / {String(TIMELINE.length).padStart(2, '0')}
+              </span>
+            </div>
+            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.02]">
               Two decades,{' '}
               <span className="font-display italic font-medium" style={gradientText}>
                 in eight moments.
@@ -95,8 +118,8 @@ export default function MilestonesTimeline() {
               {TIMELINE.map((item, i) => {
                 const isActive = i === active;
                 const dist     = Math.abs(i - active);
-                const scale    = isActive ? 1 : Math.max(0.82, 1 - dist * 0.06);
-                const opacity  = isActive ? 1 : Math.max(0.35, 1 - dist * 0.22);
+                const scale    = isActive ? 1.02 : Math.max(0.78, 1 - dist * 0.07);
+                const opacity  = isActive ? 1 : Math.max(0.28, 1 - dist * 0.26);
 
                 return (
                   <div
@@ -112,49 +135,70 @@ export default function MilestonesTimeline() {
                   >
                     {/* ── Image ── */}
                     <div
-                      className="rounded-2xl overflow-hidden border border-border shadow-card-soft"
-                      style={{ aspectRatio: '4/3' }}
+                      className="relative rounded-3xl overflow-hidden border-2"
+                      style={{
+                        aspectRatio: '4/3',
+                        borderColor: isActive ? '#1F6B24' : 'var(--border)',
+                        boxShadow: isActive
+                          ? '0 24px 60px -12px rgba(31,107,36,0.35), 0 0 0 6px rgba(31,107,36,0.08)'
+                          : '0 10px 30px -10px rgba(0,0,0,0.15)',
+                        transition: 'box-shadow 0.4s ease, border-color 0.4s ease',
+                      }}
                     >
                       <img
                         src={item.img}
                         alt={item.t}
                         className="w-full h-full object-cover"
                         style={{
-                          filter: isActive ? 'none' : 'grayscale(30%)',
-                          transition: 'filter 0.4s ease',
+                          filter: isActive ? 'none' : 'grayscale(40%) brightness(0.92)',
+                          transition: 'filter 0.4s ease, transform 0.6s ease',
+                          transform: isActive ? 'scale(1.02)' : 'scale(1)',
                         }}
                       />
+                      {/* Year badge on image */}
+                      <div
+                        className="absolute top-4 left-4 px-3 py-1.5 rounded-full backdrop-blur-md font-mono font-bold text-[0.7rem] tracking-[0.18em] uppercase transition-all"
+                        style={{
+                          background: isActive ? 'rgba(31,107,36,0.95)' : 'rgba(255,255,255,0.85)',
+                          color: isActive ? '#fff' : 'var(--foreground)',
+                        }}
+                      >
+                        {String(i + 1).padStart(2, '0')} · {item.y}
+                      </div>
                     </div>
 
                     {/* ── Timeline node + line row ── */}
-                    <div className="relative flex items-center mt-5" style={{ height: '20px' }}>
+                    <div className="relative flex items-center mt-6" style={{ height: '28px' }}>
                       {/* Left connector line */}
                       <div
-                        className="flex-1 h-px"
+                        className="flex-1"
                         style={{
+                          height: '2px',
                           background: i === 0 ? 'transparent' : isActive || i <= active ? '#1F6B24' : 'var(--border)',
                           transition: 'background 0.4s ease',
                         }}
                       />
                       {/* Node */}
                       <div
-                        className="flex-shrink-0 grid place-items-center rounded-full border-2 transition-all duration-400 z-10"
+                        className="flex-shrink-0 grid place-items-center rounded-full border-2 z-10"
                         style={{
-                          width:       isActive ? '20px' : '14px',
-                          height:      isActive ? '20px' : '14px',
+                          width:       isActive ? '28px' : '16px',
+                          height:      isActive ? '28px' : '16px',
                           borderColor: i <= active ? '#1F6B24' : 'var(--border)',
                           background:  isActive ? '#1F6B24' : i < active ? '#a7f3b0' : '#f5f0e8',
+                          boxShadow:   isActive ? '0 0 0 8px rgba(31,107,36,0.15)' : 'none',
                           transition:  'all 0.4s ease',
                         }}
                       >
                         {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-white" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-white" />
                         )}
                       </div>
                       {/* Right connector line */}
                       <div
-                        className="flex-1 h-px"
+                        className="flex-1"
                         style={{
+                          height: '2px',
                           background: i === TIMELINE.length - 1 ? 'transparent' : i < active ? '#1F6B24' : 'var(--border)',
                           transition: 'background 0.4s ease',
                         }}
@@ -162,24 +206,26 @@ export default function MilestonesTimeline() {
                     </div>
 
                     {/* ── Year + title + description ── */}
-                    <div className="mt-4 text-center px-1">
+                    <div className="mt-5 text-center px-2">
                       <span
                         className="block font-display italic font-black leading-none tracking-tighter-2"
-                        style={{ ...gradientText, fontSize: 'clamp(2rem,3vw,2.4rem)' }}
+                        style={{ ...gradientText, fontSize: isActive ? 'clamp(3.4rem,5vw,4.6rem)' : 'clamp(2.4rem,3.6vw,3rem)', transition: 'font-size 0.4s ease' }}
                       >
                         {item.y}
                       </span>
-                      <span className="mt-1 block font-sans font-extrabold text-foreground text-[1rem] tracking-tight">
+                      <span className="mt-2 block font-sans font-extrabold text-foreground tracking-tight" style={{ fontSize: isActive ? '1.4rem' : '1.05rem', transition: 'font-size 0.4s ease' }}>
                         {item.t}
                       </span>
                       {/* Description only visible on active card */}
                       <p
-                        className="mt-2 text-muted text-[0.88rem] leading-relaxed"
+                        className="mt-3 text-muted leading-relaxed mx-auto"
                         style={{
                           opacity:   isActive ? 1 : 0,
                           transform: isActive ? 'translateY(0)' : 'translateY(6px)',
                           transition: 'opacity 0.4s ease, transform 0.4s ease',
                           minHeight: '3.5rem',
+                          fontSize:  '1rem',
+                          maxWidth:  '380px',
                         }}
                       >
                         {item.d}
@@ -191,18 +237,26 @@ export default function MilestonesTimeline() {
             </div>
           </div>{/* end flex-1 cards area */}
 
-          {/* ── Progress dots ── */}
-          <div className="flex justify-center gap-2 mt-8">
-            {TIMELINE.map((_, i) => (
-              <div
-                key={i}
-                className="rounded-full transition-all duration-300"
-                style={{
-                  width:      active === i ? '28px' : '7px',
-                  height:     '7px',
-                  background: i <= active ? '#1F6B24' : '#d1d5db',
-                }}
-              />
+          {/* ── Progress dots + year rail ── */}
+          <div className="relative flex justify-center items-center gap-3 mt-10 mb-8">
+            {TIMELINE.map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-1.5">
+                <div
+                  className="rounded-full transition-all duration-300"
+                  style={{
+                    width:      active === i ? '40px' : '9px',
+                    height:     '9px',
+                    background: i <= active ? '#1F6B24' : '#d1d5db',
+                    boxShadow:  active === i ? '0 0 0 4px rgba(31,107,36,0.12)' : 'none',
+                  }}
+                />
+                <span
+                  className="font-mono font-bold text-[0.62rem] tracking-[0.16em] transition-colors duration-300"
+                  style={{ color: i === active ? '#1F6B24' : i < active ? 'var(--muted)' : 'var(--subtle)' }}
+                >
+                  {item.y}
+                </span>
+              </div>
             ))}
           </div>
 

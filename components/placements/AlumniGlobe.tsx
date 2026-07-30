@@ -260,7 +260,7 @@ export default function AlumniGlobe() {
       style={{ background: 'radial-gradient(ellipse at 50% 55%, #2a1200 0%, #0d0806 50%, #07060a 100%)' }}>
 
       {/* Heading */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-10">
+      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12 pt-20 pb-10">
         <Reveal>
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-[#e8600a]/60 mb-3 inline-block">
             Global Network

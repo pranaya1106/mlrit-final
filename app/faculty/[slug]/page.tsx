@@ -113,7 +113,7 @@ export default function FacultyProfilePage({
       />
 
       <div className="bg-cream min-h-screen">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-12 md:py-16">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-12 md:py-16">
           <div className="grid lg:grid-cols-[300px_1fr] gap-10 xl:gap-16">
 
             {/* ── Left column: portrait + identity ── */}

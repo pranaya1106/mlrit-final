@@ -20,7 +20,7 @@ export default function BCategoryPage() {
         <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-10"
           style={{ background: 'radial-gradient(circle, #e85d04 0%, transparent 70%)' }} />
 
-        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-24">
+        <div className="relative w-full px-6 md:px-10 lg:px-12 pt-28 pb-24">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/50 mb-8">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -75,8 +75,8 @@ export default function BCategoryPage() {
       </section>
 
       {/* ── MAIN CONTENT ── */}
-      <section style={{ background: '#faf7f0' }} className="py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section style={{ background: '#faf7f0' }} className="py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* Full-width image */}
           <div className="rounded-3xl overflow-hidden shadow-card-strong mb-16"

@@ -411,7 +411,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
   return (
     <>
       <section style={{ background: '#faf7f0' }} className="pb-28" aria-label="Bus network">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-14 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* ── Transport Incharges ── */}
           <div className="pt-14 pb-10" style={{ borderBottom: '1px solid #e4e0d7' }}>

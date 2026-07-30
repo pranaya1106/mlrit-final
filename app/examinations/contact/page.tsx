@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import { EXAM_CONTACTS } from '@/lib/examinations';
@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 export default function ExaminationsContactPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Contact"
         italic="Us."
         dek="Reach the COE office for results, timetables, regulations, re-evaluation and certificate requests."
@@ -26,7 +24,7 @@ export default function ExaminationsContactPage() {
       />
       <ExaminationsQuickNav active="/examinations/contact" />
 
-      <section className="bg-warm-light min-h-screen py-16 md:py-24">
+      <section className="bg-warm-light min-h-screen py-10 md:py-14">
         <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {EXAM_CONTACTS.map((c) => (

@@ -16,14 +16,14 @@ export default function AboutQuickNav({ active }: { active: string }) {
   const hidden = useHideOnScroll();
   return (
     <nav
-      className={`bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
+      className={`relative bg-white/95 backdrop-blur-md border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
         hidden ? '-translate-y-full' : 'translate-y-0'
       }`}
+      aria-label="About sub-navigation"
     >
-      <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20">
-        {/* Mobile / tablet — all items visible at once, wrapping instead of scrolling off-screen.
-            The whole bar slides away on scroll-down and back on scroll-up, same as the main
-            navbar — but only below lg (the lg:translate-y-0 override keeps desktop static). */}
+      <span aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+      <div className="w-full px-6 md:px-10 lg:px-12">
+        {/* Mobile / tablet — pill layout that wraps */}
         <div className="flex flex-wrap gap-2 py-3 lg:hidden">
           {ABOUT_NAV.map((l) => (
             <Link
@@ -40,21 +40,32 @@ export default function AboutQuickNav({ active }: { active: string }) {
           ))}
         </div>
 
-        {/* Desktop — original horizontal underline tabs, unchanged */}
+        {/* Desktop — premium underline tabs with pulsing dot */}
         <div className="hidden lg:flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
-          {ABOUT_NAV.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`shrink-0 px-4 py-4 font-sans font-medium text-[0.88rem] border-b-2 transition-all whitespace-nowrap ${
-                l.href === active
-                  ? 'text-foreground border-primary font-semibold'
-                  : 'text-muted hover:text-foreground border-transparent hover:border-primary'
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {ABOUT_NAV.map((l) => {
+            const isActive = l.href === active;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={isActive ? 'page' : undefined}
+                className={`group relative shrink-0 px-4 py-4 font-sans text-[0.9rem] whitespace-nowrap transition-all duration-300 ${
+                  isActive ? 'text-primary font-bold' : 'text-muted hover:text-foreground font-medium'
+                }`}
+              >
+                <span className="relative z-10 inline-flex items-center gap-2">
+                  {isActive && <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />}
+                  {l.label}
+                </span>
+                <span
+                  aria-hidden
+                  className={`absolute left-3 right-3 bottom-0 h-[3px] rounded-full transition-all duration-300 ${
+                    isActive ? 'bg-primary opacity-100' : 'bg-primary opacity-0 group-hover:opacity-40'
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>

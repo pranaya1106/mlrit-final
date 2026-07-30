@@ -203,7 +203,7 @@ export default function PoliciesPage() {
       />
       <AdmissionsQuickNav active="/admissions/policies" />
 
-      <section className="bg-warm-light min-h-screen py-16 md:py-24">
+      <section className="bg-warm-light min-h-screen py-10 md:py-14">
         <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-10">
           {POLICIES.map((policy, i) => (
             <Reveal key={policy.id} preset="up" delay={i * 0.07}>

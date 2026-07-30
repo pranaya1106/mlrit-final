@@ -25,7 +25,7 @@ export default function PageHeader({
       <section className="relative overflow-hidden bg-cream-gradient text-foreground">
         <span aria-hidden className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-secondary via-primary to-secondary" />
         <div aria-hidden className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-secondary/10 blur-[90px] pointer-events-none" />
-        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-20">
+        <div className="relative w-full px-6 md:px-10 lg:px-12 py-14 md:py-20">
           {crumbs && (
             <div className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] tracking-[0.14em] uppercase text-muted mb-6">
               {crumbs.map((c, i) => (
@@ -70,9 +70,9 @@ export default function PageHeader({
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/15 blur-[80px] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-secondary/20 blur-[80px] pointer-events-none" />
 
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-28">
+      <div className="relative w-full px-8 md:px-12 lg:px-16 py-10 md:py-14 lg:py-32">
         {crumbs && (
-          <div className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] tracking-[0.14em] uppercase text-white/55 mb-6">
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[0.78rem] tracking-[0.16em] uppercase text-white/60 mb-8">
             {crumbs.map((c, i) => (
               <span key={i} className="flex items-center gap-2">
                 {c.href ? <a href={c.href} className="hover:text-primary">{c.label}</a> : c.label}
@@ -82,16 +82,16 @@ export default function PageHeader({
           </div>
         )}
         {eyebrow && (
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-primary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/15 text-primary font-sans font-extrabold text-[0.78rem] tracking-[0.22em] uppercase mb-8">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             {eyebrow}
           </span>
         )}
-        <h1 className="font-sans font-black tracking-tighter-2 leading-[1.04] text-white text-[clamp(2rem,4vw,3.6rem)]">
+        <h1 className="font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(3rem,7.5vw,7rem)]">
           {title}
           {italic && <span className="block font-display italic font-medium text-warm">{italic}</span>}
         </h1>
-        {dek && <p className="mt-6 text-white/78 leading-relaxed text-[1.08rem] max-w-[720px]">{dek}</p>}
+        {dek && <p className="mt-8 text-white/80 leading-relaxed text-[clamp(1.05rem,1.4vw,1.5rem)] max-w-[1100px]">{dek}</p>}
       </div>
 
       {/* Curved bottom wave — same as admissions hero */}

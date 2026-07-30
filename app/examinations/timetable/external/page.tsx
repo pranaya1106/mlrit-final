@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -200,8 +200,7 @@ const gradientText: React.CSSProperties = {
 export default function ExternalTimetablePage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Examinations · Timetables"
+      <ExaminationsHero
         title="External (SEE)"
         italic="Timetables."
         dek="Semester End Examination (SEE) timetables for Regular, Supplementary and Advance Supplementary examinations across all programmes and regulations."
@@ -211,13 +210,12 @@ export default function ExternalTimetablePage() {
           { label: 'Timetables', href: '/examinations/timetable/external' },
           { label: 'External' },
         ]}
-        variant="green"
       />
       <ExaminationsQuickNav active="/examinations/timetable/external" />
 
       {/* Internal / External pill toggle */}
       <div className="bg-white border-b border-border">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 py-3">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-3">
           <div className="inline-flex items-center rounded-full bg-warm-light border border-border p-1 gap-1">
             <a
               href="/examinations/timetable/internal"
@@ -236,8 +234,8 @@ export default function ExternalTimetablePage() {
         </div>
       </div>
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
               Semester End Examinations · {TIMETABLES.length} Timetables

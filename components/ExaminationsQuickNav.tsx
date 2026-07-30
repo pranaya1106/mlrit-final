@@ -41,16 +41,15 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
 
   return (
     <nav
-      className={`bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
+      className={`relative bg-white/95 backdrop-blur-md border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
         hidden ? '-translate-y-full' : 'translate-y-0'
       }`}
       aria-label="Examinations sections"
     >
-      <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20 relative">
+      <span aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+      <div className="w-full px-6 md:px-10 lg:px-12 relative">
 
-        {/* Mobile / tablet — all items visible at once, wrapping instead of scrolling off-screen.
-            The whole bar slides away on scroll-down and back on scroll-up, same as the main
-            navbar — but only below lg (the lg:translate-y-0 override keeps desktop static). */}
+        {/* Mobile / tablet — pill wrap */}
         <div className="flex flex-wrap gap-2 py-3 lg:hidden">
           {EXAMS_NAV.map((item) => (
             <Link
@@ -68,8 +67,7 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
           ))}
         </div>
 
-        {/* Desktop — original horizontal scroll strip with left/right arrows, unchanged */}
-        {/* ← Left arrow */}
+        {/* Desktop scroll strip with arrows */}
         <button
           onClick={scrollLeft}
           aria-label="Scroll tabs left"
@@ -88,23 +86,32 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
           className="hidden lg:flex items-center gap-1 overflow-x-auto"
           style={{ scrollbarWidth: 'none', scrollBehavior: 'smooth' }}
         >
-          {EXAMS_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={itemHref(item)}
-              aria-current={isActive(item) ? 'page' : undefined}
-              className={`shrink-0 px-4 py-4 font-sans font-medium text-[0.88rem] border-b-2 transition-all whitespace-nowrap ${
-                isActive(item)
-                  ? 'text-foreground border-primary font-semibold'
-                  : 'text-muted hover:text-foreground border-transparent hover:border-primary'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {EXAMS_NAV.map((item) => {
+            const activeHere = isActive(item);
+            return (
+              <Link
+                key={item.href}
+                href={itemHref(item)}
+                aria-current={activeHere ? 'page' : undefined}
+                className={`group relative shrink-0 px-4 py-4 font-sans text-[0.9rem] whitespace-nowrap transition-all duration-300 ${
+                  activeHere ? 'text-primary font-bold' : 'text-muted hover:text-foreground font-medium'
+                }`}
+              >
+                <span className="relative z-10 inline-flex items-center gap-2">
+                  {activeHere && <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />}
+                  {item.label}
+                </span>
+                <span
+                  aria-hidden
+                  className={`absolute left-3 right-3 bottom-0 h-[3px] rounded-full transition-all duration-300 ${
+                    activeHere ? 'bg-primary opacity-100' : 'bg-primary opacity-0 group-hover:opacity-40'
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </div>
 
-        {/* → Right arrow */}
         <button
           onClick={scrollRight}
           aria-label="Scroll tabs right"

@@ -23,13 +23,13 @@ export default function Achievements() {
   const sizePx = (s: string) => (s === 'lg' ? 'w-28 h-28 md:w-32 md:h-32' : s === 'md' ? 'w-20 h-20 md:w-24 md:h-24' : 'w-16 h-16 md:w-20 md:h-20');
 
   return (
-    <section id="achievements" className="relative bg-snow py-20 md:py-28 overflow-hidden">
+    <section id="achievements" className="relative bg-snow py-10 md:py-14 overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-secondary/[0.08] blur-[80px] pointer-events-none" />
       <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-gold-400/[0.10] blur-[80px] pointer-events-none" />
       <div className="absolute -bottom-32 left-1/2 w-96 h-96 rounded-full bg-primary/[0.06] blur-[80px] pointer-events-none" />
 
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-center">
+      <div className="relative w-full px-6 md:px-10 lg:px-12 grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-center">
         <div className="relative z-10">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-primary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />

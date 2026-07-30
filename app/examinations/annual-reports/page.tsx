@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
@@ -44,9 +44,7 @@ const gradientText: React.CSSProperties = {
 export default function AnnualReportsPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Annual"
         italic="Reports."
         dek="Year-wise examination activity reports published by the Controller of Examinations office — performance data, process reviews and regulatory compliance."
@@ -58,8 +56,8 @@ export default function AnnualReportsPage() {
       />
       <ExaminationsQuickNav active="/examinations/annual-reports" />
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Reports</span>

@@ -22,8 +22,8 @@ export default function PlacementTrackRecord() {
   }
 
   return (
-    <section className="bg-ink-2 text-white py-20 md:py-28">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+    <section className="bg-ink-2 text-white py-10 md:py-14">
+      <div className="w-full px-6 md:px-10 lg:px-12">
 
         <Reveal>
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">

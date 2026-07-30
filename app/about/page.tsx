@@ -63,12 +63,12 @@ export default function AboutPage() {
         variant="green"
       />
 
-      {/* Quick nav — shared component: wraps to pills + scroll-hides on mobile, original tab row on desktop */}
+      {/* Quick nav — shared component with premium styling */}
       <AboutQuickNav active="/about" />
 
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
-          <div className="pt-12 pl-6">
+          <div className="pt-8 pl-6">
             <SideQuickNav items={NAV_ITEMS} />
           </div>
         </aside>
@@ -76,8 +76,8 @@ export default function AboutPage() {
         <div className="flex-1 min-w-0">
 
           {/* ── OUR STORY ──────────────────────────────────────────────────────── */}
-          <section id="story" className="bg-white py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-start">
+          <section id="story" className="bg-white py-10 md:py-14">
+            <div className="w-full px-6 md:px-10 lg:px-12 grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-14 items-start">
               <Reveal preset="right">
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Our Story</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -143,8 +143,8 @@ export default function AboutPage() {
           </section>
 
           {/* ── SIX PILLARS ────────────────────────────────────────────────────── */}
-          <section id="pillars" className="bg-warm-light py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20">
+          <section id="pillars" className="bg-warm-light py-12 md:py-16">
+            <div className="w-full px-6 md:px-10 lg:px-12">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">What Defines Us</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

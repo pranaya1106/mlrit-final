@@ -16,7 +16,7 @@ export default function PlacementsMoUsPage() {
     <>
       {/* Page intro */}
       <section className="bg-white pt-14 pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">MoUs & Partnerships</span>
             <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -32,7 +32,7 @@ export default function PlacementsMoUsPage() {
 
       {/* Centres of Excellence */}
       <section className="bg-white py-14 md:py-20">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2 inline-block">On-Campus</span>
             <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.6rem] leading-tight mb-8">
@@ -83,8 +83,8 @@ export default function PlacementsMoUsPage() {
       </section>
 
       {/* MoU Partners */}
-      <section className="bg-ink text-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-ink text-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55 mb-2 inline-block">Strategic</span>
             <h2 className="font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04] mb-8">

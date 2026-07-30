@@ -3,8 +3,8 @@ import Reveal from '@/components/motion/Reveal';
 
 export default function WhyMLRIT() {
   return (
-    <section className="relative bg-neutral-900 text-white py-20 md:py-28 overflow-hidden">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-2 gap-10 items-center">
+    <section className="relative bg-neutral-900 text-white py-10 md:py-14 overflow-hidden">
+      <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-2 gap-10 items-center">
         <Reveal preset="right">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-white/55 font-sans font-bold text-[0.66rem] tracking-[0.22em] uppercase mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />

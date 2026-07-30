@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import PageHeader from '@/components/PageHeader';
 import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_PAGES, RESEARCH_NAV } from '@/lib/research';
 import ResearchQuickNav from '@/components/ResearchQuickNav';
+import ResearchHero from '@/components/ResearchHero';
 
 export function generateStaticParams() {
   return Object.keys(RESEARCH_PAGES).map((slug) => ({ slug }));
@@ -21,8 +21,7 @@ export default function ResearchSubPage({ params }: { params: { slug: string } }
   const navItem = RESEARCH_NAV.find((n) => n.slug === params.slug);
   return (
     <>
-      <PageHeader
-        eyebrow={`Research · ${navItem?.label ?? ''}`}
+      <ResearchHero
         title={data.title}
         italic={data.italic}
         dek={data.dek}
@@ -31,20 +30,19 @@ export default function ResearchSubPage({ params }: { params: { slug: string } }
           { label: 'Research', href: '/research' },
           { label: navItem?.label ?? params.slug },
         ]}
-        variant="green"
       />
 
       <ResearchQuickNav active={`/research/${params.slug}`} />
 
       <div className="bg-white">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 space-y-14 md:space-y-20">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-10 md:py-14 space-y-14 md:space-y-20">
           <Blocks blocks={data.blocks} />
         </div>
       </div>
 
       {/* Browse other research areas */}
       <section className="bg-cream-2 py-14 md:py-20">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.5rem,2.4vw,2rem)] mb-6">
             Browse other{' '}
             <span className="font-display italic font-medium text-secondary">research areas</span>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
@@ -140,8 +140,7 @@ const gradientText: React.CSSProperties = {
 export default function RegulationsPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Academic"
         italic="regulations."
         dek="All active and historical academic regulations governing B.Tech, M.Tech and MBA programmes at MLRIT — R25, R22, MLR20 and MLR18."
@@ -150,12 +149,11 @@ export default function RegulationsPage() {
           { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Regulations' },
         ]}
-        variant="green"
       />
       <ExaminationsQuickNav active="/examinations/regulations" />
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">

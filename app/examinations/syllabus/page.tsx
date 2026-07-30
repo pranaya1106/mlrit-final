@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import { SYLLABUS_DATA, getSyllabusCourses, type SyllabusCourse } from '@/lib/syllabus-data';
 
@@ -110,8 +110,7 @@ export default function SyllabusPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Syllabus"
         italic="Explorer."
         dek="Browse the official subject-wise syllabus for any branch, regulation, and semester. Subjects match exactly what's in the Departments section. Click a subject to download its PDF."
@@ -120,12 +119,11 @@ export default function SyllabusPage() {
           { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Syllabus Explorer' },
         ]}
-        variant="green"
       />
       <ExaminationsQuickNav active="/examinations/syllabus" />
 
       <section className="bg-white py-14 md:py-20">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 space-y-8">
+        <div className="w-full px-6 md:px-10 lg:px-12 space-y-8">
 
           {/* Step 1 — Department */}
           <div>

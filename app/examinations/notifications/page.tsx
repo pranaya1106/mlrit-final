@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -105,9 +105,7 @@ const BADGE_STYLES: Record<Notification['category'], string> = {
 export default function NotificationsPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Exam"
         italic="Notifications."
         dek="Results announcements, mark verifications, revaluation deadlines and other notifications from the COE office."
@@ -119,8 +117,8 @@ export default function NotificationsPage() {
       />
       <ExaminationsQuickNav active="/examinations/notifications" />
 
-      <section className="bg-warm-light min-h-[60vh] py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-warm-light min-h-[60vh] py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">

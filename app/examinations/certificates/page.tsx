@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
@@ -69,9 +69,7 @@ const gradientText: React.CSSProperties = {
 export default function CertificatesPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Application of"
         italic="Certificates."
         dek="Apply for official documents from the Controller of Examinations — provisional certificates, transcripts, grade cards, migration certificates and more."
@@ -83,8 +81,8 @@ export default function CertificatesPage() {
       />
       <ExaminationsQuickNav active="/examinations/certificates" />
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* Application form download */}
           <Reveal>

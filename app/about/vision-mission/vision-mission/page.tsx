@@ -42,8 +42,8 @@ export default function VisionMissionPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-          <section id="vision" className="bg-white py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 space-y-10">
+          <section id="vision" className="bg-white py-10 md:py-14">
+            <div className="w-full px-6 md:px-10 lg:px-12 space-y-10">
 
               {/* Vision */}
               <Reveal preset="right">
@@ -59,7 +59,7 @@ export default function VisionMissionPage() {
           </section>
 
           <section id="mission" className="bg-white pb-20 md:pb-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 space-y-10">
+            <div className="w-full px-6 md:px-10 lg:px-12 space-y-10">
 
               {/* Mission */}
               <Reveal preset="up" delay={0.1}>
@@ -87,7 +87,7 @@ export default function VisionMissionPage() {
           </section>
 
           <section id="values" className="bg-white pb-20 md:pb-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 space-y-10">
+            <div className="w-full px-6 md:px-10 lg:px-12 space-y-10">
 
               {/* Core values strip */}
               <Reveal preset="up" delay={0.2}>

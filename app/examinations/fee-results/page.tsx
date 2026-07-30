@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 
@@ -40,9 +40,7 @@ const gradientText: React.CSSProperties = {
 export default function FeeResultsPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Exam Fee &"
         italic="Results."
         dek="Pay your examination fee and access semester results — both managed through the MLRIT Examinations Portal."
@@ -56,7 +54,7 @@ export default function FeeResultsPage() {
 
       {/* Exam Portal CTA */}
       <section className="bg-ink text-white py-14">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row md:items-center gap-8">
+        <div className="w-full px-6 md:px-10 lg:px-12 flex flex-col md:flex-row md:items-center gap-8">
           <div className="flex-1">
             <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-white/50 mb-2 inline-block">
               MLRIT Examinations Portal
@@ -82,8 +80,8 @@ export default function FeeResultsPage() {
       </section>
 
       {/* Fee payment steps */}
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">How to Pay</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.06]">
@@ -108,7 +106,7 @@ export default function FeeResultsPage() {
 
       {/* Results */}
       <section className="bg-warm-light py-16 md:py-20 border-t border-border">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Results</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.06]">

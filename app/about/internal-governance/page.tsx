@@ -53,7 +53,7 @@ export default function InternalGovernancePage() {
       <AboutQuickNav active="/about/internal-governance" />
 
       <section className="bg-[#f7f5f0] py-14 md:py-20">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="mb-4">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Leadership</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -66,7 +66,7 @@ export default function InternalGovernancePage() {
           </div>
         </div>
 
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <LeaderScrollStack
             itemDistance={60}
             itemScale={0.028}
@@ -122,8 +122,8 @@ export default function InternalGovernancePage() {
       </section>
 
       {/* ── DEPARTMENT HEADS ─────────────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Academic Leadership</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

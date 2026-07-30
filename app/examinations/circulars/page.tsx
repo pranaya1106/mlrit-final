@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -180,9 +180,7 @@ const BADGE_STYLES: Record<Circular['category'], string> = {
 export default function CircularsPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="COE"
         italic="Circulars."
         dek="Official circulars issued by the Controller of Examinations — examination schedules, fee notifications, mark verifications and general instructions."
@@ -194,8 +192,8 @@ export default function CircularsPage() {
       />
       <ExaminationsQuickNav active="/examinations/circulars" />
 
-      <section className="bg-warm-light min-h-[60vh] py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-warm-light min-h-[60vh] py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">

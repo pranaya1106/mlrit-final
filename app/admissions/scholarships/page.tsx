@@ -121,7 +121,7 @@ export default function ScholarshipsPage() {
               <SideQuickNav items={NAV_ITEMS} />
             </div>
           </aside>
-          <div className="flex-1 min-w-0 py-16 md:py-24">
+          <div className="flex-1 min-w-0 py-10 md:py-14">
             <section id="scholarships">
               <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20">
                 {/* Intro note */}

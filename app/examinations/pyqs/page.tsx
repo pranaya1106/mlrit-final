@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
@@ -246,8 +246,7 @@ function YearSection({ group, badge, badgeClass }: {
 export default function PYQsPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Previous Question"
         italic="Papers."
         dek="Download past examination question papers for B.Tech and PG (M.Tech / MBA) programmes. All files are RAR archives — extract with WinRAR or 7-Zip."
@@ -256,12 +255,11 @@ export default function PYQsPage() {
           { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Previous Papers' },
         ]}
-        variant="green"
       />
       <ExaminationsQuickNav active="/examinations/pyqs" />
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* ── B.Tech section ── */}
           <Reveal>

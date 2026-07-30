@@ -175,7 +175,7 @@ export default function Footer() {
     <footer className="bg-warm-light border-t border-border relative isolate">
 
       {/* Main footer grid */}
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-10 md:pb-14">
+      <div className="w-full px-6 md:px-10 lg:px-12 pt-16 md:pt-24 pb-10 md:pb-14">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 md:gap-8">
 
           {/* 4 main columns */}
@@ -210,7 +210,7 @@ export default function Footer() {
 
       {/* Accredited row */}
       <div className="border-y border-border">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-5 flex flex-wrap items-center gap-7">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-wrap items-center gap-7">
           <span className="font-mono text-[0.66rem] font-bold tracking-[0.22em] uppercase text-muted flex-shrink-0">
             Accredited by
           </span>
@@ -247,7 +247,7 @@ export default function Footer() {
 
       {/* Bottom legal */}
       <div className="border-t border-border">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.8rem] text-muted font-sans">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.8rem] text-muted font-sans">
           <div className="flex flex-wrap gap-4 items-center">
             <span>© 2026 KMR Educational Society</span>
             <span className="text-subtle">·</span>

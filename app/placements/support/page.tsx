@@ -18,7 +18,7 @@ export default function PlacementsSupportPage() {
     <>
       {/* Page intro */}
       <section className="bg-white pt-14 pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Contact</span>
             <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

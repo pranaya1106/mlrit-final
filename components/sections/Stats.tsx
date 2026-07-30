@@ -19,7 +19,7 @@ export default function Stats() {
       className="border-b border-border"
       style={{ background: 'linear-gradient(135deg, var(--orange-50) 0%, var(--background) 50%, var(--green-50) 100%)' }}
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 py-14 md:py-20">
+      <div className="w-full px-6 md:px-10 lg:px-12 py-14 md:py-20">
         <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-10" delay={0.12}>
           {STATS.map((s, i) => (
             <StaggerItem key={i}><StatItem {...s} /></StaggerItem>

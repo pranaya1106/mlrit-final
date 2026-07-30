@@ -43,7 +43,7 @@ export default function IQACSupportPage() {
       />
       <IQACQuickNav active="/iqac/support" />
 
-      <section className="bg-warm-light min-h-screen py-16 md:py-24">
+      <section className="bg-warm-light min-h-screen py-10 md:py-14">
         <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {CONTACTS.map((c) => (

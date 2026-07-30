@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
@@ -30,8 +30,7 @@ export default function DownloadsPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Forms &"
         italic="Downloads."
         dek="All downloadable forms, policies, academic calendars and guidelines from the Controller of Examinations office."
@@ -40,12 +39,11 @@ export default function DownloadsPage() {
           { label: 'Examinations', href: '/examinations/coe' },
           { label: 'Downloads' },
         ]}
-        variant="green"
       />
       <ExaminationsQuickNav active="/examinations/downloads" />
 
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 space-y-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12 space-y-20">
 
           {/* Forms */}
           <div>

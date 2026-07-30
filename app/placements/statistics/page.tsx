@@ -17,7 +17,7 @@ export default function PlacementsStatisticsPage() {
     <>
       {/* Page intro */}
       <section className="bg-white pt-14 pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Statistics</span>
             <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -32,7 +32,7 @@ export default function PlacementsStatisticsPage() {
 
       {/* Headline stats */}
       <section className="bg-white py-10 md:py-14">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" delay={0.06}>
             {PLACEMENT_HIGHLIGHTS.map((h) => (
               <StaggerItem key={h.label}>
@@ -58,8 +58,8 @@ export default function PlacementsStatisticsPage() {
       <PlacementTrackRecord />
 
       {/* Infrastructure */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
           <Reveal preset="right">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Facilities</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

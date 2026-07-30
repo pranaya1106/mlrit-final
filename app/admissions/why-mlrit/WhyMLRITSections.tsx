@@ -172,7 +172,7 @@ function GreenCampusStory() {
         className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none text-[#e8e3da] select-none"
         style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0 }}>01</div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28">
+      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12 pt-20 md:pt-28">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
 
           <div className="lg:w-[44%] shrink-0">
@@ -282,7 +282,7 @@ function PlacementStory() {
         className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none select-none"
         style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, color: 'rgba(255,255,255,0.025)', zIndex: 1 }}>02</div>
 
-      <div className="relative z-10 py-24 md:py-32 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 py-24 md:py-32 w-full px-6 md:px-10 lg:px-12">
         <motion.div className="relative z-10" style={{ y: reduced ? 0 : textY }}>
           <div className="flex flex-col lg:flex-row-reverse gap-14 lg:gap-20 items-center">
 
@@ -412,12 +412,12 @@ function PolicyCard({ color, eyebrow, title, icon, body, items, check, footer }:
 
 function StudentSafetyStory() {
   return (
-    <section className="relative bg-[#f1f8f4] overflow-hidden py-20 md:py-28" aria-label="Student safety and support">
+    <section className="relative bg-[#f1f8f4] overflow-hidden py-10 md:py-14" aria-label="Student safety and support">
       <div aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none text-[#d4ead9] select-none"
         style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0 }}>03</div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12">
         <Reveal><SectionLabel n="03" label="Student Safety &amp; Support" /></Reveal>
         <Reveal delay={0.07}>
           <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.95] text-foreground max-w-[16ch]">
@@ -539,7 +539,7 @@ function InnovationResearchStory() {
   ];
 
   return (
-    <section ref={ref} className="relative bg-[#0c0c0e] overflow-hidden py-20 md:py-28" aria-label="Innovation and research">
+    <section ref={ref} className="relative bg-[#0c0c0e] overflow-hidden py-10 md:py-14" aria-label="Innovation and research">
       <motion.div className="absolute inset-0 opacity-[0.10]" style={{ y: reduced ? 0 : bgY }} aria-hidden="true">
         <div className="grid grid-cols-4 h-full">
           {STI_IMGS.map((src, i) => (
@@ -554,7 +554,7 @@ function InnovationResearchStory() {
         className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none select-none"
         style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, color: 'rgba(255,255,255,0.02)', zIndex: 1 }}>04</div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-center">
           <div className="flex-1">
             <motion.div className="relative rounded-3xl overflow-hidden shadow-card-strong"
@@ -639,12 +639,12 @@ function FacilitiesStory() {
   const col2Y = useSpring(useTransform(scrollYProgress, [0, 1], ['6%', '-6%']), SP);
 
   return (
-    <section ref={ref} className="relative bg-[#faf7f0] overflow-hidden py-20 md:py-28" aria-label="Facilities and amenities">
+    <section ref={ref} className="relative bg-[#faf7f0] overflow-hidden py-10 md:py-14" aria-label="Facilities and amenities">
       <div aria-hidden="true"
         className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none text-[#e5dfd5] select-none"
         style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0 }}>05</div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
           <div className="lg:w-[36%] shrink-0 lg:sticky lg:top-32">
             <Reveal><SectionLabel n="05" label="Facilities &amp; Amenities" /></Reveal>
@@ -725,12 +725,12 @@ function StudentCommunitiesStory() {
   ];
 
   return (
-    <section ref={ref} className="relative bg-foreground overflow-hidden py-20 md:py-28" aria-label="Student clubs and communities">
+    <section ref={ref} className="relative bg-foreground overflow-hidden py-10 md:py-14" aria-label="Student clubs and communities">
       <div aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none select-none z-[1]"
         style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, color: 'rgba(255,255,255,0.025)' }}>06</div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
 
           <div className="lg:w-[40%] shrink-0 lg:sticky lg:top-32">

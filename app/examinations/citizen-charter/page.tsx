@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
@@ -61,9 +61,7 @@ const gradientText: React.CSSProperties = {
 export default function CitizenCharterPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Citizen"
         italic="Charter."
         dek="The COE Citizen Charter defines service standards, processing timelines and grievance redressal for all examination-related services at MLRIT."
@@ -75,8 +73,8 @@ export default function CitizenCharterPage() {
       />
       <ExaminationsQuickNav active="/examinations/citizen-charter" />
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* Intro + Download */}
           <Reveal>

@@ -13,8 +13,8 @@ export default function PlacementsRecruitersPage() {
   return (
     <>
       {/* Recruiters */}
-      <section className="bg-ink-2 text-white py-20 md:py-28 overflow-hidden">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-ink-2 text-white py-10 md:py-14 overflow-hidden">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Our Recruiters</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -39,7 +39,7 @@ export default function PlacementsRecruitersPage() {
         </div>
 
         {/* Names cloud */}
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 mt-10">
+        <div className="w-full px-6 md:px-10 lg:px-12 mt-10">
           <Stagger className="flex flex-wrap gap-2" delay={0.025}>
             {RECRUITERS.map((n) => (
               <StaggerItem key={n}>
@@ -62,8 +62,8 @@ export default function PlacementsRecruitersPage() {
       </section>
 
       {/* MoUs */}
-      <section className="bg-cream py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-cream py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Industry Partnerships</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

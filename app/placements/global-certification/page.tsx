@@ -21,7 +21,7 @@ export default function GlobalCertificationPage() {
     <>
       {/* Page intro */}
       <section className="bg-white pt-14 pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Global Certification</span>
             <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -37,7 +37,7 @@ export default function GlobalCertificationPage() {
 
       {/* Featured verified certifications */}
       <section className="bg-white py-14 md:py-20">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.5rem] mb-8">
               Verified <span className="font-display italic font-medium" style={gradientText}>certifications.</span>
@@ -86,8 +86,8 @@ export default function GlobalCertificationPage() {
 
       {/* Certification partners strip */}
       {OTHER_CERTS.length > 0 && (
-        <section className="bg-ink text-white py-20 md:py-28">
-          <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <section className="bg-ink text-white py-10 md:py-14">
+          <div className="w-full px-6 md:px-10 lg:px-12">
             <Reveal>
               <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Certification Partners</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -122,8 +122,8 @@ export default function GlobalCertificationPage() {
       )}
 
       {/* Value proposition */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Why It Matters</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

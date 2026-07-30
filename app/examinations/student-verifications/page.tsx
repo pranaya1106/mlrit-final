@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
+import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
@@ -20,9 +20,7 @@ const USE_CASES = [
 export default function StudentVerificationsPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Examinations"
+      <ExaminationsHero
         title="Student"
         italic="Verifications."
         dek="Official authentication of MLRIT degree certificates, grade cards and provisional certificates for employment, higher studies and government agencies."
@@ -34,7 +32,7 @@ export default function StudentVerificationsPage() {
       />
       <ExaminationsQuickNav active="/examinations/student-verifications" />
 
-      <section className="bg-warm-light py-16 md:py-24">
+      <section className="bg-warm-light py-10 md:py-14">
         <div className="max-w-[900px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {/* Download form */}

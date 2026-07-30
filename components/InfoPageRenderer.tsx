@@ -111,7 +111,7 @@ export default function InfoPageRenderer({ page }: { page: InfoPage }) {
       />
       <PageQuickNav />
       <div className="bg-white">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24 space-y-14 md:space-y-20">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-8 md:py-10 space-y-10 md:space-y-14">
           {page.blocks.map((block, i) => (
             <Block key={i} block={block} index={i} />
           ))}

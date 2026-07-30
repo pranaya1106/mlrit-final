@@ -171,8 +171,8 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
   );
 
   return (
-    <section ref={sectionRef} className="bg-white py-20 md:py-28 overflow-hidden">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 mb-14">
+    <section ref={sectionRef} className="bg-white py-10 md:py-14 overflow-hidden">
+      <div className="w-full px-6 md:px-10 lg:px-12 mb-14">
         <div className="text-center">
           <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
           <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
@@ -240,7 +240,7 @@ export default function AdmissionsPage() {
         <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-10"
           style={{ background: 'radial-gradient(circle, #e85d04 0%, transparent 70%)' }} />
 
-        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-20">
+        <div className="relative w-full px-6 md:px-10 lg:px-12 pt-28 pb-20">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/50 mb-8 hero-fade" style={{ animationDelay: '0.1s' }}>
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -328,8 +328,8 @@ export default function AdmissionsPage() {
       </section>
 
       {/* ── HOW TO APPLY — sticky image left, scroll-driven steps right */}
-      <section className="bg-warm-light py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-warm-light py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">How to Apply</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
@@ -465,8 +465,8 @@ export default function AdmissionsPage() {
       </section>
 
       {/* ── SCHOLARSHIP TYPES — 3 photo cards */}
-      <section className="bg-white py-20 md:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-white py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <div className="mb-12">
               <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Financial Support</span>
@@ -509,8 +509,8 @@ export default function AdmissionsPage() {
       <ValuesMarquee gradientText={gradientText} />
 
       {/* ── FEES & SCHOLARSHIPS — brand card with overlapping image */}
-      <section className="py-20 md:py-28 bg-warm-light">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="py-10 md:py-14 bg-warm-light">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <div
               className="relative rounded-3xl overflow-hidden px-10 md:px-16 pt-14 pb-0 md:pb-0"

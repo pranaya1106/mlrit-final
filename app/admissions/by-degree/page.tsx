@@ -195,8 +195,8 @@ export default function ByDegreePage() {
       />
       <AdmissionsQuickNav active="/admissions/by-degree" />
 
-      <section className="bg-warm-light min-h-screen py-16 md:py-24">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-warm-light min-h-screen py-10 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12">
           {/* Tabs */}
           <div className="flex gap-2 p-1.5 bg-white border border-border rounded-2xl shadow-card-soft w-fit mb-12">
             {TABS.map(tab => (

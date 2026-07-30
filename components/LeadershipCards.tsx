@@ -32,7 +32,7 @@ const gradientText: React.CSSProperties = {
 export default function LeadershipCards() {
   return (
     <section className="bg-[#f7f5f0] py-14 md:py-20">
-      <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="w-full px-6 md:px-10 lg:px-12">
 
         {/* Heading */}
         <div className="mb-4">
@@ -47,7 +47,7 @@ export default function LeadershipCards() {
         </div>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-20">
+      <div className="w-full px-6 md:px-10 lg:px-12">
         <LeaderScrollStack
           itemDistance={60}
           itemScale={0.028}
