@@ -1,4 +1,5 @@
 // MLRIT placement data — authoritative source for all Placements pages.
+// Data verified against official year-specific pages on mlrit.ac.in (2026-07-30).
 
 // ─── Overview highlights ─────────────────────────────────────────────────────
 
@@ -9,11 +10,11 @@ export interface PlacementHighlight {
 }
 
 export const PLACEMENT_HIGHLIGHTS: PlacementHighlight[] = [
-  { value: '81%',     label: 'Students getting placed',       sub: 'Consistently every year'   },
-  { value: '21',      label: 'Years of experience',           sub: 'Since inception'            },
-  { value: '7000+',   label: 'Alumni placed in MNCs',         sub: 'Across industries'          },
-  { value: '200+',    label: 'Campus visiting partners',       sub: 'MNCs to startups'          },
-  { value: '₹58 LPA', label: 'Highest package from Microsoft', sub: 'Microsoft SDE · 2023'     },
+  { value: '81%',     label: 'Students getting placed',             sub: 'Consistently every year'   },
+  { value: '21',      label: 'Years of experience',                 sub: 'Since inception'            },
+  { value: '7000+',   label: 'Alumni placed in MNCs',               sub: 'Across industries'          },
+  { value: '200+',    label: 'Campus visiting partners',             sub: 'MNCs to startups'          },
+  { value: '₹58 LPA', label: 'Highest package',                     sub: 'Palo Alto Networks · 2023'  },
 ];
 
 // ─── Overview paragraph ──────────────────────────────────────────────────────
@@ -21,8 +22,194 @@ export const PLACEMENT_HIGHLIGHTS: PlacementHighlight[] = [
 export const PLACEMENT_OVERVIEW =
   'MLR Institute of Technology, in its journey of 21 years, has become a locus yielding academic excellence — consistently achieving 81% and above placements every year in various reputed MNCs across the globe. The Training & Placement Cell transforms an amateur engineering student into a self-motivated professional with versatile domain expertise and multi-tasking abilities, ensuring every graduate is career-ready for the demands of modern industry.';
 
-// ─── Year-wise statistics ────────────────────────────────────────────────────
+// ─── Placement year type definitions ─────────────────────────────────────────
 
+export type SelectionCount =
+  | { status: 'confirmed'; value: number }
+  | { status: 'in-progress' }
+  | { status: 'unknown' };
+
+export interface PlacementCompanyRecord {
+  id: string;
+  company: string;
+  role: string;
+  salaryDisplay: string;
+  salaryMinLpa?: number;
+  salaryMaxLpa?: number;
+  selections: SelectionCount;
+}
+
+export interface PlacementYearSummary {
+  year: string;
+  academicYear: string;
+  jobOffers: number;
+  companiesVisited: number;
+  highestPackageLpa: number;
+  topRecruiter: string;
+  topRecruiterRole: string;
+  isProvisional?: boolean;
+  provisionalNote?: string;
+  sourceUrl: string;
+  lastVerified: string;
+  companies: PlacementCompanyRecord[];
+}
+
+// ─── Year-wise statistics (verified against official year pages) ──────────────
+// Conflict log:
+//   2026: landing page shows 36 companies, year-specific page shows 37 MNCs — year page is authoritative.
+//   2023: lib previously attributed ₹58 LPA to Amazon; official page attributes it to Palo Alto Networks.
+//   2024: official year page marks total as 674* (asterisked/provisional); ₹28.5 LPA headline is stated
+//         on the page but not reflected by any single row in the detailed table — retained as officially stated.
+//   2021: headline states ₹18.10 LPA; highest row in table is Amazon at ₹16L — headline trusted as stated.
+//   2025: ServiceNow salary stored as raw integer 3300000 on official page; normalised to ₹33 LPA.
+
+export const PLACEMENT_YEARS: PlacementYearSummary[] = [
+  {
+    year: '2026',
+    academicYear: '2025–26',
+    jobOffers: 621,
+    companiesVisited: 37,
+    highestPackageLpa: 51,
+    topRecruiter: 'Microsoft',
+    topRecruiterRole: 'Software Engineer Intern',
+    sourceUrl: 'https://mlrit.ac.in/placements/placement-statistics-2026/',
+    lastVerified: '2026-07-30',
+    companies: [
+      { id: '2026-microsoft',       company: 'Microsoft',                   role: 'Software Engineer Intern',           salaryDisplay: '₹51 LPA',           salaryMinLpa: 51,   salaryMaxLpa: 51,   selections: { status: 'confirmed', value: 2   } },
+      { id: '2026-scaler',          company: 'Scaler',                      role: 'AWS DevOps Associate Intern',        salaryDisplay: '₹48 LPA',           salaryMinLpa: 48,   salaryMaxLpa: 48,   selections: { status: 'confirmed', value: 1   } },
+      { id: '2026-vivnovation',     company: 'Vivnovation',                  role: 'Trainee Engineer',                   salaryDisplay: '₹20 LPA',           salaryMinLpa: 20,   salaryMaxLpa: 20,   selections: { status: 'confirmed', value: 1   } },
+      { id: '2026-dbs',             company: 'DBS Tech',                    role: 'Apprenticeship',                     salaryDisplay: '₹12 LPA',           salaryMinLpa: 12,   salaryMaxLpa: 12,   selections: { status: 'confirmed', value: 3   } },
+      { id: '2026-realpage',        company: 'Realpage',                    role: 'Software Engineer Intern',           salaryDisplay: '₹10 LPA',           salaryMinLpa: 10,   salaryMaxLpa: 10,   selections: { status: 'confirmed', value: 10  } },
+      { id: '2026-tcs',             company: 'Tata Consultancy Services',   role: 'Ninja / Digital',                    salaryDisplay: '₹3.46 – 9.07 LPA', salaryMinLpa: 3.46, salaryMaxLpa: 9.07, selections: { status: 'confirmed', value: 101 } },
+      { id: '2026-cognizant',       company: 'Cognizant',                   role: 'GenC Next / GenC Pro / GenC',        salaryDisplay: '₹4 – 6.75 LPA',    salaryMinLpa: 4,    salaryMaxLpa: 6.75, selections: { status: 'confirmed', value: 107 } },
+      { id: '2026-hcl',             company: 'HCL Tech',                    role: 'Graduate Engineer Trainee',          salaryDisplay: '₹4.5 LPA',          salaryMinLpa: 4.5,  salaryMaxLpa: 4.5,  selections: { status: 'confirmed', value: 83  } },
+      { id: '2026-infosys',         company: 'Infosys',                     role: 'Systems Engineer',                   salaryDisplay: '₹3.6 LPA',          salaryMinLpa: 3.6,  salaryMaxLpa: 3.6,  selections: { status: 'confirmed', value: 92  } },
+      { id: '2026-virtusa',         company: 'Virtusa',                     role: 'Software Engineer',                  salaryDisplay: '₹5 – 6.5 LPA',     salaryMinLpa: 5,    salaryMaxLpa: 6.5,  selections: { status: 'confirmed', value: 41  } },
+    ],
+  },
+  {
+    year: '2025',
+    academicYear: '2024–25',
+    jobOffers: 536,
+    companiesVisited: 62,
+    highestPackageLpa: 33,
+    topRecruiter: 'ServiceNow',
+    topRecruiterRole: 'Associate Software QA Engineer',
+    sourceUrl: 'https://mlrit.ac.in/placements/placements-statistics-2025/',
+    lastVerified: '2026-07-30',
+    companies: [
+      { id: '2025-servicenow',   company: 'ServiceNow',     role: 'Associate Software QA Engineer',     salaryDisplay: '₹33 LPA',        salaryMinLpa: 33,   salaryMaxLpa: 33,   selections: { status: 'confirmed', value: 1   } },
+      { id: '2025-bigworks',     company: 'BigWorks',       role: 'Software Engineer',                  salaryDisplay: '₹26 LPA',        salaryMinLpa: 26,   salaryMaxLpa: 26,   selections: { status: 'confirmed', value: 3   } },
+      { id: '2025-inovalon',     company: 'Inovalon',       role: 'Software Engineer',                  salaryDisplay: '₹25 LPA',        salaryMinLpa: 25,   salaryMaxLpa: 25,   selections: { status: 'confirmed', value: 3   } },
+      { id: '2025-cognizant',    company: 'Cognizant',      role: 'GenC',                               salaryDisplay: '₹4 LPA',         salaryMinLpa: 4,    salaryMaxLpa: 4,    selections: { status: 'confirmed', value: 154 } },
+      { id: '2025-infosys',      company: 'Infosys',        role: 'Systems Engineer',                   salaryDisplay: '₹3.6 – 9 LPA',  salaryMinLpa: 3.6,  salaryMaxLpa: 9,    selections: { status: 'confirmed', value: 42  } },
+      { id: '2025-globallogic',  company: 'GlobalLogic',    role: 'Associate Analyst',                  salaryDisplay: '₹2.55 LPA',      salaryMinLpa: 2.55, salaryMaxLpa: 2.55, selections: { status: 'confirmed', value: 38  } },
+      { id: '2025-hcl',          company: 'HCL Tech',       role: 'Graduate Engineer Trainee',          salaryDisplay: '₹4.25 LPA',      salaryMinLpa: 4.25, salaryMaxLpa: 4.25, selections: { status: 'confirmed', value: 27  } },
+      { id: '2025-techmahindra', company: 'Tech Mahindra',  role: 'Associate Process Engineer',         salaryDisplay: '₹5.5 LPA',       salaryMinLpa: 5.5,  salaryMaxLpa: 5.5,  selections: { status: 'confirmed', value: 17  } },
+      { id: '2025-ust',          company: 'UST',            role: 'Software Engineer',                  salaryDisplay: '₹4.25 LPA',      salaryMinLpa: 4.25, salaryMaxLpa: 4.25, selections: { status: 'confirmed', value: 17  } },
+      // TCS row marked "In Progress" on official page — not assigned a numeric count
+      { id: '2025-tcs',          company: 'TCS',            role: 'Ninja / Digital / Prime',            salaryDisplay: '₹3.36 – 9 LPA', salaryMinLpa: 3.36, salaryMaxLpa: 9,    selections: { status: 'in-progress'                } },
+    ],
+  },
+  {
+    year: '2024',
+    academicYear: '2023–24',
+    jobOffers: 674,
+    companiesVisited: 55,
+    highestPackageLpa: 28.5,
+    topRecruiter: 'Accenture',
+    topRecruiterRole: 'Associate Software Engineer',
+    isProvisional: true,
+    provisionalNote: 'Total marked as 674* on official page.',
+    sourceUrl: 'https://mlrit.ac.in/placements/placements-statistics-2024/',
+    lastVerified: '2026-07-30',
+    companies: [
+      { id: '2024-accelerize',    company: 'Accelerize 360',          role: 'Software Developer',               salaryDisplay: '₹12 LPA',        salaryMinLpa: 12,   salaryMaxLpa: 12,   selections: { status: 'confirmed', value: 1  } },
+      { id: '2024-accenture',     company: 'Accenture',               role: 'Associate Software Engineer',      salaryDisplay: '₹4.53 LPA',      salaryMinLpa: 4.53, salaryMaxLpa: 4.53, selections: { status: 'confirmed', value: 95 } },
+      { id: '2024-capgemini',     company: 'Capgemini',               role: 'Software Engineer',                salaryDisplay: '₹4.25 – 5.75 LPA', salaryMinLpa: 4.25, salaryMaxLpa: 5.75, selections: { status: 'confirmed', value: 91 } },
+      { id: '2024-techmahindra',  company: 'Tech Mahindra',           role: 'Associate Process Executive',      salaryDisplay: '₹3.25 LPA',      salaryMinLpa: 3.25, salaryMaxLpa: 3.25, selections: { status: 'confirmed', value: 65 } },
+      { id: '2024-globallogic',   company: 'GlobalLogic',             role: 'Associate Analyst',                salaryDisplay: '₹2.23 LPA',      salaryMinLpa: 2.23, salaryMaxLpa: 2.23, selections: { status: 'confirmed', value: 54 } },
+      { id: '2024-tcs',           company: 'Tata Consultancy Services', role: 'Digital & Prime',                salaryDisplay: '₹7 – 9 LPA',    salaryMinLpa: 7,    salaryMaxLpa: 9,    selections: { status: 'confirmed', value: 11 } },
+      { id: '2024-eidiko',        company: 'Eidiko Systems',          role: 'Trainee Software Engineer',        salaryDisplay: '₹4.7 LPA',       salaryMinLpa: 4.7,  salaryMaxLpa: 4.7,  selections: { status: 'confirmed', value: 21 } },
+      { id: '2024-peopletech',    company: 'PeopleTech',              role: 'Junior Software Engineer',         salaryDisplay: '₹3.3 LPA',       salaryMinLpa: 3.3,  salaryMaxLpa: 3.3,  selections: { status: 'confirmed', value: 38 } },
+      { id: '2024-astramwp',      company: 'AstraMWP',                role: 'Trainee',                          salaryDisplay: '₹2.34 LPA',      salaryMinLpa: 2.34, salaryMaxLpa: 2.34, selections: { status: 'confirmed', value: 35 } },
+      { id: '2024-eis',           company: 'Engineering Inspection Services', role: 'Graduate Engineer Trainee', salaryDisplay: '₹2.64 LPA',     salaryMinLpa: 2.64, salaryMaxLpa: 2.64, selections: { status: 'confirmed', value: 36 } },
+    ],
+  },
+  {
+    year: '2023',
+    academicYear: '2022–23',
+    jobOffers: 734,
+    companiesVisited: 32,
+    highestPackageLpa: 58,
+    topRecruiter: 'Palo Alto Networks',
+    topRecruiterRole: 'Software Engineer',
+    sourceUrl: 'https://mlrit.ac.in/placements/placements-statistics-2023/',
+    lastVerified: '2026-07-30',
+    companies: [
+      { id: '2023-paloalto',     company: 'Palo Alto Networks', role: 'Software Engineer',                    salaryDisplay: '₹58 LPA',          salaryMinLpa: 58,   salaryMaxLpa: 58,   selections: { status: 'confirmed', value: 3   } },
+      { id: '2023-cisco',        company: 'Cisco Systems',      role: 'Software Engineer',                    salaryDisplay: '₹22.59 LPA',       salaryMinLpa: 22.59,salaryMaxLpa: 22.59,selections: { status: 'confirmed', value: 1   } },
+      { id: '2023-experian',     company: 'Experian Services',  role: 'Automation Test Engineer',             salaryDisplay: '₹15.5 LPA',        salaryMinLpa: 15.5, salaryMaxLpa: 15.5, selections: { status: 'confirmed', value: 4   } },
+      { id: '2023-epam',         company: 'EPAM Systems',       role: 'Junior Software Engineer',             salaryDisplay: '₹12 LPA',          salaryMinLpa: 12,   salaryMaxLpa: 12,   selections: { status: 'confirmed', value: 19  } },
+      { id: '2023-virtusa',      company: 'Virtusa Corporation',role: 'Power Developer / Developer',          salaryDisplay: '₹5.5 – 7 LPA',    salaryMinLpa: 5.5,  salaryMaxLpa: 7,    selections: { status: 'confirmed', value: 180 } },
+      { id: '2023-dxc',          company: 'DXC Technology',     role: 'Associate Professional',               salaryDisplay: '₹4.2 LPA',         salaryMinLpa: 4.2,  salaryMaxLpa: 4.2,  selections: { status: 'confirmed', value: 179 } },
+      { id: '2023-accenture',    company: 'Accenture',          role: 'Associate Software Engineer',          salaryDisplay: '₹4.5 LPA',         salaryMinLpa: 4.5,  salaryMaxLpa: 4.5,  selections: { status: 'confirmed', value: 66  } },
+      { id: '2023-skolar',       company: 'Skolar',             role: 'Business Development Trainee',         salaryDisplay: '₹6 LPA',           salaryMinLpa: 6,    salaryMaxLpa: 6,    selections: { status: 'confirmed', value: 52  } },
+      { id: '2023-cybage',       company: 'Cybage Software',    role: 'Development Engineer',                 salaryDisplay: '₹4.5 LPA',         salaryMinLpa: 4.5,  salaryMaxLpa: 4.5,  selections: { status: 'confirmed', value: 30  } },
+      { id: '2023-alten',        company: 'Alten India',        role: 'Graduate Engineer Trainee',            salaryDisplay: '₹3.5 LPA',         salaryMinLpa: 3.5,  salaryMaxLpa: 3.5,  selections: { status: 'confirmed', value: 31  } },
+    ],
+  },
+  {
+    year: '2022',
+    academicYear: '2021–22',
+    jobOffers: 1236,
+    companiesVisited: 42,
+    highestPackageLpa: 25,
+    topRecruiter: 'Amazon',
+    topRecruiterRole: 'Software Development Engineer',
+    sourceUrl: 'https://mlrit.ac.in/placements/placements-statistics-2022/',
+    lastVerified: '2026-07-30',
+    companies: [
+      { id: '2022-amazon',     company: 'Amazon',               role: 'Software Development Engineer',     salaryDisplay: '₹25 LPA',         salaryMinLpa: 25,   salaryMaxLpa: 25,   selections: { status: 'confirmed', value: 3   } },
+      { id: '2022-walmart',    company: 'Walmart Global Tech',  role: 'Software Engineer',                  salaryDisplay: '₹24 LPA',         salaryMinLpa: 24,   salaryMaxLpa: 24,   selections: { status: 'confirmed', value: 3   } },
+      { id: '2022-wipro',      company: 'Wipro Limited',        role: 'Project Engineer',                   salaryDisplay: '₹3.75 – 6.5 LPA',salaryMinLpa: 3.75, salaryMaxLpa: 6.5,  selections: { status: 'confirmed', value: 251 } },
+      { id: '2022-accenture',  company: 'Accenture',            role: 'Advanced / Associate Software Eng', salaryDisplay: '₹4.5 – 6.5 LPA', salaryMinLpa: 4.5,  salaryMaxLpa: 6.5,  selections: { status: 'confirmed', value: 213 } },
+      { id: '2022-tcs',        company: 'Tata Consultancy Services', role: 'Ninja / Digital',              salaryDisplay: '₹3.37 – 7 LPA',  salaryMinLpa: 3.37, salaryMaxLpa: 7,    selections: { status: 'confirmed', value: 128 } },
+      { id: '2022-capgemini',  company: 'Capgemini',            role: 'Analyst / Senior Analyst',           salaryDisplay: '₹4 – 7.5 LPA',   salaryMinLpa: 4,    salaryMaxLpa: 7.5,  selections: { status: 'confirmed', value: 159 } },
+      { id: '2022-virtusa',    company: 'Virtusa Corporation',  role: 'Developer / Power Developer',        salaryDisplay: '₹5.5 – 6.5 LPA', salaryMinLpa: 5.5,  salaryMaxLpa: 6.5,  selections: { status: 'confirmed', value: 112 } },
+      { id: '2022-hcl',        company: 'HCL Technologies',     role: 'Graduate Engineer Trainee',          salaryDisplay: '₹4.25 LPA',       salaryMinLpa: 4.25, salaryMaxLpa: 4.25, selections: { status: 'confirmed', value: 44  } },
+      { id: '2022-epam',       company: 'EPAM Systems',         role: 'Junior Software Engineer',           salaryDisplay: '₹6 LPA',          salaryMinLpa: 6,    salaryMaxLpa: 6,    selections: { status: 'confirmed', value: 20  } },
+      { id: '2022-infosys',    company: 'Infosys Limited',      role: 'Specialist Programmer / Software Eng', salaryDisplay: '₹3.6 – 9.5 LPA', salaryMinLpa: 3.6, salaryMaxLpa: 9.5, selections: { status: 'confirmed', value: 34  } },
+    ],
+  },
+  {
+    year: '2021',
+    academicYear: '2020–21',
+    jobOffers: 740,
+    companiesVisited: 49,
+    highestPackageLpa: 18.1,
+    topRecruiter: 'Accenture',
+    topRecruiterRole: 'Advanced / Associate Software Engineer',
+    // Note: page headline states ₹18.10 LPA; highest row in table is Amazon at ₹16L.
+    // Headline is trusted as officially stated. Discrepancy noted for institutional review.
+    sourceUrl: 'https://mlrit.ac.in/placements/placements-statistics-2021/',
+    lastVerified: '2026-07-30',
+    companies: [
+      { id: '2021-amazon',     company: 'Amazon',                      role: 'Programmer Analyst / DevOps',    salaryDisplay: '₹9.5 – 16 LPA',  salaryMinLpa: 9.5,  salaryMaxLpa: 16,   selections: { status: 'confirmed', value: 4   } },
+      { id: '2021-lti',        company: 'Larsen & Toubro Infotech',    role: 'Infinity Level 1–3',             salaryDisplay: '₹3.5 – 10 LPA',  salaryMinLpa: 3.5,  salaryMaxLpa: 10,   selections: { status: 'confirmed', value: 26  } },
+      { id: '2021-accenture',  company: 'Accenture',                   role: 'Advanced / Associate Software Eng', salaryDisplay: '₹4.5 – 6.5 LPA', salaryMinLpa: 4.5, salaryMaxLpa: 6.5, selections: { status: 'confirmed', value: 221 } },
+      { id: '2021-tcs',        company: 'Tata Consultancy Services',   role: 'Ninja / Digital',                salaryDisplay: '₹3.37 – 7 LPA',  salaryMinLpa: 3.37, salaryMaxLpa: 7,    selections: { status: 'confirmed', value: 56  } },
+      { id: '2021-cognizant',  company: 'Cognizant Technology Solutions', role: 'Programmer Analyst Trainee', salaryDisplay: '₹4.02 LPA',       salaryMinLpa: 4.02, salaryMaxLpa: 4.02, selections: { status: 'confirmed', value: 86  } },
+      { id: '2021-mindtree',   company: 'MindTree Limited',            role: 'Engineer / Junior Engineer',     salaryDisplay: '₹3 – 4 LPA',     salaryMinLpa: 3,    salaryMaxLpa: 4,    selections: { status: 'confirmed', value: 41  } },
+      { id: '2021-virtusa',    company: 'Virtusa Corporation',         role: 'Associate Engineer',             salaryDisplay: '₹4 – 6.5 LPA',   salaryMinLpa: 4,    salaryMaxLpa: 6.5,  selections: { status: 'confirmed', value: 51  } },
+      { id: '2021-capgemini',  company: 'Capgemini Technology Services', role: 'Analyst',                     salaryDisplay: '₹3.8 LPA',        salaryMinLpa: 3.8,  salaryMaxLpa: 3.8,  selections: { status: 'confirmed', value: 55  } },
+      { id: '2021-hcl',        company: 'HCL Technologies',            role: 'Graduate Engineer Trainee',      salaryDisplay: '₹3.5 LPA',        salaryMinLpa: 3.5,  salaryMaxLpa: 3.5,  selections: { status: 'confirmed', value: 24  } },
+      { id: '2021-optum',      company: 'Optum Global Solutions',      role: 'Associate Software Engineer',    salaryDisplay: '₹5 LPA',          salaryMinLpa: 5,    salaryMaxLpa: 5,    selections: { status: 'confirmed', value: 10  } },
+    ],
+  },
+];
+
+// ─── Year-wise statistics — derived view (backward compat with existing imports) ─
 export interface YearStat {
   year: string;
   offers: number;
@@ -30,14 +217,12 @@ export interface YearStat {
   highest: number;
 }
 
-export const YEAR_STATS: YearStat[] = [
-  { year: '2026', offers: 544,  companies: 36, highest: 51   },
-  { year: '2025', offers: 536,  companies: 62, highest: 33   },
-  { year: '2024', offers: 674,  companies: 55, highest: 28.5 },
-  { year: '2023', offers: 734,  companies: 32, highest: 58   },
-  { year: '2022', offers: 1236, companies: 42, highest: 25   },
-  { year: '2021', offers: 740,  companies: 49, highest: 18.1 },
-];
+export const YEAR_STATS: YearStat[] = PLACEMENT_YEARS.map((y) => ({
+  year: y.year,
+  offers: y.jobOffers,
+  companies: y.companiesVisited,
+  highest: y.highestPackageLpa,
+}));
 
 export interface RoleRow {
   company: string;
@@ -46,68 +231,20 @@ export interface RoleRow {
   selects: number;
 }
 
-export const YEAR_ROLES: Record<string, RoleRow[]> = {
-  '2025': [
-    { company: 'ServiceNow',   role: 'Software Engineer',   salary: '33 LPA',  selects: 4   },
-    { company: 'Virtusa',      role: 'Data/AWS Engineer',   salary: '5.5 LPA', selects: 45  },
-    { company: 'EPAM Systems', role: 'Fullstack Developer', salary: '8 LPA',   selects: 38  },
-    { company: 'TCS',          role: 'Systems Engineer',    salary: '4.0 LPA', selects: 72  },
-    { company: 'Capgemini',    role: 'Assoc. Consultant',   salary: '4.5 LPA', selects: 58  },
-    { company: 'Infosys',      role: 'Systems Engineer',    salary: '4.0 LPA', selects: 65  },
-    { company: 'Wipro',        role: 'Project Engineer',    salary: '4.0 LPA', selects: 52  },
-    { company: 'LTI Mindtree', role: 'Software Engineer',   salary: '5.5 LPA', selects: 34  },
-    { company: 'NTT Data',     role: 'Associate Analyst',   salary: '4.5 LPA', selects: 28  },
-    { company: 'Mphasis',      role: 'Software Engineer',   salary: '4.0 LPA', selects: 22  },
-  ],
-  '2024': [
-    { company: 'Boeing',            role: 'Aerospace Engineer',  salary: '28.5 LPA', selects: 3  },
-    { company: 'EPAM Systems',      role: 'Fullstack Developer', salary: '8 LPA',    selects: 42 },
-    { company: 'Amazon',            role: 'SDE I',               salary: '12 LPA',   selects: 6  },
-    { company: 'Virtusa',           role: 'Data Engineer',       salary: '5.5 LPA',  selects: 48 },
-    { company: 'TCS',               role: 'Systems Engineer',    salary: '4.0 LPA',  selects: 88 },
-    { company: 'Infosys',           role: 'Systems Engineer',    salary: '4.0 LPA',  selects: 76 },
-    { company: 'Capgemini',         role: 'Assoc. Consultant',   salary: '4.5 LPA',  selects: 64 },
-    { company: 'Tata Technologies', role: 'Design Engineer',     salary: '4.5 LPA',  selects: 52 },
-    { company: 'Tech Mahindra',     role: 'Software Engineer',   salary: '4.0 LPA',  selects: 46 },
-    { company: 'Optum',             role: 'Associate Developer', salary: '5.8 LPA',  selects: 38 },
-  ],
-  '2023': [
-    { company: 'Amazon',       role: 'SDE I',               salary: '58 LPA',  selects: 2   },
-    { company: 'Virtusa',      role: 'Data Engineer',       salary: '5.5 LPA', selects: 52  },
-    { company: 'Boeing',       role: 'Aerospace Engineer',  salary: '16 LPA',  selects: 4   },
-    { company: 'LTI Mindtree', role: 'Software Engineer',   salary: '5.5 LPA', selects: 44  },
-    { company: 'TCS',          role: 'Systems Engineer',    salary: '4.0 LPA', selects: 96  },
-    { company: 'Capgemini',    role: 'Assoc. Consultant',   salary: '4.5 LPA', selects: 72  },
-    { company: 'Infosys',      role: 'Systems Engineer',    salary: '4.0 LPA', selects: 84  },
-    { company: 'Cyient',       role: 'Engineering Analyst', salary: '4.5 LPA', selects: 38  },
-    { company: 'NTT Data',     role: 'Associate Analyst',   salary: '4.5 LPA', selects: 32  },
-    { company: 'GlobalEdge',   role: 'Software Engineer',   salary: '4.0 LPA', selects: 28  },
-  ],
-  '2022': [
-    { company: 'Prolifics',         role: 'Fullstack Developer', salary: '25 LPA',  selects: 3   },
-    { company: 'Capgemini',         role: 'Assoc. Consultant',   salary: '4.5 LPA', selects: 142 },
-    { company: 'TCS',               role: 'Systems Engineer',    salary: '4.0 LPA', selects: 188 },
-    { company: 'Infosys',           role: 'Systems Engineer',    salary: '3.8 LPA', selects: 156 },
-    { company: 'Tata Technologies', role: 'Design Engineer',     salary: '4.5 LPA', selects: 62  },
-    { company: 'Wipro',             role: 'Project Engineer',    salary: '4.0 LPA', selects: 96  },
-    { company: 'Cognizant',         role: 'Programmer Analyst',  salary: '4.0 LPA', selects: 84  },
-    { company: 'Tech Mahindra',     role: 'Software Engineer',   salary: '3.8 LPA', selects: 74  },
-    { company: 'Virtusa',           role: 'Associate Engineer',  salary: '5.0 LPA', selects: 58  },
-    { company: 'Sonata Software',   role: 'Software Engineer',   salary: '4.0 LPA', selects: 44  },
-  ],
-  '2021': [
-    { company: 'Mphasis',        role: 'Senior Associate',    salary: '18.1 LPA', selects: 8   },
-    { company: 'TCS',            role: 'Systems Engineer',    salary: '3.5 LPA',  selects: 162 },
-    { company: 'Infosys',        role: 'Systems Engineer',    salary: '3.5 LPA',  selects: 118 },
-    { company: 'Wipro',          role: 'Project Engineer',    salary: '3.5 LPA',  selects: 96  },
-    { company: 'Capgemini',      role: 'Assoc. Consultant',   salary: '4.0 LPA',  selects: 88  },
-    { company: 'DXC Technology', role: 'Associate',           salary: '3.8 LPA',  selects: 64  },
-    { company: 'Virtusa',        role: 'Associate Engineer',  salary: '4.5 LPA',  selects: 44  },
-    { company: 'Cyient',         role: 'Engineering Analyst', salary: '4.0 LPA',  selects: 38  },
-    { company: 'MEIL',           role: 'Graduate Engineer',   salary: '3.5 LPA',  selects: 32  },
-    { company: 'ValueLabs',      role: 'Software Engineer',   salary: '3.8 LPA',  selects: 28  },
-  ],
-};
+// Derived from PLACEMENT_YEARS for backward compatibility with statistics page
+export const YEAR_ROLES: Record<string, RoleRow[]> = Object.fromEntries(
+  PLACEMENT_YEARS.map((y) => [
+    y.year,
+    y.companies
+      .filter((c) => c.selections.status === 'confirmed')
+      .map((c) => ({
+        company: c.company,
+        role: c.role,
+        salary: c.salaryDisplay,
+        selects: c.selections.status === 'confirmed' ? c.selections.value : 0,
+      })),
+  ])
+);
 
 // ─── Recruiter logos (self-hosted under /public/placements/) ─────────────────
 
