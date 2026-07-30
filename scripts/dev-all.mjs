@@ -13,8 +13,17 @@ const pythonBin = isWin ? 'backend\\venv\\Scripts\\python.exe' : 'backend/venv/b
 
 const children = [];
 
+// On Windows we use shell:true so cmd.exe can resolve npx/python from PATH.
+// DEP0190: passing an args array with shell:true is deprecated — pass a single
+// pre-joined command string instead so Node never concatenates unsafely.
 function run(name, command, args, opts = {}) {
-  const child = spawn(command, args, { stdio: 'inherit', shell: isWin, ...opts });
+  const useShell = isWin;
+  // When shell is active, join into one string; otherwise keep args separate.
+  const [cmd, spawnArgs] = useShell
+    ? [[command, ...args].join(' '), []]
+    : [command, args];
+
+  const child = spawn(cmd, spawnArgs, { stdio: 'inherit', shell: useShell, ...opts });
   child.on('exit', (code) => {
     console.log(`[dev-all] ${name} exited (${code}) — stopping the rest`);
     shutdown(code ?? 0);
@@ -34,10 +43,9 @@ process.on('SIGTERM', () => shutdown(0));
 run('next', 'npx', ['next', 'dev']);
 
 if (existsSync(pythonBin)) {
-  // --app-dir instead of cwd: so pythonBin (relative to the repo root) still resolves.
   run('backend', pythonBin, ['-m', 'uvicorn', 'app.main:app', '--app-dir', 'backend', '--reload', '--port', '8000']);
 } else {
-  console.warn(
+  console.info(
     `[dev-all] no venv found at ${pythonBin} — skipping the news scraper.\n` +
     '[dev-all] set it up with: cd backend && python -m venv venv && venv\\Scripts\\pip install -r requirements.txt'
   );
