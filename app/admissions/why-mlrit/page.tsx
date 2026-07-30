@@ -44,7 +44,7 @@ export default function WhyMLRITPage() {
             <span className="font-display italic font-medium text-primary">you can feel.</span>
           </h2>
           <p className="mt-5 text-muted text-[0.97rem] leading-relaxed max-w-[58ch] mx-auto">
-            Scroll through Merit, Learning, Research, Innovation, and Transformation — the five pillars that shape every student&apos;s journey here.
+            Scroll through the five pillars that shape every student&apos;s journey here.
           </p>
           <div className="mt-8 flex items-center justify-center gap-2 text-muted text-[0.8rem] font-mono tracking-wider">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">

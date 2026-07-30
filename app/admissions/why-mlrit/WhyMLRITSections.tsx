@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   motion,
@@ -8,14 +8,18 @@ import {
   useTransform,
   useSpring,
   useReducedMotion,
+  useInView,
+  AnimatePresence,
 } from 'framer-motion';
 
 // ─── Shared constants ────────────────────────────────────────────────────────
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const SP = { stiffness: 120, damping: 28, mass: 0.6 } as const;
+const SP   = { stiffness: 110, damping: 26, mass: 0.7 } as const;
+const SP_F = { stiffness: 200, damping: 30, mass: 0.5 } as const;
 
-// Arrow link — the ↗ style contextual nav arrow requested
+// ─── ArrowLink ────────────────────────────────────────────────────────────────
+
 function ArrowLink({
   href,
   children,
@@ -32,79 +36,170 @@ function ArrowLink({
     : 'text-foreground hover:text-primary border-border hover:border-primary';
 
   const inner = (
-    <span
-      className={`group inline-flex items-center gap-2 text-[0.85rem] font-bold font-sans tracking-wide border-b pb-0.5 transition-colors duration-200 ${cls}`}
-    >
+    <span className={`group inline-flex items-center gap-2 text-[0.85rem] font-bold font-sans tracking-wide border-b pb-0.5 transition-colors duration-200 ${cls}`}>
       {children}
-      <svg
-        width="14"
-        height="14"
-        viewBox="0 0 14 14"
-        fill="none"
-        aria-hidden="true"
-        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-      >
-        <path
-          d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"
+        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+        <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5"
+          stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </span>
   );
 
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer">
-        {inner}
-      </a>
-    );
-  }
+  if (external) return <a href={href} target="_blank" rel="noopener noreferrer">{inner}</a>;
   return <Link href={href}>{inner}</Link>;
 }
 
-// Scroll-reveal wrapper — uses IntersectionObserver to avoid mounting a new
-// MotionValue per element; reduced-motion renders children immediately.
+// ─── Reveal — scroll-triggered entrance ──────────────────────────────────────
+
 function Reveal({
   children,
   className,
   delay = 0,
   preset = 'up',
+  duration = 0.72,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  preset?: 'up' | 'right' | 'left' | 'fade';
+  preset?: 'up' | 'right' | 'left' | 'fade' | 'scale';
+  duration?: number;
 }) {
   const prefersReduced = useReducedMotion();
   const hidden = {
     opacity: 0,
-    y: preset === 'up' ? 28 : 0,
-    x: preset === 'right' ? -24 : preset === 'left' ? 24 : 0,
+    y:     preset === 'up'    ? 32 : 0,
+    x:     preset === 'right' ? -28 : preset === 'left' ? 28 : 0,
+    scale: preset === 'scale' ? 0.94 : 1,
   };
-  const show = { opacity: 1, y: 0, x: 0 };
+  const show = { opacity: 1, y: 0, x: 0, scale: 1 };
 
   return (
     <motion.div
       className={className}
       initial={prefersReduced ? show : hidden}
       whileInView={show}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration, delay, ease: EASE }}
     >
       {children}
     </motion.div>
   );
 }
 
-// Section label pill
-function SectionLabel({ n, label }: { n: string; label: string }) {
+// ─── Stagger container ────────────────────────────────────────────────────────
+
+function StaggerGroup({
+  children,
+  className,
+  stagger = 0.08,
+  delayChildren = 0.05,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  stagger?: number;
+  delayChildren?: number;
+}) {
+  const prefersReduced = useReducedMotion();
   return (
-    <span className="font-mono text-[0.68rem] tracking-[0.22em] uppercase font-bold text-secondary">
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.15 }}
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: prefersReduced ? 0 : stagger, delayChildren } },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function StaggerItem({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const prefersReduced = useReducedMotion();
+  return (
+    <motion.div
+      className={className}
+      variants={{
+        hidden: { opacity: 0, y: prefersReduced ? 0 : 24 },
+        show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── Animated counter ─────────────────────────────────────────────────────────
+
+function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
+  const ref   = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const prefersReduced = useReducedMotion();
+  const [val, setVal] = useState(0);
+
+  useEffect(() => {
+    if (!inView || prefersReduced) { setVal(to); return; }
+    let start: number | null = null;
+    const dur = 1400;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const prog = Math.min((ts - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - prog, 3);
+      setVal(Math.floor(eased * to));
+      if (prog < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [inView, to, prefersReduced]);
+
+  return <span ref={ref}>{val}{suffix}</span>;
+}
+
+// ─── Section label ────────────────────────────────────────────────────────────
+
+function SectionLabel({ n, label, dark = false }: { n: string; label: string; dark?: boolean }) {
+  return (
+    <span className={`font-mono text-[0.68rem] tracking-[0.22em] uppercase font-bold ${dark ? 'text-white/50' : 'text-secondary'}`}>
       {n} — {label}
     </span>
+  );
+}
+
+// ─── Clip-path image reveal ───────────────────────────────────────────────────
+
+function ImageReveal({
+  src,
+  alt,
+  className,
+  delay = 0,
+  style,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  delay?: number;
+  style?: React.CSSProperties;
+}) {
+  const prefersReduced = useReducedMotion();
+  return (
+    <motion.div
+      className={`overflow-hidden ${className ?? ''}`}
+      style={style}
+      initial={prefersReduced ? {} : { clipPath: 'inset(100% 0 0 0)' }}
+      whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.85, delay, ease: EASE }}
+    >
+      <img src={src} alt={alt} className="w-full h-full object-cover" loading="lazy" />
+    </motion.div>
   );
 }
 
@@ -114,12 +209,16 @@ function GreenCampusStory() {
   const ref = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const rawY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
-  const rawY2 = useTransform(scrollYProgress, [0, 1], ['4%', '-4%']);
-  const y = useSpring(rawY, SP);
-  const y2 = useSpring(rawY2, SP);
 
-  const CAMPUS_IMGS = [
+  // All springs declared unconditionally at top level
+  const rawY  = useTransform(scrollYProgress, [0, 1], ['-7%', '7%']);
+  const rawY2 = useTransform(scrollYProgress, [0, 1], ['3%', '-5%']);
+  const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1, 0.97]);
+  const y     = useSpring(rawY,  SP);
+  const y2    = useSpring(rawY2, SP);
+  const scale = useSpring(rawScale, SP);
+
+  const IMGS = [
     '/images/facilities/campus/campus-7P5A2397.jpg',
     '/images/facilities/campus/campus-7P5A1225.jpg',
     '/images/facilities/campus/campus-7P5A1958.jpg',
@@ -127,121 +226,92 @@ function GreenCampusStory() {
     '/images/facilities/campus/campus-7P5A2322.jpg',
   ];
 
+  const STATS = [
+    { val: 31,  suffix: '',     unit: 'Acres',   sub: 'Solar-powered campus' },
+    { val: 1200, suffix: '',    unit: 'Seats',   sub: 'State-of-the-art auditorium' },
+    { val: 15,  suffix: '+',    unit: '',        sub: 'Sports facilities' },
+  ];
+
   return (
-    <section
-      ref={ref}
-      className="relative bg-[#f7f5f0] overflow-hidden py-0"
-      aria-label="Green Campus"
-    >
-      {/* Oversized number watermark */}
-      <div
+    <section ref={ref} className="relative bg-[#f7f5f0] overflow-hidden" aria-label="Green Campus">
+      {/* Oversized watermark */}
+      <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none text-[#e8e3da] select-none"
-        style={{ fontSize: 'clamp(180px, 28vw, 340px)', lineHeight: 0.85, zIndex: 0 }}
+        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0, y: prefersReduced ? 0 : y2 }}
       >
         01
-      </div>
+      </motion.div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-0">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+
           {/* Text column */}
           <div className="lg:w-[44%] shrink-0">
-            <Reveal>
-              <SectionLabel n="01" label="Green Campus" />
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.4rem,5vw,4.2rem)] leading-[0.95] text-foreground">
+            <Reveal><SectionLabel n="01" label="Green Campus" /></Reveal>
+
+            <Reveal delay={0.07}>
+              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.6rem,5.5vw,4.6rem)] leading-[0.92] text-foreground">
                 31{' '}
                 <span className="font-display italic font-medium text-secondary">acres</span>
-                <br />
-                of open sky.
+                <br />of open sky.
               </h2>
             </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-muted text-[0.97rem] leading-relaxed max-w-[44ch]">
-                A solar-powered, lush green campus in Dundigal — tree-lined walkways, open
-                sports grounds, and natural ventilation across every building. Life at MLRIT
-                happens outdoors as much as it does inside classrooms.
+
+            <Reveal delay={0.14}>
+              <p className="mt-6 text-muted text-[0.97rem] leading-relaxed max-w-[42ch]">
+                A solar-powered, lush green campus in Dundigal — tree-lined walkways,
+                open sports grounds, and natural ventilation across every building.
               </p>
             </Reveal>
-            <Reveal delay={0.22}>
-              <div className="mt-8">
-                <ArrowLink href="/student-life/discover-mlr">
-                  Explore Life at MLR
-                </ArrowLink>
-              </div>
+
+            <Reveal delay={0.2}>
+              <div className="mt-8"><ArrowLink href="/student-life/discover-mlr">Explore Life at MLR</ArrowLink></div>
             </Reveal>
 
-            {/* Stat chips */}
-            <Reveal delay={0.28}>
-              <div className="mt-10 flex flex-wrap gap-3">
-                {[
-                  { val: '31', unit: 'Acres', sub: 'Solar-powered campus' },
-                  { val: '1,200', unit: 'Seats', sub: 'State-of-the-art auditorium' },
-                  { val: '15+', unit: '', sub: 'Sports facilities' },
-                ].map((s) => (
-                  <div
-                    key={s.sub}
-                    className="bg-white border border-border rounded-2xl px-5 py-4 shadow-card-soft"
-                  >
-                    <div className="font-sans font-black tracking-tighter-2 text-[1.4rem] leading-none text-secondary">
-                      {s.val}
-                      {s.unit && (
-                        <span className="text-[0.75rem] font-bold ml-1 text-secondary/70">
-                          {s.unit}
-                        </span>
-                      )}
+            {/* Animated stat chips */}
+            <StaggerGroup className="mt-10 flex flex-wrap gap-3" delayChildren={0.25} stagger={0.1}>
+              {STATS.map((s) => (
+                <StaggerItem key={s.sub}>
+                  <div className="bg-white border border-border rounded-2xl px-5 py-4 shadow-card-soft">
+                    <div className="font-sans font-black tracking-tighter-2 text-[1.5rem] leading-none text-secondary">
+                      <Counter to={s.val} suffix={s.suffix} />
+                      {s.unit && <span className="text-[0.72rem] font-bold ml-1 text-secondary/65">{s.unit}</span>}
                     </div>
-                    <div className="mt-1.5 font-mono text-[0.62rem] tracking-wide text-muted leading-tight">
-                      {s.sub}
-                    </div>
+                    <div className="mt-1.5 font-mono text-[0.6rem] tracking-wide text-muted">{s.sub}</div>
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
           </div>
 
-          {/* Image column — parallax stack */}
-          <div className="flex-1 relative min-h-[480px] md:min-h-[580px] overflow-hidden">
-            <Reveal preset="left" delay={0.1}>
-              <motion.div
-                className="relative w-full rounded-3xl overflow-hidden shadow-card-strong"
-                style={{
-                  height: 'clamp(320px, 40vw, 520px)',
-                  y: prefersReduced ? 0 : y,
-                }}
-              >
-                <img
-                  src={CAMPUS_IMGS[0]}
-                  alt="MLRIT green campus aerial view — tree-lined pathways and open grounds"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-                {/* Gradient overlay for text legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <span className="font-mono text-[0.65rem] text-white/80 tracking-widest uppercase bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                    MLRIT Campus · Dundigal
-                  </span>
-                </div>
-              </motion.div>
-            </Reveal>
+          {/* Image column */}
+          <div className="flex-1 relative">
+            {/* Primary image — clip-path reveal + parallax scale */}
+            <motion.div
+              className="relative w-full rounded-3xl overflow-hidden shadow-card-strong"
+              style={{ height: 'clamp(340px, 42vw, 540px)', y: prefersReduced ? 0 : y, scale: prefersReduced ? 1 : scale }}
+            >
+              <ImageReveal
+                src={IMGS[0]}
+                alt="MLRIT green campus — tree-lined pathways and open grounds"
+                className="absolute inset-0"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6">
+                <span className="font-mono text-[0.62rem] text-white/80 tracking-widest uppercase bg-black/35 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                  MLRIT Campus · Dundigal
+                </span>
+              </div>
+            </motion.div>
 
-            {/* Floating secondary image */}
-            <Reveal preset="left" delay={0.2}>
+            {/* Floating secondary image — independent spring, no overlap */}
+            <Reveal preset="left" delay={0.22}>
               <motion.div
-                className="absolute bottom-[-40px] right-[-16px] w-[44%] rounded-2xl overflow-hidden border-4 border-white shadow-card-strong"
-                style={{
-                  height: 'clamp(160px, 18vw, 220px)',
-                  y: prefersReduced ? 0 : y2,
-                }}
+                className="relative mt-3 ml-auto w-[52%] rounded-2xl overflow-hidden border-[3px] border-white shadow-card-strong"
+                style={{ height: 'clamp(140px, 16vw, 200px)', y: prefersReduced ? 0 : y2 }}
               >
-                <img
-                  src={CAMPUS_IMGS[2]}
-                  alt="MLRIT campus walkway with greenery"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                <img src={IMGS[2]} alt="MLRIT campus walkway with greenery" className="w-full h-full object-cover" loading="lazy" />
               </motion.div>
             </Reveal>
           </div>
@@ -249,17 +319,18 @@ function GreenCampusStory() {
       </div>
 
       {/* Mosaic strip */}
-      <div className="mt-12 md:mt-16 flex gap-2 overflow-hidden h-[140px] md:h-[180px]">
-        {CAMPUS_IMGS.slice(1).map((src, i) => (
-          <div key={i} className="flex-1 min-w-[18%] overflow-hidden">
-            <img
-              src={src}
-              alt=""
-              aria-hidden="true"
-              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-              loading="lazy"
-            />
-          </div>
+      <div className="mt-10 flex gap-1.5 overflow-hidden" style={{ height: 'clamp(100px, 14vw, 170px)' }}>
+        {IMGS.slice(1).map((src, i) => (
+          <motion.div
+            key={i}
+            className="flex-1 min-w-0 overflow-hidden"
+            initial={prefersReduced ? {} : { opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE }}
+          >
+            <img src={src} alt="" aria-hidden="true" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+          </motion.div>
         ))}
       </div>
     </section>
@@ -272,149 +343,149 @@ function PlacementStory() {
   const ref = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const imgY = useSpring(useTransform(scrollYProgress, [0, 1], ['-8%', '8%']), SP);
 
-  const PLACEMENT_IMGS = [
-    '/placements/p1.jpg',
-    '/placements/p3.jpg',
-    '/placements/p5.jpg',
-    '/placements/p7.png',
-    '/placements/p9.png',
-    '/placements/p11.png',
-    '/placements/p13.png',
-    '/placements/p15.png',
+  const rawOverlay = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 0.35, 0.55]);
+  const textY = useSpring(useTransform(scrollYProgress, [0, 1], ['5%', '-5%']), SP);
+  const overlayOpacity = useSpring(rawOverlay, SP_F);
+
+  const STATS = [
+    { val: 81,  suffix: '%',  sub: 'Students placed annually' },
+    { val: 58,  suffix: ' LPA', sub: 'Highest package · Microsoft' },
+    { val: 200, suffix: '+',  sub: 'Campus recruiting partners' },
+  ];
+
+  const LOGO_IMGS = [
+    '/placements/p1.jpg', '/placements/p3.jpg', '/placements/p5.jpg',
+    '/placements/p7.png', '/placements/p8.png', '/placements/p9.png',
+    '/placements/p10.png', '/placements/p11.png', '/placements/p12.png',
+    '/placements/p13.png', '/placements/p14.png', '/placements/p15.png',
   ];
 
   return (
-    <section
-      ref={ref}
-      className="relative bg-foreground overflow-hidden py-20 md:py-28"
-      aria-label="Placements that secure futures"
-    >
-      {/* Decorative watermark */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none select-none"
-        style={{
-          fontSize: 'clamp(180px, 28vw, 340px)',
-          lineHeight: 0.85,
-          color: 'rgba(255,255,255,0.03)',
-          zIndex: 0,
-        }}
-      >
-        02
+    <section ref={ref} className="relative bg-foreground overflow-hidden" aria-label="Placements that secure futures">
+
+      {/* Cinematic video background */}
+      <div className="absolute inset-0 z-0">
+        {prefersReduced ? (
+          <div className="absolute inset-0 bg-foreground" />
+        ) : (
+          <video
+            src="/videos/placements.mp4"
+            autoPlay muted loop playsInline
+            className="w-full h-full object-cover"
+            aria-hidden="true"
+          />
+        )}
+        <motion.div
+          className="absolute inset-0 bg-foreground"
+          style={{ opacity: prefersReduced ? 0.88 : overlayOpacity }}
+        />
       </div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex flex-col lg:flex-row-reverse gap-12 lg:gap-20 items-center">
-          {/* Text */}
-          <div className="lg:w-[46%] shrink-0">
-            <Reveal>
-              <SectionLabel n="02" label="Placements" />
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.4rem,5vw,4.2rem)] leading-[0.95] text-white">
-                Futures that{' '}
-                <span className="font-display italic font-medium text-primary">
-                  begin here.
-                </span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-white/65 text-[0.97rem] leading-relaxed max-w-[44ch]">
-                21 years of consistent placement success — 81% of students placed annually.
-                200+ companies visit campus each year, from global MNCs to high-growth startups.
-                The highest package recorded: ₹58 LPA from Microsoft.
-              </p>
-            </Reveal>
-            <Reveal delay={0.22}>
-              <div className="mt-8">
-                <ArrowLink href="/placements/overview" dark>
-                  Discover Placements
-                </ArrowLink>
-              </div>
-            </Reveal>
+      <div className="relative z-10 py-24 md:py-32 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
 
-            {/* Stats row */}
-            <Reveal delay={0.28}>
-              <div className="mt-10 grid grid-cols-3 gap-3">
-                {[
-                  { val: '81%', sub: 'Students placed annually' },
-                  { val: '₹58 LPA', sub: 'Highest package · Microsoft' },
-                  { val: '200+', sub: 'Campus recruiting partners' },
-                ].map((s) => (
-                  <div
-                    key={s.sub}
-                    className="bg-white/[0.06] border border-white/10 rounded-2xl p-4 text-center"
-                  >
-                    <div className="font-sans font-black tracking-tighter-2 text-[1.3rem] leading-none text-primary">
-                      {s.val}
-                    </div>
-                    <div className="mt-2 font-mono text-[0.6rem] tracking-wide text-white/45 leading-tight">
-                      {s.sub}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Image — parallax */}
-          <div className="flex-1">
-            <Reveal preset="right" delay={0.1}>
-              <motion.div
-                className="relative rounded-3xl overflow-hidden shadow-card-strong"
-                style={{
-                  height: 'clamp(320px, 38vw, 500px)',
-                  y: prefersReduced ? 0 : imgY,
-                }}
-              >
-                <img
-                  src="/placements/p2.jpg"
-                  alt="MLRIT students during campus placement — professional interview session"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <span className="font-mono text-[0.65rem] text-white/80 tracking-widest uppercase bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                    21 Years · 7,000+ Alumni Placed
-                  </span>
-                </div>
-              </motion.div>
-            </Reveal>
-          </div>
+        {/* Watermark */}
+        <div aria-hidden="true"
+          className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none select-none"
+          style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, color: 'rgba(255,255,255,0.025)', zIndex: 1 }}>
+          02
         </div>
 
-        {/* Company logo rail */}
-        <Reveal delay={0.1}>
-          <div className="mt-14 pt-10 border-t border-white/10">
-            <p className="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-white/30 mb-6 text-center">
-              Companies that hire from MLRIT
-            </p>
-            <div className="overflow-hidden">
-              <div
-                aria-label="Placement company logos"
-                className="flex gap-4 flex-wrap justify-center"
-              >
-                {PLACEMENT_IMGS.map((src, i) => (
-                  <div
-                    key={i}
-                    className="h-12 w-24 rounded-lg overflow-hidden bg-white/[0.06] border border-white/10 flex items-center justify-center p-2"
-                  >
-                    <img
-                      src={src}
-                      alt=""
-                      aria-hidden="true"
-                      className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity"
-                      loading="lazy"
-                    />
-                  </div>
+        <motion.div className="relative z-10" style={{ y: prefersReduced ? 0 : textY }}>
+          <div className="flex flex-col lg:flex-row-reverse gap-14 lg:gap-20 items-center">
+
+            {/* Text */}
+            <div className="lg:w-[50%] shrink-0">
+              <Reveal><SectionLabel n="02" label="Placements" dark /></Reveal>
+
+              <Reveal delay={0.07}>
+                <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.6rem,5.5vw,4.6rem)] leading-[0.92] text-white">
+                  Futures that{' '}
+                  <span className="font-display italic font-medium text-primary">begin here.</span>
+                </h2>
+              </Reveal>
+
+              <Reveal delay={0.14}>
+                <p className="mt-6 text-white/60 text-[0.97rem] leading-relaxed max-w-[42ch]">
+                  21 years of consistent placement success. The highest package recorded:
+                  ₹58 LPA from Microsoft. 200+ companies visit campus each year.
+                </p>
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <div className="mt-8"><ArrowLink href="/placements/overview" dark>Discover Placements</ArrowLink></div>
+              </Reveal>
+
+              {/* Animated stat grid */}
+              <StaggerGroup className="mt-10 grid grid-cols-3 gap-3" delayChildren={0.3} stagger={0.1}>
+                {STATS.map((s) => (
+                  <StaggerItem key={s.sub}>
+                    <div className="bg-white/[0.07] border border-white/10 rounded-2xl p-4 text-center">
+                      <div className="font-sans font-black tracking-tighter-2 text-[1.35rem] leading-none text-primary">
+                        <Counter to={s.val} suffix={s.suffix} />
+                      </div>
+                      <div className="mt-2 font-mono text-[0.58rem] tracking-wide text-white/40 leading-tight">{s.sub}</div>
+                    </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerGroup>
             </div>
+
+            {/* Side visual — year stat card */}
+            <Reveal preset="right" delay={0.1} className="flex-1 w-full">
+              <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm p-8 md:p-10">
+                <p className="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-white/35 mb-6">2025–26 Batch</p>
+                <div className="space-y-5">
+                  {[
+                    { company: 'ServiceNow', role: 'Software Engineer', pkg: '₹33 LPA', count: 4 },
+                    { company: 'EPAM Systems', role: 'Fullstack Developer', pkg: '₹8 LPA', count: 38 },
+                    { company: 'TCS', role: 'Systems Engineer', pkg: '₹4 LPA', count: 72 },
+                    { company: 'Infosys', role: 'Systems Engineer', pkg: '₹4 LPA', count: 65 },
+                    { company: 'Capgemini', role: 'Assoc. Consultant', pkg: '₹4.5 LPA', count: 58 },
+                  ].map((r, i) => (
+                    <motion.div
+                      key={r.company}
+                      className="flex items-center justify-between gap-4 py-3 border-b border-white/[0.08] last:border-0"
+                      initial={prefersReduced ? {} : { opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.35 + i * 0.07, ease: EASE }}
+                    >
+                      <div>
+                        <div className="font-sans font-bold text-white text-[0.88rem] leading-tight">{r.company}</div>
+                        <div className="font-mono text-[0.6rem] text-white/40 tracking-wide mt-0.5">{r.role}</div>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <div className="font-sans font-black text-primary text-[0.95rem]">{r.pkg}</div>
+                        <div className="font-mono text-[0.58rem] text-white/35">{r.count} offers</div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
           </div>
-        </Reveal>
+
+          {/* Company logo strip */}
+          <Reveal delay={0.15}>
+            <div className="mt-14 pt-10 border-t border-white/10">
+              <p className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-white/25 mb-6 text-center">
+                Companies that hire from MLRIT
+              </p>
+              <StaggerGroup className="flex flex-wrap gap-3 justify-center" stagger={0.04} delayChildren={0.05}>
+                {LOGO_IMGS.map((src, i) => (
+                  <StaggerItem key={i}>
+                    <div className="h-11 w-20 rounded-lg overflow-hidden bg-white/[0.06] border border-white/10 flex items-center justify-center p-2">
+                      <img src={src} alt="" aria-hidden="true"
+                        className="max-h-full max-w-full object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
+                        loading="lazy" />
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerGroup>
+            </div>
+          </Reveal>
+        </motion.div>
       </div>
     </section>
   );
@@ -424,35 +495,29 @@ function PlacementStory() {
 
 function StudentSafetyStory() {
   return (
-    <section
-      className="relative bg-[#f1f8f4] overflow-hidden py-20 md:py-28"
-      aria-label="Student safety and support"
-    >
-      {/* Watermark */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none text-[#d7eedd] select-none"
-        style={{ fontSize: 'clamp(180px, 28vw, 340px)', lineHeight: 0.85, zIndex: 0 }}
-      >
+    <section className="relative bg-[#f1f8f4] overflow-hidden py-20 md:py-28" aria-label="Student safety and support">
+
+      <div aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none text-[#d4ead9] select-none"
+        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0 }}>
         03
       </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-        <Reveal>
-          <SectionLabel n="03" label="Student Safety &amp; Support" />
-        </Reveal>
-        <Reveal delay={0.08}>
-          <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.97] text-foreground max-w-[14ch]">
+        <Reveal><SectionLabel n="03" label="Student Safety &amp; Support" /></Reveal>
+
+        <Reveal delay={0.07}>
+          <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.95] text-foreground max-w-[16ch]">
             A campus where every student{' '}
             <span className="font-display italic font-medium text-secondary">belongs safely.</span>
           </h2>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Anti-Ragging Card */}
-          <Reveal delay={0.1}>
+
+          {/* Anti-Ragging card */}
+          <Reveal delay={0.1} preset="scale">
             <div className="bg-white rounded-3xl border border-border shadow-card-soft overflow-hidden h-full flex flex-col">
-              {/* Policy editorial header */}
               <div className="bg-secondary px-8 py-7">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
@@ -461,26 +526,18 @@ function StudentSafetyStory() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/70 font-bold">
-                      Zero Tolerance Policy
-                    </p>
-                    <h3 className="mt-1 font-sans font-black tracking-tighter-2 text-[1.4rem] text-white leading-tight">
-                      Anti-Ragging Commitment
-                    </h3>
+                    <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/70 font-bold">Zero Tolerance Policy</p>
+                    <h3 className="mt-1 font-sans font-black tracking-tighter-2 text-[1.4rem] text-white leading-tight">Anti-Ragging Commitment</h3>
                   </div>
                 </div>
               </div>
-
-              {/* Policy content */}
               <div className="px-8 py-7 flex-1 flex flex-col">
                 <p className="text-muted text-[0.93rem] leading-relaxed">
-                  MLRIT enforces a strict zero-tolerance stance against ragging in any form
-                  — physical, verbal, psychological, or online. All students sign an
-                  anti-ragging undertaking at admission, and a 24×7 helpline and committee
-                  is operational year-round.
+                  MLRIT enforces a strict zero-tolerance stance against ragging in any form —
+                  physical, verbal, psychological, or online. All students sign an anti-ragging
+                  undertaking at admission, and a 24×7 helpline operates year-round.
                 </p>
-
-                <ul className="mt-5 space-y-3">
+                <StaggerGroup className="mt-5 space-y-3" stagger={0.07} delayChildren={0.1}>
                   {[
                     'Anti-ragging undertaking mandatory at admission',
                     'Parent and guardian declaration required',
@@ -488,29 +545,27 @@ function StudentSafetyStory() {
                     'Immediate suspension and criminal prosecution for violations',
                     'National helpline: 1800-180-5522',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[0.87rem] text-foreground">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-0.5 shrink-0">
-                        <circle cx="8" cy="8" r="7" stroke="#01741f" strokeWidth="1.5"/>
-                        <path d="M5 8l2 2 4-4" stroke="#01741f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      {item}
-                    </li>
+                    <StaggerItem key={item}>
+                      <div className="flex items-start gap-3 text-[0.87rem] text-foreground">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-0.5 shrink-0">
+                          <circle cx="8" cy="8" r="7" stroke="#01741f" strokeWidth="1.5"/>
+                          <path d="M5 8l2 2 4-4" stroke="#01741f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        {item}
+                      </div>
+                    </StaggerItem>
                   ))}
-                </ul>
-
+                </StaggerGroup>
                 <div className="mt-auto pt-7">
-                  <ArrowLink href="/admissions/policies">
-                    Read Our Anti-Ragging Policy
-                  </ArrowLink>
+                  <ArrowLink href="/admissions/policies">Read Our Anti-Ragging Policy</ArrowLink>
                 </div>
               </div>
             </div>
           </Reveal>
 
-          {/* Women's Grievance Cell Card */}
-          <Reveal delay={0.18}>
+          {/* Women Grievance Cell card */}
+          <Reveal delay={0.18} preset="scale">
             <div className="bg-white rounded-3xl border border-border shadow-card-soft overflow-hidden h-full flex flex-col">
-              {/* Policy editorial header */}
               <div className="bg-primary px-8 py-7">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
@@ -520,25 +575,18 @@ function StudentSafetyStory() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/70 font-bold">
-                      Inclusive Campus
-                    </p>
-                    <h3 className="mt-1 font-sans font-black tracking-tighter-2 text-[1.4rem] text-white leading-tight">
-                      Women Grievance Cell
-                    </h3>
+                    <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/70 font-bold">Inclusive Campus</p>
+                    <h3 className="mt-1 font-sans font-black tracking-tighter-2 text-[1.4rem] text-white leading-tight">Women Grievance Cell</h3>
                   </div>
                 </div>
               </div>
-
               <div className="px-8 py-7 flex-1 flex flex-col">
                 <p className="text-muted text-[0.93rem] leading-relaxed">
-                  The Women Grievance Cell at MLRIT provides a safe, confidential channel
-                  for addressing gender-related concerns on campus. The cell is supported by
-                  the Women Empowerment Cell and an Internal Complaints Committee for
-                  POSH-compliant redressal.
+                  The Women Grievance Cell provides a safe, confidential channel for addressing
+                  gender-related concerns on campus, supported by the Women Empowerment Cell and
+                  an Internal Complaints Committee for POSH-compliant redressal.
                 </p>
-
-                <ul className="mt-5 space-y-3">
+                <StaggerGroup className="mt-5 space-y-3" stagger={0.07} delayChildren={0.1}>
                   {[
                     'Confidential grievance filing available',
                     'Internal Complaints Committee (ICC) constituted',
@@ -546,28 +594,24 @@ function StudentSafetyStory() {
                     'Women Empowerment Cell provides mentoring and support',
                     'Grievance email: grievance@mlrit.ac.in',
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-[0.87rem] text-foreground">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-0.5 shrink-0">
-                        <circle cx="8" cy="8" r="7" stroke="#e85d04" strokeWidth="1.5"/>
-                        <path d="M5 8l2 2 4-4" stroke="#e85d04" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      {item}
-                    </li>
+                    <StaggerItem key={item}>
+                      <div className="flex items-start gap-3 text-[0.87rem] text-foreground">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="mt-0.5 shrink-0">
+                          <circle cx="8" cy="8" r="7" stroke="#e85d04" strokeWidth="1.5"/>
+                          <path d="M5 8l2 2 4-4" stroke="#e85d04" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        {item}
+                      </div>
+                    </StaggerItem>
                   ))}
-                </ul>
-
+                </StaggerGroup>
                 <div className="mt-auto pt-7 flex flex-wrap gap-6">
-                  <ArrowLink href="/admissions/policies">
-                    Visit Grievance Cell
-                  </ArrowLink>
-                  <a
-                    href="https://mlrit.edugrievance.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2 text-[0.85rem] font-bold font-sans tracking-wide border-b border-border hover:border-primary text-foreground hover:text-primary pb-0.5 transition-colors duration-200"
-                  >
+                  <ArrowLink href="/admissions/policies">Visit Grievance Cell</ArrowLink>
+                  <a href="https://mlrit.edugrievance.com/" target="_blank" rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 text-[0.85rem] font-bold font-sans tracking-wide border-b border-border hover:border-primary text-foreground hover:text-primary pb-0.5 transition-colors duration-200">
                     Grievance Portal
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"
+                      className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                       <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </a>
@@ -577,57 +621,44 @@ function StudentSafetyStory() {
           </Reveal>
         </div>
 
-        {/* Official Anti-Ragging Poster — integrated editorial layout */}
-        <Reveal delay={0.25}>
+        {/* Official Anti-Ragging Poster — full editorial panel */}
+        <Reveal delay={0.25} preset="up">
           <div className="mt-10 bg-white rounded-3xl border border-border shadow-card-soft overflow-hidden">
             <div className="flex flex-col lg:flex-row items-stretch">
-              {/* Poster image — readable at all sizes */}
-              <div className="lg:w-[300px] xl:w-[340px] shrink-0 bg-[#1a1a2e] flex items-center justify-center p-6">
+              {/* Poster */}
+              <div className="lg:w-[280px] xl:w-[320px] shrink-0 bg-[#1a1a2e] flex items-center justify-center p-6">
                 <img
                   src="/images/anti-ragging-poster.jpg"
-                  alt="MLRIT official Anti-Ragging poster — illustrates three figures representing the anti-ragging commitment. Text reads: Anti-Ragging Act: Undisciplined activities by students which causes or is likely to cause annoyance, hardship, physical or psychological harm or to raise fear or apprehension in any fresher or any other student. MLRIT enforces a zero-tolerance policy."
-                  className="w-full max-w-[260px] lg:max-w-full rounded-xl shadow-card-strong object-contain"
+                  alt="MLRIT official Anti-Ragging poster displaying three figures with the Anti-Ragging Act definition: undisciplined activities causing annoyance, hardship, or fear in any fresher or student. MLRIT enforces zero tolerance."
+                  className="w-full rounded-xl shadow-card-strong object-contain"
                   loading="lazy"
-                  style={{ maxHeight: '420px' }}
+                  style={{ maxHeight: '400px' }}
                 />
               </div>
-
-              {/* Contextual caption — never overlap poster text */}
+              {/* Caption */}
               <div className="flex-1 p-8 lg:p-10 flex flex-col justify-between">
                 <div>
-                  <p className="font-mono text-[0.65rem] tracking-[0.22em] uppercase text-secondary font-bold mb-3">
-                    Official Institutional Poster
+                  <p className="font-mono text-[0.65rem] tracking-[0.22em] uppercase text-secondary font-bold mb-3">Official Institutional Poster</p>
+                  <h3 className="font-sans font-black tracking-tighter-2 text-[1.5rem] leading-tight text-foreground">Anti-Ragging Act</h3>
+                  <p className="mt-4 text-muted text-[0.93rem] leading-relaxed max-w-[50ch]">
+                    Displayed at all MLRIT campus entry points and notice boards. Ragging in any
+                    form is a criminal offence under UGC Regulations (2009). MLRIT enforces zero tolerance.
                   </p>
-                  <h3 className="font-sans font-black tracking-tighter-2 text-[1.5rem] leading-tight text-foreground">
-                    Anti-Ragging Act
-                  </h3>
-                  <p className="mt-4 text-muted text-[0.93rem] leading-relaxed max-w-[52ch]">
-                    This poster is displayed at all MLRIT campus entry points and notice boards.
-                    Ragging — including physical, verbal, psychological, or online harassment
-                    — is a criminal offence under UGC Regulations (2009). MLRIT enforces
-                    zero tolerance.
-                  </p>
-
-                  <div className="mt-6 flex flex-col sm:flex-row gap-4 sm:gap-8">
-                    <div>
-                      <div className="font-mono text-[0.62rem] tracking-widest uppercase text-muted mb-1">National Helpline</div>
-                      <div className="font-sans font-black text-[1.1rem] tracking-tighter-2 text-foreground">1800-180-5522</div>
-                    </div>
-                    <div>
-                      <div className="font-mono text-[0.62rem] tracking-widest uppercase text-muted mb-1">MLRIT Helpline</div>
-                      <div className="font-sans font-black text-[1.1rem] tracking-tighter-2 text-foreground">+91 40 2398 8101</div>
-                    </div>
-                    <div>
-                      <div className="font-mono text-[0.62rem] tracking-widest uppercase text-muted mb-1">Policy Reference</div>
-                      <div className="font-sans font-black text-[1.1rem] tracking-tighter-2 text-foreground">UGC 2009</div>
-                    </div>
-                  </div>
+                  <StaggerGroup className="mt-6 flex flex-col sm:flex-row gap-6" stagger={0.08} delayChildren={0.1}>
+                    {[
+                      { label: 'National Helpline', val: '1800-180-5522' },
+                      { label: 'MLRIT Helpline',    val: '+91 40 2398 8101' },
+                      { label: 'Policy Reference',  val: 'UGC 2009' },
+                    ].map((h) => (
+                      <StaggerItem key={h.label}>
+                        <div className="font-mono text-[0.6rem] tracking-widest uppercase text-muted mb-1">{h.label}</div>
+                        <div className="font-sans font-black text-[1rem] tracking-tighter-2 text-foreground">{h.val}</div>
+                      </StaggerItem>
+                    ))}
+                  </StaggerGroup>
                 </div>
-
                 <div className="mt-8 pt-7 border-t border-border">
-                  <ArrowLink href="/admissions/policies">
-                    Read the Full Anti-Ragging Policy
-                  </ArrowLink>
+                  <ArrowLink href="/admissions/policies">Read the Full Anti-Ragging Policy</ArrowLink>
                 </div>
               </div>
             </div>
@@ -644,30 +675,29 @@ function InnovationResearchStory() {
   const ref = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const imgY = useSpring(useTransform(scrollYProgress, [0, 1], ['-6%', '6%']), SP);
-  const bgY = useSpring(useTransform(scrollYProgress, [0, 1], ['0%', '-3%']), SP);
+  const imgY = useSpring(useTransform(scrollYProgress, [0, 1], ['-7%', '7%']), SP);
+  const bgY  = useSpring(useTransform(scrollYProgress, [0, 1], ['0%', '-4%']), SP);
 
-  const STI_IMGS = [
+  const STI = [
     '/images/facilities/campus/sti-hub-1.jpg',
     '/images/facilities/campus/sti-hub-2.jpg',
     '/images/facilities/campus/sti-hub-3.jpg',
     '/images/facilities/campus/sti-hub-4.jpg',
   ];
 
+  const STATS = [
+    { val: 42, suffix: '+', sub: 'Patents filed' },
+    { val: 3,  suffix: '',  sub: 'JNTUH research centres' },
+    { val: 25, suffix: '+', sub: 'Doctoral faculty' },
+  ];
+
   return (
-    <section
-      ref={ref}
-      className="relative bg-[#0c0c0e] overflow-hidden py-20 md:py-28"
-      aria-label="Innovation, entrepreneurship and research"
-    >
-      {/* Background mosaic — parallaxed */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.12]"
-        style={{ y: prefersReduced ? 0 : bgY }}
-        aria-hidden="true"
-      >
+    <section ref={ref} className="relative bg-[#0c0c0e] overflow-hidden py-20 md:py-28" aria-label="Innovation, entrepreneurship and research">
+
+      {/* Background mosaic */}
+      <motion.div className="absolute inset-0 opacity-[0.10]" style={{ y: prefersReduced ? 0 : bgY }} aria-hidden="true">
         <div className="grid grid-cols-4 h-full">
-          {STI_IMGS.map((src, i) => (
+          {STI.map((src, i) => (
             <div key={i} className="overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
             </div>
@@ -675,112 +705,76 @@ function InnovationResearchStory() {
         </div>
       </motion.div>
 
-      {/* Watermark */}
-      <div
-        aria-hidden="true"
+      <div aria-hidden="true"
         className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none select-none"
-        style={{
-          fontSize: 'clamp(180px, 28vw, 340px)',
-          lineHeight: 0.85,
-          color: 'rgba(255,255,255,0.02)',
-          zIndex: 1,
-        }}
-      >
+        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, color: 'rgba(255,255,255,0.02)', zIndex: 1 }}>
         04
       </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-          {/* Image */}
-          <div className="flex-1">
-            <Reveal preset="right" delay={0.1}>
-              <motion.div
-                className="relative rounded-3xl overflow-hidden"
-                style={{
-                  height: 'clamp(300px, 38vw, 480px)',
-                  y: prefersReduced ? 0 : imgY,
-                }}
-              >
-                <img
-                  src={STI_IMGS[0]}
-                  alt="Student Technology and Innovation Hub at MLRIT — co-working and prototyping space"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <span className="font-mono text-[0.62rem] text-white/80 tracking-widest uppercase bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                    STI Hub — Atal Innovation Mission supported
-                  </span>
-                </div>
-              </motion.div>
-            </Reveal>
+        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-center">
 
-            {/* Sub-image row */}
-            <Reveal delay={0.2}>
-              <div className="mt-3 grid grid-cols-3 gap-3">
-                {STI_IMGS.slice(1).map((src, i) => (
-                  <div key={i} className="rounded-2xl overflow-hidden" style={{ height: 'clamp(80px, 10vw, 120px)' }}>
-                    <img src={src} alt="" aria-hidden="true" className="w-full h-full object-cover" loading="lazy" />
-                  </div>
-                ))}
+          {/* Images */}
+          <div className="flex-1">
+            <motion.div
+              className="relative rounded-3xl overflow-hidden shadow-card-strong"
+              style={{ height: 'clamp(300px, 40vw, 500px)', y: prefersReduced ? 0 : imgY }}
+            >
+              <ImageReveal src={STI[0]} alt="Student Technology and Innovation Hub at MLRIT — co-working and prototyping space" className="absolute inset-0" delay={0.1} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <span className="font-mono text-[0.6rem] text-white/80 tracking-widest uppercase bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                  STI Hub — Atal Innovation Mission supported
+                </span>
               </div>
-            </Reveal>
+            </motion.div>
+
+            <StaggerGroup className="mt-3 grid grid-cols-3 gap-3" stagger={0.08} delayChildren={0.15}>
+              {STI.slice(1).map((src, i) => (
+                <StaggerItem key={i}>
+                  <div className="rounded-2xl overflow-hidden" style={{ height: 'clamp(80px, 9vw, 115px)' }}>
+                    <img src={src} alt="" aria-hidden="true" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
           </div>
 
           {/* Text */}
           <div className="lg:w-[44%] shrink-0">
-            <Reveal>
-              <SectionLabel n="04" label="Innovation &amp; Research" />
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.97] text-white">
+            <Reveal><SectionLabel n="04" label="Innovation &amp; Research" dark /></Reveal>
+
+            <Reveal delay={0.07}>
+              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.4rem,5vw,4.2rem)] leading-[0.93] text-white">
                 Ideas don&apos;t wait.{' '}
-                <span className="font-display italic font-medium text-primary">
-                  Neither do we.
-                </span>
+                <span className="font-display italic font-medium text-primary">Neither do we.</span>
               </h2>
             </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-white/60 text-[0.97rem] leading-relaxed max-w-[44ch]">
+
+            <Reveal delay={0.14}>
+              <p className="mt-6 text-white/55 text-[0.97rem] leading-relaxed max-w-[42ch]">
                 The Student Technology and Innovation Hub — supported by AIM (Atal Innovation Mission)
-                — gives students co-working space, prototyping labs, and mentorship to turn ideas
-                into products. Three JNTUH-recognised research centres, 42+ patents, and 1,200+
-                publications make research a living part of campus life.
+                — provides co-working space, prototyping labs, and mentorship to turn ideas into products.
               </p>
             </Reveal>
 
-            <Reveal delay={0.22}>
-              <div className="mt-8 flex flex-wrap gap-3">
-                {[
-                  { val: 'STI Hub', sub: 'AIM supported innovation space' },
-                  { val: '3', sub: 'JNTUH research centres' },
-                  { val: '42+', sub: 'Patents filed' },
-                  { val: '1,200+', sub: 'Publications (2016–2025)' },
-                ].map((s) => (
-                  <div
-                    key={s.sub}
-                    className="bg-white/[0.06] border border-white/10 rounded-2xl px-5 py-4"
-                  >
-                    <div className="font-sans font-black tracking-tighter-2 text-[1.2rem] leading-none text-primary">
-                      {s.val}
+            <StaggerGroup className="mt-8 flex flex-wrap gap-3" delayChildren={0.25} stagger={0.09}>
+              {STATS.map((s) => (
+                <StaggerItem key={s.sub}>
+                  <div className="bg-white/[0.06] border border-white/10 rounded-2xl px-5 py-4">
+                    <div className="font-sans font-black tracking-tighter-2 text-[1.4rem] leading-none text-primary">
+                      <Counter to={s.val} suffix={s.suffix} />
                     </div>
-                    <div className="mt-1.5 font-mono text-[0.62rem] tracking-wide text-white/40 leading-tight">
-                      {s.sub}
-                    </div>
+                    <div className="mt-1.5 font-mono text-[0.6rem] tracking-wide text-white/38 leading-tight">{s.sub}</div>
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
 
-            <Reveal delay={0.3}>
+            <Reveal delay={0.32}>
               <div className="mt-10 flex flex-wrap gap-6">
-                <ArrowLink href="/research/centers" dark>
-                  Explore Research &amp; Innovation
-                </ArrowLink>
-                <ArrowLink href="/student-life/facilities" dark>
-                  Visit the STI Hub
-                </ArrowLink>
+                <ArrowLink href="/research/centers" dark>Explore Research &amp; Innovation</ArrowLink>
+                <ArrowLink href="/student-life/facilities" dark>Visit the STI Hub</ArrowLink>
               </div>
             </Reveal>
           </div>
@@ -796,117 +790,88 @@ function FacilitiesStory() {
   const ref = useRef<HTMLElement>(null);
   const prefersReduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const mosaic1Y = useSpring(useTransform(scrollYProgress, [0, 1], ['-5%', '5%']), SP);
-  const mosaic2Y = useSpring(useTransform(scrollYProgress, [0, 1], ['5%', '-5%']), SP);
+  const col1Y = useSpring(useTransform(scrollYProgress, [0, 1], ['-6%', '6%']), SP);
+  const col2Y = useSpring(useTransform(scrollYProgress, [0, 1], ['6%', '-6%']), SP);
 
-  const FACILITY_ITEMS = [
-    { img: '/images/facilities/campus/library-wide-1.jpg', label: 'Marri Balreddy Library', sub: '50,000+ volumes' },
-    { img: '/images/facilities/campus/cafeteria-1.jpg', label: 'Campus Cafeteria', sub: 'Multi-cuisine · 8AM–8PM' },
-    { img: '/images/facilities/campus/hospital-1.jpg', label: 'On-Campus Hospital', sub: '24/7 medical care' },
-    { img: '/images/facilities/campus/sti-hub-2.jpg', label: 'STI Hub', sub: 'Innovation & startups' },
-    { img: '/images/facilities/campus/library-reading-1.jpg', label: 'Reading Spaces', sub: 'IEEE & Springer access' },
-    { img: '/images/facilities/campus/cafeteria-3.jpg', label: 'Dining Hall', sub: 'Open-air seating' },
+  const ITEMS = [
+    { img: '/images/facilities/campus/library-wide-1.jpg',    label: 'Marri Balreddy Library', sub: '50,000+ volumes' },
+    { img: '/images/facilities/campus/cafeteria-1.jpg',       label: 'Campus Cafeteria',        sub: 'Multi-cuisine · 8AM–8PM' },
+    { img: '/images/facilities/campus/hospital-1.jpg',        label: 'On-Campus Hospital',      sub: '24/7 medical care' },
+    { img: '/images/facilities/campus/sti-hub-3.jpg',         label: 'STI Hub',                 sub: 'Innovation & startups' },
+    { img: '/images/facilities/campus/library-reading-1.jpg', label: 'Reading Spaces',          sub: 'IEEE & Springer access' },
+    { img: '/images/facilities/campus/cafeteria-3.jpg',       label: 'Dining Hall',             sub: 'Open-air seating' },
   ];
 
   return (
-    <section
-      ref={ref}
-      className="relative bg-[#faf7f0] overflow-hidden py-20 md:py-28"
-      aria-label="Facilities and amenities"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none text-[#e8e2d4] select-none"
-        style={{ fontSize: 'clamp(180px, 28vw, 340px)', lineHeight: 0.85, zIndex: 0 }}
-      >
+    <section ref={ref} className="relative bg-[#faf7f0] overflow-hidden py-20 md:py-28" aria-label="Facilities and amenities">
+
+      <div aria-hidden="true"
+        className="pointer-events-none absolute top-0 right-0 font-sans font-black leading-none text-[#e5dfd5] select-none"
+        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, zIndex: 0 }}>
         05
       </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
-          {/* Text */}
-          <div className="lg:w-[38%] shrink-0 lg:sticky lg:top-32">
-            <Reveal>
-              <SectionLabel n="05" label="Facilities &amp; Amenities" />
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.97] text-foreground">
+
+          {/* Sticky text */}
+          <div className="lg:w-[36%] shrink-0 lg:sticky lg:top-32">
+            <Reveal><SectionLabel n="05" label="Facilities &amp; Amenities" /></Reveal>
+
+            <Reveal delay={0.07}>
+              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.95] text-foreground">
                 Everything you need,{' '}
-                <span className="font-display italic font-medium text-secondary">
-                  within walking distance.
-                </span>
+                <span className="font-display italic font-medium text-secondary">within walking distance.</span>
               </h2>
             </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-muted text-[0.97rem] leading-relaxed max-w-[42ch]">
+
+            <Reveal delay={0.14}>
+              <p className="mt-6 text-muted text-[0.97rem] leading-relaxed max-w-[40ch]">
                 Library, cafeteria, on-campus hospital, sports complex, ATM, and stationery store
                 — a solar-powered campus designed so students focus on learning, not logistics.
               </p>
             </Reveal>
-            <Reveal delay={0.22}>
-              <div className="mt-8">
-                <ArrowLink href="/student-life/facilities">
-                  View Facilities &amp; Amenities
-                </ArrowLink>
-              </div>
+
+            <Reveal delay={0.2}>
+              <div className="mt-8"><ArrowLink href="/student-life/facilities">View Facilities &amp; Amenities</ArrowLink></div>
             </Reveal>
 
-            <Reveal delay={0.28}>
-              <div className="mt-10 space-y-2">
-                {['Library & Digital Resources', 'Multi-cuisine Cafeteria', '24/7 On-campus Hospital', 'Sports Complex & Courts', 'Campus ATM & Banking', 'Stationery & Supply Store'].map((f) => (
-                  <div key={f} className="flex items-center gap-3 text-[0.9rem] text-foreground">
+            <StaggerGroup className="mt-10 space-y-2" stagger={0.06} delayChildren={0.25}>
+              {['Library & Digital Resources', 'Multi-cuisine Cafeteria', '24/7 On-campus Hospital', 'Sports Complex & Courts', 'Campus ATM & Banking', 'Stationery & Supply Store'].map((f) => (
+                <StaggerItem key={f}>
+                  <div className="flex items-center gap-3 text-[0.88rem] text-foreground">
                     <div className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
                     {f}
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
           </div>
 
-          {/* Image mosaic — two parallax columns */}
-          <div className="flex-1 grid grid-cols-2 gap-3 md:gap-4">
-            <motion.div
-              className="flex flex-col gap-3 md:gap-4"
-              style={{ y: prefersReduced ? 0 : mosaic1Y }}
-            >
-              {FACILITY_ITEMS.slice(0, 3).map((item) => (
-                <Reveal key={item.label} preset="fade">
-                  <div className="relative rounded-2xl overflow-hidden group" style={{ height: 'clamp(160px, 18vw, 240px)' }}>
-                    <img
-                      src={item.img}
-                      alt={item.label}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
-                      <div className="font-sans font-bold text-white text-[0.8rem] leading-tight">{item.label}</div>
-                      <div className="font-mono text-[0.58rem] text-white/65 tracking-wide">{item.sub}</div>
-                    </div>
-                  </div>
-                </Reveal>
+          {/* Parallax mosaic — two offset columns, no overlap */}
+          <div className="flex-1 min-w-0 grid grid-cols-2 gap-3 md:gap-4">
+            <motion.div className="flex flex-col gap-3 md:gap-4" style={{ y: prefersReduced ? 0 : col1Y }}>
+              {ITEMS.slice(0, 3).map((item, i) => (
+                <ImageReveal
+                  key={item.label}
+                  src={item.img}
+                  alt={item.label}
+                  delay={0.08 * i}
+                  className="relative rounded-2xl group cursor-default"
+                  style={{ height: 'clamp(150px, 17vw, 230px)' }}
+                />
               ))}
             </motion.div>
-            <motion.div
-              className="flex flex-col gap-3 md:gap-4 mt-8 md:mt-12"
-              style={{ y: prefersReduced ? 0 : mosaic2Y }}
-            >
-              {FACILITY_ITEMS.slice(3).map((item) => (
-                <Reveal key={item.label} preset="fade" delay={0.1}>
-                  <div className="relative rounded-2xl overflow-hidden group" style={{ height: 'clamp(160px, 18vw, 240px)' }}>
-                    <img
-                      src={item.img}
-                      alt={item.label}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
-                      <div className="font-sans font-bold text-white text-[0.8rem] leading-tight">{item.label}</div>
-                      <div className="font-mono text-[0.58rem] text-white/65 tracking-wide">{item.sub}</div>
-                    </div>
-                  </div>
-                </Reveal>
+            <motion.div className="flex flex-col gap-3 md:gap-4 mt-10" style={{ y: prefersReduced ? 0 : col2Y }}>
+              {ITEMS.slice(3).map((item, i) => (
+                <ImageReveal
+                  key={item.label}
+                  src={item.img}
+                  alt={item.label}
+                  delay={0.12 + 0.08 * i}
+                  className="relative rounded-2xl"
+                  style={{ height: 'clamp(150px, 17vw, 230px)' }}
+                />
               ))}
             </motion.div>
           </div>
@@ -918,7 +883,6 @@ function FacilitiesStory() {
 
 // ─── 6. STUDENT CLUBS ────────────────────────────────────────────────────────
 
-// Marquee — reduced motion shows static list instead
 function ClubsMarquee({ prefersReduced }: { prefersReduced: boolean | null }) {
   const CLUBS = [
     'INVENTE Tech Fest', 'Coding Club', 'IEEE Student Branch', 'Robotics Team',
@@ -929,29 +893,25 @@ function ClubsMarquee({ prefersReduced }: { prefersReduced: boolean | null }) {
 
   if (prefersReduced) {
     return (
-      <div className="flex flex-wrap gap-2 mt-8" aria-label="Student clubs and societies">
+      <ul className="flex flex-wrap gap-2 mt-8" aria-label="Student clubs and societies">
         {CLUBS.map((c) => (
-          <span key={c} className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-[0.7rem] tracking-wide">
-            {c}
-          </span>
+          <li key={c}>
+            <span className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-[0.7rem] tracking-wide">
+              {c}
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 
   const strip = [...CLUBS, ...CLUBS];
   return (
     <div className="mt-8 overflow-hidden" aria-label="Student clubs and societies">
-      <div
-        className="flex gap-3 w-max animate-marquee"
-        style={{ animationDuration: '32s' }}
-      >
+      <div className="flex gap-3 w-max animate-marquee" style={{ animationDuration: '34s' }}>
         {strip.map((c, i) => (
-          <span
-            key={i}
-            aria-hidden={i >= CLUBS.length}
-            className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-[0.7rem] tracking-wide whitespace-nowrap"
-          >
+          <span key={i} aria-hidden={i >= CLUBS.length}
+            className="px-4 py-2 rounded-full bg-white/10 border border-white/15 text-white/80 font-mono text-[0.7rem] tracking-wide whitespace-nowrap">
             {c}
           </span>
         ))}
@@ -962,110 +922,113 @@ function ClubsMarquee({ prefersReduced }: { prefersReduced: boolean | null }) {
 
 function StudentCommunitiesStory() {
   const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const videoScale = useSpring(useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 1.04]), SP);
+  const overlayRaw = useTransform(scrollYProgress, [0, 0.4, 1], [0.72, 0.6, 0.75]);
+  const overlayOp  = useSpring(overlayRaw, SP_F);
 
-  const STUDENT_IMGS = [
-    '/images/students/s1.jpg',
-    '/images/students/s2.jpg',
-    '/images/students/s4.jpg',
+  const STATS = [
+    { val: 30, suffix: '+', label: 'Student clubs' },
+    { val: 5000, suffix: '+', label: 'Students involved' },
   ];
 
   return (
-    <section
-      className="relative bg-foreground overflow-hidden py-20 md:py-28"
-      aria-label="Student clubs and communities"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none select-none"
-        style={{
-          fontSize: 'clamp(180px, 28vw, 340px)',
-          lineHeight: 0.85,
-          color: 'rgba(255,255,255,0.025)',
-          zIndex: 0,
-        }}
-      >
+    <section ref={ref} className="relative overflow-hidden" aria-label="Student clubs and communities">
+      {/* Full-bleed video background */}
+      <div className="absolute inset-0 z-0">
+        {prefersReduced ? (
+          <div className="absolute inset-0 bg-foreground" />
+        ) : (
+          <motion.video
+            src="/videos/equinox.mp4"
+            autoPlay muted loop playsInline
+            className="w-full h-full object-cover"
+            aria-hidden="true"
+            style={{ scale: videoScale }}
+          />
+        )}
+        <motion.div className="absolute inset-0 bg-foreground" style={{ opacity: prefersReduced ? 0.88 : overlayOp }} />
+      </div>
+
+      <div aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-0 font-sans font-black leading-none select-none z-[1]"
+        style={{ fontSize: 'clamp(180px, 26vw, 320px)', lineHeight: 0.82, color: 'rgba(255,255,255,0.025)' }}>
         06
       </div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+      <div className="relative z-10 py-24 md:py-32 max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+        <div className="flex flex-col lg:flex-row gap-14 lg:gap-20 items-center">
+
           {/* Text */}
-          <div className="lg:w-[44%] shrink-0">
-            <Reveal>
-              <SectionLabel n="06" label="Clubs &amp; Communities" />
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[0.97] text-white">
+          <div className="lg:w-[48%] shrink-0">
+            <Reveal><SectionLabel n="06" label="Clubs &amp; Communities" dark /></Reveal>
+
+            <Reveal delay={0.07}>
+              <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.4rem,5vw,4.2rem)] leading-[0.93] text-white">
                 30+ clubs.{' '}
-                <span className="font-display italic font-medium text-primary">
-                  One community.
-                </span>
+                <span className="font-display italic font-medium text-primary">One community.</span>
               </h2>
             </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-white/60 text-[0.97rem] leading-relaxed max-w-[44ch]">
+
+            <Reveal delay={0.14}>
+              <p className="mt-6 text-white/60 text-[0.97rem] leading-relaxed max-w-[42ch]">
                 Technical clubs, cultural societies, NSS, NCC, and inter-collegiate competitions —
-                student life at MLRIT is as vibrant outside the classroom as it is within. Every
-                student finds their people here.
+                MLRIT student life is vibrant outside the classroom. Every student finds their people here.
               </p>
             </Reveal>
 
-            <Reveal delay={0.22}>
+            <Reveal delay={0.2}>
               <ClubsMarquee prefersReduced={prefersReduced} />
             </Reveal>
 
-            <Reveal delay={0.3}>
-              <div className="mt-10">
-                <ArrowLink href="/campus/clubs" dark>
-                  Explore Clubs &amp; Societies
-                </ArrowLink>
-              </div>
+            <Reveal delay={0.28}>
+              <div className="mt-10"><ArrowLink href="/campus/clubs" dark>Explore Clubs &amp; Societies</ArrowLink></div>
             </Reveal>
           </div>
 
-          {/* Image stack */}
+          {/* Animated stat cards */}
           <div className="flex-1">
-            <Reveal preset="left" delay={0.1}>
-              <div className="relative">
-                {/* Primary image */}
-                <div className="rounded-3xl overflow-hidden shadow-card-strong" style={{ height: 'clamp(280px, 36vw, 460px)' }}>
-                  <img
-                    src={STUDENT_IMGS[0]}
-                    alt="MLRIT students at campus cultural event"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                </div>
-
-                {/* Floating accent cards */}
-                <div className="absolute bottom-[-16px] left-[-16px] bg-primary text-white rounded-2xl px-5 py-4 shadow-primary-glow">
-                  <div className="font-sans font-black text-[1.4rem] tracking-tighter-2 leading-none">30+</div>
-                  <div className="font-mono text-[0.6rem] tracking-wide text-white/75 mt-1">Student clubs</div>
-                </div>
-
-                <div className="absolute top-[-16px] right-[-16px] bg-white rounded-2xl px-5 py-4 shadow-card-strong">
-                  <div className="font-sans font-black text-[1.4rem] tracking-tighter-2 leading-none text-secondary">INVENTE</div>
-                  <div className="font-mono text-[0.6rem] tracking-wide text-muted mt-1">Annual Tech &amp; Cultural Fest</div>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Secondary image strip */}
-            <Reveal delay={0.2}>
-              <div className="mt-8 grid grid-cols-2 gap-3">
-                {STUDENT_IMGS.slice(1).map((src, i) => (
-                  <div key={i} className="rounded-2xl overflow-hidden" style={{ height: 'clamp(100px, 12vw, 150px)' }}>
-                    <img
-                      src={src}
-                      alt={i === 0 ? 'MLRIT students at technical event' : 'MLRIT student at campus activity'}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+            <StaggerGroup className="grid grid-cols-1 gap-4" stagger={0.12} delayChildren={0.2}>
+              {STATS.map((s) => (
+                <StaggerItem key={s.label}>
+                  <div className="bg-white/[0.07] border border-white/10 backdrop-blur-sm rounded-3xl p-8 text-center">
+                    <div className="font-sans font-black tracking-tighter-2 text-[3.5rem] leading-none text-primary">
+                      <Counter to={s.val} suffix={s.suffix} />
+                    </div>
+                    <div className="mt-2 font-mono text-[0.72rem] tracking-widest uppercase text-white/45">{s.label}</div>
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                </StaggerItem>
+              ))}
+
+              <StaggerItem>
+                <div className="bg-white/[0.07] border border-white/10 backdrop-blur-sm rounded-3xl p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                      <path d="M11 2l2.5 6H20l-5.5 4 2 6L11 14.5 5.5 18l2-6L2 8h6.5L11 2z" fill="#e85d04"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-sans font-black text-white text-[1.1rem] tracking-tighter-2">INVENTE</div>
+                    <div className="font-mono text-[0.62rem] tracking-wide text-white/40 mt-0.5">Annual Tech &amp; Cultural Fest</div>
+                  </div>
+                </div>
+              </StaggerItem>
+
+              <StaggerItem>
+                <div className="bg-white/[0.07] border border-white/10 backdrop-blur-sm rounded-3xl p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-secondary/20 border border-secondary/30 flex items-center justify-center shrink-0">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                      <path d="M11 2l2.5 6H20l-5.5 4 2 6L11 14.5 5.5 18l2-6L2 8h6.5L11 2z" fill="#01741f"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-sans font-black text-white text-[1.1rem] tracking-tighter-2">Zignasa</div>
+                    <div className="font-mono text-[0.62rem] tracking-wide text-white/40 mt-0.5">Cultural &amp; Arts Festival</div>
+                  </div>
+                </div>
+              </StaggerItem>
+            </StaggerGroup>
           </div>
         </div>
       </div>
@@ -1076,80 +1039,74 @@ function StudentCommunitiesStory() {
 // ─── 7. CLOSING ──────────────────────────────────────────────────────────────
 
 function WhyMLRITClosing() {
+  const prefersReduced = useReducedMotion();
   return (
-    <section
-      className="relative bg-green-hero py-24 md:py-32 overflow-hidden"
-      aria-label="Admissions invitation"
-    >
-      {/* Decorative letter echo — visual continuity with MLRITStory */}
-      <div
+    <section className="relative bg-green-hero py-24 md:py-32 overflow-hidden" aria-label="Admissions invitation">
+
+      {/* Decorative MLRIT echo — visual continuity with MLRITStory */}
+      <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden"
+        initial={prefersReduced ? {} : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: EASE }}
       >
-        <span
-          className="font-sans font-black tracking-tighter-2 leading-none text-white/[0.04]"
-          style={{ fontSize: 'clamp(200px, 40vw, 600px)' }}
-        >
+        <span className="font-sans font-black tracking-tighter-2 leading-none text-white/[0.04]"
+          style={{ fontSize: 'clamp(160px, 36vw, 520px)' }}>
           MLRIT
         </span>
-      </div>
+      </motion.div>
 
       <div className="relative z-10 max-w-[800px] mx-auto px-6 md:px-12 text-center">
         <Reveal>
-          <p className="font-mono text-[0.68rem] tracking-[0.22em] uppercase text-white/50 font-bold mb-5">
-            The next chapter is yours
-          </p>
-          <h2 className="font-sans font-black tracking-tighter-2 text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.0] text-white">
+          <h2 className="font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,5vw,4rem)] leading-[1.0] text-white">
             Ready to be part of<br />
-            <span className="font-display italic font-medium" style={{ color: '#f5c842' }}>
-              the MLRIT story?
-            </span>
+            <span className="font-display italic font-medium" style={{ color: '#f5c842' }}>the MLRIT story?</span>
           </h2>
-          <p className="mt-6 text-white/65 text-[1rem] max-w-[52ch] mx-auto leading-relaxed">
+          <p className="mt-6 text-white/60 text-[1rem] max-w-[50ch] mx-auto leading-relaxed">
             Admissions are open. Join a campus that takes merit seriously, places students
-            consistently, and builds engineers who are ready for the world.
+            consistently, and builds engineers ready for the world.
           </p>
 
-          {/* Arrow-style CTAs */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
-            <a
-              href="https://qr-mlr.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 text-[1rem] font-black font-sans text-white tracking-wide"
-            >
-              <span className="border-b-2 border-white/40 pb-0.5 group-hover:border-white transition-colors">
-                Apply Now
-              </span>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-            <span className="text-white/25 hidden sm:block">·</span>
-            <Link
-              href="/admissions"
-              className="group inline-flex items-center gap-3 text-[1rem] font-black font-sans text-white/70 hover:text-white tracking-wide transition-colors"
-            >
-              <span className="border-b-2 border-white/20 pb-0.5 group-hover:border-white/60 transition-colors">
-                Admissions Overview
-              </span>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-            <span className="text-white/25 hidden sm:block">·</span>
-            <Link
-              href="/departments/ug"
-              className="group inline-flex items-center gap-3 text-[1rem] font-black font-sans text-white/70 hover:text-white tracking-wide transition-colors"
-            >
-              <span className="border-b-2 border-white/20 pb-0.5 group-hover:border-white/60 transition-colors">
-                Explore Programmes
-              </span>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-          </div>
+          <StaggerGroup className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8" stagger={0.1} delayChildren={0.15}>
+            <StaggerItem>
+              <a href="https://qr-mlr.vercel.app" target="_blank" rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2.5 text-[1rem] font-black font-sans text-white tracking-wide">
+                <span className="border-b-2 border-white/45 pb-0.5 group-hover:border-white transition-colors">Apply Now</span>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </StaggerItem>
+            <StaggerItem>
+              <span className="text-white/25 hidden sm:block" aria-hidden="true">·</span>
+            </StaggerItem>
+            <StaggerItem>
+              <Link href="/admissions"
+                className="group inline-flex items-center gap-2.5 text-[1rem] font-black font-sans text-white/65 hover:text-white tracking-wide transition-colors">
+                <span className="border-b-2 border-white/20 pb-0.5 group-hover:border-white/55 transition-colors">Admissions Overview</span>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </StaggerItem>
+            <StaggerItem>
+              <span className="text-white/25 hidden sm:block" aria-hidden="true">·</span>
+            </StaggerItem>
+            <StaggerItem>
+              <Link href="/departments/ug"
+                className="group inline-flex items-center gap-2.5 text-[1rem] font-black font-sans text-white/65 hover:text-white tracking-wide transition-colors">
+                <span className="border-b-2 border-white/20 pb-0.5 group-hover:border-white/55 transition-colors">Explore Programmes</span>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </StaggerItem>
+          </StaggerGroup>
         </Reveal>
       </div>
     </section>
