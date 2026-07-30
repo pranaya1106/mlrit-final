@@ -24,7 +24,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-[calc(100vh-132px)] min-h-[640px] overflow-hidden flex flex-col justify-end items-start">
+    <section className="relative w-full h-[calc(100vh-var(--header-h))] min-h-[640px] overflow-hidden flex flex-col justify-end items-center lg:items-start">
       {/* Background video */}
       <motion.video
         ref={videoRef}
@@ -46,13 +46,13 @@ export default function Hero() {
         initial="hidden"
         animate="show"
         variants={{ show: { transition: { staggerChildren: 0.12, delayChildren: 0.25 } } }}
-        className="relative z-[2] w-full max-w-[720px] px-16 pb-[70px]"
+        className="relative z-[2] w-full max-w-[720px] px-6 lg:px-16 pb-10 lg:pb-[70px] flex flex-col items-center lg:items-start text-center lg:text-left"
       >
         <motion.h1
           variants={lineUp}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans font-extrabold text-white leading-[0.96] tracking-tighter-2"
-          style={{ fontSize: 'clamp(3.4rem, 6.8vw, 6rem)', textShadow: '0 2px 32px rgba(0,0,0,0.35)' }}
+          className="font-sans font-extrabold text-white leading-[0.96] tracking-tighter-2 text-[clamp(2.2rem,9vw,3.2rem)] lg:text-[clamp(3.4rem,6.8vw,6rem)]"
+          style={{ textShadow: '0 2px 32px rgba(0,0,0,0.35)' }}
         >
           Engineering
           <span

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import AboutQuickNav from '@/components/AboutQuickNav';
 
 const PILLARS = [
   { title: 'Founded 2005',           body: 'Established by Sri Marri Laxman Reddy Garu through the KMR Educational Society to bring world-class engineering education to Telangana.' },
@@ -42,29 +43,8 @@ export default function AboutPage() {
         variant="green"
       />
 
-      {/* Quick nav */}
-      <nav className="bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top] duration-300 ease-out-quart">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
-            {[
-              { label: 'In MLR',              href: '/about' },
-              { label: 'Vision & Mission',    href: '/about/vision-mission/vision-mission' },
-              { label: 'Legacy',              href: '/about/legacy' },
-              { label: 'Timeline',            href: '/about/timeline' },
-              { label: 'Rankings & Awards',   href: '/about/rankings-awards' },
-              { label: 'Internal Governance', href: '/about/internal-governance' },
-            ].map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="shrink-0 px-4 py-4 font-sans font-medium text-[0.88rem] text-muted hover:text-foreground border-b-2 border-transparent hover:border-primary transition-all whitespace-nowrap"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </nav>
+      {/* Quick nav — shared component: wraps to pills + scroll-hides on mobile, original tab row on desktop */}
+      <AboutQuickNav active="/about" />
 
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
@@ -76,7 +56,7 @@ export default function AboutPage() {
 
           {/* Intro */}
           <section id="story" className="bg-white py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-start">
+            <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-start">
               <Reveal preset="right">
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Our Story</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -99,7 +79,7 @@ export default function AboutPage() {
 
           {/* Six Pillars */}
           <section id="pillars" className="bg-warm-light py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+            <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">What Defines Us</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -122,7 +102,7 @@ export default function AboutPage() {
 
           {/* Explore — two clean editorial paragraphs */}
           <section id="explore" className="bg-white py-20 md:py-28">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
+            <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Explore</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">

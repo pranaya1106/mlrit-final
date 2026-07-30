@@ -236,14 +236,11 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.45 }}
             >
-              <h2 className="font-sans text-xl font-extrabold !text-neutral-900 mb-1">
+              <h2 className="font-sans text-xl font-extrabold !text-white mb-1">
                 {current.name}
               </h2>
-              <p className="font-mono text-[0.7rem] tracking-[0.16em] uppercase !text-neutral-500 mb-3">
+              <p className="font-mono text-[0.7rem] tracking-[0.16em] uppercase !text-neutral-500 mb-6">
                 {current.title}
-              </p>
-              <p className="!text-neutral-700 text-sm leading-relaxed mb-6">
-                {current.description}
               </p>
               <div className="flex justify-center gap-3">
                 {socialIcons.map(({ Icon, url, label }) => (

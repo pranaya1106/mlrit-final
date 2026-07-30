@@ -98,31 +98,64 @@ export default function Programs() {
         </div>
       </div>
 
-      {/* Scroll-stack rail */}
-      <ScrollStack
-        key={tab}
-        useWindowScroll
-        itemDistance={140}
-        itemScale={0.02}
-        itemStackDistance={32}
-        stackPosition="22%"
-        scaleEndPosition="10%"
-        baseScale={0.9}
-        className="w-full"
-      >
-        {rows.map(([a, b], i) => (
-          <ScrollStackItem
-            key={`${tab}-${i}`}
-            itemClassName="!h-auto !p-0 !my-0 !rounded-[32px] bg-transparent"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-              {a && <ProgramCard card={a} />}
-              {b ? <ProgramCard card={b} /> : <div className="hidden md:block" />}
-            </div>
-          </ScrollStackItem>
-        ))}
-      </ScrollStack>
+      {/* Mobile / tablet — simple bento grid, no pinned scroll-stack effect */}
+      <div className="lg:hidden max-w-[1600px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11">
+        <div className="grid grid-cols-2 gap-3">
+          {(tab === 'ug' ? UG : PG).map((card) => (
+            <BentoCard key={card.slug} card={card} />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop — original pinned scroll-stack effect, unchanged */}
+      <div className="hidden lg:block">
+        <ScrollStack
+          key={tab}
+          useWindowScroll
+          itemDistance={140}
+          itemScale={0.02}
+          itemStackDistance={32}
+          stackPosition="22%"
+          scaleEndPosition="10%"
+          baseScale={0.9}
+          className="w-full"
+        >
+          {rows.map(([a, b], i) => (
+            <ScrollStackItem
+              key={`${tab}-${i}`}
+              itemClassName="!h-auto !p-0 !my-0 !rounded-[32px] bg-transparent"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                {a && <ProgramCard card={a} />}
+                {b ? <ProgramCard card={b} /> : <div className="hidden md:block" />}
+              </div>
+            </ScrollStackItem>
+          ))}
+        </ScrollStack>
+      </div>
     </section>
+  );
+}
+
+function BentoCard({ card }: { card: Card }) {
+  return (
+    <Link
+      href={linkFor(card.slug)}
+      className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-white p-4 min-h-[132px] shadow-card-soft hover:shadow-card-strong hover:-translate-y-0.5 transition-all duration-300"
+    >
+      <span className={`absolute top-0 left-0 right-0 h-[3px] ${accentBar(card.accent)}`} />
+      <div>
+        <div className={`inline-flex items-center px-2 py-0.5 rounded-full border font-mono text-[0.58rem] font-bold tracking-[0.14em] uppercase ${accentBg(card.accent)} ${accentText(card.accent)}`}>
+          {card.dept}
+        </div>
+        <h3 className="mt-2.5 font-sans font-extrabold leading-tight text-foreground text-[0.92rem]">
+          {card.name}
+        </h3>
+      </div>
+      <span className={`inline-flex items-center gap-1.5 font-sans font-bold text-[0.78rem] mt-3 ${accentText(card.accent)}`}>
+        Explore <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </span>
+    </Link>
   );
 }
 
@@ -185,7 +218,7 @@ function Tab({ children, active, onClick }: { children: React.ReactNode; active:
     <button
       type="button"
       onClick={onClick}
-      className={`px-5 py-2 rounded-full font-sans font-semibold text-[0.85rem] border-[1.5px] transition-all duration-300 ${
+      className={`inline-flex items-center justify-center min-h-[44px] lg:min-h-0 px-5 py-2 rounded-full font-sans font-semibold text-[0.85rem] border-[1.5px] transition-all duration-300 ${
         active
           ? 'bg-foreground text-white border-foreground shadow-md'
           : 'bg-white text-muted border-border hover:bg-foreground hover:text-white hover:border-foreground'
