@@ -198,7 +198,7 @@ function ImageReveal({
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.85, delay, ease: EASE }}
     >
-      <img src={src} alt={alt} className="w-full h-full object-cover" loading="lazy" />
+      <img src={src} alt={alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
     </motion.div>
   );
 }
@@ -218,12 +218,13 @@ function GreenCampusStory() {
   const y2    = useSpring(rawY2, SP);
   const scale = useSpring(rawScale, SP);
 
+  // [0] hero · [1] float thumbnail · [2-4] mosaic strip
   const IMGS = [
-    '/images/facilities/campus/campus-7P5A2397.jpg',
-    '/images/facilities/campus/campus-7P5A1225.jpg',
-    '/images/facilities/campus/campus-7P5A1958.jpg',
-    '/images/facilities/campus/campus-7P5A1967.jpg',
-    '/images/facilities/campus/campus-7P5A2322.jpg',
+    '/images/facilities/campus/campus-7P5A1967.jpg',  // wide campus aerial — hero
+    '/images/facilities/campus/campus-7P5A2322.jpg',  // tree-lined path — float
+    '/images/facilities/campus/campus-7P5A2397.jpg',  // mosaic 1
+    '/images/facilities/campus/campus-7P5A1225.jpg',  // mosaic 2
+    '/images/facilities/campus/campus-7P5A1958.jpg',  // mosaic 3
   ];
 
   const STATS = [
@@ -294,10 +295,10 @@ function GreenCampusStory() {
             >
               <ImageReveal
                 src={IMGS[0]}
-                alt="MLRIT green campus — tree-lined pathways and open grounds"
-                className="absolute inset-0"
+                alt="MLRIT green campus — wide view of tree-lined grounds and buildings"
+                className="absolute inset-0 w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <span className="font-mono text-[0.62rem] text-white/80 tracking-widest uppercase bg-black/35 px-3 py-1.5 rounded-full backdrop-blur-sm">
                   MLRIT Campus · Dundigal
@@ -305,22 +306,22 @@ function GreenCampusStory() {
               </div>
             </motion.div>
 
-            {/* Floating secondary image — independent spring, no overlap */}
+            {/* Floating secondary image — independent spring, normal flow to avoid clipping */}
             <Reveal preset="left" delay={0.22}>
               <motion.div
                 className="relative mt-3 ml-auto w-[52%] rounded-2xl overflow-hidden border-[3px] border-white shadow-card-strong"
                 style={{ height: 'clamp(140px, 16vw, 200px)', y: prefersReduced ? 0 : y2 }}
               >
-                <img src={IMGS[2]} alt="MLRIT campus walkway with greenery" className="w-full h-full object-cover" loading="lazy" />
+                <img src={IMGS[1]} alt="MLRIT campus tree-lined walkway" className="w-full h-full object-cover" loading="lazy" />
               </motion.div>
             </Reveal>
           </div>
         </div>
       </div>
 
-      {/* Mosaic strip */}
-      <div className="mt-10 flex gap-1.5 overflow-hidden" style={{ height: 'clamp(100px, 14vw, 170px)' }}>
-        {IMGS.slice(1).map((src, i) => (
+      {/* Mosaic strip — uses imgs[2-4], distinct from hero and float */}
+      <div className="mt-3 flex gap-1.5 overflow-hidden" style={{ height: 'clamp(100px, 14vw, 170px)' }}>
+        {IMGS.slice(2).map((src, i) => (
           <motion.div
             key={i}
             className="flex-1 min-w-0 overflow-hidden"
@@ -720,7 +721,7 @@ function InnovationResearchStory() {
               className="relative rounded-3xl overflow-hidden shadow-card-strong"
               style={{ height: 'clamp(300px, 40vw, 500px)', y: prefersReduced ? 0 : imgY }}
             >
-              <ImageReveal src={STI[0]} alt="Student Technology and Innovation Hub at MLRIT — co-working and prototyping space" className="absolute inset-0" delay={0.1} />
+              <ImageReveal src={STI[0]} alt="Student Technology and Innovation Hub at MLRIT — co-working and prototyping space" className="absolute inset-0 w-full h-full" delay={0.1} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
                 <span className="font-mono text-[0.6rem] text-white/80 tracking-widest uppercase bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
@@ -852,26 +853,26 @@ function FacilitiesStory() {
           <div className="flex-1 min-w-0 grid grid-cols-2 gap-3 md:gap-4">
             <motion.div className="flex flex-col gap-3 md:gap-4" style={{ y: prefersReduced ? 0 : col1Y }}>
               {ITEMS.slice(0, 3).map((item, i) => (
-                <ImageReveal
-                  key={item.label}
-                  src={item.img}
-                  alt={item.label}
-                  delay={0.08 * i}
-                  className="relative rounded-2xl group cursor-default"
-                  style={{ height: 'clamp(150px, 17vw, 230px)' }}
-                />
+                <div key={item.label} className="relative rounded-2xl overflow-hidden shadow-card-soft" style={{ height: 'clamp(150px, 17vw, 230px)' }}>
+                  <ImageReveal
+                    src={item.img}
+                    alt={item.label}
+                    delay={0.08 * i}
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
               ))}
             </motion.div>
             <motion.div className="flex flex-col gap-3 md:gap-4 mt-10" style={{ y: prefersReduced ? 0 : col2Y }}>
               {ITEMS.slice(3).map((item, i) => (
-                <ImageReveal
-                  key={item.label}
-                  src={item.img}
-                  alt={item.label}
-                  delay={0.12 + 0.08 * i}
-                  className="relative rounded-2xl"
-                  style={{ height: 'clamp(150px, 17vw, 230px)' }}
-                />
+                <div key={item.label} className="relative rounded-2xl overflow-hidden shadow-card-soft" style={{ height: 'clamp(150px, 17vw, 230px)' }}>
+                  <ImageReveal
+                    src={item.img}
+                    alt={item.label}
+                    delay={0.12 + 0.08 * i}
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
               ))}
             </motion.div>
           </div>
@@ -1060,13 +1061,16 @@ function WhyMLRITClosing() {
 
       <div className="relative z-10 max-w-[800px] mx-auto px-6 md:px-12 text-center">
         <Reveal>
-          <h2 className="font-sans font-black tracking-tighter-2 text-[clamp(2.2rem,5vw,4rem)] leading-[1.0] text-white">
-            Ready to be part of<br />
-            <span className="font-display italic font-medium" style={{ color: '#f5c842' }}>the MLRIT story?</span>
-          </h2>
-          <p className="mt-6 text-white/60 text-[1rem] max-w-[50ch] mx-auto leading-relaxed">
-            Admissions are open. Join a campus that takes merit seriously, places students
-            consistently, and builds engineers ready for the world.
+          <p className="font-mono text-[0.68rem] tracking-[0.22em] uppercase text-white/50 font-bold mb-6">
+            Admissions Open
+          </p>
+          <p className="font-sans font-black tracking-tighter-2 text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.05] text-white max-w-[18ch] mx-auto">
+            Your four years start{' '}
+            <span className="font-display italic font-medium" style={{ color: '#f5c842' }}>here.</span>
+          </p>
+          <p className="mt-6 text-white/60 text-[1rem] max-w-[46ch] mx-auto leading-relaxed">
+            A campus that places 81% of its graduates, keeps them safe, and gives them
+            space to grow — in every direction.
           </p>
 
           <StaggerGroup className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8" stagger={0.1} delayChildren={0.15}>
