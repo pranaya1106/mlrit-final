@@ -877,12 +877,12 @@ function StudentCommunitiesStory() {
   const col3Y = useSpring(useTransform(scrollYProgress, [0, 1], ['-3%', '3%']), SP);
 
   const PHOTOS = [
-    { src: '/images/students/s1.jpg', alt: 'MLRIT students on campus' },
-    { src: '/images/students/s3.jpg', alt: 'MLRIT student group activity' },
-    { src: '/images/students/s2.jpg', alt: 'MLRIT cultural event' },
-    { src: '/images/students/s4.jpg', alt: 'MLRIT campus life' },
-    { src: '/images/facilities/campus/campus-7P5A2322.jpg', alt: 'Students on tree-lined campus walkway' },
-    { src: '/images/facilities/campus/campus-7P5A1225.jpg', alt: 'MLRIT open campus grounds' },
+    { src: '/images/about/milestone-2022.jpg',           alt: 'MLRIT campus milestone 2022' },
+    { src: '/images/sports/accolades/a-nithin.jpg',      alt: 'MLRIT sports achiever A Nithin' },
+    { src: '/images/about/milestone-2019.jpg',           alt: 'MLRIT campus milestone 2019' },
+    { src: '/images/sports/accolades/sindhu.jpg',        alt: 'MLRIT sports achiever Sindhu' },
+    { src: '/images/about/milestone-2025.jpg',           alt: 'MLRIT campus milestone 2025' },
+    { src: '/images/sports/accolades/k-tarun-reddy.jpg', alt: 'MLRIT sports achiever K Tarun Reddy' },
   ];
 
   const CLUBS = [
