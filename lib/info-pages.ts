@@ -515,27 +515,70 @@ export const INFO_PAGES: Record<string, InfoPage> = {
     blocks: [
       {
         kind: 'lead',
-        text:
-          'MLRIT operates dedicated on-campus hostels for boys and girls. Rooms are organised on a sharing basis with attached washrooms, study furniture and 24×7 wi-fi.',
-      },
-      {
-        kind: 'bullets',
-        title: 'Amenities',
-        items: [
-          'Air-cooled, well-ventilated rooms with study furniture.',
-          'Hostel mess with weekly menus prepared by qualified caterers.',
-          '24×7 wi-fi connectivity in rooms and common areas.',
-          'Recreation rooms with TV, indoor games and a reading lounge.',
-          'Resident wardens, medical room and 24×7 security.',
-        ],
+        text: '"Home Away from Home" — MLRIT provides a green, clean, and pollution-free campus with fresh air and a comfortable residential experience for over 1,650 students.',
       },
       {
         kind: 'stat-grid',
         items: [
-          { num: '2',     label: 'Hostel blocks' },
-          { num: '24×7',  label: 'Security & wi-fi' },
-          { num: '4',     label: 'Meals per day' },
-          { num: '100m',  label: 'To academic blocks' },
+          { num: '850+',       label: 'Boys hostel capacity' },
+          { num: '800+',       label: 'Girls hostel capacity' },
+          { num: '₹1,20,000',  label: 'Fee per year (online)' },
+          { num: '24×7',       label: 'Wi-fi, security & hospital' },
+        ],
+      },
+      {
+        kind: 'pillars',
+        items: [
+          {
+            variant: 'green',
+            icon: 'hostel',
+            eyebrow: 'Boys Hostel',
+            title: 'Block A & Block B',
+            body: 'Two dedicated blocks housing 850+ students. Block A has 65 rooms across 3 floors; Block B has 72 rooms across 5 floors. Fully furnished with separate library, reading room, shuttle courts, and a shop.',
+          },
+          {
+            variant: 'light',
+            icon: 'hostel',
+            eyebrow: 'Girls Hostel',
+            title: 'Block A & Block B',
+            body: 'Two dedicated blocks housing 800+ students. Each block has 70 rooms spread over 5 floors with lift facilities. Fully furnished with separate library, reading room, shuttle courts, and a shop.',
+          },
+        ],
+      },
+      {
+        kind: 'bullets',
+        title: 'Facilities & Amenities',
+        items: [
+          'Fully furnished rooms with 24×7 wi-fi, hot & cold drinking water, and hot water for bathing.',
+          'Dining hall seating 1,000+ students — hygienic steam-cooked meals, 4 times daily.',
+          'State-of-the-art gymnasium and free cycles for campus and outside use.',
+          '24×7 on-campus hospital with free treatment and ambulance facility.',
+          'Resident wardens and round-the-clock security.',
+        ],
+      },
+      {
+        kind: 'bullets',
+        title: 'Mess Timings',
+        items: [
+          'Breakfast — Girls: 7:00–8:00 AM · Boys: 8:00–9:00 AM',
+          'Lunch — As per college timetable',
+          'Tea — 4:30–5:30 PM',
+          'Dinner — Girls: 7:00–8:00 PM · Boys: 8:00–9:00 PM',
+          'Study hours — Girls: 6:00–7:30 PM · Boys: 6:30–8:00 PM (study rooms mandatory)',
+        ],
+      },
+      {
+        kind: 'bullets',
+        title: 'Key Rules',
+        items: [
+          'Visiting hours: 4:00–6:00 PM on working days; 8:00 AM–6:00 PM on Sundays and holidays.',
+          'Outings permitted once a month on a holiday; leave after 6:30 AM, return by 6:00 PM.',
+          'Only authorised visitors and local guardians (pre-listed by parents) may visit.',
+          'Visitors may meet students only in the visitor\'s hall — not in rooms or corridors.',
+          'Day scholars are not permitted to visit the hostels.',
+          'Hostel students may not use the college bus (reserved for day scholars).',
+          'Unauthorised electrical fittings and gadgets are prohibited.',
+          'Students are responsible for the cleanliness and upkeep of their rooms and furnishings.',
         ],
       },
     ],
