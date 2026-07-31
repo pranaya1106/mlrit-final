@@ -37,25 +37,25 @@ const STEPS = [
 // Row 1 — pill · photo · pill · photo · pill · photo · pill · photo · pill
 const ROW1 = [
   { type: 'pill',  label: 'Integrity',        bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: '/images/students/p1.png' },
+  { type: 'photo', src: '/images/students/p1.png', pos: 'center 18%' },
   { type: 'pill',  label: 'Inclusivity',      bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: '/images/students/p2.png' },
+  { type: 'photo', src: '/images/students/p2.png', pos: 'center 15%' },
   { type: 'pill',  label: 'Empathy',          bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: '/images/students/p3.png' },
+  { type: 'photo', src: '/images/students/p3.png', pos: 'center 12%' },
   { type: 'pill',  label: 'Excellence',       bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: '/images/students/p4.png' },
+  { type: 'photo', src: '/images/students/p4.png', pos: 'center 18%' },
   { type: 'pill',  label: 'Innovation',       bg: '#edf5ea', color: '#1f3d20' },
 ];
 
 // Row 2 — photo · pill · photo · pill · photo · pill · photo · pill
 const ROW2 = [
-  { type: 'photo', src: '/images/students/p5.png' },
+  { type: 'photo', src: '/images/students/p5.png', pos: 'center 12%' },
   { type: 'pill',  label: 'Learning for Life', bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: '/images/students/p6.png' },
+  { type: 'photo', src: '/images/students/p6.png', pos: 'center 10%' },
   { type: 'pill',  label: 'Leadership',        bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: '/images/students/p7.png' },
+  { type: 'photo', src: '/images/students/p7.png', pos: 'center 18%' },
   { type: 'pill',  label: 'Research',          bg: '#edf5ea', color: '#1f3d20' },
-  { type: 'photo', src: '/images/students/p8.png' },
+  { type: 'photo', src: '/images/students/p8.png', pos: 'center 15%' },
   { type: 'pill',  label: 'Community',         bg: '#e8edf5', color: '#1f2d4a' },
 ];
 
@@ -159,7 +159,8 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
               <img
                 src={item.src!}
                 alt="MLRIT student"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: item.pos ?? 'center 20%' }}
                 onError={(e) => { (e.target as HTMLImageElement).src = '/images/about/milestone-2005.jpg'; }}
               />
             </div>
