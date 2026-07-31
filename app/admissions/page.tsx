@@ -34,36 +34,28 @@ const STEPS = [
   },
 ];
 
-// 4 unique student photos
-const S = [
-  '/images/students/s1.jpg',
-  '/images/students/s2.jpg',
-  '/images/students/s3.jpg',
-  '/images/students/s4.jpg',
-];
-
 // Row 1 — pill · photo · pill · photo · pill · photo · pill · photo · pill
 const ROW1 = [
   { type: 'pill',  label: 'Integrity',        bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: S[0] },
+  { type: 'photo', src: '/images/students/p1.png' },
   { type: 'pill',  label: 'Inclusivity',      bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: S[1] },
+  { type: 'photo', src: '/images/students/p2.png' },
   { type: 'pill',  label: 'Empathy',          bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: S[2] },
+  { type: 'photo', src: '/images/students/p3.png' },
   { type: 'pill',  label: 'Excellence',       bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: S[3] },
+  { type: 'photo', src: '/images/students/p4.png' },
   { type: 'pill',  label: 'Innovation',       bg: '#edf5ea', color: '#1f3d20' },
 ];
 
 // Row 2 — photo · pill · photo · pill · photo · pill · photo · pill
 const ROW2 = [
-  { type: 'photo', src: S[2] },
+  { type: 'photo', src: '/images/students/p5.png' },
   { type: 'pill',  label: 'Learning for Life', bg: '#e8edf5', color: '#1f2d4a' },
-  { type: 'photo', src: S[3] },
+  { type: 'photo', src: '/images/students/p6.png' },
   { type: 'pill',  label: 'Leadership',        bg: '#f5e8ea', color: '#3d1f24' },
-  { type: 'photo', src: S[0] },
+  { type: 'photo', src: '/images/students/p7.png' },
   { type: 'pill',  label: 'Research',          bg: '#edf5ea', color: '#1f3d20' },
-  { type: 'photo', src: S[1] },
+  { type: 'photo', src: '/images/students/p8.png' },
   { type: 'pill',  label: 'Community',         bg: '#e8edf5', color: '#1f2d4a' },
 ];
 
