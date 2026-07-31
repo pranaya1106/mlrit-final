@@ -57,10 +57,10 @@ export default function SuccessStories() {
                 <article key={i} className="min-w-full">
                   <a href="#" className="group relative block rounded-3xl overflow-hidden border border-border bg-neutral-50 aspect-[16/9]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.img} alt={c.name} loading={i === 0 ? 'eager' : 'lazy'} className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
-                    {/* Overlay — hidden until hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute left-6 right-6 bottom-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 text-white">
+                    <img src={c.img} alt={c.name} loading={i === 0 ? 'eager' : 'lazy'} className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 md:group-hover:scale-105" />
+                    {/* Overlay — always visible on touch/mobile; hover-only from md up (no hover on touch) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute left-6 right-6 bottom-6 translate-y-0 opacity-100 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 text-white">
                       <span className="inline-block font-mono font-bold text-[0.62rem] tracking-[0.18em] uppercase text-warm/85">{c.tag}</span>
                       <h3 className="mt-2 font-sans font-extrabold tracking-tighter-2 text-[clamp(1.4rem,2.2vw,2rem)] leading-tight">{c.name}</h3>
                       <p className="mt-1.5 text-white/80 text-[0.96rem]">{c.role}</p>

@@ -60,21 +60,23 @@ export default function Achievements() {
 
         {/* Constellation */}
         <div className="relative aspect-square max-w-[520px] mx-auto w-full">
-          <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="absolute inset-0 w-full h-full">
-            {lines.map(([a, b], i) => (
-              <line key={i} x1={bubbles[a].cx} y1={bubbles[a].cy} x2={bubbles[b].cx} y2={bubbles[b].cy} stroke="rgba(232, 93, 4, 0.20)" strokeWidth={1.2} strokeDasharray="3 4" />
+          <div className="absolute inset-0 origin-center scale-[0.8] sm:scale-100">
+            <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="absolute inset-0 w-full h-full">
+              {lines.map(([a, b], i) => (
+                <line key={i} x1={bubbles[a].cx} y1={bubbles[a].cy} x2={bubbles[b].cx} y2={bubbles[b].cy} stroke="rgba(232, 93, 4, 0.20)" strokeWidth={1.2} strokeDasharray="3 4" />
+              ))}
+            </svg>
+            {bubbles.map((b, i) => (
+              <div
+                key={b.name}
+                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white border border-border shadow-[0_8px_24px_rgba(17,17,17,0.06)] grid place-items-center p-3 hover:-translate-y-[calc(50%+4px)] transition-transform ${sizePx(b.size)}`}
+                style={{ transform: `translate(calc(-50% + ${b.x}px), calc(-50% + ${b.y}px))` }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={b.src} alt={b.name} className="max-w-full max-h-full" />
+              </div>
             ))}
-          </svg>
-          {bubbles.map((b, i) => (
-            <div
-              key={b.name}
-              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white border border-border shadow-[0_8px_24px_rgba(17,17,17,0.06)] grid place-items-center p-3 hover:-translate-y-[calc(50%+4px)] transition-transform ${sizePx(b.size)}`}
-              style={{ transform: `translate(calc(-50% + ${b.x}px), calc(-50% + ${b.y}px))` }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={b.src} alt={b.name} className="max-w-full max-h-full" />
-            </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>

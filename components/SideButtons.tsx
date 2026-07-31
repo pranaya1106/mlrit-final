@@ -7,7 +7,7 @@ import Link from 'next/link';
 function SyllabusSubPopup({ onClose }: { onClose: () => void }) {
   return (
     <div
-      className="absolute right-full top-0 mr-2 rounded-xl border border-border/50 overflow-hidden"
+      className="absolute left-0 top-full mt-2 lg:left-auto lg:top-0 lg:right-full lg:mt-0 lg:mr-2 rounded-xl border border-border/50 overflow-hidden z-20"
       style={{
         background: 'rgba(255,255,255,0.99)',
         boxShadow: '0 4px 24px rgba(0,0,0,0.12)',

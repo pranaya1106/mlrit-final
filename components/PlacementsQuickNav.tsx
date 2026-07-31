@@ -1,14 +1,41 @@
+'use client';
+
 import Link from 'next/link';
+import { useHideOnScroll } from '@/lib/useHideOnScroll';
 import { PLACEMENTS_NAV } from '@/lib/placements';
 
 export default function PlacementsQuickNav({ active }: { active: string }) {
+  const hidden = useHideOnScroll();
   return (
     <nav
-      className="bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top] duration-300 ease-out-quart"
+      className={`bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
       aria-label="Placements sections"
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+      <div className="max-w-[1280px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11 lg:px-20">
+        {/* Mobile / tablet — all items visible at once, wrapping instead of scrolling off-screen.
+            The whole bar slides away on scroll-down and back on scroll-up, same as the main
+            navbar — but only below lg (the lg:translate-y-0 override keeps desktop static). */}
+        <div className="flex flex-wrap gap-2 py-3 lg:hidden">
+          {PLACEMENTS_NAV.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              aria-current={l.href === active ? 'page' : undefined}
+              className={`px-3.5 py-2 rounded-full text-[0.82rem] font-medium border transition-colors whitespace-nowrap ${
+                l.href === active
+                  ? 'bg-primary text-white border-primary font-semibold'
+                  : 'bg-white text-muted border-border hover:border-primary hover:text-foreground'
+              }`}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Desktop — original horizontal underline tabs, unchanged */}
+        <div className="hidden lg:flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {PLACEMENTS_NAV.map((l) => (
             <Link
               key={l.href}

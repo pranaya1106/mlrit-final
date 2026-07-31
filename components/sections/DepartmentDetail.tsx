@@ -22,6 +22,7 @@ import type { Department } from '@/lib/departments';
 import { DEPT_DATA, type DeptData } from '@/lib/dept-data';
 import { getFacultyByDepartment, type FacultyProfile } from '@/lib/faculty';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
+import { useHideOnScroll } from '@/lib/useHideOnScroll';
 
 type Props = { department: Department };
 type PanelProps = { d: Department; data: DeptData };
@@ -107,6 +108,7 @@ const QUICK_NAV: Record<TabId, { id: string; label: string }[]> = {
 export default function DepartmentDetail({ department: d }: Props) {
   const [tab, setTab] = useState<TabId>('overview');
   const [activeNav, setActiveNav] = useState<string>('intro');
+  const navHidden = useHideOnScroll();
   const data: DeptData = DEPT_DATA[d.slug] ?? {
     ...FALLBACK_DATA,
     vision: d.vision,
@@ -204,8 +206,43 @@ export default function DepartmentDetail({ department: d }: Props) {
       </section>
 
       {/* ── STICKY TAB BAR ─────────────────────────────────── */}
-      <nav className="bg-white border-b border-border sticky z-40 overflow-x-auto transition-[top] duration-300 ease-out-quart" style={{ top: 'var(--subnav-top)' }}>
-        <div className="flex items-center gap-1 max-w-[1600px] mx-auto px-2 md:px-6" style={{ scrollbarWidth: 'none' }}>
+      <nav
+        className={`bg-white border-b border-border sticky z-40 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
+          navHidden ? '-translate-y-full' : 'translate-y-0'
+        }`}
+        style={{ top: 'var(--subnav-top)' }}
+      >
+        {/* Mobile / tablet — all tabs visible at once, wrapping instead of scrolling off-screen.
+            The whole bar slides away on scroll-down and back on scroll-up, same as the main
+            navbar — but only below lg (the lg:translate-y-0 override keeps desktop static). */}
+        <div className="flex flex-wrap gap-2 max-w-[1600px] mx-auto pl-4 pr-14 py-3 lg:hidden">
+          {visibleTabs.map((t) => {
+            const active = t.id === tab;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => {
+                  setTab(t.id);
+                  window.scrollTo({
+                    top: Math.max(0, window.scrollY),
+                    behavior: 'auto',
+                  });
+                }}
+                className={`px-3.5 py-2 rounded-full text-[0.82rem] font-medium border transition-colors whitespace-nowrap ${
+                  active
+                    ? 'bg-primary text-white border-primary font-semibold'
+                    : 'bg-white text-muted border-border hover:border-primary hover:text-foreground'
+                }`}
+              >
+                {t.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Desktop — original horizontal underline tabs, unchanged */}
+        <div className="hidden lg:flex items-center gap-1 max-w-[1600px] mx-auto px-2 md:px-6 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {visibleTabs.map((t) => {
             const active = t.id === tab;
             return (

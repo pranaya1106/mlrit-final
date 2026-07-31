@@ -3,12 +3,36 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
-import { ChevronRight } from './icons';
+import { ChevronRight, Menu, X, ChevronDown } from './icons';
 import ChroniclesAttentionButton from './ChroniclesAttentionButton';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMobileItem, setOpenMobileItem] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+
+  const closeMobileMenu = () => { setMobileOpen(false); setOpenMobileItem(null); };
+
+  // Close the drawer if the viewport crosses back into desktop (e.g. devtools
+  // resize) so it can't get stuck open with body scroll locked.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onResize = () => { if (window.innerWidth >= 1024) closeMobileMenu(); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeMobileMenu(); };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   // Keep --header-h in sync with the header's real rendered height (the
   // badge row can wrap to a second line at some widths) so the sticky
@@ -51,6 +75,7 @@ export default function Header() {
   }, [hidden]);
 
   return (
+    <>
     <header
       ref={headerRef}
       className={`fixed inset-x-0 top-0 z-[1000] bg-white border-b border-border transition-transform duration-300 ease-out-quart ${
@@ -59,18 +84,18 @@ export default function Header() {
     >
       {/* MASTHEAD */}
       <div className="bg-white">
-        <div className="flex items-center justify-start gap-7 px-7 py-3 min-h-[78px]">
+        <div className="flex items-center justify-between lg:justify-start gap-3 lg:gap-7 px-4 lg:px-7 py-3 min-h-[64px] lg:min-h-[78px]">
           {/* Logo */}
           <Link href="/" aria-label="MLRIT Home" className="flex-shrink-0">
             <img
               src="/legacy/mlrit-logo-main.png"
               alt="MLRIT Logo"
-              className="h-14 w-auto"
+              className="h-10 lg:h-14 w-auto"
             />
           </Link>
 
-          {/* Institute block */}
-          <div className="flex flex-col items-start pl-6 border-l border-[#e5e2db]">
+          {/* Institute block — desktop/tablet only; logo alone carries branding on mobile */}
+          <div className="hidden lg:flex flex-col items-start pl-6 border-l border-[#e5e2db]">
             <div className="font-extrabold text-[1.02rem] text-foreground tracking-wide">
               M<span className="text-primary mx-0.5 font-black">·</span>L
               <span className="text-primary mx-0.5 font-black">·</span>R
@@ -90,23 +115,34 @@ export default function Header() {
           </div>
 
           {/* Spacer */}
-          <div className="flex-1 min-w-3" />
+          <div className="hidden lg:block flex-1 min-w-3" />
 
-          {/* Contact CTA */}
+          {/* Contact CTA — desktop/tablet only; folded into the drawer on mobile */}
           <Link
             href="/admissions/support"
-            className="inline-flex flex-shrink-0 items-center gap-2.5 h-10 pl-3 pr-5 rounded-[10px] bg-primary text-white font-semibold text-[0.86rem] border border-primary transition-all duration-300 ease-out-quart hover:bg-primary-hover hover:shadow-primary-glow hover:-translate-y-0.5"
+            className="hidden lg:inline-flex flex-shrink-0 items-center gap-2.5 h-10 pl-3 pr-5 rounded-[10px] bg-primary text-white font-semibold text-[0.86rem] border border-primary transition-all duration-300 ease-out-quart hover:bg-primary-hover hover:shadow-primary-glow hover:-translate-y-0.5"
           >
             <span className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-md bg-white/20">
               <ChevronRight className="w-3.5 h-3.5" />
             </span>
             Contact Us
           </Link>
+
+          {/* Hamburger — mobile/tablet only */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground hover:bg-neutral-50 transition-colors flex-shrink-0"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
         </div>
       </div>
 
-      {/* MAIN NAV (green) */}
-      <nav className="bg-green-nav text-white shadow-[0_4px_16px_rgba(1,116,31,0.18)]" aria-label="Main">
+      {/* MAIN NAV (green) — desktop only; collapses into the hamburger drawer below lg */}
+      <nav className="hidden lg:block bg-green-nav text-white shadow-[0_4px_16px_rgba(1,116,31,0.18)]" aria-label="Main">
         <ul className="flex items-stretch px-6">
           {NAV_PRIMARY.map((item) => (
             <li key={item.label} className="group relative flex-shrink-0">
@@ -162,5 +198,125 @@ export default function Header() {
         </ul>
       </nav>
     </header>
+
+    {/* MOBILE / TABLET DRAWER — collapses the green nav below lg.
+        Rendered as a sibling of <header>, not a descendant: the header's
+        translate-y transform (for hide-on-scroll) creates a containing
+        block for `position: fixed` children, which would otherwise trap
+        this drawer inside the header's own ~70px box instead of the
+        viewport. */}
+      <div
+        className={`lg:hidden fixed inset-0 z-[1100] bg-black/45 transition-opacity duration-300 ease-out-quart ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeMobileMenu}
+        aria-hidden={!mobileOpen}
+      />
+      <div
+        className={`lg:hidden fixed inset-y-0 right-0 z-[1200] w-[86vw] max-w-[380px] bg-white shadow-[-16px_0_48px_rgba(17,17,17,0.18)] flex flex-col transition-transform duration-300 ease-out-quart ${
+          mobileOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Main menu"
+      >
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-shrink-0">
+          <span className="font-sans font-extrabold text-[1rem] text-foreground tracking-wide">Menu</span>
+          <button
+            type="button"
+            onClick={closeMobileMenu}
+            aria-label="Close menu"
+            className="inline-flex items-center justify-center w-11 h-11 rounded-lg hover:bg-neutral-50 transition-colors text-foreground"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <nav className="flex-1 overflow-y-auto px-2 py-2" aria-label="Mobile main">
+          <ul>
+            {NAV_PRIMARY.map((item) => (
+              <li key={item.label} className="border-b border-border/60 last:border-0">
+                {item.href && !item.cols ? (
+                  <Link
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className="flex items-center min-h-[52px] px-3 text-[0.95rem] font-semibold text-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setOpenMobileItem((cur) => (cur === item.label ? null : item.label))}
+                      aria-expanded={openMobileItem === item.label}
+                      className="w-full flex items-center justify-between min-h-[52px] px-3 text-[0.95rem] font-semibold text-foreground"
+                    >
+                      {item.label}
+                      <ChevronDown
+                        className={`w-4 h-4 text-muted transition-transform duration-200 ${
+                          openMobileItem === item.label ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                    <div
+                      className="overflow-hidden transition-all duration-300 ease-in-out"
+                      style={{ maxHeight: openMobileItem === item.label ? '600px' : '0px' }}
+                    >
+                      <div className="pb-3 pl-3 pr-2 grid gap-4">
+                        {item.cols?.map((col) => (
+                          <div key={col.heading}>
+                            <h4 className="font-mono text-[0.66rem] font-bold tracking-[0.16em] uppercase text-muted mb-1.5">
+                              {col.heading}
+                            </h4>
+                            <ul className="space-y-0.5">
+                              {col.links.map((link) => (
+                                <li key={link.label}>
+                                  <Link
+                                    href={link.href}
+                                    target={link.external ? '_blank' : undefined}
+                                    rel={link.external ? 'noopener' : undefined}
+                                    onClick={closeMobileMenu}
+                                    className="flex items-center min-h-[44px] text-[0.9rem] font-medium text-foreground hover:text-primary transition-colors"
+                                  >
+                                    {link.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+            <li className="border-b border-border/60">
+              <Link
+                href={NAV_RIGHT.href ?? '#'}
+                onClick={closeMobileMenu}
+                className="flex items-center min-h-[52px] px-3 text-[0.95rem] font-semibold text-foreground hover:text-primary transition-colors"
+              >
+                {NAV_RIGHT.label}
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <div className="flex-shrink-0 p-4 border-t border-border">
+          <Link
+            href="/admissions/support"
+            onClick={closeMobileMenu}
+            className="flex items-center justify-center gap-2.5 h-12 rounded-[10px] bg-primary text-white font-semibold text-[0.92rem] border border-primary transition-all duration-300 ease-out-quart hover:bg-primary-hover"
+          >
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-white/20">
+              <ChevronRight className="w-3.5 h-3.5" />
+            </span>
+            Contact Us
+          </Link>
+        </div>
+      </div>
+    </>
   );
 }

@@ -226,9 +226,8 @@ export default function Footer() {
       {/* Big watermark + crafted line */}
       <div className="text-center overflow-hidden pt-5">
         <div
-          className="font-sans font-black uppercase leading-[0.92] tracking-tighter-3 select-none"
+          className="font-sans font-black uppercase leading-[0.92] tracking-tighter-3 select-none text-[clamp(2.75rem,16vw,4.5rem)] md:text-[clamp(8rem,28vw,24rem)]"
           style={{
-            fontSize: 'clamp(8rem, 28vw, 24rem)',
             backgroundImage:
               'linear-gradient(180deg, #161616 0%, #2b1605 25%, #6a2f00 45%, #e85d04 62%, #ffb27a 82%, rgba(245,239,229,0) 100%)',
             WebkitBackgroundClip: 'text',
@@ -274,7 +273,7 @@ function BackToTop() {
       aria-label="Back to top"
     >
       Back to top
-      <span className="w-10 h-10 rounded-full border-[1.4px] border-foreground inline-flex items-center justify-center transition-all group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:-translate-y-0.5">
+      <span className="w-11 h-11 lg:w-10 lg:h-10 rounded-full border-[1.4px] border-foreground inline-flex items-center justify-center transition-all group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:-translate-y-0.5">
         <ArrowUp className="w-4 h-4" />
       </span>
     </button>
