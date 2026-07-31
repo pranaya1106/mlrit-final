@@ -350,8 +350,8 @@ export default function AdmissionsPage() {
             <div className="lg:sticky lg:top-28 lg:w-[420px] shrink-0">
               <div className="relative rounded-2xl overflow-hidden shadow-card-strong aspect-[4/5]">
                 <img
-                  src="/images/about/milestone-2012.jpg"
-                  alt="MLRIT student"
+                  src="/images/admin/admin-block.jpg"
+                  alt="MLRIT Administrative Office corridor"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
