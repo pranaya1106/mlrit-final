@@ -71,19 +71,19 @@ const SCHOLARSHIPS = [
   {
     type: 'Sports',
     sub: 'State · National · International athletes',
-    img: '/images/about/milestone-2026.jpg',
+    img: '/images/sports/football-team.png',
     href: '/admissions/scholarships',
   },
   {
     type: 'Industry & External',
     sub: 'Cybage Khushboo Trust · Partner schemes',
-    img: '/images/about/milestone-2022.jpg',
+    img: '/placements/drives/drive-slk-auditorium.jpg',
     href: '/admissions/scholarships',
   },
   {
     type: 'SC / ST / EWS',
     sub: 'Full fee reimbursement via state ePass',
-    img: '/images/about/milestone-2008.jpg',
+    img: '/images/campus/graduation.png',
     href: '/admissions/scholarships',
   },
 ];
