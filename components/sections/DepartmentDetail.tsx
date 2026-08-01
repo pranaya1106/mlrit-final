@@ -21,6 +21,7 @@ import Link from 'next/link';
 import type { Department } from '@/lib/departments';
 import { DEPT_DATA, type DeptData } from '@/lib/dept-data';
 import { getFacultyByDepartment, type FacultyProfile } from '@/lib/faculty';
+import StudentReelSlider from '@/components/sections/StudentReelSlider';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
 import { useHideOnScroll } from '@/lib/useHideOnScroll';
 
@@ -175,35 +176,39 @@ export default function DepartmentDetail({ department: d }: Props) {
 
   return (
     <>
-      {/* ── HERO ───────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background:
-            'linear-gradient(135deg, #1F6B24 0%, #2d8b55 50%, #1F6B24 100%)',
-          minHeight: '40vh',
-        }}
-      >
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
+      {/* ── HERO — reel slider as full-bleed cover ─────────── */}
+      {d.reels && d.reels.length > 0 ? (
+        <StudentReelSlider reels={d.reels} label={`${d.degree} — ${d.name}`} />
+      ) : (
+        <section
+          className="relative overflow-hidden"
           style={{
             background:
-              'radial-gradient(circle at 75% 30%, rgba(232,93,4,0.18), transparent 55%)',
+              'linear-gradient(135deg, #1F6B24 0%, #2d8b55 50%, #1F6B24 100%)',
+            minHeight: '40vh',
           }}
-        />
-        <div
-          className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16 flex flex-col justify-end"
-          style={{ minHeight: '40vh' }}
         >
-          <span className="inline-flex self-start items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 border border-white/30 font-mono text-[0.7rem] font-extrabold tracking-[0.18em] uppercase text-secondary shadow-sm">
-            {d.degree} — {d.name}
-          </span>
-          <h1 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,4.2vw,3.6rem)] max-w-[1100px]">
-            Department of {d.name}
-          </h1>
-        </div>
-      </section>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(circle at 75% 30%, rgba(232,93,4,0.18), transparent 55%)',
+            }}
+          />
+          <div
+            className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16 flex flex-col justify-end"
+            style={{ minHeight: '40vh' }}
+          >
+            <span className="inline-flex self-start items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 border border-white/30 font-mono text-[0.7rem] font-extrabold tracking-[0.18em] uppercase text-secondary shadow-sm">
+              {d.degree} — {d.name}
+            </span>
+            <h1 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,4.2vw,3.6rem)] max-w-[1100px]">
+              Department of {d.name}
+            </h1>
+          </div>
+        </section>
+      )}
 
       {/* ── STICKY TAB BAR ─────────────────────────────────── */}
       <nav

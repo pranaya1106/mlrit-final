@@ -15,6 +15,15 @@ export type Department = {
   peos: { id: string; text: string }[];
   pos?: string[];
   hod: { name: string; title: string };
+  reels?: DeptReel[];
+};
+
+export type DeptReel = {
+  reelUrl: string;
+  thumbnail: string;
+  quote: string;
+  name: string;
+  role: string;
 };
 
 export const DEPARTMENTS: Department[] = [
@@ -37,6 +46,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Contribute to society as ethical, collaborative technologists.' },
     ],
     hod: { name: 'Dr. Ajmeera Kiran', title: 'Professor & Head of Department, CSE' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
+        thumbnail: '/images/students/campus-group.png',
+        quote: '"The labs here pushed me to build things I never thought I could — real projects, real mentors, real outcomes."',
+        name: 'CSE Student',
+        role: 'B.Tech — Computer Science & Engineering',
+      },
+    ],
   },
   {
     slug: 'cse-ds',
@@ -57,6 +75,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Apply data ethics responsibly across applications.' },
     ],
     hod: { name: 'Dr. P. Subhashini', title: 'Professor & Head of Department' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
+        thumbnail: '/images/students/campus-group.png',
+        quote: '"Data Science at MLRIT gave me the tools to turn raw numbers into real decisions — Python, Spark, real datasets from day one."',
+        name: 'CSE-DS Student',
+        role: 'B.Tech — Computer Science & Engineering (Data Science)',
+      },
+    ],
   },
   {
     slug: 'aiml',
@@ -77,6 +104,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Build AI systems responsibly with fairness and explainability.' },
     ],
     hod: { name: 'Dr. Kashi Sai Prasad', title: 'Associate Professor & Head of Department' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
+        thumbnail: '/images/students/campus-group.png',
+        quote: '"Training neural networks in the GPU lab, publishing research as an undergrad — AIML here is the real thing, not just theory."',
+        name: 'AI/ML Student',
+        role: 'B.Tech — Artificial Intelligence & Machine Learning',
+      },
+    ],
   },
   {
     slug: 'ece',
@@ -97,6 +133,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Develop ethical, sustainable hardware-software systems.' },
     ],
     hod: { name: 'Dr. S V S Prasad', title: 'Professor & Head of Department' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/CixMnEPPIm9/',
+        thumbnail: '/images/students/faculty-classroom.png',
+        quote: '"From signal processing to FPGA design — every semester opened a new world. MLRIT gave me the depth I needed."',
+        name: 'ECE Student',
+        role: 'B.Tech — Electronics & Communication Engineering',
+      },
+    ],
   },
   {
     slug: 'eee',
@@ -117,6 +162,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Champion sustainable energy and ethical engineering.' },
     ],
     hod: { name: 'Prof. Ashok Kumar Cheeli', title: 'Professor & Head of Department' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/CixMnEPPIm9/',
+        thumbnail: '/images/students/faculty-classroom.png',
+        quote: '"Power systems, renewable energy, control circuits — EEE at MLRIT prepares you for the grid of the future."',
+        name: 'EEE Student',
+        role: 'B.Tech — Electrical & Electronics Engineering',
+      },
+    ],
   },
   {
     slug: 'mechanical',
@@ -137,6 +191,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Innovate as entrepreneurs in product design and rapid prototyping.' },
     ],
     hod: { name: 'Dr. J. Krishnaraj', title: 'Professor & Head of Department' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/C81FPqwNwv7/',
+        thumbnail: '/images/facilities/lab-wind-tunnel.png',
+        quote: '"Workshop sessions made theory tangible. I went from reading about manufacturing to actually machining parts in semester two."',
+        name: 'Mechanical Student',
+        role: 'B.Tech — Mechanical Engineering',
+      },
+    ],
   },
   {
     slug: 'aeronautical',
@@ -157,6 +220,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Innovate in the unmanned systems and space economy.' },
     ],
     hod: { name: 'Dr. M. Satyanarayana Gupta', title: 'Professor & Head of Department' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/DGK1OMGyIop/',
+        thumbnail: '/images/campus/campus-building-front.png',
+        quote: '"Wind tunnel experiments, UAV builds, HAL visits — Aeronautical at MLRIT is an experience unlike any other engineering branch."',
+        name: 'Aeronautical Student',
+        role: 'B.Tech — Aeronautical Engineering',
+      },
+    ],
   },
   {
     slug: 'mba',
@@ -177,6 +249,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Lead with ethics, communication and analytical rigour.' },
     ],
     hod: { name: 'Dr. N. Ramanjaneyulu', title: 'Professor & Head of MBA' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
+        thumbnail: '/images/students/campus-group.png',
+        quote: '"Live consulting projects, industry mentors, dual specialisations — the MBA here bridges engineering thinking with business leadership."',
+        name: 'MBA Student',
+        role: 'MBA — Master of Business Administration',
+      },
+    ],
   },
   {
     slug: 'hs',
@@ -199,6 +280,15 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO3', text: 'Prepare students to transition confidently into their chosen engineering specialisation.' },
     ],
     hod: { name: 'Dr. Ch. Achi Reddy', title: 'Professor & Head, Department of Humanities and Sciences' },
+    reels: [
+      {
+        reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
+        thumbnail: '/images/students/campus-group.png',
+        quote: '"First year set the foundation — maths, physics, communication, critical thinking. MLRIT starts you right before you specialise."',
+        name: 'Freshman Student',
+        role: 'B.Tech — Freshman Engineering (First Year)',
+      },
+    ],
   },
 ];
 
