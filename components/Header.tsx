@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight, Menu, X, ChevronDown } from './icons';
+import ChroniclesAttentionButton from './ChroniclesAttentionButton';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
@@ -190,14 +191,9 @@ export default function Header() {
               )}
             </li>
           ))}
-          {/* Right item — pushed to the right edge */}
-          <li className="ml-auto flex-shrink-0">
-            <Link
-              href={NAV_RIGHT.href ?? '#'}
-              className="flex items-center h-[52px] px-3 text-[0.92rem] font-medium tracking-[-0.005em] whitespace-nowrap hover:bg-white/10 transition-colors"
-            >
-              {NAV_RIGHT.label}
-            </Link>
+          {/* Right item — Chronicles attention button */}
+          <li className="ml-auto flex-shrink-0 flex items-center pr-2">
+            <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
           </li>
         </ul>
       </nav>
