@@ -15,21 +15,21 @@ const lineUp = {
 const HERO_REELS: DeptReel[] = [
   {
     reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
-    thumbnail: '/images/students/campus-group.png',
+    thumbnail: '/images/students/reel-cse.png',
     quote: '"The labs here pushed me to build things I never thought I could — real projects, real mentors, real outcomes."',
     name: 'CSE Student',
     role: 'B.Tech · Computer Science & Engineering',
   },
   {
     reelUrl: 'https://www.instagram.com/reel/CixMnEPPIm9/',
-    thumbnail: '/images/students/faculty-classroom.png',
+    thumbnail: '/images/students/reel-ece.png',
     quote: '"From signal processing to FPGA design — every semester opened a new world. MLRIT gave me the depth I needed."',
     name: 'ECE Student',
     role: 'B.Tech · Electronics & Communication Engineering',
   },
   {
     reelUrl: 'https://www.instagram.com/reel/C81FPqwNwv7/',
-    thumbnail: '/images/students/students-laughing.png',
+    thumbnail: '/images/students/reel-mech.png',
     quote: '"Workshop sessions made theory tangible. I went from reading about manufacturing to actually machining parts in semester two."',
     name: 'Mechanical Student',
     role: 'B.Tech · Mechanical Engineering',

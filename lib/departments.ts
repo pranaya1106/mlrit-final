@@ -49,7 +49,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
-        thumbnail: '/images/students/campus-group.png',
+        thumbnail: '/images/students/reel-cse.png',
         quote: '"The labs here pushed me to build things I never thought I could — real projects, real mentors, real outcomes."',
         name: 'CSE Student',
         role: 'B.Tech — Computer Science & Engineering',
@@ -78,7 +78,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
-        thumbnail: '/images/students/campus-group.png',
+        thumbnail: '/images/students/reel-aiml.png',
         quote: '"Data Science at MLRIT gave me the tools to turn raw numbers into real decisions — Python, Spark, real datasets from day one."',
         name: 'CSE-DS Student',
         role: 'B.Tech — Computer Science & Engineering (Data Science)',
@@ -107,7 +107,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
-        thumbnail: '/images/students/campus-group.png',
+        thumbnail: '/images/students/reel-aiml.png',
         quote: '"Training neural networks in the GPU lab, publishing research as an undergrad — AIML here is the real thing, not just theory."',
         name: 'AI/ML Student',
         role: 'B.Tech — Artificial Intelligence & Machine Learning',
@@ -136,7 +136,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/CixMnEPPIm9/',
-        thumbnail: '/images/students/faculty-classroom.png',
+        thumbnail: '/images/students/reel-ece.png',
         quote: '"From signal processing to FPGA design — every semester opened a new world. MLRIT gave me the depth I needed."',
         name: 'ECE Student',
         role: 'B.Tech — Electronics & Communication Engineering',
@@ -165,7 +165,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/CixMnEPPIm9/',
-        thumbnail: '/images/students/faculty-classroom.png',
+        thumbnail: '/images/students/reel-ece.png',
         quote: '"Power systems, renewable energy, control circuits — EEE at MLRIT prepares you for the grid of the future."',
         name: 'EEE Student',
         role: 'B.Tech — Electrical & Electronics Engineering',
@@ -194,7 +194,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/C81FPqwNwv7/',
-        thumbnail: '/images/facilities/lab-wind-tunnel.png',
+        thumbnail: '/images/students/reel-mech.png',
         quote: '"Workshop sessions made theory tangible. I went from reading about manufacturing to actually machining parts in semester two."',
         name: 'Mechanical Student',
         role: 'B.Tech — Mechanical Engineering',
@@ -223,7 +223,7 @@ export const DEPARTMENTS: Department[] = [
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/DGK1OMGyIop/',
-        thumbnail: '/images/campus/campus-building-front.png',
+        thumbnail: '/images/students/reel-aero.png',
         quote: '"Wind tunnel experiments, UAV builds, HAL visits — Aeronautical at MLRIT is an experience unlike any other engineering branch."',
         name: 'Aeronautical Student',
         role: 'B.Tech — Aeronautical Engineering',
