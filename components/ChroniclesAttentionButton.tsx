@@ -1,14 +1,41 @@
 'use client';
 
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function ChroniclesAttentionButton({ href }: { href: string }) {
+  const reduce = useReducedMotion();
+
   return (
     <Link
       href={href}
       aria-label="MLRIT Chronicles — read the latest edition"
       className="relative inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-[10px]"
     >
+      {/* Rotating gradient ring */}
+      <motion.span
+        aria-hidden
+        className="pointer-events-none absolute inset-[-2px] rounded-[12px] z-0"
+        style={{
+          background: 'conic-gradient(from 0deg, #e85d04, #f4a23a, #ffd27a, #e85d04)',
+          opacity: 0.85,
+        }}
+        animate={reduce ? {} : { rotate: 360 }}
+        transition={reduce ? {} : { repeat: Infinity, duration: 11, ease: 'linear' }}
+      />
+
+      {/* Pulse halo */}
+      {!reduce && (
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-[-4px] rounded-[14px] z-0"
+          style={{ background: 'radial-gradient(ellipse at center, rgba(232,93,4,0.35) 0%, transparent 70%)' }}
+          animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1.03, 0.97] }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+        />
+      )}
+
+      {/* CSS rule: shell:hover → fill scaleX(1) */}
       <style>{`
         .chron-shell:hover .chron-fill,
         .chron-shell:focus-within .chron-fill {
@@ -16,62 +43,28 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
         }
       `}</style>
 
-      {/* Spinning border ring: overflow:hidden clips the oversized rotating inner */}
+      {/* Button shell */}
       <span
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: -2,
-          borderRadius: 12,
-          overflow: 'hidden',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
+        className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
+        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
       >
-        <span
-          aria-hidden
-          style={{
-            display: 'block',
-            position: 'absolute',
-            inset: '-100%',
-            background: 'conic-gradient(from 0deg, transparent 0%, rgba(255,210,122,0.15) 12%, rgba(255,255,255,0.9) 25%, rgba(255,220,100,1) 35%, rgba(255,255,255,0.9) 45%, rgba(255,210,122,0.15) 58%, transparent 72%)',
-            animationName: 'chron-spin',
-            animationDuration: '3s',
-            animationTimingFunction: 'linear',
-            animationIterationCount: 'infinite',
-          }}
-        />
-      </span>
-
-      <span
-        className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] overflow-hidden select-none cursor-pointer whitespace-nowrap"
-        style={{
-          background: 'linear-gradient(145deg, #01741f, #015a18)',
-          boxShadow: '-1px -3px 10px rgba(1,116,31,0.5), 3px 3px 10px rgba(0,0,0,0.35), inset 3px 3px 8px rgba(0,0,0,0.2), inset -3px -3px 8px rgba(255,255,255,0.08)',
-          transition: 'box-shadow 500ms, background 500ms',
-        }}
-        onMouseEnter={e => {
-          (e.currentTarget as HTMLElement).style.boxShadow = '1px 1px 10px rgba(0,0,0,0.3), -1px -1px 10px rgba(1,180,50,0.4)';
-        }}
-        onMouseLeave={e => {
-          (e.currentTarget as HTMLElement).style.boxShadow = '-1px -3px 10px rgba(1,116,31,0.5), 3px 3px 10px rgba(0,0,0,0.35), inset 3px 3px 8px rgba(0,0,0,0.2), inset -3px -3px 8px rgba(255,255,255,0.08)';
-        }}
-      >
-        {/* Orange fill — sweeps left → right on hover */}
+        {/* Fill layer */}
         <span
           aria-hidden
           className="chron-fill pointer-events-none absolute inset-0 bg-[#e85d04]"
           style={{
             transformOrigin: 'left center',
             transform: 'scaleX(0)',
-            transition: 'transform 0.35s cubic-bezier(0.65,0,0.076,1)',
+            transition: reduce ? 'none' : 'transform 0.35s cubic-bezier(0.65,0,0.076,1)',
           }}
         />
 
+        {/* Label */}
         <span className="relative z-10 font-sans font-semibold text-[0.85rem] tracking-[-0.01em] text-white">
           MLRIT Chronicles
         </span>
 
+        {/* New badge */}
         <span
           aria-hidden
           className="relative z-10 ml-2 px-1.5 py-px rounded-full text-[0.58rem] font-mono font-black tracking-wider uppercase"
