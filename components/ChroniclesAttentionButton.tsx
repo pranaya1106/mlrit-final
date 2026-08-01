@@ -1,14 +1,28 @@
 'use client';
 
 import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function ChroniclesAttentionButton({ href }: { href: string }) {
+  const reduce = useReducedMotion();
+
   return (
     <Link
       href={href}
       aria-label="MLRIT Chronicles — read the latest edition"
       className="relative inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded-[10px]"
     >
+      {/* Ambient pulse halo — no rotation, just a breathing orange glow */}
+      {!reduce && (
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-[-4px] rounded-[14px] z-0"
+          style={{ background: 'radial-gradient(ellipse at center, rgba(232,93,4,0.35) 0%, transparent 70%)' }}
+          animate={{ opacity: [0.4, 0.85, 0.4], scale: [0.97, 1.03, 0.97] }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+        />
+      )}
+
       <style>{`
         .chron-shell:hover .chron-fill,
         .chron-shell:focus-within .chron-fill {
@@ -18,7 +32,7 @@ export default function ChroniclesAttentionButton({ href }: { href: string }) {
 
       <span
         className="chron-shell relative z-10 flex items-center h-[38px] px-4 rounded-[10px] bg-[#01741f] overflow-hidden select-none cursor-pointer whitespace-nowrap"
-        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 3px rgba(0,0,0,0.25)' }}
+        style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 2px 8px rgba(1,116,31,0.4)' }}
       >
         <span
           aria-hidden
