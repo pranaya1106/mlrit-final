@@ -9,20 +9,20 @@ import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
 const LEADERS = [
   {
-    tag: 'Director',
-    name: 'Dr. V. Radhika Devi',
-    role: 'Director, MLR Institute of Technology',
-    img: '/images/governance/director-v-radhika-devi-hq.jpg',
-    message: 'At MLRIT, we are committed to nurturing not just engineers but complete human beings — individuals who are technically sound, ethically grounded, and socially responsible. Our focus on continuous learning, research, and innovation ensures that every student leaves our campus ready to make a meaningful contribution to the world.',
-    accent: '#01741f',
-  },
-  {
     tag: 'Principal',
     name: 'Dr. S.V.S. Prasad',
     role: 'Principal, MLR Institute of Technology',
     img: '/faculty-new/ece/ece-s-v-s-prasad.jpg',
     message: 'Excellence is not an act but a habit — and at MLRIT, we cultivate that habit every single day. Through rigorous academics, industry exposure, and a culture of discipline and ambition, we prepare our students to excel in competitive environments and lead with integrity wherever their careers take them.',
     accent: '#e85d04',
+  },
+  {
+    tag: 'Director',
+    name: 'Dr. V. Radhika Devi',
+    role: 'Director, MLR Institute of Technology',
+    img: '/images/governance/director-v-radhika-devi-hq.jpg',
+    message: 'At MLRIT, we are committed to nurturing not just engineers but complete human beings — individuals who are technically sound, ethically grounded, and socially responsible. Our focus on continuous learning, research, and innovation ensures that every student leaves our campus ready to make a meaningful contribution to the world.',
+    accent: '#01741f',
   },
 ];
 

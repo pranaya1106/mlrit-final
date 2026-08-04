@@ -241,7 +241,7 @@ export const YEAR_ROLES: Record<string, RoleRow[]> = Object.fromEntries(
         company: c.company,
         role: c.role,
         salary: c.salaryDisplay,
-        selects: c.selections.status === 'confirmed' ? c.selections.value : 0,
+        selects: c.selections.value,
       })),
   ])
 );
@@ -294,13 +294,14 @@ export const MOUS: Mou[] = [
     domain: 'Talend Data Integration and AWS — hands-on training with live industry projects through a dedicated on-campus Centre of Excellence.',
     package: '5.5 – 7 LPA',
     type: 'Centre of Excellence',
-    // docs: pending upload to /public/placements/mou/
+    docs: [{ label: 'MoU · CoE Agreement 2026', file: '/placements/mou/virtusa-coe-2026.pdf' }],
   },
   {
     name: 'EPAM Systems',
     domain: 'Fullstack Development and Cloud Engineering — specialised curriculum delivered by EPAM practitioners at our on-campus CoE.',
     package: '8 – 12 LPA',
     type: 'Centre of Excellence',
+    docs: [{ label: 'UpSkill Programme Agreement', file: '/placements/mou/epam-upskill.pdf' }],
   },
   {
     name: 'HCL Tech',
@@ -321,19 +322,59 @@ export const MOUS: Mou[] = [
     name: 'Cyient',
     domain: 'Engineering and Technology Services — strategic MoU covering campus recruitment, joint technical training, and faculty development.',
     type: 'MoU Partner',
-    // docs: pending upload to /public/placements/mou/
   },
   {
     name: 'Infosys',
     domain: 'Campus Connect Programme — structured industry partnership providing Infosys-designed curriculum, certification, and campus recruitment.',
     type: 'MoU Partner',
-    // docs: pending upload to /public/placements/mou/
   },
   {
     name: 'Revature',
     domain: 'Technology staffing and training partnership — placing graduates into software development roles at Fortune 500 clients through Revature\'s workforce model.',
     type: 'MoU Partner',
-    // docs: pending upload to /public/placements/mou/
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/revature-mou.pdf' }],
+  },
+  {
+    name: 'Cybage Software',
+    domain: 'Strategic MoU enabling campus recruitment, joint training initiatives, and industry exposure for MLRIT students through Cybage\'s technology services platform.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/cybage-mou.pdf' }],
+  },
+  {
+    name: 'ITE&C Department, Govt. of Telangana',
+    domain: 'Formal partnership with the IT, Electronics and Communications Department of Telangana Government — covering Blockchain technology training and digital skilling initiatives.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/itec-blockchain.pdf' }],
+  },
+  {
+    name: 'ALEAP We Hub',
+    domain: 'Collaboration with ALEAP We Hub, Hyderabad — supporting women entrepreneurship, skill development, and industry-readiness programmes for students.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/aleap-wehub.pdf' }],
+  },
+  {
+    name: 'Idea Labs Futuretech Ventures',
+    domain: 'Partnership with Idea Labs Futuretech Ventures — enabling emerging technology exposure, innovation-driven training, and startup ecosystem engagement for students.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/idealabs-futuretech.pdf' }],
+  },
+  {
+    name: 'India Matters Foundation',
+    domain: 'Social impact partnership with India Matters Foundation, Chennai — focused on employability, professional development, and community engagement initiatives.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/india-matters-foundation.pdf' }],
+  },
+  {
+    name: 'ITCA Bengaluru',
+    domain: 'Indo-Israel technology initiative through ITCA, Bengaluru — providing access to cutting-edge training programmes and international technology collaboration opportunities.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/itca-mou.pdf' }],
+  },
+  {
+    name: 'Movate',
+    domain: 'Strategic MoU with Movate (formerly CSS Corp) — a global technology services company — covering campus recruitment, domain training, and professional development.',
+    type: 'MoU Partner',
+    docs: [{ label: 'MoU Agreement', file: '/placements/mou/movate-mou.pdf' }],
   },
 ];
 
@@ -488,13 +529,44 @@ export const PLACEMENT_CONTACTS: PlacementContact[] = [
 
 // ─── Drives gallery ───────────────────────────────────────────────────────────
 
-export const DRIVES = [
-  { img: '/placements/p1.jpg', tag: 'Capgemini · Pre-Placement Talk'  },
-  { img: '/placements/p2.jpg', tag: 'Virtusa · Centre of Excellence'  },
-  { img: '/placements/p3.jpg', tag: 'Tata Technologies · Drive 2025'  },
-  { img: '/placements/p4.jpg', tag: 'Tech Mahindra · Open Day'        },
-  { img: '/placements/p5.jpg', tag: 'LTI Mindtree · Recruitment'      },
-  { img: '/placements/p6.jpg', tag: 'TCS · Campus Drive'              },
+interface DrivePhoto {
+  id: string;
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+export const DRIVES: DrivePhoto[] = [
+  {
+    id: 'drive-slk',
+    src: '/placements/drives/drive-slk-auditorium.jpg',
+    alt: 'SLK campus recruitment team welcomed at the MLRIT auditorium during a campus placement drive',
+    caption: 'SLK · Campus Recruitment Drive · MLRIT Auditorium',
+  },
+  {
+    id: 'drive-siscol',
+    src: '/placements/drives/drive-siscol.jpg',
+    alt: 'SISCOL Steel Infra Solutions pre-placement talk at MLRIT — presenter addressing students in the Virtusa Centre of Excellence seminar room',
+    caption: 'SISCOL Steel Infra Solutions · Pre-Placement Talk',
+  },
+  {
+    id: 'drive-seminar',
+    src: '/placements/drives/drive-seminar.jpg',
+    alt: 'Students attending a placement preparation seminar at MLRIT',
+    caption: 'Campus Placement Preparation Session · MLRIT',
+  },
+  {
+    id: 'drive-tp-office-desk',
+    src: '/placements/drives/drive-tp-office-desk.jpg',
+    alt: 'Training & Placement Cell staff at work at MLR Institute of Technology',
+    caption: 'Training & Placement Cell · MLRIT',
+  },
+  {
+    id: 'drive-tp-office-room',
+    src: '/placements/drives/drive-tp-office-room.jpg',
+    alt: 'Training & Placement Cell interview room at MLR Institute of Technology',
+    caption: 'T&P Cell · Interview Room · MLRIT',
+  },
 ];
 
 // ─── Navigation config (single source of truth) ──────────────────────────────
@@ -510,14 +582,8 @@ export const PLACEMENTS_NAV: PlacementsNavItem[] = [
   { label: 'Industry Readiness',   href: '/placements/industry-readiness'   },
   { label: 'Global Certification', href: '/placements/global-certification' },
   { label: 'MoUs & Partnerships',  href: '/placements/mous'                 },
+  { label: 'Placement Drives',     href: '/placements/drives'               },
   { label: 'Alumni',               href: '/placements/alumni'               },
   { label: 'Reach Placements At',  href: '/placements/support'              },
 ];
 
-// ─── Legacy aliases (keep existing imports working during migration) ──────────
-
-/** @deprecated Use PLACEMENT_HIGHLIGHTS */
-export const TRAINING = {
-  general: READINESS_MODULES.slice(0, 4).map(m => `${m.title} — ${m.description}`),
-  byBranch: BRANCH_CURRICULA,
-};
