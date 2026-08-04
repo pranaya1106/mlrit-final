@@ -126,7 +126,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
     case 'lead':
       return (
         <Reveal>
-          <p className="text-foreground/85 text-[clamp(1.15rem,1.6vw,1.4rem)] leading-[1.55] font-sans font-medium max-w-[820px]">
+          <p className="text-foreground/85 text-[clamp(1.3rem,1.9vw,1.7rem)] leading-[1.5] font-sans font-medium max-w-[960px]">
             {block.text}
           </p>
         </Reveal>
@@ -135,7 +135,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
     case 'paragraph':
       return (
         <Reveal>
-          <p className="text-muted leading-[1.8] text-[1.02rem] max-w-[760px]">{block.text}</p>
+          <p className="text-foreground/80 leading-[1.75] text-[clamp(1.05rem,1.25vw,1.2rem)] max-w-[880px]">{block.text}</p>
         </Reveal>
       );
 

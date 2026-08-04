@@ -220,22 +220,51 @@ export default function Events() {
           ←
         </button>
 
-        {/* Thumbnail strip */}
+        {/* Thumbnail strip — video previews on hover with play icon */}
         <div className="hidden sm:flex items-center gap-2">
           {SLIDES.map((s, i) => (
             <button
               type="button"
               key={i}
               onClick={() => jump(i)}
+              onMouseEnter={(e) => {
+                const v = e.currentTarget.querySelector('video');
+                if (v) { v.muted = true; v.play().catch(() => {}); }
+              }}
+              onMouseLeave={(e) => {
+                const v = e.currentTarget.querySelector('video');
+                if (v && i !== active) { try { v.pause(); v.currentTime = 0; } catch {} }
+              }}
               aria-label={`Show ${s.alt}`}
-              className={`relative w-14 h-10 md:w-16 md:h-11 rounded-md overflow-hidden transition-all duration-400 ${
+              className={`group relative w-20 h-14 md:w-24 md:h-16 rounded-md overflow-hidden transition-all duration-400 ${
                 i === active
                   ? 'ring-2 ring-warm ring-offset-2 ring-offset-transparent scale-105'
-                  : 'opacity-55 hover:opacity-100 border border-white/20'
+                  : 'opacity-70 hover:opacity-100 border border-white/20 hover:ring-1 hover:ring-white/60'
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.poster} alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <img src={s.poster} alt="" className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+              <video
+                src={s.video}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
+              {/* Play overlay — hidden on active, appears on hover for others */}
+              <span
+                className={`absolute inset-0 grid place-items-center transition-opacity duration-300 ${
+                  i === active ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+                }`}
+                aria-hidden
+              >
+                <span className="grid place-items-center w-7 h-7 rounded-full bg-white/95 backdrop-blur-md text-ink shadow-lg">
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor" aria-hidden>
+                    <path d="M3 1.5v11l10-5.5L3 1.5z" />
+                  </svg>
+                </span>
+              </span>
               {i === active && (
                 <span className="absolute inset-0 bg-black/10" />
               )}

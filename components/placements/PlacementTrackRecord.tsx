@@ -37,7 +37,10 @@ export default function PlacementTrackRecord() {
           </p>
         </Reveal>
 
-        <div className="mt-10 rounded-2xl border border-white/10 overflow-hidden">
+        <div
+          className="mt-10 rounded-2xl border border-white/10 overflow-hidden"
+          onMouseLeave={() => setOpenYear(null)}
+        >
           {/* Table header */}
           <div className="grid grid-cols-[2rem_1fr_1fr_1fr_1fr_2rem] gap-x-4 px-5 py-3 border-b border-white/10 bg-white/[0.03]">
             <div />
@@ -61,12 +64,26 @@ export default function PlacementTrackRecord() {
                   aria-expanded={isOpen}
                   aria-controls={`detail-${y.year}`}
                   onClick={() => toggle(y.year)}
+                  onMouseEnter={() => setOpenYear(y.year)}
+                  onFocus={() => setOpenYear(y.year)}
                   className={[
-                    'w-full grid grid-cols-[2rem_1fr_1fr_1fr_1fr_2rem] gap-x-4 px-5 py-4 text-left transition-colors duration-200',
+                    'group relative w-full grid grid-cols-[2rem_1fr_1fr_1fr_1fr_2rem] gap-x-4 px-5 py-4 text-left',
+                    'transition-all duration-300 ease-out will-change-transform origin-center',
+                    'hover:-translate-y-1 hover:scale-[1.02] hover:z-10 hover:shadow-[0_28px_60px_-14px_rgba(0,0,0,0.65),inset_4px_0_0_0_rgba(255,140,30,0.95)]',
+                    'hover:bg-gradient-to-r hover:from-white/[0.08] hover:via-white/[0.05] hover:to-transparent',
                     'focus:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-warm/50',
-                    isOpen ? 'bg-white/[0.05]' : 'hover:bg-white/[0.03]',
+                    isOpen ? 'bg-white/[0.06]' : 'hover:bg-white/[0.06]',
                   ].join(' ')}
                 >
+                  {/* subtle gradient wash on hover */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, rgba(255,140,30,0.06) 0%, rgba(255,140,30,0) 60%)',
+                    }}
+                  />
                   {/* Chevron */}
                   <div className="flex items-center justify-center">
                     <motion.span
@@ -81,7 +98,9 @@ export default function PlacementTrackRecord() {
 
                   {/* Year */}
                   <div className="flex items-center gap-2">
-                    <span className="font-sans font-bold text-white text-[1rem]">{y.year}</span>
+                    <span className="font-sans font-bold text-white text-[1rem] transition-all duration-300 origin-left group-hover:text-warm group-hover:scale-110">
+                      {y.year}
+                    </span>
                     {y.isProvisional && (
                       <span className="font-mono text-[0.55rem] tracking-[0.1em] uppercase px-1.5 py-0.5 rounded-full border border-amber-400/30 text-amber-400/70">
                         provisional
@@ -91,21 +110,26 @@ export default function PlacementTrackRecord() {
 
                   {/* Offers */}
                   <div className="flex items-center">
-                    <span className="font-sans font-extrabold text-white text-[1.3rem] leading-none tracking-tight">
-                      {y.jobOffers.toLocaleString()}
+                    <span
+                      className="font-sans font-extrabold text-white leading-none tracking-tight transition-all duration-300 origin-left group-hover:scale-[1.18]"
+                      style={{ textShadow: '0 0 0 rgba(255,140,30,0)' }}
+                    >
+                      <span className="inline-block group-hover:[text-shadow:0_0_24px_rgba(255,180,80,0.55)] transition-[text-shadow] duration-300 text-[1.3rem]">
+                        {y.jobOffers.toLocaleString()}
+                      </span>
                     </span>
                   </div>
 
                   {/* Companies */}
                   <div className="flex items-center">
-                    <span className="font-sans font-semibold text-white/80 text-[1rem]">
+                    <span className="font-sans font-semibold text-white/80 text-[1rem] transition-all duration-300 origin-left group-hover:text-white group-hover:scale-110">
                       {y.companiesVisited}
                     </span>
                   </div>
 
                   {/* Highest package */}
                   <div className="flex items-center">
-                    <span className="font-mono font-bold text-primary text-[1rem]">
+                    <span className="font-mono font-bold text-primary text-[1rem] leading-none transition-all duration-300 origin-left group-hover:scale-[1.2] group-hover:[text-shadow:0_0_20px_rgba(232,93,4,0.55)]">
                       ₹{y.highestPackageLpa} LPA
                     </span>
                   </div>

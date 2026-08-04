@@ -18,7 +18,19 @@ export const metadata: Metadata = {
   description: '"All the campus that\'s fit to print" — a broadsheet of stories, ideas and updates from MLR Institute of Technology.',
 };
 
-const SECTIONS = ['Front Page', 'Campus', 'Placements', 'Research', 'Sports', 'Student Voice', 'Alumni', 'Events', 'Faculty', 'Opinion', 'Archive'];
+const SECTIONS: { label: string; href: string }[] = [
+  { label: 'Front Page',     href: '#front-page'    },
+  { label: 'Recent Events',  href: '#events'        },
+  { label: 'News Clippings', href: '#news'          },
+  { label: 'Announcements',  href: '#announcements' },
+  { label: 'Live Wire',      href: '#live-wire'     },
+  { label: 'Photo Essay',    href: '#photo-essay'   },
+  { label: 'Placements',     href: '/placements/overview' },
+  { label: 'Research',       href: '/research'      },
+  { label: 'Sports',         href: '/student-life/sports' },
+  { label: 'Faculty',        href: '/departments/faculty' },
+  { label: 'Archive',        href: '#archive'       },
+];
 
 export default async function ChroniclesPage() {
   const liveNewsFeed = await getLiveNews(TIER_SIZE);
@@ -68,24 +80,24 @@ export default async function ChroniclesPage() {
       </header>
 
       {/* RIBBON */}
-      <nav aria-label="Sections" className="bg-black text-white border-y border-black">
+      <nav aria-label="Sections" className="bg-black text-white border-y border-black sticky top-[var(--subnav-top)] z-30">
         <div className="flex overflow-x-auto no-scrollbar px-6 md:px-12 lg:px-20">
           {SECTIONS.map((s, i) => (
             <a
-              key={s}
-              href="#"
+              key={s.href}
+              href={s.href}
               className={`whitespace-nowrap font-sans text-[0.78rem] font-bold tracking-[0.14em] uppercase px-4 py-3.5 hover:bg-white/10 transition-colors ${
                 i === 0 ? 'bg-white text-black' : 'text-white'
               } ${i > 0 ? 'border-l border-white/15' : ''}`}
             >
-              {s}
+              {s.label}
             </a>
           ))}
         </div>
       </nav>
 
       {/* Zone header — Recent Events */}
-      <div className="px-6 md:px-12 lg:px-20 pt-10 md:pt-12">
+      <div id="events" className="px-6 md:px-12 lg:px-20 pt-10 md:pt-12">
         <div className="flex items-end gap-4 border-b-[3px] border-double border-black pb-3">
           <span className="font-mono font-black text-black text-[1.4rem] leading-none">01</span>
           <h2 className="font-display font-black uppercase tracking-[0.06em] text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none">
@@ -97,7 +109,7 @@ export default async function ChroniclesPage() {
       </div>
 
       {/* FRONT PAGE 3-col */}
-      <main className="px-6 md:px-12 lg:px-20 py-8 md:py-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12">
+      <main id="front-page" className="px-6 md:px-12 lg:px-20 py-8 md:py-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12" style={{ scrollMarginTop: '120px' }}>
 
         {/* LEAD STORY */}
         <article className="flex flex-col">
@@ -157,7 +169,7 @@ export default async function ChroniclesPage() {
 
         {/* RIGHT — Most Read + In Brief */}
         <aside className="flex flex-col gap-10 lg:border-l lg:border-border lg:pl-10">
-          <section>
+          <section id="news">
             <RailHead label="02 · News Clippings" pill="In the press" />
             <div className="flex flex-col">
               {MOST_READ.map((s, i) => (
@@ -173,7 +185,7 @@ export default async function ChroniclesPage() {
             </div>
           </section>
 
-          <section>
+          <section id="announcements">
             <RailHead label="03 · Announcements" pill="Official" />
             <ul className="list-none p-0 m-0">
               {IN_BRIEF.map((b, i) => (
@@ -188,7 +200,7 @@ export default async function ChroniclesPage() {
           </section>
 
           {/* LIVE WIRE — auto-scraped news */}
-          <section>
+          <section id="live-wire">
             <RailHead label="Live Wire · Auto-scraped" pill={liveWireTicker.length ? 'Live' : 'Warming up'} />
             {liveWireTicker.length === 0 ? (
               <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
@@ -224,7 +236,7 @@ export default async function ChroniclesPage() {
       <TierGrid label="More recent" italicLabel="events & coverage" trail="See all stories" trailHref="/chronicles" stories={TIER_STORIES} />
 
       {/* PHOTO ESSAY (inverted) */}
-      <section className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">
+      <section id="photo-essay" className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">
         <div className="flex items-end gap-5 mb-7 md:mb-9">
           <h3 className="font-display font-black tracking-tighter-2 text-[clamp(1.8rem,2.8vw,2.4rem)] leading-none">
             Photo essay · <em className="italic font-normal">The year in frames</em>
@@ -251,7 +263,9 @@ export default async function ChroniclesPage() {
       </section>
 
       {/* TIER — Archive of past announcements & events */}
-      <TierGrid label="From the" italicLabel="archives" trail="Older stories · 2024 in review" stories={ARCHIVE} />
+      <div id="archive">
+        <TierGrid label="From the" italicLabel="archives" trail="Older stories · 2024 in review" stories={ARCHIVE} />
+      </div>
     </div>
   );
 }
