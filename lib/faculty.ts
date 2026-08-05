@@ -2575,7 +2575,7 @@ imageAlt: "Portrait of Mohd Anwar Ali",
     "Computer Interaction Enhancement",
   ],
     books: [],
-    description: “G. Nagarjunarao is an Assistant Professor of Computer Science with 3+ years of experience in teaching Data Structures, Computer Networks, and E-Commerce. He completed his M.Tech in 2018 from JNTUK Kakinada and his B.Tech in 2013 from Andhra University. His teaching approach is activity-based and mobile-first. For example, he designed \”Stack It Live\”, a Google Slides activity where students physically perform push/pop operations to understand LIFO, underflow, and two-stack models for browser Back/Forward, which increased concept retention and pushed students from BL2 to BL5 thinking. He is passionate about 100% student participation, quick feedback, and linking theory to real applications like undo systems and memory management. He is committed to contributing to MLRIT by building engaging modules that improve learning outcomes in core CS subjects.”,
+    description: “G. Nagarjunarao is an Assistant Professor of Computer Science with 3+ years of experience in teaching Data Structures, Computer Networks, and E-Commerce. He completed his M.Tech in 2018 from JNTUK Kakinada and his B.Tech in 2013 from Andhra University. His teaching approach is activity-based and mobile-first, designing activities where students physically perform operations to understand core CS concepts, which increases concept retention and pushes students to higher-order thinking. He is passionate about 100% student participation, quick feedback, and linking theory to real applications like undo systems and memory management.”,
     email: "nagarjunag@mlrit.ac.in",
     profileLinks: {
       linkedin: "www.linkedin.com/in/nagarjuna-g-64245134b",
