@@ -128,7 +128,7 @@ export default async function ChroniclesPage() {
             ))}
           </div>
           {LEAD.img && (
-            <a href={LEAD.href} target="_blank" rel="noopener" className="block border border-black overflow-hidden mb-3.5 group">
+            <a href={LEAD.href} target="_blank" rel="noopener noreferrer" className="block border border-black overflow-hidden mb-3.5 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={LEAD.img} alt="" className="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-105" />
             </a>
@@ -137,7 +137,7 @@ export default async function ChroniclesPage() {
             {LEAD_BODY.map((p, i) => (
               <p key={i} className={i === 0 ? "first-letter:font-black first-letter:text-[4.2em] first-letter:float-left first-letter:leading-[0.86] first-letter:mr-3 first-letter:mt-1.5" : undefined}>{p}</p>
             ))}
-            <a href={LEAD.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 mt-2 font-sans font-bold text-[0.82rem] tracking-[0.06em] uppercase text-black border-b-2 border-black hover:bg-black hover:text-white hover:px-2 hover:py-1 hover:border-0 transition-all">
+            <a href={LEAD.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-2 font-sans font-bold text-[0.82rem] tracking-[0.06em] uppercase text-black border-b-2 border-black hover:bg-black hover:text-white hover:px-2 hover:py-1 hover:border-0 transition-all">
               Continue reading →
             </a>
           </div>
@@ -151,7 +151,7 @@ export default async function ChroniclesPage() {
                 {s.section}
               </span>
               {s.img && (
-                <a href={s.href} target="_blank" rel="noopener" className="block border border-black overflow-hidden mb-3 group">
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="block border border-black overflow-hidden mb-3 group">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={s.img} alt="" className="w-full aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105" />
                 </a>
@@ -173,7 +173,7 @@ export default async function ChroniclesPage() {
             <RailHead label="02 · News Clippings" pill="In the press" />
             <div className="flex flex-col">
               {MOST_READ.map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener" className="grid grid-cols-[36px_1fr] gap-3.5 py-3.5 border-b border-dashed border-border last:border-b-0 group">
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="grid grid-cols-[36px_1fr] gap-3.5 py-3.5 border-b border-dashed border-border last:border-b-0 group">
                   <div className="font-display font-black italic text-[1.6rem] leading-none tracking-tighter-2 text-black">{String(i + 1).padStart(2, '0')}</div>
                   <div>
                     <span className="inline-block font-mono text-[0.58rem] font-extrabold tracking-[0.18em] uppercase bg-white border border-black text-black px-1.5 py-0.5 mb-1.5">{s.section}</span>
@@ -213,7 +213,7 @@ export default async function ChroniclesPage() {
                     key={n.id}
                     href={n.link}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className="py-3 border-b border-dashed border-border last:border-b-0 group"
                   >
                     <span className="font-mono text-[0.6rem] font-bold tracking-[0.14em] uppercase text-muted">
@@ -249,7 +249,7 @@ export default async function ChroniclesPage() {
         </p>
         <div className="grid md:grid-cols-3 gap-4 md:gap-5 min-h-[300px] md:min-h-[440px]">
           {PHOTO_ESSAY.map((p, i) => (
-            <a key={i} href={p.href} target="_blank" rel="noopener" className="relative block overflow-hidden border border-white/20 group">
+            <a key={i} href={p.href} target="_blank" rel="noopener noreferrer" className="relative block overflow-hidden border border-white/20 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.img} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style={{ filter: 'contrast(1.04) saturate(1.08)' }} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
@@ -299,12 +299,12 @@ function TierGrid({ label, italicLabel, trail, trailHref, stories }: { label: st
         </h3>
         <div className="flex-1 h-px bg-black mb-2" />
         {trailHref
-          ? <a href={trailHref} target="_blank" rel="noopener" className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2 hover:bg-black hover:text-white transition-colors">{trail}</a>
+          ? <a href={trailHref} target="_blank" rel="noopener noreferrer" className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2 hover:bg-black hover:text-white transition-colors">{trail}</a>
           : <span className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2">{trail}</span>}
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-7">
         {stories.map((s, i) => (
-          <a key={i} href={s.href} target="_blank" rel="noopener" className="flex flex-col gap-3 pb-3.5 border-b border-border group">
+          <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="flex flex-col gap-3 pb-3.5 border-b border-border group">
             <div className="border border-black overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={s.img!} alt="" className="w-full aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105" style={{ filter: 'contrast(1.02) saturate(1.05)' }} />

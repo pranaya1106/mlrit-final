@@ -236,7 +236,9 @@ export const YEAR_ROLES: Record<string, RoleRow[]> = Object.fromEntries(
   PLACEMENT_YEARS.map((y) => [
     y.year,
     y.companies
-      .filter((c) => c.selections.status === 'confirmed')
+      .filter((c): c is typeof c & { selections: { status: 'confirmed'; value: number } } =>
+        c.selections.status === 'confirmed'
+      )
       .map((c) => ({
         company: c.company,
         role: c.role,
