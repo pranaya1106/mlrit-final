@@ -2571,7 +2571,7 @@ imageAlt: "Portrait of Mohd Anwar Ali",
     "Detection of Infectious and Chronic Diseases -2026",
   ],
     patents: [
-    "Lightweight CNN‑Based Real‑Time Emotion Recognition for Human",
+    "Lightweight CNN-Based Real-Time Emotion Recognition for Human",
     "Computer Interaction Enhancement",
   ],
     books: [],
