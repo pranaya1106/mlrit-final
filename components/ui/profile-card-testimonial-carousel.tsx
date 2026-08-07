@@ -266,7 +266,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
         <button
           onClick={handlePrev}
           aria-label="Previous testimonial"
-          className="w-12 h-12 rounded-full bg-white dark:bg-card border border-neutral-300 dark:border-white/15 shadow-md flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/10 transition-colors"
+          className="w-12 h-12 rounded-full bg-white text-neutral-900 border border-neutral-300 shadow-md flex items-center justify-center hover:bg-neutral-100 transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -286,7 +286,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
         <button
           onClick={handleNext}
           aria-label="Next testimonial"
-          className="w-12 h-12 rounded-full bg-white dark:bg-card border border-neutral-300 dark:border-white/15 shadow-md flex items-center justify-center hover:bg-neutral-100 dark:hover:bg-white/10 transition-colors"
+          className="w-12 h-12 rounded-full bg-white text-neutral-900 border border-neutral-300 shadow-md flex items-center justify-center hover:bg-neutral-100 transition-colors"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
