@@ -12,6 +12,22 @@ const lineUp = {
   show:   { opacity: 1, y: 0   },
 };
 
+/**
+ * Fallback copy. Used whenever the CMS lookup in app/page.tsx fails, returns
+ * nothing, or returns a row missing any field — the hero must always render
+ * complete text, never a blank or half-filled headline.
+ */
+const DEFAULT_HEADLINE_LEAD = 'Engineering';
+const DEFAULT_HEADLINE_ACCENT = 'the Future.';
+const DEFAULT_BODY =
+  "Two decades of shaping minds. 11,000+ engineers and counting. At MLRIT, we don't just teach the future — we build it.";
+
+type HeroProps = {
+  headlineLead?: string;
+  headlineAccent?: string;
+  body?: string;
+};
+
 const HERO_REELS: DeptReel[] = [
   {
     reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
@@ -36,7 +52,13 @@ const HERO_REELS: DeptReel[] = [
   },
 ];
 
-export default function Hero() {
+export default function Hero({ headlineLead, headlineAccent, body }: HeroProps) {
+  // The headline renders as two nodes so the second half can carry the gradient
+  // clip; the CMS stores the halves separately to match.
+  const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
+  const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
+  const bodyText = body?.trim() || DEFAULT_BODY;
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Autoplay only fires on the element's initial load; after framer-motion
@@ -81,20 +103,22 @@ export default function Hero() {
             className="font-sans font-extrabold text-white leading-[0.96] tracking-tighter-2 text-[clamp(2.2rem,9vw,3.2rem)] lg:text-[clamp(3.4rem,6.8vw,6rem)]"
             style={{ textShadow: '0 2px 32px rgba(0,0,0,0.35)' }}
           >
-            Engineering
-            <span
-              className="block font-display italic font-medium tracking-tight pb-[0.06em] mt-[0.05em]"
-              style={{
-                letterSpacing: '-0.015em',
-                backgroundImage: 'linear-gradient(180deg, #fff 0%, var(--primary) 110%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                color: 'transparent',
-              }}
-            >
-              the Future.
-            </span>
+            {lead}
+            {accent && (
+              <span
+                className="block font-display italic font-medium tracking-tight pb-[0.06em] mt-[0.05em]"
+                style={{
+                  letterSpacing: '-0.015em',
+                  backgroundImage: 'linear-gradient(180deg, #fff 0%, var(--primary) 110%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: 'transparent',
+                }}
+              >
+                {accent}
+              </span>
+            )}
           </motion.h1>
           <motion.p
             variants={lineUp}
@@ -102,7 +126,7 @@ export default function Hero() {
             className="mt-5 max-w-[480px] text-white/90 leading-[1.55] text-[1.02rem] font-normal"
             style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
           >
-            Two decades of shaping minds. 11,000+ engineers and counting. At MLRIT, we don&apos;t just teach the future — we build it.
+            {bodyText}
           </motion.p>
           <motion.div variants={lineUp} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
             <Link
