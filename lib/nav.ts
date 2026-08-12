@@ -77,7 +77,7 @@ export const NAV_PRIMARY: NavItem[] = [
       {
         heading: 'Student Community',
         links: [
-          { label: 'Student Clubs', href: '/campus/clubs' },
+          { label: 'Clubs & Societies', href: '/campus/clubs' },
         ],
       },
     ],
