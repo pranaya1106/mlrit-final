@@ -41,3 +41,9 @@ homepage/*.mp4
 # Backend (Python news scraper)
 backend/venv/
 backend/data/*.db
+
+# Agent skills installer output
+.agents/
+.claude/skills/
+.kiro/skills/
+skills-lock.json
