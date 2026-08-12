@@ -36,8 +36,8 @@ const nextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               // Images: self + all whitelisted image hosts
               "img-src 'self' data: blob: https://mlrit.ac.in https://files.mlrit.ac.in https://res.cloudinary.com https://i.ibb.co https://mlrit-next.vercel.app",
-              // News API fetch target + self
-              "connect-src 'self' https://mlrit.ac.in",
+              // News API fetch target + Supabase (auth + content reads) + self
+              "connect-src 'self' https://mlrit.ac.in https://lkfrcvxdpfpgosogvvvg.supabase.co",
               // Google Street View / Maps panorama embeds (Virtual Tour) + Instagram Reels
               "frame-src https://www.google.com https://www.instagram.com",
               "frame-ancestors 'self'",
