@@ -1,3 +1,4 @@
+import Banners from '@/components/sections/Banners';
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
 import Achievements from '@/components/sections/Achievements';
@@ -8,55 +9,61 @@ import Placements from '@/components/sections/Placements';
 import Events from '@/components/sections/Events';
 import Testimonials from '@/components/sections/Testimonials';
 
-type HeroCopy = {
-  headlineLead?: string;
-  headlineAccent?: string;
-  body?: string;
-};
-
 const isFilled = (value: unknown): value is string =>
   typeof value === 'string' && value.trim().length > 0;
 
 /**
- * Hero copy from the CMS. Returns {} on any failure — missing env vars, network
- * error, no row, or a row missing any of the three fields — and Hero falls back
- * to its own hardcoded defaults. All three are required together so a partial
- * row can never mix CMS text with fallback text. Imported dynamically because
- * lib/supabase.ts throws at module scope when its env vars are absent, which a
- * top-level import could not catch.
+ * Copy for one CMS section. Returns {} on any failure — missing env vars,
+ * network error, no row, or a row missing any required field — and the section
+ * component falls back to its own hardcoded defaults. Every field is required
+ * together so a partial row can never mix CMS text with fallback text. Imported
+ * dynamically because lib/supabase.ts throws at module scope when its env vars
+ * are absent, which a top-level import could not catch.
  */
-async function getHeroCopy(): Promise<HeroCopy> {
+async function getSectionCopy<K extends string>(
+  section: string,
+  fields: readonly K[]
+): Promise<Partial<Record<K, string>>> {
   try {
     const { getSection } = await import('@/lib/content/client');
-    const section = await getSection('home', 'hero');
-    const { headlineLead, headlineAccent, body } = (section?.content ?? {}) as Record<
-      string,
-      unknown
-    >;
+    const row = await getSection('home', section);
+    const content = (row?.content ?? {}) as Record<string, unknown>;
 
-    if (isFilled(headlineLead) && isFilled(headlineAccent) && isFilled(body)) {
-      return { headlineLead, headlineAccent, body };
+    if (fields.every((field) => isFilled(content[field]))) {
+      return Object.fromEntries(fields.map((field) => [field, content[field] as string])) as Record<
+        K,
+        string
+      >;
     }
   } catch {
-    // fall through to the defaults baked into Hero
+    // fall through to the defaults baked into the component
   }
   return {};
 }
 
+const HEADLINE_FIELDS = ['headlineLead', 'headlineAccent', 'body'] as const;
+
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const hero = await getHeroCopy();
+  // Fetched together so one slow section cannot serialise behind another.
+  const [hero, achievements, programs, whyMlrit] = await Promise.all([
+    getSectionCopy('hero', HEADLINE_FIELDS),
+    getSectionCopy('achievements', HEADLINE_FIELDS),
+    getSectionCopy('programs', HEADLINE_FIELDS),
+    getSectionCopy('why-mlrit', ['heading', 'body'] as const),
+  ]);
 
   return (
     <>
       <Hero {...hero} />
+      <Banners />
       <Stats />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
-      <Achievements />
-      <WhyMLRIT />
+      <Achievements {...achievements} />
+      <WhyMLRIT {...whyMlrit} />
       <SuccessStories />
-      <Programs />
+      <Programs {...programs} />
       <Placements />
       <Testimonials />
       <Events />

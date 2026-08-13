@@ -1,4 +1,24 @@
-export default function Achievements() {
+/**
+ * Fallback copy. Used whenever the CMS lookup in app/page.tsx fails, returns
+ * nothing, or returns a row missing any field — the section must always render
+ * complete text, never a blank or half-filled headline.
+ */
+const DEFAULT_HEADLINE_LEAD = 'Accreditations';
+const DEFAULT_HEADLINE_ACCENT = 'and Approvals.';
+const DEFAULT_BODY =
+  'AICTE, NAAC, NBA, ARIIA and more — recognised by leading national bodies for academic excellence and quality education.';
+
+type AchievementsProps = {
+  headlineLead?: string;
+  headlineAccent?: string;
+  body?: string;
+};
+
+export default function Achievements({ headlineLead, headlineAccent, body }: AchievementsProps) {
+  const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
+  const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
+  const bodyText = body?.trim() || DEFAULT_BODY;
+
   const ranks = [
     { num: '201',  title: 'NIRF Rankings 2024',       sub: '201–300 Band, Engineering Category' },
     { num: '#6',   title: 'Times Engineering Survey', sub: '6th in Telangana' },
@@ -36,14 +56,14 @@ export default function Achievements() {
             Recognition
           </span>
           <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.04] text-foreground text-[clamp(2rem,3.6vw,3rem)]">
-            Accreditations <span className="font-display italic font-medium" style={{
+            {lead} <span className="font-display italic font-medium" style={{
               backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
               WebkitBackgroundClip: 'text', backgroundClip: 'text',
               WebkitTextFillColor: 'transparent', color: 'transparent',
-            }}>and Approvals.</span>
+            }}>{accent}</span>
           </h2>
           <p className="mt-4 max-w-[560px] text-muted leading-relaxed text-[1.05rem]">
-            AICTE, NAAC, NBA, ARIIA and more — recognised by leading national bodies for academic excellence and quality education.
+            {bodyText}
           </p>
           <ul className="mt-8 space-y-4">
             {ranks.map((r) => (

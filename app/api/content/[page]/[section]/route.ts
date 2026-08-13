@@ -4,20 +4,28 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { getSection, saveSection } from '@/lib/content/client';
+import { getSectionConfig } from '@/lib/content/sections';
 
-const REQUIRED_FIELDS = ['headlineLead', 'headlineAccent', 'body'] as const;
+// Sections predating CONTENT_SECTIONS validated against this fixed list; keep it
+// as the fallback so an unconfigured section still cannot be saved half-empty.
+const DEFAULT_REQUIRED_FIELDS = ['headlineLead', 'headlineAccent', 'body'];
+
+/** Required field names for a section, from its config when it has one. */
+const requiredFieldsFor = (page: string, section: string): readonly string[] =>
+  getSectionConfig(page, section)?.fields.map((field) => field.name) ?? DEFAULT_REQUIRED_FIELDS;
 
 /**
- * Confirms the caller holds a valid Supabase session.
+ * Resolves the caller's session, returning the authenticated user or null.
  *
  * Deliberately independent of middleware.ts: this route is reachable by any
  * HTTP client, and an auth check that assumes a proxy ran in front of it is not
- * an auth check.
+ * an auth check. The user is returned rather than a boolean so writes can
+ * record who made them without a second round-trip.
  */
-async function hasValidSession(): Promise<boolean> {
+async function getSessionUser(): Promise<{ email: string | null } | null> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return false;
+  if (!url || !key) return null;
 
   const cookieStore = cookies();
 
@@ -36,14 +44,15 @@ async function hasValidSession(): Promise<boolean> {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return Boolean(user);
+  return user ? { email: user.email ?? null } : null;
 }
 
 export async function PUT(
   request: Request,
   { params }: { params: { page: string; section: string } }
 ) {
-  if (!(await hasValidSession())) {
+  const user = await getSessionUser();
+  if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -83,7 +92,7 @@ export async function PUT(
     ])
   );
 
-  for (const field of REQUIRED_FIELDS) {
+  for (const field of requiredFieldsFor(params.page, params.section)) {
     const value = record[field];
     if (typeof value !== 'string' || value.length === 0) {
       return NextResponse.json(
@@ -94,7 +103,13 @@ export async function PUT(
   }
 
   try {
-    const saved = await saveSection(params.page, params.section, record, expectedVersion);
+    const saved = await saveSection(
+      params.page,
+      params.section,
+      record,
+      expectedVersion,
+      user.email
+    );
 
     // Drop the cached homepage render so the edit is live on the next visit
     // instead of waiting out the ISR window in app/page.tsx.

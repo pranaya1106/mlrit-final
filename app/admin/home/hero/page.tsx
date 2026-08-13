@@ -6,6 +6,12 @@ import HeroEditor from './HeroEditor';
 // cached version number, or its first save would look like a conflict.
 export const dynamic = 'force-dynamic';
 
+// force-dynamic re-runs the render but does NOT bypass the Data Cache: supabase-js
+// issues selects as GET fetches, which Next caches, so a re-render would happily
+// serve a stale row set. Doubly important here — a cached `version` would make the
+// editor's next save collide with itself and report a phantom conflict.
+export const fetchCache = 'force-no-store';
+
 const asString = (value: unknown): string => (typeof value === 'string' ? value : '');
 
 export default async function HeroAdminPage() {

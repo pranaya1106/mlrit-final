@@ -29,7 +29,15 @@
       "Bash(curl -s -o drive-2.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.48-PM-1.jpeg\")",
       "Bash(curl -s -o drive-3.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.49-PM.jpeg\")",
       "Bash(curl -s -o drive-4.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.50-PM.jpeg\")",
-      "Bash(curl -s -o drive-5.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.51-PM.jpeg\")"
+      "Bash(curl -s -o drive-5.jpg \"https://mlrit.ac.in/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-05-at-2.57.51-PM.jpeg\")",
+      "mcp__supabase__execute_sql",
+      "Bash(pkill -f \"next start\")",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(pkill -f \"dev-all\")",
+      "Bash(lsof -ti:3000)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
 }

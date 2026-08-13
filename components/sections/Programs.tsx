@@ -60,7 +60,27 @@ function pairs<T>(arr: T[]): [T, T | null][] {
   return out;
 }
 
-export default function Programs() {
+/**
+ * Fallback copy. Used whenever the CMS lookup in app/page.tsx fails, returns
+ * nothing, or returns a row missing any field — the section must always render
+ * complete text, never a blank or half-filled headline.
+ */
+const DEFAULT_HEADLINE_LEAD = 'Find the programme';
+const DEFAULT_HEADLINE_ACCENT = 'built for you.';
+const DEFAULT_BODY =
+  'Scroll through every UG and PG programme — each card stacks into view, revealing the next.';
+
+type ProgramsProps = {
+  headlineLead?: string;
+  headlineAccent?: string;
+  body?: string;
+};
+
+export default function Programs({ headlineLead, headlineAccent, body }: ProgramsProps) {
+  const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
+  const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
+  const bodyText = body?.trim() || DEFAULT_BODY;
+
   const [tab, setTab] = useState<'ug' | 'pg'>('ug');
   const rows = pairs(tab === 'ug' ? UG : PG);
 
@@ -75,7 +95,7 @@ export default function Programs() {
               Programmes
             </span>
             <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-foreground text-[clamp(2.4rem,4.4vw,3.8rem)]">
-              Find the programme{' '}
+              {lead}{' '}
               <span
                 className="font-display italic font-medium"
                 style={{
@@ -84,11 +104,11 @@ export default function Programs() {
                   WebkitTextFillColor: 'transparent', color: 'transparent',
                 }}
               >
-                built for you.
+                {accent}
               </span>
             </h2>
             <p className="mt-4 text-muted leading-relaxed max-w-[560px] text-[1.02rem]">
-              Scroll through every UG and PG programme — each card stacks into view, revealing the next.
+              {bodyText}
             </p>
           </div>
           <div className="inline-flex gap-2 self-start md:self-end">
