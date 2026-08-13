@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import SideButtons from '@/components/SideButtons';
+import Chatbot from '@/components/Chatbot';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="pt-[var(--header-h)]">{children}</main>
         <Footer />
         <SideButtons />
+        <Chatbot />
       </body>
     </html>
   );
