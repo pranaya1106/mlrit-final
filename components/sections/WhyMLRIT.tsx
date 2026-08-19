@@ -1,5 +1,6 @@
 'use client';
 import Reveal from '@/components/motion/Reveal';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 /**
  * Fallback copy. Used whenever the CMS lookup in app/page.tsx fails, returns
@@ -18,7 +19,10 @@ type WhyMLRITProps = {
   video?: string;
 };
 
-export default function WhyMLRIT({ heading, body, video }: WhyMLRITProps) {
+export default function WhyMLRIT(props: WhyMLRITProps) {
+  // Live-preview draft wins over the saved props; fallbacks below are unchanged.
+  const { heading, body, video } = useMergedSection('home/why-mlrit', props);
+
   // The first character carries the display-italic drop-cap treatment, so the
   // heading is split rather than rendered as one node.
   const headingText = heading?.trim() || DEFAULT_HEADING;
@@ -28,7 +32,7 @@ export default function WhyMLRIT({ heading, body, video }: WhyMLRITProps) {
   const videoSrc = video?.trim() || DEFAULT_VIDEO;
 
   return (
-    <section className="relative bg-neutral-900 text-white py-10 md:py-14 overflow-hidden">
+    <section id={sectionDomId('home/why-mlrit')} className="relative bg-neutral-900 text-white py-10 md:py-14 overflow-hidden">
       <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-2 gap-10 items-center">
         <Reveal preset="right">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-white/55 font-sans font-bold text-[0.66rem] tracking-[0.22em] uppercase mb-6">

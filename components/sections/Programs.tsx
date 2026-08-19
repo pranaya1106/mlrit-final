@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 type Card = {
   slug: string;
@@ -76,7 +77,10 @@ type ProgramsProps = {
   body?: string;
 };
 
-export default function Programs({ headlineLead, headlineAccent, body }: ProgramsProps) {
+export default function Programs(props: ProgramsProps) {
+  // Live-preview draft wins over the saved props; fallbacks below are unchanged.
+  const { headlineLead, headlineAccent, body } = useMergedSection('home/programs', props);
+
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
   const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
   const bodyText = body?.trim() || DEFAULT_BODY;
@@ -85,6 +89,7 @@ export default function Programs({ headlineLead, headlineAccent, body }: Program
   const rows = pairs(tab === 'ug' ? UG : PG);
 
   return (
+    <div id={sectionDomId('home/programs')}>
     <section id="programs" className="bg-cream py-10 md:py-14 relative">
       {/* Header */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
@@ -154,6 +159,7 @@ export default function Programs({ headlineLead, headlineAccent, body }: Program
         </ScrollStack>
       </div>
     </section>
+    </div>
   );
 }
 

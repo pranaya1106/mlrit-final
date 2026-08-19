@@ -3,9 +3,10 @@
 import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { fieldType, type FieldConfig } from '@/lib/content/sections';
+import { MESSAGE, PREVIEW_PARAM } from '@/lib/preview/context';
 
 type Status =
   | { kind: 'idle' }
@@ -45,6 +46,41 @@ export default function ContentEditor({
   const [version, setVersion] = useState(initialVersion);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [uploading, setUploading] = useState<string | null>(null);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  // Read inside callbacks without making them depend on every keystroke.
+  const valuesRef = useRef(values);
+  valuesRef.current = values;
+
+  const postToPreview = useCallback(
+    (type: string, payload: Record<string, unknown>) => {
+      iframeRef.current?.contentWindow?.postMessage({ type, payload }, window.location.origin);
+    },
+    []
+  );
+
+  const pushDraft = useCallback(() => {
+    postToPreview(MESSAGE.update, { sectionKey: `${page}/${section}`, content: valuesRef.current });
+  }, [postToPreview, page, section]);
+
+  // Debounced so typing does not flood the iframe with a message per keystroke.
+  useEffect(() => {
+    const id = window.setTimeout(pushDraft, 150);
+    return () => window.clearTimeout(id);
+  }, [values, pushDraft]);
+
+  // The iframe announces itself once mounted; seed it and scroll to this section.
+  useEffect(() => {
+    function onMessage(event: MessageEvent) {
+      if (event.origin !== window.location.origin) return;
+      if ((event.data as { type?: string } | null)?.type !== MESSAGE.ready) return;
+      pushDraft();
+      postToPreview(MESSAGE.scroll, { sectionKey: `${page}/${section}` });
+    }
+
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, [pushDraft, postToPreview, page, section]);
 
   /**
    * Uploads immediately on file select and stores the returned key as the
@@ -119,8 +155,9 @@ export default function ContentEditor({
   }
 
   return (
-    <main className="min-h-screen bg-ink px-6 py-12">
-      <div className="mx-auto w-full max-w-[720px]">
+    <main className="flex h-screen overflow-hidden bg-ink">
+      {/* Left: the form. Scrolls independently of the preview. */}
+      <div className="w-[420px] shrink-0 overflow-y-auto px-6 py-10">
         <header className="flex items-baseline justify-between gap-4">
           <div className="min-w-0">
             <Link
@@ -239,6 +276,21 @@ export default function ContentEditor({
             </p>
           )}
         </section>
+      </div>
+
+      {/* Right: the real homepage, driven by postMessage. Nothing here writes
+          to the database — the draft lives in the iframe's React state until
+          Save is pressed. */}
+      <div className="relative flex-1 border-l border-neutral-800 bg-neutral-900">
+        <span className="pointer-events-none absolute left-4 top-3 z-10 rounded bg-ink/80 px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-subtle">
+          Live preview · unsaved
+        </span>
+        <iframe
+          ref={iframeRef}
+          src={`/?${PREVIEW_PARAM}=1`}
+          title="Live preview"
+          className="h-full w-full border-0"
+        />
       </div>
     </main>
   );

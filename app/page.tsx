@@ -1,4 +1,5 @@
 import Banners from '@/components/sections/Banners';
+import { PreviewProvider } from '@/lib/preview/context';
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
 import Achievements from '@/components/sections/Achievements';
@@ -69,7 +70,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <>
+    <PreviewProvider>
       <Hero {...hero} />
       <Banners />
       <Stats />
@@ -81,6 +82,6 @@ export default async function HomePage() {
       <Placements />
       <Testimonials />
       <Events />
-    </>
+    </PreviewProvider>
   );
 }

@@ -39,7 +39,10 @@ const nextConfig = {
               // News API fetch target + Supabase (auth + content reads) + self
               "connect-src 'self' https://mlrit.ac.in https://lkfrcvxdpfpgosogvvvg.supabase.co",
               // Google Street View / Maps panorama embeds (Virtual Tour) + Instagram Reels
-              "frame-src https://www.google.com https://www.instagram.com",
+              // Video/audio: bundled files, /cdn proxy (both 'self'), plus blob:
+              // for the admin live preview showing a not-yet-uploaded file.
+              "media-src 'self' blob: data:",
+              "frame-src 'self' https://www.google.com https://www.instagram.com",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",

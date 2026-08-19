@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
+
 const RANKS = [
   { num: '201',  title: 'NIRF Rankings 2024',       sub: '201–300 Band · Engineering Category', tint: '#e85d04' },
   { num: '#6',   title: 'Times Engineering Survey', sub: '6th in Telangana',                    tint: '#1F6B24' },
@@ -47,12 +49,16 @@ type AchievementsProps = {
   body?: string;
 };
 
-export default function Achievements({ headlineLead, headlineAccent, body }: AchievementsProps) {
+export default function Achievements(props: AchievementsProps) {
+  // Live-preview draft wins over the saved props; fallbacks below are unchanged.
+  const { headlineLead, headlineAccent, body } = useMergedSection('home/achievements', props);
+
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
   const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
   const bodyText = body?.trim() || DEFAULT_BODY;
 
   return (
+    <div id={sectionDomId('home/achievements')}>
     <section id="achievements" className="relative bg-snow py-16 md:py-24 overflow-hidden">
       {/* Decorative blobs */}
       <div aria-hidden className="absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full bg-secondary/[0.10] blur-[100px] pointer-events-none" />
@@ -231,5 +237,6 @@ export default function Achievements({ headlineLead, headlineAccent, body }: Ach
         </motion.div>
       </div>
     </section>
+    </div>
   );
 }

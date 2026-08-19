@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 import { ChevronRight } from '../icons';
 import StudentReelSlider from './StudentReelSlider';
 import type { DeptReel } from '@/lib/departments';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 const lineUp = {
   hidden: { opacity: 0, y: 28 },
@@ -52,7 +53,10 @@ const HERO_REELS: DeptReel[] = [
   },
 ];
 
-export default function Hero({ headlineLead, headlineAccent, body }: HeroProps) {
+export default function Hero(props: HeroProps) {
+  // Live-preview draft wins over the saved props; fallbacks below are unchanged.
+  const { headlineLead, headlineAccent, body } = useMergedSection('home/hero', props);
+
   // The headline renders as two nodes so the second half can carry the gradient
   // clip; the CMS stores the halves separately to match.
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
@@ -73,7 +77,7 @@ export default function Hero({ headlineLead, headlineAccent, body }: HeroProps) 
 
   return (
     <>
-      <section className="relative w-full h-[calc(100vh-var(--header-h))] min-h-[640px] overflow-hidden flex flex-col justify-end items-center lg:items-start">
+      <section id={sectionDomId('home/hero')} className="relative w-full h-[calc(100vh-var(--header-h))] min-h-[640px] overflow-hidden flex flex-col justify-end items-center lg:items-start">
         {/* Background video */}
         <motion.video
           ref={videoRef}
