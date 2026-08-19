@@ -20,26 +20,40 @@ const isFilled = (value: unknown): value is string =>
  * dynamically because lib/supabase.ts throws at module scope when its env vars
  * are absent, which a top-level import could not catch.
  */
-async function getSectionCopy<K extends string>(
+async function getSectionCopy<K extends string, O extends string = never>(
   section: string,
-  fields: readonly K[]
-): Promise<Partial<Record<K, string>>> {
+  fields: readonly K[],
+  optional: readonly O[] = [] as readonly O[]
+): Promise<Partial<Record<K | O, string>>> {
   try {
     const { getSection } = await import('@/lib/content/client');
     const row = await getSection('home', section);
     const content = (row?.content ?? {}) as Record<string, unknown>;
 
     if (fields.every((field) => isFilled(content[field]))) {
-      return Object.fromEntries(fields.map((field) => [field, content[field] as string])) as Record<
-        K,
-        string
-      >;
+      const required = fields.map((field) => [field, content[field] as string] as const);
+      // Optional fields (media) are carried through only when populated; an
+      // empty one means "nothing uploaded", and the component's own default wins.
+      const extras = optional
+        .filter((field) => isFilled(content[field]))
+        .map((field) => [field, content[field] as string] as const);
+
+      return Object.fromEntries([...required, ...extras]) as Partial<Record<K | O, string>>;
     }
   } catch {
     // fall through to the defaults baked into the component
   }
   return {};
 }
+
+/**
+ * Media fields store a bare storage key; the public site serves those through
+ * the /cdn proxy. A value that is already a path or absolute URL is left alone.
+ */
+const assetUrl = (value?: string): string | undefined => {
+  if (!value) return undefined;
+  return value.startsWith('/') || /^https?:\/\//i.test(value) ? value : `/cdn/${value}`;
+};
 
 const HEADLINE_FIELDS = ['headlineLead', 'headlineAccent', 'body'] as const;
 
@@ -51,7 +65,7 @@ export default async function HomePage() {
     getSectionCopy('hero', HEADLINE_FIELDS),
     getSectionCopy('achievements', HEADLINE_FIELDS),
     getSectionCopy('programs', HEADLINE_FIELDS),
-    getSectionCopy('why-mlrit', ['heading', 'body'] as const),
+    getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
   ]);
 
   return (
@@ -61,7 +75,7 @@ export default async function HomePage() {
       <Stats />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
       <Achievements {...achievements} />
-      <WhyMLRIT {...whyMlrit} />
+      <WhyMLRIT {...whyMlrit} video={assetUrl(whyMlrit.video)} />
       <SuccessStories />
       <Programs {...programs} />
       <Placements />

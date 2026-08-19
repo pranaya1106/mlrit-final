@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import type { FieldConfig } from '@/lib/content/sections';
+import { fieldType, type FieldConfig } from '@/lib/content/sections';
 
 type Status =
   | { kind: 'idle' }
@@ -13,6 +13,9 @@ type Status =
   | { kind: 'saved' }
   | { kind: 'conflict' }
   | { kind: 'error'; message: string };
+
+const INPUT_CLASS =
+  'mt-1.5 w-full rounded-md border border-border bg-neutral-0 px-3 py-2 text-base text-foreground outline-none focus:border-primary';
 
 const CONFLICT_MESSAGE =
   'Someone else saved changes. Refresh to see the latest version before saving again.';
@@ -41,6 +44,37 @@ export default function ContentEditor({
   const [values, setValues] = useState(initialContent);
   const [version, setVersion] = useState(initialVersion);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
+  const [uploading, setUploading] = useState<string | null>(null);
+
+  /**
+   * Uploads immediately on file select and stores the returned key as the
+   * field's value. From the save path's point of view the result is just
+   * another string, so nothing downstream needs to know it came from a file.
+   */
+  async function handleUpload(fieldName: string, file: File) {
+    setUploading(fieldName);
+    setStatus({ kind: 'idle' });
+
+    try {
+      const body = new FormData();
+      body.set('file', file);
+      body.set('prefix', `${page}-${section}`);
+
+      const response = await fetch('/api/content/upload', { method: 'POST', body });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setStatus({ kind: 'error', message: data?.error ?? 'Upload failed.' });
+        return;
+      }
+
+      setValues((current) => ({ ...current, [fieldName]: data.key }));
+    } catch {
+      setStatus({ kind: 'error', message: 'Network error. The file was not uploaded.' });
+    } finally {
+      setUploading(null);
+    }
+  }
 
   async function handleSave() {
     setStatus({ kind: 'saving' });
@@ -110,28 +144,68 @@ export default function ContentEditor({
         </header>
 
         <section className="mt-8 rounded-lg bg-snow p-6 shadow-card-soft">
-          {fields.map(({ name, label: fieldLabel, multiline }) => (
-            <label key={name} className="mt-5 block first:mt-0">
-              <span className="font-mono text-xs uppercase tracking-wider text-muted">
-                {fieldLabel}
-              </span>
-              {multiline ? (
-                <textarea
-                  rows={4}
-                  value={values[name] ?? ''}
-                  onChange={(e) => setValues({ ...values, [name]: e.target.value })}
-                  className="mt-1.5 w-full resize-y rounded-md border border-border bg-neutral-0 px-3 py-2 text-base leading-relaxed text-foreground outline-none focus:border-primary"
-                />
-              ) : (
-                <input
-                  type="text"
-                  value={values[name] ?? ''}
-                  onChange={(e) => setValues({ ...values, [name]: e.target.value })}
-                  className="mt-1.5 w-full rounded-md border border-border bg-neutral-0 px-3 py-2 text-base text-foreground outline-none focus:border-primary"
-                />
-              )}
-            </label>
-          ))}
+          {fields.map((field) => {
+            const { name, label: fieldLabel } = field;
+            const type = fieldType(field);
+            const isMedia = type === 'image' || type === 'video';
+
+            return (
+              <label key={name} className="mt-5 block first:mt-0">
+                <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                  {fieldLabel}
+                </span>
+
+                {type === 'multiline' && (
+                  <textarea
+                    rows={4}
+                    value={values[name] ?? ''}
+                    onChange={(e) => setValues({ ...values, [name]: e.target.value })}
+                    className={`${INPUT_CLASS} resize-y leading-relaxed`}
+                  />
+                )}
+
+                {type === 'text' && (
+                  <input
+                    type="text"
+                    value={values[name] ?? ''}
+                    onChange={(e) => setValues({ ...values, [name]: e.target.value })}
+                    className={INPUT_CLASS}
+                  />
+                )}
+
+                {isMedia && (
+                  <>
+                    <input
+                      type="file"
+                      accept={type === 'image' ? 'image/*' : 'video/*'}
+                      disabled={uploading === name}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleUpload(name, file);
+                      }}
+                      className={`${INPUT_CLASS} file:mr-3 file:rounded file:border-0 file:bg-neutral-100 file:px-3 file:py-1.5 file:text-sm`}
+                    />
+                    <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
+                      {uploading === name
+                        ? 'Uploading…'
+                        : values[name]
+                          ? values[name]
+                          : `No ${type} uploaded — the built-in one is used.`}
+                    </span>
+                    {values[name] && (
+                      <button
+                        type="button"
+                        onClick={() => setValues({ ...values, [name]: '' })}
+                        className="mt-1 font-mono text-[0.7rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-foreground"
+                      >
+                        Clear
+                      </button>
+                    )}
+                  </>
+                )}
+              </label>
+            );
+          })}
 
           <div className="mt-7 flex items-center gap-4">
             <button

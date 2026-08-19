@@ -35,16 +35,35 @@ export const CONTENT_SECTIONS = {
     fields: [
       { name: 'heading', label: 'Heading' },
       { name: 'body', label: 'Body', multiline: true },
+      { name: 'video', label: 'Background video', type: 'video' },
     ],
   },
 } as const;
 
 export type SectionKey = keyof typeof CONTENT_SECTIONS;
 
+export type FieldType = 'text' | 'multiline' | 'image' | 'video';
+
 export type FieldConfig = {
   readonly name: string;
   readonly label: string;
+  readonly type?: FieldType;
+  /** Legacy shorthand for `type: 'multiline'`; existing configs still use it. */
   readonly multiline?: boolean;
+};
+
+/** Resolved field type — `type` wins, then the `multiline` shorthand, then text. */
+export const fieldType = (field: FieldConfig): FieldType =>
+  field.type ?? (field.multiline ? 'multiline' : 'text');
+
+/**
+ * Media fields hold an uploaded asset key and are optional: a section with no
+ * uploaded file falls back to whatever the component hardcodes. Only the text
+ * fields are required on save.
+ */
+export const isMediaField = (field: FieldConfig): boolean => {
+  const type = fieldType(field);
+  return type === 'image' || type === 'video';
 };
 
 /** Field config for a page/section pair, or null when it is not editable. */

@@ -7,21 +7,25 @@ import Reveal from '@/components/motion/Reveal';
  * complete text, never a blank or half-filled heading.
  */
 const DEFAULT_HEADING = 'Industry Integrated Curriculum Blended With Sports';
+const DEFAULT_VIDEO = '/videos/sports.mp4';
 const DEFAULT_BODY =
   'MLRIT is the only engineering college in Telangana where athletic performance is built into your degree — with national-level coaching, sports scholarships, and dedicated training hours. Our students compete at state and national levels across cricket, badminton, athletics, and more, backed by professional infrastructure and full institutional support.';
 
 type WhyMLRITProps = {
   heading?: string;
   body?: string;
+  /** Full URL for the background clip; falls back to the bundled file. */
+  video?: string;
 };
 
-export default function WhyMLRIT({ heading, body }: WhyMLRITProps) {
+export default function WhyMLRIT({ heading, body, video }: WhyMLRITProps) {
   // The first character carries the display-italic drop-cap treatment, so the
   // heading is split rather than rendered as one node.
   const headingText = heading?.trim() || DEFAULT_HEADING;
   const headingInitial = headingText.slice(0, 1);
   const headingRest = headingText.slice(1);
   const bodyText = body?.trim() || DEFAULT_BODY;
+  const videoSrc = video?.trim() || DEFAULT_VIDEO;
 
   return (
     <section className="relative bg-neutral-900 text-white py-10 md:py-14 overflow-hidden">
@@ -43,7 +47,7 @@ export default function WhyMLRIT({ heading, body }: WhyMLRITProps) {
         </Reveal>
         <Reveal preset="scale" delay={0.2} className="rounded-2xl overflow-hidden aspect-video bg-black/40">
           <video
-            src="/videos/sports.mp4"
+            src={videoSrc}
             muted
             loop
             playsInline
