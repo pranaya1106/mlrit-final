@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { getSection, saveSection } from '@/lib/content/client';
+import { getSection, saveSection, SectionWriteError } from '@/lib/content/client';
 import { getSectionConfig, isMediaField } from '@/lib/content/sections';
 import { findTransientMediaError } from '@/lib/content/validate';
 
@@ -134,7 +134,7 @@ export async function PUT(
 
     return NextResponse.json(saved);
   } catch (error) {
-    if (error instanceof Error && error.message === 'CONFLICT') {
+    if (error instanceof SectionWriteError && error.code === 'CONFLICT') {
       const current = await getSection(params.page, params.section);
       return NextResponse.json(
         {
@@ -143,6 +143,19 @@ export async function PUT(
           version: current?.version ?? null,
         },
         { status: 409 }
+      );
+    }
+
+    // The row was expected to exist and does not — deleted out from under the
+    // editor. Distinct from a conflict: telling someone to "refresh to see the
+    // latest version" is wrong when there is no version to see.
+    if (error instanceof SectionWriteError && error.code === 'MISSING') {
+      return NextResponse.json(
+        {
+          error:
+            'This section no longer exists in the database — it may have been deleted. Reload the admin before saving again.',
+        },
+        { status: 404 }
       );
     }
 
