@@ -38,11 +38,32 @@ export const CONTENT_SECTIONS = {
       { name: 'video', label: 'Background video', type: 'video' },
     ],
   },
+
+
+  // TEMPORARY. Exists only to exercise the gallery field end to end without
+  // touching production content. No public component reads test/*. Delete this
+  // entry once a real section (banners, placements, achievements) is wired up.
+  'test/gallery-sandbox': {
+    label: 'Sandbox — Gallery field',
+    fields: [
+      { name: 'heading', label: 'Heading' },
+      {
+        name: 'images',
+        label: 'Gallery (with per-item metadata)',
+        type: 'gallery',
+        itemFields: ['title', 'linkUrl', 'active', 'startDate', 'endDate'],
+      },
+      { name: 'plainImages', label: 'Gallery (images only)', type: 'gallery' },
+    ],
+  },
 } as const;
 
 export type SectionKey = keyof typeof CONTENT_SECTIONS;
 
-export type FieldType = 'text' | 'multiline' | 'image' | 'video';
+export type FieldType = 'text' | 'multiline' | 'image' | 'video' | 'gallery';
+
+/** Per-item metadata a gallery may collect alongside each image. */
+export type GalleryItemField = 'title' | 'linkUrl' | 'active' | 'startDate' | 'endDate';
 
 export type FieldConfig = {
   readonly name: string;
@@ -50,6 +71,26 @@ export type FieldConfig = {
   readonly type?: FieldType;
   /** Legacy shorthand for `type: 'multiline'`; existing configs still use it. */
   readonly multiline?: boolean;
+  /**
+   * Gallery only. Which metadata inputs each item gets. Omit for a plain list
+   * of images with no per-item fields.
+   */
+  readonly itemFields?: readonly GalleryItemField[];
+};
+
+/**
+ * One gallery entry. `id` is minted client-side on add and never changes, so it
+ * survives reordering and is safe as a React key; `key` is the storage key (or,
+ * briefly, a local object URL while the upload is in flight).
+ */
+export type GalleryItem = {
+  id: string;
+  key: string;
+  title?: string;
+  linkUrl?: string;
+  active?: boolean;
+  startDate?: string;
+  endDate?: string;
 };
 
 /** Resolved field type — `type` wins, then the `multiline` shorthand, then text. */
@@ -63,7 +104,22 @@ export const fieldType = (field: FieldConfig): FieldType =>
  */
 export const isMediaField = (field: FieldConfig): boolean => {
   const type = fieldType(field);
-  return type === 'image' || type === 'video';
+  return type === 'image' || type === 'video' || type === 'gallery';
+};
+
+/** Gallery fields hold an array of items rather than a single string value. */
+export const isGalleryField = (field: FieldConfig): boolean => fieldType(field) === 'gallery';
+
+/** Narrows an unknown stored value to gallery items, discarding malformed ones. */
+export const asGalleryItems = (value: unknown): GalleryItem[] => {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (item): item is GalleryItem =>
+      typeof item === 'object' &&
+      item !== null &&
+      typeof (item as GalleryItem).id === 'string' &&
+      typeof (item as GalleryItem).key === 'string'
+  );
 };
 
 /** Field config for a page/section pair, or null when it is not editable. */

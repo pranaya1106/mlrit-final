@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import ContentEditor from '@/app/admin/ContentEditor';
 import { getSection } from '@/lib/content/client';
-import { getSectionConfig } from '@/lib/content/sections';
+import { asGalleryItems, getSectionConfig, isGalleryField } from '@/lib/content/sections';
 
 // Always read the row at request time — an editor must never be handed a
 // cached version number, or its first save would look like a conflict.
@@ -45,9 +45,13 @@ export default async function SectionAdminPage({
   const row = await getSection(params.page, params.section);
   const content = (row?.content ?? {}) as Record<string, unknown>;
 
-  const initialContent: Record<string, string> = {};
+  const initialContent: Record<string, unknown> = {};
   for (const field of config.fields) {
-    initialContent[field.name] = asString(content[field.name]);
+    // Galleries hold an array of items; everything else is a plain string.
+    // Coercing a gallery through asString() would silently wipe it.
+    initialContent[field.name] = isGalleryField(field)
+      ? asGalleryItems(content[field.name])
+      : asString(content[field.name]);
   }
 
   return (

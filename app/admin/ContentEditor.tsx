@@ -5,7 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { fieldType, type FieldConfig } from '@/lib/content/sections';
+import {
+  asGalleryItems,
+  fieldType,
+  type FieldConfig,
+  type GalleryItem,
+} from '@/lib/content/sections';
 import { MESSAGE, PREVIEW_PARAM } from '@/lib/preview/context';
 
 type Status =
@@ -40,7 +45,7 @@ export default function ContentEditor({
   section: string;
   label: string;
   fields: readonly FieldConfig[];
-  initialContent: Record<string, string>;
+  initialContent: Record<string, unknown>;
   initialVersion: number;
 }) {
   const router = useRouter();
@@ -57,6 +62,8 @@ export default function ContentEditor({
   // Object URLs created for instant media preview, revoked once uploaded.
   // These are scoped to THIS document — the iframe cannot resolve them, so it
   // receives the File itself and mints its own.
+  // Keyed by upload slot: the field name for a single image/video, or
+  // `field::itemId` for one gallery entry.
   const objectUrlsRef = useRef<Record<string, string>>({});
   const pendingFilesRef = useRef<Record<string, File>>({});
 
@@ -68,12 +75,22 @@ export default function ContentEditor({
   );
 
   const pushDraft = useCallback(() => {
-    // Files override their field's string value: a parent-document blob: URL
-    // is meaningless inside the iframe, but a File survives structured clone.
-    const content: Record<string, unknown> = {
-      ...valuesRef.current,
-      ...pendingFilesRef.current,
-    };
+    // Files replace their field's string value: a parent-document blob: URL is
+    // meaningless inside the iframe, but a File survives structured clone. For
+    // galleries the File has to sit on the individual item, not the array.
+    const content: Record<string, unknown> = {};
+
+    for (const [name, value] of Object.entries(valuesRef.current)) {
+      if (Array.isArray(value)) {
+        content[name] = (value as GalleryItem[]).map((item) => {
+          const pending = pendingFilesRef.current[`${name}::${item.id}`];
+          return pending ? { ...item, key: pending } : item;
+        });
+        continue;
+      }
+      content[name] = pendingFilesRef.current[name] ?? value;
+    }
+
     postToPreview(MESSAGE.update, { sectionKey: `${page}/${section}`, content });
   }, [postToPreview, page, section]);
 
@@ -122,26 +139,31 @@ export default function ContentEditor({
   }, []);
 
   /**
-   * Uploads immediately on file select and stores the returned key as the
-   * field's value. From the save path's point of view the result is just
-   * another string, so nothing downstream needs to know it came from a file.
+   * Shared upload for a single media field and for one gallery item.
+   *
+   * `slot` identifies what is being uploaded — a field name, or
+   * `field::itemId` — and keys both the pending File (sent to the preview) and
+   * the local object URL (shown in this document). `write` applies a value to
+   * wherever it belongs; `revert` puts the previous value back on failure so a
+   * blob: placeholder is never left behind for Save to persist.
    */
-  async function handleUpload(fieldName: string, file: File) {
-    setUploading(fieldName);
+  async function runUpload(
+    slot: string,
+    file: File,
+    write: (value: string) => void,
+    revert: () => void
+  ) {
+    setUploading(slot);
     setStatus({ kind: 'idle' });
 
-    // Kept so a failed upload can put the field back rather than leaving a
-    // blob: placeholder that Save would try to persist.
-    const previousValue = valuesRef.current[fieldName] ?? '';
-
-    // Show the chosen file in the preview straight away; the upload continues
-    // in the background and replaces this with the real storage key.
+    // Show the chosen file straight away; the upload continues in the
+    // background and replaces this with the real storage key.
     const objectUrl = URL.createObjectURL(file);
-    URL.revokeObjectURL(objectUrlsRef.current[fieldName] ?? '');
-    objectUrlsRef.current[fieldName] = objectUrl;
+    URL.revokeObjectURL(objectUrlsRef.current[slot] ?? '');
+    objectUrlsRef.current[slot] = objectUrl;
     // The iframe gets the File; this parent-scoped URL is only for local UI.
-    pendingFilesRef.current[fieldName] = file;
-    setValues((current) => ({ ...current, [fieldName]: objectUrl }));
+    pendingFilesRef.current[slot] = file;
+    write(objectUrl);
 
     try {
       const body = new FormData();
@@ -153,25 +175,94 @@ export default function ContentEditor({
 
       if (!response.ok) {
         setStatus({ kind: 'error', message: data?.error ?? 'Upload failed.' });
-        setValues((current) => ({ ...current, [fieldName]: previousValue }));
+        revert();
         return;
       }
 
-      setValues((current) => ({ ...current, [fieldName]: data.key }));
+      write(data.key);
     } catch {
       setStatus({ kind: 'error', message: 'Network error. The file was not uploaded.' });
-      setValues((current) => ({ ...current, [fieldName]: previousValue }));
+      revert();
     } finally {
-      // Swap done (or failed) — the blob is no longer what the field points at,
+      // Swap done (or failed) — the blob is no longer what anything points at,
       // and dropping the File lets the real storage key reach the preview.
-      const stale = objectUrlsRef.current[fieldName];
+      const stale = objectUrlsRef.current[slot];
       if (stale) {
         URL.revokeObjectURL(stale);
-        delete objectUrlsRef.current[fieldName];
+        delete objectUrlsRef.current[slot];
       }
-      delete pendingFilesRef.current[fieldName];
+      delete pendingFilesRef.current[slot];
       setUploading(null);
     }
+  }
+
+  /** Single image/video field. */
+  function handleUpload(fieldName: string, file: File) {
+    const previous = (valuesRef.current[fieldName] as string) ?? '';
+    return runUpload(
+      fieldName,
+      file,
+      (value) => setValues((current) => ({ ...current, [fieldName]: value })),
+      () => setValues((current) => ({ ...current, [fieldName]: previous }))
+    );
+  }
+
+  // ---- gallery helpers ------------------------------------------------------
+  //
+  // Every mutation derives its next state from the updater's `current`, never
+  // from valuesRef. The ref only syncs during render, but adding an image
+  // queues two updates in one tick (append the item, then write its blob URL) —
+  // reading the ref for the second one used a pre-append snapshot and silently
+  // discarded the new item, so no thumbnail ever appeared. The same defect was
+  // latent in remove/reorder/revert whenever two updates landed in one tick.
+
+  /** Applies a transform to one gallery field, computed from live state. */
+  const updateGallery = (
+    fieldName: string,
+    transform: (items: GalleryItem[]) => GalleryItem[]
+  ) =>
+    setValues((current) => ({
+      ...current,
+      [fieldName]: transform(asGalleryItems(current[fieldName])),
+    }));
+
+  const patchItem = (fieldName: string, id: string, patch: Partial<GalleryItem>) =>
+    updateGallery(fieldName, (items) =>
+      items.map((item) => (item.id === id ? { ...item, ...patch } : item))
+    );
+
+  /** Appends an item, then uploads into it. The id is stable across reorders. */
+  function addGalleryImage(fieldName: string, file: File) {
+    const id =
+      typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+    updateGallery(fieldName, (items) => [...items, { id, key: '' }]);
+
+    return runUpload(
+      `${fieldName}::${id}`,
+      file,
+      (value) => patchItem(fieldName, id, { key: value }),
+      // A failed upload leaves no half-made row behind.
+      () => updateGallery(fieldName, (items) => items.filter((item) => item.id !== id))
+    );
+  }
+
+  function removeGalleryItem(fieldName: string, id: string) {
+    updateGallery(fieldName, (items) => items.filter((item) => item.id !== id));
+  }
+
+  function moveGalleryItem(fieldName: string, id: string, delta: -1 | 1) {
+    updateGallery(fieldName, (items) => {
+      const from = items.findIndex((item) => item.id === id);
+      const to = from + delta;
+      if (from < 0 || to < 0 || to >= items.length) return items;
+
+      const next = [...items];
+      [next[from], next[to]] = [next[to], next[from]];
+      return next;
+    });
   }
 
   async function handleSave() {
@@ -252,7 +343,9 @@ export default function ContentEditor({
           {fields.map((field) => {
             const { name, label: fieldLabel } = field;
             const type = fieldType(field);
-            const isMedia = type === 'image' || type === 'video';
+            // Values are unknown now that galleries hold arrays; text inputs
+            // need a definite string.
+            const text = typeof values[name] === 'string' ? (values[name] as string) : '';
 
             return (
               <label key={name} className="mt-5 block first:mt-0">
@@ -263,7 +356,7 @@ export default function ContentEditor({
                 {type === 'multiline' && (
                   <textarea
                     rows={4}
-                    value={values[name] ?? ''}
+                    value={text}
                     onChange={(e) => setValues({ ...values, [name]: e.target.value })}
                     className={`${INPUT_CLASS} resize-y leading-relaxed`}
                   />
@@ -272,13 +365,139 @@ export default function ContentEditor({
                 {type === 'text' && (
                   <input
                     type="text"
-                    value={values[name] ?? ''}
+                    value={text}
                     onChange={(e) => setValues({ ...values, [name]: e.target.value })}
                     className={INPUT_CLASS}
                   />
                 )}
 
-                {isMedia && (
+
+                {type === 'gallery' && (
+                  <div className="mt-1.5">
+                    {asGalleryItems(values[name]).length === 0 && (
+                      <p className="font-mono text-[0.7rem] text-subtle">No images yet.</p>
+                    )}
+
+
+                    <ul className="space-y-3">
+                      {asGalleryItems(values[name]).map((item, index, all) => {
+                        const slot = `${name}::${item.id}`;
+                        const busy = uploading === slot;
+                        const src = item.key.startsWith('blob:')
+                          ? item.key
+                          : item.key
+                            ? `/cdn/${item.key}`
+                            : '';
+
+                        return (
+                          <li
+                            key={item.id}
+                            className="flex gap-3 rounded-md border border-border bg-neutral-0 p-3"
+                          >
+                            <div className="h-16 w-24 shrink-0 overflow-hidden rounded bg-neutral-100">
+                              {src ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  src={src}
+                                  alt={item.title ?? ''}
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <span className="grid h-full place-items-center font-mono text-[0.6rem] uppercase text-subtle">
+                                  {busy ? 'up…' : '—'}
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="min-w-0 flex-1 space-y-2">
+                              {(field.itemFields ?? []).map((itemField) => {
+                                if (itemField === 'active') {
+                                  return (
+                                    <label
+                                      key={itemField}
+                                      className="flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-wider text-muted"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        checked={item.active ?? false}
+                                        onChange={(e) =>
+                                          patchItem(name, item.id, { active: e.target.checked })
+                                        }
+                                        className="h-4 w-4 accent-primary"
+                                      />
+                                      Active
+                                    </label>
+                                  );
+                                }
+
+                                const isDate = itemField === 'startDate' || itemField === 'endDate';
+                                return (
+                                  <input
+                                    key={itemField}
+                                    type={isDate ? 'date' : itemField === 'linkUrl' ? 'url' : 'text'}
+                                    placeholder={itemField}
+                                    value={(item[itemField] as string | undefined) ?? ''}
+                                    onChange={(e) =>
+                                      patchItem(name, item.id, { [itemField]: e.target.value })
+                                    }
+                                    className="w-full rounded border border-border bg-neutral-0 px-2 py-1 text-sm text-foreground outline-none focus:border-primary"
+                                  />
+                                );
+                              })}
+                            </div>
+
+                            <div className="flex shrink-0 flex-col items-end justify-between">
+                              <div className="flex gap-1">
+                                <button
+                                  type="button"
+                                  aria-label="Move up"
+                                  disabled={index === 0}
+                                  onClick={() => moveGalleryItem(name, item.id, -1)}
+                                  className="rounded px-1.5 font-mono text-xs text-muted hover:text-foreground disabled:opacity-30"
+                                >
+                                  ↑
+                                </button>
+                                <button
+                                  type="button"
+                                  aria-label="Move down"
+                                  disabled={index === all.length - 1}
+                                  onClick={() => moveGalleryItem(name, item.id, 1)}
+                                  className="rounded px-1.5 font-mono text-xs text-muted hover:text-foreground disabled:opacity-30"
+                                >
+                                  ↓
+                                </button>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => removeGalleryItem(name, item.id)}
+                                className="font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-orange-600"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) addGalleryImage(name, file);
+                        // Allow picking the same file again after a remove.
+                        e.target.value = '';
+                      }}
+                      className={`${INPUT_CLASS} file:mr-3 file:rounded file:border-0 file:bg-neutral-100 file:px-3 file:py-1.5 file:text-sm`}
+                    />
+                    <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
+                      Add image
+                    </span>
+                  </div>
+                )}
+
+                {(type === 'image' || type === 'video') && (
                   <>
                     <input
                       type="file"
@@ -293,11 +512,9 @@ export default function ContentEditor({
                     <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
                       {uploading === name
                         ? 'Uploading…'
-                        : values[name]
-                          ? values[name]
-                          : `No ${type} uploaded — the built-in one is used.`}
+                        : text || `No ${type} uploaded — the built-in one is used.`}
                     </span>
-                    {values[name] && (
+                    {text && (
                       <button
                         type="button"
                         onClick={() => setValues({ ...values, [name]: '' })}

@@ -37,14 +37,40 @@ export const MESSAGE = {
 export const sectionDomId = (sectionKey: string): string =>
   `cms-section-${sectionKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
 
-type SectionOverride = Record<string, string>;
+/** Values may be strings, or arrays of objects for gallery fields. */
+type SectionOverride = Record<string, unknown>;
+
+/**
+ * Structural comparison, one level into arrays of plain objects.
+ *
+ * A gallery re-sends a fresh array every keystroke, so reference equality would
+ * never hold and every message would re-render. Comparing item fields keeps the
+ * "identical payload changes nothing" guarantee for galleries too.
+ */
+const valueEqual = (a: unknown, b: unknown): boolean => {
+  if (a === b) return true;
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((item, i) => valueEqual(item, b[i]));
+  }
+  if (a && b && typeof a === 'object' && typeof b === 'object') {
+    const ak = Object.keys(a as object);
+    const bk = Object.keys(b as object);
+    return (
+      ak.length === bk.length &&
+      ak.every(
+        (k) => (a as Record<string, unknown>)[k] === (b as Record<string, unknown>)[k]
+      )
+    );
+  }
+  return false;
+};
 
 const shallowEqual = (a?: SectionOverride, b?: SectionOverride): boolean => {
   if (a === b) return true;
   if (!a || !b) return false;
   const keys = Object.keys(a);
   if (keys.length !== Object.keys(b).length) return false;
-  return keys.every((k) => a[k] === b[k]);
+  return keys.every((k) => valueEqual(a[k], b[k]));
 };
 
 /**
@@ -127,35 +153,50 @@ export function PreviewProvider({ children }: { children: React.ReactNode }) {
         const content = data.payload?.content;
         if (typeof sectionKey !== 'string' || !content || typeof content !== 'object') return;
 
-        const clean: Record<string, string> = {};
+        /**
+         * A File/Blob arrives when the editor picks a file that has not
+         * finished uploading. An object URL is scoped to the document that
+         * created it, so the parent's URL is unresolvable here — mint our own
+         * against this iframe's document instead. Structured clone may
+         * downgrade File to Blob, so accept both.
+         *
+         * `slot` identifies where the blob lives so the URL can be reused:
+         * pushDraft re-sends the same File on every keystroke, and re-minting
+         * would revoke the URL an <img>/<video> is still loading, surfacing
+         * ERR_FILE_NOT_FOUND. Gallery items key by their stable item id, so
+         * reordering does not invalidate anyone's URL.
+         */
+        const localiseBlob = (blob: Blob, slot: string): string => {
+          const previous = localUrlsRef.current[slot];
+          if (previous && previous.blob === blob) return previous.url;
+
+          if (previous) URL.revokeObjectURL(previous.url);
+          const url = URL.createObjectURL(blob);
+          localUrlsRef.current[slot] = { blob, url };
+          return url;
+        };
+
+        /** Walks into gallery arrays; Files can sit inside items, not just at top level. */
+        const localise = (value: unknown, slot: string): unknown => {
+          if (value instanceof Blob) return localiseBlob(value, slot);
+
+          if (Array.isArray(value)) {
+            return value.map((item, index) => {
+              if (!item || typeof item !== 'object') return item;
+              const record = item as Record<string, unknown>;
+              const itemId = typeof record.id === 'string' ? record.id : String(index);
+              return Object.fromEntries(
+                Object.entries(record).map(([k, v]) => [k, localise(v, `${slot}[${itemId}].${k}`)])
+              );
+            });
+          }
+
+          return value;
+        };
+
+        const clean: SectionOverride = {};
         for (const [key, value] of Object.entries(content as Record<string, unknown>)) {
-          if (typeof value === 'string') {
-            clean[key] = value;
-            continue;
-          }
-
-          // A File/Blob arrives when the editor picks a file that has not
-          // finished uploading. An object URL is scoped to the document that
-          // created it, so the parent's URL is unresolvable here — mint our
-          // own against this iframe's document instead.
-          // Structured clone may downgrade File to Blob, so accept both.
-          if (value instanceof Blob) {
-            const slot = `${sectionKey}::${key}`;
-            const previous = localUrlsRef.current[slot];
-
-            // pushDraft re-sends the same File on every keystroke. Re-minting
-            // each time would revoke the URL a <video> is still loading and
-            // surface ERR_FILE_NOT_FOUND, so reuse it unless the file changed.
-            if (previous && previous.blob === value) {
-              clean[key] = previous.url;
-              continue;
-            }
-
-            if (previous) URL.revokeObjectURL(previous.url);
-            const url = URL.createObjectURL(value);
-            localUrlsRef.current[slot] = { blob: value, url };
-            clean[key] = url;
-          }
+          clean[key] = localise(value, `${sectionKey}::${key}`);
         }
 
         store.setSection(sectionKey, clean);
