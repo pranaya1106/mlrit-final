@@ -52,7 +52,9 @@ export default function ContentEditor({
   const [values, setValues] = useState(initialContent);
   const [version, setVersion] = useState(initialVersion);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
-  const [uploading, setUploading] = useState<string | null>(null);
+  // A list, not a single slot: selecting several files starts several uploads
+  // at once and each finishes independently.
+  const [uploading, setUploading] = useState<string[]>([]);
   const [fullScreen, setFullScreen] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -153,7 +155,7 @@ export default function ContentEditor({
     write: (value: string) => void,
     revert: () => void
   ) {
-    setUploading(slot);
+    setUploading((current) => [...current, slot]);
     setStatus({ kind: 'idle' });
 
     // Show the chosen file straight away; the upload continues in the
@@ -192,7 +194,7 @@ export default function ContentEditor({
         delete objectUrlsRef.current[slot];
       }
       delete pendingFilesRef.current[slot];
-      setUploading(null);
+      setUploading((current) => current.filter((s) => s !== slot));
     }
   }
 
@@ -246,6 +248,20 @@ export default function ContentEditor({
       (value) => patchItem(fieldName, id, { key: value }),
       // A failed upload leaves no half-made row behind.
       () => updateGallery(fieldName, (items) => items.filter((item) => item.id !== id))
+    );
+  }
+
+  /** Swaps one item's image. Its id, name and position are untouched. */
+  function replaceGalleryImage(fieldName: string, id: string, file: File) {
+    const previousKey =
+      asGalleryItems(valuesRef.current[fieldName]).find((item) => item.id === id)?.key ?? '';
+
+    return runUpload(
+      `${fieldName}::${id}`,
+      file,
+      (value) => patchItem(fieldName, id, { key: value }),
+      // Put the old image back rather than leaving the row broken.
+      () => patchItem(fieldName, id, { key: previousKey })
     );
   }
 
@@ -378,11 +394,25 @@ export default function ContentEditor({
                       <p className="font-mono text-[0.7rem] text-subtle">No images yet.</p>
                     )}
 
+                    {/* The consuming component renders a fixed number of slots;
+                        anything beyond that is stored but never displayed, so
+                        say so rather than letting it vanish silently. */}
+                    {typeof field.maxItems === 'number' &&
+                      asGalleryItems(values[name]).length > field.maxItems && (
+                        <p
+                          role="alert"
+                          className="mb-3 rounded border border-orange-200 bg-orange-50 px-3 py-2 text-[0.78rem] text-orange-700"
+                        >
+                          Only the first {field.maxItems} images will be shown —{' '}
+                          {asGalleryItems(values[name]).length - field.maxItems} extra uploaded
+                          won&apos;t appear.
+                        </p>
+                      )}
 
                     <ul className="space-y-3">
                       {asGalleryItems(values[name]).map((item, index, all) => {
                         const slot = `${name}::${item.id}`;
-                        const busy = uploading === slot;
+                        const busy = uploading.includes(slot);
                         const src = item.key.startsWith('blob:')
                           ? item.key
                           : item.key
@@ -467,13 +497,32 @@ export default function ContentEditor({
                                   ↓
                                 </button>
                               </div>
-                              <button
-                                type="button"
-                                onClick={() => removeGalleryItem(name, item.id)}
-                                className="font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-orange-600"
-                              >
-                                Remove
-                              </button>
+                              <div className="flex flex-col items-end gap-1">
+                                {/* Swaps this item's image only — id, name and
+                                    position survive, so the constellation slot
+                                    it occupies does not move. */}
+                                <label className="cursor-pointer font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-foreground">
+                                  {busy ? 'Uploading…' : 'Replace image'}
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    disabled={busy}
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) replaceGalleryImage(name, item.id, file);
+                                      e.target.value = '';
+                                    }}
+                                    className="hidden"
+                                  />
+                                </label>
+                                <button
+                                  type="button"
+                                  onClick={() => removeGalleryItem(name, item.id)}
+                                  className="font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-orange-600"
+                                >
+                                  Remove
+                                </button>
+                              </div>
                             </div>
                           </li>
                         );
@@ -483,16 +532,20 @@ export default function ContentEditor({
                     <input
                       type="file"
                       accept="image/*"
+                      multiple
                       onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) addGalleryImage(name, file);
+                        // One upload per file, appended in selection order and
+                        // each with its own in-flight state.
+                        Array.from(e.target.files ?? []).forEach((file) =>
+                          addGalleryImage(name, file)
+                        );
                         // Allow picking the same file again after a remove.
                         e.target.value = '';
                       }}
                       className={`${INPUT_CLASS} file:mr-3 file:rounded file:border-0 file:bg-neutral-100 file:px-3 file:py-1.5 file:text-sm`}
                     />
                     <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
-                      Add image
+                      Add images — several can be picked at once
                     </span>
                   </div>
                 )}
@@ -502,7 +555,7 @@ export default function ContentEditor({
                     <input
                       type="file"
                       accept={type === 'image' ? 'image/*' : 'video/*'}
-                      disabled={uploading === name}
+                      disabled={uploading.includes(name)}
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) handleUpload(name, file);
@@ -510,7 +563,7 @@ export default function ContentEditor({
                       className={`${INPUT_CLASS} file:mr-3 file:rounded file:border-0 file:bg-neutral-100 file:px-3 file:py-1.5 file:text-sm`}
                     />
                     <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
-                      {uploading === name
+                      {uploading.includes(name)
                         ? 'Uploading…'
                         : text || `No ${type} uploaded — the built-in one is used.`}
                     </span>
@@ -535,12 +588,12 @@ export default function ContentEditor({
             <button
               type="button"
               onClick={handleSave}
-              disabled={status.kind === 'saving' || uploading !== null}
+              disabled={status.kind === 'saving' || uploading.length > 0}
               className="rounded-md bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-60"
             >
               {status.kind === 'saving'
                 ? 'Saving…'
-                : uploading !== null
+                : uploading.length > 0
                   ? 'Waiting for upload…'
                   : 'Save changes'}
             </button>

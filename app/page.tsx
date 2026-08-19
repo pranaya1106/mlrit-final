@@ -22,11 +22,12 @@ const isFilled = (value: unknown): value is string =>
  * dynamically because lib/supabase.ts throws at module scope when its env vars
  * are absent, which a top-level import could not catch.
  */
-async function getSectionCopy<K extends string, O extends string = never>(
+async function getSectionCopy<K extends string, O extends string = never, A extends string = never>(
   section: string,
   fields: readonly K[],
-  optional: readonly O[] = [] as readonly O[]
-): Promise<Partial<Record<K | O, string>>> {
+  optional: readonly O[] = [] as readonly O[],
+  arrays: readonly A[] = [] as readonly A[]
+): Promise<Partial<Record<K | O, string>> & Partial<Record<A, unknown[]>>> {
   try {
     const { getSection } = await import('@/lib/content/client');
     const row = await getSection('home', section);
@@ -40,7 +41,16 @@ async function getSectionCopy<K extends string, O extends string = never>(
         .filter((field) => isFilled(content[field]))
         .map((field) => [field, content[field] as string] as const);
 
-      return Object.fromEntries([...required, ...extras]) as Partial<Record<K | O, string>>;
+      // Gallery fields are arrays, not strings; carried through only when
+      // non-empty so an empty gallery leaves the component's fallback in place.
+      const lists = arrays
+        .filter((field) => Array.isArray(content[field]) && (content[field] as unknown[]).length > 0)
+        .map((field) => [field, content[field] as unknown[]] as const);
+
+      return Object.fromEntries([...required, ...extras, ...lists]) as Partial<
+        Record<K | O, string>
+      > &
+        Partial<Record<A, unknown[]>>;
     }
   } catch {
     // fall through to the defaults baked into the component
@@ -56,7 +66,7 @@ export default async function HomePage() {
   // Fetched together so one slow section cannot serialise behind another.
   const [hero, achievements, programs, whyMlrit] = await Promise.all([
     getSectionCopy('hero', HEADLINE_FIELDS),
-    getSectionCopy('achievements', HEADLINE_FIELDS),
+    getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos'] as const),
     getSectionCopy('programs', HEADLINE_FIELDS),
     getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
   ]);

@@ -20,6 +20,25 @@ export const CONTENT_SECTIONS = {
       { name: 'headlineLead', label: 'Headline lead' },
       { name: 'headlineAccent', label: 'Headline accent' },
       { name: 'body', label: 'Body', multiline: true },
+      // 7 = the number of constellation slots in Achievements.tsx (BUBBLES).
+      // defaultItems mirror that component's bundled logos so the editor opens
+      // with the live set already listed and editable.
+      {
+        name: 'logos',
+        label: 'Accreditation logos',
+        type: 'gallery',
+        itemFields: ['name'],
+        maxItems: 7,
+        defaultItems: [
+          { id: 'naac', name: 'NAAC', key: '/legacy/nirf/naac.svg' },
+          { id: 'aicte', name: 'AICTE', key: '/legacy/nirf/aicte.svg' },
+          { id: 'the-week', name: 'The Week', key: '/legacy/nirf/the%20week.svg' },
+          { id: 'ariia', name: 'ARIIA', key: '/legacy/nirf/arha.svg' },
+          { id: 'nba', name: 'NBA', key: '/legacy/nirf/nba.svg' },
+          { id: 'dataquest', name: 'Dataquest', key: '/legacy/nirf/dataquest.svg' },
+          { id: 'gyaan-vigyan', name: 'Gyaan Vigyan', key: '/legacy/nirf/gyaanvigyan.svg' },
+        ],
+      },
     ],
   },
   'home/programs': {
@@ -63,7 +82,7 @@ export type SectionKey = keyof typeof CONTENT_SECTIONS;
 export type FieldType = 'text' | 'multiline' | 'image' | 'video' | 'gallery';
 
 /** Per-item metadata a gallery may collect alongside each image. */
-export type GalleryItemField = 'title' | 'linkUrl' | 'active' | 'startDate' | 'endDate';
+export type GalleryItemField = 'name' | 'title' | 'linkUrl' | 'active' | 'startDate' | 'endDate';
 
 export type FieldConfig = {
   readonly name: string;
@@ -76,6 +95,24 @@ export type FieldConfig = {
    * of images with no per-item fields.
    */
   readonly itemFields?: readonly GalleryItemField[];
+  /**
+   * Gallery only. How many items the consuming component can actually render.
+   * Extra uploads are kept in the data but never displayed, so the editor warns
+   * rather than letting someone add images that silently vanish. Omit when the
+   * gallery has no fixed limit.
+   */
+  readonly maxItems?: number;
+  /**
+   * Gallery only. Seeds the EDITOR when nothing has been saved yet, so a
+   * section that currently ships hardcoded assets opens with those assets as
+   * real, editable rows instead of an empty list.
+   *
+   * These are never written to the database on load — only an explicit Save
+   * persists them. That matters: the public components treat an empty stored
+   * gallery as "use my bundled fallback", and auto-saving defaults would
+   * quietly convert every section from fallback-driven to CMS-driven.
+   */
+  readonly defaultItems?: readonly GalleryItem[];
 };
 
 /**
@@ -86,6 +123,7 @@ export type FieldConfig = {
 export type GalleryItem = {
   id: string;
   key: string;
+  name?: string;
   title?: string;
   linkUrl?: string;
   active?: boolean;

@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 
+import { resolveAssetUrl } from '@/lib/cdn/url';
+import { asGalleryItems } from '@/lib/content/sections';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 const RANKS = [
@@ -10,6 +12,12 @@ const RANKS = [
   { num: 'AAAA', title: 'Careers360 Rating',        sub: 'Four-A Accredited Institution',       tint: '#c26a2b' },
 ];
 
+/**
+ * Constellation slots. Position, size and the SVG anchor points are hand-tuned
+ * per slot and are NOT editable — the CMS supplies which logo sits in each
+ * slot, never where it sits. `src`/`name` here are the fallback used until
+ * logos are uploaded.
+ */
 const BUBBLES = [
   { name: 'NAAC',         src: '/legacy/nirf/naac.svg',         x: 0,    y: 0,    size: 'lg', cx: 260, cy: 240 },
   { name: 'AICTE',        src: '/legacy/nirf/aicte.svg',        x: -120, y: -120, size: 'md', cx: 90,  cy: 90  },
@@ -47,15 +55,42 @@ type AchievementsProps = {
   headlineLead?: string;
   headlineAccent?: string;
   body?: string;
+  /** Gallery items from the CMS; falls back to BUBBLES' bundled logos. */
+  logos?: unknown;
 };
 
 export default function Achievements(props: AchievementsProps) {
   // Live-preview draft wins over the saved props; fallbacks below are unchanged.
-  const { headlineLead, headlineAccent, body } = useMergedSection('home/achievements', props);
+  const { headlineLead, headlineAccent, body, logos } = useMergedSection(
+    'home/achievements',
+    props
+  );
 
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
   const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
   const bodyText = body?.trim() || DEFAULT_BODY;
+
+  // Uploaded logos fill the fixed slots in order. With none uploaded the list
+  // is BUBBLES verbatim, so an empty CMS field renders exactly as before.
+  // More uploads than slots are ignored rather than breaking the layout.
+  const uploaded = asGalleryItems(logos);
+  const slotCount = uploaded.length > 0 ? Math.min(uploaded.length, BUBBLES.length) : BUBBLES.length;
+
+  const bubbles = BUBBLES.slice(0, slotCount).map((slot, i) => {
+    const item = uploaded[i];
+    if (!item) return slot;
+    return {
+      ...slot,
+      src: resolveAssetUrl(item.key, { allowTransient: true }) ?? slot.src,
+      // `name` is the editable label: it renders as the img alt text and the
+      // hover chip under each bubble.
+      name: item.name?.trim() || item.title?.trim() || slot.name,
+    };
+  });
+
+  // Connecting lines reference slots by index; drop any pointing at a slot that
+  // is not being rendered, so a short list cannot draw lines into empty space.
+  const lines = LINES.filter(([a, b]) => a < slotCount && b < slotCount);
 
   return (
     <div id={sectionDomId('home/achievements')}>
@@ -185,13 +220,13 @@ export default function Achievements(props: AchievementsProps) {
                   <stop offset="1" stopColor="rgba(31, 107, 36, 0.30)" />
                 </linearGradient>
               </defs>
-              {LINES.map(([a, b], i) => (
+              {lines.map(([a, b], i) => (
                 <line
                   key={i}
-                  x1={BUBBLES[a].cx}
-                  y1={BUBBLES[a].cy}
-                  x2={BUBBLES[b].cx}
-                  y2={BUBBLES[b].cy}
+                  x1={bubbles[a].cx}
+                  y1={bubbles[a].cy}
+                  x2={bubbles[b].cx}
+                  y2={bubbles[b].cy}
                   stroke="url(#lineGrad)"
                   strokeWidth={1.4}
                   strokeDasharray="4 5"
@@ -199,7 +234,7 @@ export default function Achievements(props: AchievementsProps) {
               ))}
             </svg>
 
-            {BUBBLES.map((b, i) => {
+            {bubbles.map((b, i) => {
               const isCore = i === 0;
               return (
                 <div
@@ -232,7 +267,7 @@ export default function Achievements(props: AchievementsProps) {
 
           {/* Bottom label */}
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 font-mono text-[0.68rem] font-extrabold tracking-[0.28em] uppercase text-muted">
-            7 · Trust marks
+            {slotCount} · Trust marks
           </div>
         </motion.div>
       </div>

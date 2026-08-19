@@ -47,11 +47,19 @@ export default async function SectionAdminPage({
 
   const initialContent: Record<string, unknown> = {};
   for (const field of config.fields) {
-    // Galleries hold an array of items; everything else is a plain string.
-    // Coercing a gallery through asString() would silently wipe it.
-    initialContent[field.name] = isGalleryField(field)
-      ? asGalleryItems(content[field.name])
-      : asString(content[field.name]);
+    if (!isGalleryField(field)) {
+      initialContent[field.name] = asString(content[field.name]);
+      continue;
+    }
+
+    // Galleries hold an array of items; coercing one through asString() would
+    // silently wipe it. When nothing is stored yet, seed the FORM ONLY from
+    // defaultItems so the editor opens with the component's bundled assets as
+    // editable rows. This is not a write: content_blocks is untouched until
+    // Save, which preserves "empty stored gallery => component uses its own
+    // fallback" for the public site.
+    const stored = asGalleryItems(content[field.name]);
+    initialContent[field.name] = stored.length > 0 ? stored : (field.defaultItems ?? []);
   }
 
   return (
