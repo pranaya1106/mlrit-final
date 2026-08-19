@@ -149,8 +149,14 @@ const ScrollStack = ({
   const tick = useCallback(() => {
     const t = targetScroll.current;
     const l = lenScroll.current;
+    // Inside the CMS preview pane the easing reads as lag: the editor is
+    // checking layout, not enjoying the effect, and a trailing viewport feels
+    // like the wheel is being fought. Track scroll 1:1 there; the public site
+    // keeps the eased motion.
+    const instant =
+      typeof document !== 'undefined' && document.documentElement.dataset.cmsPreview === '1';
     // Lerp factor: higher = snappier. 0.18 is smooth without lag.
-    const next = l + (t - l) * 0.18;
+    const next = instant ? t : l + (t - l) * 0.18;
     // Snap to exact value when very close to avoid sub-pixel drift over time.
     lenScroll.current = Math.abs(next - t) < 0.05 ? t : next;
     apply();

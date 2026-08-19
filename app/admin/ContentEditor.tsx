@@ -22,9 +22,11 @@ const CONFLICT_MESSAGE =
   'Someone else saved changes. Refresh to see the latest version before saving again.';
 
 /**
- * Generic section editor. Save / conflict / error handling is ported verbatim
- * from HeroEditor, which is proven against the live API; the only change is
- * that the field list comes from CONTENT_SECTIONS instead of being hardcoded.
+ * The section editor for every CMS-editable section, including the hero.
+ *
+ * Save / conflict / error handling originated in the hero-specific editor that
+ * this replaced, and is unchanged; the field list now comes from
+ * CONTENT_SECTIONS rather than being hardcoded per section.
  */
 export default function ContentEditor({
   page,
@@ -46,6 +48,7 @@ export default function ContentEditor({
   const [version, setVersion] = useState(initialVersion);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [uploading, setUploading] = useState<string | null>(null);
+  const [fullScreen, setFullScreen] = useState(false);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   // Read inside callbacks without making them depend on every keystroke.
@@ -81,17 +84,34 @@ export default function ContentEditor({
   }, [values, pushDraft]);
 
   // The iframe announces itself once mounted; seed it and scroll to this section.
+  // It also forwards Escape, which would otherwise be swallowed by the iframe.
   useEffect(() => {
     function onMessage(event: MessageEvent) {
       if (event.origin !== window.location.origin) return;
-      if ((event.data as { type?: string } | null)?.type !== MESSAGE.ready) return;
-      pushDraft();
-      postToPreview(MESSAGE.scroll, { sectionKey: `${page}/${section}` });
+      const type = (event.data as { type?: string } | null)?.type;
+
+      if (type === MESSAGE.ready) {
+        pushDraft();
+        postToPreview(MESSAGE.scroll, { sectionKey: `${page}/${section}` });
+        return;
+      }
+
+      if (type === MESSAGE.exitFullscreen) setFullScreen(false);
     }
 
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
   }, [pushDraft, postToPreview, page, section]);
+
+  // Escape while focus is in the form pane.
+  useEffect(() => {
+    if (!fullScreen) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setFullScreen(false);
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [fullScreen]);
 
   // Release any object URLs still outstanding when the editor unmounts.
   useEffect(() => {
@@ -198,8 +218,14 @@ export default function ContentEditor({
 
   return (
     <main className="flex h-screen overflow-hidden bg-ink">
-      {/* Left: the form. Scrolls independently of the preview. */}
-      <div className="w-[420px] shrink-0 overflow-y-auto px-6 py-10">
+      {/* Left: the form. Scrolls independently of the preview. Hidden rather
+          than unmounted in full-screen, so the iframe keeps its position in the
+          tree and is never remounted — scroll position and draft survive. */}
+      <div
+        className={
+          fullScreen ? 'hidden' : 'w-[420px] shrink-0 overflow-y-auto px-6 py-10'
+        }
+      >
         <header className="flex items-baseline justify-between gap-4">
           <div className="min-w-0">
             <Link
@@ -330,9 +356,20 @@ export default function ContentEditor({
           to the database — the draft lives in the iframe's React state until
           Save is pressed. */}
       <div className="relative flex-1 border-l border-neutral-800 bg-neutral-900">
-        <span className="pointer-events-none absolute left-4 top-3 z-10 rounded bg-ink/80 px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-subtle">
-          Live preview · unsaved
-        </span>
+        <div className="pointer-events-none absolute left-4 right-4 top-3 z-10 flex items-center justify-between gap-3">
+          <span className="rounded bg-ink/80 px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-subtle">
+            Live preview · unsaved
+          </span>
+          <button
+            type="button"
+            onClick={() => setFullScreen((on) => !on)}
+            className="pointer-events-auto rounded bg-ink/80 px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-subtle transition-colors hover:text-neutral-0"
+          >
+            {fullScreen ? 'Exit full screen · Esc' : 'Full screen'}
+          </button>
+        </div>
+        {/* Rendered at native size with its own scrollbar — no scale(), so the
+            page inside scrolls exactly like an ordinary tab. */}
         <iframe
           ref={iframeRef}
           src={`/?${PREVIEW_PARAM}=1`}
