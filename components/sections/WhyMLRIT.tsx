@@ -1,4 +1,6 @@
 'use client';
+import { useEffect, useRef } from 'react';
+
 import Reveal from '@/components/motion/Reveal';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
@@ -31,6 +33,22 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
   const bodyText = body?.trim() || DEFAULT_BODY;
   const videoSrc = video?.trim() || DEFAULT_VIDEO;
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Changing the src attribute does not make an already-loaded <video> fetch
+  // the new file — the element keeps playing what it has. The live preview
+  // swaps a local blob: URL for the uploaded key once the upload resolves, so
+  // force a reload whenever the resolved URL changes, and resume playback
+  // because the markup is autoPlay.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    el.load();
+    el.play().catch(() => {
+      // Autoplay can be refused (e.g. tab backgrounded); not worth surfacing.
+    });
+  }, [videoSrc]);
+
   return (
     <section id={sectionDomId('home/why-mlrit')} className="relative bg-neutral-900 text-white py-10 md:py-14 overflow-hidden">
       <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-2 gap-10 items-center">
@@ -51,6 +69,7 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
         </Reveal>
         <Reveal preset="scale" delay={0.2} className="rounded-2xl overflow-hidden aspect-video bg-black/40">
           <video
+            ref={videoRef}
             src={videoSrc}
             muted
             loop
