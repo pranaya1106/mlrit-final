@@ -128,6 +128,7 @@ export default function PlacementsMoUsPage() {
           </Stagger>
         </div>
       </section>
+
     </>
   );
 }

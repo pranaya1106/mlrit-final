@@ -142,8 +142,6 @@ export default function Hero({ headlineLead, headlineAccent, body }: HeroProps) 
         </motion.div>
       </section>
 
-      {/* Student Reel Slider — reel thumbnails as full-bleed cover */}
-      <StudentReelSlider reels={HERO_REELS} label="In Their Words…" />
     </>
   );
 }

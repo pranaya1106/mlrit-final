@@ -1,20 +1,12 @@
-import { notFound } from 'next/navigation';
-import InfoPageRenderer from '@/components/InfoPageRenderer';
-import { getInfoPage } from '@/lib/info-pages';
+import type { Metadata } from 'next';
+import ClubsPage from './ClubsPage';
 
-const SLUG = 'campus/clubs';
-
-export const metadata = (() => {
-  const p = getInfoPage(SLUG);
-  if (!p) return { title: 'MLRIT' };
-  return {
-    title: `${p.title}${p.italic ? ' ' + p.italic : ''} — MLRIT`,
-    description: p.dek,
-  };
-})();
+export const metadata: Metadata = {
+  title: 'Clubs & Societies | MLR Institute of Technology',
+  description:
+    'Explore 30+ student-led clubs at MLRIT — technical, cultural, social, sports, literary, innovation, and entrepreneurship communities that celebrate campus life.',
+};
 
 export default function Page() {
-  const page = getInfoPage(SLUG);
-  if (!page) notFound();
-  return <InfoPageRenderer page={page} />;
+  return <ClubsPage />;
 }

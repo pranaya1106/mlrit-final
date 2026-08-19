@@ -22,6 +22,7 @@ import type { Department } from '@/lib/departments';
 import { DEPT_DATA, type DeptData } from '@/lib/dept-data';
 import { getFacultyByDepartment, type FacultyProfile } from '@/lib/faculty';
 import StudentReelSlider from '@/components/sections/StudentReelSlider';
+import DeptIntakeChart from '@/components/DeptIntakeChart';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
 import { useHideOnScroll } from '@/lib/useHideOnScroll';
 
@@ -524,6 +525,9 @@ function OverviewPanel({ d, data }: PanelProps) {
             {data.history ||
               `The Department of ${d.short} was established as part of MLRIT's founding commitment to engineering excellence. Intake has expanded steadily as demand from industry and PG programmes grew.`}
           </p>
+          {data.intakeGrowth && data.intakeGrowth.length > 0 && (
+            <DeptIntakeChart data={data.intakeGrowth} />
+          )}
         </Accordion>
 
         {/* Labs */}

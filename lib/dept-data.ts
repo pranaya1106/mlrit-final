@@ -22,6 +22,8 @@ export type DeptData = {
   vision: string;
   mission: string[];
   history: string;
+  /** Year-wise student intake, oldest to newest. MOCK DATA pending real figures. */
+  intakeGrowth?: { year: string; students: number }[];
   introduction: string;
   hodMessage: string;
   teachingMethodology: string;
@@ -59,6 +61,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'The Department of Computer Science and Engineering was established in 2005 with an initial intake of 60 students. The intake was progressively increased — 120 in 2007, 180 in 2012, 240 in 2013, and 840 in 2024. An additional 10% seats are available under the lateral entry scheme. The M.Tech programme in CSE commenced in 2011 with an intake of 6. The B.Tech (CSE) program has been accredited by the National Board of Accreditation (NBA) since 2008.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 120 },
+      { year: '2019', students: 180 },
+      { year: '2020', students: 240 },
+      { year: '2021', students: 300 },
+      { year: '2022', students: 360 },
+      { year: '2023', students: 420 },
+      { year: '2024', students: 480 },
+      { year: '2025', students: 540 },
+    ],
     introduction:
       'The Department of Computer Science and Engineering at MLRIT is one of the institute\'s flagship departments, established in 2005. With 64 dedicated faculty, 12 advanced laboratories and industry partnerships with Boeing, Cyient and EPAM Systems, the department blends rigorous theoretical foundations with hands-on experience in cutting-edge technologies — preparing students to excel in the ever-evolving technology landscape.',
     hodMessage:
@@ -156,6 +169,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'Established in 2020, the Department of CSE (Data Science) was created to meet the surging demand for analytics professionals across industry and research. The inaugural batch graduated in 2024, achieving a 100% placement rate with offers from leading data-driven organisations. The department has since built a suite of six specialised laboratories and forged industry partnerships that support real-world capstone projects every semester.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 60 },
+      { year: '2019', students: 90 },
+      { year: '2020', students: 120 },
+      { year: '2021', students: 150 },
+      { year: '2022', students: 180 },
+      { year: '2023', students: 210 },
+      { year: '2024', students: 240 },
+      { year: '2025', students: 270 },
+    ],
     introduction:
       'The Department of Computer Science and Engineering (Data Science) was established in 2020 to address the rapidly growing industry demand for data-literate engineers. Offering B.Tech with an intake of 120 students under the R25 regulation, the department is built around the Python, R and SQL ecosystem. Partnerships with leading analytics organisations provide students with real-world capstone projects that bridge academic knowledge and industry practice.',
     hodMessage:
@@ -241,6 +265,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'Established in 2020, the Department of CSE (AI and ML) was created in response to transformative industry demand for AI-specialised engineers. Within its first three years the department achieved 100% placements, launched two funded research projects and built a dedicated GPU computing laboratory supporting over 40 concurrent deep learning workloads.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 60 },
+      { year: '2019', students: 100 },
+      { year: '2020', students: 130 },
+      { year: '2021', students: 160 },
+      { year: '2022', students: 190 },
+      { year: '2023', students: 220 },
+      { year: '2024', students: 250 },
+      { year: '2025', students: 280 },
+    ],
     introduction:
       'The Department of Computer Science and Engineering (Artificial Intelligence and Machine Learning) was established to meet the rapidly growing industry demand for AI-literate engineers. Offering B.Tech with an intake of 120 students, the department is equipped with GPU-accelerated labs, dedicated AI research clusters and partnerships with leading technology organisations. The curriculum follows the R25 regulation and integrates outcome-based education with project-driven, industry-mentored learning.',
     hodMessage:
@@ -311,6 +346,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'The ECE Department was established in 2005 with an initial intake of 60 students. Following autonomous status in 2015, the department now offers B.Tech with 120 intake and M.Tech in Embedded Systems. The department holds NBA accreditation and maintains active memberships in IETE, ISTE, IEEE and IUCEE.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 60 },
+      { year: '2019', students: 75 },
+      { year: '2020', students: 90 },
+      { year: '2021', students: 105 },
+      { year: '2022', students: 120 },
+      { year: '2023', students: 140 },
+      { year: '2024', students: 160 },
+      { year: '2025', students: 180 },
+    ],
     introduction:
       'The ECE Department was established in 2005 with an initial intake of 60 students. Following autonomous status in 2015, the department now offers B.Tech with 120 intake and M.Tech in Embedded Systems. The department holds NBA accreditation and maintains active memberships in IETE, ISTE, IEEE and IUCEE — and operates Centres of Excellence in Cadence, MATLAB and LabVIEW for industry-ready training.',
     hodMessage:
@@ -392,6 +438,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'The EEE Department offers state-of-the-art facilities with acoustically-designed classrooms and modern instruments. The department hosts a flagship 260 kWp rooftop solar plant connected to the campus grid — anchoring its commitment to sustainable energy education and research.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 60 },
+      { year: '2019', students: 80 },
+      { year: '2020', students: 100 },
+      { year: '2021', students: 120 },
+      { year: '2022', students: 140 },
+      { year: '2023', students: 160 },
+      { year: '2024', students: 180 },
+      { year: '2025', students: 200 },
+    ],
     introduction:
       'The EEE department offers state-of-the-art facilities with acoustically-designed classrooms, well-equipped laboratories and integration of seminars and workshops. The department hosts a 260 kWp rooftop solar plant connected to the grid — a working demonstration of the department\'s commitment to sustainable, eco-friendly energy education.',
     hodMessage:
@@ -469,6 +526,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'The Mechanical Engineering Department offers B.Tech and M.Tech programmes with specializations in Advanced Composite Materials, Product Life Cycle Management and Nondestructive Testing. Active partnerships with Mahindra and Mahindra and Pennar Industries provide industry exposure and project opportunities.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 60 },
+      { year: '2019', students: 80 },
+      { year: '2020', students: 105 },
+      { year: '2021', students: 120 },
+      { year: '2022', students: 140 },
+      { year: '2023', students: 165 },
+      { year: '2024', students: 180 },
+      { year: '2025', students: 200 },
+    ],
     introduction:
       'The Mechanical Engineering Department offers B.Tech and M.Tech programmes with specializations in Advanced Composite Materials, Product Life Cycle Management and Nondestructive Testing. Centres of Excellence in Composite Materials, NDT and Welding Technology — along with active partnerships with Mahindra and Mahindra and Pennar Industries — make the department a strong choice for students aiming at design, manufacturing and thermal careers.',
     hodMessage:
@@ -547,6 +615,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'The Aeronautical Engineering department provides excellent infrastructure and state-of-the-art laboratories for graduate research and innovation in aerospace engineering. Active collaborations with defence and aerospace organisations have anchored its growth — including DRDO, Tata Advanced Systems and Boeing India.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 40 },
+      { year: '2019', students: 55 },
+      { year: '2020', students: 70 },
+      { year: '2021', students: 85 },
+      { year: '2022', students: 100 },
+      { year: '2023', students: 115 },
+      { year: '2024', students: 130 },
+      { year: '2025', students: 150 },
+    ],
     introduction:
       'The Aeronautical Engineering department provides excellent infrastructure and state-of-the-art laboratories for graduate research and innovation in aerospace engineering. With a Flight Simulation Lab, Digital Manufacturing Lab and Centre for Innovation — alongside collaborations with DRDO, Tata Advanced Systems and IIT Hyderabad — students work on cutting-edge aviation and space technology projects.',
     hodMessage:
@@ -627,6 +706,17 @@ export const DEPT_DATA: Record<string, DeptData> = {
     ],
     history:
       'The MBA programme at MLRIT emphasizes that innovation, business and technology are inseparable for sustainable growth. The department operates an active Entrepreneurship Cell and is guided by an industry advisory board that helps shape curriculum and capstone engagements.',
+    // MOCK DATA — replace with real year-wise intake figures.
+    intakeGrowth: [
+      { year: '2017', students: 60 },
+      { year: '2019', students: 60 },
+      { year: '2020', students: 90 },
+      { year: '2021', students: 90 },
+      { year: '2022', students: 120 },
+      { year: '2023', students: 120 },
+      { year: '2024', students: 150 },
+      { year: '2025', students: 150 },
+    ],
     introduction:
       'The MBA program at MLRIT emphasizes that innovation, business and technology are inseparable for sustainable growth. The department has an active Entrepreneurship Cell, regular CXO-level guest lectures and a strong industry advisory board — preparing future business leaders through case-based learning, industry exposure and entrepreneurship.',
     hodMessage:

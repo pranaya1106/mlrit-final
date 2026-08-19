@@ -18,7 +18,19 @@ export const metadata: Metadata = {
   description: '"All the campus that\'s fit to print" — a broadsheet of stories, ideas and updates from MLR Institute of Technology.',
 };
 
-const SECTIONS = ['Front Page', 'Campus', 'Placements', 'Research', 'Sports', 'Student Voice', 'Alumni', 'Events', 'Faculty', 'Opinion', 'Archive'];
+const SECTIONS: { label: string; href: string }[] = [
+  { label: 'Front Page',     href: '#front-page'    },
+  { label: 'Recent Events',  href: '#events'        },
+  { label: 'News Clippings', href: '#news'          },
+  { label: 'Announcements',  href: '#announcements' },
+  { label: 'Live Wire',      href: '#live-wire'     },
+  { label: 'Photo Essay',    href: '#photo-essay'   },
+  { label: 'Placements',     href: '/placements/overview' },
+  { label: 'Research',       href: '/research'      },
+  { label: 'Sports',         href: '/student-life/sports' },
+  { label: 'Faculty',        href: '/departments/faculty' },
+  { label: 'Archive',        href: '#archive'       },
+];
 
 export default async function ChroniclesPage() {
   const liveNewsFeed = await getLiveNews(TIER_SIZE);
@@ -68,24 +80,24 @@ export default async function ChroniclesPage() {
       </header>
 
       {/* RIBBON */}
-      <nav aria-label="Sections" className="bg-black text-white border-y border-black">
+      <nav aria-label="Sections" className="bg-black text-white border-y border-black sticky top-[var(--subnav-top)] z-30">
         <div className="flex overflow-x-auto no-scrollbar px-6 md:px-12 lg:px-20">
           {SECTIONS.map((s, i) => (
             <a
-              key={s}
-              href="#"
+              key={s.href}
+              href={s.href}
               className={`whitespace-nowrap font-sans text-[0.78rem] font-bold tracking-[0.14em] uppercase px-4 py-3.5 hover:bg-white/10 transition-colors ${
                 i === 0 ? 'bg-white text-black' : 'text-white'
               } ${i > 0 ? 'border-l border-white/15' : ''}`}
             >
-              {s}
+              {s.label}
             </a>
           ))}
         </div>
       </nav>
 
       {/* Zone header — Recent Events */}
-      <div className="px-6 md:px-12 lg:px-20 pt-10 md:pt-12">
+      <div id="events" className="px-6 md:px-12 lg:px-20 pt-10 md:pt-12">
         <div className="flex items-end gap-4 border-b-[3px] border-double border-black pb-3">
           <span className="font-mono font-black text-black text-[1.4rem] leading-none">01</span>
           <h2 className="font-display font-black uppercase tracking-[0.06em] text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none">
@@ -97,7 +109,7 @@ export default async function ChroniclesPage() {
       </div>
 
       {/* FRONT PAGE 3-col */}
-      <main className="px-6 md:px-12 lg:px-20 py-8 md:py-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12">
+      <main id="front-page" className="px-6 md:px-12 lg:px-20 py-8 md:py-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12" style={{ scrollMarginTop: '120px' }}>
 
         {/* LEAD STORY */}
         <article className="flex flex-col">
@@ -116,7 +128,7 @@ export default async function ChroniclesPage() {
             ))}
           </div>
           {LEAD.img && (
-            <a href={LEAD.href} target="_blank" rel="noopener" className="block border border-black overflow-hidden mb-3.5 group">
+            <a href={LEAD.href} target="_blank" rel="noopener noreferrer" className="block border border-black overflow-hidden mb-3.5 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={LEAD.img} alt="" className="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-105" />
             </a>
@@ -125,7 +137,7 @@ export default async function ChroniclesPage() {
             {LEAD_BODY.map((p, i) => (
               <p key={i} className={i === 0 ? "first-letter:font-black first-letter:text-[4.2em] first-letter:float-left first-letter:leading-[0.86] first-letter:mr-3 first-letter:mt-1.5" : undefined}>{p}</p>
             ))}
-            <a href={LEAD.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 mt-2 font-sans font-bold text-[0.82rem] tracking-[0.06em] uppercase text-black border-b-2 border-black hover:bg-black hover:text-white hover:px-2 hover:py-1 hover:border-0 transition-all">
+            <a href={LEAD.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-2 font-sans font-bold text-[0.82rem] tracking-[0.06em] uppercase text-black border-b-2 border-black hover:bg-black hover:text-white hover:px-2 hover:py-1 hover:border-0 transition-all">
               Continue reading →
             </a>
           </div>
@@ -139,7 +151,7 @@ export default async function ChroniclesPage() {
                 {s.section}
               </span>
               {s.img && (
-                <a href={s.href} target="_blank" rel="noopener" className="block border border-black overflow-hidden mb-3 group">
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="block border border-black overflow-hidden mb-3 group">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={s.img} alt="" className="w-full aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105" />
                 </a>
@@ -157,11 +169,11 @@ export default async function ChroniclesPage() {
 
         {/* RIGHT — Most Read + In Brief */}
         <aside className="flex flex-col gap-10 lg:border-l lg:border-border lg:pl-10">
-          <section>
+          <section id="news">
             <RailHead label="02 · News Clippings" pill="In the press" />
             <div className="flex flex-col">
               {MOST_READ.map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener" className="grid grid-cols-[36px_1fr] gap-3.5 py-3.5 border-b border-dashed border-border last:border-b-0 group">
+                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="grid grid-cols-[36px_1fr] gap-3.5 py-3.5 border-b border-dashed border-border last:border-b-0 group">
                   <div className="font-display font-black italic text-[1.6rem] leading-none tracking-tighter-2 text-black">{String(i + 1).padStart(2, '0')}</div>
                   <div>
                     <span className="inline-block font-mono text-[0.58rem] font-extrabold tracking-[0.18em] uppercase bg-white border border-black text-black px-1.5 py-0.5 mb-1.5">{s.section}</span>
@@ -173,7 +185,7 @@ export default async function ChroniclesPage() {
             </div>
           </section>
 
-          <section>
+          <section id="announcements">
             <RailHead label="03 · Announcements" pill="Official" />
             <ul className="list-none p-0 m-0">
               {IN_BRIEF.map((b, i) => (
@@ -188,7 +200,7 @@ export default async function ChroniclesPage() {
           </section>
 
           {/* LIVE WIRE — auto-scraped news */}
-          <section>
+          <section id="live-wire">
             <RailHead label="Live Wire · Auto-scraped" pill={liveWireTicker.length ? 'Live' : 'Warming up'} />
             {liveWireTicker.length === 0 ? (
               <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
@@ -201,7 +213,7 @@ export default async function ChroniclesPage() {
                     key={n.id}
                     href={n.link}
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     className="py-3 border-b border-dashed border-border last:border-b-0 group"
                   >
                     <span className="font-mono text-[0.6rem] font-bold tracking-[0.14em] uppercase text-muted">
@@ -224,7 +236,7 @@ export default async function ChroniclesPage() {
       <TierGrid label="More recent" italicLabel="events & coverage" trail="See all stories" trailHref="/chronicles" stories={TIER_STORIES} />
 
       {/* PHOTO ESSAY (inverted) */}
-      <section className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">
+      <section id="photo-essay" className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">
         <div className="flex items-end gap-5 mb-7 md:mb-9">
           <h3 className="font-display font-black tracking-tighter-2 text-[clamp(1.8rem,2.8vw,2.4rem)] leading-none">
             Photo essay · <em className="italic font-normal">The year in frames</em>
@@ -237,7 +249,7 @@ export default async function ChroniclesPage() {
         </p>
         <div className="grid md:grid-cols-3 gap-4 md:gap-5 min-h-[300px] md:min-h-[440px]">
           {PHOTO_ESSAY.map((p, i) => (
-            <a key={i} href={p.href} target="_blank" rel="noopener" className="relative block overflow-hidden border border-white/20 group">
+            <a key={i} href={p.href} target="_blank" rel="noopener noreferrer" className="relative block overflow-hidden border border-white/20 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.img} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style={{ filter: 'contrast(1.04) saturate(1.08)' }} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
@@ -251,7 +263,9 @@ export default async function ChroniclesPage() {
       </section>
 
       {/* TIER — Archive of past announcements & events */}
-      <TierGrid label="From the" italicLabel="archives" trail="Older stories · 2024 in review" stories={ARCHIVE} />
+      <div id="archive">
+        <TierGrid label="From the" italicLabel="archives" trail="Older stories · 2024 in review" stories={ARCHIVE} />
+      </div>
     </div>
   );
 }
@@ -285,12 +299,12 @@ function TierGrid({ label, italicLabel, trail, trailHref, stories }: { label: st
         </h3>
         <div className="flex-1 h-px bg-black mb-2" />
         {trailHref
-          ? <a href={trailHref} target="_blank" rel="noopener" className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2 hover:bg-black hover:text-white transition-colors">{trail}</a>
+          ? <a href={trailHref} target="_blank" rel="noopener noreferrer" className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2 hover:bg-black hover:text-white transition-colors">{trail}</a>
           : <span className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2">{trail}</span>}
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-7">
         {stories.map((s, i) => (
-          <a key={i} href={s.href} target="_blank" rel="noopener" className="flex flex-col gap-3 pb-3.5 border-b border-border group">
+          <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="flex flex-col gap-3 pb-3.5 border-b border-border group">
             <div className="border border-black overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={s.img!} alt="" className="w-full aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105" style={{ filter: 'contrast(1.02) saturate(1.05)' }} />
