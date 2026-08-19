@@ -47,3 +47,6 @@ backend/data/*.db
 .claude/skills/
 .kiro/skills/
 skills-lock.json
+
+# compiled output for `npm test`
+.test-build
