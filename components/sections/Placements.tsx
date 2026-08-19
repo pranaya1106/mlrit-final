@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
+import { asGalleryItems } from '@/lib/content/sections';
+import { recruiterLogosFrom } from '@/lib/placements';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
+
 type Stat = { target: number; suffix: string; label: string };
 
 const STATS: Stat[] = [
@@ -12,15 +16,22 @@ const STATS: Stat[] = [
   { target: 200, suffix: '+',   label: 'Recruiters incl. IIT/IIM/NIT Hirers' },
 ];
 
-// 16 recruiter logos from /public/placements/p1..p16
-const LOGOS = Array.from({ length: 16 }, (_, i) => {
-  const n = i + 1;
-  const ext = n <= 6 ? 'jpg' : 'png';
-  return `/placements/p${n}.${ext}`;
-});
+type PlacementsProps = {
+  /** Gallery items from placements/recruiters; falls back to the bundled set. */
+  logos?: unknown;
+};
 
-export default function Placements() {
+export default function Placements(props: PlacementsProps) {
+  // Live-preview draft wins over the saved props.
+  const { logos } = useMergedSection('placements/recruiters', props);
+
+  // Same source as /placements/recruiters, mapped to { src, alt }. An empty
+  // gallery yields the bundled 16, so this renders unchanged until someone
+  // saves the CMS field.
+  const recruiterLogos = recruiterLogosFrom(asGalleryItems(logos));
+
   return (
+    <div id={sectionDomId('placements/recruiters')}>
     <section id="placements" style={{ backgroundColor: '#0c0c0e' }} className="relative bg-ink text-white py-10 md:py-14 overflow-hidden">
       {/* Network background SVG */}
       <svg className="absolute inset-0 w-full h-full opacity-[0.55] pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
@@ -75,10 +86,10 @@ export default function Placements() {
       {/* Full-bleed scrolling band */}
       <div className="relative z-10 mt-8 overflow-hidden mask-fade">
         <div className="flex gap-10 animate-marquee w-max">
-          {[...LOGOS, ...LOGOS].map((src, i) => (
+          {[...recruiterLogos, ...recruiterLogos].map((logo, i) => (
             <div key={i} className="flex-shrink-0 h-20 w-40 grid place-items-center rounded-xl bg-white/[0.06] border border-white/10 px-5 py-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" className="max-w-full max-h-full object-contain opacity-90" loading="lazy" />
+              <img src={logo.src} alt="" className="max-w-full max-h-full object-contain opacity-90" loading="lazy" />
             </div>
           ))}
         </div>
@@ -105,6 +116,7 @@ export default function Placements() {
         }
       `}</style>
     </section>
+    </div>
   );
 }
 

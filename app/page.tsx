@@ -58,17 +58,34 @@ async function getSectionCopy<K extends string, O extends string = never, A exte
   return {};
 }
 
+/**
+ * One gallery field from any section. Kept separate from getSectionCopy, which
+ * is hardcoded to the 'home' page slug and to string fields.
+ */
+async function getGallery(page: string, section: string, field: string): Promise<unknown[]> {
+  try {
+    const { getSection } = await import('@/lib/content/client');
+    const row = await getSection(page, section);
+    const value = (row?.content as Record<string, unknown> | undefined)?.[field];
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+}
+
 const HEADLINE_FIELDS = ['headlineLead', 'headlineAccent', 'body'] as const;
 
 export const revalidate = 60;
 
 export default async function HomePage() {
   // Fetched together so one slow section cannot serialise behind another.
-  const [hero, achievements, programs, whyMlrit] = await Promise.all([
+  const [hero, achievements, programs, whyMlrit, recruiterLogos] = await Promise.all([
     getSectionCopy('hero', HEADLINE_FIELDS),
     getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos'] as const),
     getSectionCopy('programs', HEADLINE_FIELDS),
     getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
+    // Shared with /placements/recruiters — one field, both consumers.
+    getGallery('placements', 'recruiters', 'logos'),
   ]);
 
   return (
@@ -81,7 +98,7 @@ export default async function HomePage() {
       <WhyMLRIT {...whyMlrit} video={resolveAssetUrl(whyMlrit.video)} />
       <SuccessStories />
       <Programs {...programs} />
-      <Placements />
+      <Placements logos={recruiterLogos} />
       <Testimonials />
       <Events />
     </PreviewProvider>

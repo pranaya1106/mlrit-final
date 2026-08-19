@@ -1,3 +1,6 @@
+import { resolveAssetUrl } from '@/lib/cdn/url';
+import type { GalleryItem } from '@/lib/content/sections';
+
 // MLRIT placement data — authoritative source for all Placements pages.
 // Data verified against official year-specific pages on mlrit.ac.in (2026-07-30).
 
@@ -250,11 +253,32 @@ export const YEAR_ROLES: Record<string, RoleRow[]> = Object.fromEntries(
 
 // ─── Recruiter logos (self-hosted under /public/placements/) ─────────────────
 
-export const RECRUITER_LOGOS = Array.from({ length: 16 }, (_, i) => {
+export type RecruiterLogo = { src: string; alt: string };
+
+/**
+ * Bundled recruiter logos. Used until someone saves the CMS gallery at
+ * placements/recruiters — see recruiterLogosFrom().
+ */
+export const RECRUITER_LOGOS: RecruiterLogo[] = Array.from({ length: 16 }, (_, i) => {
   const n = i + 1;
   const ext = n <= 6 ? 'jpg' : 'png';
   return { src: `/placements/p${n}.${ext}`, alt: 'Recruiter' };
 });
+
+/**
+ * Maps CMS gallery items onto the { src, alt } shape both consumers already
+ * render, falling back to the bundled list when nothing is saved.
+ *
+ * Deliberately a pure mapper taking already-fetched items: lib/placements.ts is
+ * imported by client components, so it must not reach for Supabase itself.
+ */
+export function recruiterLogosFrom(items: readonly GalleryItem[] | undefined): RecruiterLogo[] {
+  if (!items || items.length === 0) return RECRUITER_LOGOS;
+  return items.map((item) => ({
+    src: resolveAssetUrl(item.key, { allowTransient: true }) ?? '',
+    alt: item.name?.trim() || 'Recruiter',
+  }));
+}
 
 export const RECRUITERS = [
   'Capgemini', 'Virtusa', 'Tata Technologies', 'Tech Mahindra', 'LTI Mindtree',

@@ -58,6 +58,39 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  // Recruiter logos, shared by the homepage marquee and /placements/recruiters.
+  // One field, two consumers — previously the same 16 paths were generated
+  // independently in both places and would have drifted the moment either was
+  // edited.
+  'placements/recruiters': {
+    label: 'Placements — Recruiter logos',
+    fields: [
+      {
+        name: 'logos',
+        label: 'Recruiter logos',
+        type: 'gallery',
+        itemFields: ['name'],
+        defaultItems: [
+          { id: 'p1', name: 'Recruiter', key: '/placements/p1.jpg' },
+          { id: 'p2', name: 'Recruiter', key: '/placements/p2.jpg' },
+          { id: 'p3', name: 'Recruiter', key: '/placements/p3.jpg' },
+          { id: 'p4', name: 'Recruiter', key: '/placements/p4.jpg' },
+          { id: 'p5', name: 'Recruiter', key: '/placements/p5.jpg' },
+          { id: 'p6', name: 'Recruiter', key: '/placements/p6.jpg' },
+          { id: 'p7', name: 'Recruiter', key: '/placements/p7.png' },
+          { id: 'p8', name: 'Recruiter', key: '/placements/p8.png' },
+          { id: 'p9', name: 'Recruiter', key: '/placements/p9.png' },
+          { id: 'p10', name: 'Recruiter', key: '/placements/p10.png' },
+          { id: 'p11', name: 'Recruiter', key: '/placements/p11.png' },
+          { id: 'p12', name: 'Recruiter', key: '/placements/p12.png' },
+          { id: 'p13', name: 'Recruiter', key: '/placements/p13.png' },
+          { id: 'p14', name: 'Recruiter', key: '/placements/p14.png' },
+          { id: 'p15', name: 'Recruiter', key: '/placements/p15.png' },
+          { id: 'p16', name: 'Recruiter', key: '/placements/p16.png' },
+        ],
+      },
+    ],
+  },
 
   // TEMPORARY. Exists only to exercise the gallery field end to end without
   // touching production content. No public component reads test/*. Delete this
