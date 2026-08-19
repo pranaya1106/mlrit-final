@@ -14,8 +14,9 @@ request time and falls back to hardcoded copy whenever anything is missing.
 ```
                          ┌──────────────────────────┐
   editor ──login──▶      │  /admin  (middleware-gated)
-                         │   ├── /admin/[page]/[section]   generic editor
-                         │   ├── /admin/home/hero          legacy editor
+                         │   ├── /admin/[page]/[section]   every section editor
+                         │   │      home/hero · home/achievements
+                         │   │      home/programs · home/why-mlrit
                          │   └── /admin/banners            upload + list
                          └────────────┬─────────────┘
                                       │ PUT / POST / PATCH / DELETE
@@ -179,7 +180,6 @@ incident note in commit `f51c1b1`.
 | `app/admin/page.tsx` | dashboard: previews, timestamps, editors, banner counts |
 | `app/admin/ContentEditor.tsx` | generic editor (text/multiline/image/video) |
 | `app/admin/[page]/[section]/page.tsx` | dynamic editor route |
-| `app/admin/home/hero/*` | legacy hero editor (not migrated, still live) |
 | `app/admin/banners/*` | upload form + list with toggle/delete |
 | `app/api/content/[page]/[section]/route.ts` | PUT: validate, trim, save, revalidate |
 | `app/api/content/upload/route.ts` | POST: authenticated media upload |
@@ -214,6 +214,13 @@ The editor route, dashboard row, and write-API validation all derive from it.
 - Server-side `blob:`/`data:` rejection — 8 unit tests, `npm test`
 - Live preview builds and serves; `/` and `/?__preview=1` return byte-identical
   HTML and `/` remains `○ Static`
+- **All four homepage sections — Hero, Achievements, Programs, WhyMLRIT — now
+  share one editor.** There is no per-section editor code left: each resolves
+  through `/admin/[page]/[section]` → `ContentEditor`, and each therefore gets
+  the live preview, the full-screen toggle, the per-section subscription that
+  stopped every keystroke re-rendering all four, and the 1:1 preview scrolling.
+  Adding a section is still just a `CONTENT_SECTIONS` entry plus props on the
+  component.
 
 ### Built but NOT yet verified
 - 409 conflict path (two-tab concurrent save) — never exercised
@@ -254,8 +261,9 @@ The editor route, dashboard row, and write-API validation all derive from it.
    on main, not introduced here.
 
 ### Nice to have
-9. Migrate `/admin/home/hero` onto `ContentEditor` and delete `HeroEditor.tsx`
-   — it is still the legacy editor and has no live preview.
+9. ~~Migrate `/admin/home/hero` onto `ContentEditor` and delete
+   `HeroEditor.tsx`.~~ Done — the static route was removed so the URL now falls
+   through to `/admin/[page]/[section]`; the path is unchanged for editors.
 10. Banner edit (currently create/toggle/delete only — no way to change a title).
 11. `next/image` for banners once `assets.width/height` are populated.
 12. Video cap is 25 MB; two existing site videos are ~29 MB. Raise if those ever
