@@ -1,4 +1,5 @@
 import Banners from '@/components/sections/Banners';
+import { resolveAssetUrl } from '@/lib/cdn/url';
 import { PreviewProvider } from '@/lib/preview/context';
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
@@ -47,15 +48,6 @@ async function getSectionCopy<K extends string, O extends string = never>(
   return {};
 }
 
-/**
- * Media fields store a bare storage key; the public site serves those through
- * the /cdn proxy. A value that is already a path or absolute URL is left alone.
- */
-const assetUrl = (value?: string): string | undefined => {
-  if (!value) return undefined;
-  return value.startsWith('/') || /^https?:\/\//i.test(value) ? value : `/cdn/${value}`;
-};
-
 const HEADLINE_FIELDS = ['headlineLead', 'headlineAccent', 'body'] as const;
 
 export const revalidate = 60;
@@ -76,7 +68,7 @@ export default async function HomePage() {
       <Stats />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
       <Achievements {...achievements} />
-      <WhyMLRIT {...whyMlrit} video={assetUrl(whyMlrit.video)} />
+      <WhyMLRIT {...whyMlrit} video={resolveAssetUrl(whyMlrit.video)} />
       <SuccessStories />
       <Programs {...programs} />
       <Placements />

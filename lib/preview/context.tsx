@@ -1,6 +1,8 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
+export { resolveAssetUrl } from '@/lib/cdn/url';
 
 /**
  * Live preview plumbing.
@@ -37,6 +39,9 @@ const isPreviewWindow = (): boolean => {
 
 export function PreviewProvider({ children }: { children: React.ReactNode }) {
   const [overrides, setOverrides] = useState<Overrides>({});
+  // Object URLs minted inside THIS document, keyed "sectionKey::field", with
+  // the Blob each was made from so an unchanged file is not re-minted.
+  const localUrlsRef = useRef<Record<string, { blob: Blob; url: string }>>({});
 
   const scrollToSection = useCallback((sectionKey: string) => {
     const el = document.getElementById(sectionDomId(sectionKey));
@@ -60,10 +65,35 @@ export function PreviewProvider({ children }: { children: React.ReactNode }) {
         const content = data.payload?.content;
         if (typeof sectionKey !== 'string' || !content || typeof content !== 'object') return;
 
-        // Only string values are renderable; ignore anything else.
         const clean: Record<string, string> = {};
         for (const [key, value] of Object.entries(content as Record<string, unknown>)) {
-          if (typeof value === 'string') clean[key] = value;
+          if (typeof value === 'string') {
+            clean[key] = value;
+            continue;
+          }
+
+          // A File/Blob arrives when the editor picks a file that has not
+          // finished uploading. An object URL is scoped to the document that
+          // created it, so the parent's URL is unresolvable here — mint our
+          // own against this iframe's document instead.
+          // Structured clone may downgrade File to Blob, so accept both.
+          if (value instanceof Blob) {
+            const slot = `${sectionKey}::${key}`;
+            const previous = localUrlsRef.current[slot];
+
+            // pushDraft re-sends the same File on every keystroke. Re-minting
+            // each time would revoke the URL a <video> is still loading and
+            // surface ERR_FILE_NOT_FOUND, so reuse it unless the file changed.
+            if (previous && previous.blob === value) {
+              clean[key] = previous.url;
+              continue;
+            }
+
+            if (previous) URL.revokeObjectURL(previous.url);
+            const url = URL.createObjectURL(value);
+            localUrlsRef.current[slot] = { blob: value, url };
+            clean[key] = url;
+          }
         }
 
         setOverrides((current) => ({ ...current, [sectionKey]: clean }));
@@ -83,7 +113,11 @@ export function PreviewProvider({ children }: { children: React.ReactNode }) {
       window.parent.postMessage({ type: MESSAGE.ready }, window.location.origin);
     }
 
-    return () => window.removeEventListener('message', onMessage);
+    const localUrls = localUrlsRef.current;
+    return () => {
+      window.removeEventListener('message', onMessage);
+      Object.values(localUrls).forEach(({ url }) => URL.revokeObjectURL(url));
+    };
   }, [scrollToSection]);
 
   return <PreviewContext.Provider value={overrides}>{children}</PreviewContext.Provider>;

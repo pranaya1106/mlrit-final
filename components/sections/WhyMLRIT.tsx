@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 
 import Reveal from '@/components/motion/Reveal';
+import { resolveAssetUrl } from '@/lib/cdn/url';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 /**
@@ -10,9 +11,9 @@ import { sectionDomId, useMergedSection } from '@/lib/preview/context';
  * complete text, never a blank or half-filled heading.
  */
 const DEFAULT_HEADING = 'Industry Integrated Curriculum Blended With Sports';
-const DEFAULT_VIDEO = '/videos/sports.mp4';
 const DEFAULT_BODY =
   'MLRIT is the only engineering college in Telangana where athletic performance is built into your degree — with national-level coaching, sports scholarships, and dedicated training hours. Our students compete at state and national levels across cricket, badminton, athletics, and more, backed by professional infrastructure and full institutional support.';
+const DEFAULT_VIDEO = '/videos/sports.mp4';
 
 type WhyMLRITProps = {
   heading?: string;
@@ -31,7 +32,12 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
   const headingInitial = headingText.slice(0, 1);
   const headingRest = headingText.slice(1);
   const bodyText = body?.trim() || DEFAULT_BODY;
-  const videoSrc = video?.trim() || DEFAULT_VIDEO;
+  // Resolved here too: a preview override carries the raw stored value, which
+  // bypasses the resolution app/page.tsx applies to the prop. Idempotent.
+  // allowTransient: this component also renders live-preview drafts, where a
+  // blob: URL minted by the iframe is the correct source. Saved content that
+  // is somehow blob: resolves to undefined and falls back to DEFAULT_VIDEO.
+  const videoSrc = resolveAssetUrl(video?.trim(), { allowTransient: true }) || DEFAULT_VIDEO;
 
   const videoRef = useRef<HTMLVideoElement>(null);
 

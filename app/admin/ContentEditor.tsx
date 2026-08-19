@@ -51,6 +51,11 @@ export default function ContentEditor({
   // Read inside callbacks without making them depend on every keystroke.
   const valuesRef = useRef(values);
   valuesRef.current = values;
+  // Object URLs created for instant media preview, revoked once uploaded.
+  // These are scoped to THIS document — the iframe cannot resolve them, so it
+  // receives the File itself and mints its own.
+  const objectUrlsRef = useRef<Record<string, string>>({});
+  const pendingFilesRef = useRef<Record<string, File>>({});
 
   const postToPreview = useCallback(
     (type: string, payload: Record<string, unknown>) => {
@@ -60,7 +65,13 @@ export default function ContentEditor({
   );
 
   const pushDraft = useCallback(() => {
-    postToPreview(MESSAGE.update, { sectionKey: `${page}/${section}`, content: valuesRef.current });
+    // Files override their field's string value: a parent-document blob: URL
+    // is meaningless inside the iframe, but a File survives structured clone.
+    const content: Record<string, unknown> = {
+      ...valuesRef.current,
+      ...pendingFilesRef.current,
+    };
+    postToPreview(MESSAGE.update, { sectionKey: `${page}/${section}`, content });
   }, [postToPreview, page, section]);
 
   // Debounced so typing does not flood the iframe with a message per keystroke.
@@ -82,6 +93,14 @@ export default function ContentEditor({
     return () => window.removeEventListener('message', onMessage);
   }, [pushDraft, postToPreview, page, section]);
 
+  // Release any object URLs still outstanding when the editor unmounts.
+  useEffect(() => {
+    const urls = objectUrlsRef.current;
+    return () => {
+      Object.values(urls).forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, []);
+
   /**
    * Uploads immediately on file select and stores the returned key as the
    * field's value. From the save path's point of view the result is just
@@ -90,6 +109,19 @@ export default function ContentEditor({
   async function handleUpload(fieldName: string, file: File) {
     setUploading(fieldName);
     setStatus({ kind: 'idle' });
+
+    // Kept so a failed upload can put the field back rather than leaving a
+    // blob: placeholder that Save would try to persist.
+    const previousValue = valuesRef.current[fieldName] ?? '';
+
+    // Show the chosen file in the preview straight away; the upload continues
+    // in the background and replaces this with the real storage key.
+    const objectUrl = URL.createObjectURL(file);
+    URL.revokeObjectURL(objectUrlsRef.current[fieldName] ?? '');
+    objectUrlsRef.current[fieldName] = objectUrl;
+    // The iframe gets the File; this parent-scoped URL is only for local UI.
+    pendingFilesRef.current[fieldName] = file;
+    setValues((current) => ({ ...current, [fieldName]: objectUrl }));
 
     try {
       const body = new FormData();
@@ -101,13 +133,23 @@ export default function ContentEditor({
 
       if (!response.ok) {
         setStatus({ kind: 'error', message: data?.error ?? 'Upload failed.' });
+        setValues((current) => ({ ...current, [fieldName]: previousValue }));
         return;
       }
 
       setValues((current) => ({ ...current, [fieldName]: data.key }));
     } catch {
       setStatus({ kind: 'error', message: 'Network error. The file was not uploaded.' });
+      setValues((current) => ({ ...current, [fieldName]: previousValue }));
     } finally {
+      // Swap done (or failed) — the blob is no longer what the field points at,
+      // and dropping the File lets the real storage key reach the preview.
+      const stale = objectUrlsRef.current[fieldName];
+      if (stale) {
+        URL.revokeObjectURL(stale);
+        delete objectUrlsRef.current[fieldName];
+      }
+      delete pendingFilesRef.current[fieldName];
       setUploading(null);
     }
   }
@@ -245,13 +287,19 @@ export default function ContentEditor({
           })}
 
           <div className="mt-7 flex items-center gap-4">
+            {/* Saving mid-upload would persist the blob: placeholder rather
+                than the uploaded key — the exact bug that poisoned a row. */}
             <button
               type="button"
               onClick={handleSave}
-              disabled={status.kind === 'saving'}
+              disabled={status.kind === 'saving' || uploading !== null}
               className="rounded-md bg-primary px-5 py-2.5 font-semibold text-white transition-colors hover:bg-primary-hover disabled:opacity-60"
             >
-              {status.kind === 'saving' ? 'Saving…' : 'Save changes'}
+              {status.kind === 'saving'
+                ? 'Saving…'
+                : uploading !== null
+                  ? 'Waiting for upload…'
+                  : 'Save changes'}
             </button>
             <span className="font-mono text-xs uppercase tracking-wider text-subtle">
               version {version}

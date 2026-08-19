@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 
 import { getSection, saveSection } from '@/lib/content/client';
 import { getSectionConfig, isMediaField } from '@/lib/content/sections';
+import { findTransientMediaError } from '@/lib/content/validate';
 
 // Sections predating CONTENT_SECTIONS validated against this fixed list; keep it
 // as the fallback so an unconfigured section still cannot be saved half-empty.
@@ -99,6 +100,14 @@ export async function PUT(
       typeof value === 'string' ? value.trim() : value,
     ])
   );
+
+  // Reject transient blob:/data: values before anything can persist them.
+  // Extracted to lib/content/validate.ts so the guard is unit-testable without
+  // standing up auth or an HTTP request.
+  const transient = findTransientMediaError(params.page, params.section, record);
+  if (transient) {
+    return NextResponse.json(transient, { status: 400 });
+  }
 
   for (const field of requiredFieldsFor(params.page, params.section)) {
     const value = record[field];
