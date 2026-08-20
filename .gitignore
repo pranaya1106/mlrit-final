@@ -50,3 +50,13 @@ skills-lock.json
 
 # compiled output for `npm test`
 .test-build
+
+# Chatbot backend (Python RAG service)
+chatbot/.venv/
+chatbot/chroma_db/
+chatbot/chroma_db_backup_*/
+chatbot/vector_db/
+chatbot/__pycache__/
+chatbot/indexes/__pycache__/
+chatbot/ingest/__pycache__/
+chatbot/*.log

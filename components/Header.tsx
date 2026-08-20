@@ -4,15 +4,30 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight, Menu, X, ChevronDown } from './icons';
+import { Search } from 'lucide-react';
 import ChroniclesAttentionButton from './ChroniclesAttentionButton';
+import SearchOverlay from './SearchOverlay';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileItem, setOpenMobileItem] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
   const closeMobileMenu = () => { setMobileOpen(false); setOpenMobileItem(null); };
+
+  // Global Ctrl+K keyboard shortcut for search
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((v) => !v);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   // Close the drawer if the viewport crosses back into desktop (e.g. devtools
   // resize) so it can't get stuck open with body scroll locked.
@@ -82,6 +97,8 @@ export default function Header() {
         hidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
+      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
       {/* MASTHEAD */}
       <div className="bg-white">
         <div className="flex items-center justify-between lg:justify-start gap-3 lg:gap-7 px-4 lg:px-7 py-3 min-h-[64px] lg:min-h-[78px]">
@@ -116,6 +133,29 @@ export default function Header() {
 
           {/* Spacer */}
           <div className="hidden lg:block flex-1 min-w-3" />
+
+          {/* Search Button — desktop/tablet only */}
+          <button
+            id="search-trigger-btn"
+            type="button"
+            onClick={() => setIsSearchOpen(true)}
+            className="hidden lg:flex items-center gap-2.5 h-9 pl-3 pr-3.5 rounded-full border border-border bg-[#f8f9fa] text-muted hover:border-green-400 hover:bg-green-50 hover:text-green-700 hover:shadow-sm transition-all mr-2 flex-shrink-0"
+            title="Search (Ctrl+K)"
+            aria-label="Open search (Ctrl+K)"
+          >
+            <Search className="w-4 h-4 transition-colors" />
+            <span className="hidden sm:block text-[0.78rem] font-medium">Search</span>
+          </button>
+
+          {/* Search Button — mobile/tablet only, icon-only */}
+          <button
+            type="button"
+            onClick={() => setIsSearchOpen(true)}
+            aria-label="Open search"
+            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground hover:bg-neutral-50 transition-colors flex-shrink-0"
+          >
+            <Search className="w-5 h-5" />
+          </button>
 
           {/* Contact CTA — desktop/tablet only; folded into the drawer on mobile */}
           <Link

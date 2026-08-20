@@ -1,3 +1,24 @@
+// Chatbot backend origin the browser needs to `fetch()` — derived from env vars so
+// CSP tracks whatever backend is actually configured, in both dev and prod,
+// instead of silently blocking the request. Falls back to the local-dev default
+// URL (matching components/Chatbot.tsx's own fallback).
+function originOf(url) {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
+}
+
+const CONNECT_SRC_EXTRA = Array.from(
+  new Set(
+    [
+      originOf(process.env.NEXT_PUBLIC_CHATBOT_URL || 'http://127.0.0.1:8001'),
+      'http://127.0.0.1:8001',
+    ].filter(Boolean)
+  )
+);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -36,8 +57,8 @@ const nextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               // Images: self + all whitelisted image hosts
               "img-src 'self' data: blob: https://mlrit.ac.in https://files.mlrit.ac.in https://res.cloudinary.com https://i.ibb.co https://mlrit-next.vercel.app",
-              // News API fetch target + Supabase (auth + content reads) + self
-              "connect-src 'self' https://mlrit.ac.in https://lkfrcvxdpfpgosogvvvg.supabase.co",
+              // News API + Supabase (auth + content reads) + chatbot backend + self
+              `connect-src 'self' https://mlrit.ac.in https://lkfrcvxdpfpgosogvvvg.supabase.co ${CONNECT_SRC_EXTRA.join(' ')}`,
               // Google Street View / Maps panorama embeds (Virtual Tour) + Instagram Reels
               // Video/audio: bundled files, /cdn proxy (both 'self'), plus blob:
               // for the admin live preview showing a not-yet-uploaded file.

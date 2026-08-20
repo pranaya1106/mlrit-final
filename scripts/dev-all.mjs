@@ -10,6 +10,7 @@ const isWin = platform === 'win32';
 // cmd.exe (spawned under shell:true on Windows) mis-parses a forward-slash exe
 // path as flags and only sees "backend" — must be backslashes here.
 const pythonBin = isWin ? 'backend\\venv\\Scripts\\python.exe' : 'backend/venv/bin/python';
+const chatbotPythonBin = isWin ? 'chatbot\\.venv\\Scripts\\python.exe' : 'chatbot/.venv/bin/python';
 
 const children = [];
 
@@ -48,5 +49,14 @@ if (existsSync(pythonBin)) {
   console.info(
     `[dev-all] no venv found at ${pythonBin} — skipping the news scraper.\n` +
     '[dev-all] set it up with: cd backend && python -m venv venv && venv\\Scripts\\pip install -r requirements.txt'
+  );
+}
+
+if (existsSync(chatbotPythonBin)) {
+  run('chatbot', chatbotPythonBin, ['main.py'], { cwd: 'chatbot' });
+} else {
+  console.info(
+    `[dev-all] no venv found at ${chatbotPythonBin} — skipping the chatbot backend.\n` +
+    '[dev-all] set it up with: cd chatbot && python -m venv .venv && .venv\\Scripts\\pip install -r requirements.txt'
   );
 }
