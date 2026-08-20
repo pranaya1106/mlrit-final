@@ -16,6 +16,7 @@ import Reveal from '@/components/motion/Reveal';
 import {
   CLUBS,
   CLUB_CATEGORIES,
+  CATEGORY_ACCENT,
   type Club,
   type ClubCategory,
 } from '@/lib/clubs';
@@ -25,14 +26,6 @@ import {
 const EASE = [0.22, 1, 0.36, 1] as const;
 const SPRING_SLOW = { stiffness: 40, damping: 18, mass: 1.6 };
 const SPRING_MED  = { stiffness: 75, damping: 22, mass: 0.9 };
-
-const CATEGORY_ACCENT: Record<ClubCategory, string> = {
-  Technical:        '#01741f',
-  Department:       '#1e3a5f',
-  Cultural:         '#b45309',
-  'Social Service': '#0369a1',
-  Society:          '#6b3fa0',
-};
 
 // ─── Trionn-exact card data ────────────────────────────────────────────────────
 // 21 cards — each 170×114px (4:3 ratio, matching Trionn's w-43 = 172px class)
@@ -582,7 +575,7 @@ function ClubsDirectory() {
       </div>
 
       {/* ── Main: sidebar + horizontal panel — fixed height, no dead space below ── */}
-      <div className="flex items-stretch w-full" style={{ height: 420 }}>
+      <div className="flex items-stretch w-full" style={{ height: 468 }}>
 
         {/* LEFT SIDEBAR — sticky, scrolls independently */}
         <div
@@ -776,6 +769,19 @@ function ClubCard({
             </Link>
           )}
         </div>
+
+        {/* Explore more — only clubs with a designed detail page get this */}
+        {club.hasDetailPage && (
+          <Link
+            href={`/campus/clubs/${club.id}`}
+            onClick={(e) => e.stopPropagation()}
+            className="mt-4 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-full border font-sans font-bold text-[0.78rem] text-white/80 hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            style={{ borderColor: 'rgba(255,255,255,0.14)' }}
+          >
+            Explore Club
+            <ArrowUpRight className="w-3.5 h-3.5" aria-hidden />
+          </Link>
+        )}
       </div>
     </motion.article>
   );
