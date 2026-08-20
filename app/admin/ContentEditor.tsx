@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { resolveAssetUrl } from '@/lib/cdn/url';
 import {
   asGalleryItems,
   fieldType,
@@ -413,11 +414,12 @@ export default function ContentEditor({
                       {asGalleryItems(values[name]).map((item, index, all) => {
                         const slot = `${name}::${item.id}`;
                         const busy = uploading.includes(slot);
-                        const src = item.key.startsWith('blob:')
-                          ? item.key
-                          : item.key
-                            ? `/cdn/${item.key}`
-                            : '';
+                        // Use the shared resolver, not a local /cdn/ prefix:
+                        // defaultItems point at bundled assets already rooted
+                        // at / (e.g. /placements/p1.jpg), and prefixing those
+                        // produced /cdn/placements/p1.jpg — a 404 for every
+                        // seeded thumbnail.
+                        const src = resolveAssetUrl(item.key, { allowTransient: true }) ?? '';
 
                         return (
                           <li
