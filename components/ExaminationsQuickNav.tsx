@@ -5,8 +5,25 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { useHideOnScroll } from '@/lib/useHideOnScroll';
 import { EXAMS_NAV } from '@/lib/examinations';
 
+const EXAMS_SECTIONS: Record<string, { id: string; label: string }[]> = {
+  '/examinations/coe':                    [],
+  '/examinations/circulars':              [],
+  '/examinations/notifications':          [],
+  '/examinations/timetable/internal':     [],
+  '/examinations/timetable/external':     [],
+  '/examinations/fee-results':            [],
+  '/examinations/student-verifications':  [],
+  '/examinations/citizen-charter':        [],
+  '/examinations/certificates':           [],
+  '/examinations/downloads':              [],
+  '/examinations/pyqs':                   [],
+  '/examinations/annual-reports':         [],
+  '/examinations/contact':                [],
+};
+
 export default function ExaminationsQuickNav({ active }: { active: string }) {
   const hidden = useHideOnScroll();
+  const activeSections = EXAMS_SECTIONS[active] ?? [];
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft,  setCanScrollLeft]  = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -42,7 +59,7 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
   return (
     <nav
       className={`relative bg-white/95 backdrop-blur-md border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
+        hidden ? 'lg:-translate-y-full' : 'translate-y-0'
       }`}
       aria-label="Examinations sections"
     >
@@ -65,6 +82,15 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
               {item.label}
             </Link>
           ))}
+          {activeSections.length > 0 && (
+            <div className="w-full flex flex-wrap gap-2 pt-1 border-t border-border/50 mt-1">
+              {activeSections.map((s) => (
+                <a key={s.id} href={`#${s.id}`} className="px-3 py-1.5 rounded-full text-[0.78rem] font-medium bg-orange-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors whitespace-nowrap">
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Desktop scroll strip with arrows */}
@@ -124,6 +150,17 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
             <path d="M7 5l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
+
+        {activeSections.length > 0 && (
+          <div className="hidden lg:flex items-center gap-1 pb-2 border-t border-border/40 pt-1.5">
+            <span className="font-mono text-[0.6rem] font-bold tracking-[0.18em] uppercase text-muted/60 mr-2 shrink-0">On this page</span>
+            {activeSections.map((s) => (
+              <a key={s.id} href={`#${s.id}`} className="shrink-0 px-3 py-1 rounded-full text-[0.78rem] font-medium text-muted hover:text-primary hover:bg-orange-50 border border-transparent hover:border-primary/20 transition-all duration-200 whitespace-nowrap">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        )}
 
       </div>
     </nav>

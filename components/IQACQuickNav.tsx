@@ -4,22 +4,87 @@ import Link from 'next/link';
 import { useHideOnScroll } from '@/lib/useHideOnScroll';
 
 const IQAC_NAV = [
-  { label: 'Overview',           href: '/iqac' },
-  { label: 'Objectives',         href: '/iqac/objectives' },
-  { label: 'Functions',          href: '/iqac/functions' },
-  { label: 'IQAC Composition',   href: '/iqac/composition' },
-  { label: 'Quality Initiatives', href: '/iqac/initiatives' },
-  { label: 'Reports & Documents', href: '/iqac/reports' },
-  { label: 'Best Practices',     href: '/iqac/best-practices' },
-  { label: 'Support',            href: '/iqac/contact' },
+  {
+    label: 'Overview',
+    href: '/iqac',
+    sections: [
+      { id: 'about',             label: 'About IQAC'          },
+      { id: 'vision-mission',    label: 'Vision & Mission'    },
+      { id: 'commitment',        label: 'Commitment to Quality' },
+      { id: 'quality-framework', label: 'Quality Framework'   },
+    ],
+  },
+  {
+    label: 'Objectives',
+    href: '/iqac/objectives',
+    sections: [
+      { id: 'goals',          label: 'Strategic Goals' },
+      { id: 'quality-policy', label: 'Quality Policy'  },
+    ],
+  },
+  {
+    label: 'Functions',
+    href: '/iqac/functions',
+    sections: [
+      { id: 'functions',    label: 'Key Functions' },
+      { id: 'process-flow', label: 'Process Flow'  },
+    ],
+  },
+  {
+    label: 'IQAC Composition',
+    href: '/iqac/composition',
+    sections: [
+      { id: 'members',                 label: 'Members'                 },
+      { id: 'head-iqac',               label: 'Head IQAC'               },
+      { id: 'roles-responsibilities',  label: 'Roles & Responsibilities' },
+    ],
+  },
+  {
+    label: 'Quality Initiatives',
+    href: '/iqac/initiatives',
+    sections: [
+      { id: 'initiatives',      label: 'Major Initiatives'    },
+      { id: 'responsibilities', label: 'Key Responsibilities' },
+    ],
+  },
+  {
+    label: 'Reports & Documents',
+    href: '/iqac/reports',
+    sections: [
+      { id: 'aqar-reports',     label: 'AQAR Reports'     },
+      { id: 'minutes',          label: 'Minutes'           },
+      { id: 'audit-reports',    label: 'Audit Reports'     },
+      { id: 'policy-documents', label: 'Policy Documents'  },
+    ],
+  },
+  {
+    label: 'Best Practices',
+    href: '/iqac/best-practices',
+    sections: [
+      { id: 'best-practice-1', label: 'Best Practice 1' },
+      { id: 'best-practice-2', label: 'Best Practice 2' },
+      { id: 'best-practice-3', label: 'Best Practice 3' },
+    ],
+  },
+  {
+    label: 'Support',
+    href: '/iqac/contact',
+    sections: [
+      { id: 'contact',    label: 'Contact Details' },
+      { id: 'send-query', label: 'Send Query'       },
+    ],
+  },
 ];
 
 export default function IQACQuickNav({ active }: { active: string }) {
   const hidden = useHideOnScroll();
+  const activeItem = IQAC_NAV.find((l) => l.href === active);
+  const activeSections = activeItem?.sections ?? [];
+
   return (
     <nav
       className={`relative bg-white/95 backdrop-blur-md border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[top,transform] duration-300 ease-out-quart lg:translate-y-0 ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
+        hidden ? 'lg:-translate-y-full' : 'translate-y-0'
       }`}
       aria-label="IQAC sub-navigation"
     >
@@ -39,6 +104,15 @@ export default function IQACQuickNav({ active }: { active: string }) {
               {l.label}
             </Link>
           ))}
+          {activeSections.length > 0 && (
+            <div className="w-full flex flex-wrap gap-2 pt-1 border-t border-border/50 mt-1">
+              {activeSections.map((s) => (
+                <a key={s.id} href={`#${s.id}`} className="px-3 py-1.5 rounded-full text-[0.78rem] font-medium bg-orange-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors whitespace-nowrap">
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="hidden lg:flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
@@ -67,6 +141,17 @@ export default function IQACQuickNav({ active }: { active: string }) {
             );
           })}
         </div>
+
+        {activeSections.length > 0 && (
+          <div className="hidden lg:flex items-center gap-1 pb-2 border-t border-border/40 pt-1.5">
+            <span className="font-mono text-[0.6rem] font-bold tracking-[0.18em] uppercase text-muted/60 mr-2 shrink-0">On this page</span>
+            {activeSections.map((s) => (
+              <a key={s.id} href={`#${s.id}`} className="shrink-0 px-3 py-1 rounded-full text-[0.78rem] font-medium text-muted hover:text-primary hover:bg-orange-50 border border-transparent hover:border-primary/20 transition-all duration-200 whitespace-nowrap">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -7,6 +7,7 @@ export interface ExamNavItem {
   href: string;
   /** Sub-tabs rendered inside the page (not a separate top-level tab) */
   children?: { label: string; href: string }[];
+  sections?: { id: string; label: string }[];
 }
 
 export const EXAMS_NAV: ExamNavItem[] = [
