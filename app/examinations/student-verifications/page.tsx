@@ -3,6 +3,7 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Student Verifications — Examinations — MLRIT',
@@ -15,6 +16,10 @@ const USE_CASES = [
   { title: 'Abroad Applications', desc: 'Foreign universities requiring WES, NACES or direct institution-to-institution verification.' },
   { title: 'Government Agencies', desc: 'PSU or government service verifications requiring attested copies of degree and grade cards.' },
   { title: 'Background Checks', desc: 'Third-party screening agencies conducting education background checks.' },
+];
+
+const NAV_ITEMS = [
+  { id: 'student-verifications', label: 'Student Verifications' },
 ];
 
 export default function StudentVerificationsPage() {
@@ -32,7 +37,15 @@ export default function StudentVerificationsPage() {
       />
       <ExaminationsQuickNav active="/examinations/student-verifications" />
 
-      <section className="bg-warm-light py-10 md:py-14">
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+      <section id="student-verifications" className="bg-warm-light py-10 md:py-14">
         <div className="max-w-[900px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {/* Download form */}
@@ -103,6 +116,9 @@ export default function StudentVerificationsPage() {
 
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

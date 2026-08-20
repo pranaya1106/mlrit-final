@@ -24,6 +24,7 @@ export interface FacultyProfile {
   };
   image?: string;
   imageAlt: string;
+  empId?: string;
 }
 
 export const FACULTY: FacultyProfile[] = [
@@ -3702,8 +3703,9 @@ imageAlt: "Portrait of Kommula Rani",
       googleScholar: ".",
       orcid: "."
     },
+    empId: "MLRIT1892",
     image: "/faculty-new/aiml/aiml-damala-obulesu.jpg",
-    imageAlt: "Portrait of DAMALA OBULESU",
+    imageAlt: "Portrait of D. Obulesh",
   },
   {
     id: "emmadisetti-rahavender-aiml",

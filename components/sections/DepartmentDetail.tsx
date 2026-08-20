@@ -25,6 +25,7 @@ import StudentReelSlider from '@/components/sections/StudentReelSlider';
 import DeptIntakeChart from '@/components/DeptIntakeChart';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
 import { useHideOnScroll } from '@/lib/useHideOnScroll';
+import AcademicsQuickNav from '@/components/AcademicsQuickNav';
 
 type Props = { department: Department };
 type PanelProps = { d: Department; data: DeptData };
@@ -210,6 +211,9 @@ export default function DepartmentDetail({ department: d }: Props) {
           </div>
         </section>
       )}
+
+      {/* ── ACADEMICS QUICK NAV ────────────────────────────── */}
+      <AcademicsQuickNav active={`/departments/${d.slug}`} />
 
       {/* ── STICKY TAB BAR ─────────────────────────────────── */}
       <nav

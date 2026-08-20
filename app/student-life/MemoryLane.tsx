@@ -92,7 +92,7 @@ export default function MemoryLane({ items }: Props) {
 
   return (
     <section
-      style={{ backgroundColor: '#090909' }}
+      style={{ backgroundColor: '#faf7f0' }}
       className="pt-16 pb-20 md:pt-20 md:pb-24"
       aria-label="Memory Lane"
     >

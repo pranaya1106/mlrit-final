@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { PLACEMENT_HIGHLIGHTS, PLACEMENT_OVERVIEW } from '@/lib/placements';
+import PlacementsQuickNav from '@/components/PlacementsQuickNav';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Placements — Overview — MLRIT',
@@ -50,11 +52,25 @@ const EXPLORE = [
   { href: '/placements/support',              label: 'Reach the T&P Cell',    desc: 'Recruiter enquiries, campus drive requests and corporate connect.',       tone: 'green'  },
 ];
 
+const NAV_ITEMS = [
+  { id: 'overview', label: 'Overview' },
+];
+
 export default function PlacementsOverviewPage() {
   return (
     <>
+      <PlacementsQuickNav active="/placements/overview" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
       {/* Editorial intro — drop cap + pull quote */}
-      <section className="bg-white py-12 md:py-16">
+      <section id="overview" className="bg-white py-12 md:py-16">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-start">
             <Reveal>
@@ -241,6 +257,9 @@ export default function PlacementsOverviewPage() {
           </Stagger>
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

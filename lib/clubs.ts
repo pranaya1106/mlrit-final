@@ -19,6 +19,8 @@ export interface Club {
   facultyCoordinator?: string;
   studentLead?: string;
   members?: string;
+  /** Optional dedicated club page route */
+  href?: string;
 }
 
 export const CLUB_CATEGORIES: ClubCategory[] = [
@@ -124,14 +126,15 @@ export const CLUBS: Club[] = [
     members: '220+',
   },
   {
-    id: 'ece',
-    name: 'ECE Department Society',
-    shortName: 'ECE',
+    id: 'robotics',
+    name: 'Robotics Club',
+    shortName: 'ROBOTICS',
     category: 'Department',
     description:
-      'Electronics and Communication society — PCB design workshops, embedded systems challenges, VLSI seminars, and Smart India Hackathon teams.',
-    image: '/images/students/reel-ece.png',
+      'A technical student community under the ECE Department — robotics workshops, embedded systems projects, Robothon competitions, IEEE RAS sessions, and breakthrough builds like the Borewell Rescue Robot and Brain-Controlled Wheelchair.',
+    image: '/images/clubs/robotics-hero.png',
     members: '320+',
+    href: '/campus/clubs/robotics',
   },
   {
     id: 'aero',

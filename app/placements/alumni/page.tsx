@@ -2,6 +2,10 @@
 
 import Reveal from '@/components/motion/Reveal';
 import AlumniGlobe from '@/components/placements/AlumniGlobe';
+import PageHeader from '@/components/PageHeader';
+import PlacementsQuickNav from '@/components/PlacementsQuickNav';
+import { usePathname } from 'next/navigation';
+import SideQuickNav from '@/components/SideQuickNav';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
@@ -9,26 +13,34 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'alumni', label: 'Alumni' },
+];
+
 export default function PlacementsAlumniPage() {
+  const pathname = usePathname();
   return (
     <main>
-      {/* Page intro */}
-      <section className="bg-white pt-14 pb-8">
-        <div className="w-full px-6 md:px-10 lg:px-12">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Alumni</span>
-            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Engineers who <span className="font-display italic font-medium" style={gradientText}>build the world.</span>
-            </h1>
-            <p className="mt-4 max-w-[680px] text-muted leading-relaxed">
-              Over 7,000 MLRIT alumni are now part of the global workforce — at Fortune 500 companies, MNCs, and innovative startups across nine countries and every major industry.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Placements"
+        title="Alumni"
+        italic="worldwide."
+        dek="7,000+ MLRIT alumni working at leading MNCs and startups across the globe."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Placements', href: '/placements/overview' }, { label: 'Alumni' }]}
+        variant="green"
+      />
+      <PlacementsQuickNav active={pathname} />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
       {/* Re-Member section */}
-      <section className="bg-ink text-white py-10 md:py-14">
+      <section id="alumni" className="bg-ink text-white py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="max-w-[760px]">
             <Reveal>
@@ -91,6 +103,9 @@ export default function PlacementsAlumniPage() {
 
       {/* Globe — alumni across the world */}
       <AlumniGlobe />
+
+        </div>
+      </div>
     </main>
   );
 }

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import { DEPARTMENTS } from '@/lib/departments';
+import AcademicsQuickNav from '@/components/AcademicsQuickNav';
 
 export const metadata: Metadata = { title: 'Undergraduate Programmes — MLRIT' };
 
@@ -22,6 +23,7 @@ export default function UGPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Undergraduate' }]}
         variant="green"
       />
+      <AcademicsQuickNav active="/departments/ug" />
       <Section>
         <H2 italic="branches">Engineering</H2>
         <Lede>Every B.Tech branch at MLRIT is JNTUH-affiliated, AICTE-approved and offered as a 4-year programme.</Lede>

@@ -1,6 +1,9 @@
 
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import PageHeader from '@/components/PageHeader';
+import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import { MOUS } from '@/lib/placements';
+import SideQuickNav from '@/components/SideQuickNav';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
@@ -11,27 +14,33 @@ const gradientText: React.CSSProperties = {
 const coes = MOUS.filter((m) => m.type === 'Centre of Excellence');
 const partners = MOUS.filter((m) => m.type === 'MoU Partner');
 
+const NAV_ITEMS = [
+  { id: 'mous', label: 'MoUs & Partnerships' },
+];
+
 export default function PlacementsMoUsPage() {
   return (
     <>
-      {/* Page intro */}
-      <section className="bg-white pt-14 pb-4">
-        <div className="w-full px-6 md:px-10 lg:px-12">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">MoUs & Partnerships</span>
-            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Industry ties that <span className="font-display italic font-medium" style={gradientText}>open doors.</span>
-            </h1>
-            <p className="mt-4 max-w-[720px] text-muted leading-relaxed">
-              MLRIT has established formal Memoranda of Understanding and Centres of Excellence with leading industry organisations —
-              providing students with advanced domain training, live project exposure, and direct placement pathways.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Placements"
+        title="MoUs &"
+        italic="partnerships."
+        dek="Formal industry engagements and Centres of Excellence powering hands-on learning at MLRIT."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Placements', href: '/placements/overview' }, { label: 'MoUs & Partnerships' }]}
+        variant="green"
+      />
+      <PlacementsQuickNav active="/placements/mous" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
       {/* Centres of Excellence */}
-      <section className="bg-white py-14 md:py-20">
+      <section id="mous" className="bg-white py-14 md:py-20">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2 inline-block">On-Campus</span>
@@ -129,6 +138,8 @@ export default function PlacementsMoUsPage() {
         </div>
       </section>
 
+        </div>
+      </div>
     </>
   );
 }

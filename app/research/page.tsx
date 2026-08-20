@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
 import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_OVERVIEW } from '@/lib/research';
-import ResearchQuickNav from '@/components/ResearchQuickNav';
 import ResearchHero from '@/components/ResearchHero';
+import ResearchQuickNav from '@/components/ResearchQuickNav';
 import ResearchAreasGrid from '@/components/ResearchAreasGrid';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = { title: 'Research — Overview — MLRIT' };
+
+const NAV_ITEMS = [
+  { id: 'research-overview', label: 'Overview' },
+];
 
 export default function ResearchPage() {
   // The hero shows stats + intro; the areas grid replaces the intro `cards` block.
@@ -28,11 +33,23 @@ export default function ResearchPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Research' }, { label: 'Overview' }]}
       />
       <ResearchQuickNav active="/research" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
       <ResearchAreasGrid />
 
-      <div className="bg-white">
+      <div id="research-overview" className="bg-white">
         <div className="w-full px-6 md:px-10 lg:px-12 py-10 md:py-14 space-y-10 md:space-y-14">
           <Blocks blocks={rest} />
+        </div>
+      </div>
+
         </div>
       </div>
     </>

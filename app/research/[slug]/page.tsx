@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_PAGES, RESEARCH_NAV } from '@/lib/research';
-import ResearchQuickNav from '@/components/ResearchQuickNav';
 import ResearchHero from '@/components/ResearchHero';
+import ResearchQuickNav from '@/components/ResearchQuickNav';
 
 export function generateStaticParams() {
   return Object.keys(RESEARCH_PAGES).map((slug) => ({ slug }));
@@ -31,8 +31,8 @@ export default function ResearchSubPage({ params }: { params: { slug: string } }
           { label: navItem?.label ?? params.slug },
         ]}
       />
-
       <ResearchQuickNav active={`/research/${params.slug}`} />
+
 
       <div className="bg-white">
         <div className="w-full px-6 md:px-10 lg:px-12 py-10 md:py-14 space-y-14 md:space-y-20">

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
+import PageHeader from '@/components/PageHeader';
+import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import { PLACEMENT_CONTACTS } from '@/lib/placements';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Reach Placements At MLRIT — Training & Placement Cell',
@@ -13,28 +16,33 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'support', label: 'Contact T&P' },
+];
+
 export default function PlacementsSupportPage() {
   return (
     <>
-      {/* Page intro */}
-      <section className="bg-white pt-14 pb-4">
-        <div className="w-full px-6 md:px-10 lg:px-12">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Contact</span>
-            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Reach Placements{' '}
-              {/* Final wording "Reach Placements At…" — suffix pending institutional confirmation */}
-              <span className="font-display italic font-medium" style={gradientText}>At MLRIT.</span>
-            </h1>
-            <p className="mt-4 max-w-[640px] text-muted leading-relaxed">
-              Get in touch with the Training & Placement Cell for campus recruitment drives, partnership enquiries, student registration, and placement support.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Placements"
+        title="Contact"
+        italic="T&P Cell."
+        dek="Recruiter enquiries, campus drive requests and corporate connect — reach the Training & Placement Cell directly."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Placements', href: '/placements/overview' }, { label: 'Contact T&P' }]}
+        variant="green"
+      />
+      <PlacementsQuickNav active="/placements/support" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
       {/* Contact cards */}
-      <section className="bg-warm-light min-h-[50vh] py-10 md:py-16">
+      <section id="support" className="bg-warm-light min-h-[50vh] py-10 md:py-16">
         <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {PLACEMENT_CONTACTS.map((c) => (
@@ -105,6 +113,9 @@ export default function PlacementsSupportPage() {
 
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

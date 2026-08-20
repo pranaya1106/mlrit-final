@@ -3,6 +3,7 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Circulars — Examinations — MLRIT',
@@ -177,6 +178,10 @@ const BADGE_STYLES: Record<Circular['category'], string> = {
   Condonation: 'bg-purple-50 border-purple-200 text-purple-700',
 };
 
+const NAV_ITEMS = [
+  { id: 'circulars', label: 'Circulars' },
+];
+
 export default function CircularsPage() {
   return (
     <>
@@ -192,7 +197,15 @@ export default function CircularsPage() {
       />
       <ExaminationsQuickNav active="/examinations/circulars" />
 
-      <section className="bg-warm-light min-h-[60vh] py-10 md:py-14">
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+      <section id="circulars" className="bg-warm-light min-h-[60vh] py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
 
           <Reveal>
@@ -255,6 +268,9 @@ export default function CircularsPage() {
 
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

@@ -3,6 +3,7 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Controller of Examinations — MLRIT',
@@ -52,6 +53,10 @@ const gradientText: React.CSSProperties = {
   color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'coe', label: 'COE' },
+];
+
 export default function COEPage() {
   return (
     <>
@@ -67,8 +72,16 @@ export default function COEPage() {
       />
       <ExaminationsQuickNav active="/examinations/coe" />
 
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
       {/* Autonomy — editorial lead treatment */}
-      <section className="bg-white py-12 md:py-16">
+      <section id="coe" className="bg-white py-12 md:py-16">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-start">
             <Reveal>
@@ -211,6 +224,9 @@ export default function COEPage() {
           </Reveal>
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

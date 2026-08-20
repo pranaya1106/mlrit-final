@@ -1,5 +1,8 @@
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import PageHeader from '@/components/PageHeader';
+import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import PlacementTrackRecord from '@/components/placements/PlacementTrackRecord';
+import SideQuickNav from '@/components/SideQuickNav';
 import {
   PLACEMENT_HIGHLIGHTS,
   INFRASTRUCTURE_LIST,
@@ -12,26 +15,33 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'statistics', label: 'Statistics' },
+];
+
 export default function PlacementsStatisticsPage() {
   return (
     <>
-      {/* Page intro */}
-      <section className="bg-white pt-14 pb-4">
-        <div className="w-full px-6 md:px-10 lg:px-12">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Statistics</span>
-            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Placement <span className="font-display italic font-medium" style={gradientText}>performance.</span>
-            </h1>
-            <p className="mt-4 max-w-[680px] text-muted leading-relaxed">
-              Verified placement outcomes year on year — offers, packages, and company participation from our campus recruitment seasons.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Placements"
+        title="Year-wise"
+        italic="statistics."
+        dek="Verified placement outcomes year on year — offers, packages, and company participation from our campus recruitment seasons."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Placements', href: '/placements/overview' }, { label: 'Statistics' }]}
+        variant="green"
+      />
+      <PlacementsQuickNav active="/placements/statistics" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
       {/* Headline stats */}
-      <section className="bg-white py-10 md:py-14">
+      <section id="statistics" className="bg-white py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" delay={0.06}>
             {PLACEMENT_HIGHLIGHTS.map((h) => (
@@ -89,6 +99,9 @@ export default function PlacementsStatisticsPage() {
           </Stagger>
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

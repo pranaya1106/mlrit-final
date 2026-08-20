@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import { DEPARTMENTS } from '@/lib/departments';
+import AcademicsQuickNav from '@/components/AcademicsQuickNav';
 
 export const metadata: Metadata = { title: 'Postgraduate Programmes — MLRIT' };
 
@@ -25,6 +26,7 @@ export default function PGPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Postgraduate' }]}
         variant="green"
       />
+      <AcademicsQuickNav active="/departments/pg" />
       <Section>
         <H2 italic="specialisations">M.Tech</H2>
         <Lede>Four research-led M.Tech tracks across CSE, VLSI, Power Systems and Aerospace Propulsion.</Lede>

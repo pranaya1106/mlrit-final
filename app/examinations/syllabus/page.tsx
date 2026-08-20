@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import { SYLLABUS_DATA, getSyllabusCourses, type SyllabusCourse } from '@/lib/syllabus-data';
+import SideQuickNav from '@/components/SideQuickNav';
 
 // ── Config ─────────────────────────────────────────────────────────
 const DEPARTMENTS: { key: string; label: string; short: string }[] = [
@@ -89,6 +90,10 @@ function CourseRow({ course }: { course: SyllabusCourse }) {
   );
 }
 
+const NAV_ITEMS = [
+  { id: 'syllabus', label: 'Syllabus' },
+];
+
 // ── Page ───────────────────────────────────────────────────────────
 export default function SyllabusPage() {
   const [dept,   setDept]   = useState('cse');
@@ -122,7 +127,15 @@ export default function SyllabusPage() {
       />
       <ExaminationsQuickNav active="/examinations/syllabus" />
 
-      <section className="bg-white py-14 md:py-20">
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+      <section id="syllabus" className="bg-white py-14 md:py-20">
         <div className="w-full px-6 md:px-10 lg:px-12 space-y-8">
 
           {/* Step 1 — Department */}
@@ -260,6 +273,9 @@ export default function SyllabusPage() {
 
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

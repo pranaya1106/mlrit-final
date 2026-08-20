@@ -19,12 +19,14 @@ const STATS = [
 
 export default function StudentLifeOverviewPage() {
   return (
-    <>
+    // Page-level cream canvas — editorial off-white foundation
+    <div className="bg-cream" style={{ backgroundColor: '#faf7f0' }}>
+
       {/* ─── HERO ───────────────────────────────────────────────────────────── */}
       <section
         className="relative w-full overflow-hidden"
         style={{
-          backgroundColor: '#090909',
+          backgroundColor: '#0c0c0e',
           height: 'clamp(480px, 54.375vw, 900px)',
         }}
         aria-label="Student Life at MLRIT"
@@ -85,16 +87,25 @@ export default function StudentLifeOverviewPage() {
       {/* ─── STATS ────────────────────────────────────────────────────────── */}
       <section
         className="w-full py-16 md:py-20"
-        style={{ backgroundColor: '#090909' }}
         aria-label="Student life at a glance"
       >
         {/* Heading block */}
         <div className="text-center px-6 mb-12 md:mb-16">
-          <h2 className="text-white font-sans font-semibold" style={{ fontSize: 'clamp(1.5rem, 2.78vw, 2.5rem)', lineHeight: 1.25 }}>
+          <h2
+            className="font-sans font-semibold"
+            style={{
+              fontSize: 'clamp(1.5rem, 2.78vw, 2.5rem)',
+              lineHeight: 1.25,
+              color: '#0f0f0f',
+            }}
+          >
             Welcome to Student Life<br />
-            at <em className="font-display italic not-italic" style={{ fontStyle: 'italic' }}>MLR Institute of Technology</em>
+            at <em className="font-display italic" style={{ fontStyle: 'italic' }}>MLR Institute of Technology</em>
           </h2>
-          <p className="mt-3 text-neutral-400 font-sans" style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)' }}>
+          <p
+            className="mt-3 font-sans"
+            style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)', color: '#5e5d57' }}
+          >
             Where learning meets living — every day on campus
           </p>
         </div>
@@ -106,7 +117,7 @@ export default function StudentLifeOverviewPage() {
               key={stat.label}
               className="flex flex-col items-center px-8 md:px-12 py-4"
               style={{
-                borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.12)' : 'none',
+                borderLeft: i > 0 ? '1px solid rgba(15,15,15,0.10)' : 'none',
                 minWidth: 'clamp(140px, 18vw, 220px)',
               }}
             >
@@ -122,8 +133,12 @@ export default function StudentLifeOverviewPage() {
                 {stat.value}
               </span>
               <span
-                className="mt-2 text-white font-sans text-center"
-                style={{ fontSize: 'clamp(0.8rem, 1vw, 0.9rem)', letterSpacing: '0.02em' }}
+                className="mt-2 font-sans text-center"
+                style={{
+                  fontSize: 'clamp(0.8rem, 1vw, 0.9rem)',
+                  letterSpacing: '0.02em',
+                  color: '#27272a',
+                }}
               >
                 {stat.label}
               </span>
@@ -135,7 +150,7 @@ export default function StudentLifeOverviewPage() {
       {/* ─── CELEBRATE CAMPUS ENGAGEMENTS ─────────────────────────────────── */}
       <section
         className="w-full py-10 md:py-14"
-        style={{ backgroundColor: '#090909' }}
+        style={{ backgroundColor: '#f1ece1' }}
         aria-label="Campus Engagements"
       >
         <div className="mx-auto px-4 md:px-10" style={{ maxWidth: '1360px' }}>
@@ -162,8 +177,8 @@ export default function StudentLifeOverviewPage() {
             {/* Left: heading */}
             <div className="md:w-1/2 md:pr-12">
               <h2
-                className="text-white font-sans font-semibold"
-                style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)', lineHeight: 1.2 }}
+                className="font-sans font-semibold"
+                style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)', lineHeight: 1.2, color: '#0f0f0f' }}
               >
                 Celebrate Campus
               </h2>
@@ -183,8 +198,8 @@ export default function StudentLifeOverviewPage() {
             {/* Right: body copy */}
             <div className="md:w-1/2">
               <p
-                className="text-neutral-300 font-sans leading-relaxed"
-                style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)' }}
+                className="font-sans leading-relaxed"
+                style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)', color: '#5e5d57' }}
               >
                 Dive into campus clubs, cultural fests, sports leagues, and academic competitions that spark growth and lasting memories. At MLRIT, every event is a chance to discover your passion, build your network, and create experiences that stay with you long after graduation.
               </p>
@@ -192,6 +207,6 @@ export default function StudentLifeOverviewPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

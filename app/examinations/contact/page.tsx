@@ -3,11 +3,16 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import { EXAM_CONTACTS } from '@/lib/examinations';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Contact Us — Examinations — MLRIT',
   description: 'Contact the Controller of Examinations office at MLRIT for queries related to results, timetables, regulations and certificates.',
 };
+
+const NAV_ITEMS = [
+  { id: 'contact', label: 'Contact Us' },
+];
 
 export default function ExaminationsContactPage() {
   return (
@@ -24,7 +29,15 @@ export default function ExaminationsContactPage() {
       />
       <ExaminationsQuickNav active="/examinations/contact" />
 
-      <section className="bg-warm-light min-h-screen py-10 md:py-14">
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+      <section id="contact" className="bg-warm-light min-h-screen py-10 md:py-14">
         <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {EXAM_CONTACTS.map((c) => (
@@ -87,6 +100,9 @@ export default function ExaminationsContactPage() {
 
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

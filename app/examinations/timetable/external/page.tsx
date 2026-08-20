@@ -3,6 +3,7 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = { title: 'External (SEE) Timetable — Examinations — MLRIT' };
 
@@ -197,6 +198,10 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'timetable-external', label: 'Timetable (External)' },
+];
+
 export default function ExternalTimetablePage() {
   return (
     <>
@@ -212,6 +217,14 @@ export default function ExternalTimetablePage() {
         ]}
       />
       <ExaminationsQuickNav active="/examinations/timetable/external" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
       {/* Internal / External pill toggle */}
       <div className="bg-white border-b border-border">
@@ -234,7 +247,7 @@ export default function ExternalTimetablePage() {
         </div>
       </div>
 
-      <section className="bg-white py-10 md:py-14">
+      <section id="timetable-external" className="bg-white py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
@@ -300,6 +313,9 @@ export default function ExternalTimetablePage() {
           </Reveal>
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

@@ -1,6 +1,9 @@
 
 import Reveal from '@/components/motion/Reveal';
+import PageHeader from '@/components/PageHeader';
+import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import { READINESS_MODULES, BRANCH_CURRICULA } from '@/lib/placements';
+import SideQuickNav from '@/components/SideQuickNav';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
@@ -8,27 +11,33 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'industry-readiness', label: 'Industry Readiness' },
+];
+
 export default function IndustryReadinessPage() {
   return (
     <>
-      {/* Page intro */}
-      <section className="bg-white pt-14 pb-4">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
-          <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Industry Readiness</span>
-            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Built for <span className="font-display italic font-medium" style={gradientText}>the industry.</span>
-            </h1>
-            <p className="mt-4 max-w-[700px] text-muted leading-relaxed">
-              MLRIT&apos;s Training & Placement Cell runs a structured, year-round programme spanning aptitude, communication, domain skills,
-              and professional readiness — ensuring every graduate is prepared to compete and succeed.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Placements"
+        title="Industry"
+        italic="readiness."
+        dek="The training pipeline that takes first-years to placement-ready seniors — aptitude, communication, and domain expertise."
+        crumbs={[{ label: 'Home', href: '/' }, { label: 'Placements', href: '/placements/overview' }, { label: 'Industry Readiness' }]}
+        variant="green"
+      />
+      <PlacementsQuickNav active="/placements/industry-readiness" />
+
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
 
       {/* Training programme modules */}
-      <section className="bg-white py-14 md:py-20">
+      <section id="industry-readiness" className="bg-white py-14 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
             <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.6rem] leading-tight mb-8">
@@ -90,6 +99,8 @@ export default function IndustryReadinessPage() {
         </div>
       </section>
 
+        </div>
+      </div>
     </>
   );
 }

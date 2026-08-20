@@ -156,6 +156,16 @@ export default function FacultyProfilePage({
                     {deptLabel}
                   </div>
                 </div>
+                {f.empId && (
+                  <div>
+                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
+                      Emp ID
+                    </div>
+                    <div className="font-sans font-bold text-foreground text-[0.9rem]">
+                      {f.empId}
+                    </div>
+                  </div>
+                )}
                 {f.experience && (
                   <div>
                     <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Annual Reports — Examinations — MLRIT',
@@ -41,6 +42,10 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'annual-reports', label: 'Annual Reports' },
+];
+
 export default function AnnualReportsPage() {
   return (
     <>
@@ -56,7 +61,15 @@ export default function AnnualReportsPage() {
       />
       <ExaminationsQuickNav active="/examinations/annual-reports" />
 
-      <section className="bg-white py-10 md:py-14">
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
+      <section id="annual-reports" className="bg-white py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
 
           <Reveal>
@@ -125,6 +138,9 @@ export default function AnnualReportsPage() {
 
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
+import SideQuickNav from '@/components/SideQuickNav';
 
 export const metadata: Metadata = {
   title: 'Exam Fee & Results — Examinations — MLRIT',
@@ -37,6 +38,10 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
+const NAV_ITEMS = [
+  { id: 'fee-results', label: 'Fee & Results' },
+];
+
 export default function FeeResultsPage() {
   return (
     <>
@@ -52,8 +57,16 @@ export default function FeeResultsPage() {
       />
       <ExaminationsQuickNav active="/examinations/fee-results" />
 
+      <div className="lg:flex lg:gap-0 items-start">
+        <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
+          <div className="pt-12 pl-6">
+            <SideQuickNav items={NAV_ITEMS} />
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+
       {/* Exam Portal CTA */}
-      <section className="bg-ink text-white py-14">
+      <section id="fee-results" className="bg-ink text-white py-14">
         <div className="w-full px-6 md:px-10 lg:px-12 flex flex-col md:flex-row md:items-center gap-8">
           <div className="flex-1">
             <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-white/50 mb-2 inline-block">
@@ -138,6 +151,9 @@ export default function FeeResultsPage() {
           </Reveal>
         </div>
       </section>
+
+        </div>
+      </div>
     </>
   );
 }

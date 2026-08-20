@@ -101,15 +101,15 @@ const CARDS: CardDef[] = [
     itx:1100, ity:  30,  is:0.65, irY:-4.0, irX:-4.0,  ftx:CX, fty:CY, fs:0.04, frY:0, frX:0, z:12 },
   { src:'/images/sports/trophy-cabinet.png',             alt:'Sports trophies',
     itx:1000, ity: 560,  is:0.58, irY:-3.0, irX: 5.0,  ftx:CX, fty:CY, fs:0.05, frY:0, frX:0, z:10 },
-  { src:'/images/students/s1.jpg',                       alt:'Student life',
+  { src:'/images/students/campus-steps.png',              alt:'Students on campus steps',
     itx: 330, ity: 340,  is:0.89, irY: 3.0, irX:-1.0,  ftx:CX, fty:CY, fs:0.06, frY:0, frX:0, z:16 },
   { src:'/images/students/s2.jpg',                       alt:'Campus activities',
     itx: 540, ity: 210,  is:0.62, irY: 1.0, irX:-1.0,  ftx:CX, fty:CY, fs:0.05, frY:0, frX:0, z:10 },
-  { src:'/images/students/s3.jpg',                       alt:'Student event',
+  { src:'/images/students/faculty-classroom.png',         alt:'Students in class',
     itx: 660, ity:  50,  is:0.60, irY: 2.0, irX:-4.0,  ftx:CX, fty:CY, fs:0.04, frY:0, frX:0, z:10 },
   { src:'/images/campus/campus-aerial.png',              alt:'MLR campus aerial',
     itx: 290, ity: 600,  is:0.52, irY: 1.0, irX: 5.0,  ftx:CX, fty:CY, fs:0.05, frY:0, frX:0, z: 9 },
-  { src:'/images/students/s4.jpg',                       alt:'Student activity',
+  { src:'/images/students/reel-mech.png',                 alt:'Mechanical engineering students',
     itx: 760, ity: 390,  is:0.47, irY:-1.0, irX: 3.0,  ftx:CX, fty:CY, fs:0.04, frY:0, frX:0, z: 8 },
   { src:'/images/sports/basketball-court.png',           alt:'Sports court',
     itx: 710, ity: 540,  is:0.38, irY:-1.0, irX: 3.0,  ftx:CX, fty:CY, fs:0.04, frY:0, frX:0, z: 7 },
@@ -372,13 +372,13 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Bottom fade — black → ink so the directory section flows in */}
+        {/* Bottom fade — black → cream so the directory section flows in */}
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 z-30 pointer-events-none"
           style={{
             height: 120,
-            background: 'linear-gradient(to bottom, transparent 0%, #0c0c0e 100%)',
+            background: 'linear-gradient(to bottom, transparent 0%, #faf7f0 100%)',
           }}
         />
       </div>
@@ -516,7 +516,7 @@ function ClubsDirectory() {
   return (
     <section
       id="directory"
-      className="bg-ink"
+      className="bg-cream"
       aria-labelledby={headingId}
     >
       {/* ── Section header ── */}
@@ -530,15 +530,15 @@ function ClubsDirectory() {
         <Reveal delay={0.06}>
           <h2
             id={headingId}
-            className="font-sans font-black tracking-tighter-2 leading-[1.04] text-white"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.8rem)' }}
+            className="font-sans font-black tracking-tighter-2 leading-[1.04]"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.8rem)', color: '#0f0f0f' }}
           >
             Clubs &amp; Committees{' '}
-            <span className="font-display italic font-medium text-warm">@MLRIT</span>
+            <span className="font-display italic font-medium" style={{ color: '#c9a84c' }}>@MLRIT</span>
           </h2>
         </Reveal>
 
-        {/* Category filter tabs — same pill style as MU's Undergraduate/Postgraduate */}
+        {/* Category filter tabs */}
         <Reveal delay={0.1} className="mt-8">
           <div
             role="tablist"
@@ -547,7 +547,7 @@ function ClubsDirectory() {
           >
             {ALL_FILTER_CATS.map((cat) => {
               const isActive = cat === activeFilter;
-              const accent = cat === 'All' ? 'rgba(255,255,255,0.9)' : CATEGORY_ACCENT[cat as ClubCategory];
+              const accent = cat === 'All' ? '#0f0f0f' : CATEGORY_ACCENT[cat as ClubCategory];
               return (
                 <button
                   key={cat}
@@ -558,9 +558,13 @@ function ClubsDirectory() {
                     'inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[0.76rem] font-sans font-bold tracking-tight transition-all duration-300',
                     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                     isActive
-                      ? 'bg-white/10 border border-white/20 text-white'
-                      : 'border border-white/10 text-white/45 hover:border-white/25 hover:text-white/75',
+                      ? 'border border-neutral-800/30'
+                      : 'border border-neutral-400/40 hover:border-neutral-600/60',
                   ].join(' ')}
+                  style={{
+                    backgroundColor: isActive ? 'rgba(15,15,15,0.08)' : 'transparent',
+                    color: isActive ? '#0f0f0f' : 'rgba(15,15,15,0.45)',
+                  }}
                 >
                   {isActive && (
                     <span
@@ -614,7 +618,8 @@ function ClubsDirectory() {
                   <button
                     key={club.id}
                     onClick={() => handleSidebarClick(club.id)}
-                    className="w-full text-left flex items-center gap-2.5 py-2.5 border-b border-white/06 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary hover:border-white/12"
+                    className="w-full text-left flex items-center gap-2.5 py-2.5 border-b transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+                    style={{ borderBottomColor: 'rgba(15,15,15,0.08)' }}
                     aria-pressed={isActive}
                   >
                     {/* Orange dot for active, hollow ring otherwise */}
@@ -622,7 +627,7 @@ function ClubsDirectory() {
                       className="w-2 h-2 rounded-full flex-shrink-0 transition-all duration-200"
                       style={{
                         backgroundColor: isActive ? '#e85d04' : 'transparent',
-                        border: isActive ? 'none' : '1px solid rgba(255,255,255,0.22)',
+                        border: isActive ? 'none' : '1px solid rgba(15,15,15,0.22)',
                         boxShadow: isActive ? '0 0 6px #e85d04aa' : 'none',
                       }}
                       aria-hidden
@@ -630,7 +635,7 @@ function ClubsDirectory() {
                     <span
                       className="font-sans text-[0.85rem] leading-snug transition-all duration-200"
                       style={{
-                        color: isActive ? '#e85d04' : 'rgba(255,255,255,0.42)',
+                        color: isActive ? '#e85d04' : 'rgba(15,15,15,0.5)',
                         fontWeight: isActive ? 700 : 400,
                       }}
                     >
@@ -732,32 +737,43 @@ function ClubCard({
       <div
         className="flex flex-col flex-1 p-5"
         style={{
-          backgroundColor: '#16161a',
+          backgroundColor: '#faf7f0',
           borderRadius: '0 0 12px 12px',
           borderTop: `2px solid ${accent}`,
         }}
       >
         <h3
-          className="font-sans font-extrabold tracking-tight leading-snug text-white mb-2"
-          style={{ fontSize: '1.02rem' }}
+          className="font-sans font-extrabold tracking-tight leading-snug mb-2"
+          style={{ fontSize: '1.02rem', color: '#0f0f0f' }}
         >
           {club.name}
         </h3>
-        <p className="text-white/50 text-[0.82rem] leading-relaxed line-clamp-3 flex-1">
+        <p className="text-[0.82rem] leading-relaxed line-clamp-3 flex-1" style={{ color: 'rgba(15,15,15,0.55)' }}>
           {club.description}
         </p>
 
         {/* Meta */}
-        <div className="flex items-center gap-3 mt-4 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="flex items-center gap-3 mt-4 pt-3" style={{ borderTop: '1px solid rgba(15,15,15,0.08)' }}>
           {club.members && (
-            <span className="font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase text-white/30">
+            <span className="font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase" style={{ color: 'rgba(15,15,15,0.35)' }}>
               {club.members} members
             </span>
           )}
           {club.facultyCoordinator && (
-            <span className="font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase text-white/25 truncate">
+            <span className="font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase truncate" style={{ color: 'rgba(15,15,15,0.3)' }}>
               {club.facultyCoordinator}
             </span>
+          )}
+          {club.href && (
+            <Link
+              href={club.href}
+              className="ml-auto inline-flex items-center gap-1 font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+              style={{ color: '#e85d04' }}
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`Explore ${club.name} page`}
+            >
+              Explore <ArrowUpRight className="w-2.5 h-2.5" aria-hidden />
+            </Link>
           )}
         </div>
       </div>
@@ -769,27 +785,27 @@ function ClubCard({
 
 function Closing() {
   return (
-    <section className="bg-ink" aria-label="Join a club at MLRIT">
+    <section className="bg-cream-2" aria-label="Join a club at MLRIT" style={{ backgroundColor: '#f1ece1' }}>
       {/* Hairline separator */}
-      <div className="w-full" style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />
+      <div className="w-full" style={{ height: 1, backgroundColor: 'rgba(15,15,15,0.08)' }} />
 
       <div className="w-full px-6 md:px-10 lg:px-16 max-w-[1320px] mx-auto py-28 md:py-44">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-14 lg:gap-20 items-end">
           <div>
             <Reveal preset="right" className="mb-4">
-              <span className="inline-flex items-center gap-2 font-mono text-[0.65rem] font-bold tracking-[0.26em] uppercase text-white/30">
-                <span className="w-1.5 h-1.5 rounded-full bg-warm" aria-hidden />
+              <span className="inline-flex items-center gap-2 font-mono text-[0.65rem] font-bold tracking-[0.26em] uppercase" style={{ color: 'rgba(15,15,15,0.4)' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden />
                 Your turn
               </span>
             </Reveal>
             <Reveal delay={0.06}>
               <h2
-                className="font-sans font-black tracking-tighter-2 leading-[1.04] text-white"
-                style={{ fontSize: 'clamp(2.2rem, 5.5vw, 5.5rem)' }}
+                className="font-sans font-black tracking-tighter-2 leading-[1.04]"
+                style={{ fontSize: 'clamp(2.2rem, 5.5vw, 5.5rem)', color: '#0f0f0f' }}
               >
                 Find your people.{' '}
                 <br className="hidden md:block" />
-                <span className="font-display italic font-medium text-warm">
+                <span className="font-display italic font-medium" style={{ color: '#c9a84c' }}>
                   Build something that stays with you.
                 </span>
               </h2>
@@ -797,7 +813,7 @@ function Closing() {
             <Reveal delay={0.16} className="mt-7">
               <p
                 className="leading-relaxed max-w-[520px]"
-                style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.1rem)', color: 'rgba(255,255,255,0.42)' }}
+                style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.1rem)', color: 'rgba(15,15,15,0.5)' }}
               >
                 Walk into any club meeting. Bring your curiosity. The door is
                 open — first year or final year, any branch, any background.
@@ -808,8 +824,11 @@ function Closing() {
           <Reveal delay={0.22} className="flex-shrink-0">
             <Link
               href="/student-life"
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border font-sans font-bold text-[0.9rem] text-white hover:bg-white/06 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-              style={{ borderColor: 'rgba(255,255,255,0.14)' }}
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border font-sans font-bold text-[0.9rem] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+              style={{
+                borderColor: 'rgba(15,15,15,0.2)',
+                color: '#0f0f0f',
+              }}
             >
               Explore student life
               <ArrowUpRight className="w-4 h-4" aria-hidden />

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import AcademicsQuickNav from '@/components/AcademicsQuickNav';
 
 export const metadata: Metadata = {
   title: 'Academics — MLR Institute of Technology',
@@ -43,6 +44,7 @@ export default function AcademicsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }]}
         variant="green"
       />
+      <AcademicsQuickNav active="/academics" />
 
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
