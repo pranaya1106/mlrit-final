@@ -12,16 +12,6 @@ const ACADEMICS_NAV = [
       { id: 'explore',   label: 'Explore'   },
     ],
   },
-  { label: 'Undergraduate',  href: '/departments/ug',          sections: [] },
-  { label: 'Postgraduate',   href: '/departments/pg',          sections: [] },
-  { label: 'CSE',            href: '/departments/cse',         sections: [] },
-  { label: 'CSE (DS)',       href: '/departments/cse-ds',      sections: [] },
-  { label: 'CSE (AI & ML)', href: '/departments/aiml',        sections: [] },
-  { label: 'ECE',            href: '/departments/ece',         sections: [] },
-  { label: 'EEE',            href: '/departments/eee',         sections: [] },
-  { label: 'Mechanical',     href: '/departments/mechanical',  sections: [] },
-  { label: 'Aeronautical',   href: '/departments/aeronautical',sections: [] },
-  { label: 'MBA',            href: '/departments/mba',         sections: [] },
 ];
 
 export default function AcademicsQuickNav({ active }: { active: string }) {
