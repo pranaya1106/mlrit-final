@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight, Users, UserRound, GraduationCap, Pause, Play, Instagram } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Users, UserRound, GraduationCap, Pause, Play, Instagram, Linkedin } from 'lucide-react';
 import Reveal from '@/components/motion/Reveal';
 import { CATEGORY_ACCENT, type Club, type ClubEvent, type ClubMemoryImage } from '@/lib/clubs';
 
@@ -53,6 +53,17 @@ function AboutSection({ club }: { club: Club }) {
       <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24">
         <Reveal><Eyebrow>About the club</Eyebrow></Reveal>
 
+        {club.tagline && (
+          <Reveal delay={0.03} className="mt-5">
+            <p
+              className="font-display italic font-medium text-warm leading-snug"
+              style={{ fontSize: 'clamp(1.3rem, 2vw, 1.7rem)' }}
+            >
+              “{club.tagline}”
+            </p>
+          </Reveal>
+        )}
+
         <Reveal delay={0.05} className="mt-6">
           <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">What is {club.shortName}?</h3>
           <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
@@ -80,6 +91,42 @@ function AboutSection({ club }: { club: Club }) {
             ))}
           </div>
         </Reveal>
+
+        {club.about.recognition && (
+          <Reveal delay={0.2} className="mt-14 pt-10 border-t border-white/10">
+            <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">Achievements &amp; recognition</h3>
+            <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
+              {club.about.recognition}
+            </p>
+          </Reveal>
+        )}
+
+        {(club.instagramUrl || club.linkedinUrl) && (
+          <Reveal delay={0.25} className="mt-10 flex items-center gap-4">
+            {club.instagramUrl && (
+              <a
+                href={club.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${club.shortName} on Instagram`}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/14 text-white/60 hover:text-white hover:border-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              >
+                <Instagram className="w-4 h-4" aria-hidden />
+              </a>
+            )}
+            {club.linkedinUrl && (
+              <a
+                href={club.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${club.shortName} on LinkedIn`}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/14 text-white/60 hover:text-white hover:border-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              >
+                <Linkedin className="w-4 h-4" aria-hidden />
+              </a>
+            )}
+          </Reveal>
+        )}
       </div>
     </section>
   );
