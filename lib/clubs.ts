@@ -18,6 +18,8 @@ export interface ClubAbout {
   what: string;
   why: string;
   activities: ClubActivity[];
+  /** Optional achievements/past-editions blurb, shown after the activities grid. */
+  recognition?: string;
 }
 
 export interface ClubEvent {
@@ -59,15 +61,17 @@ export interface Club {
   image: string;
   /** Path relative to /public — club's own logo lockup, shown on its detail page hero when set */
   logo?: string;
+  /** Short vision/tagline quote, shown above the About section when set. */
+  tagline?: string;
   facultyCoordinator?: string;
   studentLead?: string;
   members?: string;
-  /** Optional dedicated club page route */
-  href?: string;
   /** Set true once a dedicated /campus/clubs/[id] detail page has been designed for this club. */
   hasDetailPage?: boolean;
   /** External URL where a prospective member can actually join — powers the floating join CTA. */
   joinUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
   /** Structured What/Why/What-we-do content. Falls back to the plain `description` when absent. */
   about?: ClubAbout;
   /** Mock posters (real artwork pending) — hover reveals event info. */
@@ -105,36 +109,52 @@ export const CLUBS: Club[] = [
       'Student Chapter of Professionals and Engineers — organises tech workshops, coding challenges, and industry-connect sessions to bridge classroom learning with real-world engineering.',
     image: '/images/students/classroom-chat.png',
     logo: '/images/clubs/scope-logo.png',
+    tagline:
+      'Turning coding passion into real projects and meaningful experiences through collaboration, guidance, and hands-on learning.',
     members: '56',
     hasDetailPage: true,
     joinUrl: 'https://scopeclub.vercel.app/',
+    instagramUrl: 'https://www.instagram.com/mlrit_scope/',
+    linkedinUrl: 'https://www.linkedin.com/company/mlrit-scope/',
     about: {
       what:
-        'SCOPE — the School of Programming Excellence — is MLRIT\'s technical club for students who want to turn coding practice into real engineering skill, working in AI, open source, game development, and web & app development.',
+        'SCOPE Club is a student-led technical community at MLR Institute of Technology, built around coding, curiosity, problem-solving, and learning by doing. It goes beyond classroom learning — connecting students with peers and mentors across AI, open source, web & app development, game development, and other emerging technologies, and giving them an official platform for guidance, networking, and growth beyond campus boundaries.',
       why:
-        'Classroom learning only goes so far. SCOPE exists to bridge that gap — connecting students with experienced mentors and peers, and giving them an official platform for guidance, networking, and growth beyond campus boundaries.',
+        'Classroom learning only goes so far, and coursework rarely keeps pace with what\'s actually current in tech. SCOPE exists to close that gap — through practical learning and peer-to-peer initiatives like SCOPE Sessions, where members learn coding concepts and get guidance straight from fellow students. What makes SCOPE different is that student-driven approach: instead of just running events, the club builds projects and platforms — like CodeStats — that keep helping students long after an event ends.',
       activities: [
         {
-          title: 'Hackathons',
+          title: 'Technical Workshops & Training',
           description:
-            'A launchpad for innovation — bringing together developers, designers, and problem-solvers to build, compete, and ship under real deadlines.',
+            'Hands-on workshops and training sessions on coding, web and app development, cloud computing (including AWS), and other emerging, industry-relevant technologies.',
         },
         {
-          title: 'Coding Contests',
+          title: 'Coding & Technical Competitions',
           description:
-            'Competitive coding contests that challenge participants to think logically, optimise solutions, and learn new algorithms — for beginners and veterans alike.',
+            'Coding contests, competitive programming challenges, and hackathons that let members practice problem-solving and apply their technical knowledge under real deadlines.',
         },
         {
-          title: 'Projects',
+          title: 'Innovation & Project Development',
           description:
-            'Project-based learning — members collaborate on real-world builds instead of just solving isolated problems, turning ideas into tangible impact.',
+            'Turning ideas into working solutions — web and app development, game development, hackathon builds, and other student-led projects.',
         },
         {
           title: 'SCOPE Sessions',
           description:
-            'Weekly peer-led technical classes run by senior members, simplifying complex topics with hands-on, interactive coding to bridge classroom theory and practice.',
+            'Peer-learning sessions where members learn coding concepts, tools, and technologies directly from seniors and fellow students — with room to ask questions and dig in.',
+        },
+        {
+          title: 'Career & Industry Exposure',
+          description:
+            'Career-oriented talks and technical sessions that introduce students to current technologies, industry expectations, and different career paths — often with practicing professionals in the room.',
+        },
+        {
+          title: 'Knowledge Sharing & Community Learning',
+          description:
+            'Student-led sessions and team-based activities where seniors and peers share what they know and work through problems together, beyond formal workshops.',
         },
       ],
+      recognition:
+        'SCOPE teams have competed in Jatayu, reaching the finals for two seasons and finishing as runner-up in the most recent season. Past editions of the club\'s own events include Init Saga, Zenith\'24, Webmania 2.0, Splash, GameHub 2.0, Modifest, CBUG Contest, GameHub, and Codewars.',
     },
     events: [
       {
@@ -144,7 +164,7 @@ export const CLUBS: Club[] = [
         posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)',
         blurb: "SCOPE's flagship annual fest returns — bigger and better, with fresh experiences and new avenues to explore.",
         link: 'https://www.instagram.com/p/DRKVKCGiFVK/?igsh=YmVjdjlnb3Nib2J3',
-        posterImage: '/images/clubs/events/zenith-25.jpg',
+        posterImage: '/images/clubs/events/zenith-25.png',
       },
       {
         id: 'init-saga',
@@ -175,14 +195,16 @@ export const CLUBS: Club[] = [
       },
     ],
     memoryLane: [
-      { src: '/images/students/classroom-chat.png', alt: 'Students in a technical discussion' },
-      { src: '/images/students/reel-aiml.png', alt: 'AI/ML themed session' },
-      { src: '/images/facilities/campus/sti-hub-1.jpg', alt: 'STI Hub innovation space' },
-      { src: '/images/students/faculty-seminar.png', alt: 'A tech seminar in progress' },
-      { src: '/images/facilities/campus/sti-hub-2.jpg', alt: 'STI Hub workspace' },
-      { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
-      { src: '/images/students/campus-group.png', alt: 'A club group photo' },
-      { src: '/images/students/club-event.png', alt: 'Students at a club event' },
+      { src: '/images/clubs/memory/zenith-25-entrance-arch.jpg', alt: "Zenith'25 entrance arch, decorated for SCOPE Club's flagship fest" },
+      { src: '/images/clubs/memory/zenith-25-qa-session.jpg', alt: 'A student asking a question during a Zenith\'25 discussion panel' },
+      { src: '/images/clubs/memory/zenith-25-auditorium.jpg', alt: "Students filling the auditorium for Zenith'25" },
+      { src: '/images/clubs/memory/zenith-25-hackathon-lab.jpg', alt: "Participants coding during the Zenith'25 hackathon" },
+      { src: '/images/clubs/memory/zenith-25-mentor-round.jpg', alt: 'A mentor reviewing a team\'s project during the hackathon' },
+      { src: '/images/clubs/memory/zenith-25-registration.jpg', alt: "Students registering at the Zenith'25 help desk" },
+      { src: '/images/clubs/memory/zenith-25-lab-wide.jpg', alt: 'A wide view of the hackathon lab in full swing' },
+      { src: '/images/clubs/memory/zenith-25-award-ceremony.jpg', alt: "Winners being congratulated on stage at Zenith'25" },
+      { src: '/images/clubs/memory/zenith-25-speaker-qa.jpg', alt: 'A student speaking into a mic during a Q&A session' },
+      { src: '/images/clubs/memory/zenith-25-group-photo.jpg', alt: "Participants posing with certificates after Zenith'25 and AWS Student Community Day" },
     ],
     builtTool: {
       name: 'CodeStats',
@@ -584,16 +606,43 @@ export const CLUBS: Club[] = [
     ],
   },
   {
-    id: 'robotics',
-    name: 'Robotics Club',
-    shortName: 'ROBOTICS',
+    id: 'ece',
+    name: 'ECE Department Society',
+    shortName: 'ECE',
     category: 'Department',
     description:
-      'A technical student community under the ECE Department — robotics workshops, embedded systems projects, Robothon competitions, IEEE RAS sessions, and breakthrough builds like the Borewell Rescue Robot and Brain-Controlled Wheelchair.',
-    image: '/images/clubs/robotics-hero.png',
-    members: '320+',
-    href: '/campus/clubs/robotics',
+      'Electronics and Communication society — PCB design workshops, embedded systems challenges, VLSI seminars, and Smart India Hackathon teams.',
+    image: '/images/students/reel-ece.png',
+    members: '87',
     hasDetailPage: true,
+    about: {
+      what:
+        'The ECE Department Society is MLRIT\'s home for embedded systems, PCB design, and communication engineering — beyond what a single course can cover.',
+      why:
+        'VLSI and embedded systems move fast, and coursework can\'t keep pace alone. The society exists to fill that gap with workshops, hackathon teams, and hands-on board design.',
+      activities: [
+        { title: 'PCB Design Workshops', description: 'Workshops taking a schematic all the way to a fabricated, working PCB.' },
+        { title: 'Embedded Systems Challenges', description: 'Timed challenges building embedded firmware against a fixed hardware spec.' },
+        { title: 'VLSI Seminars', description: 'Seminars breaking down VLSI design flow, from RTL to fabrication basics.' },
+        { title: 'SIH Team Prep', description: 'Focused prep cycles forming and coaching the society\'s Smart India Hackathon teams.' },
+      ],
+    },
+    events: [
+      { id: 'ece-sih-prep', title: 'SIH Prep Bootcamp', tag: 'Flagship', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'An intensive bootcamp forming and coaching teams ahead of Smart India Hackathon.' },
+      { id: 'ece-pcb-workshop', title: 'PCB Design Workshop', tag: 'Workshop', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'A hands-on workshop taking a circuit from schematic to a fabricated, working PCB.' },
+      { id: 'ece-embedded-challenge', title: 'Embedded Systems Challenge', tag: 'Contest', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'Teams race to build working embedded firmware against a fixed hardware spec.' },
+      { id: 'ece-vlsi-seminar', title: 'VLSI Design Seminar', tag: 'Seminar', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'A seminar walking through the VLSI design flow, from RTL description to fabrication basics.' },
+    ],
+    memoryLane: [
+      { src: '/images/students/reel-ece.png', alt: 'ECE students at a design session' },
+      { src: '/images/facilities/campus/sti-hub-2.jpg', alt: 'STI Hub lab space' },
+      { src: '/images/students/faculty-classroom.png', alt: 'An ECE department seminar' },
+      { src: '/images/students/faculty-seminar-2.png', alt: 'A VLSI seminar in progress' },
+      { src: '/images/students/classroom-chat.png', alt: 'Students in a technical discussion' },
+      { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
+      { src: '/images/students/campus-group.png', alt: 'An ECE society group photo' },
+      { src: '/images/students/club-event.png', alt: 'Students at a club event' },
+    ],
   },
   {
     id: 'aero',

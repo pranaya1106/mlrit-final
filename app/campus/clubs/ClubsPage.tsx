@@ -757,17 +757,6 @@ function ClubCard({
               {club.facultyCoordinator}
             </span>
           )}
-          {club.href && (
-            <Link
-              href={club.href}
-              className="ml-auto inline-flex items-center gap-1 font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
-              style={{ color: '#e85d04' }}
-              onClick={(e) => e.stopPropagation()}
-              aria-label={`Explore ${club.name} page`}
-            >
-              Explore <ArrowUpRight className="w-2.5 h-2.5" aria-hidden />
-            </Link>
-          )}
         </div>
 
         {/* Explore more — only clubs with a designed detail page get this */}
