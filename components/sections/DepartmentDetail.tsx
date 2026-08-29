@@ -463,30 +463,66 @@ function OverviewPanel({ d, data }: PanelProps) {
     <div className="space-y-2">
       <PanelHeading id="intro">Introduction</PanelHeading>
 
-      {/* HOD card */}
-      <div className="mt-8 flex flex-col md:flex-row gap-7 items-start rounded-2xl bg-white shadow-card-soft p-7 md:p-9 border-l-[4px] border-secondary">
-        <div className="w-[120px] h-[140px] rounded-2xl overflow-hidden flex-shrink-0 grid place-items-center bg-secondary/10 border-[3px] border-secondary relative">
-          {hodPhoto ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={hodPhoto} alt={d.hod.name} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: '50% 15%' }} />
-          ) : (
-            <span
-              className="text-white font-sans font-black text-2xl tracking-wider"
-              style={{ background: 'linear-gradient(135deg, #2d8b55, #1F6B24)' }}
-            >
-              <span className="grid place-items-center w-full h-full">{initials}</span>
-            </span>
-          )}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="font-mono text-[0.68rem] font-extrabold tracking-[0.14em] uppercase text-primary mb-2">
-            From the HOD&apos;s Desk
+      {/* ── HOD Message — editorial section ─────────────────────────────────── */}
+      <div
+        className="mt-8 rounded-2xl overflow-hidden"
+        style={{ background: '#fff', border: '1px solid #e8e3d8', borderLeft: '4px solid var(--primary)' }}
+      >
+        <div className="flex flex-col sm:flex-row gap-0">
+          {/* Portrait */}
+          <div
+            className="relative flex-shrink-0 overflow-hidden"
+            style={{ width: 'clamp(140px, 22%, 200px)', minHeight: 'clamp(180px, 25vw, 260px)' }}
+          >
+            {hodPhoto ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={hodPhoto}
+                alt={d.hod.name}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: '50% 12%' }}
+              />
+            ) : (
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ background: 'linear-gradient(160deg, #1F6B24 0%, #2d8b55 100%)' }}
+              >
+                <span className="font-sans font-black text-white text-[2.2rem] tracking-wider opacity-90">
+                  {initials}
+                </span>
+              </div>
+            )}
+            {/* Subtle bottom fade */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           </div>
-          <p className="font-sans italic text-foreground/85 text-[0.96rem] leading-[1.8]">
-            &ldquo;{message}&rdquo;
-          </p>
-          <div className="mt-3 font-sans font-bold text-secondary text-[0.86rem]">
-            — {d.hod.name}, {d.hod.title.split(',')[0]}
+
+          {/* Message */}
+          <div className="flex flex-col justify-center gap-4 p-7 md:p-9 flex-1 min-w-0">
+            <div
+              className="font-mono text-[0.62rem] font-extrabold tracking-[0.2em] uppercase"
+              style={{ color: 'var(--primary)' }}
+            >
+              From the HOD&apos;s Desk
+            </div>
+
+            <blockquote
+              className="font-display italic leading-[1.85] text-foreground/82"
+              style={{ fontSize: 'clamp(0.97rem, 1.3vw, 1.1rem)' }}
+            >
+              &ldquo;{message}&rdquo;
+            </blockquote>
+
+            <div className="flex items-center gap-3 pt-1">
+              <div className="h-px w-8 rounded-full" style={{ background: 'var(--primary)', opacity: 0.5 }} />
+              <div>
+                <p className="font-sans font-bold text-foreground text-[0.9rem] leading-snug">
+                  {d.hod.name}
+                </p>
+                <p className="font-mono text-[0.67rem] text-muted tracking-wide">
+                  {d.hod.title}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
