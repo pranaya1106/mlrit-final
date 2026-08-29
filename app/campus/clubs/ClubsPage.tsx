@@ -764,8 +764,16 @@ function ClubCard({
           <Link
             href={`/campus/clubs/${club.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="mt-4 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-full border font-sans font-bold text-[0.78rem] text-white/80 hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-            style={{ borderColor: 'rgba(255,255,255,0.14)' }}
+            className="mt-4 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-full border font-sans font-bold text-[0.78rem] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            style={{ borderColor: accent, color: accent }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = accent;
+              e.currentTarget.style.color = '#fff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = accent;
+            }}
           >
             Explore Club
             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden />

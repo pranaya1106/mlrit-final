@@ -606,14 +606,6 @@ export const CLUBS: Club[] = [
           'A game-inspired technical event combining chatbot development, coding challenges, and theme-based activities — code sprints and hands-on tasks throughout.',
         posterImage: '/images/clubs/events/squid-game.png',
       },
-      {
-        id: 'immersive-1',
-        title: 'Immersive 1.0',
-        tag: 'Workshop',
-        posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)',
-        blurb:
-          'An introductory hands-on event on AR/VR development — a crash course in Unity, followed by a challenge to build a working AR/VR application.',
-      },
     ],
     memoryLane: [
       { src: '/images/students/reel-aiml.png', alt: 'AI/ML themed session' },
