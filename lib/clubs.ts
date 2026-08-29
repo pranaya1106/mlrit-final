@@ -299,41 +299,62 @@ export const CLUBS: Club[] = [
   },
   {
     id: 'ewb',
-    name: 'Engineers Without Borders',
+    name: 'EWB-IUCEE-IEEE',
     shortName: 'EWB',
     category: 'Technical',
     description:
-      'Engineers Without Borders — applying engineering skills to real social challenges. Members work on sustainable infrastructure, clean water, and community development projects.',
+      'EWB-IUCEE-IEEE MLRIT Student Chapter — engineering ideas into community impact through sustainability projects, design thinking, global collaboration, and technical innovation since 2016.',
     image: '/images/facilities/campus/sti-hub-2.jpg',
     members: '60',
+    tagline: 'Engineering Ideas. Empowering Communities. Creating Change.',
     hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/ewb_iucee_ieee_mlrit',
+    linkedinUrl: 'https://www.linkedin.com/company/ewb-iucee-mlritt/',
     about: {
       what:
-        'Engineers Without Borders is MLRIT\'s chapter applying core engineering skills to problems that don\'t show up on a syllabus — clean water, sustainable housing, rural infrastructure.',
+        'The EWB-IUCEE-IEEE MLRIT Student Chapter began in 2016 as IUCEE-SPEED, a student-driven platform for learning beyond the classroom. In 2020 it evolved into the EWB-IUCEE Chapter focused on UN Sustainable Development Goals, sustainability, and community-oriented engineering. In 2024, the chapter collaborated with the IEEE Student Branch, expanding into technical events, innovation, and industry interactions. Today it is a student-led platform that transforms ideas into action through design thinking, entrepreneurship, sustainability initiatives, and technical learning.',
       why:
-        'Engineering solves real problems best when it\'s tested against real constraints. EWB exists to put members\' skills to work on projects that actually reach underserved communities.',
+        'EWB connects classroom theory with practical community impact through hands-on technical innovation, leadership development, and global networking. By collaborating with IEEE and IUCEE, members access multidisciplinary research, technical resources, industry mentorship, and international student leadership summits.',
       activities: [
-        { title: 'Water & Sanitation Projects', description: 'Designing and piloting low-cost water and sanitation solutions for partner communities.' },
-        { title: 'Sustainable Design Builds', description: 'Hands-on builds applying sustainable materials and design principles to real infrastructure needs.' },
-        { title: 'Community Site Visits', description: 'On-ground visits to assess needs, test assumptions, and follow up on completed projects.' },
-        { title: 'Fundraising Drives', description: 'Campus drives funding the materials and travel behind every EWB field project.' },
+        {
+          title: 'Sustainability Projects',
+          description:
+            'Real engineering builds addressing environmental and community challenges — Bio-Brick (eco-fuel briquettes from organic waste), UpPETure (upcycling plastic bottles), AI Climate Drone (aerial deforestation tracking), Propulsion System, and Fusion 360 AI.',
+        },
+        {
+          title: 'Technical Events & Competitions',
+          description:
+            'Eloqvent (communication and business model pitching) and ESF-R (Engineers Student Forum Regional — collaborative platform for real-world business model development).',
+        },
+        {
+          title: 'Global Networks & Summits',
+          description:
+            'Access to IEEE global technical network, IUCEE leadership summits, international conferences, multidisciplinary research, and industry mentorship through global chapter partnerships.',
+        },
+        {
+          title: 'Innovation & Design Thinking',
+          description:
+            'Continuous project work, mentorship programs, and on-field sustainability challenges applying design thinking and entrepreneurship to real-world engineering problems.',
+        },
       ],
+      recognition:
+        'Best IUCEE Student Chapter Award at ICTIEE 2026 — honored for excellence in student leadership, community-focused engineering, and consistent chapter engagement. VISIONAID recognized in the POC poster presentation category for smart assistive technology for visually impaired individuals.',
     },
     events: [
-      { id: 'ewb-build-week', title: 'Build Week', tag: 'Flagship', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'A week-long build translating a partner community\'s need into a working infrastructure prototype.' },
-      { id: 'ewb-site-visit', title: 'Community Site Visit', tag: 'Fieldwork', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'A field visit assessing an ongoing project site and gathering feedback from the community.' },
-      { id: 'ewb-design-clinic', title: 'Sustainable Design Clinic', tag: 'Workshop', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'A workshop on designing with sustainable, low-cost materials for real infrastructure constraints.' },
-      { id: 'ewb-fund-drive', title: 'Fund the Field Drive', tag: 'Fundraiser', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'The annual campus fundraiser powering materials and travel for the next field project.' },
+      { id: 'ewb-eloqvent', title: 'Eloqvent', tag: 'Flagship', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'An engaging event helping students master communication and soft skills while developing viable, sustainable business models.' },
+      { id: 'ewb-esfr', title: 'ESF-R', tag: 'Regional', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'Engineers Student Forum Regional — students collaborate to pitch and build robust, real-world business models.' },
+      { id: 'ewb-bio-brick', title: 'Bio-Brick Project', tag: 'Sustainability', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'Converting organic waste into eco-friendly fuel briquettes for cleaner energy in underserved communities.' },
+      { id: 'ewb-uppetur', title: 'UpPETure', tag: 'Innovation', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'Upcycling discarded plastic bottles into durable, valuable products to fight plastic pollution.' },
     ],
     memoryLane: [
-      { src: '/images/facilities/campus/sti-hub-2.jpg', alt: 'STI Hub workspace' },
-      { src: '/images/facilities/campus/sti-hub-3.jpg', alt: 'STI Hub event' },
-      { src: '/images/students/faculty-seminar.png', alt: 'An EWB planning session' },
-      { src: '/images/students/classroom-chat.png', alt: 'Students in a technical discussion' },
-      { src: '/images/campus/campus-aerial.png', alt: 'Aerial view of campus' },
-      { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
-      { src: '/images/students/campus-group.png', alt: 'An EWB group photo' },
-      { src: '/images/students/club-event.png', alt: 'Students at a club event' },
+      { src: '/images/facilities/campus/sti-hub-2.jpg', alt: 'EWB-IEEE working in the STI Hub' },
+      { src: '/images/facilities/campus/sti-hub-3.jpg', alt: 'EWB chapter event at STI Hub' },
+      { src: '/images/students/faculty-seminar.png', alt: 'An EWB technical session' },
+      { src: '/images/students/classroom-chat.png', alt: 'Students working on a sustainability project' },
+      { src: '/images/facilities/campus/sti-hub-1.jpg', alt: 'Innovation space at MLRIT' },
+      { src: '/images/students/students-laughing.png', alt: 'EWB members bonding on campus' },
+      { src: '/images/students/campus-group.png', alt: 'EWB-IUCEE-IEEE chapter group photo' },
+      { src: '/images/students/club-event.png', alt: 'Students at an EWB chapter event' },
     ],
   },
 
@@ -687,79 +708,141 @@ export const CLUBS: Club[] = [
   // ─── Cultural ─────────────────────────────────────────────────────────────
   {
     id: 'came',
-    name: 'CAME',
+    name: 'CAME Club',
     shortName: 'CAME',
     category: 'Cultural',
     description:
-      'Cultural Arts, Music, and Entertainment — the creative heartbeat of MLRIT. Dance, music, theatre, and visual arts come together for Symphony, Trishna, and inter-college fests.',
+      'Creating Aspirations for Meeting Elevation — the cultural and student engagement platform of MLRIT. Dance, music, drama, anchoring, and event coordination across Graduation Day, Navrat Naveli, Hellenic, Kite Fest, and Annual Day.',
     image: '/images/students/club-event.png',
     members: '96',
+    tagline: 'Creating Aspirations, Celebrating Talent, Elevating Campus Life.',
     hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/cameclub_mlrit/',
     about: {
       what:
-        'CAME — Cultural Arts, Music, and Entertainment — is the creative engine behind MLRIT\'s stage, from dance and music to theatre and visual arts.',
+        'CAME — Creating Aspirations for Meeting Elevation — is the cultural and student engagement platform of MLR Institute of Technology, dedicated to enriching campus life through creativity, cultural expression, and active student participation. The club provides students with opportunities to showcase and develop their talents across dance, music, drama and skits, anchoring, cultural presentations, and event coordination. CAME plays an active role in the planning and execution of major institutional programmes, cultural celebrations, awareness initiatives, national events, and student-centric activities.',
       why:
-        'Not every skill worth building fits in a lecture hall. CAME exists to give performers, musicians, and artists a real stage — and a fest calendar to build toward.',
+        'Not every skill that matters fits in a lecture hall. CAME exists to give students who perform, create, and connect a real stage and a structured calendar to build toward — developing confidence, teamwork, discipline, and leadership through active participation in the institution\'s cultural and ceremonial life.',
       activities: [
-        { title: 'Dance & Music Crews', description: 'Standing crews rehearsing and performing across campus events and inter-college meets.' },
-        { title: 'Theatre Productions', description: 'Full stage productions, written, directed, and performed entirely by members.' },
-        { title: 'Symphony & Trishna Fests', description: 'MLRIT\'s flagship cultural fests, run start to finish by CAME every year.' },
-        { title: 'Inter-college Meets', description: 'Representing MLRIT at inter-college cultural competitions across dance, music, and theatre.' },
+        {
+          title: 'Cultural Performances',
+          description:
+            'Dance, music, drama, and skits addressing patriotism, social responsibility, cultural heritage, and student life — performed before large institutional audiences.',
+        },
+        {
+          title: 'Institutional Event Coordination',
+          description:
+            'Active contribution to Graduation Day, Orientation Day, Independence Day, Republic Day, and Annual Day — supporting smooth conduct of ceremonies and cultural segments.',
+        },
+        {
+          title: 'Cultural Celebrations',
+          description:
+            'Navrat Naveli (Bathukamma, Garba, traditional performances), Kite Fest, Traditional Day, and other festive programmes celebrating India\'s diverse cultural traditions.',
+        },
+        {
+          title: 'Hellenic & Ecstacy',
+          description:
+            'High-energy campus events featuring student performances, skits, stand-up, live music, and invited artists — including the Ecstacy concert night and the themed Hellenic programme.',
+        },
       ],
     },
     events: [
-      { id: 'came-symphony', title: 'Symphony', tag: 'Flagship Fest', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'MLRIT\'s flagship cultural fest — a full day of dance, music, and theatre across every genre.' },
-      { id: 'came-trishna', title: 'Trishna', tag: 'Annual Fest', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'An annual celebration of art and performance, closing out the cultural calendar in style.' },
-      { id: 'came-open-mic', title: 'Open Mic Night', tag: 'Recurring', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'A relaxed recurring night where any member can step up and perform, no audition required.' },
-      { id: 'came-theatre-fest', title: 'Theatre Fest', tag: 'Showcase', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'An evening of original student-written and student-directed one-act plays.' },
+      { id: 'came-hellenic', title: 'Hellenic', tag: 'Signature Event', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'A high-energy campus event with changing themes — student performances, skits, live music by Band Echo, and DJ.' },
+      { id: 'came-navrat-naveli', title: 'Navrat Naveli', tag: 'Cultural Fest', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'A vibrant cultural celebration featuring Bathukamma, traditional rituals, Garba, skits, and prize distribution.' },
+      { id: 'came-ecstacy', title: 'Ecstacy', tag: 'Concert Night', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'High-energy concert night featuring live performances by artists invited from outside the institution.' },
+      { id: 'came-graduation', title: 'Graduation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'Academic procession, lamp lighting, graduation oath, gold medal distribution, and cultural performances.' },
     ],
     memoryLane: [
-      { src: '/images/students/club-event.png', alt: 'A CAME cultural event' },
-      { src: '/images/students/p1.png', alt: 'Students at a cultural performance' },
-      { src: '/images/students/p2.png', alt: 'A CAME stage performance' },
-      { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
+      { src: '/images/students/club-event.png', alt: 'A CAME cultural performance' },
+      { src: '/images/students/p1.png', alt: 'Students at a CAME stage performance' },
+      { src: '/images/students/p2.png', alt: 'A CAME cultural event moment' },
+      { src: '/images/students/students-laughing.png', alt: 'CAME members bonding on campus' },
       { src: '/images/campus/canteen-friends.png', alt: 'Friends at the campus canteen' },
-      { src: '/images/students/p3.png', alt: 'A CAME fest moment' },
-      { src: '/images/students/campus-group.png', alt: 'A CAME group photo' },
+      { src: '/images/students/p3.png', alt: 'A CAME fest performance' },
+      { src: '/images/students/campus-group.png', alt: 'CAME club group photo' },
       { src: '/images/students/campus-steps.png', alt: 'Students on campus steps' },
     ],
   },
   {
     id: 'lit',
-    name: 'LIT Club',
-    shortName: 'LIT',
+    name: 'Club Literati',
+    shortName: 'LITERATI',
     category: 'Cultural',
     description:
-      'Literary and Intellectual Tribe — creative writing, poetry slams, debate, MUN simulations, college magazine editing, and annual short-story competitions.',
+      'Communicate | Compete | Conquer — the literary and debate club at MLRIT. Talkmasters sessions, MLRITMUN (7th edition), TEDx MLRIT, Literary Fest, Murder Mystery, and a space for everyone to find their voice.',
     image: '/images/facilities/campus/library-wide-1.jpg',
     members: '63',
+    tagline: 'Communicate | Compete | Conquer',
     hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/mlrclubliterati',
+    linkedinUrl: 'https://www.linkedin.com/company/mlrclubliterati/',
     about: {
       what:
-        'LIT — the Literary and Intellectual Tribe — is MLRIT\'s home for writers, debaters, and anyone who thinks better with a pen (or a mic) in hand.',
+        'Club Literati is a place where students can speak their minds, explore new ideas, and slowly grow into the confidence they didn\'t know they had. It brings together people with different interests, perspectives, and personalities — creating a space where everyone has something to contribute. Whether you love being on stage or are simply looking for the courage to take that first step, Literati gives you the space to do so. At its core, Literati is about finding your voice, finding your people, and becoming a little bolder along the way.',
       why:
-        'Ideas sharpen in the open. LIT exists to give members an audience — through debates, MUN floors, poetry slams, and the college magazine.',
+        'At Club Literati, every conversation can spark an idea, every idea can become an expression, and every expression can leave an impact. The club provides a space to explore ideas, exchange perspectives, and discover the power of language — encouraging students to look beyond familiar viewpoints, embrace new ways of thinking, and engage in meaningful conversations.',
       activities: [
-        { title: 'Creative Writing Circles', description: 'Regular circles workshopping short stories, essays, and poetry in progress.' },
-        { title: 'Poetry Slams', description: 'Open-floor poetry slams where members perform original work to a live campus audience.' },
-        { title: 'Debate & MUN', description: 'Competitive debate practice and Model UN simulations building argument and diplomacy skills.' },
-        { title: 'Magazine Editing', description: 'The editorial team behind MLRIT\'s student literary magazine, from submissions to print.' },
+        {
+          title: 'Talkmasters Sessions',
+          description:
+            'Members refine impromptu speaking and build confidence on stage. Dedicated seminar and mentorship sessions where experienced senior members guide newer members in public speaking, content drafting, and debate strategy.',
+        },
+        {
+          title: 'MLRITMUN',
+          description:
+            'The flagship Model UN — bringing the experience of international diplomacy to campus, giving students the opportunity to represent nations, discuss global issues, and engage in meaningful debate. Committees include AIPPM, UNCSW, UNODC, UNHRC, DISEC, and International Press.',
+        },
+        {
+          title: 'TEDx MLRIT',
+          description:
+            'Theme "Echoes of Tomorrow." A full-day independently organised TEDx event held at the MLRIT Auditorium, featuring student and invited speakers exploring ideas worth spreading.',
+        },
+        {
+          title: 'Literary Fest & Murder Mystery',
+          description:
+            'The annual Literary Fest (#LIT Event) celebrating creativity through Screen Battle, LitTrivia, Treasure Hunt, Courtroom drama, and more. Plus Murder Mystery — an immersive team event where every clue matters.',
+        },
       ],
     },
     events: [
-      { id: 'lit-short-story', title: 'Short Story Competition', tag: 'Flagship', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'MLRIT\'s annual short-story competition, judged by faculty and published in the college magazine.' },
-      { id: 'lit-mun', title: 'MUN Simulation', tag: 'Annual', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'A full-day Model UN simulation with committees, resolutions, and closing ceremony.' },
-      { id: 'lit-poetry-slam', title: 'Poetry Slam Night', tag: 'Recurring', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'An open-floor night where members perform original poetry to a live campus audience.' },
-      { id: 'lit-debate-cup', title: 'Debate Cup', tag: 'Contest', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'A bracket-style debate competition testing argument, rebuttal, and composure under pressure.' },
+      {
+        id: 'lit-mlritmun',
+        title: 'MLRITMUN',
+        tag: 'Flagship',
+        posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)',
+        blurb: 'The 7th Edition of MLRIT\'s Model UN — committees, resolutions, international diplomacy, and closing ceremony. Theme: Rise | Resolve | Reform.',
+      },
+      {
+        id: 'lit-tedx',
+        title: 'TEDx MLRIT',
+        tag: 'Annual Event',
+        posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)',
+        blurb: 'Theme "Echoes of Tomorrow" — a full day of ideas worth spreading at the MLRIT Auditorium.',
+        link: 'https://tedxmlrit.in',
+      },
+      {
+        id: 'lit-literary-fest',
+        title: 'Literary Fest',
+        tag: 'Annual Fest',
+        posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)',
+        blurb: 'The #LIT Event — Screen Battle, LitTrivia, Treasure Hunt, Courtroom drama, Basketball, Food Carnival, and more across a full campus day.',
+      },
+      {
+        id: 'lit-murder-mystery',
+        title: 'Murder Mystery',
+        tag: 'Immersive Event',
+        posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)',
+        blurb: '"Everyone has a past. Some are worth killing for." A team event where every clue counts and every member has a role.',
+      },
     ],
     memoryLane: [
       { src: '/images/facilities/campus/library-wide-1.jpg', alt: 'Campus library' },
       { src: '/images/facilities/campus/library-reading-1.jpg', alt: 'Students reading in the library' },
-      { src: '/images/students/p4.png', alt: 'A LIT Club debate session' },
-      { src: '/images/students/p5.png', alt: 'A LIT Club poetry slam' },
-      { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
+      { src: '/images/students/p4.png', alt: 'A Club Literati debate session' },
+      { src: '/images/students/p5.png', alt: 'A Club Literati Talkmasters session' },
+      { src: '/images/students/students-laughing.png', alt: 'Club Literati members on campus' },
       { src: '/images/facilities/campus/library-wide-2.jpg', alt: 'Campus library reading area' },
-      { src: '/images/students/campus-group.png', alt: 'A LIT Club group photo' },
+      { src: '/images/students/campus-group.png', alt: 'Club Literati group photo' },
       { src: '/images/students/campus-steps.png', alt: 'Students on campus steps' },
     ],
   },
