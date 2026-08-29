@@ -358,6 +358,83 @@ export const CLUBS: Club[] = [
     ],
   },
 
+  {
+    id: 'aws-sbg',
+    name: 'AWS Student Builder Group',
+    shortName: 'AWS SBG',
+    category: 'Technical',
+    description:
+      'A student-driven cloud community at MLRIT — hands-on AWS workshops, hackathons, Gen AI sessions, and real-world cloud projects that go beyond the classroom.',
+    image: '/images/facilities/campus/sti-hub-1.jpg',
+    tagline: 'Learn. Build. Explore. Grow with AWS Cloud.',
+    hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/awssbg_mlrit/',
+    linkedinUrl: 'https://www.linkedin.com/company/awssbg-mlrit/',
+    about: {
+      what:
+        'The AWS Student Builder Group is a student-driven technical community at MLR Institute of Technology focused on AWS Cloud and emerging technologies. Members learn by doing — through hands-on workshops, real-world cloud projects, hackathons, and peer learning — gaining practical skills in Cloud Computing, AI, Machine Learning, Generative AI, DevOps, Serverless Computing, and Cybersecurity. The group also connects students with AWS experts, digital badge credentials, and a global student builder community.',
+      why:
+        'Cloud skills are in high demand, but most coursework doesn\'t go far enough into practical deployment. AWS SBG exists to close that gap — providing students with actual AWS lab access, industry-relevant credentials, and a community of peers learning the same technologies, while building portfolios and preparing for internships and placements.',
+      activities: [
+        {
+          title: 'Technical Workshops & Training',
+          description:
+            'Hands-on workshops covering AWS Cloud fundamentals, AI/ML, Generative AI, DevOps, Serverless Computing, and Cybersecurity — focused on real AWS services, not just theory.',
+        },
+        {
+          title: 'Hands-on Labs & Cloud Projects',
+          description:
+            'Working directly with AWS services — deploying applications, managing cloud resources, building cloud-based solutions, and earning AWS digital badges and credentials.',
+        },
+        {
+          title: 'Hackathons & Technical Competitions',
+          description:
+            'Coding challenges, problem-solving events, and hackathons where members build and deploy real cloud solutions under time constraints.',
+        },
+        {
+          title: 'AWS Learning Sessions & Knowledge Sharing',
+          description:
+            'Peer-led learning where seniors help juniors navigate AWS concepts — collaborative sessions, shared resources, and a community of students growing together.',
+        },
+        {
+          title: 'Career & Industry Exposure',
+          description:
+            'Expert sessions with AWS community speakers, industry professionals, and mentors — covering career paths, certifications, and opportunities in cloud and emerging tech.',
+        },
+      ],
+    },
+    events: [
+      {
+        id: 'aws-sbg-cloud-trek',
+        title: 'AWS Cloud Trek Workshop',
+        tag: 'Workshop',
+        posterGradient: 'linear-gradient(155deg, #1a3a1a 0%, #2d6a2d 55%, #1a4a1a 100%)',
+        blurb: 'A 2-day hands-on workshop covering Amazon S3 and EC2 — cloud resource management, application deployment, hosting, and security configurations.',
+        posterImage: '/images/clubs/events/aws-cloud-trek.jpg',
+        link: 'https://www.instagram.com/p/DPghWlAD-CH/?igsh=MTBmYnFmdXc3bXQ4aw==',
+      },
+      {
+        id: 'aws-sbg-community-day',
+        title: 'AWS Student Community Day — Cloud Voyage',
+        tag: 'Community Day',
+        posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)',
+        blurb: 'Bringing together students, AWS speakers, industry experts, and cloud professionals for sessions on modern infrastructure, industry practices, and cloud career opportunities.',
+        posterImage: '/images/clubs/events/aws-community-day.jpg',
+        link: 'https://www.instagram.com/p/DRUttHHD8wu/?igsh=ZXd1N3Y0Z2ZrdXRw',
+      },
+    ],
+    memoryLane: [
+      { src: '/images/clubs/memory/zenith-25-hackathon-lab.jpg', alt: 'Students in a cloud computing lab session' },
+      { src: '/images/clubs/memory/zenith-25-speaker-qa.jpg', alt: 'AWS Community Day speaker Q&A session' },
+      { src: '/images/clubs/memory/zenith-25-mentor-round.jpg', alt: 'A mentor reviewing a student cloud project' },
+      { src: '/images/clubs/memory/zenith-25-qa-session.jpg', alt: 'Q&A during an AWS workshop session' },
+      { src: '/images/clubs/memory/zenith-25-group-photo.jpg', alt: 'Participants with certificates after AWS Student Community Day' },
+      { src: '/images/clubs/memory/zenith-25-registration.jpg', alt: 'Students registering for an AWS event' },
+      { src: '/images/clubs/memory/zenith-25-award-ceremony.jpg', alt: 'Students receiving AWS digital badges and recognition' },
+      { src: '/images/clubs/memory/zenith-25-auditorium.jpg', alt: 'Attendees at the AWS Community Day auditorium session' },
+    ],
+  },
+
   // ─── Department ───────────────────────────────────────────────────────────
   {
     id: 'cse-ds',
@@ -747,10 +824,12 @@ export const CLUBS: Club[] = [
       ],
     },
     events: [
-      { id: 'came-hellenic', title: 'Hellenic', tag: 'Signature Event', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'A high-energy campus event with changing themes — student performances, skits, live music by Band Echo, and DJ.' },
+      { id: 'came-hellenic', title: 'Hellenic', tag: 'Signature Event', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'A high-energy campus event with changing themes — student performances, skits, live music by Band Echo, movie team interaction, and DJ.' },
       { id: 'came-navrat-naveli', title: 'Navrat Naveli', tag: 'Cultural Fest', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'A vibrant cultural celebration featuring Bathukamma, traditional rituals, Garba, skits, and prize distribution.' },
       { id: 'came-ecstacy', title: 'Ecstacy', tag: 'Concert Night', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'High-energy concert night featuring live performances by artists invited from outside the institution.' },
-      { id: 'came-graduation', title: 'Graduation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'Academic procession, lamp lighting, graduation oath, gold medal distribution, and cultural performances.' },
+      { id: 'came-kite-fest', title: 'Kite Fest', tag: 'Festive Event', posterGradient: 'linear-gradient(155deg, #1a3a5f 0%, #2563eb 55%, #1e40af 100%)', blurb: 'A festive celebration of Bhogi — Rangoli competitions, kite flying, and campus-wide participation marking the harvest season.' },
+      { id: 'came-graduation', title: 'Graduation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'Academic procession, lamp lighting, graduation oath, gold medal distribution, and cultural performances celebrating the graduating batch.' },
+      { id: 'came-annual-day', title: 'Annual Day', tag: 'Institution Event', posterGradient: 'linear-gradient(155deg, #2d1a00 0%, #92400e 55%, #451a03 100%)', blurb: 'MLRIT\'s flagship annual celebration — student cultural performances, awards, and recognition of achievement across the institution.' },
     ],
     memoryLane: [
       { src: '/images/students/club-event.png', alt: 'A CAME cultural performance' },

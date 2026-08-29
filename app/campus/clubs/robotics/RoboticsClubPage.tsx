@@ -275,21 +275,13 @@ function RoboticsHero() {
           style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}
           aria-label="Robotics Club logo"
         >
-          {/* SVG logo approximation — circular with MLRIT ECE Robotic Club text */}
-          <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden="true">
-            <circle cx="40" cy="40" r="40" fill="#111" />
-            <circle cx="40" cy="40" r="36" fill="none" stroke="#8b0000" strokeWidth="1.5" />
-            {/* Wing shapes */}
-            <path d="M14 35 Q8 28 14 20 Q22 26 22 34Z" fill="#c0392b" opacity="0.9" />
-            <path d="M66 35 Q72 28 66 20 Q58 26 58 34Z" fill="#c0392b" opacity="0.9" />
-            <path d="M12 37 Q6 30 10 22 Q18 28 20 36Z" fill="#e74c3c" opacity="0.7" />
-            <path d="M68 37 Q74 30 70 22 Q62 28 60 36Z" fill="#e74c3c" opacity="0.7" />
-            {/* Center shield */}
-            <ellipse cx="40" cy="40" rx="14" ry="16" fill="#c9a84c" opacity="0.15" />
-            <text x="40" y="34" textAnchor="middle" fill="#ffffff" fontSize="6" fontWeight="bold" fontFamily="sans-serif">MLRIT</text>
-            <text x="40" y="42" textAnchor="middle" fill="#ffffff" fontSize="7" fontWeight="bold" fontFamily="sans-serif">ECE</text>
-            <text x="40" y="56" textAnchor="middle" fill="#c9a84c" fontSize="4.5" fontWeight="600" fontFamily="sans-serif">ROBOTIC CLUB</text>
-          </svg>
+          <Image
+            src="/images/clubs/robotics-logo.png"
+            alt="Robotics Club logo"
+            width={80}
+            height={80}
+            className="w-full h-full object-contain"
+          />
         </div>
       </div>
 
