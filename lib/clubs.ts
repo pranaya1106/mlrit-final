@@ -512,75 +512,115 @@ export const CLUBS: Club[] = [
     ],
   },
   {
-    id: 'cse-ml',
-    name: 'CSE–ML Society',
-    shortName: 'CSE ML',
+    id: 'cse-aiml',
+    name: 'AIM — Aspiring Intellectual Minds',
+    shortName: 'AIM',
     category: 'Department',
     description:
-      'Department society for Computer Science – Machine Learning. Deep learning study circles, model deployment workshops, AI ethics seminars, and research paper reading groups.',
-    image: '/images/students/reel-aiml.png',
-    members: '84',
+      'AIM — Aspiring Intellectual Minds — the CSE-AIML department club exploring Artificial Intelligence, Machine Learning, and emerging technologies through workshops, hackathons, and hands-on projects.',
+    image: '/images/facilities/campus/sti-hub-4.jpg',
+    logo: '/images/clubs/aim-logo.png',
+    tagline: 'Imagination Meets Innovation.',
     hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/aim_mlrit/',
+    linkedinUrl: 'https://www.linkedin.com/company/aim-club/',
     about: {
       what:
-        'CSE–ML Society is the department community for Computer Science – Machine Learning — for students who want to go past the syllabus into how modern ML systems are actually built, trained, and shipped.',
+        'AIM Club (Aspiring Intellectual Minds) is a student-driven technical club at MLR Institute of Technology, focused on helping students explore Artificial Intelligence, Machine Learning, programming, and emerging technologies beyond the regular academic curriculum. It creates a space where students can learn, build, experiment, collaborate, and showcase their technical skills through hands-on activities and events.',
       why:
-        'Machine learning theory and machine learning practice are two different skills. The society exists to build the practice half — through study circles, deployment workshops, and paper discussions — alongside the theory taught in class.',
+        'AIM Club exists to bridge the gap between academic learning and real-world technology — fostering innovation, technical skills, and hands-on learning among students. It gives members a platform to learn, explore, and apply AI, Machine Learning, and emerging technologies through practical activities, technical events, projects, and collaborative learning.',
       activities: [
         {
-          title: 'Deep Learning Study Circles',
-          description: 'Weekly circles working through deep learning fundamentals together, from backpropagation to transformer architectures.',
+          title: 'Technical Workshops',
+          description:
+            'Sessions on AI/ML, programming, development tools, and emerging technologies — including bootcamps like Immersive 1.0 and GenAiVerse.',
         },
         {
-          title: 'Model Deployment Workshops',
-          description: 'Hands-on sessions taking a trained model from a notebook to something actually served and callable.',
+          title: 'Hackathons & Competitions',
+          description:
+            'Team-based challenges where students solve real-world problems and build working solutions — the Squid Game series is the club’s flagship format.',
         },
         {
-          title: 'AI Ethics Seminars',
-          description: 'Discussion-based seminars on the ethical and societal questions raised by deploying ML systems at scale.',
+          title: 'Guest Lectures & Expert Sessions',
+          description:
+            'Interaction with industry professionals, researchers, and experienced technologists, including sessions like AI Mersion’25.',
         },
         {
-          title: 'Research Paper Reading Groups',
-          description: 'Regular reading groups that break recent ML papers down into plain-language takeaways.',
+          title: 'AI/ML Events & Summits',
+          description:
+            'Larger technical events organised around artificial intelligence and emerging technologies, such as GI Mahotsav.',
+        },
+        {
+          title: 'Freshers’ Engagement & Orientation',
+          description:
+            'Introducing juniors to the AI/ML ecosystem, the department, and the opportunities available through the club.',
+        },
+        {
+          title: 'Team Activities & Collaborations',
+          description:
+            'Students work together across different skill levels and areas of interest on shared activities and builds.',
+        },
+        {
+          title: 'Innovation & Idea Development',
+          description:
+            'Encouraging students to identify problems and develop technology-driven solutions — showcased each year at Project Expo.',
         },
       ],
+      recognition:
+        'Beyond its flagship events, AIM Club has also run AI Mersion’25 (a guest-lecture and expert session series) and GI Mahotsav (a larger AI/ML summit) as part of its regular activity calendar.',
     },
     events: [
       {
-        id: 'deeplearn-hackathon',
-        title: 'DeepLearn Hackathon',
-        tag: 'Flagship',
-        posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)',
-        blurb: 'A team hackathon to train, fine-tune, and demo a working model against a real dataset in one weekend.',
-      },
-      {
-        id: 'deployment-clinic',
-        title: 'Model Deployment Clinic',
-        tag: 'Recurring',
-        posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)',
-        blurb: 'A recurring clinic on taking a trained model out of a notebook and into something actually served.',
-      },
-      {
-        id: 'paper-reading',
-        title: 'Paper Reading Circle',
-        tag: 'Study circle',
-        posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)',
-        blurb: 'A peer-led circle breaking down a recent ML paper into plain-language takeaways, one paper at a time.',
-      },
-      {
-        id: 'cv-sprint',
-        title: 'Computer Vision Sprint',
-        tag: 'Weekend build',
+        id: 'project-expo-2026',
+        title: 'Project Expo',
+        tag: 'AI-Powered Solution Expo',
         posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)',
-        blurb: 'A weekend sprint building a working computer vision demo — detection, classification, or segmentation.',
+        blurb:
+          'An exhibition of innovative student projects and real-world solutions across AI & Machine Learning, Robotics & Automation, Drone Technology, Web & Mobile Applications, AR/VR, and Gaming.',
+        posterImage: '/images/clubs/events/project-expo-2026.png',
+      },
+      {
+        id: 'squid-game-2',
+        title: "Squid Game 2.0: The Final Byte",
+        tag: 'Hackathon',
+        posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)',
+        blurb:
+          'A chatbot-development and coding-challenge hackathon run in teams of 3–4, with theme-based rounds and code sprints throughout.',
+        posterImage: '/images/clubs/events/squid-game-2.png',
+      },
+      {
+        id: 'genaiverse',
+        title: 'GenAiVerse',
+        tag: '3-Day Bootcamp',
+        posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)',
+        blurb:
+          'A three-day immersive event exploring Generative AI and its real-world applications, with practical sessions across different AI tools and creative use cases.',
+        posterImage: '/images/clubs/events/genaiverse.png',
+      },
+      {
+        id: 'squid-game',
+        title: 'Squid Game: The Challenge',
+        tag: 'Nov 2022',
+        posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)',
+        blurb:
+          'A game-inspired technical event combining chatbot development, coding challenges, and theme-based activities — code sprints and hands-on tasks throughout.',
+        posterImage: '/images/clubs/events/squid-game.png',
+      },
+      {
+        id: 'immersive-1',
+        title: 'Immersive 1.0',
+        tag: 'Workshop',
+        posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)',
+        blurb:
+          'An introductory hands-on event on AR/VR development — a crash course in Unity, followed by a challenge to build a working AR/VR application.',
       },
     ],
     memoryLane: [
       { src: '/images/students/reel-aiml.png', alt: 'AI/ML themed session' },
-      { src: '/images/facilities/campus/sti-hub-1.jpg', alt: 'STI Hub innovation space' },
-      { src: '/images/facilities/campus/sti-hub-3.jpg', alt: 'STI Hub event' },
-      { src: '/images/students/faculty-seminar.png', alt: 'A tech seminar in progress' },
+      { src: '/images/facilities/campus/sti-hub-4.jpg', alt: 'STI Hub innovation space' },
       { src: '/images/students/classroom-chat.png', alt: 'Students in a technical discussion' },
+      { src: '/images/students/faculty-seminar-2.png', alt: 'A tech seminar in progress' },
+      { src: '/images/facilities/campus/sti-hub-1.jpg', alt: 'STI Hub workspace' },
       { src: '/images/students/club-event.png', alt: 'Students at a club event' },
       { src: '/images/students/campus-group.png', alt: 'A club group photo' },
       { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
