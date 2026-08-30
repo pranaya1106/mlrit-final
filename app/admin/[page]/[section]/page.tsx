@@ -2,7 +2,13 @@ import Link from 'next/link';
 
 import ContentEditor from '@/app/admin/ContentEditor';
 import { getSection } from '@/lib/content/client';
-import { asGalleryItems, getSectionConfig, isGalleryField } from '@/lib/content/sections';
+import {
+  asGalleryItems,
+  asRepeaterItems,
+  getSectionConfig,
+  isListField,
+  isRepeaterField,
+} from '@/lib/content/sections';
 
 // Always read the row at request time — an editor must never be handed a
 // cached version number, or its first save would look like a conflict.
@@ -47,18 +53,20 @@ export default async function SectionAdminPage({
 
   const initialContent: Record<string, unknown> = {};
   for (const field of config.fields) {
-    if (!isGalleryField(field)) {
+    if (!isListField(field)) {
       initialContent[field.name] = asString(content[field.name]);
       continue;
     }
 
-    // Galleries hold an array of items; coercing one through asString() would
-    // silently wipe it. When nothing is stored yet, seed the FORM ONLY from
-    // defaultItems so the editor opens with the component's bundled assets as
-    // editable rows. This is not a write: content_blocks is untouched until
-    // Save, which preserves "empty stored gallery => component uses its own
-    // fallback" for the public site.
-    const stored = asGalleryItems(content[field.name]);
+    // List fields hold an array; coercing one through asString() would silently
+    // wipe it. When nothing is stored yet, seed the FORM ONLY from defaultItems
+    // so the editor opens with the component's bundled values as editable rows.
+    // This is not a write: content_blocks is untouched until Save, which
+    // preserves "empty stored list => component uses its own fallback" for the
+    // public site.
+    const stored = isRepeaterField(field)
+      ? asRepeaterItems(content[field.name])
+      : asGalleryItems(content[field.name]);
     initialContent[field.name] = stored.length > 0 ? stored : (field.defaultItems ?? []);
   }
 

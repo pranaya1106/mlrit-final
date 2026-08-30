@@ -14,6 +14,32 @@ export const CONTENT_SECTIONS = {
       { name: 'body', label: 'Body', multiline: true },
     ],
   },
+  // Counters under the hero. Mirrors the STATS array in components/sections/Stats.tsx;
+  // an empty repeater leaves that array in charge.
+  'home/stats': {
+    label: 'Homepage — Stat counters',
+    fields: [
+      {
+        name: 'stats',
+        label: 'Counters',
+        type: 'repeater',
+        itemFields: [
+          { name: 'target', label: 'Number', type: 'number' },
+          { name: 'suffix', label: 'Suffix' },
+          { name: 'label', label: 'Label' },
+        ],
+        // 4 = the grid is grid-cols-2 md:grid-cols-4; a fifth would wrap
+        // alone onto a second row.
+        maxItems: 4,
+        defaultItems: [
+          { id: 'years', target: 20, suffix: '+', label: 'Years of Excellence' },
+          { id: 'students', target: 11, suffix: 'K+', label: 'Students Enrolled' },
+          { id: 'placement-rate', target: 98, suffix: '%', label: 'Placement Rate' },
+          { id: 'recruiters', target: 200, suffix: '+', label: 'Recruiting Companies' },
+        ],
+      },
+    ],
+  },
   'home/achievements': {
     label: 'Homepage — Accreditations',
     fields: [
@@ -39,6 +65,42 @@ export const CONTENT_SECTIONS = {
           { id: 'gyaan-vigyan', name: 'Gyaan Vigyan', key: '/legacy/nirf/gyaanvigyan.svg' },
         ],
       },
+      // Rank cards down the left column. `tint` is the accent colour used for
+      // the number, the left rule and the hover index — any CSS colour.
+      {
+        name: 'ranks',
+        label: 'Rank cards',
+        type: 'repeater',
+        itemFields: [
+          { name: 'num', label: 'Figure' },
+          { name: 'title', label: 'Title' },
+          { name: 'sub', label: 'Subtitle' },
+          { name: 'tint', label: 'Accent colour' },
+        ],
+        defaultItems: [
+          {
+            id: 'nirf',
+            num: '201',
+            title: 'NIRF Rankings 2024',
+            sub: '201\u2013300 Band \u00b7 Engineering Category',
+            tint: '#e85d04',
+          },
+          {
+            id: 'times',
+            num: '#6',
+            title: 'Times Engineering Survey',
+            sub: '6th in Telangana',
+            tint: '#1F6B24',
+          },
+          {
+            id: 'careers360',
+            num: 'AAAA',
+            title: 'Careers360 Rating',
+            sub: 'Four-A Accredited Institution',
+            tint: '#c26a2b',
+          },
+        ],
+      },
     ],
   },
   'home/programs': {
@@ -55,6 +117,38 @@ export const CONTENT_SECTIONS = {
       { name: 'heading', label: 'Heading' },
       { name: 'body', label: 'Body', multiline: true },
       { name: 'video', label: 'Background video', type: 'video' },
+    ],
+  },
+
+  // Counters in the dark placements band. Mirrors the STATS array in
+  // components/sections/Placements.tsx. Separate from home/stats: different
+  // numbers, different component, edited independently.
+  'home/placements': {
+    label: 'Homepage — Placement counters',
+    fields: [
+      {
+        name: 'stats',
+        label: 'Counters',
+        type: 'repeater',
+        itemFields: [
+          { name: 'target', label: 'Number', type: 'number' },
+          { name: 'suffix', label: 'Suffix' },
+          { name: 'label', label: 'Label' },
+        ],
+        // 4 = grid-cols-2 md:grid-cols-4, same reasoning as home/stats.
+        maxItems: 4,
+        defaultItems: [
+          { id: 'highest', target: 44, suffix: 'LPA', label: 'Highest Package' },
+          { id: 'placed', target: 5, suffix: 'K+', label: 'Students Placed in Top MNCs' },
+          { id: 'average', target: 18, suffix: 'LPA', label: 'Avg. Salary \u2014 Top 25%' },
+          {
+            id: 'recruiters',
+            target: 200,
+            suffix: '+',
+            label: 'Recruiters incl. IIT/IIM/NIT Hirers',
+          },
+        ],
+      },
     ],
   },
 
@@ -112,10 +206,21 @@ export const CONTENT_SECTIONS = {
 
 export type SectionKey = keyof typeof CONTENT_SECTIONS;
 
-export type FieldType = 'text' | 'multiline' | 'image' | 'video' | 'gallery';
+export type FieldType = 'text' | 'multiline' | 'image' | 'video' | 'gallery' | 'repeater';
 
 /** Per-item metadata a gallery may collect alongside each image. */
 export type GalleryItemField = 'name' | 'title' | 'linkUrl' | 'active' | 'startDate' | 'endDate';
+
+/**
+ * One column of a repeater row. Unlike a gallery's itemFields — a fixed set of
+ * known metadata names — a repeater declares its own shape, because the rows
+ * are the content rather than annotations on an uploaded image.
+ */
+export type RepeaterItemField = {
+  readonly name: string;
+  readonly label: string;
+  readonly type?: 'text' | 'number';
+};
 
 export type FieldConfig = {
   readonly name: string;
@@ -124,15 +229,20 @@ export type FieldConfig = {
   /** Legacy shorthand for `type: 'multiline'`; existing configs still use it. */
   readonly multiline?: boolean;
   /**
-   * Gallery only. Which metadata inputs each item gets. Omit for a plain list
-   * of images with no per-item fields.
+   * List fields only. For a gallery: which metadata inputs each item gets, as
+   * names from the fixed GalleryItemField set (omit for a plain list of images
+   * with no per-item fields). For a repeater: the row's columns, declared
+   * inline because a repeater defines its own shape.
+   *
+   * Read through galleryItemFields()/repeaterItemFields() rather than directly
+   * — those narrow the union by the element kind actually present.
    */
-  readonly itemFields?: readonly GalleryItemField[];
+  readonly itemFields?: readonly GalleryItemField[] | readonly RepeaterItemField[];
   /**
-   * Gallery only. How many items the consuming component can actually render.
-   * Extra uploads are kept in the data but never displayed, so the editor warns
-   * rather than letting someone add images that silently vanish. Omit when the
-   * gallery has no fixed limit.
+   * List fields only. How many items the consuming component can actually
+   * render. Extras are kept in the data but never displayed, so the editor
+   * warns rather than letting someone add rows that silently vanish. Omit when
+   * the list has no fixed limit.
    */
   readonly maxItems?: number;
   /**
@@ -145,7 +255,7 @@ export type FieldConfig = {
    * gallery as "use my bundled fallback", and auto-saving defaults would
    * quietly convert every section from fallback-driven to CMS-driven.
    */
-  readonly defaultItems?: readonly GalleryItem[];
+  readonly defaultItems?: readonly GalleryItem[] | readonly RepeaterItem[];
 };
 
 /**
@@ -164,6 +274,19 @@ export type GalleryItem = {
   endDate?: string;
 };
 
+/**
+ * One repeater row. `id` is minted client-side on add and never changes, so it
+ * survives reordering and is safe as a React key; every other key is a column
+ * declared by the field's itemFields.
+ *
+ * Number columns are stored as numbers, but a row that has been through a
+ * text input can hold the string form — consumers coerce rather than trust.
+ */
+export type RepeaterItem = {
+  id: string;
+  [column: string]: string | number | undefined;
+};
+
 /** Resolved field type — `type` wins, then the `multiline` shorthand, then text. */
 export const fieldType = (field: FieldConfig): FieldType =>
   field.type ?? (field.multiline ? 'multiline' : 'text');
@@ -180,6 +303,67 @@ export const isMediaField = (field: FieldConfig): boolean => {
 
 /** Gallery fields hold an array of items rather than a single string value. */
 export const isGalleryField = (field: FieldConfig): boolean => fieldType(field) === 'gallery';
+
+/** Repeater fields hold an array of structured rows — text-first, no uploads. */
+export const isRepeaterField = (field: FieldConfig): boolean => fieldType(field) === 'repeater';
+
+/** Either kind of list field: stored as an array, never as a string. */
+export const isListField = (field: FieldConfig): boolean =>
+  isGalleryField(field) || isRepeaterField(field);
+
+/**
+ * Whether a save must reject this field when it is blank.
+ *
+ * Media is optional (no upload => the component's bundled asset), and so is a
+ * repeater (no rows => the component's bundled array). Only plain text fields
+ * are required, which is what keeps a repeater-only section savable at all.
+ */
+export const isRequiredField = (field: FieldConfig): boolean =>
+  !isMediaField(field) && !isRepeaterField(field);
+
+/**
+ * The gallery metadata names on a field, ignoring repeater column objects.
+ * Filtering by element kind rather than casting keeps a mis-declared config
+ * from reaching the editor as a malformed input.
+ */
+export const galleryItemFields = (field: FieldConfig): readonly GalleryItemField[] =>
+  (field.itemFields ?? []).filter(
+    (item): item is GalleryItemField => typeof item === 'string'
+  );
+
+/** The repeater columns on a field, ignoring gallery metadata names. */
+export const repeaterItemFields = (field: FieldConfig): readonly RepeaterItemField[] =>
+  (field.itemFields ?? []).filter(
+    (item): item is RepeaterItemField => typeof item === 'object' && item !== null
+  );
+
+/** Narrows an unknown stored value to repeater rows, discarding malformed ones. */
+export const asRepeaterItems = (value: unknown): RepeaterItem[] => {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (item): item is RepeaterItem =>
+      typeof item === 'object' &&
+      item !== null &&
+      !Array.isArray(item) &&
+      typeof (item as RepeaterItem).id === 'string'
+  );
+};
+
+/**
+ * A repeater column read as a number, for the counter targets.
+ *
+ * Accepts the number itself and the string an <input type="number"> produces;
+ * anything unusable yields the fallback so a half-typed row renders the
+ * component's own value rather than NaN.
+ */
+export const asNumber = (value: unknown, fallback: number): number => {
+  const parsed = typeof value === 'number' ? value : Number(String(value ?? '').trim());
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
+/** A repeater column read as a trimmed string. */
+export const asText = (value: unknown, fallback = ''): string =>
+  typeof value === 'string' && value.trim().length > 0 ? value.trim() : fallback;
 
 /** Narrows an unknown stored value to gallery items, discarding malformed ones. */
 export const asGalleryItems = (value: unknown): GalleryItem[] => {

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { getSection, saveSection, SectionWriteError } from '@/lib/content/client';
-import { getSectionConfig, isMediaField } from '@/lib/content/sections';
+import { getSectionConfig, isRequiredField } from '@/lib/content/sections';
 import { findTransientMediaError } from '@/lib/content/validate';
 
 // Sections predating CONTENT_SECTIONS validated against this fixed list; keep it
@@ -14,13 +14,14 @@ const DEFAULT_REQUIRED_FIELDS = ['headlineLead', 'headlineAccent', 'body'];
 /**
  * Required field names for a section, from its config when it has one.
  *
- * Media fields are excluded: an empty image/video means "no upload yet, use the
- * component's built-in asset", which is a legitimate state. Requiring them would
- * make a section with an optional video unsavable until something was uploaded.
+ * Media and repeater fields are excluded: an empty image/video means "no upload
+ * yet, use the component's built-in asset" and an empty repeater means "use the
+ * component's built-in rows", both legitimate states. Requiring them would make
+ * a section with an optional video — or one made only of counters — unsavable.
  */
 const requiredFieldsFor = (page: string, section: string): readonly string[] =>
   getSectionConfig(page, section)
-    ?.fields.filter((field) => !isMediaField(field))
+    ?.fields.filter(isRequiredField)
     .map((field) => field.name) ?? DEFAULT_REQUIRED_FIELDS;
 
 /**

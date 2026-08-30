@@ -8,9 +8,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { resolveAssetUrl } from '@/lib/cdn/url';
 import {
   asGalleryItems,
+  asRepeaterItems,
   fieldType,
+  galleryItemFields,
+  repeaterItemFields,
   type FieldConfig,
   type GalleryItem,
+  type RepeaterItem,
 } from '@/lib/content/sections';
 import { MESSAGE, PREVIEW_PARAM } from '@/lib/preview/context';
 
@@ -219,20 +223,51 @@ export default function ContentEditor({
   // discarded the new item, so no thumbnail ever appeared. The same defect was
   // latent in remove/reorder/revert whenever two updates landed in one tick.
 
-  /** Applies a transform to one gallery field, computed from live state. */
-  const updateGallery = (
+  /**
+   * Applies a transform to one list field, computed from live state.
+   *
+   * `narrow` decides how the stored value is read — gallery items or repeater
+   * rows — so both kinds share add/remove/reorder rather than growing a second
+   * copy of the same logic and the same latent one-tick bug.
+   */
+  const updateList = <T extends { id: string }>(
     fieldName: string,
-    transform: (items: GalleryItem[]) => GalleryItem[]
+    narrow: (value: unknown) => T[],
+    transform: (items: T[]) => T[]
   ) =>
     setValues((current) => ({
       ...current,
-      [fieldName]: transform(asGalleryItems(current[fieldName])),
+      [fieldName]: transform(narrow(current[fieldName])),
     }));
+
+  const updateGallery = (
+    fieldName: string,
+    transform: (items: GalleryItem[]) => GalleryItem[]
+  ) => updateList(fieldName, asGalleryItems, transform);
+
+  const updateRepeater = (
+    fieldName: string,
+    transform: (items: RepeaterItem[]) => RepeaterItem[]
+  ) => updateList(fieldName, asRepeaterItems, transform);
 
   const patchItem = (fieldName: string, id: string, patch: Partial<GalleryItem>) =>
     updateGallery(fieldName, (items) =>
       items.map((item) => (item.id === id ? { ...item, ...patch } : item))
     );
+
+  const patchRow = (fieldName: string, id: string, patch: Partial<RepeaterItem>) =>
+    updateRepeater(fieldName, (items) =>
+      items.map((item) => (item.id === id ? { ...item, ...patch } : item))
+    );
+
+  /** Reorders by swapping with the neighbour; a no-op at either end. */
+  const swapAt = <T,>(items: T[], from: number, delta: -1 | 1): T[] => {
+    const to = from + delta;
+    if (from < 0 || to < 0 || to >= items.length) return items;
+    const next = [...items];
+    [next[from], next[to]] = [next[to], next[from]];
+    return next;
+  };
 
   /** Appends an item, then uploads into it. The id is stable across reorders. */
   function addGalleryImage(fieldName: string, file: File) {
@@ -271,15 +306,36 @@ export default function ContentEditor({
   }
 
   function moveGalleryItem(fieldName: string, id: string, delta: -1 | 1) {
-    updateGallery(fieldName, (items) => {
-      const from = items.findIndex((item) => item.id === id);
-      const to = from + delta;
-      if (from < 0 || to < 0 || to >= items.length) return items;
+    updateGallery(fieldName, (items) =>
+      swapAt(items, items.findIndex((item) => item.id === id), delta)
+    );
+  }
 
-      const next = [...items];
-      [next[from], next[to]] = [next[to], next[from]];
-      return next;
-    });
+  // ---- repeater helpers -----------------------------------------------------
+  // No uploads here, so no in-flight state — but the same functional-update
+  // discipline applies: adding a row and typing into it can land in one tick.
+
+  /** Mints an id that survives reordering, matching the gallery's scheme. */
+  const newRowId = (): string =>
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+  function addRepeaterRow(fieldName: string, columns: readonly { name: string }[]) {
+    // Every column starts present and empty, so a new row's inputs are
+    // controlled from the first render rather than flipping uncontrolled.
+    const blank = Object.fromEntries(columns.map((column) => [column.name, '']));
+    updateRepeater(fieldName, (items) => [...items, { ...blank, id: newRowId() }]);
+  }
+
+  function removeRepeaterRow(fieldName: string, id: string) {
+    updateRepeater(fieldName, (items) => items.filter((item) => item.id !== id));
+  }
+
+  function moveRepeaterRow(fieldName: string, id: string, delta: -1 | 1) {
+    updateRepeater(fieldName, (items) =>
+      swapAt(items, items.findIndex((item) => item.id === id), delta)
+    );
   }
 
   async function handleSave() {
@@ -389,6 +445,113 @@ export default function ContentEditor({
                 )}
 
 
+                {type === 'repeater' && (
+                  <div className="mt-1.5">
+                    {asRepeaterItems(values[name]).length === 0 && (
+                      <p className="font-mono text-[0.7rem] text-subtle">
+                        No rows — the built-in ones are used.
+                      </p>
+                    )}
+
+                    {/* Same reasoning as the gallery cap: the component renders
+                        a fixed number of slots, so say what will be dropped
+                        rather than letting a row vanish silently. */}
+                    {typeof field.maxItems === 'number' &&
+                      asRepeaterItems(values[name]).length > field.maxItems && (
+                        <p
+                          role="alert"
+                          className="mb-3 rounded border border-orange-200 bg-orange-50 px-3 py-2 text-[0.78rem] text-orange-700"
+                        >
+                          Only the first {field.maxItems} rows will be shown —{' '}
+                          {asRepeaterItems(values[name]).length - field.maxItems} extra won&apos;t
+                          appear.
+                        </p>
+                      )}
+
+                    <ul className="space-y-3">
+                      {asRepeaterItems(values[name]).map((item, index, all) => (
+                        <li
+                          key={item.id}
+                          className="flex gap-3 rounded-md border border-border bg-neutral-0 p-3"
+                        >
+                          <span className="mt-1 shrink-0 font-mono text-[0.65rem] uppercase text-subtle">
+                            {index + 1}
+                          </span>
+
+                          <div className="min-w-0 flex-1 space-y-2">
+                            {repeaterItemFields(field).map((column) => (
+                              <label key={column.name} className="block">
+                                <span className="font-mono text-[0.6rem] uppercase tracking-wider text-subtle">
+                                  {column.label}
+                                </span>
+                                <input
+                                  type={column.type === 'number' ? 'number' : 'text'}
+                                  value={
+                                    // Numbers arrive as numbers from
+                                    // defaultItems and as strings once typed;
+                                    // both render, and '' keeps the input
+                                    // controlled while a row is being filled.
+                                    item[column.name] === undefined
+                                      ? ''
+                                      : String(item[column.name])
+                                  }
+                                  onChange={(e) =>
+                                    patchRow(name, item.id, {
+                                      // Stored as typed. The component coerces
+                                      // on read, so a half-typed '-' or '' is
+                                      // never written back as NaN.
+                                      [column.name]: e.target.value,
+                                    })
+                                  }
+                                  className="mt-0.5 w-full rounded border border-border bg-neutral-0 px-2 py-1 text-sm text-foreground outline-none focus:border-primary"
+                                />
+                              </label>
+                            ))}
+                          </div>
+
+                          <div className="flex shrink-0 flex-col items-end justify-between">
+                            <div className="flex gap-1">
+                              <button
+                                type="button"
+                                aria-label="Move up"
+                                disabled={index === 0}
+                                onClick={() => moveRepeaterRow(name, item.id, -1)}
+                                className="rounded px-1.5 font-mono text-xs text-muted hover:text-foreground disabled:opacity-30"
+                              >
+                                ↑
+                              </button>
+                              <button
+                                type="button"
+                                aria-label="Move down"
+                                disabled={index === all.length - 1}
+                                onClick={() => moveRepeaterRow(name, item.id, 1)}
+                                className="rounded px-1.5 font-mono text-xs text-muted hover:text-foreground disabled:opacity-30"
+                              >
+                                ↓
+                              </button>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeRepeaterRow(name, item.id)}
+                              className="font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-orange-600"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <button
+                      type="button"
+                      onClick={() => addRepeaterRow(name, repeaterItemFields(field))}
+                      className="mt-3 rounded border border-border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted hover:border-primary hover:text-primary"
+                    >
+                      + Add row
+                    </button>
+                  </div>
+                )}
+
                 {type === 'gallery' && (
                   <div className="mt-1.5">
                     {asGalleryItems(values[name]).length === 0 && (
@@ -442,7 +605,7 @@ export default function ContentEditor({
                             </div>
 
                             <div className="min-w-0 flex-1 space-y-2">
-                              {(field.itemFields ?? []).map((itemField) => {
+                              {galleryItemFields(field).map((itemField) => {
                                 if (itemField === 'active') {
                                   return (
                                     <label

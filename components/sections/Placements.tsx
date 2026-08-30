@@ -3,12 +3,16 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
-import { asGalleryItems } from '@/lib/content/sections';
+import { asGalleryItems, asNumber, asRepeaterItems, asText } from '@/lib/content/sections';
 import { recruiterLogosFrom } from '@/lib/placements';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 type Stat = { target: number; suffix: string; label: string };
 
+/**
+ * Fallback counters. Used whenever the CMS repeater is empty, absent or fails
+ * to load, so the band always renders four complete figures.
+ */
 const STATS: Stat[] = [
   { target: 44,  suffix: 'LPA', label: 'Highest Package' },
   { target: 5,   suffix: 'K+',  label: 'Students Placed in Top MNCs' },
@@ -16,14 +20,35 @@ const STATS: Stat[] = [
   { target: 200, suffix: '+',   label: 'Recruiters incl. IIT/IIM/NIT Hirers' },
 ];
 
+/** 4 = the grid is grid-cols-2 md:grid-cols-4; a fifth would wrap alone. */
+const MAX_STATS = 4;
+
+/** Maps repeater rows onto Stat; an empty list yields STATS verbatim. */
+function statsFrom(value: unknown): Stat[] {
+  const rows = asRepeaterItems(value);
+  if (rows.length === 0) return STATS;
+
+  return rows.slice(0, MAX_STATS).map((row, i) => ({
+    target: asNumber(row.target, STATS[i]?.target ?? 0),
+    suffix: asText(row.suffix),
+    label: asText(row.label),
+  }));
+}
+
 type PlacementsProps = {
   /** Gallery items from placements/recruiters; falls back to the bundled set. */
   logos?: unknown;
+  /** Repeater rows from home/placements; falls back to the bundled counters. */
+  stats?: unknown;
 };
 
 export default function Placements(props: PlacementsProps) {
-  // Live-preview draft wins over the saved props.
+  // Two section keys meet in this component: the logos are shared with
+  // /placements/recruiters, the counters are homepage-only. Each is merged
+  // against its own key so the editor's preview updates the right one.
   const { logos } = useMergedSection('placements/recruiters', props);
+  const { stats } = useMergedSection('home/placements', props);
+  const statItems = statsFrom(stats);
 
   // Same source as /placements/recruiters, mapped to { src, alt }. An empty
   // gallery yields the bundled 16, so this renders unchanged until someone
@@ -31,6 +56,7 @@ export default function Placements(props: PlacementsProps) {
   const recruiterLogos = recruiterLogosFrom(asGalleryItems(logos));
 
   return (
+    <div id={sectionDomId('home/placements')}>
     <div id={sectionDomId('placements/recruiters')}>
     <section id="placements" style={{ backgroundColor: '#0c0c0e' }} className="relative bg-ink text-white py-10 md:py-14 overflow-hidden">
       {/* Network background SVG */}
@@ -74,7 +100,7 @@ export default function Placements(props: PlacementsProps) {
 
         {/* Stats */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-          {STATS.map((s, i) => <PlacementStat key={i} {...s} />)}
+          {statItems.map((s, i) => <PlacementStat key={i} {...s} />)}
         </div>
 
         {/* Recruiters label */}
@@ -116,6 +142,7 @@ export default function Placements(props: PlacementsProps) {
         }
       `}</style>
     </section>
+    </div>
     </div>
   );
 }

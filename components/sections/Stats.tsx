@@ -2,9 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { asNumber, asRepeaterItems, asText } from '@/lib/content/sections';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 type Stat = { target: number; suffix: string; label: string };
 
+/**
+ * Fallback counters. Used whenever the CMS repeater is empty, absent or fails
+ * to load — the band must always render four complete figures, never a blank.
+ */
 const STATS: Stat[] = [
   { target: 20,  suffix: '+',   label: 'Years of Excellence' },
   { target: 11,  suffix: 'K+',  label: 'Students Enrolled' },
@@ -12,8 +18,37 @@ const STATS: Stat[] = [
   { target: 200, suffix: '+',   label: 'Recruiting Companies' },
 ];
 
-export default function Stats() {
+/** 4 = the grid is grid-cols-2 md:grid-cols-4; a fifth would wrap alone. */
+const MAX_STATS = 4;
+
+type StatsProps = {
+  /** Repeater rows from home/stats; falls back to the bundled counters. */
+  stats?: unknown;
+};
+
+/**
+ * Maps repeater rows onto the Stat shape, coercing per column so a half-typed
+ * row renders a number rather than NaN. An empty list yields STATS verbatim,
+ * so an unsaved section renders exactly as it did before the CMS existed.
+ */
+function statsFrom(value: unknown): Stat[] {
+  const rows = asRepeaterItems(value);
+  if (rows.length === 0) return STATS;
+
+  return rows.slice(0, MAX_STATS).map((row, i) => ({
+    target: asNumber(row.target, STATS[i]?.target ?? 0),
+    suffix: asText(row.suffix),
+    label: asText(row.label),
+  }));
+}
+
+export default function Stats(props: StatsProps) {
+  // Live-preview draft wins over the saved props; the fallback is unchanged.
+  const { stats } = useMergedSection('home/stats', props);
+  const items = statsFrom(stats);
+
   return (
+    <div id={sectionDomId('home/stats')}>
     <section
       id="stats"
       className="border-b border-border"
@@ -21,12 +56,13 @@ export default function Stats() {
     >
       <div className="w-full px-6 md:px-10 lg:px-12 py-14 md:py-20">
         <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-10" delay={0.12}>
-          {STATS.map((s, i) => (
+          {items.map((s, i) => (
             <StaggerItem key={i}><StatItem {...s} /></StaggerItem>
           ))}
         </Stagger>
       </div>
     </section>
+    </div>
   );
 }
 

@@ -59,10 +59,12 @@ async function getSectionCopy<K extends string, O extends string = never, A exte
 }
 
 /**
- * One gallery field from any section. Kept separate from getSectionCopy, which
- * is hardcoded to the 'home' page slug and to string fields.
+ * One list field (gallery or repeater) from any section. Kept separate from
+ * getSectionCopy, which is hardcoded to the 'home' page slug and to string
+ * fields. An empty array means "nothing saved", which every consuming component
+ * reads as "use my bundled fallback".
  */
-async function getGallery(page: string, section: string, field: string): Promise<unknown[]> {
+async function getListField(page: string, section: string, field: string): Promise<unknown[]> {
   try {
     const { getSection } = await import('@/lib/content/client');
     const row = await getSection(page, section);
@@ -79,26 +81,31 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   // Fetched together so one slow section cannot serialise behind another.
-  const [hero, achievements, programs, whyMlrit, recruiterLogos] = await Promise.all([
-    getSectionCopy('hero', HEADLINE_FIELDS),
-    getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos'] as const),
-    getSectionCopy('programs', HEADLINE_FIELDS),
-    getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
-    // Shared with /placements/recruiters — one field, both consumers.
-    getGallery('placements', 'recruiters', 'logos'),
-  ]);
+  const [hero, achievements, programs, whyMlrit, recruiterLogos, stats, placementStats] =
+    await Promise.all([
+      getSectionCopy('hero', HEADLINE_FIELDS),
+      getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos', 'ranks'] as const),
+      getSectionCopy('programs', HEADLINE_FIELDS),
+      getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
+      // Shared with /placements/recruiters — one field, both consumers.
+      getListField('placements', 'recruiters', 'logos'),
+      // Counter sections have no required text, so they are read as bare list
+      // fields rather than through getSectionCopy's all-or-nothing text gate.
+      getListField('home', 'stats', 'stats'),
+      getListField('home', 'placements', 'stats'),
+    ]);
 
   return (
     <PreviewProvider>
       <Hero {...hero} />
       <Banners />
-      <Stats />
+      <Stats stats={stats} />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
       <Achievements {...achievements} />
       <WhyMLRIT {...whyMlrit} video={resolveAssetUrl(whyMlrit.video)} />
       <SuccessStories />
       <Programs {...programs} />
-      <Placements logos={recruiterLogos} />
+      <Placements logos={recruiterLogos} stats={placementStats} />
       <Testimonials />
       <Events />
     </PreviewProvider>
