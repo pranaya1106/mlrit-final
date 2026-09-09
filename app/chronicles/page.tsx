@@ -1,322 +1,354 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import {
   type Story,
-  LEAD,
-  LEAD_BODY,
-  MID_STORIES,
   MOST_READ,
   IN_BRIEF,
-  ARCHIVE,
   PHOTO_ESSAY,
 } from '@/lib/chronicles';
-import { getLiveNews, formatNewsDate } from '@/lib/newsApi';
-import { buildTierStories, TIER_SIZE } from '@/lib/frontPage';
+import { getLiveNews, getArchivedNews, formatNewsDate } from '@/lib/newsApi';
+import { buildLeadStory, buildRecentStories, buildTierStories, buildArchiveStories, LIVE_FEED_SIZE } from '@/lib/frontPage';
+import ChroniclesQuickNav from '@/components/ChroniclesQuickNav';
+import ChroniclesTicker from '@/components/ChroniclesTicker';
 
 export const metadata: Metadata = {
   title: 'MLRIT Chronicles — The campus broadsheet',
   description: '"All the campus that\'s fit to print" — a broadsheet of stories, ideas and updates from MLR Institute of Technology.',
 };
 
-const SECTIONS: { label: string; href: string }[] = [
-  { label: 'Front Page',     href: '#front-page'    },
-  { label: 'Recent Events',  href: '#events'        },
-  { label: 'News Clippings', href: '#news'          },
-  { label: 'Announcements',  href: '#announcements' },
-  { label: 'Live Wire',      href: '#live-wire'     },
-  { label: 'Photo Essay',    href: '#photo-essay'   },
-  { label: 'Placements',     href: '/placements/overview' },
-  { label: 'Research',       href: '/research'      },
-  { label: 'Sports',         href: '/student-life/sports' },
-  { label: 'Faculty',        href: '/departments/faculty' },
-  { label: 'Archive',        href: '#archive'       },
-];
+/* Broadsheet: warm paper + black ink (DESIGN.md "Institutional Record"). Type
+   is the site's own trio, not a separate Chronicles-only system — confirmed
+   against the live deployed page: Playfair Display for every headline and
+   body paragraph (font-display), JetBrains Mono for every tracked-uppercase
+   meta/date/label/digit (font-mono), Manrope for nav (font-sans). Kiln Orange
+   is the one accent — live dot, active nav, primary link — never a surface fill. */
+
+// The India edition date line — genuinely today, not a fixed placeholder.
+function editionDate(): string {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Kolkata',
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  }).formatToParts(new Date());
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '';
+  return `${get('weekday')}, ${get('day')} ${get('month')} ${get('year')}`.toUpperCase();
+}
 
 export default async function ChroniclesPage() {
-  const liveNewsFeed = await getLiveNews(TIER_SIZE);
-  const liveWireTicker = liveNewsFeed.slice(0, 8);
+  const [liveNewsFeed, archivedNewsFeed] = await Promise.all([
+    getLiveNews(LIVE_FEED_SIZE),
+    getArchivedNews(),
+  ]);
+  const liveWireTicker = liveNewsFeed.slice(0, 6);
+  const { story: LEAD, body: LEAD_BODY } = buildLeadStory(liveNewsFeed);
+  const RECENT_STORIES = buildRecentStories(liveNewsFeed);
   const TIER_STORIES = buildTierStories(liveNewsFeed);
+  const ARCHIVE_STORIES = buildArchiveStories(archivedNewsFeed);
+  const EDITION_DATE = editionDate();
+
+  const tickerItems = liveNewsFeed.length ? liveNewsFeed.map((n) => n.title) : IN_BRIEF.map((b) => b.body);
 
   return (
-    <div className="bg-white text-foreground font-display">
+    <div className="bg-white text-black">
+      {/* UTILITY BAR */}
+      <div className="border-b border-black/20">
+        <div className="max-w-[1200px] mx-auto px-4 flex items-center justify-between py-2 font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/70">
+          <span className="inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-soft" aria-hidden />
+            {EDITION_DATE}
+          </span>
+          <div className="flex items-center gap-3">
+            <span>MLRIT · HYDERABAD</span>
+            <span className="hidden md:inline">·</span>
+            <span className="hidden md:inline">VOL. V · NO. 23</span>
+            <span className="hidden md:inline">·</span>
+            <span className="hidden md:inline">SPRING EDITION</span>
+          </div>
+        </div>
+      </div>
+
       {/* MASTHEAD */}
-      <header className="border-t-4 border-black border-b border-black px-6 md:px-12 lg:px-20 pt-8 md:pt-12 lg:pt-14 pb-6 md:pb-8 text-center">
-        <div className="flex justify-between items-center font-mono text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-muted border-b border-border pb-3 mb-5">
-          <span><span className="inline-block w-1.5 h-1.5 rounded-full bg-black mr-2 align-middle animate-pulse" /> Live · Spring &apos;26 Edition</span>
-          <span>Vol. V · Issue 23</span>
-        </div>
-        <div className="h-1 bg-black my-2" />
-        <h1 className="font-display font-black uppercase leading-[0.88] tracking-tighter-2 text-[clamp(3rem,12vw,13rem)] mt-0 mb-0">
-          MLRIT <span className="italic font-normal">Chronicles</span>
-        </h1>
-        <p className="italic text-muted text-[clamp(0.95rem,1.1vw,1.15rem)] mt-4 max-w-[820px] mx-auto">
-          The campus newsroom — <strong className="not-italic text-black font-bold">news clippings, recent events and official announcements</strong> from MLR Institute of Technology, updated continuously.
-        </p>
-        <div className="h-0.5 bg-black mt-5" />
-
-        {/* "What's on this page" — 3 labelled zones */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-b border-black">
-          {[
-            { k: '01', label: 'News Clippings', sub: 'Press coverage of MLRIT — Indian Express, The Hindu, industry press.' },
-            { k: '02', label: 'Recent Events',  sub: 'Annual Day, Equinox, Zignasa, sports meets — with photo essays.' },
-            { k: '03', label: 'Announcements',  sub: 'Official notices, NIRF results, orientation, holidays and academic updates.' },
-          ].map((z, i) => (
-            <div key={z.k} className={`px-4 py-4 text-left ${i < 2 ? 'md:border-r border-border' : ''}`}>
-              <div className="flex items-baseline gap-3">
-                <span className="font-mono font-black text-black text-[1.4rem] leading-none">{z.k}</span>
-                <span className="font-sans font-extrabold uppercase tracking-[0.18em] text-[0.72rem] text-black">{z.label}</span>
-              </div>
-              <p className="mt-2 font-display text-muted text-[0.92rem] leading-[1.45]">{z.sub}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-muted mt-4 pt-3.5">
-          <span>Saturday, <strong className="text-black font-bold">16 May 2026</strong></span>
-          <span>Dundigal · Hyderabad</span>
-          <span>62 pages · ₹0</span>
-          <span>Reading time · 4 min</span>
+      <header id="top" className="border-b-2 border-black scroll-mt-32">
+        <div className="max-w-[1200px] mx-auto px-4 text-center py-6 md:py-9">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/legacy/mlrit-logo-450.png"
+            alt="MLR Institute of Technology"
+            width={450}
+            height={112}
+            className="h-9 md:h-11 w-auto mx-auto mb-4"
+          />
+          <p className="font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/60 mb-2.5">
+            The campus broadsheet of MLR Institute of Technology
+          </p>
+          <h1 className="font-display font-black uppercase tracking-tight leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)]">
+            MLRIT Chronicles
+          </h1>
+          <p className="font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/60 mt-3">
+            Campus · Research · Placements · Sport
+          </p>
         </div>
       </header>
 
-      {/* RIBBON */}
-      <nav aria-label="Sections" className="bg-black text-white border-y border-black sticky top-[var(--subnav-top)] z-30">
-        <div className="flex overflow-x-auto no-scrollbar px-6 md:px-12 lg:px-20">
-          {SECTIONS.map((s, i) => (
-            <a
-              key={s.href}
-              href={s.href}
-              className={`whitespace-nowrap font-sans text-[0.78rem] font-bold tracking-[0.14em] uppercase px-4 py-3.5 hover:bg-white/10 transition-colors ${
-                i === 0 ? 'bg-white text-black' : 'text-white'
-              } ${i > 0 ? 'border-l border-white/15' : ''}`}
-            >
-              {s.label}
-            </a>
-          ))}
-        </div>
-      </nav>
+      <ChroniclesTicker items={tickerItems} />
 
-      {/* Zone header — Recent Events */}
-      <div id="events" className="px-6 md:px-12 lg:px-20 pt-10 md:pt-12">
-        <div className="flex items-end gap-4 border-b-[3px] border-double border-black pb-3">
-          <span className="font-mono font-black text-black text-[1.4rem] leading-none">01</span>
-          <h2 className="font-display font-black uppercase tracking-[0.06em] text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none">
-            Recent <em className="italic font-normal">Events</em>
-          </h2>
-          <div className="flex-1 h-px bg-black mb-1" />
-          <span className="font-mono text-[0.68rem] font-semibold tracking-[0.2em] uppercase text-muted">Cover story · this fortnight</span>
-        </div>
-      </div>
+      <ChroniclesQuickNav />
 
-      {/* FRONT PAGE 3-col */}
-      <main id="front-page" className="px-6 md:px-12 lg:px-20 py-8 md:py-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-8 lg:gap-12" style={{ scrollMarginTop: '120px' }}>
+      <main className="max-w-[1200px] mx-auto px-4">
 
-        {/* LEAD STORY */}
-        <article className="flex flex-col">
-          <span className="inline-flex items-center gap-2 self-start font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase text-white bg-black px-2.5 py-1 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-white" /> {LEAD.section}
-          </span>
-          <h2 className="font-display font-black leading-[0.98] tracking-tighter-2 text-[clamp(2.4rem,4.6vw,4.4rem)] text-black mb-4">
-            {beforeItalic(LEAD.title, LEAD.titleItalic)}
-            {LEAD.titleItalic && <em className="italic font-normal">{LEAD.titleItalic}</em>}
-            {afterItalic(LEAD.title, LEAD.titleItalic)}
-          </h2>
-          <p className="font-display text-[clamp(1.05rem,1.3vw,1.2rem)] leading-[1.55] mb-5">{LEAD.dek}</p>
-          <div className="font-mono text-[0.72rem] font-semibold tracking-[0.14em] uppercase border-y border-black py-2.5 mb-5">
-            {LEAD.meta?.split('•').map((s, i) => (
-              <span key={i} className={i > 0 ? 'before:mx-2 before:text-muted before:content-["•"]' : ''}>{s.trim()}</span>
-            ))}
-          </div>
-          {LEAD.img && (
-            <a href={LEAD.href} target="_blank" rel="noopener noreferrer" className="block border border-black overflow-hidden mb-3.5 group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={LEAD.img} alt="" className="w-full aspect-video object-cover transition-transform duration-1000 group-hover:scale-105" />
-            </a>
-          )}
-          <div className="space-y-3.5 font-display text-[1.04rem] leading-[1.65]">
-            {LEAD_BODY.map((p, i) => (
-              <p key={i} className={i === 0 ? "first-letter:font-black first-letter:text-[4.2em] first-letter:float-left first-letter:leading-[0.86] first-letter:mr-3 first-letter:mt-1.5" : undefined}>{p}</p>
-            ))}
-            <a href={LEAD.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-2 font-sans font-bold text-[0.82rem] tracking-[0.06em] uppercase text-black border-b-2 border-black hover:bg-black hover:text-white hover:px-2 hover:py-1 hover:border-0 transition-all">
-              Continue reading →
-            </a>
-          </div>
-        </article>
+        {/* LEAD + RAIL */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0 pt-8 pb-8 border-b-2 border-black">
+          <article className="lg:col-span-2 lg:pr-8 lg:border-r lg:border-black/15">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="flex flex-col justify-center order-2 md:order-1">
+                <span className="font-mono font-bold uppercase tracking-[0.15em] text-xs text-primary mb-3">{LEAD.section}</span>
+                <h2 className="font-display font-bold tracking-tight leading-[1.02] text-[clamp(1.9rem,3.6vw,3rem)] mb-4">
+                  {LEAD.title}
+                </h2>
+                <p className="font-display text-lg leading-relaxed text-black/80 mb-4">{LEAD.dek}</p>
+                <div className="font-mono uppercase tracking-[0.15em] text-[0.65rem] text-black/70">{LEAD.meta}</div>
+              </div>
 
-        {/* MIDDLE — secondary stories */}
-        <div className="flex flex-col gap-6 lg:border-l lg:border-border lg:pl-10">
-          {MID_STORIES.map((s, i) => (
-            <article key={i} className={`pb-5 ${i < MID_STORIES.length - 1 ? 'border-b border-border' : ''}`}>
-              <span className="inline-block font-sans text-[0.7rem] font-extrabold tracking-[0.18em] uppercase border-b-2 border-black pb-1 mb-2.5">
-                {s.section}
-              </span>
-              {s.img && (
-                <a href={s.href} target="_blank" rel="noopener noreferrer" className="block border border-black overflow-hidden mb-3 group">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={s.img} alt="" className="w-full aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105" />
-                </a>
-              )}
-              <h3 className="font-display font-extrabold leading-[1.08] tracking-tight text-[clamp(1.32rem,1.7vw,1.7rem)] mb-2.5">
-                {beforeItalic(s.title, s.titleItalic)}
-                {s.titleItalic && <em className="italic font-normal">{s.titleItalic}</em>}
-                {afterItalic(s.title, s.titleItalic)}
-              </h3>
-              <p className="font-display text-[0.98rem] leading-[1.5] mb-3">{s.dek}</p>
-              <p className="font-mono text-[0.68rem] font-medium tracking-[0.14em] uppercase text-muted">{s.meta}</p>
-            </article>
-          ))}
-        </div>
-
-        {/* RIGHT — Most Read + In Brief */}
-        <aside className="flex flex-col gap-10 lg:border-l lg:border-border lg:pl-10">
-          <section id="news">
-            <RailHead label="02 · News Clippings" pill="In the press" />
-            <div className="flex flex-col">
-              {MOST_READ.map((s, i) => (
-                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="grid grid-cols-[36px_1fr] gap-3.5 py-3.5 border-b border-dashed border-border last:border-b-0 group">
-                  <div className="font-display font-black italic text-[1.6rem] leading-none tracking-tighter-2 text-black">{String(i + 1).padStart(2, '0')}</div>
-                  <div>
-                    <span className="inline-block font-mono text-[0.58rem] font-extrabold tracking-[0.18em] uppercase bg-white border border-black text-black px-1.5 py-0.5 mb-1.5">{s.section}</span>
-                    <p className="font-display font-bold text-[1.02rem] leading-[1.22] tracking-tight group-hover:underline group-hover:underline-offset-[3px] group-hover:decoration-2 mb-1">{s.title}</p>
-                    <p className="font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">{s.meta}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-
-          <section id="announcements">
-            <RailHead label="03 · Announcements" pill="Official" />
-            <ul className="list-none p-0 m-0">
-              {IN_BRIEF.map((b, i) => (
-                <li key={i} className={`py-3 grid grid-cols-[auto_1fr] gap-3 items-baseline ${i < IN_BRIEF.length - 1 ? 'border-b border-border' : ''}`}>
-                  <span className="font-mono font-bold text-[0.62rem] tracking-[0.14em] uppercase bg-black text-white px-1.5 py-0.5 whitespace-nowrap">{b.date}</span>
-                  <span className="font-display text-[0.98rem] leading-[1.45]">
-                    {(([head, ...tail]) => tail.length ? <><strong className="font-sans font-bold">{head}</strong>{' — '}{tail.join(' — ')}</> : <>{head}</>)(b.body.split(/\s—\s/))}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          {/* LIVE WIRE — auto-scraped news */}
-          <section id="live-wire">
-            <RailHead label="Live Wire · Auto-scraped" pill={liveWireTicker.length ? 'Live' : 'Warming up'} />
-            {liveWireTicker.length === 0 ? (
-              <p className="font-mono text-[0.76rem] text-muted leading-relaxed">
-                No live items yet — the scraper hasn&apos;t run, or the news service isn&apos;t reachable.
-              </p>
-            ) : (
-              <div className="flex flex-col">
-                {liveWireTicker.map((n) => (
-                  <a
-                    key={n.id}
-                    href={n.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-3 border-b border-dashed border-border last:border-b-0 group"
-                  >
-                    <span className="font-mono text-[0.6rem] font-bold tracking-[0.14em] uppercase text-muted">
-                      {n.category} · {formatNewsDate(n.published_at)}
-                    </span>
-                    <p className="font-display font-bold text-[0.96rem] leading-[1.25] tracking-tight mt-1 group-hover:underline group-hover:underline-offset-[3px] group-hover:decoration-2">
-                      {n.title}
-                    </p>
-                    <p className="font-mono text-[0.64rem] tracking-[0.1em] uppercase text-muted mt-1">{n.source}</p>
+              <div className="order-1 md:order-2">
+                {LEAD.img && (
+                  <a href={LEAD.href} target="_blank" rel="noopener" className="block overflow-hidden group">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={LEAD.img}
+                      alt={LEAD.title}
+                      loading="lazy"
+                      className="w-full aspect-[4/3] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    />
                   </a>
+                )}
+              </div>
+            </div>
+
+            {LEAD_BODY.length > 0 && (
+              <div className="mt-6 pt-5 border-t border-black/20 grid md:grid-cols-2 gap-x-8 gap-y-3 font-display text-[1.0625rem] leading-[1.75] text-black/85">
+                {LEAD_BODY.map((p, i) => (
+                  <p key={i} className={i === 0 ? 'md:col-span-2' : undefined}>{p}</p>
                 ))}
               </div>
             )}
-          </section>
-
-        </aside>
-      </main>
-
-      {/* TIER — More recent events */}
-      <TierGrid label="More recent" italicLabel="events & coverage" trail="See all stories" trailHref="/chronicles" stories={TIER_STORIES} />
-
-      {/* PHOTO ESSAY (inverted) */}
-      <section id="photo-essay" className="bg-black text-white px-6 md:px-12 lg:px-20 py-12 md:py-16">
-        <div className="flex items-end gap-5 mb-7 md:mb-9">
-          <h3 className="font-display font-black tracking-tighter-2 text-[clamp(1.8rem,2.8vw,2.4rem)] leading-none">
-            Photo essay · <em className="italic font-normal">The year in frames</em>
-          </h3>
-          <div className="flex-1 h-px bg-white/40 mb-2" />
-          <span className="font-mono text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-white/70">Twelve months, one campus</span>
-        </div>
-        <p className="font-display italic text-white/60 mb-6 max-w-[720px] leading-[1.55]">
-          The year&apos;s biggest events, retold in photographs.
-        </p>
-        <div className="grid md:grid-cols-3 gap-4 md:gap-5 min-h-[300px] md:min-h-[440px]">
-          {PHOTO_ESSAY.map((p, i) => (
-            <a key={i} href={p.href} target="_blank" rel="noopener noreferrer" className="relative block overflow-hidden border border-white/20 group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.img} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style={{ filter: 'contrast(1.04) saturate(1.08)' }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-              <div className="absolute left-5 right-5 bottom-5 z-10">
-                <span className="font-mono text-[0.62rem] tracking-[0.18em] uppercase inline-block border border-white/50 px-2 py-0.5 mb-2">{p.tag}</span>
-                <h4 className="font-display font-extrabold text-[clamp(1.05rem,1.4vw,1.4rem)] leading-[1.16] tracking-tight">{p.title}</h4>
-              </div>
+            <a
+              href={LEAD.href}
+              target="_blank"
+              rel="noopener"
+              className="inline-block mt-4 font-mono font-bold uppercase tracking-[0.15em] text-[0.7rem] text-primary border-b-2 border-primary pb-0.5 hover:bg-primary hover:text-white hover:border-transparent hover:px-2 transition-all"
+            >
+              Continue reading →
             </a>
-          ))}
-        </div>
-      </section>
+          </article>
 
-      {/* TIER — Archive of past announcements & events */}
-      <div id="archive">
-        <TierGrid label="From the" italicLabel="archives" trail="Older stories · 2024 in review" stories={ARCHIVE} />
-      </div>
+          {/* RIGHT RAIL — In Brief, Live Wire, Most Read */}
+          <aside className="lg:pl-8 flex flex-col gap-8 min-w-0">
+            <section id="brief" className="scroll-mt-32">
+              <RailHead label="In Brief" meta="Today" />
+              <ul className="list-none p-0 m-0">
+                {IN_BRIEF.map((b, i) => (
+                  <li
+                    key={i}
+                    className={`py-2.5 grid grid-cols-[48px_1fr] gap-3 items-baseline ${
+                      i < IN_BRIEF.length - 1 ? 'border-b border-black/15' : ''
+                    }`}
+                  >
+                    <span className="font-mono uppercase tracking-[0.15em] text-[0.6rem] text-black/70">{b.date}</span>
+                    <span
+                      className="font-display text-sm leading-snug"
+                      dangerouslySetInnerHTML={{ __html: b.body.replace(/^([^—]+?)\s—/, '<strong class="font-bold">$1</strong> —') }}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section>
+              <RailHead label="Live Wire" meta={liveWireTicker.length ? 'Auto-updated' : 'Warming up'} />
+              {liveWireTicker.length === 0 ? (
+                <p className="font-display text-sm leading-snug text-black/70">
+                  No live items yet — the scraper hasn&apos;t run, or the news service isn&apos;t reachable.
+                </p>
+              ) : (
+                <div className="flex flex-col">
+                  {liveWireTicker.map((n) => (
+                    <a
+                      key={n.id}
+                      href={n.link}
+                      target="_blank"
+                      rel="noopener"
+                      className="py-2.5 border-b border-black/15 last:border-b-0 group"
+                    >
+                      <span className="font-mono uppercase tracking-[0.15em] text-[0.6rem] text-black/60 block mb-1">
+                        {n.category} · {formatNewsDate(n.published_at)}
+                      </span>
+                      <p className="font-display font-bold text-sm leading-snug group-hover:underline underline-offset-2">
+                        {n.title}
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* Most Read — boxed, per the broadsheet sidebar */}
+            <section className="border-2 border-black p-5">
+              <div className="flex items-center gap-3 mb-5">
+                <h3 className="font-display font-bold text-xl uppercase tracking-tight">Most Read</h3>
+                <div className="flex-1 border-t border-black/30" />
+              </div>
+              <ol className="space-y-4 list-none p-0 m-0">
+                {MOST_READ.map((s, i) => (
+                  <li key={i}>
+                    <a href={s.href} target="_blank" rel="noopener" className="flex items-start gap-3.5 group">
+                      <span className="font-mono font-black text-3xl leading-none text-primary/80 group-hover:text-primary transition-colors shrink-0">
+                        {i + 1}
+                      </span>
+                      <div>
+                        <span className="font-mono uppercase tracking-[0.15em] text-[0.6rem] text-black/60 block mb-1">
+                          {s.section}
+                        </span>
+                        <p className="font-display font-bold text-sm leading-snug group-hover:underline underline-offset-2">
+                          {s.title}
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </aside>
+        </div>
+
+        {/* RECENT STORIES */}
+        <section id="recent" className="border-b-2 border-black scroll-mt-32">
+          <SectionHead title="Recent Stories" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 pb-8">
+            {RECENT_STORIES.map((s, i) => (
+              <div
+                key={i}
+                className={`pb-6 md:pb-0 md:px-4 first:md:pl-0 last:md:pr-0 ${
+                  i < RECENT_STORIES.length - 1 ? 'md:border-r md:border-black/15' : ''
+                }`}
+              >
+                <a href={s.href} target="_blank" rel="noopener" className="flex flex-col h-full group">
+                  {s.img && (
+                    <div className="overflow-hidden mb-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={s.img}
+                        alt={s.title}
+                        loading="lazy"
+                        className="w-full aspect-[16/10] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+                  <span className="font-mono font-bold uppercase tracking-[0.15em] text-xs text-primary mb-2">{s.section}</span>
+                  <h3 className="font-display font-bold text-xl leading-[1.15] mb-2 group-hover:underline underline-offset-2">
+                    {s.title}
+                  </h3>
+                  <p className="font-display text-sm leading-relaxed text-black/75 mb-3">{s.dek}</p>
+                  <div className="font-mono uppercase tracking-[0.15em] text-[0.65rem] text-black/70 mt-auto">{s.meta}</div>
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* MORE FROM THIS ISSUE */}
+        <StoryGrid id="issue" title="More From This Issue" stories={TIER_STORIES} />
+
+        {/* PHOTO ESSAY */}
+        <section id="photo-essay" className="border-b-2 border-black scroll-mt-32">
+          <SectionHead title="Photo Essay" trail="Twelve months, one campus" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 pb-8">
+            {PHOTO_ESSAY.map((p, i) => (
+              <div
+                key={i}
+                className={`pb-6 md:pb-0 md:px-4 first:md:pl-0 last:md:pr-0 ${
+                  i < PHOTO_ESSAY.length - 1 ? 'md:border-r md:border-black/15' : ''
+                }`}
+              >
+                <a href={p.href} target="_blank" rel="noopener" className="flex flex-col h-full group">
+                  <div className="overflow-hidden mb-3">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={p.img}
+                      alt={p.title}
+                      loading="lazy"
+                      className="w-full aspect-[4/3] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    />
+                  </div>
+                  <h4 className="font-display font-bold text-lg leading-[1.15] mb-1.5 group-hover:underline underline-offset-2">
+                    {p.title}
+                  </h4>
+                  <p className="font-mono uppercase tracking-[0.15em] text-[0.65rem] text-black/70 mt-auto">{p.tag}</p>
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ARCHIVE — auto-populated as items roll out of the current issue */}
+        <StoryGrid id="archive" title="From The Archives" trail="Older stories" stories={ARCHIVE_STORIES} />
+      </main>
     </div>
   );
 }
 
-function beforeItalic(text: string, italic?: string) {
-  if (!italic) return text;
-  const idx = text.indexOf(italic);
-  return idx === -1 ? text : text.slice(0, idx);
-}
-function afterItalic(text: string, italic?: string) {
-  if (!italic) return null;
-  const idx = text.indexOf(italic);
-  return idx === -1 ? null : text.slice(idx + italic.length);
-}
-
-function RailHead({ label, pill }: { label: string; pill: string }) {
+function RailHead({ label, meta }: { label: string; meta: string }) {
   return (
-    <h3 className="flex justify-between items-center font-sans font-extrabold text-[0.78rem] tracking-[0.2em] uppercase border-t-[3px] border-b border-black py-2 mb-3.5">
-      {label}
-      <span className="font-mono font-semibold text-[0.62rem] tracking-[0.16em] bg-black text-white px-2 py-0.5">{pill}</span>
-    </h3>
+    <div className="flex justify-between items-baseline border-t-2 border-black pt-2 mb-3">
+      <h3 className="font-mono font-bold uppercase tracking-[0.15em] text-xs">{label}</h3>
+      <span className="font-mono uppercase tracking-[0.15em] text-[0.6rem] text-black/60">{meta}</span>
+    </div>
   );
 }
 
-function TierGrid({ label, italicLabel, trail, trailHref, stories }: { label: string; italicLabel: string; trail: string; trailHref?: string; stories: Story[] }) {
+function SectionHead({ title, trail }: { title: string; trail?: string }) {
   return (
-    <section className="px-6 md:px-12 lg:px-20 py-12 md:py-16 border-y-[3px] border-double border-black bg-white">
-      <div className="flex items-end gap-5 mb-7 md:mb-9">
-        <h3 className="font-display font-black tracking-tighter-2 text-[clamp(1.8rem,2.8vw,2.4rem)] leading-none">
-          {label} <em className="italic font-normal">{italicLabel}</em>
-        </h3>
-        <div className="flex-1 h-px bg-black mb-2" />
-        {trailHref
-          ? <a href={trailHref} target="_blank" rel="noopener noreferrer" className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2 hover:bg-black hover:text-white transition-colors">{trail}</a>
-          : <span className="font-sans text-[0.78rem] font-bold tracking-[0.12em] uppercase border-[1.5px] border-black px-3.5 py-2">{trail}</span>}
-      </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-7">
+    <div className="flex items-center gap-4 pt-8 pb-4">
+      <h2 className="font-display font-black text-3xl md:text-4xl tracking-tight uppercase">{title}</h2>
+      <div className="flex-1 border-t-2 border-black" />
+      {trail && (
+        <span className="font-mono uppercase tracking-[0.15em] text-[0.65rem] text-black/70 whitespace-nowrap hidden md:block">
+          {trail}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function StoryGrid({ id, title, trail, stories }: { id?: string; title: string; trail?: string; stories: Story[] }) {
+  return (
+    <section id={id} className="border-b-2 border-black scroll-mt-32">
+      <SectionHead title={title} trail={trail} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-0 pb-8">
         {stories.map((s, i) => (
-          <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="flex flex-col gap-3 pb-3.5 border-b border-border group">
-            <div className="border border-black overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.img!} alt="" className="w-full aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105" style={{ filter: 'contrast(1.02) saturate(1.05)' }} />
-            </div>
-            <span className="self-start font-sans text-[0.66rem] font-extrabold tracking-[0.18em] uppercase border-b-2 border-black pb-0.5">{s.section}</span>
-            <h4 className="font-display font-extrabold text-[1.15rem] leading-[1.18] tracking-tight group-hover:underline group-hover:underline-offset-[3px] group-hover:decoration-2">
-              {beforeItalic(s.title, s.titleItalic)}
-              {s.titleItalic && <em className="italic font-normal">{s.titleItalic}</em>}
-              {afterItalic(s.title, s.titleItalic)}
-            </h4>
-            <p className="font-mono text-[0.66rem] font-medium tracking-[0.14em] uppercase text-muted">{s.meta}</p>
-          </a>
+          <div
+            key={i}
+            className={`pb-6 md:pb-0 lg:px-4 first:lg:pl-0 lg:border-r lg:border-black/15 lg:[&:nth-child(4n)]:border-r-0 lg:[&:nth-child(4n)]:pr-0 lg:[&:nth-child(4n+1)]:pl-0 ${
+              i >= 4 ? 'lg:mt-8 lg:pt-8 lg:border-t lg:border-t-black/15' : ''
+            }`}
+          >
+            <a href={s.href} target="_blank" rel="noopener" className="flex flex-col h-full group">
+              <div className="overflow-hidden mb-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={s.img!}
+                  alt={s.title}
+                  loading="lazy"
+                  className="w-full aspect-[16/10] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                />
+              </div>
+              <span className="font-mono font-bold uppercase tracking-[0.15em] text-[0.65rem] text-primary mb-1.5">{s.section}</span>
+              <h4 className="font-display font-bold text-base leading-[1.15] mb-2 group-hover:underline underline-offset-2">
+                {s.title}
+              </h4>
+              <p className="font-mono uppercase tracking-[0.15em] text-[0.6rem] text-black/70 mt-auto">{s.meta}</p>
+            </a>
+          </div>
         ))}
       </div>
     </section>
