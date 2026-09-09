@@ -435,6 +435,92 @@ export const CLUBS: Club[] = [
     ],
   },
 
+  {
+    id: 'robotics',
+    name: 'Robotics Club',
+    shortName: 'ROBOTICS',
+    category: 'Technical',
+    description:
+      'A technical student community under the ECE Department — hands-on robotics, AI, embedded systems, and automation projects, from borewell rescue bots to brain-controlled wheelchairs.',
+    image: '/images/clubs/robotics-hero-new.jpg',
+    logo: '/images/clubs/robotics-logo.png',
+    tagline: 'Passionate innovators exploring Robotics, AI, Embedded Systems, and Automation through hands-on learning.',
+    members: '70',
+    hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/mlrit_robotic_club/',
+    linkedinUrl: 'https://www.linkedin.com/company/mlrit_robotic_club/',
+    about: {
+      what:
+        'The Robotics Club is a platform for students to explore emerging technologies and transform their ideas into practical engineering solutions. The club encourages students to gain hands-on experience in robotics, artificial intelligence, embedded systems, automation, electronics, and related technologies. Through practical sessions, workshops, projects, competitions, collaborations, and technical activities, the club provides students with opportunities to develop both technical and problem-solving skills. The club partners with IETE, IIC (Ministry of Education), and IEEE RAS — giving members wider technical exposure, access to international conferences, and career readiness support.',
+      why:
+        'The club exists to inspire students to develop technology that addresses real-world challenges, provide hands-on learning through robotics projects and practical sessions, and foster creativity, innovation, and critical thinking. Members build projects that go beyond coursework — robots that rescue people, wheelchairs controlled by brain signals, and autonomous monitoring systems.',
+      activities: [
+        {
+          title: 'Workshops & Training',
+          description:
+            'PCB design and development workshops, robotics workshops, embedded systems sessions, ARM architecture and microcontroller-based learning, and hands-on technical training.',
+        },
+        {
+          title: 'Competitions & Challenges',
+          description:
+            'Robothons, Robotech events, Robo games, circuit debugging challenges, and project-based competitions — from campus-level to national participants.',
+        },
+        {
+          title: 'Knowledge Sharing',
+          description:
+            'Technical talks, IEEE RAS sessions, seminars, interactive sessions, paper presentations, and poster presentations.',
+        },
+        {
+          title: 'Innovation & Project Development',
+          description:
+            'Real-world robotics projects, embedded-system-based builds, automation solutions, project exhibitions, and prototype development — including student-built bots now showcased as flagship projects.',
+        },
+      ],
+      recognition:
+        'Notable builds include Bore Bot (borewell rescue robot), Brain-Controlled Wheelchair, AquaBotX (autonomous water quality monitor), and a precision Winding Machine. The club has received news and media coverage, conducted its 10th Anniversary Celebrations, and members regularly participate in Robo Games, Project Expos, and paper/poster presentations.',
+    },
+    events: [
+      {
+        id: 'robotics-robothon',
+        title: 'Robothon',
+        tag: 'Flagship',
+        posterGradient: 'linear-gradient(155deg, #1a0a0a 0%, #7f1d1d 55%, #450a0a 100%)',
+        blurb: 'An open robotics competition where teams design, build, and battle their bots — open to all four years.',
+      },
+      {
+        id: 'robotics-pcb-workshop',
+        title: 'PCB Workshop',
+        tag: 'Workshop',
+        posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)',
+        blurb: 'A 2-day hands-on workshop covering PCB design and development for 1st and 2nd year students.',
+      },
+      {
+        id: 'robotics-robotech',
+        title: 'Robotech',
+        tag: 'National Event',
+        posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)',
+        blurb: 'A national-level robotics event drawing participants from across the country for technical challenges and showcases.',
+      },
+      {
+        id: 'robotics-project-expo',
+        title: 'Project Expo',
+        tag: 'Showcase',
+        posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)',
+        blurb: 'Paper presentations, poster presentations, and live project demonstrations — students exhibit their semester builds to peers and faculty.',
+      },
+    ],
+    memoryLane: [
+      { src: '/images/clubs/robotics/memory-1.jpg', alt: 'Robotics Club members at a build session' },
+      { src: '/images/clubs/robotics/memory-2.jpg', alt: 'Students working on a robot prototype' },
+      { src: '/images/clubs/robotics/memory-3.jpg', alt: 'A Robothon competition in progress' },
+      { src: '/images/clubs/robotics/memory-4.jpg', alt: 'PCB design workshop session' },
+      { src: '/images/clubs/robotics/memory-5.jpg', alt: 'A project expo presentation' },
+      { src: '/images/clubs/robotics/memory-6.jpg', alt: 'IEEE RAS technical talk session' },
+      { src: '/images/clubs/robotics/memory-7.jpg', alt: 'Robotics Club group photo' },
+      { src: '/images/clubs/robotics/memory-8.png', alt: 'Club members at a technical session' },
+    ],
+  },
+
   // ─── Department ───────────────────────────────────────────────────────────
   {
     id: 'cse-ds',
@@ -890,7 +976,7 @@ export const CLUBS: Club[] = [
     tagline: 'Communicate | Compete | Conquer',
     hasDetailPage: true,
     instagramUrl: 'https://www.instagram.com/mlrclubliterati',
-    linkedinUrl: 'https://www.linkedin.com/company/mlrclubliterati/',
+    linkedinUrl: 'https://www.linkedin.com/company/mlrclubliterati',
     about: {
       what:
         'Club Literati is a place where students can speak their minds, explore new ideas, and slowly grow into the confidence they didn\'t know they had. It brings together people with different interests, perspectives, and personalities — creating a space where everyone has something to contribute. Whether you love being on stage or are simply looking for the courage to take that first step, Literati gives you the space to do so. At its core, Literati is about finding your voice, finding your people, and becoming a little bolder along the way.',
