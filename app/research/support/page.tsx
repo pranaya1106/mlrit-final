@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
 import ResearchQuickNav from '@/components/ResearchQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
@@ -40,18 +39,6 @@ const NAV_ITEMS = [
 export default function ResearchSupportPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Research Support"
-        title="Dr. T. Arun Kumar"
-        italic="Dean, Research & Development."
-        dek="Reach the Dean Research office for sponsored projects, patents, publications, scholars and consultancy enquiries."
-        crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Research', href: '/research' },
-          { label: 'Support' },
-        ]}
-      />
       <ResearchQuickNav active="/research/support" />
 
       <div className="lg:flex lg:gap-0 items-start">
