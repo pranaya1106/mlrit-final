@@ -1,7 +1,4 @@
-'use client';
-
 import Link from 'next/link';
-import { useHideOnScroll } from '@/lib/useHideOnScroll';
 
 type NavItem = { label: string; href: string };
 
@@ -20,13 +17,9 @@ const TABS: NavItem[] = [
 ];
 
 export default function ResearchQuickNav({ active }: { active: string }) {
-  const hidden = useHideOnScroll();
-
   return (
     <nav
-      className={`relative bg-white border-b border-border sticky top-[var(--subnav-top)] z-30 transition-[transform] duration-300 ease-out-quart ${
-        hidden ? 'lg:-translate-y-full' : 'translate-y-0'
-      }`}
+      className="relative bg-white border-b border-border sticky top-[var(--subnav-top)] z-30"
       aria-label="Research sub-navigation"
     >
       {/* Mobile — wrapping pill buttons */}
