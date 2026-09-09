@@ -457,10 +457,10 @@ export default function ClubDetail({ club }: { club: Club }) {
   // shortName entered from above → exits back upward (negative Y) on scroll-down
   // Club entered from below → exits back downward (positive Y) on scroll-down
   // Note: these are percentage of the *element* height via translateY
-  const shortNameY = useTransform(heroScroll, [0, 0.8], [0,  200]);
-  const clubY      = useTransform(heroScroll, [0, 0.8], [0, -200]);
-  const titleOp    = useTransform(heroScroll, [0, 0.5], [1, 0]);
-  const heroMetaOp = useTransform(heroScroll, [0, 0.35], [1, 0]);
+  const shortNameY = useTransform(heroScroll, [0, 1], [0,  -60]);
+  const clubY      = useTransform(heroScroll, [0, 1], [0,   60]);
+  const titleOp    = useTransform(heroScroll, [0, 0.6], [1, 0]);
+  const heroMetaOp = useTransform(heroScroll, [0, 0.4], [1, 0]);
 
   return (
     <>
@@ -526,55 +526,43 @@ export default function ClubDetail({ club }: { club: Club }) {
             </span>
           </Reveal>
 
-          {/* Title block — invisible grid sizes the container, then each word
-              is overlaid via absolute so their y transforms are fully independent */}
+          {/* Title — grid columns sized to each word's own content width,
+              so "Club" (col 2, row 2) starts exactly where shortName ends.
+              Scroll wrapper fades + drifts gently; inner motion handles spring entrance. */}
           <div className="flex-1 flex items-center justify-center">
-            {/* Invisible sizer — same grid layout, opacity 0, establishes the container size */}
-            <div className="relative">
-              <div aria-hidden className="grid grid-cols-[max-content_max-content] opacity-0 pointer-events-none select-none">
-                <span className="col-start-1 row-start-1 font-sans font-black tracking-tighter-2 leading-[0.94]"
-                  style={{ fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)' }}>{club.shortName}</span>
-                <span className="col-start-2 row-start-2 font-display italic font-medium leading-[0.94]"
-                  style={{ fontSize: 'clamp(4.2rem, 10vw, 8.4rem)' }}>Club</span>
-              </div>
-
-              {/* SCOPE — absolutely positioned at top-left of sizer, scrolls downward */}
-              <motion.h1
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-                style={{
-                  fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)',
-                  color: 'rgba(255,255,255,0.9)',
-                  y: shortNameY,
-                  opacity: titleOp,
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                }}
-                className="font-sans font-black tracking-tighter-2 leading-[0.94] whitespace-nowrap"
+            <motion.div
+              style={{ opacity: titleOp }}
+              className="grid grid-cols-[max-content_max-content] overflow-hidden"
+            >
+              <motion.div
+                style={{ y: shortNameY }}
+                className="col-start-1 row-start-1 overflow-hidden"
               >
-                {club.shortName}
-              </motion.h1>
-
-              {/* Club — absolutely positioned at bottom-right of sizer, scrolls upward */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.42 }}
-                style={{
-                  fontSize: 'clamp(4.2rem, 10vw, 8.4rem)',
-                  y: clubY,
-                  opacity: titleOp,
-                  position: 'absolute',
-                  bottom: 0,
-                  right: 0,
-                }}
-                className="font-display italic font-medium text-warm leading-[0.94] whitespace-nowrap"
+                <motion.h1
+                  initial={{ y: '-115%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.15 }}
+                  className="font-sans font-black tracking-tighter-2 leading-[0.94]"
+                  style={{ fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)', color: 'rgba(255,255,255,0.9)' }}
+                >
+                  {club.shortName}
+                </motion.h1>
+              </motion.div>
+              <motion.div
+                style={{ y: clubY }}
+                className="col-start-2 row-start-2 overflow-hidden"
               >
-                Club
-              </motion.p>
-            </div>
+                <motion.p
+                  initial={{ y: '115%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.42 }}
+                  className="font-display italic font-medium text-warm leading-[0.94]"
+                  style={{ fontSize: 'clamp(4.2rem, 10vw, 8.4rem)' }}
+                >
+                  Club
+                </motion.p>
+              </motion.div>
+            </motion.div>
           </div>
 
           <motion.div style={{ opacity: heroMetaOp }} className="flex flex-wrap items-center gap-x-8 gap-y-3">
