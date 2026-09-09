@@ -453,10 +453,11 @@ export default function ClubDetail({ club }: { club: Club }) {
     target: heroRef,
     offset: ['start start', 'end start'],
   });
-  // As hero scrolls out: shortName rises and fades, "Club" drops and fades
-  const shortNameY = useTransform(heroScroll, [0, 1], ['0%', '-40%']);
-  const clubY      = useTransform(heroScroll, [0, 1], ['0%',  '40%']);
-  const titleOp    = useTransform(heroScroll, [0, 0.6], [1, 0]);
+  // Scroll drives both exit (scroll down) and re-entry (scroll back up).
+  // shortName came from above → exits upward; Club came from below → exits downward.
+  const shortNameY = useTransform(heroScroll, [0, 1], ['0%', '-50%']);
+  const clubY      = useTransform(heroScroll, [0, 1], ['0%',  '50%']);
+  const titleOp    = useTransform(heroScroll, [0, 0.55], [1, 0]);
 
   return (
     <>
@@ -527,12 +528,17 @@ export default function ClubDetail({ club }: { club: Club }) {
               exactly where "SCOPE" (col 1, row 1) ends, one row below —
               mirrors the "We Build / Community." reference. */}
           <div className="flex-1 flex items-center justify-center">
-            <div className="grid grid-cols-[max-content_max-content] overflow-hidden">
+            <div className="grid grid-cols-[max-content_max-content]">
               <motion.h1
                 initial={{ y: '-115%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.15 }}
-                style={{ fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)', color: 'rgba(255,255,255,0.9)', y: shortNameY, opacity: titleOp }}
+                style={{
+                  fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)',
+                  color: 'rgba(255,255,255,0.9)',
+                  translateY: shortNameY,
+                  opacity: titleOp,
+                }}
                 className="col-start-1 row-start-1 font-sans font-black tracking-tighter-2 leading-[0.94]"
               >
                 {club.shortName}
@@ -541,7 +547,11 @@ export default function ClubDetail({ club }: { club: Club }) {
                 initial={{ y: '115%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.42 }}
-                style={{ fontSize: 'clamp(4.2rem, 10vw, 8.4rem)', y: clubY, opacity: titleOp }}
+                style={{
+                  fontSize: 'clamp(4.2rem, 10vw, 8.4rem)',
+                  translateY: clubY,
+                  opacity: titleOp,
+                }}
                 className="col-start-2 row-start-2 font-display italic font-medium text-warm leading-[0.94]"
               >
                 Club
