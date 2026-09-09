@@ -48,7 +48,7 @@ const stagger = {
 
 /* ── 1 · About R&D Cell ─────────────────────────────────────────── */
 
-function AboutRDCell() {
+export function AboutRDCell() {
   return (
     <section id="about-rdc" className={`${SECTION_CLASS} bg-white`}>
       <motion.div
@@ -147,7 +147,7 @@ const THRUST_AREAS = [
   },
 ];
 
-function ResearchAreas() {
+export function ResearchAreas() {
   return (
     <section id="areas" className={`${SECTION_CLASS} bg-cream-2`}>
       <motion.div
@@ -210,7 +210,7 @@ function ResearchAreas() {
 
 /* ── 3 · Committees ─────────────────────────────────────────────── */
 
-function Committees() {
+export function Committees() {
   return (
     <section id="committees" className={`${SECTION_CLASS} bg-white`}>
       <motion.div
@@ -305,7 +305,7 @@ const AGENCIES = [
   { name: 'Industry',    desc: 'Sponsored R&D from semiconductor, IT, manufacturing and pharma partners.' },
 ];
 
-function SponsoredProjects() {
+export function SponsoredProjects() {
   return (
     <section id="sponsored-projects" className={`${SECTION_CLASS} bg-cream-2`}>
       <motion.div
@@ -397,7 +397,7 @@ const CENTRES = [
   },
 ];
 
-function ResearchCentres() {
+export function ResearchCentres() {
   return (
     <section id="centers" className={`${SECTION_CLASS} bg-white`}>
       <motion.div
@@ -495,7 +495,7 @@ const FACILITIES = [
   },
 ];
 
-function ResearchFacilities() {
+export function ResearchFacilities() {
   return (
     <section id="facilities" className={`${SECTION_CLASS} bg-ink text-white`}>
       <motion.div
@@ -565,7 +565,7 @@ const POLICIES = [
   },
 ];
 
-function ResearchPolicies() {
+export function ResearchPolicies() {
   return (
     <section id="policies" className={`${SECTION_CLASS} bg-white`}>
       <motion.div
@@ -628,7 +628,7 @@ const PUB_YEARS = [
   { year: '2020', count: '70+' },
 ];
 
-function Publications() {
+export function Publications() {
   return (
     <section id="publications" className={`${SECTION_CLASS} bg-cream-2`}>
       <motion.div
@@ -704,7 +704,7 @@ const DOWNLOADS = [
   'Innovation & Entrepreneurship Policy',
 ];
 
-function Downloads() {
+export function Downloads() {
   return (
     <section id="downloads" className={`${SECTION_CLASS} bg-white`}>
       <motion.div
@@ -757,7 +757,7 @@ function Downloads() {
 
 /* ── 10 · Contact Us ────────────────────────────────────────────── */
 
-function ContactUs() {
+export function ContactUs() {
   return (
     <section id="contact" className={`${SECTION_CLASS} bg-ink text-white`}>
       <motion.div
