@@ -34,6 +34,13 @@ export async function getAchievements(): Promise<Record<string, NewsItem[]>> {
   return data.categories ?? {};
 }
 
+// Items the worker has rolled out of the "current issue" window — see
+// mlrit-news-worker's rotateArchive(). Newest-first, capped server-side.
+export async function getArchivedNews(limit = 60): Promise<NewsItem[]> {
+  const data = await safeFetchJson<{ items: NewsItem[] }>(`/api/archive?limit=${limit}`, { items: [] });
+  return data.items ?? [];
+}
+
 export function formatNewsDate(iso: string): string {
   try {
     return new Date(iso).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
