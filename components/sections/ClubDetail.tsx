@@ -527,9 +527,7 @@ function MemoryLane({ images, clubShortName, accent, heroImage }: {
   images: ClubMemoryImage[]; clubShortName: string; accent: string; heroImage: string;
 }) {
   const [paused, setPaused] = useState(false);
-  const storyRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: storyRef, offset: ['start start', 'end end'] });
 
   if (!images.length) return null;
   const rowB = [...images].reverse();
@@ -581,27 +579,6 @@ function MemoryLane({ images, clubShortName, accent, heroImage }: {
         )}
       </div>
 
-      {/* ── Cinematic story section ── */}
-      {!prefersReduced && (
-        <div
-          ref={storyRef}
-          className="relative mt-16"
-          style={{ height: `${images.length * 85}vh` }}
-        >
-          <div className="sticky top-0 h-screen overflow-hidden" style={{ zIndex: 1 }}>
-            <div className="relative w-full h-full">
-              {images.map((img, i) => (
-                <StoryFrame key={img.src} img={img} index={i} total={images.length}
-                  scrollYProgress={scrollYProgress} />
-              ))}
-            </div>
-            {/* Label bottom-right */}
-            <div className="absolute bottom-8 right-8 md:right-16 lg:right-24">
-              <ViewportLabel>Club</ViewportLabel>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
@@ -744,9 +721,6 @@ export default function ClubDetail({ club }: { club: Club }) {
           </Reveal>
         </div>
       </section>
-
-      {/* ── Quote + diffusion — first scroll page ── */}
-      {club.tagline && <QuoteSection club={club} accent={accent} />}
 
       {/* ── About — condensed activity grid ── */}
       {club.about && <AboutSection club={club} accent={accent} />}
