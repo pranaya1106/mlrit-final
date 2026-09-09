@@ -1,22 +1,28 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-type NavItem = { label: string; href: string };
-
-const TABS: NavItem[] = [
-  { label: 'Overview',            href: '/research' },
-  { label: 'About R&D Cell',      href: '/research/about-rdc' },
-  { label: 'Research Areas',      href: '/research/areas' },
-  { label: 'Committees',          href: '/research/committees' },
-  { label: 'Sponsored Projects',  href: '/research/sponsored-projects' },
-  { label: 'Research Centres',    href: '/research/centers' },
-  { label: 'Facilities',          href: '/research/facilities' },
-  { label: 'Policies',            href: '/research/policies' },
-  { label: 'Publications',        href: '/research/publications' },
-  { label: 'Downloads',           href: '/research/downloads' },
-  { label: 'Contact Us',          href: '/research/support' },
+// Tabs that scroll to a section on the /research overview page use anchor hrefs.
+// Tabs that have their own sub-page use the full path.
+const TABS = [
+  { label: 'Overview',           href: '/research',                    anchor: true  },
+  { label: 'About R&D Cell',     href: '/research#about-rdc',          anchor: true  },
+  { label: 'Research Areas',     href: '/research#areas',              anchor: true  },
+  { label: 'Committees',         href: '/research#committees',         anchor: true  },
+  { label: 'Sponsored Projects', href: '/research/sponsored-projects', anchor: false },
+  { label: 'Research Centres',   href: '/research/centers',            anchor: false },
+  { label: 'Facilities',         href: '/research#facilities',         anchor: true  },
+  { label: 'Policies',           href: '/research/policies',           anchor: false },
+  { label: 'Publications',       href: '/research/publications',       anchor: false },
+  { label: 'Downloads',          href: '/research#downloads',          anchor: true  },
+  { label: 'Contact Us',         href: '/research/support',            anchor: false },
 ];
 
 export default function ResearchQuickNav({ active }: { active: string }) {
+  const pathname = usePathname();
+  const onOverview = pathname === '/research';
+
   return (
     <nav
       className="relative bg-white border-b border-border sticky top-[var(--subnav-top)] z-30"
@@ -25,7 +31,7 @@ export default function ResearchQuickNav({ active }: { active: string }) {
       {/* Mobile — wrapping pill buttons */}
       <div className="lg:hidden w-full px-4 py-3 flex flex-wrap gap-2">
         {TABS.map((t) => {
-          const isActive = t.href === active;
+          const isActive = t.href === active || (!t.anchor && t.href === active);
           return (
             <Link
               key={t.href}
@@ -48,7 +54,16 @@ export default function ResearchQuickNav({ active }: { active: string }) {
         style={{ scrollbarWidth: 'none' }}
       >
         {TABS.map((t) => {
-          const isActive = t.href === active;
+          // On the overview page, anchor tabs are all "part of" the active page.
+          // On sub-pages, only the exact path match is active.
+          const isActive = onOverview
+            ? t.anchor
+              ? active === '/research' && t.href === '/research'
+                ? true
+                : false
+              : t.href === active
+            : t.href === active;
+
           return (
             <Link
               key={t.href}
@@ -61,7 +76,6 @@ export default function ResearchQuickNav({ active }: { active: string }) {
               }`}
             >
               {t.label}
-              {/* Active underline */}
               <span
                 aria-hidden
                 className={`absolute bottom-0 left-3 right-3 h-[2.5px] rounded-full transition-all duration-300 ${
