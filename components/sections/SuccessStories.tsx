@@ -55,7 +55,7 @@ export default function SuccessStories() {
             <div className="flex transition-transform duration-700 ease-out-quart" style={{ transform: `translateX(-${active * 100}%)` }}>
               {CARDS.map((c, i) => (
                 <article key={i} className="min-w-full">
-                  <a href="#" className="group relative block rounded-3xl overflow-hidden border border-border bg-neutral-50 aspect-[16/9]">
+                  <div className="group relative block rounded-3xl overflow-hidden border border-border bg-neutral-50 aspect-[16/9]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={c.img} alt={c.name} loading={i === 0 ? 'eager' : 'lazy'} className="absolute inset-0 w-full h-full object-contain transition-transform duration-700 md:group-hover:scale-105" />
                     {/* Overlay — always visible on touch/mobile; hover-only from md up (no hover on touch) */}
@@ -66,7 +66,7 @@ export default function SuccessStories() {
                       <p className="mt-1.5 text-white/80 text-[0.96rem]">{c.role}</p>
                       <p className="mt-1 text-white/65 text-[0.92rem]">{c.company}</p>
                     </div>
-                  </a>
+                  </div>
                 </article>
               ))}
             </div>
