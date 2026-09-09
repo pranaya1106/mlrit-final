@@ -55,8 +55,10 @@ const nextConfig = {
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              // Images: self + all whitelisted image hosts
-              "img-src 'self' data: blob: https://mlrit.ac.in https://files.mlrit.ac.in https://res.cloudinary.com https://i.ibb.co https://mlrit-next.vercel.app",
+              // Images: self + known CDNs + any https source — Chronicles pulls article
+              // images from whatever publisher the news scraper hits (TOI, The Hindu,
+              // Telangana Today, EdexLive, LinkedIn, ...), which can't be a fixed list.
+              "img-src 'self' data: blob: https:",
               // News API + Supabase (auth + content reads) + chatbot backend + self
               `connect-src 'self' https://mlrit.ac.in https://lkfrcvxdpfpgosogvvvg.supabase.co ${CONNECT_SRC_EXTRA.join(' ')}`,
               // Google Street View / Maps panorama embeds (Virtual Tour) + Instagram Reels

@@ -9,6 +9,7 @@ import { getLiveNews, getArchivedNews, formatNewsDate } from '@/lib/newsApi';
 import { buildLeadStory, buildRecentStories, buildTierStories, buildArchiveStories, LIVE_FEED_SIZE } from '@/lib/frontPage';
 import ChroniclesQuickNav from '@/components/ChroniclesQuickNav';
 import ChroniclesTicker from '@/components/ChroniclesTicker';
+import ArticleImage from '@/components/ArticleImage';
 
 export const metadata: Metadata = {
   title: 'MLRIT Chronicles — The campus broadsheet',
@@ -113,11 +114,9 @@ export default async function ChroniclesPage() {
               <div className="order-1 md:order-2">
                 {LEAD.img && (
                   <a href={LEAD.href} target="_blank" rel="noopener" className="block overflow-hidden group">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <ArticleImage
                       src={LEAD.img}
                       alt={LEAD.title}
-                      loading="lazy"
                       className="w-full aspect-[4/3] object-cover group-hover:scale-[1.02] transition-transform duration-500"
                     />
                   </a>
@@ -234,15 +233,12 @@ export default async function ChroniclesPage() {
               >
                 <a href={s.href} target="_blank" rel="noopener" className="flex flex-col h-full group">
                   {s.img && (
-                    <div className="overflow-hidden mb-3">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={s.img}
-                        alt={s.title}
-                        loading="lazy"
-                        className="w-full aspect-[16/10] object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                      />
-                    </div>
+                    <ArticleImage
+                      src={s.img}
+                      alt={s.title}
+                      wrapperClassName="overflow-hidden mb-3"
+                      className="w-full aspect-[16/10] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    />
                   )}
                   <span className="font-mono font-bold uppercase tracking-[0.15em] text-xs text-primary mb-2">{s.section}</span>
                   <h3 className="font-display font-bold text-xl leading-[1.15] mb-2 group-hover:underline underline-offset-2">
@@ -271,15 +267,12 @@ export default async function ChroniclesPage() {
                 }`}
               >
                 <a href={p.href} target="_blank" rel="noopener" className="flex flex-col h-full group">
-                  <div className="overflow-hidden mb-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={p.img}
-                      alt={p.title}
-                      loading="lazy"
-                      className="w-full aspect-[4/3] object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                    />
-                  </div>
+                  <ArticleImage
+                    src={p.img}
+                    alt={p.title}
+                    wrapperClassName="overflow-hidden mb-3"
+                    className="w-full aspect-[4/3] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  />
                   <h4 className="font-display font-bold text-lg leading-[1.15] mb-1.5 group-hover:underline underline-offset-2">
                     {p.title}
                   </h4>
@@ -333,15 +326,12 @@ function StoryGrid({ id, title, trail, stories }: { id?: string; title: string; 
             }`}
           >
             <a href={s.href} target="_blank" rel="noopener" className="flex flex-col h-full group">
-              <div className="overflow-hidden mb-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={s.img!}
-                  alt={s.title}
-                  loading="lazy"
-                  className="w-full aspect-[16/10] object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                />
-              </div>
+              <ArticleImage
+                src={s.img!}
+                alt={s.title}
+                wrapperClassName="overflow-hidden mb-3"
+                className="w-full aspect-[16/10] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              />
               <span className="font-mono font-bold uppercase tracking-[0.15em] text-[0.65rem] text-primary mb-1.5">{s.section}</span>
               <h4 className="font-display font-bold text-base leading-[1.15] mb-2 group-hover:underline underline-offset-2">
                 {s.title}
