@@ -454,10 +454,13 @@ export default function ClubDetail({ club }: { club: Club }) {
     offset: ['start start', 'end start'],
   });
   // Scroll drives both exit (scroll down) and re-entry (scroll back up).
-  // shortName came from above → exits upward; Club came from below → exits downward.
-  const shortNameY = useTransform(heroScroll, [0, 1], ['0%', '-50%']);
-  const clubY      = useTransform(heroScroll, [0, 1], ['0%',  '50%']);
-  const titleOp    = useTransform(heroScroll, [0, 0.55], [1, 0]);
+  // shortName entered from above → exits back upward (negative Y) on scroll-down
+  // Club entered from below → exits back downward (positive Y) on scroll-down
+  // Note: these are percentage of the *element* height via translateY
+  const shortNameY = useTransform(heroScroll, [0, 0.8], [0, -200]);
+  const clubY      = useTransform(heroScroll, [0, 0.8], [0,  200]);
+  const titleOp    = useTransform(heroScroll, [0, 0.5], [1, 0]);
+  const heroMetaOp = useTransform(heroScroll, [0, 0.35], [1, 0]);
 
   return (
     <>
@@ -528,38 +531,46 @@ export default function ClubDetail({ club }: { club: Club }) {
               exactly where "SCOPE" (col 1, row 1) ends, one row below —
               mirrors the "We Build / Community." reference. */}
           <div className="flex-1 flex items-center justify-center">
+            {/* Each row is clipped independently so the slide-in entry is masked,
+                then scroll-driven y moves them out in the same direction they came from */}
             <div className="grid grid-cols-[max-content_max-content]">
-              <motion.h1
-                initial={{ y: '-115%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.15 }}
-                style={{
-                  fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)',
-                  color: 'rgba(255,255,255,0.9)',
-                  translateY: shortNameY,
-                  opacity: titleOp,
-                }}
-                className="col-start-1 row-start-1 font-sans font-black tracking-tighter-2 leading-[0.94]"
-              >
-                {club.shortName}
-              </motion.h1>
-              <motion.p
-                initial={{ y: '115%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.42 }}
-                style={{
-                  fontSize: 'clamp(4.2rem, 10vw, 8.4rem)',
-                  translateY: clubY,
-                  opacity: titleOp,
-                }}
-                className="col-start-2 row-start-2 font-display italic font-medium text-warm leading-[0.94]"
-              >
-                Club
-              </motion.p>
+              {/* SCOPE — entered from above, exits upward on scroll */}
+              <div className="col-start-1 row-start-1 overflow-hidden">
+                <motion.h1
+                  initial={{ y: '-100%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.15 }}
+                  style={{
+                    fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)',
+                    color: 'rgba(255,255,255,0.9)',
+                    y: shortNameY,
+                    opacity: titleOp,
+                  }}
+                  className="font-sans font-black tracking-tighter-2 leading-[0.94]"
+                >
+                  {club.shortName}
+                </motion.h1>
+              </div>
+              {/* Club — entered from below, exits downward on scroll */}
+              <div className="col-start-2 row-start-2 overflow-hidden">
+                <motion.p
+                  initial={{ y: '100%' }}
+                  animate={{ y: '0%' }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.42 }}
+                  style={{
+                    fontSize: 'clamp(4.2rem, 10vw, 8.4rem)',
+                    y: clubY,
+                    opacity: titleOp,
+                  }}
+                  className="font-display italic font-medium text-warm leading-[0.94]"
+                >
+                  Club
+                </motion.p>
+              </div>
             </div>
           </div>
 
-          <Reveal delay={0.6} className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          <motion.div style={{ opacity: heroMetaOp }} className="flex flex-wrap items-center gap-x-8 gap-y-3">
             {club.members && !club.logo && (
               <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] font-bold tracking-[0.1em] uppercase text-white/60">
                 <Users className="w-4 h-4" aria-hidden style={{ color: accent }} />
@@ -578,7 +589,7 @@ export default function ClubDetail({ club }: { club: Club }) {
                 {club.studentLead}
               </span>
             )}
-          </Reveal>
+          </motion.div>
         </div>
       </section>
 
