@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import PageHeader from '@/components/PageHeader';
 import ResearchQuickNav from '@/components/ResearchQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
@@ -11,11 +10,11 @@ export const metadata: Metadata = {
 
 const CONTACTS = [
   {
-    name: 'Dr. M. Anitha',
-    role: 'Dean — Research & Innovation',
-    phone: 'To be updated',
-    email: 'research@mlrinstitutions.ac.in',
-    purpose: 'Sponsored projects, research scholars, JNTUH research centre and R&D strategy.',
+    name: 'Dr. T. Arun Kumar',
+    role: 'Dean — Research & Development',
+    phone: '9491465303',
+    email: 'deanresearch@mlrit.ac.in',
+    purpose: 'Sponsored projects, research scholars, JNTUH research centre, R&D strategy, publications and patents.',
   },
   {
     name: 'IPFC Cell',
@@ -27,10 +26,9 @@ const CONTACTS = [
   {
     name: 'R&D Cell',
     role: 'General Research Enquiries',
-    phone: '1800 572 4363',
-    email: 'research@mlrinstitutions.ac.in',
+    phone: 'To be updated',
+    email: 'deanresearch@mlrit.ac.in',
     purpose: 'Consultancy, publications, scholar registrations and project tracking.',
-    tollFree: true,
   },
 ];
 
@@ -41,18 +39,6 @@ const NAV_ITEMS = [
 export default function ResearchSupportPage() {
   return (
     <>
-      <PageHeader
-        variant="green"
-        eyebrow="Research Support"
-        title="Dean Research"
-        italic="& R&D Cell."
-        dek="Reach the Dean Research office for sponsored projects, patents, publications, scholars and consultancy enquiries."
-        crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Research', href: '/research' },
-          { label: 'Support' },
-        ]}
-      />
       <ResearchQuickNav active="/research/support" />
 
       <div className="lg:flex lg:gap-0 items-start">
@@ -77,13 +63,13 @@ export default function ResearchSupportPage() {
                     <span className="inline-flex items-center gap-2 text-muted text-[0.88rem] italic">Phone — To be updated</span>
                   ) : (
                     <a
-                      href={c.tollFree ? `tel:${c.phone.replace(/\s/g, '')}` : `tel:+91${c.phone.replace(/\s/g, '')}`}
+                      href={`tel:+91${c.phone.replace(/\s/g, '')}`}
                       className="inline-flex items-center gap-2 text-secondary font-semibold text-[0.93rem] hover:underline"
                     >
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                         <path d="M12 9.17a.7.7 0 01-.23.46l-.94.94a.7.7 0 01-.55.19C4.61 10.76 3.28 4.67 3.28 4.67a.7.7 0 01.23-.7l.94-.94a.7.7 0 01.47-.19l1.75 3.5a.7.7 0 01-.19.89l-.56.56a4.2 4.2 0 00.35.35l.56-.56a.7.7 0 01.89-.19L12 9.17z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      {c.phone}{c.tollFree ? ' (Toll Free)' : ''}
+                      {c.phone}
                     </a>
                   )}
                   <a

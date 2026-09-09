@@ -655,9 +655,7 @@ function ObjectivesPanel({ d, data }: PanelProps) {
           Comprehensive document covering curriculum, regulations, attendance, evaluation, code of conduct and all
           programme-level information.
         </p>
-        <a href="#" className="mt-4 inline-flex items-center gap-2 font-sans font-bold text-[0.82rem] text-primary hover:gap-3 transition-all">
-          Download handbook →
-        </a>
+        <p className="mt-4 text-sm text-muted">Available from the department office. Contact your HOD or email <a href="mailto:info@mlrinstitutions.ac.in" className="text-primary hover:underline">info@mlrinstitutions.ac.in</a>.</p>
       </div>
     </div>
   );

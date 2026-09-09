@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, Users, UserRound, GraduationCap, Pause, Play, Instagram, Linkedin } from 'lucide-react';
 import Reveal from '@/components/motion/Reveal';
 import { CATEGORY_ACCENT, type Club, type ClubEvent, type ClubMemoryImage } from '@/lib/clubs';
@@ -30,105 +30,179 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ─── Scroll word light-up — same mechanism as sports page ScrollOverview ────────
+
+function BoldWord({
+  word,
+  globalIdx,
+  total,
+  progress,
+}: {
+  word: string;
+  globalIdx: number;
+  total: number;
+  progress: MotionValue<number>;
+}) {
+  const scrollBand = 0.9;
+  const half   = scrollBand / total;
+  const center = (globalIdx / total) * scrollBand + half * 0.5;
+  const lo = Math.max(0, center - half * 2);
+  const hi = Math.min(1, center + half * 0.5);
+
+  const lit = useTransform(progress, [lo, hi], [0, 1]);
+  const color = useTransform(lit, (v) => {
+    // dim white/70 (rgba(255,255,255,0.4)) to white
+    const alpha = 0.35 + 0.65 * v;
+    return `rgba(255,255,255,${alpha.toFixed(2)})`;
+  });
+
+  return (
+    <motion.span style={{ color }} className="inline mr-[0.22em]">
+      {word}
+    </motion.span>
+  );
+}
+
+function LitParagraph({
+  text,
+  startIdx,
+  total,
+  progress,
+  className,
+  style,
+}: {
+  text: string;
+  startIdx: number;
+  total: number;
+  progress: MotionValue<number>;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const words = text.split(' ');
+  return (
+    <p className={className} style={style}>
+      {words.map((word, i) => (
+        <BoldWord key={i} word={word} globalIdx={startIdx + i} total={total} progress={progress} />
+      ))}
+    </p>
+  );
+}
+
 // ─── About — What / Why / What we do ───────────────────────────────────────────
 
 function AboutSection({ club }: { club: Club }) {
-  if (!club.about) {
-    return (
-      <section className="bg-ink">
-        <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24">
-          <Reveal><Eyebrow>About the club</Eyebrow></Reveal>
-          <Reveal delay={0.05} className="mt-4">
-            <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1.05rem, 1.4vw, 1.3rem)' }}>
-              {club.description}
-            </p>
-          </Reveal>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const whatText = club.about ? club.about.what : (club.description ?? '');
+  const whyText  = club.about ? club.about.why : '';
+  const whatWords = whatText.split(' ').length;
+  const whyWords  = whyText.split(' ').length;
+  const totalWords = whatWords + whyWords;
+
+  const litContent = (
+    <div className="space-y-10">
+      {club.about && club.tagline && (
+        <p className="font-display italic font-medium text-warm leading-snug"
+          style={{ fontSize: 'clamp(1.3rem, 2vw, 1.7rem)' }}>
+          "{club.tagline}"
+        </p>
+      )}
+      <div>
+        <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-3">
+          {club.about ? `What is ${club.shortName}?` : 'About the club'}
+        </h3>
+        <LitParagraph
+          text={whatText}
+          startIdx={0}
+          total={totalWords}
+          progress={scrollYProgress}
+          className="leading-relaxed"
+          style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}
+        />
+      </div>
+      {club.about && (
+        <div>
+          <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-3">Why {club.shortName}?</h3>
+          <LitParagraph
+            text={whyText}
+            startIdx={whatWords}
+            total={totalWords}
+            progress={scrollYProgress}
+            className="leading-relaxed"
+            style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}
+          />
         </div>
-      </section>
-    );
-  }
+      )}
+    </div>
+  );
 
   return (
-    <section className="bg-ink">
-      <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24">
-        <Reveal><Eyebrow>About the club</Eyebrow></Reveal>
-
-        {club.tagline && (
-          <Reveal delay={0.03} className="mt-5">
-            <p
-              className="font-display italic font-medium text-warm leading-snug"
-              style={{ fontSize: 'clamp(1.3rem, 2vw, 1.7rem)' }}
-            >
-              “{club.tagline}”
-            </p>
-          </Reveal>
-        )}
-
-        <Reveal delay={0.05} className="mt-6">
-          <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">What is {club.shortName}?</h3>
-          <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
-            {club.about.what}
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.1} className="mt-10">
-          <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">Why {club.shortName}?</h3>
-          <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
-            {club.about.why}
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.15} className="mt-14 pt-10 border-t border-white/10">
-          <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-6">What do they do?</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {club.about.activities.map((a, i) => (
-              <Reveal key={a.title} delay={0.05 * i}>
-                <div className="rounded-xl border border-white/10 p-5" style={{ backgroundColor: '#16161a' }}>
-                  <h4 className="font-sans font-bold text-white text-[0.95rem] mb-1.5">{a.title}</h4>
-                  <p className="text-white/50 text-[0.85rem] leading-relaxed">{a.description}</p>
-                </div>
-              </Reveal>
-            ))}
+    <>
+      {/* Tall sticky container — scroll drives the word light-up (sports page pattern) */}
+      <div ref={containerRef} className="bg-ink relative" style={{ height: '400vh' }}>
+        <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+          <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24">
+            <Eyebrow>About the club</Eyebrow>
+            <div className="mt-6">
+              {litContent}
+            </div>
           </div>
-        </Reveal>
-
-        {club.about.recognition && (
-          <Reveal delay={0.2} className="mt-14 pt-10 border-t border-white/10">
-            <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">Achievements &amp; recognition</h3>
-            <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
-              {club.about.recognition}
-            </p>
-          </Reveal>
-        )}
-
-        {(club.instagramUrl || club.linkedinUrl) && (
-          <Reveal delay={0.25} className="mt-10 flex items-center gap-4">
-            {club.instagramUrl && (
-              <a
-                href={club.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${club.shortName} on Instagram`}
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/14 text-white/60 hover:text-white hover:border-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-              >
-                <Instagram className="w-4 h-4" aria-hidden />
-              </a>
-            )}
-            {club.linkedinUrl && (
-              <a
-                href={club.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${club.shortName} on LinkedIn`}
-                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/14 text-white/60 hover:text-white hover:border-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-              >
-                <Linkedin className="w-4 h-4" aria-hidden />
-              </a>
-            )}
-          </Reveal>
-        )}
+        </div>
       </div>
-    </section>
+
+      {/* Non-sticky: activities, recognition, socials — normal scroll flow below */}
+      {club.about && (
+        <section className="bg-ink border-t border-white/06">
+          <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24 space-y-14">
+            <Reveal>
+              <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-6">What do they do?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {club.about.activities.map((a, i) => (
+                  <Reveal key={a.title} delay={0.05 * i}>
+                    <div className="rounded-xl border border-white/10 p-5" style={{ backgroundColor: '#16161a' }}>
+                      <h4 className="font-sans font-bold text-white text-[0.95rem] mb-1.5">{a.title}</h4>
+                      <p className="text-white/50 text-[0.85rem] leading-relaxed">{a.description}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </Reveal>
+
+            {club.about.recognition && (
+              <Reveal className="pt-10 border-t border-white/10">
+                <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">Achievements &amp; recognition</h3>
+                <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
+                  {club.about.recognition}
+                </p>
+              </Reveal>
+            )}
+
+            {(club.instagramUrl || club.linkedinUrl) && (
+              <Reveal className="flex items-center gap-4">
+                {club.instagramUrl && (
+                  <a href={club.instagramUrl} target="_blank" rel="noopener noreferrer"
+                    aria-label={`${club.shortName} on Instagram`}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/14 text-white/60 hover:text-white hover:border-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+                    <Instagram className="w-4 h-4" aria-hidden />
+                  </a>
+                )}
+                {club.linkedinUrl && (
+                  <a href={club.linkedinUrl} target="_blank" rel="noopener noreferrer"
+                    aria-label={`${club.shortName} on LinkedIn`}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/14 text-white/60 hover:text-white hover:border-white/30 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+                    <Linkedin className="w-4 h-4" aria-hidden />
+                  </a>
+                )}
+              </Reveal>
+            )}
+          </div>
+        </section>
+      )}
+    </>
   );
 }
 
@@ -513,10 +587,8 @@ export default function ClubDetail({ club }: { club: Club }) {
             </span>
           </Reveal>
 
-          {/* Title — centered in the hero. Grid columns are sized to each
-              word's own content width, so "Club" (col 2, row 2) starts
-              exactly where "SCOPE" (col 1, row 1) ends, one row below —
-              mirrors the "We Build / Community." reference. */}
+          {/* Title — grid columns sized to each word's own content width,
+              so "Club" (col 2, row 2) starts exactly where shortName ends. */}
           <div className="flex-1 flex items-center justify-center">
             <div className="grid grid-cols-[max-content_max-content] overflow-hidden">
               <motion.h1
