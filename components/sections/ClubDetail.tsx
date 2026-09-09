@@ -457,8 +457,8 @@ export default function ClubDetail({ club }: { club: Club }) {
   // shortName entered from above → exits back upward (negative Y) on scroll-down
   // Club entered from below → exits back downward (positive Y) on scroll-down
   // Note: these are percentage of the *element* height via translateY
-  const shortNameY = useTransform(heroScroll, [0, 0.8], [0, -200]);
-  const clubY      = useTransform(heroScroll, [0, 0.8], [0,  200]);
+  const shortNameY = useTransform(heroScroll, [0, 0.8], [0,  200]);
+  const clubY      = useTransform(heroScroll, [0, 0.8], [0, -200]);
   const titleOp    = useTransform(heroScroll, [0, 0.5], [1, 0]);
   const heroMetaOp = useTransform(heroScroll, [0, 0.35], [1, 0]);
 
@@ -526,47 +526,54 @@ export default function ClubDetail({ club }: { club: Club }) {
             </span>
           </Reveal>
 
-          {/* Title — centered in the hero. Grid columns are sized to each
-              word's own content width, so "Club" (col 2, row 2) starts
-              exactly where "SCOPE" (col 1, row 1) ends, one row below —
-              mirrors the "We Build / Community." reference. */}
+          {/* Title block — invisible grid sizes the container, then each word
+              is overlaid via absolute so their y transforms are fully independent */}
           <div className="flex-1 flex items-center justify-center">
-            {/* Each row is clipped independently so the slide-in entry is masked,
-                then scroll-driven y moves them out in the same direction they came from */}
-            <div className="grid grid-cols-[max-content_max-content]">
-              {/* SCOPE — entered from above, exits upward on scroll */}
-              <div className="col-start-1 row-start-1 overflow-hidden">
-                <motion.h1
-                  initial={{ y: '-100%' }}
-                  animate={{ y: '0%' }}
-                  transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.15 }}
-                  style={{
-                    fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)',
-                    color: 'rgba(255,255,255,0.9)',
-                    y: shortNameY,
-                    opacity: titleOp,
-                  }}
-                  className="font-sans font-black tracking-tighter-2 leading-[0.94]"
-                >
-                  {club.shortName}
-                </motion.h1>
+            {/* Invisible sizer — same grid layout, opacity 0, establishes the container size */}
+            <div className="relative">
+              <div aria-hidden className="grid grid-cols-[max-content_max-content] opacity-0 pointer-events-none select-none">
+                <span className="col-start-1 row-start-1 font-sans font-black tracking-tighter-2 leading-[0.94]"
+                  style={{ fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)' }}>{club.shortName}</span>
+                <span className="col-start-2 row-start-2 font-display italic font-medium leading-[0.94]"
+                  style={{ fontSize: 'clamp(4.2rem, 10vw, 8.4rem)' }}>Club</span>
               </div>
-              {/* Club — entered from below, exits downward on scroll */}
-              <div className="col-start-2 row-start-2 overflow-hidden">
-                <motion.p
-                  initial={{ y: '100%' }}
-                  animate={{ y: '0%' }}
-                  transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1, delay: 0.42 }}
-                  style={{
-                    fontSize: 'clamp(4.2rem, 10vw, 8.4rem)',
-                    y: clubY,
-                    opacity: titleOp,
-                  }}
-                  className="font-display italic font-medium text-warm leading-[0.94]"
-                >
-                  Club
-                </motion.p>
-              </div>
+
+              {/* SCOPE — absolutely positioned at top-left of sizer, scrolls downward */}
+              <motion.h1
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                style={{
+                  fontSize: 'clamp(3.2rem, 7.5vw, 6.2rem)',
+                  color: 'rgba(255,255,255,0.9)',
+                  y: shortNameY,
+                  opacity: titleOp,
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                }}
+                className="font-sans font-black tracking-tighter-2 leading-[0.94] whitespace-nowrap"
+              >
+                {club.shortName}
+              </motion.h1>
+
+              {/* Club — absolutely positioned at bottom-right of sizer, scrolls upward */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.42 }}
+                style={{
+                  fontSize: 'clamp(4.2rem, 10vw, 8.4rem)',
+                  y: clubY,
+                  opacity: titleOp,
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                }}
+                className="font-display italic font-medium text-warm leading-[0.94] whitespace-nowrap"
+              >
+                Club
+              </motion.p>
             </div>
           </div>
 
