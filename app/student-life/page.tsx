@@ -23,6 +23,14 @@ export default function StudentLifeOverviewPage() {
     <div className="bg-cream" style={{ backgroundColor: '#faf7f0' }}>
 
       {/* ─── HERO ───────────────────────────────────────────────────────────── */}
+      {/*
+        Layering (bottom → top):
+          z-0  bg image (full-bleed photo, dark overlay)
+          z-1  dark gradient overlay
+          z-2  scrolling marquee text
+          z-3  foreground person PNG (transparent bg) — text appears behind person
+          z-4  quote
+      */}
       <section
         className="relative w-full overflow-hidden"
         style={{
@@ -31,6 +39,7 @@ export default function StudentLifeOverviewPage() {
         }}
         aria-label="Student Life at MLRIT"
       >
+        {/* z-0: Background photo */}
         <Image
           src="/images/student-life/hero.jpg"
           alt=""
@@ -43,32 +52,60 @@ export default function StudentLifeOverviewPage() {
           aria-hidden="true"
         />
 
+        {/* z-1: Dark-to-transparent gradient for text contrast */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
             background:
-              'linear-gradient(to right, rgba(9,9,9,0.72) 0%, rgba(9,9,9,0.38) 50%, rgba(9,9,9,0.10) 100%)',
+              'linear-gradient(105deg, rgba(9,9,9,0.88) 0%, rgba(9,9,9,0.55) 45%, rgba(9,9,9,0.15) 100%)',
           }}
         />
 
+        {/* z-2: Scrolling marquee text — sits in front of bg, behind person */}
         <div
           className="absolute inset-x-0 z-[2]"
-          style={{ top: 'calc(-11.11vw + 10vw)' }}
+          style={{ top: 'calc(-11.11vw + 14vw)' }}
         >
           <CurvedLoopText
             text="A lifetime of memories"
-            fontSize={160}
+            fontSize={130}
             fontWeight="600"
             letterSpacing="-2px"
             color="#ffffff"
             baseVelocity={80}
-            curveAmount={0}
+            curveAmount={55}
             direction={-1}
           />
         </div>
 
+        {/* z-3: Foreground person — PNG with transparent background.
+            Place hero-person.png in /public/images/student-life/.
+            The person renders IN FRONT of the marquee text, creating the
+            "text acts as border behind person" effect from the reference. */}
+        <div
+          className="absolute z-[3]"
+          style={{
+            right: 'clamp(20px, 8vw, 160px)',
+            bottom: 0,
+            width: 'clamp(280px, 38vw, 580px)',
+            height: '100%',
+          }}
+        >
+          <Image
+            src="/images/student-life/hero-person.png"
+            alt="MLRIT Chairman"
+            fill
+            priority
+            quality={95}
+            sizes="(max-width: 768px) 80vw, 38vw"
+            className="object-contain object-bottom"
+            style={{ borderRadius: 0 }}
+          />
+        </div>
+
+        {/* z-4: Quote — bottom-left */}
         <p
-          className="absolute z-[3] text-white font-sans"
+          className="absolute z-[4] text-white font-sans"
           style={{
             left: 'clamp(20px, 3.96vw, 57px)',
             bottom: 'clamp(20px, 12.6%, 99px)',
@@ -81,7 +118,7 @@ export default function StudentLifeOverviewPage() {
         </p>
       </section>
 
-      {/* ─── MEMORY LANE ──────────────────────────────────────────────────── */}
+      {/* ─── WELCOME + MEMORY LANE ────────────────────────────────────────── */}
       <MemoryLane items={MEMORY_LANE_ITEMS} />
 
       {/* ─── STATS ────────────────────────────────────────────────────────── */}

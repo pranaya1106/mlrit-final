@@ -96,12 +96,23 @@ export default function MemoryLane({ items }: Props) {
       className="pt-16 pb-20 md:pt-20 md:pb-24"
       aria-label="Memory Lane"
     >
+      {/* Heading */}
+      <div className="text-center px-6 mb-10 md:mb-12">
+        <h2 className="text-white font-sans font-semibold" style={{ fontSize: 'clamp(1.5rem, 2.78vw, 2.5rem)', lineHeight: 1.25 }}>
+          Welcome to{' '}
+          <em className="font-display" style={{ fontStyle: 'italic' }}>MLR</em>
+        </h2>
+        <p className="mt-3 text-neutral-400 font-sans" style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)' }}>
+          Where learning meets living — every day on campus
+        </p>
+      </div>
+
       <div
         ref={containerRef}
         role="region"
         aria-label="Memory Lane carousel"
         className="relative overflow-hidden"
-        style={{ height: `${CARD_H + 32}px` }}
+        style={{ height: `${CARD_H + 100}px` }}
         onMouseEnter={pause}
         onMouseLeave={resume}
         onFocus={pause}
@@ -109,11 +120,17 @@ export default function MemoryLane({ items }: Props) {
       >
         <div
           ref={trackRef}
-          className="absolute top-4 flex"
-          style={{ gap: `${GAP}px`, left: 0, willChange: 'transform' }}
+          className="absolute bottom-4 flex"
+          style={{ gap: `${GAP}px`, left: 0, willChange: 'transform', alignItems: 'flex-end' }}
         >
           {tripled.map((item, i) => {
             const isActive = i === activeIdx;
+            // Arc effect: cards fan out from center — rotate + drop by distance
+            const offset = i - activeIdx;
+            const clampedOffset = Math.max(-3, Math.min(3, offset));
+            const rotate = clampedOffset * 4;           // ±4° per slot
+            const translateY = Math.abs(clampedOffset) * 14; // drop further cards down
+            const scale = isActive ? 1.06 : Math.max(0.88, 0.96 - Math.abs(clampedOffset) * 0.02);
             return (
               <div
                 key={`${item.id}-${i}`}
@@ -126,8 +143,9 @@ export default function MemoryLane({ items }: Props) {
                   borderRadius: 0,
                   boxSizing: 'border-box',
                   transition: `transform ${STEP_MS}ms cubic-bezier(0.25,0.46,0.45,0.94), opacity ${STEP_MS}ms ease`,
-                  transform: isActive ? 'scale(1.06)' : 'scale(0.96)',
-                  opacity: isActive ? 1 : 0.6,
+                  transform: `scale(${scale}) rotate(${rotate}deg) translateY(${translateY}px)`,
+                  opacity: isActive ? 1 : Math.max(0.45, 0.7 - Math.abs(clampedOffset) * 0.1),
+                  transformOrigin: 'bottom center',
                 }}
               >
                 <div className="relative w-full h-full overflow-hidden" style={{ borderRadius: 0 }}>
