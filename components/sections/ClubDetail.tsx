@@ -108,7 +108,7 @@ function AboutSection({ club }: { club: Club }) {
       {club.about && club.tagline && (
         <p className="font-display italic font-medium text-warm leading-snug"
           style={{ fontSize: 'clamp(1.3rem, 2vw, 1.7rem)' }}>
-          "{club.tagline}"
+          &ldquo;{club.tagline}&rdquo;
         </p>
       )}
       <div>
