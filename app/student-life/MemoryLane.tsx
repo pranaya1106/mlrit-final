@@ -14,6 +14,18 @@ const GAP = 20;
 const STEP_MS = 500;
 const DELAY_MS = 1200;
 
+const ARC = {
+  rotatePerSlot:  4,
+  dropPerSlot:    14,
+  scaleActive:    1.06,
+  scaleBase:      0.96,
+  scaleFalloff:   0.02,
+  scaleMin:       0.88,
+  opacityBase:    0.7,
+  opacityFalloff: 0.1,
+  opacityMin:     0.45,
+} as const;
+
 export default function MemoryLane({ items }: Props) {
   const N = items.length;
   const tripled = [...items, ...items, ...items];
@@ -92,21 +104,9 @@ export default function MemoryLane({ items }: Props) {
 
   return (
     <section
-      style={{ backgroundColor: '#faf7f0' }}
-      className="pt-16 pb-20 md:pt-20 md:pb-24"
+      className="bg-cream pt-16 pb-20 md:pt-20 md:pb-24"
       aria-label="Memory Lane"
     >
-      {/* Heading */}
-      <div className="text-center px-6 mb-10 md:mb-12">
-        <h2 className="text-white font-sans font-semibold" style={{ fontSize: 'clamp(1.5rem, 2.78vw, 2.5rem)', lineHeight: 1.25 }}>
-          Welcome to{' '}
-          <em className="font-display" style={{ fontStyle: 'italic' }}>MLR</em>
-        </h2>
-        <p className="mt-3 text-neutral-400 font-sans" style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)' }}>
-          Where learning meets living — every day on campus
-        </p>
-      </div>
-
       <div
         ref={containerRef}
         role="region"
@@ -125,12 +125,7 @@ export default function MemoryLane({ items }: Props) {
         >
           {tripled.map((item, i) => {
             const isActive = i === activeIdx;
-            // Arc effect: cards fan out from center — rotate + drop by distance
-            const offset = i - activeIdx;
-            const clampedOffset = Math.max(-3, Math.min(3, offset));
-            const rotate = clampedOffset * 4;           // ±4° per slot
-            const translateY = Math.abs(clampedOffset) * 14; // drop further cards down
-            const scale = isActive ? 1.06 : Math.max(0.88, 0.96 - Math.abs(clampedOffset) * 0.02);
+            const c = Math.max(-3, Math.min(3, i - activeIdx));
             return (
               <div
                 key={`${item.id}-${i}`}
@@ -143,12 +138,12 @@ export default function MemoryLane({ items }: Props) {
                   borderRadius: 0,
                   boxSizing: 'border-box',
                   transition: `transform ${STEP_MS}ms cubic-bezier(0.25,0.46,0.45,0.94), opacity ${STEP_MS}ms ease`,
-                  transform: `scale(${scale}) rotate(${rotate}deg) translateY(${translateY}px)`,
-                  opacity: isActive ? 1 : Math.max(0.45, 0.7 - Math.abs(clampedOffset) * 0.1),
+                  transform: `scale(${isActive ? ARC.scaleActive : Math.max(ARC.scaleMin, ARC.scaleBase - Math.abs(c) * ARC.scaleFalloff)}) rotate(${c * ARC.rotatePerSlot}deg) translateY(${Math.abs(c) * ARC.dropPerSlot}px)`,
+                  opacity: isActive ? 1 : Math.max(ARC.opacityMin, ARC.opacityBase - Math.abs(c) * ARC.opacityFalloff),
                   transformOrigin: 'bottom center',
                 }}
               >
-                <div className="relative w-full h-full overflow-hidden" style={{ borderRadius: 0 }}>
+                <div className="relative w-full h-full overflow-hidden">
                   <Image
                     src={item.src}
                     alt={item.alt}
@@ -156,7 +151,6 @@ export default function MemoryLane({ items }: Props) {
                     quality={80}
                     sizes={`${CARD_W}px`}
                     className="object-cover object-center"
-                    style={{ borderRadius: 0 }}
                     draggable={false}
                   />
                 </div>

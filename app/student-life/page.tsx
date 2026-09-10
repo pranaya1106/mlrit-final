@@ -20,17 +20,9 @@ const STATS = [
 export default function StudentLifeOverviewPage() {
   return (
     // Page-level cream canvas — editorial off-white foundation
-    <div className="bg-cream" style={{ backgroundColor: '#faf7f0' }}>
+    <div className="bg-cream">
 
       {/* ─── HERO ───────────────────────────────────────────────────────────── */}
-      {/*
-        Layering (bottom → top):
-          z-0  bg image (full-bleed photo, dark overlay)
-          z-1  dark gradient overlay
-          z-2  scrolling marquee text
-          z-3  foreground person PNG (transparent bg) — text appears behind person
-          z-4  quote
-      */}
       <section
         className="relative w-full overflow-hidden"
         style={{
@@ -48,7 +40,6 @@ export default function StudentLifeOverviewPage() {
           quality={90}
           sizes="100vw"
           className="object-cover object-center"
-          style={{ borderRadius: 0 }}
           aria-hidden="true"
         />
 
@@ -95,11 +86,9 @@ export default function StudentLifeOverviewPage() {
             src="/images/student-life/hero-person.png"
             alt="MLRIT Chairman"
             fill
-            priority
-            quality={95}
+            quality={85}
             sizes="(max-width: 768px) 80vw, 38vw"
             className="object-contain object-bottom"
-            style={{ borderRadius: 0 }}
           />
         </div>
 
