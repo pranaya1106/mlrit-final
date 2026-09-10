@@ -47,6 +47,48 @@ backend/data/*.db
 .claude/skills/
 .kiro/skills/
 skills-lock.json
+skills/
+
+# AI tool config dirs (Cursor, Windsurf, Augment, etc.)
+.adal/
+.augment/
+.bob/
+.codeartsdoer/
+.codebuddy/
+.codemaker/
+.codestudio/
+.commandcode/
+.continue/
+.cortex/
+.crush/
+.devin/
+.factory/
+.forge/
+.goose/
+.hermes/
+.iflow/
+.impeccable/
+.junie/
+.kilocode/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.rovodev/
+.tabnine/
+.trae/
+.vibe/
+.windsurf/
+.zencoder/
+
+# Faculty data (Excel source files — not web assets)
+faculty profiles/
 
 # compiled output for `npm test`
 .test-build
