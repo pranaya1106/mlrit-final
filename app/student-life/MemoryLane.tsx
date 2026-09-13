@@ -14,6 +14,18 @@ const GAP = 20;
 const STEP_MS = 500;
 const DELAY_MS = 1200;
 
+const ARC = {
+  rotatePerSlot:  4,
+  dropPerSlot:    14,
+  scaleActive:    1.06,
+  scaleBase:      0.96,
+  scaleFalloff:   0.02,
+  scaleMin:       0.88,
+  opacityBase:    0.7,
+  opacityFalloff: 0.1,
+  opacityMin:     0.45,
+} as const;
+
 export default function MemoryLane({ items }: Props) {
   const N = items.length;
   const tripled = [...items, ...items, ...items];
@@ -92,8 +104,7 @@ export default function MemoryLane({ items }: Props) {
 
   return (
     <section
-      style={{ backgroundColor: '#faf7f0' }}
-      className="pt-16 pb-20 md:pt-20 md:pb-24"
+      className="bg-cream pt-16 pb-20 md:pt-20 md:pb-24"
       aria-label="Memory Lane"
     >
       <div
@@ -101,7 +112,7 @@ export default function MemoryLane({ items }: Props) {
         role="region"
         aria-label="Memory Lane carousel"
         className="relative overflow-hidden"
-        style={{ height: `${CARD_H + 32}px` }}
+        style={{ height: `${CARD_H + 100}px` }}
         onMouseEnter={pause}
         onMouseLeave={resume}
         onFocus={pause}
@@ -109,11 +120,12 @@ export default function MemoryLane({ items }: Props) {
       >
         <div
           ref={trackRef}
-          className="absolute top-4 flex"
-          style={{ gap: `${GAP}px`, left: 0, willChange: 'transform' }}
+          className="absolute bottom-4 flex"
+          style={{ gap: `${GAP}px`, left: 0, willChange: 'transform', alignItems: 'flex-end' }}
         >
           {tripled.map((item, i) => {
             const isActive = i === activeIdx;
+            const c = Math.max(-3, Math.min(3, i - activeIdx));
             return (
               <div
                 key={`${item.id}-${i}`}
@@ -126,11 +138,12 @@ export default function MemoryLane({ items }: Props) {
                   borderRadius: 0,
                   boxSizing: 'border-box',
                   transition: `transform ${STEP_MS}ms cubic-bezier(0.25,0.46,0.45,0.94), opacity ${STEP_MS}ms ease`,
-                  transform: isActive ? 'scale(1.06)' : 'scale(0.96)',
-                  opacity: isActive ? 1 : 0.6,
+                  transform: `scale(${isActive ? ARC.scaleActive : Math.max(ARC.scaleMin, ARC.scaleBase - Math.abs(c) * ARC.scaleFalloff)}) rotate(${c * ARC.rotatePerSlot}deg) translateY(${Math.abs(c) * ARC.dropPerSlot}px)`,
+                  opacity: isActive ? 1 : Math.max(ARC.opacityMin, ARC.opacityBase - Math.abs(c) * ARC.opacityFalloff),
+                  transformOrigin: 'bottom center',
                 }}
               >
-                <div className="relative w-full h-full overflow-hidden" style={{ borderRadius: 0 }}>
+                <div className="relative w-full h-full overflow-hidden">
                   <Image
                     src={item.src}
                     alt={item.alt}
@@ -138,7 +151,6 @@ export default function MemoryLane({ items }: Props) {
                     quality={80}
                     sizes={`${CARD_W}px`}
                     className="object-cover object-center"
-                    style={{ borderRadius: 0 }}
                     draggable={false}
                   />
                 </div>

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_PAGES, RESEARCH_NAV } from '@/lib/research';
-import ResearchHero from '@/components/ResearchHero';
 import ResearchQuickNav from '@/components/ResearchQuickNav';
 
 export function generateStaticParams() {
@@ -18,19 +17,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default function ResearchSubPage({ params }: { params: { slug: string } }) {
   const data = RESEARCH_PAGES[params.slug];
   if (!data) notFound();
-  const navItem = RESEARCH_NAV.find((n) => n.slug === params.slug);
   return (
     <>
-      <ResearchHero
-        title={data.title}
-        italic={data.italic}
-        dek={data.dek}
-        crumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'Research', href: '/research' },
-          { label: navItem?.label ?? params.slug },
-        ]}
-      />
       <ResearchQuickNav active={`/research/${params.slug}`} />
 
 

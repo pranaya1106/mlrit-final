@@ -757,17 +757,6 @@ function ClubCard({
               {club.facultyCoordinator}
             </span>
           )}
-          {club.href && (
-            <Link
-              href={club.href}
-              className="ml-auto inline-flex items-center gap-1 font-mono text-[0.56rem] font-bold tracking-[0.12em] uppercase transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
-              style={{ color: '#e85d04' }}
-              onClick={(e) => e.stopPropagation()}
-              aria-label={`Explore ${club.name} page`}
-            >
-              Explore <ArrowUpRight className="w-2.5 h-2.5" aria-hidden />
-            </Link>
-          )}
         </div>
 
         {/* Explore more — only clubs with a designed detail page get this */}
@@ -775,8 +764,16 @@ function ClubCard({
           <Link
             href={`/campus/clubs/${club.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="mt-4 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-full border font-sans font-bold text-[0.78rem] text-white/80 hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-            style={{ borderColor: 'rgba(255,255,255,0.14)' }}
+            className="mt-4 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-full border font-sans font-bold text-[0.78rem] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            style={{ borderColor: accent, color: accent }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = accent;
+              e.currentTarget.style.color = '#fff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = accent;
+            }}
           >
             Explore Club
             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden />

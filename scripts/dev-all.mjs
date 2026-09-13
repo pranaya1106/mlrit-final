@@ -1,15 +1,15 @@
-// Runs the Next.js dev server and the FastAPI news-scraper backend together so
-// `npm run dev` alone is enough — previously the backend (backend/app, port 8000)
-// had to be started by hand in a second terminal, and forgetting to do so is why
-// the Chronicles page always looked "stuck" on static content.
+// Runs the Next.js dev server and the chatbot backend together so `npm run dev`
+// alone is enough. The Chronicles news feed has no local backend of its own
+// anymore — it's served by a deployed Cloudflare Worker (mlrit-news-worker)
+// that scrapes Google News + Bing News RSS directly into D1; point NEWS_API_URL
+// at it (see .env.example) even in local dev.
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { platform } from 'node:process';
 
 const isWin = platform === 'win32';
 // cmd.exe (spawned under shell:true on Windows) mis-parses a forward-slash exe
-// path as flags and only sees "backend" — must be backslashes here.
-const pythonBin = isWin ? 'backend\\venv\\Scripts\\python.exe' : 'backend/venv/bin/python';
+// path as flags and only sees the directory name — must be backslashes here.
 const chatbotPythonBin = isWin ? 'chatbot\\.venv\\Scripts\\python.exe' : 'chatbot/.venv/bin/python';
 
 const children = [];
@@ -42,15 +42,6 @@ process.on('SIGINT', () => shutdown(0));
 process.on('SIGTERM', () => shutdown(0));
 
 run('next', 'npx', ['next', 'dev']);
-
-if (existsSync(pythonBin)) {
-  run('backend', pythonBin, ['-m', 'uvicorn', 'app.main:app', '--app-dir', 'backend', '--reload', '--port', '8000']);
-} else {
-  console.info(
-    `[dev-all] no venv found at ${pythonBin} — skipping the news scraper.\n` +
-    '[dev-all] set it up with: cd backend && python -m venv venv && venv\\Scripts\\pip install -r requirements.txt'
-  );
-}
 
 if (existsSync(chatbotPythonBin)) {
   run('chatbot', chatbotPythonBin, ['main.py'], { cwd: 'chatbot' });

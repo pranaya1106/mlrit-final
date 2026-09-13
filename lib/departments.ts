@@ -132,7 +132,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue advanced studies in electronics and computing.' },
       { id: 'PEO3', text: 'Develop ethical, sustainable hardware-software systems.' },
     ],
-    hod: { name: 'Dr. S V S Prasad', title: 'Professor & Head of Department' },
+    hod: { name: 'Dr. V. Thrimurthulu', title: 'Professor & Head of Department, ECE' },
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/CixMnEPPIm9/',
@@ -219,7 +219,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Pursue M.Tech and PhD in aerospace sciences.' },
       { id: 'PEO3', text: 'Innovate in the unmanned systems and space economy.' },
     ],
-    hod: { name: 'Dr. M. Satyanarayana Gupta', title: 'Professor & Head of Department' },
+    hod: { name: 'Algam Sai Kumar', title: 'Head of Department, Aeronautical Engineering' },
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/DGK1OMGyIop/',

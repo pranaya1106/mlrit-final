@@ -18,7 +18,8 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 // ─── Design constants ─────────────────────────────────────────────────────────
 
 const EASE_OUT_QUART = [0.16, 1, 0.3, 1] as const;
-const INSTAGRAM_URL = 'https://www.instagram.com/eveclub_mlrit/';
+const INSTAGRAM_URL = 'https://www.instagram.com/mlrit_robotic_club/';
+const LINKEDIN_URL = 'https://www.linkedin.com/company/mlrit_robotic_club/';
 
 // ─── Club data (sourced from PDF) ─────────────────────────────────────────────
 
@@ -120,6 +121,14 @@ const roboticsClub = {
       desc: 'An automated machine that winds wire or thread onto a spool with precision, speed, and consistency.',
     },
   ],
+  achievements: [
+    'Participation in Robo Games / Bots, Project Expos, and technical competitions',
+    'Paper and poster presentations',
+    'Student internships',
+    'PCB boards developed by club members',
+    'News and media coverage',
+    '10th Anniversary Celebrations',
+  ],
   events: [
     {
       name: 'PCB Workshop',
@@ -190,7 +199,7 @@ function InstagramCTA() {
         transition={{ duration: 0.7, delay: 1.2, ease: EASE_OUT_QUART }}
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-sans font-bold text-[0.82rem] tracking-tight border border-white/25 text-white transition-all duration-300 hover:border-white/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 group"
       >
-        Visit Robotics Club
+        Follow on Instagram
         <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
       </motion.a>
 
@@ -266,21 +275,13 @@ function RoboticsHero() {
           style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}
           aria-label="Robotics Club logo"
         >
-          {/* SVG logo approximation — circular with MLRIT ECE Robotic Club text */}
-          <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden="true">
-            <circle cx="40" cy="40" r="40" fill="#111" />
-            <circle cx="40" cy="40" r="36" fill="none" stroke="#8b0000" strokeWidth="1.5" />
-            {/* Wing shapes */}
-            <path d="M14 35 Q8 28 14 20 Q22 26 22 34Z" fill="#c0392b" opacity="0.9" />
-            <path d="M66 35 Q72 28 66 20 Q58 26 58 34Z" fill="#c0392b" opacity="0.9" />
-            <path d="M12 37 Q6 30 10 22 Q18 28 20 36Z" fill="#e74c3c" opacity="0.7" />
-            <path d="M68 37 Q74 30 70 22 Q62 28 60 36Z" fill="#e74c3c" opacity="0.7" />
-            {/* Center shield */}
-            <ellipse cx="40" cy="40" rx="14" ry="16" fill="#c9a84c" opacity="0.15" />
-            <text x="40" y="34" textAnchor="middle" fill="#ffffff" fontSize="6" fontWeight="bold" fontFamily="sans-serif">MLRIT</text>
-            <text x="40" y="42" textAnchor="middle" fill="#ffffff" fontSize="7" fontWeight="bold" fontFamily="sans-serif">ECE</text>
-            <text x="40" y="56" textAnchor="middle" fill="#c9a84c" fontSize="4.5" fontWeight="600" fontFamily="sans-serif">ROBOTIC CLUB</text>
-          </svg>
+          <Image
+            src="/images/clubs/robotics-logo.png"
+            alt="Robotics Club logo"
+            width={80}
+            height={80}
+            className="w-full h-full object-contain"
+          />
         </div>
       </div>
 
@@ -476,6 +477,27 @@ function RoboticsAbout() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Achievements & Recognition */}
+        <div className="mt-16 pt-12 border-t" style={{ borderColor: '#e8e2d2' }}>
+          <h3
+            className="font-sans font-black mb-6"
+            style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: '#0f0f0f' }}
+          >
+            Achievements &amp;{' '}
+            <span className="font-display italic font-medium" style={{ color: '#c9a84c' }}>Recognition</span>
+          </h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {roboticsClub.achievements.map((item) => (
+              <li key={item} className="flex items-start gap-3 p-4 rounded-xl" style={{ backgroundColor: '#f1ece1', border: '1px solid #e8e2d2' }}>
+                <span className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: '#c9a84c' }} aria-hidden />
+                <span className="font-sans text-[0.87rem] leading-snug" style={{ color: '#27272a' }}>
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -1037,14 +1059,26 @@ function RoboticsFooterCTA() {
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-sans font-bold text-[0.9rem] text-white transition-all duration-300 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 group"
             style={{ backgroundColor: '#0c0c0e' }}
           >
-            Follow on Instagram
+            Instagram
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+          </a>
+
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow Robotics Club on LinkedIn (opens in new tab)"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-sans font-bold text-[0.9rem] border transition-colors duration-300 hover:bg-ink/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 group"
+            style={{ borderColor: 'rgba(15,15,15,0.2)', color: '#0f0f0f' }}
+          >
+            LinkedIn
             <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
           </a>
 
           <Link
             href="/campus/clubs"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-sans font-bold text-[0.9rem] border transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-            style={{ borderColor: 'rgba(15,15,15,0.2)', color: '#0f0f0f' }}
+            style={{ borderColor: 'rgba(15,15,15,0.15)', color: '#5e5d57' }}
           >
             All Clubs &amp; Societies
           </Link>
