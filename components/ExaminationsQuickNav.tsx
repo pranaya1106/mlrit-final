@@ -124,7 +124,6 @@ export default function ExaminationsQuickNav({ active }: { active: string }) {
                 }`}
               >
                 <span className="relative z-10 inline-flex items-center gap-2">
-                  {activeHere && <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />}
                   {item.label}
                 </span>
                 <span

@@ -128,7 +128,6 @@ export default function IQACQuickNav({ active }: { active: string }) {
                 }`}
               >
                 <span className="relative z-10 inline-flex items-center gap-2">
-                  {isActive && <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />}
                   {l.label}
                 </span>
                 <span

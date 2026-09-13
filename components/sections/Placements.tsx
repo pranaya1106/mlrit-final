@@ -1,158 +1,316 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { motion, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 
 import { asGalleryItems } from '@/lib/content/sections';
 import { recruiterLogosFrom } from '@/lib/placements';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
-type Stat = { target: number; suffix: string; label: string };
-
-const STATS: Stat[] = [
-  { target: 44,  suffix: 'LPA', label: 'Highest Package' },
-  { target: 5,   suffix: 'K+',  label: 'Students Placed in Top MNCs' },
-  { target: 18,  suffix: 'LPA', label: 'Avg. Salary — Top 25%' },
-  { target: 200, suffix: '+',   label: 'Recruiters incl. IIT/IIM/NIT Hirers' },
-];
-
 type PlacementsProps = {
-  /** Gallery items from placements/recruiters; falls back to the bundled set. */
   logos?: unknown;
 };
 
-export default function Placements(props: PlacementsProps) {
-  // Live-preview draft wins over the saved props.
-  const { logos } = useMergedSection('placements/recruiters', props);
+type MiniStat = { value: string; label: string; note: string };
 
-  // Same source as /placements/recruiters, mapped to { src, alt }. An empty
-  // gallery yields the bundled 16, so this renders unchanged until someone
-  // saves the CMS field.
+const MINI_STATS: MiniStat[] = [
+  { value: '5,000+', label: 'Students Placed',      note: 'in Top MNCs since 2005' },
+  { value: '200+',   label: 'Recruiters on Campus', note: 'incl. IIT / IIM / NIT hirers' },
+  { value: '18 LPA', label: 'Average · Top Quartile', note: 'Placed batch of 2025' },
+  { value: '98 %',   label: 'Placement Rate',        note: 'Batch of 2025 · Verified' },
+];
+
+/** Split a logo list into two roughly-equal halves for the dual marquee. */
+function splitLogos<T>(list: T[]): [T[], T[]] {
+  const half = Math.ceil(list.length / 2);
+  return [list.slice(0, half), list.slice(half)];
+}
+
+/** Count-up hook — animates 0 → target when the ref enters the viewport. */
+function useCountUp(target: number, durationMs = 1400) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-30% 0px' });
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    let start: number | null = null;
+    const tick = (t: number) => {
+      if (start == null) start = t;
+      const p = Math.min(1, (t - start) / durationMs);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, target, durationMs]);
+  return { ref, n };
+}
+
+export default function Placements(props: PlacementsProps) {
+  const { logos } = useMergedSection('placements/recruiters', props);
   const recruiterLogos = recruiterLogosFrom(asGalleryItems(logos));
+  const [rowA, rowB] = splitLogos(recruiterLogos);
+
+  const highest = useCountUp(44);
 
   return (
     <div id={sectionDomId('placements/recruiters')}>
-    <section id="placements" style={{ backgroundColor: '#0c0c0e' }} className="relative bg-ink text-white py-10 md:py-14 overflow-hidden">
-      {/* Network background SVG */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.55] pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <radialGradient id="plNodeGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <g stroke="rgba(255,255,255,0.18)" strokeWidth="0.7">
-          <line x1="5%"  y1="15%" x2="28%" y2="42%" /><line x1="28%" y1="42%" x2="55%" y2="20%" />
-          <line x1="55%" y1="20%" x2="80%" y2="38%" /><line x1="80%" y1="38%" x2="95%" y2="12%" />
-          <line x1="28%" y1="42%" x2="45%" y2="68%" /><line x1="45%" y1="68%" x2="70%" y2="75%" />
-          <line x1="70%" y1="75%" x2="80%" y2="38%" /><line x1="55%" y1="20%" x2="45%" y2="68%" />
-          <line x1="10%" y1="70%" x2="28%" y2="42%" /><line x1="10%" y1="70%" x2="45%" y2="68%" />
-          <line x1="70%" y1="75%" x2="92%" y2="85%" /><line x1="80%" y1="38%" x2="92%" y2="85%" />
-          <line x1="5%"  y1="15%" x2="55%" y2="20%" /><line x1="92%" y1="85%" x2="95%" y2="12%" />
-        </g>
-        <g fill="#ffffff">
-          {[[ '5%','15%',3], ['28%','42%',4], ['55%','20%',3], ['80%','38%',4], ['95%','12%',2.5], ['45%','68%',3.5], ['70%','75%',3], ['10%','70%',2.5], ['92%','85%',3]].map(([cx, cy, r], i) => (
-            <circle key={i} cx={cx as string} cy={cy as string} r={r as number} opacity={0.7} />
-          ))}
-        </g>
-      </svg>
+      <section
+        id="placements"
+        className="relative bg-paper grain-texture text-foreground overflow-hidden py-20 md:py-28"
+      >
+        {/* Soft warm glows */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-70"
+          style={{
+            background:
+              'radial-gradient(1200px 500px at 15% 20%, rgba(1,116,31,0.06) 0%, transparent 60%),' +
+              'radial-gradient(1100px 500px at 90% 65%, rgba(196,154,16,0.06) 0%, transparent 60%)',
+          }}
+        />
 
-      {/* Header */}
-      <div className="relative z-10 w-full px-6 md:px-10 lg:px-12 text-center">
-        <span className="font-mono text-[0.72rem] font-bold tracking-[0.18em] uppercase text-white/55 mb-3 inline-block">
-          Placements
-        </span>
-        <h2 className="font-sans font-black tracking-tighter-2 leading-[1.04] text-white text-[clamp(2.2rem,4vw,3.6rem)]">
-          From Campus <span className="font-display italic font-medium text-warm">to Corporate.</span>
-        </h2>
-        <p className="mt-4 text-white/72 leading-relaxed max-w-[600px] mx-auto">
-          Our placement records reflect the quality of education and industry readiness we build in every student.
-        </p>
-
-        {/* Gold divider line */}
-        <div className="mt-10 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-warm to-transparent" />
-
-        {/* Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-          {STATS.map((s, i) => <PlacementStat key={i} {...s} />)}
-        </div>
-
-        {/* Recruiters label */}
-        <p className="mt-16 font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-white/45">
-          Global Hiring Partners
-        </p>
-      </div>
-
-      {/* Full-bleed scrolling band */}
-      <div className="relative z-10 mt-8 overflow-hidden mask-fade">
-        <div className="flex gap-10 animate-marquee w-max">
-          {[...recruiterLogos, ...recruiterLogos].map((logo, i) => (
-            <div key={i} className="flex-shrink-0 h-20 w-40 grid place-items-center rounded-xl bg-white/[0.06] border border-white/10 px-5 py-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={logo.src} alt="" className="max-w-full max-h-full object-contain opacity-90" loading="lazy" />
+        <div className="relative mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">
+          {/* ── HEADER ─────────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-16 items-end mb-14 md:mb-16"
+          >
+            <div>
+              <div className="flex items-center gap-3">
+                <span aria-hidden className="h-px w-8 bg-primary/70" />
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.3em] uppercase text-primary">
+                  Placements · 2025 / 26
+                </span>
+              </div>
+              <h2 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-foreground text-[clamp(2.2rem,4.4vw,3.8rem)]">
+                Why MLRIT{' '}
+                <span
+                  className="font-display italic font-medium"
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, var(--foreground) 0%, var(--primary) 115%)',
+                    WebkitBackgroundClip: 'text', backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent', color: 'transparent',
+                  }}
+                >
+                  gets hired.
+                </span>
+              </h2>
             </div>
-          ))}
+
+            <p className="text-muted leading-[1.7] text-[1rem] max-w-[440px] lg:justify-self-end lg:text-right">
+              A data-backed look at where our engineers go, what they earn, and
+              which companies come back every year to recruit them.
+            </p>
+          </motion.div>
+
+          {/* ── FEATURED HERO + STATS SIDEBAR ─────────────── */}
+          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-5 md:gap-6">
+            {/* Featured card — massive number + company + quote */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="relative rounded-3xl overflow-hidden bg-ink text-white p-8 md:p-12 lg:p-14 min-h-[380px] md:min-h-[440px]"
+            >
+              {/* Warm gradient wash */}
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-90"
+                style={{
+                  background:
+                    'radial-gradient(600px 400px at 100% 0%, rgba(232,93,4,0.28) 0%, transparent 60%),' +
+                    'radial-gradient(600px 400px at 0% 100%, rgba(1,116,31,0.22) 0%, transparent 60%)',
+                }}
+              />
+              {/* Faint hairline grid */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+                  backgroundSize: '48px 48px',
+                }}
+              />
+
+              <div className="relative h-full flex flex-col justify-between">
+                {/* Top eyebrow + company mark */}
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="font-mono text-[0.65rem] font-bold tracking-[0.24em] uppercase text-white/50">
+                      Featured · Batch 2026
+                    </span>
+                    <div className="mt-1 font-sans font-medium text-white/85 text-[1rem]">
+                      Highest Package of the Year
+                    </div>
+                  </div>
+                  <span className="inline-flex items-center gap-2 h-8 px-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-white/85">
+                    Microsoft
+                  </span>
+                </div>
+
+                {/* Massive numeric */}
+                <div className="my-8 md:my-0">
+                  <div className="flex items-baseline gap-3">
+                    <span
+                      ref={highest.ref}
+                      className="font-sans font-black tracking-tighter-3 leading-[0.86] text-white text-[clamp(6rem,14vw,12rem)]"
+                    >
+                      {highest.n}
+                    </span>
+                    <span className="font-display italic font-medium text-primary text-[clamp(2.4rem,4vw,3.6rem)] leading-[0.9]">
+                      LPA
+                    </span>
+                  </div>
+                  <div className="mt-4 font-sans font-medium text-white/70 text-[1.02rem] md:text-[1.1rem] max-w-[520px] leading-[1.55]">
+                    Awarded to <span className="text-white font-semibold">Sai Loukhya Chundi</span> and{' '}
+                    <span className="text-white font-semibold">Kakumanu Sailatha</span> — the two CSE
+                    engineers now interning at Microsoft on ₹1.25 L / month stipends.
+                  </div>
+                </div>
+
+                {/* Bottom: mini meta pills */}
+                <div className="flex flex-wrap gap-2">
+                  {['CSE · Batch 2026', '₹1.25 L / month stipend', 'On-campus offer'].map((m) => (
+                    <span
+                      key={m}
+                      className="inline-flex items-center h-8 px-3 rounded-full bg-white/[0.06] border border-white/12 text-white/80 text-[0.78rem] font-medium backdrop-blur-sm"
+                    >
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Mini stats — 2×2 grid on the right */}
+            <div className="grid grid-cols-2 gap-4 md:gap-5">
+              {MINI_STATS.map((s, i) => (
+                <MiniStatCard key={i} stat={s} index={i} />
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-12 text-center"
+          >
+            <Link
+              href="/placements/overview"
+              style={{ backgroundColor: '#e85d04' }}
+              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full text-white font-semibold text-[0.9rem] hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300"
+            >
+              Explore All Placements
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
-      </div>
 
-      {/* CTA */}
-      <div className="relative z-10 text-center mt-12">
-        <Link href="/placements"
-              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full border border-white/30 text-white font-medium text-[0.85rem] tracking-[0.1em] uppercase hover:bg-white hover:text-foreground transition-colors">
-          Explore More →
-        </Link>
-      </div>
+        {/* ── GLOBAL HIRING PARTNERS · dual marquee ────────── */}
+        <div className="relative mt-16 md:mt-20">
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center gap-3">
+              <span aria-hidden className="h-px w-8 bg-muted/50" />
+              <span className="font-mono text-[0.7rem] font-bold tracking-[0.3em] uppercase text-muted">
+                Global Hiring Partners
+              </span>
+              <span aria-hidden className="h-px w-8 bg-muted/50" />
+            </div>
+          </div>
 
-      {/* Marquee + mask styles */}
-      <style jsx>{`
-        @keyframes marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        .animate-marquee { animation: marquee 40s linear infinite; }
-        .mask-fade {
-          -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-                  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-        }
-      `}</style>
-    </section>
+          {/* Row A — left to right */}
+          <div
+            className="relative overflow-hidden mb-3"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)',
+              maskImage:
+                'linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)',
+            }}
+          >
+            <div className="flex w-max animate-marquee gap-10 md:gap-16 items-center py-3">
+              {[...rowA, ...rowA].map((logo, i) => (
+                <LogoCell key={`a-${i}`} src={logo.src} />
+              ))}
+            </div>
+          </div>
+
+          {/* Row B — right to left (reverse animation direction) */}
+          <div
+            className="relative overflow-hidden"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)',
+              maskImage:
+                'linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)',
+            }}
+          >
+            <div
+              className="flex w-max animate-marquee gap-10 md:gap-16 items-center py-3"
+              style={{ animationDirection: 'reverse', animationDuration: '48s' }}
+            >
+              {[...rowB, ...rowB].map((logo, i) => (
+                <LogoCell key={`b-${i}`} src={logo.src} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
 
-function PlacementStat({ target, suffix, label }: Stat) {
-  const [n, setN] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!ref.current) return;
-    const io = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        let start: number | null = null;
-        const dur = 1400;
-        const tick = (ts: number) => {
-          if (!start) start = ts;
-          const t = Math.min(1, (ts - start) / dur);
-          const ease = 1 - Math.pow(1 - t, 3);
-          setN(Math.round(target * ease));
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-        io.disconnect();
-      }
-    }, { threshold: 0.5 });
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, [target]);
-  // For "44 LPA" style suffix keep a space; for "+" or "K+" no space
-  const space = /[A-Za-z]/.test(suffix) ? ' ' : '';
+function MiniStatCard({ stat, index }: { stat: MiniStat; index: number }) {
   return (
-    <div ref={ref} className="text-center">
-      <div className="font-sans font-black text-white leading-none tracking-tighter-2 text-[clamp(2rem,3vw,2.6rem)]">
-        {n}<span className="text-warm">{space}{suffix}</span>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ delay: 0.15 + index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className="relative flex flex-col justify-between h-full min-h-[180px] rounded-2xl md:rounded-3xl overflow-hidden bg-white border border-border p-6 hover:border-primary/30 hover:shadow-[0_18px_44px_-18px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-500"
+    >
+      <span
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-primary/60 to-transparent"
+      />
+      <div>
+        <div className="font-sans font-black tracking-tighter-2 leading-[0.98] text-foreground text-[clamp(1.8rem,2.6vw,2.4rem)]">
+          {stat.value}
+        </div>
       </div>
-      <div className="mt-3 font-mono font-medium text-[0.68rem] tracking-[0.16em] uppercase text-white/55 max-w-[160px] mx-auto leading-tight">
-        {label}
+      <div>
+        <div className="font-sans font-semibold text-foreground text-[0.94rem] md:text-[1rem] leading-[1.25]">
+          {stat.label}
+        </div>
+        <div className="mt-1.5 text-muted text-[0.82rem] leading-[1.4]">
+          {stat.note}
+        </div>
       </div>
+    </motion.div>
+  );
+}
+
+function LogoCell({ src }: { src: string }) {
+  return (
+    <div className="flex-shrink-0 h-20 md:h-28 lg:h-32 w-40 md:w-56 lg:w-64 grid place-items-center rounded-2xl bg-white border border-border px-6 py-4 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.10)]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        className="max-w-full max-h-full object-contain"
+      />
     </div>
   );
 }

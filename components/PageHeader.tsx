@@ -42,7 +42,6 @@ export default function PageHeader({
           )}
           {eyebrow && (
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-200 text-primary font-sans font-extrabold text-[0.78rem] tracking-[0.24em] uppercase mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               {eyebrow}
             </span>
           )}
@@ -87,7 +86,6 @@ export default function PageHeader({
         )}
         {eyebrow && (
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.06] border border-white/15 text-primary font-sans font-extrabold text-[0.78rem] tracking-[0.22em] uppercase mb-8">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             {eyebrow}
           </span>
         )}

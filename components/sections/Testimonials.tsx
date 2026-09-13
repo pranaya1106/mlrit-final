@@ -2,21 +2,20 @@ import { TestimonialCarousel } from '@/components/ui/profile-card-testimonial-ca
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="bg-ink text-white py-10 md:py-14 relative overflow-hidden">
-      {/* Soft brand glows */}
-      <div className="absolute -top-40 -left-40 w-[460px] h-[460px] rounded-full bg-primary/[0.08] blur-[120px] pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-[460px] h-[460px] rounded-full bg-secondary/[0.10] blur-[120px] pointer-events-none" />
+    <section id="testimonials" className="bg-paper-2 grain-texture text-foreground py-12 md:py-16 relative overflow-hidden">
+      {/* Soft brand glows — muted for the light canvas */}
+      <div className="absolute -top-40 -left-40 w-[460px] h-[460px] rounded-full bg-primary/[0.06] blur-[120px] pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-[460px] h-[460px] rounded-full bg-secondary/[0.08] blur-[120px] pointer-events-none" />
 
       <div className="relative w-full px-6 md:px-10 lg:px-12">
-        <div className="text-center max-w-[680px] mx-auto mb-12 md:mb-16">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-warm font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        <div className="text-center max-w-[680px] mx-auto mb-8 md:mb-10">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border text-primary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase">
             Alumni Voices
           </span>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.04] text-white text-[clamp(2.2rem,4vw,3.6rem)]">
-            What Our <span className="font-display italic font-medium text-warm">Graduates Say.</span>
+          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.04] text-foreground text-[clamp(2.2rem,4vw,3.6rem)]">
+            What Our <span className="font-display italic font-medium text-primary">Graduates Say.</span>
           </h2>
-          <p className="mt-4 text-white/65">Five MLRIT alumni — five different paths, one shared starting line.</p>
+          <p className="mt-4 text-foreground/65">Five MLRIT alumni — five different paths, one shared starting line.</p>
         </div>
 
         <TestimonialCarousel />

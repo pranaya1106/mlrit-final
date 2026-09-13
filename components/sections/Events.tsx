@@ -119,9 +119,24 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative w-full h-screen min-h-[640px] overflow-hidden bg-black"
+      className="relative w-full h-screen min-h-[640px] overflow-hidden bg-ink"
       aria-label="Featured events"
     >
+      {/* Smooth transition from cream Testimonials above into the ink Events canvas */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-[180px] md:h-[240px] pointer-events-none z-[3]"
+        style={{
+          background:
+            'linear-gradient(180deg,' +
+            ' rgba(241, 236, 225, 1) 0%,' +
+            ' rgba(241, 236, 225, 0.96) 15%,' +
+            ' rgba(241, 236, 225, 0.7) 40%,' +
+            ' rgba(241, 236, 225, 0.35) 65%,' +
+            ' rgba(241, 236, 225, 0.1) 85%,' +
+            ' rgba(241, 236, 225, 0) 100%)',
+        }}
+      />
       {/* Rotating videos */}
       {SLIDES.map((s, i) => (
         <video

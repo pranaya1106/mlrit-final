@@ -61,12 +61,17 @@ const config: Config = {
           900: '#0f0f0f',
         },
 
-        // ── Semantic aliases (refined)
-        background: '#ffffff',
+        // ── Semantic aliases (refined) — paper-first, ink-anchored
+        background: '#faf7f0',  // cream default: paper is the ground, not white
+        paper:      '#faf7f0',
+        'paper-2':  '#f1ece1',
         foreground: '#0f0f0f',
         muted:      '#6a6a64',  // warmer than the old 5c5a55, slightly lighter for editorial feel
         subtle:     '#9d9b94',
         border:     '#e4e0d7',  // slightly warmer than #d9d7d1 for a softer card edge
+
+        // ── Editorial deep-green rail (used sparingly, muted vs the flag-green)
+        forest: { DEFAULT: '#143c22', 2: '#0d2a17' },
       },
 
       // ── Fonts (preserved)
