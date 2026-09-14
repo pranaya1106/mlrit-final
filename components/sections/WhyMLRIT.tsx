@@ -56,7 +56,28 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
         }}
       />
 
-      <div className="relative mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20 items-start">
+      {/* ── Decorative background artwork — full opacity everywhere. */}
+      <img
+        src="/vectors/whymlrit-background.svg"
+        alt=""
+        aria-hidden
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
+      />
+
+      {/* Strong cream spotlight anchored precisely over the headline zone
+          (top-left of the section). Fully opaque cream at the centre so
+          the "Industry." word reads sharp, fading out to transparent at
+          the edges so the ribbons stay visible everywhere else. */}
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 w-[60%] lg:w-[52%] h-[70%] pointer-events-none z-[1]"
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 55% at 32% 40%, rgba(250, 247, 240, 1) 0%, rgba(250, 247, 240, 0.95) 35%, rgba(250, 247, 240, 0.55) 65%, rgba(250, 247, 240, 0) 100%)',
+        }}
+      />
+
+      <div className="relative z-[2] mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20 items-start">
         {/* ── LEFT — Editorial headline column ─────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}

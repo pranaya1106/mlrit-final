@@ -90,7 +90,14 @@ export default function Programs(props: ProgramsProps) {
 
   return (
     <div id={sectionDomId('home/programs')}>
-    <section id="programs" className="bg-cream grain-texture py-14 md:py-20 relative">
+    <section id="programs" className="bg-cream grain-texture py-14 md:py-20 relative overflow-x-clip">
+      {/* Same decorative background artwork as the other sections. */}
+      <img
+        src="/vectors/whymlrit-background.svg"
+        alt=""
+        aria-hidden
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0] opacity-60"
+      />
       {/* Header */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">

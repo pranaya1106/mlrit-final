@@ -56,6 +56,16 @@ export default function Hero(props: HeroProps) {
 
   return (
     <section ref={sectionRef} id={sectionDomId('home/hero')} className="relative pt-5 md:pt-7 lg:pt-8 overflow-hidden">
+      {/* Same decorative background artwork as WhyMLRIT — sits behind
+          the picture card in the cream margin around it, blending into
+          the header above via a fade so nav content stays readable. */}
+      <img
+        src="/vectors/whymlrit-background.svg"
+        alt=""
+        aria-hidden
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
+      />
+
       {/* ── Subtle editorial marks in the cream margin above the picture.
           Print register crosses at the corners, a hairline ruler with
           tick marks, and small brand-color dots. Every mark under 30%

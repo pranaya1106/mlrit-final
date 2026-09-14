@@ -97,6 +97,16 @@ export default function Header() {
       >
         <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
+        {/* Decorative background artwork — same SVG as Hero + WhyMLRIT.
+            Sits at low opacity so the nav links / logo / CTAs read
+            cleanly on top; z-[0] keeps it behind everything. */}
+        <img
+          src="/vectors/whymlrit-background.svg"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0] opacity-25"
+        />
+
         {/* ── MLRIT brand watermark ───────────────────────────
             Big logo pinned to the top-left. Sits between the header's
             paper background and the nav content, extends below the
@@ -107,10 +117,10 @@ export default function Header() {
           src="/vectors/mlrit-logo-colorful.svg"
           alt=""
           aria-hidden
-          className="absolute z-[0] pointer-events-none w-[260px] md:w-[340px] lg:w-[420px]"
+          className="absolute z-[0] pointer-events-none w-[170px] md:w-[220px] lg:w-[270px]"
           style={{
-            top: '-30px',
-            left: '-40px',
+            top: '-24px',
+            left: '-30px',
             opacity: watermarkOpacity,
             transition: 'opacity 0.2s linear',
             // Boost the natural brand colours — orange top-leaf, deep green
@@ -175,24 +185,31 @@ export default function Header() {
             intensifies to primary on hover. */}
         <div className="hidden lg:block relative z-[1]">
           <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
-            <nav aria-label="Main">
+            <nav
+              aria-label="Main"
+              className="inline-flex rounded-full px-2 border border-white/70 bg-white/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_14px_34px_-18px_rgba(24,20,15,0.22),inset_0_1px_0_rgba(255,255,255,0.75)]"
+              style={{
+                WebkitBackdropFilter: 'blur(28px) saturate(160%)',
+                backdropFilter: 'blur(28px) saturate(160%)',
+              }}
+            >
               <ul className="flex items-stretch gap-1">
                 {NAV_PRIMARY.map((item) => (
                   <li key={item.label} className="group relative">
                     {item.href && !item.cols ? (
                       <Link
                         href={item.href}
-                        className="relative flex items-center h-[44px] px-3 first:pl-0 text-[0.9rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-3 after:right-3 first:after:left-0 after:bottom-0 after:h-px after:bg-foreground/25 after:transition-all after:duration-300 after:ease-out-quart hover:after:bg-primary hover:after:h-[1.5px]"
+                        className="relative flex items-center h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart hover:after:bg-primary hover:after:h-[1.5px]"
                       >
                         {item.label}
                       </Link>
                     ) : (
                       <button
                         type="button"
-                        className="relative flex items-center gap-1.5 h-[44px] px-3 first:pl-0 text-[0.9rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-3 after:right-3 first:after:left-0 after:bottom-0 after:h-px after:bg-foreground/25 after:transition-all after:duration-300 after:ease-out-quart group-hover:after:bg-primary group-hover:after:h-[1.5px]"
+                        className="relative flex items-center gap-1.5 h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart group-hover:after:bg-primary group-hover:after:h-[1.5px]"
                       >
                         {item.label}
-                        <ChevronDown className="w-3 h-3 opacity-50 transition-transform duration-200 group-hover:rotate-180 group-hover:opacity-100" />
+                        <ChevronDown className="w-3.5 h-3.5 opacity-50 transition-transform duration-200 group-hover:rotate-180 group-hover:opacity-100" />
                       </button>
                     )}
                     {item.cols && (
@@ -234,11 +251,11 @@ export default function Header() {
                 id="search-trigger-btn"
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="inline-flex items-center justify-center w-8 h-8 mb-1.5 rounded-full text-muted hover:text-primary transition-colors"
+                className="inline-flex items-center justify-center w-10 h-10 mb-2 rounded-full text-muted hover:text-primary transition-colors"
                 title="Search (Ctrl+K)"
                 aria-label="Open search (Ctrl+K)"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-5 h-5" />
               </button>
 
               {/* MLRIT Chronicles — custom icon: an open journal with an
@@ -246,10 +263,10 @@ export default function Header() {
                   archive / stories" without being a cliché news icon. */}
               <Link
                 href={NAV_RIGHT.href ?? '/chronicles'}
-                className="group relative flex items-center gap-2.5 h-[46px] mb-[1px] pl-2.5 pr-4 rounded-full text-[1rem] font-medium text-foreground/85 hover:text-primary tracking-[-0.005em] transition-colors"
+                className="group relative flex items-center gap-3 h-[56px] mb-[1px] pl-3 pr-5 rounded-full text-[1.1rem] font-medium text-foreground/85 hover:text-primary tracking-[-0.005em] transition-colors"
               >
-                <span className="relative inline-flex items-center justify-center w-9 h-9 rounded-full border border-border/70 bg-white/70 group-hover:border-primary/40 group-hover:bg-white transition-all">
-                  <svg viewBox="0 0 22 22" className="w-5 h-5" fill="none" aria-hidden>
+                <span className="relative inline-flex items-center justify-center w-11 h-11 rounded-full border border-border/70 bg-white/70 group-hover:border-primary/40 group-hover:bg-white transition-all">
+                  <svg viewBox="0 0 22 22" className="w-6 h-6" fill="none" aria-hidden>
                     {/* Left page */}
                     <path
                       d="M3 5.5 L10.5 4 L10.5 18 L3 19.5 Z"
@@ -289,11 +306,11 @@ export default function Header() {
               <Link
                 href="/admissions/support"
                 style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
-                className="group inline-flex items-center gap-2.5 h-[46px] mb-[1px] pl-6 pr-5 rounded-full text-[0.95rem] font-semibold border hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300 ease-out-quart tracking-[-0.005em]"
+                className="group inline-flex items-center gap-3 h-[56px] mb-[1px] pl-7 pr-6 rounded-full text-[1.05rem] font-semibold border hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300 ease-out-quart tracking-[-0.005em]"
               >
                 Contact
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                  <ChevronRight className="w-3.5 h-3.5" />
+                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+                  <ChevronRight className="w-4 h-4" />
                 </span>
               </Link>
             </div>

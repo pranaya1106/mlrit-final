@@ -72,6 +72,37 @@ export default function Placements(props: PlacementsProps) {
           }}
         />
 
+        {/* Editorial dot-grid pattern — 22px lattice, soft ink dots, vignetted
+            so the pattern quietly fades at the section edges. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-[0.55]"
+          style={{
+            backgroundImage:
+              'radial-gradient(rgba(24, 20, 15, 0.09) 1px, transparent 1.4px)',
+            backgroundSize: '22px 22px',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 70% 65% at 50% 45%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 100%)',
+            maskImage:
+              'radial-gradient(ellipse 70% 65% at 50% 45%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 100%)',
+          }}
+        />
+
+        {/* Optional accent — one faint editorial hairline crosshair, off-center
+            top-left, in the primary orange. Purely decorative. */}
+        <div
+          aria-hidden
+          className="absolute top-[6%] left-[4%] w-[110px] h-[110px] pointer-events-none opacity-40"
+          style={{
+            backgroundImage:
+              'linear-gradient(90deg, rgba(232,93,4,0.35) 0 1px, transparent 1px 100%),' +
+              'linear-gradient(0deg, rgba(232,93,4,0.35) 0 1px, transparent 1px 100%)',
+            backgroundPosition: '50% 0, 0 50%',
+            backgroundSize: '1px 100%, 100% 1px',
+            backgroundRepeat: 'no-repeat, no-repeat',
+          }}
+        />
+
         <div className="relative mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">
           {/* ── HEADER ─────────────────────────────────────── */}
           <motion.div
@@ -278,18 +309,32 @@ function MiniStatCard({ stat, index }: { stat: MiniStat; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ delay: 0.15 + index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex flex-col justify-between h-full min-h-[180px] rounded-2xl md:rounded-3xl overflow-hidden bg-white border border-border p-6 hover:border-primary/30 hover:shadow-[0_18px_44px_-18px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-500"
+      className="group relative flex flex-col justify-between h-full min-h-[180px] rounded-2xl md:rounded-3xl overflow-hidden p-6 border border-white/60 bg-white/45 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_20px_50px_-24px_rgba(24,20,15,0.18),inset_0_1px_0_rgba(255,255,255,0.65)] hover:border-white/80 hover:bg-white/60 hover:shadow-[0_28px_60px_-24px_rgba(24,20,15,0.24),inset_0_1px_0_rgba(255,255,255,0.75)] hover:-translate-y-1 transition-all duration-500"
+      style={{
+        WebkitBackdropFilter: 'blur(28px) saturate(160%)',
+        backdropFilter: 'blur(28px) saturate(160%)',
+      }}
     >
+      {/* Subtle inner sheen — top-left highlight fading down */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-2xl md:rounded-3xl"
+        style={{
+          background:
+            'radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 55%),' +
+            'linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 40%)',
+        }}
+      />
       <span
         aria-hidden
         className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-primary/60 to-transparent"
       />
-      <div>
+      <div className="relative z-10">
         <div className="font-sans font-black tracking-tighter-2 leading-[0.98] text-foreground text-[clamp(1.8rem,2.6vw,2.4rem)]">
           {stat.value}
         </div>
       </div>
-      <div>
+      <div className="relative z-10">
         <div className="font-sans font-semibold text-foreground text-[0.94rem] md:text-[1rem] leading-[1.25]">
           {stat.label}
         </div>
