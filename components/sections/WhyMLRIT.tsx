@@ -43,7 +43,7 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
   return (
     <section
       id={sectionDomId('home/why-mlrit')}
-      className="relative bg-cream grain-texture overflow-hidden py-20 md:py-28"
+      className="relative bg-cream grain-texture overflow-hidden pt-10 pb-20 md:py-28"
     >
       {/* Ambient soft glow — subtle radial blobs in brand tones */}
       <div
@@ -56,12 +56,15 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
         }}
       />
 
-      {/* ── Decorative background artwork — full opacity everywhere. */}
+      {/* ── Decorative background artwork — full opacity everywhere.
+          Hidden on mobile: the single-column stack puts body copy across
+          the full width, and the ribbon (sized for the desktop spotlight
+          mask) cuts straight across the footnote paragraph there. */}
       <img
         src="/vectors/whymlrit-background.svg"
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
       />
 
       {/* Strong cream spotlight anchored precisely over the headline zone

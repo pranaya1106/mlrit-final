@@ -91,12 +91,13 @@ export default function Programs(props: ProgramsProps) {
   return (
     <div id={sectionDomId('home/programs')}>
     <section id="programs" className="bg-cream grain-texture py-14 md:py-20 relative overflow-x-clip">
-      {/* Same decorative background artwork as the other sections. */}
+      {/* Same decorative background artwork as the other sections. Hidden
+          on mobile: it cuts across the tab toggle and body copy there. */}
       <img
         src="/vectors/whymlrit-background.svg"
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0] opacity-60"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none z-[0] opacity-60"
       />
       {/* Header */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">

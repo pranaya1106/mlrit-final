@@ -222,7 +222,7 @@ export default function Placements(props: PlacementsProps) {
             </motion.div>
 
             {/* Mini stats — 2×2 grid on the right */}
-            <div className="grid grid-cols-2 gap-4 md:gap-5">
+            <div className="grid grid-cols-2 gap-3 md:gap-5">
               {MINI_STATS.map((s, i) => (
                 <MiniStatCard key={i} stat={s} index={i} />
               ))}
@@ -309,7 +309,7 @@ function MiniStatCard({ stat, index }: { stat: MiniStat; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ delay: 0.15 + index * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative flex flex-col justify-between h-full min-h-[180px] rounded-2xl md:rounded-3xl overflow-hidden p-6 border border-white/60 bg-white/45 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_20px_50px_-24px_rgba(24,20,15,0.18),inset_0_1px_0_rgba(255,255,255,0.65)] hover:border-white/80 hover:bg-white/60 hover:shadow-[0_28px_60px_-24px_rgba(24,20,15,0.24),inset_0_1px_0_rgba(255,255,255,0.75)] hover:-translate-y-1 transition-all duration-500"
+      className="group relative flex flex-col justify-between h-full min-h-0 md:min-h-[180px] rounded-2xl md:rounded-3xl overflow-hidden p-4 md:p-6 border border-white/60 bg-white/45 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_20px_50px_-24px_rgba(24,20,15,0.18),inset_0_1px_0_rgba(255,255,255,0.65)] hover:border-white/80 hover:bg-white/60 hover:shadow-[0_28px_60px_-24px_rgba(24,20,15,0.24),inset_0_1px_0_rgba(255,255,255,0.75)] hover:-translate-y-1 transition-all duration-500"
       style={{
         WebkitBackdropFilter: 'blur(28px) saturate(160%)',
         backdropFilter: 'blur(28px) saturate(160%)',
@@ -334,7 +334,7 @@ function MiniStatCard({ stat, index }: { stat: MiniStat; index: number }) {
           {stat.value}
         </div>
       </div>
-      <div className="relative z-10">
+      <div className="relative z-10 mt-4 md:mt-0">
         <div className="font-sans font-semibold text-foreground text-[0.94rem] md:text-[1rem] leading-[1.25]">
           {stat.label}
         </div>

@@ -247,13 +247,13 @@ export default function Footer() {
 
       {/* Bottom legal */}
       <div className="border-t border-border">
-        <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-wrap items-center justify-between gap-3 text-[0.8rem] text-muted font-sans">
-          <div className="flex flex-wrap gap-4 items-center">
+        <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[0.8rem] text-muted font-sans">
+          <div className="flex flex-wrap gap-x-4 gap-y-1.5 items-center">
             <span>© 2026 KMR Educational Society</span>
-            <span className="text-subtle">·</span>
-            <span>Affiliated to JNTUH</span>
-            <span className="text-subtle">·</span>
-            <span>Approved by AICTE</span>
+            {/* Dot bundled with the label that follows it so a mobile wrap
+                can't strand the separator alone at the end of a line. */}
+            <span><span className="text-subtle mr-1">·</span>Affiliated to JNTUH</span>
+            <span><span className="text-subtle mr-1">·</span>Approved by AICTE</span>
           </div>
           <div className="flex gap-6">
             <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Disclosures</a>
