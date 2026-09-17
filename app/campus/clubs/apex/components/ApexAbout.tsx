@@ -9,6 +9,7 @@ import {
   type MotionValue,
 } from 'framer-motion';
 
+// ─── APEX about text ──────────────────────────────────────────────────────────
 const ABOUT_TEXT =
   'APEX MLRIT is a student-led esports and game development community. ' +
   'Established March 2024, it brings players, developers, designers and ' +
@@ -29,7 +30,14 @@ const FACTS = [
 
 const APEX_RED = '#D80000';
 
-// Per-character span — color driven by scroll
+// DIM_OPACITY matches the reference — barely-there grey
+const DIM  = 'rgba(255,255,255,0.18)';
+const FULL = 'rgba(255,255,255,1.00)';
+
+// ─── Per-character span ───────────────────────────────────────────────────────
+// Reference: sharp binary transition at the scroll front — no trailing glow.
+// Each char gets a small window [start, end] that is just wide enough to
+// prevent a hard step function but narrow enough to look like a moving front.
 function Char({
   char,
   progress,
@@ -45,43 +53,45 @@ function Char({
 }) {
   const color = useTransform(
     progress,
-    [Math.max(0, start - 0.01), start, end, Math.min(1, end + 0.01)],
-    reduced
-      ? ['rgba(255,255,255,1)', 'rgba(255,255,255,1)', 'rgba(255,255,255,1)', 'rgba(255,255,255,1)']
-      : ['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.12)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.55)'],
+    [start, end],
+    reduced ? [FULL, FULL] : [DIM, FULL],
   );
-
-  return (
-    <motion.span style={{ color }} aria-hidden="true">
-      {char}
-    </motion.span>
-  );
+  return <motion.span style={{ color }} aria-hidden="true">{char}</motion.span>;
 }
 
+// ─── Main section ─────────────────────────────────────────────────────────────
 export default function ApexAbout() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced    = !!useReducedMotion();
 
+  // Section is 220vh — sticky panel fills viewport for the scroll travel
   const { scrollYProgress } = useScroll({
     target:  sectionRef,
     offset:  ['start start', 'end end'],
   });
 
-  // Split into words, then chars within each word — words wrap naturally
   const words = useMemo(() => ABOUT_TEXT.split(' '), []);
   const totalChars = useMemo(() => ABOUT_TEXT.replace(/ /g, '').length, []);
 
-  // Reveal window: tight for a sharp lit leading edge
-  const REVEAL_START = 0.05;
-  const REVEAL_END   = 0.90;
-  const WINDOW       = 0.055;
+  // Reveal window: narrow (~3 chars worth) so the front looks sharp
+  // Reference shows near-binary transition, not a wide gradient
+  const REVEAL_START = 0.04;
+  const REVEAL_END   = 0.92;
   const SPAN         = REVEAL_END - REVEAL_START;
+  const WINDOW       = 0.022; // tight — about 2 chars wide at the front
 
-  // Build char index offset per word
   const wordCharOffsets = useMemo(() => {
     let offset = 0;
     return words.map(w => { const o = offset; offset += w.length; return o; });
   }, [words]);
+
+  // Header fade-in at section start
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
+  const headerY       = useTransform(scrollYProgress, [0, 0.04], [12, 0]);
+
+  // Facts fade in near end
+  const factsOpacity = useTransform(scrollYProgress, [0.82, 0.93], [0, 1]);
+  const factsY       = useTransform(scrollYProgress, [0.82, 0.93], [16, 0]);
 
   return (
     <section
@@ -93,11 +103,9 @@ export default function ApexAbout() {
       <div className="sticky top-0 flex items-center justify-center min-h-screen overflow-hidden px-6 py-20">
         <div className="max-w-[860px] w-full mx-auto">
 
+          {/* Eyebrow */}
           <motion.div
-            style={{
-              opacity: useTransform(scrollYProgress, [0, 0.05], [0, 1]),
-              y:       useTransform(scrollYProgress, [0, 0.05], [16, 0]),
-            }}
+            style={{ opacity: headerOpacity, y: headerY }}
             className="flex items-center gap-3 mb-8"
           >
             <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
@@ -106,6 +114,8 @@ export default function ApexAbout() {
             </span>
           </motion.div>
 
+          {/* Text reveal — reference accurate */}
+          {/* Each word wrapped in inline-block span to prevent mid-word breaks */}
           <p
             className="font-sans font-bold leading-[1.6]"
             style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.85rem)' }}
@@ -115,9 +125,10 @@ export default function ApexAbout() {
               <span key={wi} className="inline-block mr-[0.28em] whitespace-nowrap" aria-hidden="true">
                 {Array.from(word).map((ch, ci) => {
                   const charIdx = wordCharOffsets[wi] + ci;
-                  const t     = charIdx / totalChars;
-                  const start = REVEAL_START + t * (SPAN - WINDOW);
-                  const end   = start + WINDOW;
+                  const t       = charIdx / (totalChars - 1);
+                  // Map t → scroll progress range for this char
+                  const start   = REVEAL_START + t * (SPAN - WINDOW);
+                  const end     = start + WINDOW;
                   return (
                     <Char
                       key={ci}
@@ -133,11 +144,9 @@ export default function ApexAbout() {
             ))}
           </p>
 
+          {/* Facts grid */}
           <motion.div
-            style={{
-              opacity: useTransform(scrollYProgress, [0.80, 0.92], [0, 1]),
-              y:       useTransform(scrollYProgress, [0.80, 0.92], [18, 0]),
-            }}
+            style={{ opacity: factsOpacity, y: factsY }}
             className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8"
           >
             {FACTS.map(([k, v]) => (
@@ -147,6 +156,7 @@ export default function ApexAbout() {
               </div>
             ))}
           </motion.div>
+
         </div>
       </div>
     </section>

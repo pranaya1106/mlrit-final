@@ -14,7 +14,9 @@ export default function ApexHero() {
     offset: ['start start', 'end start'],
   });
 
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  // Entire hero fades and lifts as user scrolls
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const heroY       = useTransform(scrollYProgress, [0, 0.75], [0, -40]);
 
   return (
     <section
@@ -23,34 +25,10 @@ export default function ApexHero() {
       style={{ minHeight: '100svh' }}
       aria-label="APEX Club Hero"
     >
-      {/* ── Red cloud glow — left side ─────────────────────────────────────── */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-y-0 left-0 w-[48%] pointer-events-none z-[3]"
-        style={{
-          opacity: heroOpacity,
-          background:
-            'radial-gradient(ellipse 90% 80% at 0% 50%, rgba(200,8,8,0.60) 0%, rgba(140,4,4,0.28) 45%, transparent 75%)',
-          filter: 'blur(22px)',
-        }}
-      />
-
-      {/* ── Red cloud glow — right side ────────────────────────────────────── */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-y-0 right-0 w-[48%] pointer-events-none z-[3]"
-        style={{
-          opacity: heroOpacity,
-          background:
-            'radial-gradient(ellipse 90% 80% at 100% 50%, rgba(200,8,8,0.60) 0%, rgba(140,4,4,0.28) 45%, transparent 75%)',
-          filter: 'blur(22px)',
-        }}
-      />
-
-      {/* ── Video — full-bleed, object-cover ──────────────────────────────── */}
+      {/* Video background — fills frame, no clipping effect here */}
       <motion.div
         style={{ opacity: heroOpacity }}
-        className="absolute inset-0 w-full h-full z-[1]"
+        className="absolute inset-0 z-[1]"
       >
         <video
           src="/videos/apex-hero.mp4"
@@ -62,18 +40,15 @@ export default function ApexHero() {
           className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
         />
-        {/* Top + bottom vignette */}
+        {/* Vignette */}
         <div
-          aria-hidden="true"
+          aria-hidden
           className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 20%, transparent 72%, rgba(0,0,0,0.6) 100%)',
-          }}
+          style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 25%, transparent 65%, rgba(0,0,0,0.65) 100%)' }}
         />
       </motion.div>
 
-      {/* ── Back nav + breadcrumb ──────────────────────────────────────────── */}
+      {/* Back nav */}
       <div className="absolute top-0 left-0 right-0 z-20 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-6 md:pt-8 flex items-center justify-between">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -97,11 +72,13 @@ export default function ApexHero() {
         </motion.span>
       </div>
 
-      {/* ── Scroll cue ────────────────────────────────────────────────────── */}
+
+      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
+        transition={{ duration: 1, delay: 1.4 }}
+        style={{ opacity: heroOpacity }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none"
         aria-hidden="true"
       >

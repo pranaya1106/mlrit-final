@@ -21,8 +21,9 @@ export default function APEXClubPage() {
   const howItWorksRef = useRef<HTMLElement>(null);
 
   return (
+    // overflow-x:clip (not hidden) — preserves position:sticky for all children
     <div ref={pageRef} className="relative bg-[#080808] text-white" style={{ overflowX: 'clip' }}>
-      <ApexAtmosphere containerRef={pageRef} />
+      <ApexAtmosphere />
       <ApexRedGlow endRef={howItWorksRef} />
 
       <ApexHero />
