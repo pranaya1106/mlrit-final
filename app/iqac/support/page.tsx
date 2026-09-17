@@ -43,12 +43,12 @@ export default function IQACSupportPage() {
       />
       <IQACQuickNav active="/iqac/support" />
 
-      <section className="bg-warm-light min-h-screen py-10 md:py-14">
+      <section className="bg-warm-light min-h-screen py-6 md:py-14">
         <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
 
           {CONTACTS.map((c) => (
             <Reveal key={c.role} preset="up">
-              <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+              <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
                 <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{c.role}</p>
                 <h3 className="font-sans font-extrabold text-foreground text-[1.1rem]">{c.name}</h3>
                 <p className="mt-1 text-muted text-[0.88rem]">{c.purpose}</p>
@@ -82,7 +82,7 @@ export default function IQACSupportPage() {
           ))}
 
           <Reveal preset="up">
-            <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+            <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
               <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
               <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">IQAC Office — Administrative Block</h3>
               <p className="text-foreground text-[0.93rem] leading-relaxed">

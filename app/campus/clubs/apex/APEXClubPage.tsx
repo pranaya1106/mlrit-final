@@ -98,12 +98,12 @@ function useCountUp(target: number, ms = 1400) {
 function StatItem({ value, label, suffix, showDivider }: { value: number; label: string; suffix: string; showDivider: boolean }) {
   const { ref, n } = useCountUp(value);
   return (
-    <div className={`px-4 md:px-6 ${showDivider ? 'md:border-r md:border-white/10' : ''}`}>
+    <div className={`px-3 md:px-6 ${showDivider ? 'md:border-r md:border-white/10' : ''}`}>
       <div ref={ref} className="font-sans font-black text-white text-[clamp(2.2rem,3.6vw,3.2rem)] leading-none tracking-tighter-2 tabular-nums">
         {n.toLocaleString('en-IN')}
         <span style={{ color: APEX_RED }}>{suffix}</span>
       </div>
-      <div className="mt-4 font-mono text-[0.64rem] font-bold tracking-[0.24em] uppercase text-white/50">
+      <div className="mt-2 md:mt-4 font-mono text-[0.64rem] font-bold tracking-[0.24em] uppercase text-white/50">
         {label}
       </div>
     </div>
@@ -195,7 +195,7 @@ export default function APEXClubPage() {
     <main className="bg-black text-white">
       {/* ═════════ HERO ═════════ */}
       <section className="relative bg-black overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-6 md:pt-8 relative z-[2]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-4 md:pt-8 relative z-[2]">
           <div className="flex items-center justify-between gap-4">
             <Link
               href="/campus/clubs"
@@ -223,19 +223,19 @@ export default function APEXClubPage() {
           />
         </motion.div>
 
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-8 pb-20 md:pb-28 relative z-[2]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-5 md:pt-8 pb-12 md:pb-28 relative z-[2]">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 md:gap-8"
           >
             <div className="max-w-[720px]">
               <Eyebrow>Play · Build · Compete</Eyebrow>
-              <h1 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2.4rem,4.6vw,4rem)]">
+              <h1 className="mt-4 md:mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2.4rem,4.6vw,4rem)]">
                 Not here to take part.<br />Here to take over.
               </h1>
-              <p className="mt-5 text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[600px]">
+              <p className="mt-3 md:mt-5 text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[600px]">
                 APEX — MLRIT&apos;s premier gaming community. Campus tournaments,
                 esports scrims, LAN nights, and workshops on strategy,
                 streaming and production. Casual player or competitive
@@ -249,14 +249,14 @@ export default function APEXClubPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ backgroundColor: APEX_RED, color: '#fff' }}
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-[0_18px_36px_-14px_rgba(216,0,0,0.55)] transition-all duration-300"
+                className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-[0_18px_36px_-14px_rgba(216,0,0,0.55)] transition-all duration-300"
               >
                 Visit apexmlrit.vercel.app
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 href="#about"
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
+                className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
               >
                 Read on
               </Link>
@@ -266,14 +266,14 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ ABOUT ═════════ */}
-      <section id="about" className="relative bg-black py-20 md:py-28 overflow-hidden">
+      <section id="about" className="relative bg-black py-12 md:py-28 overflow-hidden">
         <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>About</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-10 md:mb-12">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-6 md:mb-12">
             About APEX.
           </h2>
 
-          <div className="max-w-[64ch] space-y-5 text-white/75 leading-[1.8] text-[1.02rem] md:text-[1.08rem]">
+          <div className="max-w-[64ch] space-y-3 md:space-y-5 text-white/75 leading-[1.8] text-[1.02rem] md:text-[1.08rem]">
             <p>
               APEX MLRIT is a student-led esports and game development
               community. Established March 2024, it brings players,
@@ -295,7 +295,7 @@ export default function APEXClubPage() {
           </div>
 
           {/* Fact strip — hairline row */}
-          <div className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8">
+          <div className="mt-7 md:mt-12 border-t border-white/10 pt-4 md:pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-4 md:gap-y-6 gap-x-4 md:gap-x-8">
             {[
               ['Established', 'March 2024'],
               ['Location',    'MLRIT · Dundigal'],
@@ -316,10 +316,10 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ FOUR PILLARS ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>The four</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
             What APEX is about.
           </h2>
 
@@ -327,9 +327,9 @@ export default function APEXClubPage() {
             {PILLARS.map((p) => (
               <div
                 key={p.n}
-                className="grid grid-cols-[auto_1fr] gap-6 py-7 border-t border-white/10"
+                className="grid grid-cols-[auto_1fr] gap-4 md:gap-6 py-5 md:py-7 border-t border-white/10"
               >
-                <span className="font-sans font-black text-white/30 text-[2.4rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
+                <span className="font-sans font-black text-white/30 text-[1.8rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
                   {p.n}
                 </span>
                 <div className="pt-1">
@@ -345,7 +345,7 @@ export default function APEXClubPage() {
           </div>
 
           {/* Titles + engines chip rows */}
-          <div className="mt-14 md:mt-16 pt-8 border-t border-white/10 grid md:grid-cols-2 gap-y-8 gap-x-12">
+          <div className="mt-8 md:mt-16 pt-5 md:pt-8 border-t border-white/10 grid md:grid-cols-2 gap-y-5 md:gap-y-8 gap-x-6 md:gap-x-12">
             <div>
               <div className="font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/45 mb-4">
                 Titles we run
@@ -382,10 +382,10 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ DOMAINS ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Five domains</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
             The talents in the room.
           </h2>
 
@@ -393,9 +393,9 @@ export default function APEXClubPage() {
             {DOMAINS.map((d) => (
               <div
                 key={d.n}
-                className="grid grid-cols-[auto_1fr] gap-6 py-7 border-t border-white/10"
+                className="grid grid-cols-[auto_1fr] gap-4 md:gap-6 py-5 md:py-7 border-t border-white/10"
               >
-                <span className="font-sans font-black text-white/30 text-[2.4rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
+                <span className="font-sans font-black text-white/30 text-[1.8rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
                   {d.n}
                 </span>
                 <div className="pt-1">
@@ -413,14 +413,14 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ EVENTS ═════════ */}
-      <section id="events" className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section id="events" className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Events</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-12">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-12">
             The record.
           </h2>
 
-          <div className="space-y-5 md:space-y-6">
+          <div className="space-y-3 md:space-y-6">
             {EVENTS.map((e) => (
               <article
                 key={e.slug}
@@ -430,7 +430,7 @@ export default function APEXClubPage() {
                   <div className="relative md:w-[280px] flex-shrink-0 h-[220px] md:h-auto overflow-hidden">
                     <EventPosterPlaceholder label={e.name} slug={e.slug} />
                   </div>
-                  <div className="flex-1 p-7 md:p-9 flex flex-col">
+                  <div className="flex-1 p-5 md:p-9 flex flex-col">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span
                         className="inline-flex items-center h-6 px-2.5 rounded-full font-mono text-[0.6rem] font-bold tracking-[0.18em] uppercase"
@@ -448,7 +448,7 @@ export default function APEXClubPage() {
                     <div className="mt-1 font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-white/40">
                       {e.partner}
                     </div>
-                    <p className="mt-4 text-white/60 text-[0.92rem] leading-[1.65] flex-1">
+                    <p className="mt-2 md:mt-4 text-white/60 text-[0.92rem] leading-[1.65] flex-1">
                       {e.body}
                     </p>
                   </div>
@@ -457,17 +457,17 @@ export default function APEXClubPage() {
             ))}
           </div>
 
-          <p className="mt-8 font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/35">
+          <p className="mt-5 md:mt-8 font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/35">
             Drop posters at /images/clubs/apex/events/&lt;slug&gt;.png · slugs: genesis · vcc · interdept
           </p>
         </div>
       </section>
 
       {/* ═════════ NUMBERS ═════════ */}
-      <section className="relative bg-black py-20 md:py-24 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-24 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>By the numbers</Eyebrow>
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-y-10">
+          <div className="mt-6 md:mt-10 grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-10">
             {STATS.map((s, i) => (
               <StatItem
                 key={s.label}
@@ -482,11 +482,11 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ SHOWCASE ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="max-w-[1200px] mx-auto mb-12">
+          <div className="max-w-[1200px] mx-auto mb-7 md:mb-12">
             <Eyebrow>Showcase</Eyebrow>
-            <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
+            <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
               From the events room.
             </h2>
           </div>
@@ -519,13 +519,13 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ TEAM ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Our team</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-8">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-8">
             Behind APEX.
           </h2>
-          <p className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch] mb-12">
+          <p className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch] mb-7 md:mb-12">
             The passionate gamers and creators building a thriving gaming
             community on campus.
           </p>
@@ -542,10 +542,10 @@ export default function APEXClubPage() {
       </section>
 
       {/* ═════════ CONTACT ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Get involved</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8">
             Ready to level up?
           </h2>
           <p className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch]">
@@ -553,13 +553,13 @@ export default function APEXClubPage() {
             run the media desk for the next tournament. The door is open.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-6 md:mt-10 flex flex-wrap items-center gap-3">
             <Link
               href="https://apexmlrit.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               style={{ backgroundColor: APEX_RED, color: '#fff' }}
-              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-[0_18px_36px_-14px_rgba(216,0,0,0.55)] transition-all duration-300"
+              className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-[0_18px_36px_-14px_rgba(216,0,0,0.55)] transition-all duration-300"
             >
               Visit the site
               <ArrowUpRight className="w-4 h-4" />
@@ -568,14 +568,14 @@ export default function APEXClubPage() {
               href="https://discord.gg/TsBDQKPNe"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
+              className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
             >
               <MessageCircle className="w-4 h-4" />
               Join Discord
             </Link>
           </div>
 
-          <div className="mt-14 border-t border-white/10 pt-8 grid md:grid-cols-3 gap-y-8 gap-x-10">
+          <div className="mt-8 md:mt-14 border-t border-white/10 pt-5 md:pt-8 grid md:grid-cols-3 gap-y-5 md:gap-y-8 gap-x-6 md:gap-x-10">
             <div>
               <div className="font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/45">
                 Home base

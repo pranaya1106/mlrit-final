@@ -50,7 +50,7 @@ function ScholarshipCard({ s }: { s: (typeof SCHOLARSHIPS)[number] }) {
     <div className={`border-2 rounded-2xl overflow-hidden transition-all duration-300 ${s.color} ${open ? 'shadow-card-strong' : 'shadow-card-soft'}`}>
       {/* Header */}
       <button
-        className="w-full flex items-start justify-between gap-4 p-6 text-left"
+        className="w-full flex items-start justify-between gap-4 p-4 md:p-6 text-left"
         onClick={() => setOpen(v => !v)}
         aria-expanded={open}
       >
@@ -76,7 +76,7 @@ function ScholarshipCard({ s }: { s: (typeof SCHOLARSHIPS)[number] }) {
           transition: 'max-height 0.45s cubic-bezier(0.16,1,0.3,1)',
         }}
       >
-        <div className="px-6 pb-7 grid md:grid-cols-3 gap-5 border-t border-border/50 pt-5">
+        <div className="px-4 pb-5 md:px-6 md:pb-7 grid md:grid-cols-3 gap-3 md:gap-5 border-t border-border/50 pt-5">
           {[
             { heading: 'Eligibility',  text: s.eligibility  },
             { heading: 'Benefit',      text: s.benefit      },
@@ -126,7 +126,7 @@ export default function ScholarshipsPage() {
               <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20">
                 {/* Intro note */}
                 <Reveal preset="up">
-                  <div className="bg-white border border-border rounded-2xl p-6 shadow-card-soft mb-12 flex gap-4 items-start">
+                  <div className="bg-white border border-border rounded-2xl p-4 md:p-6 shadow-card-soft mb-8 md:mb-12 flex gap-4 items-start">
                     <span className="shrink-0 w-9 h-9 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-0.5">
                       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
                         <circle cx="9" cy="9" r="7.5" stroke="currentColor" strokeWidth="1.5"/>
@@ -143,7 +143,7 @@ export default function ScholarshipsPage() {
                 </Reveal>
 
                 {/* Scholarship cards */}
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-3 md:gap-5">
                   {SCHOLARSHIPS.map((s, i) => (
                     <Reveal key={s.id} preset="up" delay={i * 0.08}>
                       <ScholarshipCard s={s} />
@@ -153,7 +153,7 @@ export default function ScholarshipsPage() {
 
                 {/* External schemes note */}
                 <Reveal preset="up" delay={0.2}>
-                  <div className="mt-12 bg-green-hero rounded-2xl p-7 text-white">
+                  <div className="mt-8 md:mt-12 bg-green-hero rounded-2xl p-5 md:p-7 text-white">
                     <h3 className="font-sans font-bold text-[1.05rem] mb-3">Government & External Schemes</h3>
                     <p className="text-white/80 text-[0.9rem] leading-relaxed mb-4">
                       Students may also benefit from the following state and central government schemes: AP ePass / TS ePass fee reimbursement, Post-Matric Scholarship for SC/ST/OBC, EWS scholarships, and AICTE/UGC sponsored fellowships.

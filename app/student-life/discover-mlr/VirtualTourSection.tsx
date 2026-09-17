@@ -193,9 +193,9 @@ export default function VirtualTourSection() {
         {ariaMsg}
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-10 lg:px-16 py-7 md:py-14">
         {/* Section header */}
-        <div className="mb-12 md:mb-16 max-w-[680px]">
+        <div className="mb-8 md:mb-16 max-w-[680px]">
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
             <MapPin className="w-3 h-3" aria-hidden="true" />
             Virtual Campus Tour

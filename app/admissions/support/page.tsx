@@ -123,7 +123,7 @@ export default function SupportPage() {
 
           {/* Search bar */}
           <Reveal preset="up">
-            <div className="mb-10 relative">
+            <div className="mb-6 md:mb-10 relative">
               <label htmlFor="faq-search" className="sr-only">Search FAQs</label>
               <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
@@ -161,9 +161,9 @@ export default function SupportPage() {
           )}
 
           {/* FAQ accordion */}
-          <div className="flex flex-col gap-3 mb-16">
+          <div className="flex flex-col gap-3 mb-8 md:mb-16">
             {filtered.length === 0 ? (
-              <div className="bg-white border border-border rounded-2xl p-10 text-center shadow-card-soft">
+              <div className="bg-white border border-border rounded-2xl p-6 md:p-10 text-center shadow-card-soft">
                 <p className="text-muted">No results found for &ldquo;<strong className="text-foreground">{query}</strong>&rdquo;. Try a different keyword or contact us below.</p>
               </div>
             ) : (
@@ -173,7 +173,7 @@ export default function SupportPage() {
                   <Reveal key={faq.id} preset="up" delay={Math.min(i * 0.05, 0.3)}>
                     <div className={`border rounded-2xl overflow-hidden transition-colors ${isOpen ? 'border-secondary/40 bg-green-50/50' : 'border-border bg-white'}`}>
                       <button
-                        className="w-full flex items-start justify-between gap-4 px-6 py-4 text-left"
+                        className="w-full flex items-start justify-between gap-4 px-4 py-3 md:px-6 md:py-4 text-left"
                         onClick={() => setOpenId(isOpen ? null : faq.id)}
                         aria-expanded={isOpen}
                       >
@@ -193,7 +193,7 @@ export default function SupportPage() {
                           transition: 'max-height 0.4s cubic-bezier(0.16,1,0.3,1)',
                         }}
                       >
-                        <p className="px-6 pb-5 text-muted text-[0.92rem] leading-relaxed">
+                        <p className="px-4 pb-4 md:px-6 md:pb-5 text-muted text-[0.92rem] leading-relaxed">
                           <HighlightText text={faq.a} query={query} />
                         </p>
                       </div>
@@ -207,7 +207,7 @@ export default function SupportPage() {
           {/* Key contacts table */}
           <Reveal preset="up">
             <div>
-              <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-5">Key Contacts</h2>
+              <h2 className="font-sans font-black tracking-tighter-2 text-[1.15rem] md:text-[1.4rem] text-foreground mb-5">Key Contacts</h2>
               <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card-soft overflow-x-auto">
                 <table className="w-full text-left text-[0.88rem]">
                   <thead className="bg-warm-light border-b border-border">
@@ -256,13 +256,13 @@ export default function SupportPage() {
 
 
           {/* Address + Map */}
-          <div className="mt-14" />
+          <div className="mt-8 md:mt-14" />
           <Reveal preset="up">
-            <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div className="grid md:grid-cols-2 gap-5 md:gap-8 items-start">
               <div>
-                <h2 className="font-sans font-black tracking-tighter-2 text-[1.4rem] text-foreground mb-2">Reach Us</h2>
+                <h2 className="font-sans font-black tracking-tighter-2 text-[1.15rem] md:text-[1.4rem] text-foreground mb-2">Reach Us</h2>
                 <p className="text-muted text-[0.9rem] mb-5">Get in touch or find us on campus — we&apos;re always here to help.</p>
-                <div className="bg-white border border-border rounded-2xl p-7 shadow-card-soft space-y-5">
+                <div className="bg-white border border-border rounded-2xl p-5 md:p-7 shadow-card-soft space-y-5">
                   <div>
                     <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Official Address</p>
                     <p className="text-foreground leading-relaxed">
@@ -300,12 +300,12 @@ export default function SupportPage() {
             </div>
           </Reveal>
 
-          <div className="mt-14" />
+          <div className="mt-8 md:mt-14" />
           {/* Still have questions */}
           <Reveal preset="up">
             <div className="bg-green-hero rounded-2xl overflow-hidden">
-              <div className="px-8 pt-8 pb-2">
-                <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-white">Still have questions?</h2>
+              <div className="px-5 pt-6 pb-2 md:px-8 md:pt-8">
+                <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-white">Still have questions?</h2>
                 <p className="text-white/75 text-[0.93rem] mt-2 mb-8">Our admissions team is available Monday to Saturday, 9 AM – 5 PM.</p>
               </div>
               <div className="grid md:grid-cols-3 gap-px bg-white/10">
@@ -315,7 +315,7 @@ export default function SupportPage() {
                   { label: 'Toll Free', value: '1800 572 4363', sub: 'Free from any network', href: 'tel:18005724363' },
                 ].map(c => (
                   <a key={c.label} href={c.href}
-                    className="flex flex-col gap-2 px-8 py-7 bg-green-hero hover:bg-white/5 transition-colors group"
+                    className="flex flex-col gap-2 px-5 py-5 md:px-8 md:py-7 bg-green-hero hover:bg-white/5 transition-colors group"
                   >
                     <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-white/60">{c.label}</span>
                     <span className="font-sans font-bold text-white text-[0.95rem] leading-snug">{c.value}</span>

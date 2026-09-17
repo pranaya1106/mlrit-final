@@ -51,14 +51,14 @@ export default function ReportsPage() {
 
           <Section id="aqar-reports">
             <H2 italic="">AQAR Reports</H2>
-            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {AQAR_REPORTS.map((r) => (
                 <a
                   key={r.label}
                   href={r.href}
                   target={r.href.startsWith('http') ? '_blank' : undefined}
                   rel={r.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group block rounded-2xl border border-border bg-white p-6 hover:border-secondary hover:-translate-y-1 transition-all"
+                  className="group block rounded-2xl border border-border bg-white p-4 md:p-6 hover:border-secondary hover:-translate-y-1 transition-all"
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
@@ -70,14 +70,14 @@ export default function ReportsPage() {
 
           <Section id="minutes">
             <H2 italic="">Minutes</H2>
-            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {MINUTES.map((r) => (
                 <a
                   key={r.label}
                   href={r.href}
                   target={r.href.startsWith('http') ? '_blank' : undefined}
                   rel={r.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group block rounded-2xl border border-border bg-white p-6 hover:border-secondary hover:-translate-y-1 transition-all"
+                  className="group block rounded-2xl border border-border bg-white p-4 md:p-6 hover:border-secondary hover:-translate-y-1 transition-all"
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
@@ -89,21 +89,21 @@ export default function ReportsPage() {
 
           <Section id="audit-reports">
             <H2 italic="">Audit Reports</H2>
-            <div className="mt-6 rounded-2xl border border-dashed border-border bg-warm-light/40 p-8 text-center">
+            <div className="mt-4 md:mt-6 rounded-2xl border border-dashed border-border bg-warm-light/40 p-5 md:p-8 text-center">
               <p className="text-muted italic text-[0.95rem]">Content to be updated.</p>
             </div>
           </Section>
 
           <Section id="policy-documents">
             <H2 italic="">Policy Documents</H2>
-            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {OTHER_REPORTS.map((r) => (
                 <a
                   key={r.label}
                   href={r.href}
                   target={r.href.startsWith('http') ? '_blank' : undefined}
                   rel={r.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group block rounded-2xl border border-border bg-white p-6 hover:border-secondary hover:-translate-y-1 transition-all"
+                  className="group block rounded-2xl border border-border bg-white p-4 md:p-6 hover:border-secondary hover:-translate-y-1 transition-all"
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>

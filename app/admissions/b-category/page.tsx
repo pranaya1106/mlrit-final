@@ -79,7 +79,7 @@ export default function BCategoryPage() {
         <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* Full-width image */}
-          <div className="rounded-3xl overflow-hidden shadow-card-strong mb-16"
+          <div className="rounded-3xl overflow-hidden shadow-card-strong mb-8 md:mb-16"
             style={{ maxHeight: 600, position: 'relative' }}>
             <Image
               src="/admissions/b-category.jpeg"
@@ -93,7 +93,7 @@ export default function BCategoryPage() {
           </div>
 
           {/* Info grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 gap-5 md:gap-8 mb-8 md:mb-16">
             {[
               {
                 title: 'What is B-Category?',
@@ -113,20 +113,20 @@ export default function BCategoryPage() {
               },
             ].map(({ title, body }) => (
               <div key={title}
-                className="bg-white rounded-2xl p-8"
+                className="bg-white rounded-2xl p-5 md:p-8"
                 style={{ border: '1.5px solid #e4e0d7' }}>
-                <h3 className="font-sans font-black text-[1.15rem] mb-3" style={{ color: '#0f0f0f' }}>{title}</h3>
+                <h3 className="font-sans font-black text-[1rem] md:text-[1.15rem] mb-3" style={{ color: '#0f0f0f' }}>{title}</h3>
                 <p className="text-[0.95rem] leading-relaxed" style={{ color: '#6a6a64' }}>{body}</p>
               </div>
             ))}
           </div>
 
           {/* CTA strip */}
-          <div className="rounded-2xl px-10 py-10 flex flex-col sm:flex-row items-center justify-between gap-6"
+          <div className="rounded-2xl px-6 py-6 md:px-10 md:py-10 flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6"
             style={{ background: '#01741f' }}>
             <div>
               <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/60 mb-1">Limited seats available</p>
-              <h3 className="font-sans font-black text-white text-[1.5rem] leading-snug">Ready to join MLRIT?</h3>
+              <h3 className="font-sans font-black text-white text-[1.2rem] md:text-[1.5rem] leading-snug">Ready to join MLRIT?</h3>
             </div>
             <div className="flex flex-wrap gap-4 shrink-0">
               <Link

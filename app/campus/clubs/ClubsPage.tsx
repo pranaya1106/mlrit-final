@@ -24,9 +24,9 @@ const ALL_CATS: (ClubCategory | 'All')[] = ['All', ...CLUB_CATEGORIES];
 
 function Hero() {
   return (
-    <section className="relative bg-paper overflow-hidden pt-24 md:pt-32 pb-14 md:pb-16">
+    <section className="relative bg-paper overflow-hidden pt-14 md:pt-32 pb-8 md:pb-16">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-        <Reveal preset="right" className="flex items-center gap-3 mb-6">
+        <Reveal preset="right" className="flex items-center gap-3 mb-4 md:mb-6">
           <span aria-hidden className="h-px w-8 bg-primary" />
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.3em] uppercase text-primary">
             Chapter 04 · Campus
@@ -41,13 +41,13 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 mt-10 md:mt-14">
+          <div className="grid md:grid-cols-2 gap-5 md:gap-12 mt-6 md:mt-14">
             <p className="text-muted leading-[1.75] text-[1.05rem] max-w-[520px]">
               Fifteen student-led communities on the Dundigal campus.
               Technical, cultural, sport, department, service — every branch
               and every corner has a room to walk into.
             </p>
-            <div className="grid grid-cols-3 gap-6 md:justify-self-end self-end">
+            <div className="grid grid-cols-3 gap-4 md:gap-6 md:justify-self-end self-end">
               <StatBlock value="15" label="Clubs" />
               <StatBlock value="05" label="Categories" />
               <StatBlock value="04" label="Chapter" muted />
@@ -58,17 +58,17 @@ function Hero() {
 
       {/* Massive club-names marquee — the atmospheric layer */}
       <div
-        className="mt-16 md:mt-20 border-y border-border/70 py-6 overflow-hidden"
+        className="mt-10 md:mt-20 border-y border-border/70 py-4 md:py-6 overflow-hidden"
         style={{
           WebkitMaskImage: 'linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%)',
           maskImage: 'linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%)',
         }}
       >
-        <div className="flex w-max gap-12 md:gap-16 items-center clubs-marquee">
+        <div className="flex w-max gap-6 md:gap-16 items-center clubs-marquee">
           {[...CLUBS, ...CLUBS].map((c, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-8 md:gap-12 font-sans font-black tracking-tighter-2 whitespace-nowrap text-foreground text-[clamp(1.8rem,3.4vw,2.8rem)]"
+              className="inline-flex items-center gap-4 md:gap-12 font-sans font-black tracking-tighter-2 whitespace-nowrap text-foreground text-[clamp(1.8rem,3.4vw,2.8rem)]"
             >
               {c.name}
               <span aria-hidden className="text-primary text-[0.5em] align-middle">◆</span>
@@ -150,10 +150,10 @@ function TheWall() {
   const filtered = filter === 'All' ? CLUBS : CLUBS.filter((c) => c.category === filter);
 
   return (
-    <section id="wall" className="relative bg-paper py-16 md:py-24">
+    <section id="wall" className="relative bg-paper py-10 md:py-24">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
         {/* Header + filter chips */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-10 mb-10 md:mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 lg:gap-10 mb-6 md:mb-12">
           <Reveal>
             <div className="flex items-center gap-3 mb-4">
               <span aria-hidden className="h-px w-8 bg-primary" />
@@ -289,7 +289,7 @@ function WallCard({ club, size }: { club: Club; size: Size }) {
         </div>
 
         {/* Bottom stack — name + description that slides open on hover */}
-        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 z-[2]">
+        <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 z-[2]">
           <h3
             className={cn(
               'font-sans font-black text-white tracking-tighter-2 leading-[1.02]',
@@ -343,11 +343,11 @@ function WallCard({ club, size }: { club: Club; size: Size }) {
 
 function Closing() {
   return (
-    <section className="relative bg-paper-2 py-24 md:py-32" style={{ backgroundColor: '#f1ece1' }}>
+    <section className="relative bg-paper-2 py-14 md:py-32" style={{ backgroundColor: '#f1ece1' }}>
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-        <div className="grid lg:grid-cols-[1.4fr_auto] gap-10 lg:gap-16 items-end">
+        <div className="grid lg:grid-cols-[1.4fr_auto] gap-6 lg:gap-16 items-end">
           <div>
-            <Reveal className="flex items-center gap-3 mb-5">
+            <Reveal className="flex items-center gap-3 mb-3 md:mb-5">
               <span aria-hidden className="h-px w-8 bg-primary" />
               <span className="font-mono text-[0.7rem] font-bold tracking-[0.3em] uppercase text-primary">
                 Your turn
@@ -359,7 +359,7 @@ function Closing() {
               </h2>
             </Reveal>
             <Reveal delay={0.12}>
-              <p className="mt-7 text-muted leading-[1.75] text-[1.05rem] max-w-[540px]">
+              <p className="mt-4 md:mt-7 text-muted leading-[1.75] text-[1.05rem] max-w-[540px]">
                 Walk into any meeting. Bring your curiosity. First year or
                 final year, any branch — the door is open.
               </p>
@@ -368,7 +368,7 @@ function Closing() {
           <Reveal delay={0.18}>
             <Link
               href="/student-life"
-              className="inline-flex items-center gap-2.5 h-14 px-7 rounded-full font-sans font-bold text-[0.95rem] bg-foreground text-white hover:-translate-y-[1px] transition-all duration-300 ease-out-quart shadow-md"
+              className="inline-flex items-center gap-2.5 h-14 px-5 md:px-7 rounded-full font-sans font-bold text-[0.95rem] bg-foreground text-white hover:-translate-y-[1px] transition-all duration-300 ease-out-quart shadow-md"
             >
               Explore student life
               <ArrowUpRight className="w-4 h-4" />

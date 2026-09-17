@@ -45,17 +45,17 @@ export default function GlobalCertificationPage() {
         <div className="flex-1 min-w-0">
 
       {/* Featured verified certifications */}
-      <section id="global-certification" className="bg-white py-14 md:py-20">
+      <section id="global-certification" className="bg-white py-8 md:py-20">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.5rem] mb-8">
+            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.25rem] md:text-[1.5rem] mb-5 md:mb-8">
               Verified <span className="font-display italic font-medium" style={gradientText}>certifications.</span>
             </h2>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-5">
             {VERIFIED_CERTS.map((cert, i) => (
               <Reveal key={cert.id} preset="up" delay={i * 0.07}>
-                <div className="rounded-2xl border border-border bg-warm-light p-7 h-full">
+                <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-7 h-full">
                   {/* Logo */}
                   {cert.logoSrc && (
                     <div className="mb-5 h-12 flex items-center">
@@ -95,7 +95,7 @@ export default function GlobalCertificationPage() {
 
       {/* Certification partners strip */}
       {OTHER_CERTS.length > 0 && (
-        <section className="bg-ink text-white py-10 md:py-14">
+        <section className="bg-ink text-white py-6 md:py-14">
           <div className="w-full px-6 md:px-10 lg:px-12">
             <Reveal>
               <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Certification Partners</span>
@@ -106,10 +106,10 @@ export default function GlobalCertificationPage() {
                 Additional certification partners — full programme details updated as institutional records are confirmed.
               </p>
             </Reveal>
-            <Stagger className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5" delay={0.07}>
+            <Stagger className="mt-6 md:mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-5" delay={0.07}>
               {OTHER_CERTS.map((cert) => (
                 <StaggerItem key={cert.id}>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 h-full flex flex-col items-center justify-center text-center gap-3 hover:border-warm/30 transition-all">
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 md:p-6 h-full flex flex-col items-center justify-center text-center gap-3 hover:border-warm/30 transition-all">
                     {cert.logoSrc && (
                       <div className="h-10 flex items-center justify-center">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -131,7 +131,7 @@ export default function GlobalCertificationPage() {
       )}
 
       {/* Value proposition */}
-      <section className="bg-white py-10 md:py-14">
+      <section className="bg-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Why It Matters</span>
@@ -139,7 +139,7 @@ export default function GlobalCertificationPage() {
               Beyond the <span className="font-display italic font-medium" style={gradientText}>degree.</span>
             </h2>
           </Reveal>
-          <div className="mt-10 grid md:grid-cols-3 gap-5">
+          <div className="mt-6 md:mt-10 grid md:grid-cols-3 gap-5">
             {[
               {
                 title: 'Global Recognition',
@@ -155,7 +155,7 @@ export default function GlobalCertificationPage() {
               },
             ].map((card, i) => (
               <Reveal key={card.title} preset="up" delay={i * 0.07}>
-                <div className="rounded-2xl border border-border bg-warm-light p-7 h-full">
+                <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-7 h-full">
                   <div className="w-2 h-2 rounded-full bg-primary mb-4" aria-hidden />
                   <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">{card.title}</h3>
                   <p className="text-muted text-[0.9rem] leading-relaxed">{card.body}</p>

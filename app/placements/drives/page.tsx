@@ -13,7 +13,7 @@ export default function PlacementDrivesPage() {
   return (
     <>
       {/* Page intro */}
-      <section className="bg-white pt-14 pb-4">
+      <section className="bg-white pt-8 md:pt-14 pb-4">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">On Campus</span>
@@ -28,7 +28,7 @@ export default function PlacementDrivesPage() {
       </section>
 
       {/* Gallery */}
-      <section className="bg-white py-14 md:py-20">
+      <section className="bg-white py-8 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
 
           {/* Feature image — full width */}
@@ -43,7 +43,7 @@ export default function PlacementDrivesPage() {
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 px-6 py-5">
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-3 md:px-6 md:py-5">
                 <span className="font-mono text-[0.7rem] tracking-[0.14em] text-white/90">{DRIVES[0].caption}</span>
               </div>
             </div>

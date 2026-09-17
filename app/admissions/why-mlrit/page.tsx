@@ -34,7 +34,7 @@ export default function WhyMLRITPage() {
       <AdmissionsQuickNav active="/admissions/why-mlrit" />
 
       {/* Compact intro bridge */}
-      <section className="bg-[#f7f5f0] py-16 md:py-20 border-b border-border">
+      <section className="bg-[#f7f5f0] py-8 md:py-20 border-b border-border">
         <div className="max-w-[860px] mx-auto px-6 md:px-12 lg:px-20 text-center">
           <p className="font-mono text-[0.68rem] tracking-[0.22em] uppercase text-secondary font-bold mb-4">
             Five letters. One story.
@@ -46,7 +46,7 @@ export default function WhyMLRITPage() {
           <p className="mt-5 text-muted text-[0.97rem] leading-relaxed max-w-[58ch] mx-auto">
             Scroll through the five pillars that shape every student&apos;s journey here.
           </p>
-          <div className="mt-8 flex items-center justify-center gap-2 text-muted text-[0.8rem] font-mono tracking-wider">
+          <div className="mt-5 md:mt-8 flex items-center justify-center gap-2 text-muted text-[0.8rem] font-mono tracking-wider">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M9 3v12M5 11l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

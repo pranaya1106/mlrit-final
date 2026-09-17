@@ -66,8 +66,8 @@ export default function FeeResultsPage() {
         <div className="flex-1 min-w-0">
 
       {/* Exam Portal CTA */}
-      <section id="fee-results" className="bg-ink text-white py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12 flex flex-col md:flex-row md:items-center gap-8">
+      <section id="fee-results" className="bg-ink text-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
           <div className="flex-1">
             <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-white/50 mb-2 inline-block">
               MLRIT Examinations Portal
@@ -84,7 +84,7 @@ export default function FeeResultsPage() {
               href="https://exams.mlrinstitutions.ac.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold text-[0.93rem] hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-primary text-white font-semibold text-[0.93rem] hover:bg-primary/90 transition-colors"
             >
               Open Exam Portal ↗
             </a>
@@ -93,8 +93,8 @@ export default function FeeResultsPage() {
       </section>
 
       {/* Fee payment steps */}
-      <section className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">How to Pay</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.06]">
@@ -103,10 +103,10 @@ export default function FeeResultsPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-10 grid md:grid-cols-2 gap-5">
+          <div className="mt-6 md:mt-10 grid md:grid-cols-2 gap-3 md:gap-5">
             {STEPS.map((s, i) => (
               <Reveal key={s.step} preset="up" delay={i * 0.07}>
-                <div className="rounded-2xl border border-border bg-white p-7 h-full">
+                <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full">
                   <span className="font-mono font-bold text-primary text-[0.72rem] tracking-[0.2em] uppercase">{s.step}</span>
                   <h3 className="mt-2 font-sans font-extrabold text-foreground text-[1rem]">{s.title}</h3>
                   <p className="mt-2 text-muted text-[0.88rem] leading-relaxed">{s.desc}</p>
@@ -118,8 +118,8 @@ export default function FeeResultsPage() {
       </section>
 
       {/* Results */}
-      <section className="bg-warm-light py-16 md:py-20 border-t border-border">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section className="bg-warm-light py-10 md:py-20 border-t border-border">
+        <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Results</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.06]">
@@ -132,18 +132,18 @@ export default function FeeResultsPage() {
           </Reveal>
 
           <Reveal preset="up" delay={0.1}>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-5 md:mt-8 flex flex-wrap gap-3">
               <a
                 href="https://exams.mlrinstitutions.ac.in/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
               >
                 View Results on Portal ↗
               </a>
               <a
                 href="/examinations/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"
               >
                 Contact COE for Result Queries →
               </a>

@@ -55,8 +55,8 @@ export default function AcademicsPage() {
         <div className="flex-1 min-w-0">
 
           {/* FRAMEWORK */}
-          <section id="framework" className="bg-white py-10 md:py-14">
-            <div className="w-full px-6 md:px-10 lg:px-12">
+          <section id="framework" className="bg-white py-7 md:py-14">
+            <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">How We Teach</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -66,10 +66,10 @@ export default function AcademicsPage() {
                   Every academic decision at MLRIT runs through four lenses — outcome-based teaching, autonomy of regulation, industry integration, and research-led depth.
                 </p>
               </Reveal>
-              <Stagger className="mt-12 grid md:grid-cols-2 gap-5" delay={0.1}>
+              <Stagger className="mt-8 md:mt-12 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.1}>
                 {FRAMEWORKS.map((f) => (
                   <StaggerItem key={f.tag}>
-                    <div className="rounded-2xl border border-border bg-white p-8 h-full hover:border-primary transition-colors">
+                    <div className="rounded-2xl border border-border bg-white p-5 md:p-8 h-full hover:border-primary transition-colors">
                       <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{f.tag}</div>
                       <h3 className="mt-3 font-sans font-extrabold text-foreground text-xl md:text-2xl tracking-tighter-2">{f.title}</h3>
                       <p className="mt-3 text-muted leading-relaxed">{f.body}</p>
@@ -81,18 +81,18 @@ export default function AcademicsPage() {
           </section>
 
           {/* HUB LINKS */}
-          <section id="explore" className="bg-warm-light py-10 md:py-14">
-            <div className="w-full px-6 md:px-10 lg:px-12">
+          <section id="explore" className="bg-warm-light py-7 md:py-14">
+            <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Explore</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
                   Pick your <span className="font-display italic font-medium" style={gradientText}>thread.</span>
                 </h2>
               </Reveal>
-              <Stagger className="mt-12 grid md:grid-cols-2 gap-5" delay={0.08}>
+              <Stagger className="mt-8 md:mt-12 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.08}>
                 {HUB_LINKS.map((h) => (
                   <StaggerItem key={h.href}>
-                    <Link href={h.href} className="block rounded-2xl border border-border bg-white p-7 hover:border-primary hover:-translate-y-1 transition-all h-full">
+                    <Link href={h.href} className="block rounded-2xl border border-border bg-white p-4 md:p-7 hover:border-primary hover:-translate-y-1 transition-all h-full">
                       <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{h.tag}</div>
                       <h3 className="mt-2 font-sans font-extrabold text-foreground text-xl">{h.title}</h3>
                       <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{h.body}</p>

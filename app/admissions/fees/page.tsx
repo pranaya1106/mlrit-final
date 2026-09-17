@@ -76,15 +76,15 @@ export default function FeesPage() {
             </div>
           </aside>
           <div className="flex-1 min-w-0 py-10 md:py-14">
-            <div className="w-full px-6 md:px-10 lg:px-12 flex flex-col gap-12">
+            <div className="w-full px-6 md:px-10 lg:px-12 flex flex-col gap-8 md:gap-12">
 
               {/* Programme fee tables */}
-              <section id="fees" className="flex flex-col gap-12">
+              <section id="fees" className="flex flex-col gap-8 md:gap-12">
                 {FEE_DATA.map((deg, i) => (
                   <Reveal key={deg.degree} preset="up" delay={i * 0.1}>
                     <div className={`bg-white rounded-2xl border-2 ${deg.color} shadow-card-soft overflow-hidden`}>
                       {/* Card header */}
-                      <div className={`${deg.headerBg} px-6 py-5 flex flex-wrap items-center gap-4 border-b border-border`}>
+                      <div className={`${deg.headerBg} px-4 py-4 md:px-6 md:py-5 flex flex-wrap items-center gap-4 border-b border-border`}>
                         <span className={`px-3.5 py-1.5 rounded-full border text-[0.68rem] font-mono font-bold tracking-widest uppercase ${deg.badge}`}>
                           {deg.degree}
                         </span>
@@ -138,17 +138,17 @@ export default function FeesPage() {
               </section>
 
               {/* Other fees */}
-              <section id="other" className="flex flex-col gap-12">
+              <section id="other" className="flex flex-col gap-8 md:gap-12">
                 <Reveal preset="up" delay={0.15}>
                   <div className="bg-white rounded-2xl border border-border shadow-card-soft overflow-hidden">
-                    <div className="px-6 py-5 border-b border-border">
+                    <div className="px-4 py-4 md:px-6 md:py-5 border-b border-border">
                       <h3 className="font-sans font-bold text-[1.05rem] text-foreground">Other Fees & Charges</h3>
                       <p className="text-muted text-[0.85rem] mt-1">These are in addition to the annual tuition fee.</p>
                     </div>
                     <Stagger className="flex flex-col divide-y divide-border">
                       {OTHER_FEES.map(f => (
                         <StaggerItem key={f.label}>
-                          <div className="flex items-center justify-between px-6 py-4 hover:bg-warm-light/60 transition-colors">
+                          <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 hover:bg-warm-light/60 transition-colors">
                             <span className="font-sans text-foreground text-[0.93rem]">{f.label}</span>
                             <span className="font-mono font-bold text-foreground text-[0.9rem]">{f.amount}</span>
                           </div>
@@ -160,7 +160,7 @@ export default function FeesPage() {
 
                 {/* Note + Download */}
                 <Reveal preset="up" delay={0.1}>
-                  <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
+                  <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4 md:p-6 flex flex-col sm:flex-row gap-3 md:gap-5 items-start sm:items-center justify-between">
                     <div>
                       <p className="font-sans font-semibold text-foreground text-[0.95rem]">Fee Revision Note</p>
                       <p className="text-muted text-[0.87rem] mt-1 max-w-xl">
@@ -181,7 +181,7 @@ export default function FeesPage() {
 
                 {/* Payment modes */}
                 <Reveal preset="up" delay={0.1}>
-                  <div className="bg-white border border-border rounded-2xl p-6 shadow-card-soft">
+                  <div className="bg-white border border-border rounded-2xl p-4 md:p-6 shadow-card-soft">
                     <h3 className="font-sans font-bold text-[1.02rem] text-foreground mb-4">Accepted Payment Modes</h3>
                     <div className="grid sm:grid-cols-3 gap-4">
                       {[

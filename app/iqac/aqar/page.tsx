@@ -52,7 +52,7 @@ export default function AQARPage() {
           {/* About */}
           <Section id="about">
             <H2 italic="">About AQAR</H2>
-            <div className="mt-6 grid md:grid-cols-2 gap-8">
+            <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
                   The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT&apos;s Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year.
@@ -69,7 +69,7 @@ export default function AQARPage() {
                     { val: 'IQAC',  sub: 'Prepared By'            },
                     { val: 'Annual', sub: 'Submission Frequency'  },
                   ].map((s) => (
-                    <div key={s.sub} className="rounded-2xl border border-border bg-warm-light p-6">
+                    <div key={s.sub} className="rounded-2xl border border-border bg-warm-light p-4 md:p-6">
                       <div className="font-sans font-black text-secondary tracking-tighter-2 text-[1.8rem] leading-none">{s.val}</div>
                       <div className="mt-2 font-mono text-muted text-[0.7rem] tracking-wide uppercase">{s.sub}</div>
                     </div>
@@ -83,14 +83,14 @@ export default function AQARPage() {
           <Section id="reports" surface>
             <H2 italic="">AQAR Reports</H2>
             <Lede>Annual Quality Assurance Reports for each academic year. Click to download the PDF.</Lede>
-            <Stagger className="mt-8 grid md:grid-cols-3 lg:grid-cols-4 gap-4" delay={0.06}>
+            <Stagger className="mt-5 md:mt-8 grid md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" delay={0.06}>
               {REPORTS.map((r) => (
                 <StaggerItem key={r.year}>
                   {r.available ? (
                     <a
                       href={r.file}
                       download
-                      className="group block rounded-2xl border-2 border-border bg-white p-6 hover:border-secondary hover:-translate-y-1 transition-all text-center"
+                      className="group block rounded-2xl border-2 border-border bg-white p-4 md:p-6 hover:border-secondary hover:-translate-y-1 transition-all text-center"
                     >
                       {r.latest && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.58rem] font-bold tracking-wide uppercase mb-3">
@@ -110,7 +110,7 @@ export default function AQARPage() {
                       </div>
                     </a>
                   ) : (
-                    <div className="block rounded-2xl border-2 border-dashed border-border bg-warm-light/40 p-6 text-center opacity-60">
+                    <div className="block rounded-2xl border-2 border-dashed border-border bg-warm-light/40 p-4 md:p-6 text-center opacity-60">
                       <div className="font-sans font-black text-foreground text-[1.4rem] tracking-tighter-2">{r.year}</div>
                       <div className="mt-1 font-mono text-muted text-[0.68rem] tracking-wide uppercase">AQAR</div>
                       <div className="mt-4 font-mono text-muted text-[0.7rem]">Contact IQAC Office</div>
@@ -121,7 +121,7 @@ export default function AQARPage() {
             </Stagger>
 
             <Reveal preset="up" delay={0.3}>
-              <div className="mt-8 p-5 rounded-xl border border-border bg-white flex items-start gap-3">
+              <div className="mt-5 md:mt-8 p-4 md:p-5 rounded-xl border border-border bg-white flex items-start gap-3">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-secondary shrink-0 mt-0.5" aria-hidden>
                   <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
                   <path d="M8 7v5M8 5v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>

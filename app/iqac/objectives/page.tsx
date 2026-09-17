@@ -107,10 +107,10 @@ export default function ObjectivesPage() {
             <Lede>
               Driving Excellence through Continuous Quality Enhancement — by integrating quality benchmarks into all institutional processes, IQAC ensures that every academic and administrative activity contributes to sustainable growth, stakeholder satisfaction, and national and international recognition.
             </Lede>
-            <Stagger className="mt-8 grid md:grid-cols-2 gap-5" delay={0.07}>
+            <Stagger className="mt-5 md:mt-8 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.07}>
               {OBJECTIVES.map((o) => (
                 <StaggerItem key={o.n}>
-                  <div className="rounded-2xl border border-border bg-white p-7 h-full hover:border-secondary transition-colors">
+                  <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full hover:border-secondary transition-colors">
                     <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-3">{o.n}</div>
                     <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-2">{o.t}</h3>
                     <p className="text-muted leading-relaxed text-[0.93rem]">{o.d}</p>
@@ -135,7 +135,7 @@ export default function ObjectivesPage() {
             </Reveal>
 
             <Reveal preset="up" delay={0.1}>
-              <div className="mt-8 rounded-2xl border border-border bg-white p-7">
+              <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white p-4 md:p-7">
                 <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-5">Quality Policy Statement — The Institution is committed to:</div>
                 <ol className="space-y-3">
                   {QUALITY_POLICY_COMMITMENTS.map((item, i) => (

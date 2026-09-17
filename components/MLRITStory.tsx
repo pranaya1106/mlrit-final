@@ -105,7 +105,7 @@ export default function MLRITStory() {
           {STORY.map((s, i) => (
             <div
               key={s.letter}
-              className="absolute max-w-[560px] text-center transition-all duration-500"
+              className="absolute max-w-[85vw] md:max-w-[560px] text-center transition-all duration-500"
               style={{
                 opacity:   i === active ? 1 : 0,
                 transform: i === active ? 'translateY(0)' : i < active ? 'translateY(-10px)' : 'translateY(10px)',

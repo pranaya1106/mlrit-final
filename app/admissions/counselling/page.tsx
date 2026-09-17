@@ -9,7 +9,7 @@ import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
 // ── Cutoff PDF Download Card ────────────────────────────────────────────────
 function CutoffPDFViewer() {
   return (
-    <div className="rounded-2xl border border-border bg-warm-light p-8 shadow-card-soft flex flex-col sm:flex-row items-center gap-6">
+    <div className="rounded-2xl border border-border bg-warm-light p-5 md:p-8 shadow-card-soft flex flex-col sm:flex-row items-center gap-4 md:gap-6">
       <div className="w-14 h-14 rounded-2xl bg-secondary/10 border border-secondary/20 flex items-center justify-center shrink-0">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
           <path d="M13 3v13m-5-5 5 5 5-5M3 21h20" stroke="#01741f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -52,7 +52,7 @@ function AccordionItem({
   return (
     <div className={`border rounded-xl overflow-hidden transition-colors ${open ? 'border-secondary/40 bg-green-50/60' : 'border-border bg-white'}`}>
       <button
-        className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left"
+        className="w-full flex items-center justify-between gap-4 px-4 py-3 md:px-6 md:py-4 text-left"
         onClick={onToggle}
         aria-expanded={open}
       >
@@ -69,7 +69,7 @@ function AccordionItem({
       <div
         style={{ maxHeight: open ? '800px' : '0', overflow: 'hidden', transition: 'max-height 0.4s cubic-bezier(0.16,1,0.3,1)' }}
       >
-        <div className="px-6 pb-5 text-muted text-[0.93rem] leading-relaxed">
+        <div className="px-4 pb-4 md:px-6 md:pb-5 text-muted text-[0.93rem] leading-relaxed">
           {children}
         </div>
       </div>
@@ -273,12 +273,12 @@ export default function CounsellingPage() {
             </div>
           </aside>
           <div className="flex-1 min-w-0 py-10 md:py-14">
-            <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-16">
+            <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-10 md:gap-16">
 
               {/* ── Admission Process ──────────────────────────────────────── */}
               <Reveal preset="up">
                 <section id="process">
-                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-foreground mb-2">
                     Admission Process
                   </h2>
                   <p className="text-muted text-[0.93rem] mb-6">Step-by-step walkthrough from application to confirmation.</p>
@@ -301,7 +301,7 @@ export default function CounsellingPage() {
               {/* ── Counselling Schedule ───────────────────────────────────── */}
               <Reveal preset="up" delay={0.1}>
                 <section id="schedule">
-                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-foreground mb-2">
                     Counselling Schedule
                   </h2>
                   <p className="text-muted text-[0.93rem] mb-6">Indicative dates for AP/TS state counselling rounds in 2025.</p>
@@ -324,7 +324,7 @@ export default function CounsellingPage() {
               {/* ── Required Documents ────────────────────────────────────── */}
               <Reveal preset="up" delay={0.1}>
                 <section id="documents">
-                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-foreground mb-2">
                     Required Documents
                   </h2>
                   <p className="text-muted text-[0.93rem] mb-6">Carry originals and one set of photocopies on the day of verification.</p>
@@ -348,7 +348,7 @@ export default function CounsellingPage() {
               {/* ── Cutoff Ranks 2024–25 ──────────────────────────────────── */}
               <Reveal preset="up" delay={0.1}>
                 <section id="cutoff">
-                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-foreground mb-2">
                     Cutoff Ranks 2024–25
                   </h2>
                   <p className="text-muted text-[0.9rem] mb-5">
@@ -363,7 +363,7 @@ export default function CounsellingPage() {
               {/* ── Important Instructions ─────────────────────────────────── */}
               <Reveal preset="up" delay={0.1}>
                 <section id="instructions">
-                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-6">
+                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-foreground mb-6">
                     Important Instructions
                   </h2>
                   <div className="grid md:grid-cols-2 gap-4">
@@ -382,15 +382,15 @@ export default function CounsellingPage() {
               {/* ── B-Category Seats ─────────────────────────────────────────── */}
               <Reveal preset="up" delay={0.1}>
                 <section id="bcategory">
-                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.5rem] text-foreground mb-2">
+                  <h2 className="font-sans font-black tracking-tighter-2 text-[1.2rem] md:text-[1.5rem] text-foreground mb-2">
                     B-Category (Management Quota) Seats
                   </h2>
                   <p className="text-muted text-[0.9rem] mb-6">
                     30% of seats in each branch are filled under Management Quota based on eligibility as per JNTU rules.
                   </p>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                     {/* Eligibility */}
-                    <div className="bg-white border border-border rounded-2xl p-6 shadow-card-soft">
+                    <div className="bg-white border border-border rounded-2xl p-4 md:p-6 shadow-card-soft">
                       <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-4 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-secondary shrink-0" />
                         Eligibility Criteria
@@ -411,7 +411,7 @@ export default function CounsellingPage() {
                     </div>
 
                     {/* How to apply + Download */}
-                    <div className="bg-warm-light border border-border rounded-2xl p-6 shadow-card-soft">
+                    <div className="bg-warm-light border border-border rounded-2xl p-4 md:p-6 shadow-card-soft">
                       <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-4 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
                         How to Apply
@@ -457,7 +457,7 @@ export default function CounsellingPage() {
 
               {/* ── Contact strip ────────────────────────────────────────────── */}
               <Reveal preset="up" delay={0.1}>
-                <div className="bg-green-hero rounded-2xl p-8 md:p-10 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="bg-green-hero rounded-2xl p-5 md:p-10 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
                   <div>
                     <h3 className="font-sans font-bold text-[1.1rem]">Need help with admissions?</h3>
                     <p className="text-white/75 text-[0.9rem] mt-1">Our admissions team is available Mon–Sat, 9 AM – 5 PM.</p>

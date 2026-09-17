@@ -3,15 +3,15 @@ import { ReactNode } from 'react';
 
 export function Section({ children, surface = false, id }: { children: ReactNode; surface?: boolean; id?: string }) {
   return (
-    <section id={id} className={`${surface ? 'bg-cream-2' : 'bg-white'} py-14 md:py-20`}>
-      <div className="w-full px-6 md:px-10 lg:px-12">{children}</div>
+    <section id={id} className={`${surface ? 'bg-cream-2' : 'bg-white'} py-8 md:py-20`}>
+      <div className="w-full px-4 md:px-10 lg:px-12">{children}</div>
     </section>
   );
 }
 
 export function H2({ children, italic }: { children: ReactNode; italic?: string }) {
   return (
-    <h2 className="font-sans font-black tracking-tighter-2 leading-[1.04] text-foreground text-[clamp(1.7rem,2.8vw,2.4rem)] mb-5">
+    <h2 className="font-sans font-black tracking-tighter-2 leading-[1.04] text-foreground text-[clamp(1.7rem,2.8vw,2.4rem)] mb-3 md:mb-5">
       {children}
       {italic && <span className="font-display italic font-medium ml-1" style={{
         backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',

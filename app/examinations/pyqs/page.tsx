@@ -209,7 +209,7 @@ function YearSection({ group, badge, badgeClass }: {
       </div>
 
       {/* entry cards */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6 md:mb-10">
         {group.entries.map((e) => (
           <a
             key={e.file}
@@ -271,8 +271,8 @@ export default function PYQsPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="pyqs" className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section id="pyqs" className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
 
           {/* ── B.Tech section ── */}
           <Reveal>
@@ -290,7 +290,7 @@ export default function PYQsPage() {
             </p>
           </Reveal>
 
-          <Stagger className="mt-10" delay={0.05}>
+          <Stagger className="mt-6 md:mt-10" delay={0.05}>
             {BTECH.map((group) => (
               <StaggerItem key={group.year}>
                 <YearSection group={group} badge="B.Tech" badgeClass="bg-green-50 border-green-200 text-secondary" />
@@ -299,7 +299,7 @@ export default function PYQsPage() {
           </Stagger>
 
           {/* divider */}
-          <div className="my-14 border-t-2 border-dashed border-border" />
+          <div className="my-8 md:my-14 border-t-2 border-dashed border-border" />
 
           {/* ── PG section ── */}
           <Reveal>
@@ -317,7 +317,7 @@ export default function PYQsPage() {
             </p>
           </Reveal>
 
-          <Stagger className="mt-10" delay={0.05}>
+          <Stagger className="mt-6 md:mt-10" delay={0.05}>
             {PG.map((group) => (
               <StaggerItem key={group.year}>
                 <YearSection group={group} badge="M.Tech / MBA" badgeClass="bg-orange-50 border-orange-200 text-primary" />
@@ -327,7 +327,7 @@ export default function PYQsPage() {
 
           {/* info note */}
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-10 p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
+            <div className="mt-6 p-4 md:mt-10 md:p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                 className="text-secondary shrink-0 mt-0.5" aria-hidden>
                 <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>

@@ -34,9 +34,9 @@ export default function NAACPage() {
           <Section id="documents">
             <H2 italic="snapshot">Accreditation</H2>
             <Lede>MLRIT is accredited by NAAC. Below are the key documents available for public download.</Lede>
-            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {['SSR — Self Study Report', 'Peer Team Report', 'IIQA — Institutional Information', 'DVV Clarifications', 'AQAR 2023-24', 'NAAC Certificate'].map((d) => (
-                <div key={d} className="rounded-2xl border border-border bg-white p-6">
+                <div key={d} className="rounded-2xl border border-border bg-white p-4 md:p-6">
                   <div className="font-mono text-[0.7rem] tracking-[0.16em] uppercase text-muted">Document</div>
                   <div className="mt-2 font-sans font-extrabold text-foreground text-lg">{d}</div>
                   <div className="mt-4 text-muted text-sm">Available on request — contact <a href="mailto:iqac@mlrinstitutions.ac.in" className="text-primary hover:underline">iqac@mlrinstitutions.ac.in</a></div>

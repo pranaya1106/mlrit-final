@@ -31,8 +31,8 @@ const gradientText: React.CSSProperties = {
 
 export default function LeadershipCards() {
   return (
-    <section className="bg-[#f7f5f0] py-14 md:py-20">
-      <div className="w-full px-6 md:px-10 lg:px-12">
+    <section className="bg-[#f7f5f0] py-8 md:py-20">
+      <div className="w-full px-4 md:px-10 lg:px-12">
 
         {/* Heading */}
         <div className="mb-4">
@@ -47,7 +47,7 @@ export default function LeadershipCards() {
         </div>
       </div>
 
-      <div className="w-full px-6 md:px-10 lg:px-12">
+      <div className="w-full px-4 md:px-10 lg:px-12">
         <LeaderScrollStack
           itemDistance={60}
           itemScale={0.028}
@@ -77,7 +77,7 @@ export default function LeadershipCards() {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-col justify-between p-6 md:p-7">
+                <div className="flex flex-col justify-between p-4 md:p-7">
                   <div>
                     <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-primary">
                       {l.tag}
@@ -88,14 +88,14 @@ export default function LeadershipCards() {
                     <p className="mt-1 font-mono text-[0.7rem] text-muted tracking-wide">
                       {l.role}
                     </p>
-                    <div className="my-5 h-px bg-border" />
+                    <div className="my-3 md:my-5 h-px bg-border" />
                     <blockquote className="pl-4 border-l-2 border-primary">
                       <p className="font-display italic text-[0.98rem] text-foreground/72 leading-relaxed">
                         &ldquo;{l.message}&rdquo;
                       </p>
                     </blockquote>
                   </div>
-                  <div className="mt-6 h-0.5 w-10 rounded-full" style={{ background: l.accent }} />
+                  <div className="mt-4 md:mt-6 h-0.5 w-10 rounded-full" style={{ background: l.accent }} />
                 </div>
               </div>
             </LeaderStackItem>

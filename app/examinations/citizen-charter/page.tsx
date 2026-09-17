@@ -86,8 +86,8 @@ export default function CitizenCharterPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="citizen-charter" className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section id="citizen-charter" className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
 
           {/* Intro + Download */}
           <Reveal>
@@ -99,20 +99,20 @@ export default function CitizenCharterPage() {
             <p className="mt-4 text-muted text-[0.93rem] max-w-[660px] leading-relaxed">
               The Citizen Charter commits the Controller of Examinations office to delivering services within defined timelines. It also outlines the grievance redressal procedure for unresolved complaints.
             </p>
-            <div className="mt-6">
+            <div className="mt-4 md:mt-6">
               <DocActions href="/examinations/citizen-charter.pdf" viewLabel="View PDF" downloadLabel="Download PDF" />
             </div>
           </Reveal>
 
           {/* Service table */}
-          <div className="mt-14 overflow-x-auto">
+          <div className="mt-8 md:mt-14 overflow-x-auto">
             <Reveal>
               <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-muted">Service Timelines</span>
             </Reveal>
-            <Stagger className="mt-5 space-y-3" delay={0.05}>
+            <Stagger className="mt-3 md:mt-5 space-y-3" delay={0.05}>
               {SERVICES.map((s) => (
                 <StaggerItem key={s.service}>
-                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 rounded-xl border border-border bg-warm-light px-5 py-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 rounded-xl border border-border bg-warm-light px-4 py-3 md:px-5 md:py-4">
                     <div className="sm:w-[42%]">
                       <p className="font-sans font-extrabold text-foreground text-[0.92rem]">{s.service}</p>
                       <p className="mt-0.5 text-muted text-[0.82rem] leading-snug">{s.desc}</p>
@@ -130,9 +130,9 @@ export default function CitizenCharterPage() {
 
           {/* Grievance */}
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-14 rounded-2xl border border-border bg-warm-light p-8">
+            <div className="mt-8 md:mt-14 rounded-2xl border border-border bg-warm-light p-5 md:p-8">
               <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">Grievance Redressal</h3>
-              <p className="text-muted text-[0.88rem] leading-relaxed mb-4">
+              <p className="text-muted text-[0.88rem] leading-relaxed mb-3 md:mb-4">
                 If a service is not delivered within the committed timeline, students may escalate by writing to{' '}
                 <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
                   coe@mlrinstitutions.ac.in

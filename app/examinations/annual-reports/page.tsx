@@ -69,8 +69,8 @@ export default function AnnualReportsPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="annual-reports" className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section id="annual-reports" className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
 
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Reports</span>
@@ -80,10 +80,10 @@ export default function AnnualReportsPage() {
             </h2>
           </Reveal>
 
-          <Stagger className="mt-10 grid md:grid-cols-3 gap-5" delay={0.07}>
+          <Stagger className="mt-6 md:mt-10 grid md:grid-cols-3 gap-3 md:gap-5" delay={0.07}>
             {REPORTS.map((r) => (
               <StaggerItem key={r.year}>
-                <div className="rounded-2xl border border-border bg-warm-light p-6 h-full flex flex-col gap-4">
+                <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-6 h-full flex flex-col gap-3 md:gap-4">
                   <div className="flex items-center justify-between gap-2">
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full border text-[0.62rem] font-mono font-bold tracking-widest uppercase bg-green-50 border-green-200 text-secondary">
                       {r.year}
@@ -116,7 +116,7 @@ export default function AnnualReportsPage() {
           </Stagger>
 
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-10 p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
+            <div className="mt-6 md:mt-10 p-4 md:p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                 className="text-secondary shrink-0 mt-0.5" aria-hidden>
                 <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>

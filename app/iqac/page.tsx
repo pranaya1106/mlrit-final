@@ -92,7 +92,7 @@ export default function IQACPage() {
             </div>
 
             <Reveal preset="up" delay={0.12}>
-              <blockquote className="mt-8 rounded-2xl border-l-4 border-secondary bg-green-50/40 px-7 py-5">
+              <blockquote className="mt-5 md:mt-8 rounded-2xl border-l-4 border-secondary bg-green-50/40 px-4 md:px-7 py-4 md:py-5">
                 <p className="font-sans font-semibold text-foreground text-[1rem] leading-relaxed italic">
                   &ldquo;Quality is not an event; it is a continuous journey towards excellence.&rdquo;
                 </p>
@@ -103,9 +103,9 @@ export default function IQACPage() {
 
           <Section id="vision-mission">
             <H2 italic="">Vision &amp; Mission</H2>
-            <div className="mt-6 grid md:grid-cols-2 gap-6">
+            <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-3 md:gap-6">
               <Reveal preset="right">
-                <div className="rounded-2xl border-2 border-secondary bg-green-50/40 p-7 h-full">
+                <div className="rounded-2xl border-2 border-secondary bg-green-50/40 p-4 md:p-7 h-full">
                   <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-3">Vision</div>
                   <p className="font-sans font-extrabold text-foreground text-[1rem] leading-snug">
                     To nurture a culture of continuous quality enhancement and innovation that transforms MLR Institute of Technology into a globally recognized institution of academic excellence, research, innovation, and societal impact.
@@ -113,7 +113,7 @@ export default function IQACPage() {
                 </div>
               </Reveal>
               <Reveal preset="up" delay={0.1}>
-                <div className="rounded-2xl border border-border bg-white p-7 h-full">
+                <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full">
                   <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-4">Mission</div>
                   <ul className="space-y-2.5">
                     {MISSION_POINTS.map((point, i) => (
@@ -132,7 +132,7 @@ export default function IQACPage() {
             <H2 italic="">Our Commitment to Quality</H2>
             <p className="mt-3 text-muted leading-relaxed text-[1rem]">IQAC is committed to:</p>
             <Reveal preset="up" delay={0.08}>
-              <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+              <div className="mt-4 md:mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                 {COMMITMENT_ITEMS.map((item) => (
                   <div key={item} className="rounded-xl border border-border bg-white px-4 py-3 text-center hover:border-secondary transition-colors">
                     <p className="font-sans font-semibold text-foreground text-[0.85rem] leading-snug">{item}</p>
@@ -148,19 +148,19 @@ export default function IQACPage() {
               IQAC aligns institutional activities with the following quality frameworks:
             </p>
             <Reveal preset="up" delay={0.08}>
-              <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
+              <div className="mt-4 md:mt-6 overflow-x-auto rounded-2xl border border-border">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="bg-warm-light border-b border-border">
-                      <th className="px-5 py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Framework</th>
-                      <th className="px-5 py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Full Name</th>
+                      <th className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Framework</th>
+                      <th className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Full Name</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
                     {QUALITY_FRAMEWORKS.map((f) => (
                       <tr key={f.code} className="bg-white hover:bg-warm-light/40 transition-colors">
-                        <td className="px-5 py-3.5 font-mono font-bold text-secondary text-[0.88rem]">{f.code}</td>
-                        <td className="px-5 py-3.5 text-foreground text-[0.93rem]">{f.label}</td>
+                        <td className="px-3 md:px-5 py-2.5 md:py-3.5 font-mono font-bold text-secondary text-[0.88rem]">{f.code}</td>
+                        <td className="px-3 md:px-5 py-2.5 md:py-3.5 text-foreground text-[0.93rem]">{f.label}</td>
                       </tr>
                     ))}
                   </tbody>

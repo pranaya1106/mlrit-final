@@ -143,7 +143,7 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
             {/* Phone pill — admissions contact */}
             <a
               href="tel:+919652226061"
-              className="group inline-flex items-center gap-4 h-14 md:h-16 pl-2 pr-6 rounded-full bg-white border border-border hover:border-primary/40 hover:shadow-sm transition-all"
+              className="group inline-flex items-center gap-3 md:gap-4 h-14 md:h-16 pl-2 pr-4 md:pr-6 rounded-full bg-white border border-border hover:border-primary/40 hover:shadow-sm transition-all max-w-full"
             >
               <span
                 className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full text-white flex-shrink-0"
@@ -151,9 +151,10 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
               >
                 <Phone className="w-4 h-4 md:w-5 md:h-5" />
               </span>
-              <div className="flex flex-col leading-none">
-                <span className="font-mono text-[0.65rem] font-bold tracking-[0.22em] uppercase text-muted">
-                  Admissions · Talk to Us
+              <div className="flex flex-col leading-none min-w-0">
+                <span className="font-mono text-[0.56rem] md:text-[0.65rem] font-bold tracking-[0.1em] md:tracking-[0.22em] uppercase text-muted whitespace-nowrap">
+                  <span className="md:hidden">Talk to Us</span>
+                  <span className="hidden md:inline">Admissions · Talk to Us</span>
                 </span>
                 <span className="mt-1.5 font-sans font-bold text-foreground text-[1.15rem] md:text-[1.35rem] tabular-nums tracking-tight">
                   9652226061

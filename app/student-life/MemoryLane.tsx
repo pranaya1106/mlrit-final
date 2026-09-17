@@ -104,7 +104,7 @@ export default function MemoryLane({ items }: Props) {
 
   return (
     <section
-      className="bg-cream pt-16 pb-20 md:pt-20 md:pb-24"
+      className="bg-cream pt-10 pb-12 md:pt-20 md:pb-24"
       aria-label="Memory Lane"
     >
       <div

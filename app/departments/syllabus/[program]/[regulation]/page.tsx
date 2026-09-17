@@ -58,30 +58,30 @@ export default function SyllabusPage({ params }: { params: Params }) {
             </Link>
           </p>
         ) : (
-          <div className="space-y-14">
+          <div className="space-y-8 md:space-y-14">
             {semesters.map(({ semNum, courses }) =>
               courses.length === 0 ? null : (
                 <div key={semNum}>
                   <p className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary mb-1">
                     Year {Math.ceil(semNum / 2)} · Semester {((semNum - 1) % 2) + 1}
                   </p>
-                  <h3 className="font-sans font-extrabold text-foreground text-xl tracking-tight mb-5">
+                  <h3 className="font-sans font-extrabold text-foreground text-xl tracking-tight mb-3 md:mb-5">
                     Semester {semNum}
                   </h3>
                   <div className="overflow-hidden rounded-2xl border border-border bg-white">
                     <table className="w-full text-left text-[0.94rem]">
                       <thead className="bg-warm-light/50">
                         <tr>
-                          <th className="px-5 py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Code</th>
-                          <th className="px-5 py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Subject</th>
-                          <th className="px-5 py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted text-right">Syllabus</th>
+                          <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Code</th>
+                          <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Subject</th>
+                          <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted text-right">Syllabus</th>
                         </tr>
                       </thead>
                       <tbody>
                         {courses.map((c, i) => (
                           <tr key={`${c.code}-${i}`} className="border-t border-border transition-colors hover:bg-warm-light/40">
-                            <td className="px-5 py-3.5 font-sans font-bold text-foreground align-top whitespace-nowrap">{c.code}</td>
-                            <td className="px-5 py-3.5">
+                            <td className="px-3 py-3 md:px-5 md:py-3.5 font-sans font-bold text-foreground align-top whitespace-nowrap">{c.code}</td>
+                            <td className="px-3 py-3 md:px-5 md:py-3.5">
                               <a
                                 href={c.pdf}
                                 target="_blank"
@@ -91,7 +91,7 @@ export default function SyllabusPage({ params }: { params: Params }) {
                                 {c.title}
                               </a>
                             </td>
-                            <td className="px-5 py-3.5 text-right whitespace-nowrap">
+                            <td className="px-3 py-3 md:px-5 md:py-3.5 text-right whitespace-nowrap">
                               <a
                                 href={c.pdf}
                                 target="_blank"
