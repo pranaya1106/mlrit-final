@@ -12,6 +12,10 @@ export const CONTENT_SECTIONS = {
       { name: 'headlineLead', label: 'Headline lead' },
       { name: 'headlineAccent', label: 'Headline accent' },
       { name: 'body', label: 'Body', multiline: true },
+      // One upload drives both the inline preview and the lightbox — they are
+      // the same film, and letting them diverge would be a bug, not a feature.
+      { name: 'film', label: 'Hero film', type: 'video' },
+      { name: 'poster', label: 'Hero still image', type: 'image' },
     ],
   },
   // Counters under the hero. Mirrors the STATS array in components/sections/Stats.tsx;
@@ -138,6 +142,156 @@ export const CONTENT_SECTIONS = {
       { name: 'headlineLead', label: 'Headline lead' },
       { name: 'headlineAccent', label: 'Headline accent' },
       { name: 'body', label: 'Body', multiline: true },
+      // Two lists, one per tab. `accent` is a plain string rather than an enum
+      // input: the component already narrows anything unrecognised to orange,
+      // so a typo degrades to the default instead of breaking the card.
+      {
+        name: 'ug',
+        label: 'Undergraduate cards',
+        type: 'repeater',
+        itemFields: [
+          { name: 'slug', label: 'Slug (link target)' },
+          { name: 'dept', label: 'Dept code' },
+          { name: 'name', label: 'Programme name' },
+          { name: 'meta', label: 'Meta line' },
+          { name: 'desc', label: 'Description' },
+          { name: 'accent', label: 'Accent (green / orange / navy)' },
+        ],
+        defaultItems: [
+          {
+            id: "cse",
+            slug: "cse",
+            dept: "CSE",
+            name: "Computer Science & Engineering",
+            meta: "B.Tech · 4 Years · 240 seats",
+            desc: "Industry-aligned curriculum across AI/ML, systems, web and cybersecurity.",
+            accent: "green",
+          },
+          {
+            id: "aiml",
+            slug: "aiml",
+            dept: "AIML",
+            name: "AI & Machine Learning",
+            meta: "B.Tech · 4 Years",
+            desc: "Foundational ML, deep learning and applied AI research on dedicated GPU hardware.",
+            accent: "orange",
+          },
+          {
+            id: "cse-ds",
+            slug: "cse-ds",
+            dept: "CSE-DS",
+            name: "CSE — Data Science",
+            meta: "B.Tech · 4 Years",
+            desc: "Statistics, ML, deep learning, big-data and visualisation with industry capstones.",
+            accent: "orange",
+          },
+          {
+            id: "ece",
+            slug: "ece",
+            dept: "ECE",
+            name: "Electronics & Communication",
+            meta: "B.Tech · 4 Years",
+            desc: "VLSI, embedded systems, signal processing and RF — anchored in industry projects.",
+            accent: "orange",
+          },
+          {
+            id: "eee",
+            slug: "eee",
+            dept: "EEE",
+            name: "Electrical & Electronics",
+            meta: "B.Tech · 4 Years",
+            desc: "Power systems, electronics, control and renewable-energy engineering.",
+            accent: "green",
+          },
+          {
+            id: "mechanical",
+            slug: "mechanical",
+            dept: "MECH",
+            name: "Mechanical Engineering",
+            meta: "B.Tech · 4 Years",
+            desc: "CAD/CAM, thermal sciences and manufacturing with industry-grade workshops.",
+            accent: "navy",
+          },
+          {
+            id: "aeronautical",
+            slug: "aeronautical",
+            dept: "AERO",
+            name: "Aeronautical Engineering",
+            meta: "B.Tech · 4 Years",
+            desc: "Aerodynamics, propulsion and UAV design — active drone research lab.",
+            accent: "orange",
+          },
+        ],
+      },
+      {
+        name: 'pg',
+        label: 'Postgraduate cards',
+        type: 'repeater',
+        itemFields: [
+          { name: 'slug', label: 'Slug (link target)' },
+          { name: 'dept', label: 'Dept code' },
+          { name: 'name', label: 'Programme name' },
+          { name: 'meta', label: 'Meta line' },
+          { name: 'desc', label: 'Description' },
+          { name: 'accent', label: 'Accent (green / orange / navy)' },
+        ],
+        defaultItems: [
+          {
+            id: "mba",
+            slug: "mba",
+            dept: "MBA",
+            name: "Master of Business Administration",
+            meta: "MBA · 2 Years · 120 seats",
+            desc: "Dual-specialisation curriculum across Marketing, Finance, HR, Operations and Analytics.",
+            accent: "green",
+          },
+          {
+            id: "mtech-cse",
+            slug: "mtech-cse",
+            dept: "M.Tech-CSE",
+            name: "M.Tech in Computer Science",
+            meta: "M.Tech · 2 Years",
+            desc: "AI/ML and systems specialisations with active research-led project work.",
+            accent: "orange",
+          },
+          {
+            id: "mtech-vlsi",
+            slug: "mtech-vlsi",
+            dept: "M.Tech-VLSI",
+            name: "M.Tech in VLSI System Design",
+            meta: "M.Tech · 2 Years",
+            desc: "Front-end and back-end VLSI design tracks anchored in FPGA labs.",
+            accent: "navy",
+          },
+          {
+            id: "mtech-ps",
+            slug: "mtech-ps",
+            dept: "M.Tech-PS",
+            name: "M.Tech in Power Systems",
+            meta: "M.Tech · 2 Years",
+            desc: "Smart grid, renewables, protection — industry-led project scope.",
+            accent: "orange",
+          },
+          {
+            id: "mtech-aero",
+            slug: "mtech-aero",
+            dept: "M.Tech-AERO",
+            name: "M.Tech in Aerospace Propulsion",
+            meta: "M.Tech · 2 Years",
+            desc: "Propulsion, materials and unmanned-systems research with industry MoUs.",
+            accent: "green",
+          },
+          {
+            id: "phd",
+            slug: "phd",
+            dept: "Ph.D",
+            name: "Doctoral programmes",
+            meta: "Ph.D · 5 disciplines",
+            desc: "JNTUH-recognised research centres in CSE, ECE, MECH, EEE and MBA.",
+            accent: "navy",
+          },
+        ],
+      },
     ],
   },
   'home/why-mlrit': {
@@ -146,6 +300,170 @@ export const CONTENT_SECTIONS = {
       { name: 'heading', label: 'Heading' },
       { name: 'body', label: 'Body', multiline: true },
       { name: 'video', label: 'Background video', type: 'video' },
+    ],
+  },
+
+  'home/success-stories': {
+    label: 'Homepage — Success stories',
+    fields: [
+      { name: 'eyebrow', label: 'Eyebrow' },
+      { name: 'headingLead', label: 'Heading line 1' },
+      { name: 'headingAccent', label: 'Heading line 2' },
+      {
+        name: 'cards',
+        label: 'Cards',
+        type: 'gallery',
+        itemFields: [
+          { name: 'season', label: 'Season / tag' },
+          { name: 'name', label: 'Name' },
+          { name: 'detail', label: 'Detail' },
+        ],
+        defaultItems: [
+          {
+            id: 'microsoft',
+            key: 'https://i.ibb.co/MxvbKjRH/8.jpg',
+            season: 'Placement \u00b7 2026',
+            name: 'Microsoft \u2014 51 LPA',
+            detail: 'Sai Loukhya & Sailatha \u00b7 CSE',
+          },
+          {
+            id: 'faculty-cert',
+            key: 'https://i.ibb.co/670CTVrD/6.png',
+            season: 'Faculty \u00b7 Cert',
+            name: 'Mrs. Vijay Keerthika',
+            detail: 'Wipro TalentNext \u00b7 87 %',
+          },
+          {
+            id: 'football',
+            key: 'https://i.ibb.co/99JB52L2/4.jpg',
+            season: 'Sports \u00b7 1st Place',
+            name: 'MLRIT Football',
+            detail: "vs. St. Peter's \u00b7 March 21\u201322",
+          },
+        ],
+      },
+    ],
+  },
+
+  'home/testimonials': {
+    label: 'Homepage \u2014 Alumni voices',
+    fields: [
+      { name: 'eyebrow', label: 'Eyebrow' },
+      { name: 'headingLead', label: 'Heading lead' },
+      { name: 'headingAccent', label: 'Heading accent' },
+      { name: 'body', label: 'Body', multiline: true },
+      {
+        name: 'people',
+        label: 'Alumni clips',
+        type: 'gallery',
+        // The item's primary upload is the clip itself, not a thumbnail.
+        accept: 'video',
+        itemFields: [
+          { name: 'name', label: 'Name' },
+          { name: 'title', label: 'Title / batch' },
+          { name: 'description', label: 'Quote' },
+        ],
+        defaultItems: [
+          {
+            id: 'sathvika',
+            key: '/videos/av1.mp4',
+            name: 'Sathvika',
+            title: 'CSIT \u00b7 MLRIT \u00b7 B.Tech CSE 2023',
+            description:
+              'MLRIT was where I learned to think like an engineer \u2014 not just to code.',
+          },
+          {
+            id: 'pranay',
+            key: '/videos/av2.mp4',
+            name: 'Dasam Pranay',
+            title: 'Aeronautical Engineering \u00b7 B.Tech AE 2023',
+            description:
+              'The aeronautical block at MLRIT is more than labs and lecture halls.',
+          },
+          {
+            id: 'pavani',
+            key: '/videos/av3.mp4',
+            name: 'Gopi Pavani',
+            title: 'Aerospace Engineer \u00b7 Safran \u00b7 B.Tech AE 2022',
+            description:
+              'MLRIT gave me the tools and confidence to walk into Safran from day one.',
+          },
+        ],
+      },
+    ],
+  },
+
+  'home/events': {
+    label: 'Homepage \u2014 Events',
+    fields: [
+      {
+        name: 'slides',
+        label: 'Event slides',
+        type: 'gallery',
+        // Primary upload is the clip; the logo and poster are their own
+        // columns, because one slide legitimately carries three files.
+        accept: 'video',
+        itemFields: [
+          { name: 'title', label: 'Title' },
+          { name: 'tag', label: 'Tag' },
+          { name: 'desc', label: 'Description' },
+          { name: 'quote', label: 'Quote' },
+          { name: 'speaker', label: 'Speaker' },
+          { name: 'speakerRole', label: 'Speaker role' },
+          { name: 'logo', label: 'Logo', type: 'image' },
+          { name: 'poster', label: 'Poster', type: 'image' },
+        ],
+        defaultItems: [
+          {
+            id: 'equinox',
+            key: "/videos/equinox.mp4",
+            title: "The Equinox E-Summit 2K24",
+            tag: "Entrepreneurship · 2024",
+            desc: "Equinox E-Summit is MLRIT's annual entrepreneurship summit — live startup pitches, investor panels, product showcases and workshops run by founders. Students pitch real ideas to real investors, on campus.",
+            quote: "Live pitches. Real investors. Zero rehearsal. Equinox is where student ideas meet the people who fund them.",
+            speaker: "Equinox E-Summit",
+            speakerRole: "Annual · MLRIT Campus",
+            logo: "/assets/logo.svg",
+            poster: "https://mlrit-next.vercel.app/assets/SBS_0711.JPG",
+          },
+          {
+            id: 'zignasa',
+            key: "/videos/zignasa.mp4",
+            title: "Zignasa 2025",
+            tag: "Tech · Cultural · 2025",
+            desc: "Zignasa is MLRIT's inter-departmental fest — hackathons, robotics arenas, coding contests, music, dance and film screenings running simultaneously. Every department competes. Every stage is open.",
+            quote: "Every department on stage. Zignasa is the event that turns the whole campus into one team.",
+            speaker: "Zignasa",
+            speakerRole: "Annual Fest · MLRIT",
+            logo: "/assets/zignasa-logo.png",
+            poster: "https://mlrit-next.vercel.app/assets/SBS_0750.JPG",
+          },
+          {
+            id: 'zenith',
+            key: "/videos/zenith.mp4",
+            title: "Zenith 2K25",
+            tag: "National Tech Fest · 2025",
+            desc: "Zenith is MLRIT's national-level technical festival — colleges from across India compete in robotics, circuit design, coding sprints and product challenges. Open registrations, multi-college participation.",
+            quote: "National-level. Multi-college. Engineering at full intensity — Zenith is where MLRIT competes with the country.",
+            speaker: "Zenith",
+            speakerRole: "National Tech Fest · MLRIT",
+            logo: "/assets/logo.svg",
+            poster: "https://mlrit-next.vercel.app/assets/SBS_0998.JPG",
+          },
+          {
+            id: 'navrat-naveli',
+            key: "/videos/came.mp4",
+            title: "Navrat Naveli 2025",
+            tag: "Cultural · Dussehra · 2025",
+            desc: "Navrat Naveli is MLRIT's Dussehra cultural event — classical and folk performances, garba, rangoli, traditional food and student-led celebrations marking the spirit of the festival across the campus.",
+            quote: "Music, dance, colour and tradition — Navrat Naveli is how MLRIT celebrates Dussehra together.",
+            speaker: "Navrat Naveli",
+            speakerRole: "Cultural Fest · MLRIT",
+            logo: "/assets/logo.svg",
+            poster: "https://mlrit-next.vercel.app/assets/SBS_1131.JPG",
+          },
+        ],
+      },
     ],
   },
 
@@ -261,8 +579,17 @@ export type GalleryItemField = 'name' | 'title' | 'linkUrl' | 'active' | 'startD
 export type RepeaterItemField = {
   readonly name: string;
   readonly label: string;
-  readonly type?: 'text' | 'number';
+  /**
+   * `image`/`video` turn the column into its own upload slot, so one gallery
+   * row can carry several files — an event slide needs a logo, a clip and a
+   * poster, which a single `key` cannot express.
+   */
+  readonly type?: 'text' | 'number' | 'image' | 'video';
 };
+
+/** Columns that hold an uploaded asset key rather than typed text. */
+export const isMediaColumn = (column: RepeaterItemField): boolean =>
+  column.type === 'image' || column.type === 'video';
 
 export type FieldConfig = {
   readonly name: string;
@@ -287,6 +614,12 @@ export type FieldConfig = {
    * the list has no fixed limit.
    */
   readonly maxItems?: number;
+  /**
+   * Gallery only. What the item's primary `key` accepts. Defaults to images;
+   * `video` makes the gallery a list of clips, which is what the testimonial
+   * and event carousels hold.
+   */
+  readonly accept?: 'image' | 'video';
   /**
    * Gallery only. Seeds the EDITOR when nothing has been saved yet, so a
    * section that currently ships hardcoded assets opens with those assets as
@@ -314,6 +647,8 @@ export type GalleryItem = {
   active?: boolean;
   startDate?: string;
   endDate?: string;
+  /** Extra columns declared by the field's itemFields, text or media keys. */
+  [column: string]: string | number | boolean | undefined;
 };
 
 /**
@@ -342,6 +677,10 @@ export const isMediaField = (field: FieldConfig): boolean => {
   const type = fieldType(field);
   return type === 'image' || type === 'video' || type === 'gallery';
 };
+
+/** What a gallery item's primary key accepts — images unless stated. */
+export const galleryAccept = (field: FieldConfig): 'image' | 'video' =>
+  field.accept ?? 'image';
 
 /** Gallery fields hold an array of items rather than a single string value. */
 export const isGalleryField = (field: FieldConfig): boolean => fieldType(field) === 'gallery';

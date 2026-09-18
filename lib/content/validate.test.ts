@@ -175,3 +175,83 @@ test('a clean gallery + repeater section passes', () => {
     null
   );
 });
+
+// --- video galleries and per-item media columns -----------------------------
+// home/events declares a video gallery whose items also carry `logo` and
+// `poster` media columns; home/testimonials is a plain video gallery.
+
+const events = (slides: unknown) => findTransientMediaError('home', 'events', { slides });
+
+test('rejects a blob: URL in a video gallery item key', () => {
+  const result = events([{ id: 'a', key: 'blob:http://localhost:3000/pending' }]);
+  assert.ok(result, 'expected a rejection');
+  assert.equal(result.field, 'slides');
+  // The noun follows the field's accept, so the message says video, not image.
+  assert.match(result.error, /video 1 is still uploading/);
+});
+
+test('rejects a blob: URL in a media COLUMN, not just the primary key', () => {
+  const result = events([
+    { id: 'a', key: 'home-events/clip.mp4', poster: 'home-events/still.jpg' },
+    { id: 'b', key: 'home-events/clip2.mp4', poster: 'blob:http://localhost:3000/pending' },
+  ]);
+  assert.ok(result, 'expected a rejection');
+  assert.equal(result.field, 'slides');
+  assert.match(result.error, /Poster on row 2 is still uploading/);
+});
+
+test('rejects a transient logo column independently of the poster', () => {
+  const result = events([{ id: 'a', key: 'ok.mp4', logo: 'data:image/png;base64,AAAA' }]);
+  assert.ok(result, 'expected a rejection');
+  assert.match(result.error, /Logo on row 1/);
+});
+
+test('accepts a slide with real keys in every media column', () => {
+  assert.equal(
+    events([
+      {
+        id: 'a',
+        key: 'home-events/clip.mp4',
+        logo: '/assets/logo.svg',
+        poster: 'https://example.com/still.jpg',
+        title: 'Zenith',
+      },
+    ]),
+    null
+  );
+});
+
+test('text columns on a gallery item are still scanned', () => {
+  // A pasted blob: URL in a text column is the same broken value.
+  const result = events([{ id: 'a', key: 'ok.mp4', title: 'blob:http://localhost:3000/x' }]);
+  assert.ok(result, 'expected a rejection');
+});
+
+test('video gallery with no media columns still validates its key', () => {
+  const result = findTransientMediaError('home', 'testimonials', {
+    eyebrow: 'Alumni Voices',
+    headingLead: 'What Our',
+    headingAccent: 'Graduates Say.',
+    body: 'Body.',
+    people: [
+      { id: 'a', key: '/videos/av1.mp4', name: 'Sathvika' },
+      { id: 'b', key: 'blob:http://localhost:3000/x', name: 'Pranay' },
+    ],
+  });
+  assert.ok(result, 'expected a rejection');
+  assert.match(result.error, /video 2 is still uploading/);
+});
+
+test('hero film and poster are validated as single media fields', () => {
+  const base = { headlineLead: 'A', headlineAccent: 'B', body: 'C' };
+  assert.ok(findTransientMediaError('home', 'hero', { ...base, film: 'blob:http://x/y' }));
+  assert.ok(findTransientMediaError('home', 'hero', { ...base, poster: 'data:image/png;base64,A' }));
+  assert.equal(
+    findTransientMediaError('home', 'hero', {
+      ...base,
+      film: 'home-hero/abc.mp4',
+      poster: '/images/campus/SBS_1131.JPG',
+    }),
+    null
+  );
+});

@@ -81,33 +81,58 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   // Fetched together so one slow section cannot serialise behind another.
-  const [hero, achievements, programs, whyMlrit, recruiterLogos, stats, placementStats] =
-    await Promise.all([
-      getSectionCopy('hero', HEADLINE_FIELDS),
-      getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos', 'ranks'] as const),
-      getSectionCopy('programs', HEADLINE_FIELDS),
-      getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
-      // Shared with /placements/recruiters — one field, both consumers.
-      getListField('placements', 'recruiters', 'logos'),
-      // Counter sections have no required text, so they are read as bare list
-      // fields rather than through getSectionCopy's all-or-nothing text gate.
-      getListField('home', 'stats', 'stats'),
-      getListField('home', 'placements', 'stats'),
-    ]);
+  const [
+    hero,
+    achievements,
+    programs,
+    whyMlrit,
+    successStories,
+    testimonials,
+    recruiterLogos,
+    stats,
+    placementStats,
+    eventSlides,
+  ] = await Promise.all([
+    getSectionCopy('hero', HEADLINE_FIELDS, ['film', 'poster'] as const),
+    getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos', 'ranks'] as const),
+    getSectionCopy('programs', HEADLINE_FIELDS, [], ['ug', 'pg'] as const),
+    getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
+    getSectionCopy(
+      'success-stories',
+      ['eyebrow', 'headingLead', 'headingAccent'] as const,
+      [],
+      ['cards'] as const
+    ),
+    getSectionCopy(
+      'testimonials',
+      ['eyebrow', 'headingLead', 'headingAccent', 'body'] as const,
+      [],
+      ['people'] as const
+    ),
+    // Shared with /placements/recruiters — one field, both consumers.
+    getListField('placements', 'recruiters', 'logos'),
+    // List-only sections have no required text, so they are read as bare list
+    // fields rather than through getSectionCopy's all-or-nothing text gate.
+    getListField('home', 'stats', 'stats'),
+    getListField('home', 'placements', 'stats'),
+    getListField('home', 'events', 'slides'),
+  ]);
 
   return (
     <PreviewProvider>
-      <Hero {...hero} />
+      {/* Media resolves here for the server render; the components resolve
+          again for live-preview drafts, which is idempotent. */}
+      <Hero {...hero} film={resolveAssetUrl(hero.film)} poster={resolveAssetUrl(hero.poster)} />
       <Banners />
       <Stats stats={stats} />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
       <Achievements {...achievements} />
       <WhyMLRIT {...whyMlrit} video={resolveAssetUrl(whyMlrit.video)} />
-      <SuccessStories />
+      <SuccessStories {...successStories} />
       <Programs {...programs} />
       <Placements logos={recruiterLogos} stats={placementStats} />
-      <Testimonials />
-      <Events />
+      <Testimonials {...testimonials} />
+      <Events slides={eventSlides} />
     </PreviewProvider>
   );
 }

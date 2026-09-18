@@ -10,7 +10,9 @@ import {
   asGalleryItems,
   asRepeaterItems,
   fieldType,
+  galleryAccept,
   galleryItemFields,
+  isMediaColumn,
   repeaterItemFields,
   type FieldConfig,
   type GalleryItem,
@@ -301,6 +303,25 @@ export default function ContentEditor({
     );
   }
 
+  /**
+   * Uploads into one media COLUMN of a gallery item — the slide poster or logo
+   * that sits alongside the item's primary key. Slot carries the column so two
+   * uploads on the same row stay independent.
+   */
+  function uploadItemColumn(fieldName: string, id: string, column: string, file: File) {
+    const previous =
+      (asGalleryItems(valuesRef.current[fieldName]).find((item) => item.id === id)?.[column] as
+        | string
+        | undefined) ?? '';
+
+    return runUpload(
+      `${fieldName}::${id}::${column}`,
+      file,
+      (value) => patchItem(fieldName, id, { [column]: value }),
+      () => patchItem(fieldName, id, { [column]: previous })
+    );
+  }
+
   function removeGalleryItem(fieldName: string, id: string) {
     updateGallery(fieldName, (items) => items.filter((item) => item.id !== id));
   }
@@ -555,7 +576,10 @@ export default function ContentEditor({
                 {type === 'gallery' && (
                   <div className="mt-1.5">
                     {asGalleryItems(values[name]).length === 0 && (
-                      <p className="font-mono text-[0.7rem] text-subtle">No images yet.</p>
+                      <p className="font-mono text-[0.7rem] text-subtle">
+                        No {galleryAccept(field) === 'video' ? 'videos' : 'images'} yet — the
+                        built-in ones are used.
+                      </p>
                     )}
 
                     {/* The consuming component renders a fixed number of slots;
@@ -591,12 +615,25 @@ export default function ContentEditor({
                           >
                             <div className="h-16 w-24 shrink-0 overflow-hidden rounded bg-neutral-100">
                               {src ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                  src={src}
-                                  alt={item.title ?? ''}
-                                  className="h-full w-full object-cover"
-                                />
+                                galleryAccept(field) === 'video' ? (
+                                  // Muted autoplay loop, so the editor can tell
+                                  // which clip a row holds without opening it.
+                                  <video
+                                    src={src}
+                                    muted
+                                    loop
+                                    playsInline
+                                    autoPlay
+                                    className="h-full w-full object-cover"
+                                  />
+                                ) : (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={src}
+                                    alt={(item.title as string | undefined) ?? ''}
+                                    className="h-full w-full object-cover"
+                                  />
+                                )
                               ) : (
                                 <span className="grid h-full place-items-center font-mono text-[0.6rem] uppercase text-subtle">
                                   {busy ? 'up…' : '—'}
@@ -605,6 +642,65 @@ export default function ContentEditor({
                             </div>
 
                             <div className="min-w-0 flex-1 space-y-2">
+                              {/* Object columns — arbitrary text, or a media
+                                  slot of their own. Legacy enum itemFields are
+                                  rendered below; a field uses one style or the
+                                  other, never both. */}
+                              {repeaterItemFields(field).map((column) => {
+                                if (isMediaColumn(column)) {
+                                  const colSlot = `${name}::${item.id}::${column.name}`;
+                                  const colBusy = uploading.includes(colSlot);
+                                  const colValue = (item[column.name] as string | undefined) ?? '';
+
+                                  return (
+                                    <div key={column.name} className="flex items-center gap-2">
+                                      <span className="font-mono text-[0.6rem] uppercase tracking-wider text-subtle">
+                                        {column.label}
+                                      </span>
+                                      <label className="cursor-pointer font-mono text-[0.62rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-foreground">
+                                        {colBusy ? 'Uploading…' : colValue ? 'Replace' : 'Upload'}
+                                        <input
+                                          type="file"
+                                          accept={column.type === 'video' ? 'video/*' : 'image/*'}
+                                          disabled={colBusy}
+                                          onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) uploadItemColumn(name, item.id, column.name, file);
+                                            e.target.value = '';
+                                          }}
+                                          className="hidden"
+                                        />
+                                      </label>
+                                      {colValue && (
+                                        <span className="truncate font-mono text-[0.58rem] text-subtle">
+                                          {colValue.split('/').pop()}
+                                        </span>
+                                      )}
+                                    </div>
+                                  );
+                                }
+
+                                return (
+                                  <label key={column.name} className="block">
+                                    <span className="font-mono text-[0.6rem] uppercase tracking-wider text-subtle">
+                                      {column.label}
+                                    </span>
+                                    <input
+                                      type={column.type === 'number' ? 'number' : 'text'}
+                                      value={
+                                        item[column.name] === undefined
+                                          ? ''
+                                          : String(item[column.name])
+                                      }
+                                      onChange={(e) =>
+                                        patchItem(name, item.id, { [column.name]: e.target.value })
+                                      }
+                                      className="mt-0.5 w-full rounded border border-border bg-neutral-0 px-2 py-1 text-sm text-foreground outline-none focus:border-primary"
+                                    />
+                                  </label>
+                                );
+                              })}
+
                               {galleryItemFields(field).map((itemField) => {
                                 if (itemField === 'active') {
                                   return (
@@ -667,10 +763,12 @@ export default function ContentEditor({
                                     position survive, so the constellation slot
                                     it occupies does not move. */}
                                 <label className="cursor-pointer font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-foreground">
-                                  {busy ? 'Uploading…' : 'Replace image'}
+                                  {busy
+                                    ? 'Uploading…'
+                                    : `Replace ${galleryAccept(field) === 'video' ? 'video' : 'image'}`}
                                   <input
                                     type="file"
-                                    accept="image/*"
+                                    accept={galleryAccept(field) === 'video' ? 'video/*' : 'image/*'}
                                     disabled={busy}
                                     onChange={(e) => {
                                       const file = e.target.files?.[0];
@@ -696,7 +794,7 @@ export default function ContentEditor({
 
                     <input
                       type="file"
-                      accept="image/*"
+                      accept={galleryAccept(field) === 'video' ? 'video/*' : 'image/*'}
                       multiple
                       onChange={(e) => {
                         // One upload per file, appended in selection order and
@@ -710,7 +808,8 @@ export default function ContentEditor({
                       className={`${INPUT_CLASS} file:mr-3 file:rounded file:border-0 file:bg-neutral-100 file:px-3 file:py-1.5 file:text-sm`}
                     />
                     <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
-                      Add images — several can be picked at once
+                      Add {galleryAccept(field) === 'video' ? 'videos' : 'images'} — several can be
+                      picked at once
                     </span>
                   </div>
                 )}

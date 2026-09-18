@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+import { resolveAssetUrl } from '@/lib/cdn/url';
+import { asGalleryItems, asText } from '@/lib/content/sections';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
+
 type Slide = {
   logo: string;
   alt: string;
@@ -15,6 +19,10 @@ type Slide = {
   poster: string;
 };
 
+/**
+ * Fallback slides. Used whenever the CMS gallery is empty, absent or fails to
+ * load, so the carousel always has something to play.
+ */
 const SLIDES: Slide[] = [
   {
     logo:  '/assets/logo.svg',
@@ -66,7 +74,51 @@ const SLIDES: Slide[] = [
   },
 ];
 
-export default function Events() {
+type EventsProps = {
+  /** Gallery items from the CMS; falls back to the bundled SLIDES. */
+  slides?: unknown;
+};
+
+/**
+ * Maps gallery items onto Slide. The item's primary key is the clip; `logo`
+ * and `poster` are media columns of their own, because one slide carries three
+ * separate files. An empty gallery yields SLIDES verbatim.
+ *
+ * Media falls back per position rather than globally, so a row missing only a
+ * poster still shows the bundled poster for that slot instead of nothing.
+ */
+function slidesFrom(value: unknown): Slide[] {
+  const items = asGalleryItems(value);
+  if (items.length === 0) return SLIDES;
+
+  const mapped = items.map((item, i) => {
+    const fallback = SLIDES[i] ?? SLIDES[0];
+    const title = asText(item.title, fallback.title);
+    return {
+      title,
+      // `alt` is not separately editable — it always described the same thing
+      // the title does, and two fields that must agree is a bug waiting.
+      alt: title,
+      tag: asText(item.tag),
+      desc: asText(item.desc),
+      quote: asText(item.quote),
+      speaker: asText(item.speaker),
+      speakerRole: asText(item.speakerRole),
+      video: resolveAssetUrl(item.key, { allowTransient: true }) ?? fallback.video,
+      logo:
+        resolveAssetUrl(asText(item.logo), { allowTransient: true }) ?? fallback.logo,
+      poster:
+        resolveAssetUrl(asText(item.poster), { allowTransient: true }) ?? fallback.poster,
+    };
+  });
+
+  return mapped.length > 0 ? mapped : SLIDES;
+}
+
+export default function Events(props: EventsProps) {
+  // Live-preview draft wins over the saved props; the fallback is unchanged.
+  const { slides } = useMergedSection('home/events', props);
+  const SLIDE_LIST = slidesFrom(slides);
   const [active, setActive] = useState(0);
   const autoRef  = useRef<number | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -90,7 +142,7 @@ export default function Events() {
     if (autoRef.current) window.clearInterval(autoRef.current);
     autoRef.current = window.setInterval(() => {
       setActive((cur) => {
-        const nxt = (cur + 1) % SLIDES.length;
+        const nxt = (cur + 1) % SLIDE_LIST.length;
         paint(nxt);
         return nxt;
       });
@@ -110,20 +162,21 @@ export default function Events() {
     return () => stopAuto();
   }, [paint, startAuto]);
 
-  const next = () => { const nxt = (active + 1) % SLIDES.length; paint(nxt); startAuto(); };
-  const prev = () => { const p = (active - 1 + SLIDES.length) % SLIDES.length; paint(p); startAuto(); };
+  const next = () => { const nxt = (active + 1) % SLIDE_LIST.length; paint(nxt); startAuto(); };
+  const prev = () => { const p = (active - 1 + SLIDE_LIST.length) % SLIDE_LIST.length; paint(p); startAuto(); };
   const jump = (i: number) => { paint(i); startAuto(); };
 
-  const slide = SLIDES[active];
+  const slide = SLIDE_LIST[active];
 
   return (
+    <div id={sectionDomId('home/events')}>
     <section
       id="events"
       className="relative w-full h-screen min-h-[640px] overflow-hidden bg-ink"
       aria-label="Featured events"
     >
       {/* Rotating videos */}
-      {SLIDES.map((s, i) => (
+      {SLIDE_LIST.map((s, i) => (
         <video
           key={i}
           ref={(el) => { videoRefs.current[i] = el; }}
@@ -175,7 +228,7 @@ export default function Events() {
             {slide.tag}
           </div>
           <div className="mt-1 font-mono text-[0.62rem] tracking-[0.18em] uppercase text-white/45">
-            {String(active + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
+            {String(active + 1).padStart(2, '0')} / {String(SLIDE_LIST.length).padStart(2, '0')}
           </div>
         </div>
       </div>
@@ -203,7 +256,7 @@ export default function Events() {
       {/* Centered CTA — pill */}
       <button
         type="button"
-        onClick={() => jump((active + 1) % SLIDES.length)}
+        onClick={() => jump((active + 1) % SLIDE_LIST.length)}
         className="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 z-[7] inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-ink font-sans font-bold text-[0.78rem] tracking-[0.22em] uppercase hover:bg-warm transition-colors"
       >
         Watch Next Event
@@ -222,7 +275,7 @@ export default function Events() {
 
         {/* Thumbnail strip — video previews on hover with play icon */}
         <div className="hidden sm:flex items-center gap-2">
-          {SLIDES.map((s, i) => (
+          {SLIDE_LIST.map((s, i) => (
             <button
               type="button"
               key={i}
@@ -274,7 +327,7 @@ export default function Events() {
 
         {/* Progress dots on mobile */}
         <div className="flex sm:hidden gap-1.5">
-          {SLIDES.map((_, i) => (
+          {SLIDE_LIST.map((_, i) => (
             <span
               key={i}
               className={`h-1 rounded-full transition-all duration-300 ${
@@ -318,5 +371,6 @@ export default function Events() {
         }
       `}</style>
     </section>
+    </div>
   );
 }

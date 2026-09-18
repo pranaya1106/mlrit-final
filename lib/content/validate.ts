@@ -1,7 +1,10 @@
 import {
   asGalleryItems,
   asRepeaterItems,
+  galleryAccept,
   getSectionConfig,
+  isMediaColumn,
+  repeaterItemFields,
   isGalleryField,
   isListField,
   isMediaField,
@@ -67,11 +70,30 @@ export function findTransientMediaError(
     if (isGalleryField(field)) {
       // Index is 1-based in the message: editors count items, not offsets.
       const items = asGalleryItems(value);
+      const noun = galleryAccept(field) === 'video' ? 'video' : 'image';
+      // Media columns hold their own uploaded keys, so a row can be pending on
+      // a poster while its primary clip is already done.
+      const mediaColumns = repeaterItemFields(field).filter(isMediaColumn);
+
       for (let i = 0; i < items.length; i += 1) {
         const key = items[i].key;
         if (typeof key === 'string' && TRANSIENT.test(key)) {
           return {
-            error: `${field.label}: image ${i + 1} is still uploading (${schemeOf(key)}: URL). Wait for it to finish, then save.`,
+            error: `${field.label}: ${noun} ${i + 1} is still uploading (${schemeOf(key)}: URL). Wait for it to finish, then save.`,
+            field: field.name,
+          };
+        }
+
+        // Every other column, media or text. A media column gets its label in
+        // the message; a text column holding blob: is equally unsaveable, so
+        // it is rejected too rather than trusted for being "just text".
+        for (const [column, cell] of Object.entries(items[i])) {
+          if (column === 'id' || column === 'key') continue;
+          if (typeof cell !== 'string' || !TRANSIENT.test(cell)) continue;
+
+          const label = mediaColumns.find((c) => c.name === column)?.label ?? column;
+          return {
+            error: `${field.label}: ${label} on row ${i + 1} is still uploading (${schemeOf(cell)}: URL). Wait for it to finish, then save.`,
             field: field.name,
           };
         }
