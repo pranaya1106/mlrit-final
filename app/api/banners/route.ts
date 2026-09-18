@@ -1,41 +1,35 @@
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { uploadAsset } from '@/lib/cdn/client';
+import { type AdminUser, getAdminUser, isOwner } from '@/lib/content/permissions';
 import { supabase, getServiceClient } from '@/lib/supabase';
 
 const MAX_BYTES = 5 * 1024 * 1024;
 
 /**
- * Resolves the caller's session, returning the authenticated user or null.
+ * The signed-in owner, or the response to send instead.
  *
- * Independent of middleware.ts on purpose — this route is reachable by any
- * HTTP client, and an auth check that assumes a proxy ran in front of it is
- * not an auth check. The user is returned rather than a boolean so writes can
- * record who made them without a second round-trip.
+ * Banners are an owner-only area: they publish to every visitor of the site and
+ * are not section-scoped, so an editor scoped to a handful of sections has no
+ * claim on them. Enforced here rather than only in the admin UI — this route is
+ * reachable by any HTTP client holding a valid session, so hiding the page is
+ * presentation and this is the control. Independent of middleware.ts for the
+ * same reason: a check that assumes a proxy ran in front of it is not a check.
+ *
+ * The owner is returned rather than a boolean so writes can record who made
+ * them without a second round-trip.
  */
-async function getSessionUser(): Promise<{ email: string | null } | null> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
-
-  const cookieStore = cookies();
-
-  const supabaseAuth = createServerClient(url, key, {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
-      setAll() {},
-    },
-  });
-
-  const {
-    data: { user },
-  } = await supabaseAuth.auth.getUser();
-
-  return user ? { email: user.email ?? null } : null;
+async function requireOwner(): Promise<
+  { admin: AdminUser; error?: undefined } | { admin?: undefined; error: NextResponse }
+> {
+  const admin = await getAdminUser();
+  if (!admin) {
+    return { error: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }) };
+  }
+  if (!isOwner(admin)) {
+    return { error: NextResponse.json({ error: 'Owners only.' }, { status: 403 }) };
+  }
+  return { admin };
 }
 
 const badRequest = (error: string, field: string) =>
@@ -57,10 +51,9 @@ const isSafeLink = (url: string): boolean =>
   /^https?:\/\//i.test(url) || (url.startsWith('/') && !url.startsWith('//'));
 
 export async function POST(request: Request) {
-  const user = await getSessionUser();
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const auth = await requireOwner();
+  if (auth.error) return auth.error;
+  const user = auth.admin;
 
   let form: FormData;
   try {
@@ -124,10 +117,9 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Flip a banner's active flag. Nothing else on the row is writable here. */
 export async function PATCH(request: Request) {
-  const user = await getSessionUser();
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const auth = await requireOwner();
+  if (auth.error) return auth.error;
+  const user = auth.admin;
 
   let payload: unknown;
   try {
@@ -171,9 +163,8 @@ export async function PATCH(request: Request) {
  */
 export async function DELETE(request: Request) {
   // No edited_by to record — the row is going away.
-  if (!(await getSessionUser())) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const auth = await requireOwner();
+  if (auth.error) return auth.error;
 
   const id = new URL(request.url).searchParams.get('id');
 

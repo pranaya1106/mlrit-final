@@ -1,3 +1,6 @@
+import Link from 'next/link';
+
+import { getAdminUser, isOwner } from '@/lib/content/permissions';
 import { getServiceClient } from '@/lib/supabase';
 
 import BannerForm from './BannerForm';
@@ -14,8 +17,8 @@ export const fetchCache = 'force-no-store';
 
 /**
  * Lists every banner, including drafts and expired ones — the anon policy hides
- * those, so this uses the service-role client. Admin-only by virtue of the
- * /admin middleware gate.
+ * those, so this uses the service-role client. The page is owner-gated above
+ * this call; the middleware gate only proves the caller is signed in.
  */
 async function listAllBanners(): Promise<BannerRow[]> {
   try {
@@ -35,6 +38,30 @@ async function listAllBanners(): Promise<BannerRow[]> {
 }
 
 export default async function BannersAdminPage() {
+  // Banners publish to every visitor and are not section-scoped, so they are
+  // owner-only. The matching check lives in /api/banners — this one keeps a
+  // non-owner from being shown a form whose every submission would 403.
+  const admin = await getAdminUser();
+
+  if (!isOwner(admin)) {
+    return (
+      <main className="min-h-screen bg-ink px-6 py-12">
+        <div className="mx-auto w-full max-w-[720px]">
+          <Link
+            href="/admin"
+            className="font-mono text-xs uppercase tracking-widest text-subtle hover:text-neutral-0"
+          >
+            ← all sections
+          </Link>
+          <h1 className="mt-4 text-2xl font-semibold text-neutral-0">Owners only</h1>
+          <p className="mt-4 max-w-[52ch] text-sm text-subtle">
+            Only an owner can manage banners.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   const banners = await listAllBanners();
 
   return (
