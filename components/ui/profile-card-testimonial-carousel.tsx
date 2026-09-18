@@ -113,47 +113,9 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       onBlur={() => setPaused(false)}
     >
       {/* DESKTOP */}
-      <div className="hidden md:flex relative items-end">
-        {/* Video pane — raised so the overlapping card doesn't cover the subject's face */}
-        <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative mb-16">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.videoUrl}
-              initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
-            >
-              <video
-                ref={desktopVid}
-                className="w-full h-full object-cover"
-                poster={current.poster}
-                autoPlay
-                muted={muted}
-                loop
-                playsInline
-                preload="auto"
-              >
-                <source src={current.videoUrl} type="video/mp4" />
-              </video>
-            </motion.div>
-          </AnimatePresence>
-          {/* Subtle bottom gradient for legibility */}
-          <span className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
-          {/* Mute toggle */}
-          <button
-            type="button"
-            onClick={() => setMuted((m) => !m)}
-            aria-label={muted ? 'Unmute' : 'Mute'}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center hover:bg-black/70 transition-colors"
-          >
-            {muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-          </button>
-        </div>
-
-        {/* Card */}
-        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 ml-[-80px] z-10 max-w-xl flex-1 border border-neutral-200/60">
+      <div className="hidden md:block relative">
+        {/* Card — full width, left padding reserves space for the video overlap */}
+        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 pl-[300px] border border-neutral-200/60 min-h-[320px] flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.name}
@@ -161,6 +123,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full"
             >
               <div className="mb-6">
                 <h2 className="font-sans text-2xl md:text-3xl font-extrabold tracking-tight !text-neutral-900 mb-2">
@@ -189,6 +152,42 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Video — absolutely positioned, overlapping the left side of the card */}
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[260px] h-[340px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.22)] z-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.videoUrl}
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+            >
+              <video
+                ref={desktopVid}
+                className="w-full h-full object-cover"
+                poster={current.poster}
+                autoPlay
+                muted={muted}
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src={current.videoUrl} type="video/mp4" />
+              </video>
+            </motion.div>
+          </AnimatePresence>
+          <span className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 to-transparent" />
+          <button
+            type="button"
+            onClick={() => setMuted((m) => !m)}
+            aria-label={muted ? 'Unmute' : 'Mute'}
+            className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center hover:bg-black/70 transition-colors"
+          >
+            {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+          </button>
         </div>
       </div>
 
