@@ -2,12 +2,13 @@
 
 import { useRef, useMemo, useEffect } from 'react';
 import {
-  motion,
   useScroll,
   useSpring,
   useMotionValueEvent,
   useReducedMotion,
 } from 'framer-motion';
+
+const APEX_RED = '#D80000';
 
 const ABOUT_TEXT =
   'APEX MLRIT is a student-led esports and game development community. ' +
@@ -27,95 +28,77 @@ const FACTS = [
   ['Engines',     'Unity · Unreal · Godot'],
 ] as const;
 
-const APEX_RED = '#D80000';
-
-const DIM_COLOR  = 'rgba(255,255,255,0.18)';
-const FULL_COLOR = 'rgba(255,255,255,1.00)';
+const DIM  = 'rgba(255,255,255,0.18)';
+const FULL = 'rgba(255,255,255,1.00)';
 
 const REVEAL_START = 0.04;
 const REVEAL_END   = 0.92;
 const SPAN         = REVEAL_END - REVEAL_START;
-const WINDOW       = 0.018; // narrow front = sharp reveal
+const WINDOW       = 0.018;
 
 export default function ApexAbout() {
-  const sectionRef  = useRef<HTMLElement>(null);
+  const sectionRef   = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const factsRef     = useRef<HTMLDivElement>(null);
   const reduced      = !!useReducedMotion();
+
+  // Per-character metadata: index in the flat string → scroll thresholds
+  // Spaces are included as plain chars so natural text flow is preserved
+  const chars = useMemo(() => {
+    const totalNonSpace = ABOUT_TEXT.replace(/ /g, '').length;
+    let nonSpaceIdx = 0;
+    return Array.from(ABOUT_TEXT).map((ch) => {
+      if (ch === ' ') return { ch, start: 0, end: 0, isSpace: true };
+      const t     = nonSpaceIdx / (totalNonSpace - 1);
+      const start = REVEAL_START + t * (SPAN - WINDOW);
+      nonSpaceIdx++;
+      return { ch, start, end: start + WINDOW, isSpace: false };
+    });
+  }, []);
+
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   const { scrollYProgress } = useScroll({
     target:  sectionRef,
     offset:  ['start start', 'end end'],
   });
-
-  // Spring-smooth to match HowItWorks feel
   const smooth = useSpring(scrollYProgress, { stiffness: 60, damping: 18, mass: 0.4 });
 
-  // Build per-char metadata once (index → threshold pair)
-  const chars = useMemo(() => {
-    const result: { char: string; start: number; end: number; isSpace: boolean }[] = [];
-    const words = ABOUT_TEXT.split(' ');
-    let charIdx = 0;
-    const totalChars = ABOUT_TEXT.replace(/ /g, '').length;
-
-    words.forEach((word, wi) => {
-      Array.from(word).forEach((ch) => {
-        const t     = charIdx / (totalChars - 1);
-        const start = REVEAL_START + t * (SPAN - WINDOW);
-        result.push({ char: ch, start, end: start + WINDOW, isSpace: false });
-        charIdx++;
-      });
-      // space between words (not counted in totalChars)
-      if (wi < words.length - 1) {
-        result.push({ char: ' ', start: 0, end: 0, isSpace: true });
-      }
-    });
-    return result;
-  }, []);
-
-  // Refs to all char spans for direct DOM mutation — zero React re-renders on scroll
-  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
-
-  // On first render, initialise colours
+  // Initialise
   useEffect(() => {
     spanRefs.current.forEach((el) => {
-      if (el) el.style.color = reduced ? FULL_COLOR : DIM_COLOR;
+      if (el) el.style.color = reduced ? FULL : DIM;
     });
   }, [reduced]);
 
-  // Single motion-value event drives ALL DOM colour writes — no React involved
+  // Single listener — direct DOM writes, zero React re-renders per frame
   useMotionValueEvent(smooth, 'change', (progress) => {
-    if (reduced) return;
-    spanRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const { start, end, isSpace } = chars[i];
-      if (isSpace) return;
-      const t = Math.max(0, Math.min(1, (progress - start) / (end - start)));
-      // Linear interpolate opacity component only (much cheaper than full rgba parse)
-      const alpha = 0.18 + t * (1 - 0.18);
-      el.style.color = `rgba(255,255,255,${alpha.toFixed(3)})`;
-    });
-  });
-
-  // Header + facts use lightweight motion values (only 2 elements)
-  const headerOpacity = useMemo(() => smooth, [smooth]); // proxy — we'll use range in style
-  const factsRef      = useRef<HTMLDivElement>(null);
-
-  useMotionValueEvent(smooth, 'change', (progress) => {
-    // Header — fade in 0→0.04
-    const headerEl = containerRef.current?.querySelector<HTMLElement>('.apex-about-header');
-    if (headerEl) {
+    // Eyebrow header
+    const hdr = containerRef.current?.querySelector<HTMLElement>('.apex-about-hdr');
+    if (hdr) {
       const o = Math.min(1, progress / 0.04);
-      const y = 12 - o * 12;
-      headerEl.style.opacity   = String(o);
-      headerEl.style.transform = `translateY(${y}px)`;
+      hdr.style.opacity   = String(o);
+      hdr.style.transform = `translateY(${12 - o * 12}px)`;
     }
-    // Facts — fade in 0.82→0.93
-    const factsEl = factsRef.current;
-    if (factsEl) {
+
+    // Char colour reveal
+    if (!reduced) {
+      spanRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const { start, end, isSpace } = chars[i];
+        if (isSpace) return;
+        const t     = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+        const alpha = 0.18 + t * 0.82;
+        el.style.color = `rgba(255,255,255,${alpha.toFixed(3)})`;
+      });
+    }
+
+    // Facts
+    const f = factsRef.current;
+    if (f) {
       const o = Math.max(0, Math.min(1, (progress - 0.82) / 0.11));
-      const y = 16 - o * 16;
-      factsEl.style.opacity   = String(o);
-      factsEl.style.transform = `translateY(${y}px)`;
+      f.style.opacity   = String(o);
+      f.style.transform = `translateY(${16 - o * 16}px)`;
     }
   });
 
@@ -132,9 +115,9 @@ export default function ApexAbout() {
       >
         <div className="max-w-[860px] w-full mx-auto">
 
-          {/* Eyebrow — direct DOM, no Framer wrapper needed */}
+          {/* Eyebrow */}
           <div
-            className="apex-about-header flex items-center gap-3 mb-8"
+            className="apex-about-hdr flex items-center gap-3 mb-8"
             style={{ opacity: 0, transform: 'translateY(12px)', willChange: 'opacity, transform' }}
           >
             <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
@@ -143,32 +126,35 @@ export default function ApexAbout() {
             </span>
           </div>
 
-          {/* Text reveal — plain spans, colours written via ref, zero re-renders */}
+          {/* Paragraph — renders as a single flowing block of text.
+              Each character is a plain inline <span>; spaces are literal text nodes.
+              The browser wraps the line naturally, identical to a normal paragraph. */}
           <p
-            className="font-sans font-bold leading-[1.6]"
-            style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.85rem)' }}
+            className="font-sans font-semibold leading-[1.75]"
+            style={{ fontSize: 'clamp(1.05rem, 2vw, 1.5rem)' }}
             aria-label={ABOUT_TEXT}
           >
-            {chars.map((c, i) => (
-              c.isSpace
-                ? <span key={i}>&nbsp;</span>
-                : (
-                  <span
-                    key={i}
-                    ref={el => { spanRefs.current[i] = el; }}
-                    aria-hidden="true"
-                    style={{ color: DIM_COLOR, willChange: 'color' }}
-                  >
-                    {c.char}
-                  </span>
-                )
-            ))}
+            {chars.map((c, i) =>
+              c.isSpace ? (
+                // Plain text space — preserves word spacing and natural wrapping
+                <span key={i} aria-hidden="true"> </span>
+              ) : (
+                <span
+                  key={i}
+                  ref={el => { spanRefs.current[i] = el; }}
+                  aria-hidden="true"
+                  style={{ color: reduced ? FULL : DIM, willChange: 'color' }}
+                >
+                  {c.ch}
+                </span>
+              )
+            )}
           </p>
 
           {/* Facts grid */}
           <div
             ref={factsRef}
-            className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8"
+            className="mt-14 border-t border-white/10 pt-8 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8"
             style={{ opacity: 0, transform: 'translateY(16px)', willChange: 'opacity, transform' }}
           >
             {FACTS.map(([k, v]) => (
