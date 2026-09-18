@@ -55,22 +55,7 @@ export default function Hero(props: HeroProps) {
         className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
       />
 
-      {/* ── Subtle editorial marks in the cream margin above the picture.
-          Print register crosses at the corners, a hairline ruler with
-          tick marks, and small brand-color dots. Every mark under 30%
-          opacity so they read as printers' precision, never noise. */}
       <div aria-hidden className="absolute inset-x-0 top-0 z-[0] pointer-events-none">
-        {/* Top-left "+" register mark — desktop only, too fussy at phone width */}
-        <div className="hidden md:block absolute top-3 md:top-4 left-3 md:left-5 w-3 h-3">
-          <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-foreground/30" />
-          <span className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-foreground/30" />
-        </div>
-
-        {/* Top-right "+" register mark — desktop only, too fussy at phone width */}
-        <div className="hidden md:block absolute top-3 md:top-4 right-3 md:right-5 w-3 h-3">
-          <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-foreground/30" />
-          <span className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-foreground/30" />
-        </div>
 
         {/* Central hairline ruler with tick marks — extends across the top */}
         <div className="hidden md:flex absolute inset-x-0 top-[14px] justify-center px-24">

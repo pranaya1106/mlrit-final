@@ -113,9 +113,9 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       onBlur={() => setPaused(false)}
     >
       {/* DESKTOP */}
-      <div className="hidden md:flex relative items-center">
-        {/* Video pane */}
-        <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative">
+      <div className="hidden md:flex relative items-end">
+        {/* Video pane — raised so the overlapping card doesn't cover the subject's face */}
+        <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative mb-16">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.videoUrl}

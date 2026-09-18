@@ -21,10 +21,10 @@ const SLIDES: Slide[] = [
     alt:   'The Equinox E-Summit 2K24',
     tag:   'Entrepreneurship · 2024',
     title: 'The Equinox E-Summit 2K24',
-    desc:  "MLRIT's flagship annual summit bringing together entrepreneurs, investors, and innovators.",
-    quote: '"The Equinox gave me the first real room where founders, investors and students spoke to each other as equals — that shifted what I thought college could be."',
+    desc:  'Equinox brought founders, VCs and students onto one stage — live pitches, panel discussions and deals that actually happened on campus.',
+    quote: '"We pitched in front of real investors on our own campus. No simulation, no rehearsal — just your idea and two minutes to make it land."',
     speaker: 'Aditya Rao',
-    speakerRole: 'CSE · Batch 2025',
+    speakerRole: 'CSE · Equinox 2024',
     video: '/videos/equinox.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_0711.JPG',
   },
@@ -33,8 +33,8 @@ const SLIDES: Slide[] = [
     alt:   'Zignasa 2025',
     tag:   'Tech · Cultural · 2025',
     title: 'Zignasa 2025',
-    desc:  "MLRIT's grand annual extravaganza featuring technical competitions, hackathons and cultural nights.",
-    quote: '"Zignasa is where every branch of MLRIT shows up — coding, robotics, dance, music. It is the one week the whole campus becomes one team."',
+    desc:  'Five days of hackathons, robotics, music and film — every department competing and performing under one roof.',
+    quote: '"You show up for your event and end up watching four others. Zignasa is the one week where the whole campus actually mixes."',
     speaker: 'Priya Menon',
     speakerRole: 'ECE · Cultural Lead',
     video: '/videos/zignasa.mp4',
@@ -45,23 +45,23 @@ const SLIDES: Slide[] = [
     alt:   'Zenith 2K25',
     tag:   'National Tech Fest · 2025',
     title: 'Zenith 2K25',
-    desc:  'Three days, dozens of events — robotics arenas, coding marathons and headline bands on the main grounds.',
-    quote: '"The Zenith robotics arena was intense — three colleges, ninety-second rounds, and our bot came out of it holding its own. That felt earned."',
+    desc:  'MLRIT\'s national-level tech fest — teams from across the country competing in robotics, coding sprints and product design challenges.',
+    quote: '"Teams flew in from four states. The robotics arena ran non-stop for two days and the energy never dropped once."',
     speaker: 'Karthik Reddy',
     speakerRole: 'MECH · Zenith Robotics',
-    video: '/videos/sports.mp4',
+    video: '/videos/zenith.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_0998.JPG',
   },
   {
     logo:  '/assets/logo.svg',
-    alt:   'Trishna Annual Day 2K26',
-    tag:   'Annual Day · 2026',
-    title: 'Trishna Annual Day 2K26',
-    desc:  "MLRIT's 21st Annual Day — student awards, alumni stories and a quiet evening that earned its applause.",
-    quote: '"Trishna is the one night you see twenty-one years of MLRIT compressed onto one stage — alumni, awards, and the class right behind you already planning next year."',
+    alt:   'CAME 2K25',
+    tag:   'Aerospace · 2025',
+    title: 'CAME 2K25',
+    desc:  'The Conference on Aerospace and Mechanical Engineering — student research papers, industry talks and hands-on UAV demonstrations.',
+    quote: '"I presented research I had been working on for six months. The feedback from the panel pushed it further than any classroom review could."',
     speaker: 'Sana Iyer',
-    speakerRole: 'IT · Batch 2026',
-    video: '/videos/av3.mp4',
+    speakerRole: 'AE · CAME 2025',
+    video: '/videos/came.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_1131.JPG',
   },
 ];
@@ -164,7 +164,7 @@ export default function Events() {
           className="font-display italic text-white/85 text-[clamp(1.25rem,1.6vw,1.8rem)] tracking-tight"
           style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
         >
-          In Their Words…
+          Our Clubs
         </span>
       </div>
 
