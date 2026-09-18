@@ -281,7 +281,7 @@ export default function AdmissionsPage() {
                   <span key={i} className="ph-word inline-block" style={{ marginRight: '0.28em', animationDelay: `${0.38 + i * 0.06}s` }}>{word}</span>
                 ))}
                 <span className="block font-display italic font-medium mt-2" style={{ color: '#01741f', fontSize: '0.86em', lineHeight: 1.05 }}>
-                  {['more', 'than', 'a', 'college.'].map((word, i) => (
+                    {['We', 'are', 'more', 'than', 'a', 'college.'].map((word, i) => (
                     <span key={i} className="ph-word inline-block" style={{ marginRight: '0.24em', animationDelay: `${0.56 + i * 0.05}s` }}>{word}</span>
                   ))}
                 </span>
@@ -570,11 +570,12 @@ export default function AdmissionsPage() {
 
                 {/* Overlapping image */}
                 <div className="relative mt-auto">
-                  <div className="rounded-t-2xl overflow-hidden shadow-card-strong" style={{ height: '320px' }}>
+                  <div className="mx-auto w-full max-w-[320px] md:ml-auto md:mr-0 md:max-w-[360px] aspect-[3/4] max-h-[360px] rounded-t-2xl overflow-hidden shadow-card-strong bg-[#145326]">
                     <img
                       src="/images/about/milestone-2025.jpg"
                       alt="MLRIT students"
                       className="w-full h-full object-cover"
+                      style={{ objectPosition: '68% center' }}
                     />
                   </div>
                 </div>
