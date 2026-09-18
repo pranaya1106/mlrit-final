@@ -66,7 +66,7 @@ const GALLERY = [
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function useCountUp(target: number, ms = 1400) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-30% 0px' });
   const [n, setN] = useState(0);
   useEffect(() => {

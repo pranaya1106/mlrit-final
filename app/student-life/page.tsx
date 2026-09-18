@@ -33,7 +33,7 @@ export default function StudentLifeOverviewPage() {
       >
         {/* z-0: Background photo */}
         <Image
-          src="/images/student-life/hero.jpg"
+          src="/images/campus/life-at-mlr-overview-bg.jpg"
           alt=""
           fill
           priority

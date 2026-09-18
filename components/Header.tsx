@@ -6,6 +6,7 @@ import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight, Menu, X, ChevronDown } from './icons';
 import { Search } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
+import ChroniclesAttentionButton from './ChroniclesAttentionButton';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
@@ -258,49 +259,7 @@ export default function Header() {
                 <Search className="w-5 h-5" />
               </button>
 
-              {/* MLRIT Chronicles — custom icon: an open journal with an
-                  orange bookmark pulsing subtly. Reads as "editorial /
-                  archive / stories" without being a cliché news icon. */}
-              <Link
-                href={NAV_RIGHT.href ?? '/chronicles'}
-                className="group relative flex items-center gap-3 h-[56px] mb-[1px] pl-3 pr-5 rounded-full text-[1.1rem] font-medium text-foreground/85 hover:text-primary tracking-[-0.005em] transition-colors"
-              >
-                <span className="relative inline-flex items-center justify-center w-11 h-11 rounded-full border border-border/70 bg-white/70 group-hover:border-primary/40 group-hover:bg-white transition-all">
-                  <svg viewBox="0 0 22 22" className="w-6 h-6" fill="none" aria-hidden>
-                    {/* Left page */}
-                    <path
-                      d="M3 5.5 L10.5 4 L10.5 18 L3 19.5 Z"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                      strokeLinejoin="round"
-                    />
-                    {/* Right page */}
-                    <path
-                      d="M19 5.5 L11.5 4 L11.5 18 L19 19.5 Z"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                      strokeLinejoin="round"
-                    />
-                    {/* Spine */}
-                    <line x1="11" y1="4" x2="11" y2="18" stroke="currentColor" strokeWidth="0.9" opacity="0.5" />
-                    {/* Text lines on left page */}
-                    <line x1="5.5" y1="8" x2="9" y2="7.5" stroke="currentColor" strokeWidth="0.6" opacity="0.55" strokeLinecap="round" />
-                    <line x1="5.5" y1="10.5" x2="9" y2="10" stroke="currentColor" strokeWidth="0.6" opacity="0.55" strokeLinecap="round" />
-                    {/* Text lines on right page */}
-                    <line x1="13" y1="7.5" x2="16.5" y2="8" stroke="currentColor" strokeWidth="0.6" opacity="0.55" strokeLinecap="round" />
-                    <line x1="13" y1="10" x2="16.5" y2="10.5" stroke="currentColor" strokeWidth="0.6" opacity="0.55" strokeLinecap="round" />
-                    {/* Orange bookmark tongue on the right page */}
-                    <path
-                      d="M15.5 4.4 L15.5 8.6 L16.6 7.5 L17.7 8.6 L17.7 4.7"
-                      fill="#e85d04"
-                      stroke="#e85d04"
-                      strokeWidth="0.6"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-                {NAV_RIGHT.label}
-              </Link>
+              <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
 
               {/* Contact — orange CTA pill */}
               <Link

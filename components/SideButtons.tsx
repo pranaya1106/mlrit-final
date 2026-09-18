@@ -212,7 +212,7 @@ export default function SideButtons() {
               <circle cx="7" cy="7" r="5.5" stroke="white" strokeWidth="1.6"/>
               <path d="M9 5L7.5 8.5 5 9l1.5-3.5L9 5z" fill="white"/>
             </svg>
-            Student Corner
+            Resources
           </div>
         </button>
       </div>
