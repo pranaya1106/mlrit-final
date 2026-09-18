@@ -41,12 +41,12 @@ export default function PlacementsStatisticsPage() {
         <div className="flex-1 min-w-0">
 
       {/* Headline stats */}
-      <section id="statistics" className="bg-white py-10 md:py-14">
+      <section id="statistics" className="bg-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" delay={0.06}>
             {PLACEMENT_HIGHLIGHTS.map((h) => (
               <StaggerItem key={h.label}>
-                <div className="rounded-2xl border border-border bg-warm-light p-6 h-full">
+                <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-6 h-full">
                   <div
                     className="font-sans font-black text-foreground leading-none tracking-tighter-2 text-[clamp(1.4rem,2.4vw,2.2rem)]"
                     aria-label={`${h.value} — ${h.label}`}
@@ -68,8 +68,8 @@ export default function PlacementsStatisticsPage() {
       <PlacementTrackRecord />
 
       {/* Infrastructure */}
-      <section className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
+      <section className="bg-white py-6 md:py-14">
+        <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-[1.2fr_1fr] gap-6 md:gap-12 items-center">
           <Reveal preset="right">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Facilities</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -78,7 +78,7 @@ export default function PlacementsStatisticsPage() {
             <p className="mt-4 text-muted leading-relaxed max-w-[560px]">
               MLRIT maintains a dedicated placement block equipped to host large-scale campus recruitment drives throughout the year.
             </p>
-            <ul className="mt-7 space-y-3.5" aria-label="Infrastructure facilities">
+            <ul className="mt-5 md:mt-7 space-y-3.5" aria-label="Infrastructure facilities">
               {INFRASTRUCTURE_LIST.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[1.02rem] text-foreground">
                   <span className="mt-2 w-2 h-2 rounded-full bg-primary flex-shrink-0" aria-hidden />
@@ -90,7 +90,7 @@ export default function PlacementsStatisticsPage() {
           <Stagger className="grid grid-cols-1 gap-5" delay={0.12}>
             {INFRA_STATS.map((s) => (
               <StaggerItem key={s.label}>
-                <div className="rounded-2xl bg-warm-light border border-border p-7">
+                <div className="rounded-2xl bg-warm-light border border-border p-4 md:p-7">
                   <div className="font-sans font-black text-foreground text-[clamp(2rem,3vw,2.6rem)] leading-none tracking-tighter-2">{s.num}</div>
                   <div className="mt-2 font-mono font-semibold text-[0.72rem] tracking-[0.16em] uppercase text-muted">{s.label}</div>
                 </div>

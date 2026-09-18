@@ -99,9 +99,9 @@ export default async function ChroniclesPage() {
       <main className="max-w-[1200px] mx-auto px-4">
 
         {/* LEAD + RAIL */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-0 pt-8 pb-8 border-b-2 border-black">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-8 lg:gap-0 pt-5 md:pt-8 pb-5 md:pb-8 border-b-2 border-black">
           <article className="lg:col-span-2 lg:pr-8 lg:border-r lg:border-black/15">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
               <div className="flex flex-col justify-center order-2 md:order-1">
                 <span className="font-mono font-bold uppercase tracking-[0.15em] text-xs text-primary mb-3">{LEAD.section}</span>
                 <h2 className="font-display font-bold tracking-tight leading-[1.02] text-[clamp(1.9rem,3.6vw,3rem)] mb-4">
@@ -142,7 +142,7 @@ export default async function ChroniclesPage() {
           </article>
 
           {/* RIGHT RAIL — In Brief, Live Wire, Most Read */}
-          <aside className="lg:pl-8 flex flex-col gap-8 min-w-0">
+          <aside className="lg:pl-8 flex flex-col gap-5 md:gap-8 min-w-0">
             <section id="brief" className="scroll-mt-32">
               <RailHead label="In Brief" meta="Today" />
               <ul className="list-none p-0 m-0">
@@ -223,7 +223,7 @@ export default async function ChroniclesPage() {
         {/* RECENT STORIES */}
         <section id="recent" className="border-b-2 border-black scroll-mt-32">
           <SectionHead title="Recent Stories" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 pb-5 md:pb-8">
             {RECENT_STORIES.map((s, i) => (
               <div
                 key={i}
@@ -258,7 +258,7 @@ export default async function ChroniclesPage() {
         {/* PHOTO ESSAY */}
         <section id="photo-essay" className="border-b-2 border-black scroll-mt-32">
           <SectionHead title="Photo Essay" trail="Twelve months, one campus" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 pb-5 md:pb-8">
             {PHOTO_ESSAY.map((p, i) => (
               <div
                 key={i}
@@ -301,7 +301,7 @@ function RailHead({ label, meta }: { label: string; meta: string }) {
 
 function SectionHead({ title, trail }: { title: string; trail?: string }) {
   return (
-    <div className="flex items-center gap-4 pt-8 pb-4">
+    <div className="flex items-center gap-4 pt-5 md:pt-8 pb-4">
       <h2 className="font-display font-black text-3xl md:text-4xl tracking-tight uppercase">{title}</h2>
       <div className="flex-1 border-t-2 border-black" />
       {trail && (
@@ -317,7 +317,7 @@ function StoryGrid({ id, title, trail, stories }: { id?: string; title: string; 
   return (
     <section id={id} className="border-b-2 border-black scroll-mt-32">
       <SectionHead title={title} trail={trail} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-0 pb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-0 pb-5 md:pb-8">
         {stories.map((s, i) => (
           <div
             key={i}

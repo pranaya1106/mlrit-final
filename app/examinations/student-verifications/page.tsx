@@ -45,12 +45,12 @@ export default function StudentVerificationsPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="student-verifications" className="bg-warm-light py-10 md:py-14">
-        <div className="max-w-[900px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
+      <section id="student-verifications" className="bg-warm-light py-8 md:py-14">
+        <div className="max-w-[900px] mx-auto px-4 md:px-12 lg:px-20 space-y-4 md:space-y-6">
 
           {/* Download form */}
           <Reveal preset="up">
-            <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+            <div className="bg-white rounded-2xl border border-border p-5 md:p-7 shadow-card-soft">
               <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">Step 1</p>
               <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">
                 Download the Verification Form
@@ -64,7 +64,7 @@ export default function StudentVerificationsPage() {
 
           {/* Submit instructions */}
           <Reveal preset="up" delay={0.08}>
-            <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+            <div className="bg-white rounded-2xl border border-border p-5 md:p-7 shadow-card-soft">
               <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">Step 2</p>
               <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">
                 Submit to the COE Office
@@ -84,8 +84,8 @@ export default function StudentVerificationsPage() {
 
           {/* Use cases */}
           <Reveal preset="up" delay={0.14}>
-            <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-5">Verification is accepted for</h3>
+            <div className="bg-white rounded-2xl border border-border p-5 md:p-7 shadow-card-soft">
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3 md:mb-5">Verification is accepted for</h3>
               <ul className="space-y-3">
                 {USE_CASES.map((u) => (
                   <li key={u.title} className="flex items-start gap-3">
@@ -101,7 +101,7 @@ export default function StudentVerificationsPage() {
           </Reveal>
 
           <Reveal preset="up" delay={0.2}>
-            <div className="p-5 rounded-xl border border-border bg-white flex items-start gap-3">
+            <div className="p-4 md:p-5 rounded-xl border border-border bg-white flex items-start gap-3">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                 className="text-secondary shrink-0 mt-0.5" aria-hidden>
                 <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>

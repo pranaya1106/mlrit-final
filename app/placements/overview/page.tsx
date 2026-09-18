@@ -70,9 +70,9 @@ export default function PlacementsOverviewPage() {
         <div className="flex-1 min-w-0">
 
       {/* Editorial intro — drop cap + pull quote */}
-      <section id="overview" className="bg-white py-12 md:py-16">
+      <section id="overview" className="bg-white py-8 md:py-16">
         <div className="w-full px-6 md:px-10 lg:px-12">
-          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-6 lg:gap-16 items-start">
             <Reveal>
               <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">
                 Overview
@@ -93,7 +93,7 @@ export default function PlacementsOverviewPage() {
             <Reveal preset="up" delay={0.1}>
               <div className="space-y-5">
                 <p className="text-foreground/85 text-[1.06rem] leading-[1.8]">
-                  <span className="font-display italic font-black text-primary text-[3.6rem] leading-[0.7] float-left mr-3 mt-1">M</span>
+                  <span className="font-display italic font-black text-primary text-[2.4rem] md:text-[3.6rem] leading-[0.7] float-left mr-3 mt-1">M</span>
                   {PLACEMENT_OVERVIEW}
                 </p>
               </div>
@@ -101,10 +101,10 @@ export default function PlacementsOverviewPage() {
           </div>
 
           {/* Highlights */}
-          <Stagger className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" delay={0.06}>
+          <Stagger className="mt-10 md:mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" delay={0.06}>
             {PLACEMENT_HIGHLIGHTS.map((h, i) => (
               <StaggerItem key={h.label}>
-                <div className="relative rounded-2xl border border-border bg-warm-light p-6 h-full overflow-hidden group hover:-translate-y-1 hover:border-primary hover:shadow-card-soft transition-all duration-300">
+                <div className="relative rounded-2xl border border-border bg-warm-light p-4 md:p-6 h-full overflow-hidden group hover:-translate-y-1 hover:border-primary hover:shadow-card-soft transition-all duration-300">
                   <span
                     aria-hidden
                     className="absolute -top-2 -right-2 font-display italic font-black text-[5rem] leading-none tracking-tighter text-primary/[0.05] group-hover:text-primary/[0.15] transition-colors duration-500 select-none"
@@ -135,11 +135,11 @@ export default function PlacementsOverviewPage() {
       </section>
 
       {/* Why MLRIT — dark editorial band with numbered cards */}
-      <section className="relative bg-ink text-white py-14 md:py-20 overflow-hidden">
+      <section className="relative bg-ink text-white py-8 md:py-20 overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-primary/15 blur-[120px]" />
         <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-32 w-[520px] h-[520px] rounded-full bg-[#c26a2b]/20 blur-[120px]" />
         <div className="relative w-full px-6 md:px-10 lg:px-12">
-          <div className="max-w-[820px] mb-12 md:mb-14">
+          <div className="max-w-[820px] mb-8 md:mb-14">
             <Reveal>
               <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-warm">
                 Why MLRIT
@@ -166,7 +166,7 @@ export default function PlacementsOverviewPage() {
           <Stagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
             {WHY_MLRIT.map((w, i) => (
               <StaggerItem key={w.heading}>
-                <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-7 h-full transition-all duration-500 hover:-translate-y-1.5 hover:border-warm/40 hover:bg-white/[0.07] overflow-hidden">
+                <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-4 md:p-7 h-full transition-all duration-500 hover:-translate-y-1.5 hover:border-warm/40 hover:bg-white/[0.07] overflow-hidden">
                   <span
                     aria-hidden
                     className="absolute -top-2 -right-2 font-display italic font-black text-[5.5rem] leading-none tracking-tighter text-white/[0.06] select-none"
@@ -190,11 +190,11 @@ export default function PlacementsOverviewPage() {
       </section>
 
       {/* Explore the section */}
-      <section className="relative bg-cream-2 py-14 md:py-20 overflow-hidden">
+      <section className="relative bg-cream-2 py-8 md:py-20 overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full bg-primary/[0.05] blur-[110px]" />
         <div aria-hidden className="pointer-events-none absolute -bottom-32 -left-32 w-[520px] h-[520px] rounded-full bg-[#1F6B24]/[0.05] blur-[110px]" />
         <div className="relative w-full px-6 md:px-10 lg:px-12">
-          <div className="max-w-[820px] mb-10 md:mb-14">
+          <div className="max-w-[820px] mb-6 md:mb-14">
             <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               Explore the Placements Section
@@ -214,7 +214,7 @@ export default function PlacementsOverviewPage() {
                 <StaggerItem key={e.href}>
                   <Link
                     href={e.href}
-                    className="group relative block rounded-3xl bg-white border border-border p-7 h-full transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-20px_rgba(0,0,0,0.18)] hover:border-transparent overflow-hidden"
+                    className="group relative block rounded-3xl bg-white border border-border p-4 md:p-7 h-full transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-20px_rgba(0,0,0,0.18)] hover:border-transparent overflow-hidden"
                   >
                     <span
                       aria-hidden

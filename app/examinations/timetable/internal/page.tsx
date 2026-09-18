@@ -99,18 +99,18 @@ export default function InternalTimetablePage() {
 
       {/* Internal / External pill toggle */}
       <div className="bg-white border-b border-border">
-        <div className="w-full px-6 md:px-10 lg:px-12 py-3">
+        <div className="w-full px-4 md:px-10 lg:px-12 py-3">
           <div className="inline-flex items-center rounded-full bg-warm-light border border-border p-1 gap-1">
             <a
               href="/examinations/timetable/internal"
               aria-current="page"
-              className="px-5 py-2 rounded-full font-sans font-bold text-[0.82rem] bg-primary text-white shadow-card-soft transition-all duration-200"
+              className="px-4 py-2 md:px-5 rounded-full font-sans font-bold text-[0.82rem] bg-primary text-white shadow-card-soft transition-all duration-200"
             >
               Internal (CIE)
             </a>
             <a
               href="/examinations/timetable/external"
-              className="px-5 py-2 rounded-full font-sans font-bold text-[0.82rem] text-muted hover:text-foreground transition-all duration-200"
+              className="px-4 py-2 md:px-5 rounded-full font-sans font-bold text-[0.82rem] text-muted hover:text-foreground transition-all duration-200"
             >
               External (SEE)
             </a>
@@ -118,8 +118,8 @@ export default function InternalTimetablePage() {
         </div>
       </div>
 
-      <section id="timetable-internal" className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section id="timetable-internal" className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
               Continuous Internal Evaluation · {CIE_TIMETABLES.length} Timetables
@@ -132,10 +132,10 @@ export default function InternalTimetablePage() {
             </p>
           </Reveal>
 
-          <Stagger className="mt-10 grid md:grid-cols-2 gap-5" delay={0.05}>
+          <Stagger className="mt-6 md:mt-10 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.05}>
             {CIE_TIMETABLES.map((t) => (
               <StaggerItem key={t.file}>
-                <div className="group flex flex-col gap-4 rounded-2xl border-2 border-border bg-white p-7 hover:border-primary hover:-translate-y-0.5 transition-all h-full">
+                <div className="group flex flex-col gap-3 md:gap-4 rounded-2xl border-2 border-border bg-white p-5 md:p-7 hover:border-primary hover:-translate-y-0.5 transition-all h-full">
                   <div className="flex items-start justify-between gap-3">
                     <span className={`inline-flex items-center px-3 py-1 rounded-full border text-[0.65rem] font-mono font-bold tracking-widest uppercase ${t.badgeColor}`}>
                       {t.badge}
@@ -165,7 +165,7 @@ export default function InternalTimetablePage() {
           </Stagger>
 
           <Reveal preset="up" delay={0.3}>
-            <div className="mt-8 p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
+            <div className="mt-6 p-4 md:mt-8 md:p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-secondary shrink-0 mt-0.5" aria-hidden>
                 <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M8 7v5M8 5v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>

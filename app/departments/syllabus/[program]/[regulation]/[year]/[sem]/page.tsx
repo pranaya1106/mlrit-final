@@ -80,20 +80,20 @@ export default function SyllabusPage({ params }: { params: Params }) {
         ) : (
           <>
             <Lede>{courses.length} subjects · click a row to open the syllabus PDF.</Lede>
-            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-white">
+            <div className="mt-5 md:mt-8 overflow-hidden rounded-2xl border border-border bg-white">
               <table className="w-full text-left text-[0.94rem]">
                 <thead className="bg-warm-light/50">
                   <tr>
-                    <th className="px-5 py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Code</th>
-                    <th className="px-5 py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Subject</th>
-                    <th className="px-5 py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted text-right">Syllabus</th>
+                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Code</th>
+                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Subject</th>
+                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted text-right">Syllabus</th>
                   </tr>
                 </thead>
                 <tbody>
                   {courses.map((c, i) => (
                     <tr key={`${c.code}-${i}`} className="border-t border-border transition-colors hover:bg-warm-light/40">
-                      <td className="px-5 py-3.5 font-sans font-bold text-foreground align-top whitespace-nowrap">{c.code}</td>
-                      <td className="px-5 py-3.5">
+                      <td className="px-3 py-3 md:px-5 md:py-3.5 font-sans font-bold text-foreground align-top whitespace-nowrap">{c.code}</td>
+                      <td className="px-3 py-3 md:px-5 md:py-3.5">
                         <a
                           href={c.pdf}
                           target="_blank"
@@ -103,7 +103,7 @@ export default function SyllabusPage({ params }: { params: Params }) {
                           {c.title}
                         </a>
                       </td>
-                      <td className="px-5 py-3.5 text-right whitespace-nowrap">
+                      <td className="px-3 py-3 md:px-5 md:py-3.5 text-right whitespace-nowrap">
                         <a
                           href={c.pdf}
                           target="_blank"
@@ -125,7 +125,7 @@ export default function SyllabusPage({ params }: { params: Params }) {
       <Section surface>
         <H2 italic="in this regulation">Other semesters</H2>
         <Lede>Switch between semesters within {params.regulation.toUpperCase()} for the {params.program.toUpperCase()} programme.</Lede>
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-4 md:mt-6 flex flex-wrap gap-2">
           {allSems.map((s) => (
             <Link
               key={s.label}
@@ -140,7 +140,7 @@ export default function SyllabusPage({ params }: { params: Params }) {
             </Link>
           ))}
         </div>
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-5 md:mt-8 flex flex-wrap gap-2">
           {REGULATIONS.filter((r) => r !== params.regulation).map((r) => (
             <Link key={r}
                   href={`/departments/syllabus/${params.program}/${r}/year1/sem1`}

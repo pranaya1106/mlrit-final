@@ -87,12 +87,12 @@ function useCountUp(target: number, ms = 1400) {
 function StatItem({ value, label, suffix, showDivider }: { value: number; label: string; suffix: string; showDivider: boolean }) {
   const { ref, n } = useCountUp(value);
   return (
-    <div className={`px-4 md:px-6 ${showDivider ? 'md:border-r md:border-white/10' : ''}`}>
+    <div className={`px-3 md:px-6 ${showDivider ? 'md:border-r md:border-white/10' : ''}`}>
       <div ref={ref} className="font-sans font-black text-white text-[clamp(2.2rem,3.6vw,3.2rem)] leading-none tracking-tighter-2 tabular-nums">
         {n.toLocaleString('en-IN')}
         <span className="text-primary">{suffix}</span>
       </div>
-      <div className="mt-4 font-mono text-[0.64rem] font-bold tracking-[0.24em] uppercase text-white/50">
+      <div className="mt-2 md:mt-4 font-mono text-[0.64rem] font-bold tracking-[0.24em] uppercase text-white/50">
         {label}
       </div>
     </div>
@@ -119,7 +119,7 @@ export default function CIEClubPage() {
     <main className="bg-black text-white">
       {/* ═════════ HERO — CIE editorial poster ═════════ */}
       <section className="relative bg-black overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-6 md:pt-8 relative z-[2]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-4 md:pt-8 relative z-[2]">
           <div className="flex items-center justify-between gap-4">
             <Link
               href="/campus/clubs"
@@ -147,19 +147,19 @@ export default function CIEClubPage() {
           />
         </motion.div>
 
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-8 pb-20 md:pb-28 relative z-[2]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-5 md:pt-8 pb-12 md:pb-28 relative z-[2]">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 md:gap-8"
           >
             <div className="max-w-[720px]">
               <Eyebrow>Ideate · Build · Innovate</Eyebrow>
-              <h1 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2.4rem,4.6vw,4rem)]">
+              <h1 className="mt-4 md:mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2.4rem,4.6vw,4rem)]">
                 Where ideas become real ventures.
               </h1>
-              <p className="mt-5 text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[600px]">
+              <p className="mt-3 md:mt-5 text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[600px]">
                 A student-driven community of builders, designers, writers and
                 first-time founders — turning curiosity into shipped work
                 through projects, workshops, hackathons and mentorship.
@@ -172,14 +172,14 @@ export default function CIEClubPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ backgroundColor: '#e85d04', color: '#fff' }}
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-primary-glow transition-all duration-300"
+                className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-primary-glow transition-all duration-300"
               >
                 Visit mlritcie.in
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 href="#about"
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
+                className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
               >
                 Read on
               </Link>
@@ -189,7 +189,7 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ ABOUT — plain editorial spread ═════════ */}
-      <section id="about" className="relative bg-black py-20 md:py-28 overflow-hidden">
+      <section id="about" className="relative bg-black py-12 md:py-28 overflow-hidden">
         {/* Decorative photo strip tucked into the section — echoes the hero's
             photo-cutout language. Hidden on small screens. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -203,7 +203,7 @@ export default function CIEClubPage() {
 
         <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>About</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-10 md:mb-12">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-10 md:mb-12">
             About CIE.
           </h2>
 
@@ -228,7 +228,7 @@ export default function CIEClubPage() {
           </div>
 
           {/* Fact strip — inline, hairline-separated */}
-          <div className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8">
+          <div className="mt-7 md:mt-12 border-t border-white/10 pt-4 md:pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-4 md:gap-y-6 gap-x-4 md:gap-x-8">
             {[
               ['Location',  'Dundigal, Hyderabad'],
               ['Model',     'Student-run'],
@@ -249,35 +249,35 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ VISION + MISSION — two blocks, one rule ═════════ */}
-      <section className="relative bg-black py-20 md:py-24 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-24 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Vision &amp; Mission</Eyebrow>
 
-          <div className="mt-10 grid lg:grid-cols-2 lg:divide-x lg:divide-white/10">
+          <div className="mt-6 md:mt-10 grid lg:grid-cols-2 lg:divide-x lg:divide-white/10">
             <div className="lg:pr-14">
               <div className="flex items-baseline gap-4">
-                <span className="font-sans font-black text-white/25 text-[3rem] leading-none tracking-tighter-2">
+                <span className="font-sans font-black text-white/25 text-[2.2rem] md:text-[3rem] leading-none tracking-tighter-2">
                   01
                 </span>
                 <span className="font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/55">
                   Vision
                 </span>
               </div>
-              <p className="mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]">
+              <p className="mt-3 md:mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]">
                 Create a student culture where innovation is not limited to
                 competitions or special occasions.
               </p>
             </div>
-            <div className="mt-12 lg:mt-0 lg:pl-14">
+            <div className="mt-7 md:mt-12 lg:mt-0 lg:pl-14">
               <div className="flex items-baseline gap-4">
-                <span className="font-sans font-black text-white/25 text-[3rem] leading-none tracking-tighter-2">
+                <span className="font-sans font-black text-white/25 text-[2.2rem] md:text-[3rem] leading-none tracking-tighter-2">
                   02
                 </span>
                 <span className="font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/55">
                   Mission
                 </span>
               </div>
-              <p className="mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]">
+              <p className="mt-3 md:mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]">
                 Make learning more practical, collaborative and student-driven.
               </p>
             </div>
@@ -286,10 +286,10 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ PILLARS — vertical ledger, no cards ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Six pillars</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-8 md:mb-14">
             How we work.
           </h2>
 
@@ -297,9 +297,9 @@ export default function CIEClubPage() {
             {OBJECTIVES.map((o, i) => (
               <div
                 key={o.n}
-                className="grid grid-cols-[auto_1fr] gap-6 py-7 border-t border-white/10"
+                className="grid grid-cols-[auto_1fr] gap-4 md:gap-6 py-5 md:py-7 border-t border-white/10"
               >
-                <span className="font-sans font-black text-white/30 text-[2.4rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
+                <span className="font-sans font-black text-white/30 text-[1.8rem] md:text-[2.2rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
                   {o.n}
                 </span>
                 <div className="pt-1">
@@ -317,7 +317,7 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ VERTICALS — logo-first cards, no chrome ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         {/* Faint beam decor, blends into the top */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -330,7 +330,7 @@ export default function CIEClubPage() {
 
         <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>What&apos;s inside</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-8 md:mb-14">
             Four verticals.
           </h2>
 
@@ -338,7 +338,7 @@ export default function CIEClubPage() {
             {VERTICALS.map((v) => (
               <div
                 key={v.code}
-                className="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-500 p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8"
+                className="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-500 p-5 md:p-10 flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8"
               >
                 <div className="w-[220px] h-[220px] md:w-[240px] md:h-[240px] flex-shrink-0 flex items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -352,7 +352,7 @@ export default function CIEClubPage() {
                   <h3 className="font-sans font-black text-white text-[1.35rem] md:text-[1.5rem] leading-tight tracking-tight">
                     {v.name}
                   </h3>
-                  <p className="mt-3 text-white/60 text-[0.92rem] md:text-[0.96rem] leading-[1.65] max-w-[38ch]">
+                  <p className="mt-2 md:mt-3 text-white/60 text-[0.92rem] md:text-[0.96rem] leading-[1.65] max-w-[38ch]">
                     {v.body}
                   </p>
                 </div>
@@ -363,13 +363,13 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ EVENTS — infinite marquee (posters only) ═════════ */}
-      <section id="events" className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 mb-12">
+      <section id="events" className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 mb-7 md:mb-12">
           <Eyebrow>Events</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
             The record.
           </h2>
-          <p className="mt-3 text-white/50 text-[0.92rem] max-w-[52ch]">
+          <p className="mt-2 md:mt-3 text-white/50 text-[0.92rem] max-w-[52ch]">
             Hover any poster to read what it was.
           </p>
         </div>
@@ -447,10 +447,10 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ FACILITIES — vertical ledger ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Facilities</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-8 md:mb-14">
             Rooms we use.
           </h2>
 
@@ -458,7 +458,7 @@ export default function CIEClubPage() {
             {FACILITIES.map((f, i) => (
               <div
                 key={f.title}
-                className="grid grid-cols-[auto_1fr] gap-6 py-6 border-t border-white/10"
+                className="grid grid-cols-[auto_1fr] gap-4 md:gap-6 py-4 md:py-6 border-t border-white/10"
               >
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase text-primary pt-1 min-w-[2rem] tabular-nums">
                   {String(i + 1).padStart(2, '0')}
@@ -483,10 +483,10 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ NUMBERS ═════════ */}
-      <section className="relative bg-black py-20 md:py-24 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-24 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>By the numbers</Eyebrow>
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-y-10">
+          <div className="mt-6 md:mt-10 grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-10">
             {STATS.map((s, i) => (
               <StatItem
                 key={s.label}
@@ -501,8 +501,8 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ VALUES — quiet marquee ribbon ═════════ */}
-      <section className="relative bg-black py-14 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 mb-6">
+      <section className="relative bg-black py-8 md:py-14 overflow-hidden border-t border-white/[0.08]">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 mb-4 md:mb-6">
           <Eyebrow>Core values</Eyebrow>
         </div>
         <div
@@ -514,11 +514,11 @@ export default function CIEClubPage() {
               'linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%)',
           }}
         >
-          <div className="flex w-max gap-10 items-center cie-values-marquee">
+          <div className="flex w-max gap-6 md:gap-10 items-center cie-values-marquee">
             {[...VALUES, ...VALUES, ...VALUES].map((v, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-10 whitespace-nowrap font-sans font-black text-white/85 text-[clamp(1.4rem,2vw,1.8rem)] tracking-tight"
+                className="inline-flex items-center gap-6 md:gap-10 whitespace-nowrap font-sans font-black text-white/85 text-[clamp(1.4rem,2vw,1.8rem)] tracking-tight"
               >
                 {v}
                 <span aria-hidden className="text-primary text-[0.6em]">■</span>
@@ -545,11 +545,11 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ GALLERY — varied bento ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="max-w-[1200px] mx-auto mb-12">
+          <div className="max-w-[1200px] mx-auto mb-7 md:mb-12">
             <Eyebrow>Gallery</Eyebrow>
-            <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
+            <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
               Living document.
             </h2>
           </div>
@@ -582,7 +582,7 @@ export default function CIEClubPage() {
             ))}
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-6 md:mt-10 flex justify-center">
             <Link
               href="https://mlritcie.in/gallery"
               target="_blank"
@@ -597,10 +597,10 @@ export default function CIEClubPage() {
       </section>
 
       {/* ═════════ CONTACT — plain, no card ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
+      <section className="relative bg-black py-12 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Get involved</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8">
+          <h2 className="mt-3 md:mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8">
             Bring the idea.
           </h2>
           <p className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch]">
@@ -608,27 +608,27 @@ export default function CIEClubPage() {
             any channel below.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <div className="mt-6 md:mt-10 flex flex-wrap items-center gap-3">
             <Link
               href="https://mlritcie.in"
               target="_blank"
               rel="noopener noreferrer"
               style={{ backgroundColor: '#e85d04', color: '#fff' }}
-              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-primary-glow transition-all duration-300"
+              className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-primary-glow transition-all duration-300"
             >
               Visit mlritcie.in
               <ArrowUpRight className="w-4 h-4" />
             </Link>
             <Link
               href="mailto:ciemlrit@mlrit.ac.in"
-              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
+              className="inline-flex items-center gap-2.5 h-12 px-5 md:px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
             >
               <Mail className="w-4 h-4" />
               Email us
             </Link>
           </div>
 
-          <div className="mt-14 border-t border-white/10 pt-8 grid md:grid-cols-3 gap-y-8 gap-x-10">
+          <div className="mt-8 md:mt-14 border-t border-white/10 pt-5 md:pt-8 grid md:grid-cols-3 gap-y-5 md:gap-y-8 gap-x-6 md:gap-x-10">
             <div>
               <div className="font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/45">
                 Address

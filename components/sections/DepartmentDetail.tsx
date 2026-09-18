@@ -225,7 +225,7 @@ export default function DepartmentDetail({ department: d }: Props) {
         {/* Mobile / tablet — all tabs visible at once, wrapping instead of scrolling off-screen.
             The whole bar slides away on scroll-down and back on scroll-up, same as the main
             navbar — but only below lg (the lg:translate-y-0 override keeps desktop static). */}
-        <div className="flex flex-wrap gap-2 max-w-[1600px] mx-auto pl-4 pr-14 py-3 lg:hidden">
+        <div className="flex flex-wrap gap-1 max-w-[1600px] mx-auto pl-4 pr-14 py-1.5 lg:hidden">
           {visibleTabs.map((t) => {
             const active = t.id === tab;
             return (
@@ -239,7 +239,7 @@ export default function DepartmentDetail({ department: d }: Props) {
                     behavior: 'auto',
                   });
                 }}
-                className={`px-3.5 py-2 rounded-full text-[0.82rem] font-medium border transition-colors whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-full text-[0.7rem] leading-tight font-medium border transition-colors whitespace-nowrap ${
                   active
                     ? 'bg-primary text-white border-primary font-semibold'
                     : 'bg-white text-muted border-border hover:border-primary hover:text-foreground'

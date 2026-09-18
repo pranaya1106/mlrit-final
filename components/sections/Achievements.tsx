@@ -65,7 +65,7 @@ export default function Achievements(props: AchievementsProps) {
 
   return (
     <div id={sectionDomId('home/achievements')}>
-      <section id="achievements" className="relative bg-snow grain-texture pt-6 md:pt-10 pb-16 md:pb-24 overflow-hidden">
+      <section id="achievements" className="relative bg-snow grain-texture pt-6 md:pt-10 pb-8 md:pb-24 overflow-hidden">
         {/* Ambient blobs */}
         <div aria-hidden className="absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full bg-secondary/[0.08] blur-[100px] pointer-events-none" />
         <div aria-hidden className="absolute top-1/2 -right-32 w-[420px] h-[420px] rounded-full bg-gold-400/[0.10] blur-[100px] pointer-events-none" />
@@ -116,7 +116,7 @@ export default function Achievements(props: AchievementsProps) {
           </motion.div>
 
           {/* ── ROW 2 · RANK CARDS — 3-across, full width, generous ── */}
-          <ul className="relative z-10 mt-10 md:mt-14 grid gap-6 md:gap-8 md:grid-cols-3">
+          <ul className="relative z-10 mt-6 md:mt-14 grid gap-4 md:gap-8 md:grid-cols-3">
             {RANKS.map((r, i) => (
               <motion.li
                 key={r.title}
@@ -125,7 +125,7 @@ export default function Achievements(props: AchievementsProps) {
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ delay: 0.1 + i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -4 }}
-                className="group relative rounded-3xl bg-white border border-border p-7 md:p-9 lg:p-10 min-h-[220px] flex flex-col justify-between hover:border-transparent hover:shadow-[0_28px_60px_-20px_rgba(0,0,0,0.18)] transition-shadow duration-500 overflow-hidden"
+                className="group relative rounded-2xl md:rounded-3xl bg-white border border-border p-5 md:p-9 lg:p-10 min-h-0 md:min-h-[220px] flex flex-col justify-between hover:border-transparent hover:shadow-[0_28px_60px_-20px_rgba(0,0,0,0.18)] transition-shadow duration-500 overflow-hidden"
               >
                 <span
                   aria-hidden
@@ -135,25 +135,25 @@ export default function Achievements(props: AchievementsProps) {
 
                 <div className="flex items-start justify-between">
                   <span
-                    className="font-sans font-black text-[clamp(3.4rem,5vw,5rem)] leading-[0.85] tracking-tighter-3 transition-transform duration-500 origin-left group-hover:scale-[1.05]"
+                    className="font-sans font-black text-[2.2rem] md:text-[clamp(3.4rem,5vw,5rem)] leading-[0.85] tracking-tighter-3 transition-transform duration-500 origin-left group-hover:scale-[1.05]"
                     style={{ color: r.tint }}
                   >
                     {r.num}
                   </span>
                   <span
                     aria-hidden
-                    className="font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase pt-2 opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+                    className="font-mono text-[0.62rem] md:text-[0.7rem] font-bold tracking-[0.2em] uppercase pt-1 md:pt-2 opacity-40 group-hover:opacity-100 transition-opacity duration-500"
                     style={{ color: r.tint }}
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
 
-                <div className="mt-6">
-                  <div className="font-sans font-extrabold text-foreground text-[1.14rem] tracking-tight leading-snug">
+                <div className="mt-3 md:mt-6">
+                  <div className="font-sans font-extrabold text-foreground text-[0.98rem] md:text-[1.14rem] tracking-tight leading-snug">
                     {r.title}
                   </div>
-                  <div className="mt-2 text-muted text-[0.95rem] leading-relaxed">
+                  <div className="mt-1 md:mt-2 text-muted text-[0.82rem] md:text-[0.95rem] leading-relaxed">
                     {r.sub}
                   </div>
                 </div>
@@ -189,7 +189,7 @@ export default function Achievements(props: AchievementsProps) {
                   'linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)',
               }}
             >
-              <div className="flex w-[200%] animate-marquee gap-8 md:gap-14 items-center">
+              <div className="flex w-[200%] animate-marquee gap-12 md:gap-14 items-center">
                 {[...displayLogos, ...displayLogos].map((l, i) => (
                   <figure
                     key={`${l.name}-${i}`}

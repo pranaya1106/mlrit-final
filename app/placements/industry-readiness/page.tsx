@@ -37,17 +37,17 @@ export default function IndustryReadinessPage() {
         <div className="flex-1 min-w-0">
 
       {/* Training programme modules */}
-      <section id="industry-readiness" className="bg-white py-14 md:py-20">
+      <section id="industry-readiness" className="bg-white py-8 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
-            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.6rem] leading-tight mb-8">
+            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.35rem] md:text-[1.6rem] leading-tight mb-5 md:mb-8">
               Preparation <span className="font-display italic font-medium" style={gradientText}>areas.</span>
             </h2>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-5">
             {READINESS_MODULES.map((mod, i) => (
               <Reveal key={mod.id} preset="up" delay={i * 0.05}>
-                <div className="flex items-start gap-4 rounded-2xl border border-border bg-warm-light p-6 h-full">
+                <div className="flex items-start gap-4 rounded-2xl border border-border bg-warm-light p-4 md:p-6 h-full">
                   <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-mono text-[0.78rem] font-bold flex items-center justify-center" aria-hidden>
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -72,7 +72,7 @@ export default function IndustryReadinessPage() {
       </section>
 
       {/* Branch-wise curriculum */}
-      <section className="bg-ink text-white py-20 md:py-28">
+      <section className="bg-ink text-white py-10 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Curriculum</span>
@@ -80,11 +80,11 @@ export default function IndustryReadinessPage() {
               Branch-wise <span className="font-display italic font-medium text-warm">training.</span>
             </h2>
           </Reveal>
-          <div className="mt-10 flex flex-col gap-4">
+          <div className="mt-6 md:mt-10 flex flex-col gap-4">
             {BRANCH_CURRICULA.map((b, i) => (
               <Reveal key={b.branch} preset="up" delay={i * 0.06}>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 hover:border-warm/30 transition-all">
-                  <div className="flex items-start gap-5">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 md:p-6 hover:border-warm/30 transition-all">
+                  <div className="flex items-start gap-3 md:gap-5">
                     <div className="shrink-0">
                       <span className="inline-block font-mono text-[0.7rem] font-bold tracking-[0.18em] uppercase px-3 py-1 rounded-full bg-warm/10 text-warm border border-warm/20">
                         {b.branch}

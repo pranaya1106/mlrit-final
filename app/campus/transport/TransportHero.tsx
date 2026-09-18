@@ -125,7 +125,7 @@ export default function TransportHero() {
       </div>
 
       {/* ── Breadcrumb ── */}
-      <div className="relative z-10 max-w-[1280px] mx-auto w-full px-6 md:px-14 lg:px-20 pt-10 md:pt-14">
+      <div className="relative z-10 max-w-[1280px] mx-auto w-full px-6 md:px-14 lg:px-20 pt-6 md:pt-14">
         <nav
           aria-label="Breadcrumb"
           className="flex flex-wrap items-center gap-2 font-mono text-[0.67rem] tracking-[0.14em] uppercase text-white/30"
@@ -139,9 +139,9 @@ export default function TransportHero() {
       </div>
 
       {/* ── Hero content ── */}
-      <div className="relative z-10 mt-auto max-w-[1280px] mx-auto w-full px-6 md:px-14 lg:px-20 pb-28 md:pb-32">
+      <div className="relative z-10 mt-auto max-w-[1280px] mx-auto w-full px-6 md:px-14 lg:px-20 pb-16 md:pb-32">
         <div className="max-w-[680px]">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-primary font-sans font-bold text-[0.62rem] tracking-[0.22em] uppercase mb-6">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-primary font-sans font-bold text-[0.62rem] tracking-[0.22em] uppercase mb-4 md:mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" aria-hidden="true" />
             Campus Life
           </span>
@@ -150,14 +150,14 @@ export default function TransportHero() {
             Transport{' '}
             <span className="font-display italic font-normal text-warm">services.</span>
           </h1>
-          <p className="mt-5 text-white/50 leading-relaxed max-w-[500px]"
+          <p className="mt-3 md:mt-5 text-white/50 leading-relaxed max-w-[500px]"
             style={{ fontSize: 'clamp(0.95rem, 1.5vw, 1.08rem)' }}>
             27 institute-operated routes connecting Hyderabad to the
             Dundigal campus — every working day.
           </p>
 
           {/* Stats strip */}
-          <div className="mt-8 flex flex-wrap gap-6">
+          <div className="mt-5 md:mt-8 flex flex-wrap gap-4 md:gap-6">
             {[
               { value: '27', label: 'Routes' },
               { value: '400+', label: 'Stops covered' },

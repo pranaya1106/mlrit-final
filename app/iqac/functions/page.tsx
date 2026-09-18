@@ -70,10 +70,10 @@ export default function FunctionsPage() {
 
           <Section id="functions">
             <H2 italic="">Key Functions</H2>
-            <div className="mt-8 flex flex-col gap-3">
+            <div className="mt-5 md:mt-8 flex flex-col gap-3">
               {FUNCTIONS.map((f, i) => (
                 <Reveal key={i} preset="right" delay={i * 0.04}>
-                  <div className="flex items-start gap-4 rounded-xl border border-border bg-white px-5 py-4">
+                  <div className="flex items-start gap-3 md:gap-4 rounded-xl border border-border bg-white px-4 md:px-5 py-3 md:py-4">
                     <span className="shrink-0 w-7 h-7 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.65rem] font-bold flex items-center justify-center mt-0.5">
                       {String(i + 1).padStart(2, '0')}
                     </span>
@@ -95,11 +95,11 @@ export default function FunctionsPage() {
               </p>
             </Reveal>
             <Reveal preset="up" delay={0.1}>
-              <div className="mt-8 rounded-2xl border border-border bg-white overflow-hidden">
-                <div className="px-6 py-4 bg-warm-light border-b border-border">
+              <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white overflow-hidden">
+                <div className="px-4 md:px-6 py-3 md:py-4 bg-warm-light border-b border-border">
                   <span className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">IQAC Quality Assurance Process</span>
                 </div>
-                <div className="p-6">
+                <div className="p-4 md:p-6">
                   <ol className="relative border-l-2 border-secondary/30 space-y-0 ml-3">
                     {PROCESS_FLOW_STEPS.map((step, i) => {
                       const isFirst = i === 0;

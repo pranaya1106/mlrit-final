@@ -46,7 +46,7 @@ export default function FeedbackPage() {
             <Section id={f.id} key={f.id}>
               <H2 italic="">{f.title}</H2>
               <Reveal preset="up">
-                <div className="mt-6 rounded-2xl border border-border bg-white p-7 max-w-[720px] hover:border-secondary transition-colors">
+                <div className="mt-4 md:mt-6 rounded-2xl border border-border bg-white p-4 md:p-7 max-w-[720px] hover:border-secondary transition-colors">
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-3">{f.tag}</div>
                   <p className="text-muted leading-relaxed text-[0.93rem]">{f.desc}</p>
                 </div>

@@ -341,7 +341,7 @@ function RoboticsHero() {
 
         {/* CTA */}
         <motion.div
-          className="mt-8"
+          className="mt-5 md:mt-8"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.85, ease: EASE_OUT_QUART }}
@@ -383,7 +383,7 @@ function RoboticsAbout() {
         </span>
 
         {/* Two-column: large statement + details */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-6 lg:gap-20 items-start">
           {/* Left — large editorial statement */}
           <div>
             <h2
@@ -397,7 +397,7 @@ function RoboticsAbout() {
             </h2>
 
             <p
-              className="mt-6 font-sans leading-relaxed"
+              className="mt-4 md:mt-6 font-sans leading-relaxed"
               style={{ fontSize: 'clamp(1rem, 1.25vw, 1.15rem)', color: '#5e5d57', maxWidth: 520 }}
             >
               {roboticsClub.about}
@@ -405,7 +405,7 @@ function RoboticsAbout() {
 
             {/* Purpose callout */}
             <blockquote
-              className="mt-8 border-l-2 pl-5"
+              className="mt-5 md:mt-8 border-l-2 pl-5"
               style={{ borderColor: '#e85d04' }}
             >
               <p
@@ -418,7 +418,7 @@ function RoboticsAbout() {
           </div>
 
           {/* Right — objectives + collaborations */}
-          <div className="space-y-10">
+          <div className="space-y-6 md:space-y-10">
             {/* Key objectives */}
             <div>
               <h3
@@ -480,9 +480,9 @@ function RoboticsAbout() {
         </div>
 
         {/* Achievements & Recognition */}
-        <div className="mt-16 pt-12 border-t" style={{ borderColor: '#e8e2d2' }}>
+        <div className="mt-9 md:mt-16 pt-7 md:pt-12 border-t" style={{ borderColor: '#e8e2d2' }}>
           <h3
-            className="font-sans font-black mb-6"
+            className="font-sans font-black mb-4 md:mb-6"
             style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', color: '#0f0f0f' }}
           >
             Achievements &amp;{' '}
@@ -519,7 +519,7 @@ function RoboticsActivities() {
     >
       <div className="mx-auto px-6 md:px-10 lg:px-16" style={{ maxWidth: '1200px' }}>
         {/* Header */}
-        <div className="mb-12 md:mb-16">
+        <div className="mb-7 md:mb-16">
           <span
             className="inline-flex items-center gap-2 font-mono text-[0.62rem] font-bold tracking-[0.26em] uppercase mb-5 block"
             style={{ color: '#01741f' }}
@@ -537,11 +537,11 @@ function RoboticsActivities() {
         </div>
 
         {/* Activity pillars */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-9 md:mb-16">
           {roboticsClub.activityPillars.map((pillar, i) => (
             <div
               key={pillar.title}
-              className="p-6 rounded-2xl"
+              className="p-4 md:p-6 rounded-2xl"
               style={{
                 backgroundColor: '#faf7f0',
                 border: '1px solid #e8e2d2',
@@ -571,7 +571,7 @@ function RoboticsActivities() {
         {/* Notable Projects */}
         <div>
           <h3
-            className="font-sans font-black mb-8"
+            className="font-sans font-black mb-5 md:mb-8"
             style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)', color: '#0f0f0f' }}
           >
             Notable Projects
@@ -580,7 +580,7 @@ function RoboticsActivities() {
             {roboticsClub.notableProjects.map((project, i) => (
               <div
                 key={project.name}
-                className="flex gap-5 p-6 rounded-2xl"
+                className="flex gap-4 md:gap-5 p-4 md:p-6 rounded-2xl"
                 style={{ backgroundColor: '#faf7f0', border: '1px solid #e8e2d2' }}
               >
                 <div
@@ -627,7 +627,7 @@ function RoboticsEvents() {
     >
       <div className="mx-auto px-6 md:px-10 lg:px-16" style={{ maxWidth: '1200px' }}>
         {/* Header */}
-        <div className="mb-12 md:mb-14">
+        <div className="mb-7 md:mb-14">
           <span
             className="inline-flex items-center gap-2 font-mono text-[0.62rem] font-bold tracking-[0.26em] uppercase mb-5 block"
             style={{ color: '#01741f' }}
@@ -682,7 +682,7 @@ function RoboticsEvents() {
                 aria-hidden="true"
               />
               {/* Info */}
-              <div className="absolute inset-x-0 bottom-0 p-6 z-[1]">
+              <div className="absolute inset-x-0 bottom-0 p-4 md:p-6 z-[1]">
                 <span
                   className="inline-block px-2.5 py-1 rounded-full font-mono text-[0.54rem] font-bold tracking-[0.14em] uppercase mb-3 text-white"
                   style={{ backgroundColor: '#e85d04' }}
@@ -888,7 +888,7 @@ function RoboticsMemoryLane() {
       aria-label="Club Memory Lane"
     >
       {/* Header */}
-      <div className="mx-auto px-6 md:px-10 lg:px-16 mb-12" style={{ maxWidth: '1200px' }}>
+      <div className="mx-auto px-6 md:px-10 lg:px-16 mb-7 md:mb-12" style={{ maxWidth: '1200px' }}>
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <span
@@ -986,7 +986,7 @@ function RoboticsMemoryLane() {
       </div>
 
       {/* Controls */}
-      <div className="mx-auto px-6 md:px-10 lg:px-16 mt-8 flex items-center justify-end gap-3" style={{ maxWidth: '1200px' }}>
+      <div className="mx-auto px-6 md:px-10 lg:px-16 mt-5 md:mt-8 flex items-center justify-end gap-3" style={{ maxWidth: '1200px' }}>
         <button
           onClick={handlePrev}
           aria-label="Previous memory"
@@ -1044,7 +1044,7 @@ function RoboticsFooterCTA() {
         </h2>
 
         <p
-          className="font-sans leading-relaxed mb-10 mx-auto"
+          className="font-sans leading-relaxed mb-6 md:mb-10 mx-auto"
           style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.1rem)', color: '#5e5d57', maxWidth: 500 }}
         >
           Join a club meeting, follow us on Instagram, or walk up to the ECE labs. Everyone is welcome — first year or final year.

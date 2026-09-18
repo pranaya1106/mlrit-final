@@ -55,8 +55,8 @@ export default function DownloadsPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="downloads" className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12 space-y-20">
+      <section id="downloads" className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12 space-y-12 md:space-y-20">
 
           {/* Forms */}
           <div>
@@ -71,10 +71,10 @@ export default function DownloadsPage() {
               </p>
             </Reveal>
 
-            <Stagger className="mt-8 space-y-2" delay={0.04}>
+            <Stagger className="mt-5 md:mt-8 space-y-2" delay={0.04}>
               {forms.map((d) => (
                 <StaggerItem key={d.label}>
-                  <div className="flex items-center gap-4 rounded-xl border border-border bg-white px-5 py-4">
+                  <div className="flex items-center gap-3 md:gap-4 rounded-xl border border-border bg-white px-4 py-3 md:px-5 md:py-4">
                     <span className={`shrink-0 inline-flex items-center px-2.5 py-1 rounded-full border text-[0.62rem] font-mono font-bold tracking-widest uppercase ${BADGE_COLORS[d.badge ?? 'Form'] ?? 'bg-neutral-100 border-neutral-300 text-muted'}`}>
                       {d.badge}
                     </span>
@@ -99,10 +99,10 @@ export default function DownloadsPage() {
               </h2>
             </Reveal>
 
-            <Stagger className="mt-8 space-y-2" delay={0.04}>
+            <Stagger className="mt-5 md:mt-8 space-y-2" delay={0.04}>
               {policy.map((d) => (
                 <StaggerItem key={d.label}>
-                  <div className="flex items-center gap-4 rounded-xl border border-border bg-white px-5 py-4">
+                  <div className="flex items-center gap-3 md:gap-4 rounded-xl border border-border bg-white px-4 py-3 md:px-5 md:py-4">
                     <span className={`shrink-0 inline-flex items-center px-2.5 py-1 rounded-full border text-[0.62rem] font-mono font-bold tracking-widest uppercase ${BADGE_COLORS[d.badge ?? 'Policy'] ?? 'bg-orange-50 border-orange-200 text-primary'}`}>
                       {d.badge}
                     </span>
@@ -127,10 +127,10 @@ export default function DownloadsPage() {
               </h2>
             </Reveal>
 
-            <Stagger className="mt-8 grid md:grid-cols-3 gap-5" delay={0.06}>
+            <Stagger className="mt-5 md:mt-8 grid md:grid-cols-3 gap-3 md:gap-5" delay={0.06}>
               {EXAM_CALENDARS.map((c) => (
                 <StaggerItem key={c.label}>
-                  <div className="flex flex-col gap-3 rounded-2xl border-2 border-border bg-white p-6 h-full">
+                  <div className="flex flex-col gap-3 rounded-2xl border-2 border-border bg-white p-4 md:p-6 h-full">
                     <div className="flex items-start justify-between gap-2">
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full border text-[0.62rem] font-mono font-bold tracking-widest uppercase bg-green-50 border-green-200 text-secondary">
                         {c.tag}

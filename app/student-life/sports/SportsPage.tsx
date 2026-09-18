@@ -340,7 +340,7 @@ function VideoTextHero() {
       {/* Bottom strip */}
       <motion.div
         style={{ opacity: fadeOut }}
-        className="absolute bottom-0 inset-x-0 px-6 md:px-12 pb-8 md:pb-10 z-20 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
+        className="absolute bottom-0 inset-x-0 px-4 md:px-12 pb-6 md:pb-10 z-20 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
       >
         <motion.div
           initial={prefersReduced ? false : { opacity: 0, y: 16 }}
@@ -392,7 +392,7 @@ function StatTicker() {
         className="flex gap-0 whitespace-nowrap"
       >
         {doubled.map((s, i) => (
-          <div key={i} className="flex items-center gap-6 px-8 border-r border-white/20 last:border-0">
+          <div key={i} className="flex items-center gap-4 md:gap-6 px-5 md:px-8 border-r border-white/20 last:border-0">
             <span className="font-sans font-black text-white text-[1.6rem] leading-none tracking-tighter-2">{s.num}</span>
             <span className="font-mono text-[0.6rem] tracking-[0.18em] uppercase text-white/70">{s.label}</span>
           </div>
@@ -415,7 +415,7 @@ function GoalCard({ sectionProgress }: { sectionProgress: ReturnType<typeof useS
   return (
     <motion.div
       style={prefersReduced ? {} : { y, opacity: op }}
-      className="rounded-3xl bg-primary p-10 md:p-12 text-white"
+      className="rounded-3xl bg-primary p-6 md:p-12 text-white"
     >
       <span className="font-mono text-[0.65rem] font-bold tracking-[0.22em] uppercase text-white/60">Goal</span>
       <h2
@@ -439,7 +439,7 @@ function MottoCard({ sectionProgress }: { sectionProgress: ReturnType<typeof use
   return (
     <motion.div
       style={prefersReduced ? {} : { y, opacity: op }}
-      className="rounded-3xl border border-white/10 bg-white/5 p-10 md:p-12"
+      className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-12"
     >
       <span className="font-mono text-[0.65rem] font-bold tracking-[0.22em] uppercase text-white/40">Motto</span>
       <blockquote className="mt-5">
@@ -460,8 +460,8 @@ function GoalSection() {
   });
   return (
     <section ref={sectionRef} aria-labelledby="goal-heading" className="bg-foreground">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
-        <div className="grid md:grid-cols-2 gap-6">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-10 lg:px-16 py-7 md:py-14">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           <GoalCard sectionProgress={scrollYProgress} />
           <MottoCard sectionProgress={scrollYProgress} />
         </div>
@@ -556,7 +556,7 @@ function ScrollOverview() {
       style={{ height: prefersReduced ? 'auto' : '500vh' }}
     >
       <div className={`${prefersReduced ? 'relative' : 'sticky'} top-0 h-screen flex flex-col justify-center overflow-hidden`}>
-        <div className="w-full max-w-[720px] mx-auto px-5 md:px-10 lg:px-16 py-16 flex flex-col gap-8">
+        <div className="w-full max-w-[720px] mx-auto px-4 md:px-10 lg:px-16 py-8 md:py-16 flex flex-col gap-5 md:gap-8">
 
           {/* Section label */}
           <p className="font-mono text-[0.65rem] font-bold tracking-[0.22em] uppercase text-primary flex items-center gap-2">
@@ -646,7 +646,7 @@ function PhotoLightbox({
     >
       {/* Header */}
       <div
-        className="absolute top-0 inset-x-0 px-6 py-4 flex items-center justify-between z-10"
+        className="absolute top-0 inset-x-0 px-4 md:px-6 py-4 flex items-center justify-between z-10"
         onClick={(e) => e.stopPropagation()}
       >
         <div>
@@ -669,7 +669,7 @@ function PhotoLightbox({
 
       {/* Image */}
       <div
-        className="relative w-full max-w-5xl px-16 flex items-center justify-center"
+        className="relative w-full max-w-5xl px-6 md:px-16 flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
         <AnimatePresence mode="wait">
@@ -725,7 +725,7 @@ function PhotoLightbox({
 
       {/* Dot strip */}
       {images.length > 1 && (
-        <div className="flex gap-2 mt-6" aria-hidden="true" onClick={(e) => e.stopPropagation()}>
+        <div className="flex gap-2 mt-4 md:mt-6" aria-hidden="true" onClick={(e) => e.stopPropagation()}>
           {images.map((_, i) => (
             <button
               key={i}
@@ -901,10 +901,10 @@ function SportsDisciplineIndex() {
 
   return (
     <section ref={sectionRef} aria-labelledby="disciplines-heading" className="bg-cream relative">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-10 lg:px-16 py-7 md:py-14">
         <motion.div
           style={prefersReduced ? {} : { y: headY, opacity: headOp }}
-          className="mb-12 md:mb-16"
+          className="mb-8 md:mb-16"
         >
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
@@ -1006,10 +1006,10 @@ function QuotaSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="quota-heading" className="bg-white">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-10 lg:px-16 py-7 md:py-14">
         <motion.div
           style={prefersReduced ? {} : { y: springY, opacity: springO }}
-          className="mb-10 md:mb-14"
+          className="mb-6 md:mb-14"
         >
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
@@ -1022,12 +1022,12 @@ function QuotaSection() {
             Seats reserved for{' '}
             <span className="font-display italic font-medium text-secondary">athletes.</span>
           </h2>
-          <div className="mt-8 flex flex-col sm:flex-row rounded-2xl overflow-hidden bg-secondary text-white">
-            <div className="flex-1 px-8 py-7 border-b sm:border-b-0 sm:border-r border-white/10">
+          <div className="mt-5 md:mt-8 flex flex-col sm:flex-row rounded-2xl overflow-hidden bg-secondary text-white">
+            <div className="flex-1 px-5 md:px-8 py-5 md:py-7 border-b sm:border-b-0 sm:border-r border-white/10">
               <div className="font-sans font-black tracking-tighter-2 text-[clamp(2rem,3vw,2.8rem)] leading-none">10</div>
               <div className="mt-2 font-mono text-[0.62rem] tracking-[0.18em] uppercase text-white/55">Free sports-quota seats every year</div>
             </div>
-            <div className="flex-1 px-8 py-7">
+            <div className="flex-1 px-5 md:px-8 py-5 md:py-7">
               <div className="font-sans font-black tracking-tighter-2 text-[clamp(2rem,3vw,2.8rem)] leading-none">2020–26</div>
               <div className="mt-2 font-mono text-[0.62rem] tracking-[0.18em] uppercase text-white/55">Continuous intake, year on year</div>
             </div>
@@ -1066,7 +1066,7 @@ function TrainerCard({ t }: { t: (typeof TRAINERS)[number] }) {
         <img src={t.photo} alt={`Portrait of ${t.name}`}
           className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-700" loading="lazy" />
       </div>
-      <div className="p-5">
+      <div className="p-4 md:p-5">
         <p className="font-sans font-bold text-foreground text-[1rem] leading-snug">{t.name}</p>
         <p className="mt-1 font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted">{t.role}</p>
       </div>
@@ -1085,10 +1085,10 @@ function TrainersSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="trainers-heading" className="bg-white overflow-hidden">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-10 lg:px-16 py-7 md:py-14">
         <motion.div
           style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
-          className="mb-12 md:mb-16"
+          className="mb-8 md:mb-16"
         >
           <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
@@ -1103,7 +1103,7 @@ function TrainersSection() {
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {TRAINERS.map((t) => (
             <TrainerCard key={t.name} t={t} />
           ))}
@@ -1166,8 +1166,8 @@ function AccoladesSection() {
 
   return (
     <section ref={sectionRef} aria-labelledby="accolades-heading" className="bg-cream">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start mb-12 md:mb-16">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-10 lg:px-16 py-7 md:py-14">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-start mb-8 md:mb-16">
           <motion.div
             style={prefersReduced ? {} : { y: springHeadY, opacity: springHeadO }}
             className="md:w-[45%] shrink-0"
@@ -1194,7 +1194,7 @@ function AccoladesSection() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {ACCOLADES.map((a, i) => (
             <AccoladeCard key={a.name} a={a} idx={i} />
           ))}
@@ -1223,7 +1223,7 @@ function ClosingStatement() {
 
   return (
     <section ref={sectionRef} aria-label="Closing" className="bg-foreground overflow-hidden">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-16 py-24 md:py-32 text-center">
+      <div className="max-w-[1100px] mx-auto px-4 md:px-10 lg:px-16 py-14 md:py-32 text-center">
         <motion.p
           style={prefersReduced ? {} : { y: springY, opacity: springO }}
           className="font-display italic font-bold text-white text-[clamp(2rem,4.5vw,4rem)] leading-[1.18] tracking-tight max-w-[860px] mx-auto"
@@ -1234,7 +1234,7 @@ function ClosingStatement() {
 
         <motion.div
           style={prefersReduced ? {} : { y: springY2, opacity: springO2 }}
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
             href="/student-life/discover-mlr"

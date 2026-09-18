@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 /* ── Shared primitives ──────────────────────────────────────────── */
 
-const SECTION_CLASS = 'w-full px-6 md:px-10 lg:px-12 py-14 md:py-20';
+const SECTION_CLASS = 'w-full px-4 md:px-10 lg:px-12 py-8 md:py-20';
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -79,7 +79,7 @@ export function AboutRDCell() {
 
         <motion.blockquote
           variants={fadeUp}
-          className="mt-10 border-l-4 border-primary pl-7 max-w-[700px]"
+          className="mt-6 md:mt-10 border-l-4 border-primary pl-5 md:pl-7 max-w-[700px]"
         >
           <p className="font-display italic text-foreground text-[clamp(1.1rem,1.6vw,1.4rem)] leading-[1.55]">
             &ldquo;We focus on need-based technology — research that solves a real problem, for
@@ -90,14 +90,14 @@ export function AboutRDCell() {
           </footer>
         </motion.blockquote>
 
-        <motion.div variants={fadeUp} className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <motion.div variants={fadeUp} className="mt-6 md:mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {[
             { num: '3',           label: 'JNTUH Research Centres' },
             { num: '25+',         label: 'Doctoral Faculty' },
             { num: '60+',         label: 'Patents Filed' },
             { num: '2016 – 2025', label: 'Peer-reviewed Publications' },
           ].map((s) => (
-            <div key={s.label} className="rounded-2xl border border-border bg-cream-2 p-6">
+            <div key={s.label} className="rounded-2xl border border-border bg-cream-2 p-4 md:p-6">
               <div className="font-sans font-black text-foreground text-[clamp(1.6rem,2.8vw,2.2rem)] tracking-tighter-2 leading-none">
                 {s.num}
               </div>
@@ -170,13 +170,13 @@ export function ResearchAreas() {
 
         <motion.div
           variants={stagger}
-          className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="mt-6 md:mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5"
         >
           {THRUST_AREAS.map(({ dept, areas, tone }) => (
             <motion.div
               key={dept}
               variants={fadeUp}
-              className="bg-white rounded-2xl border border-border p-7 flex flex-col gap-4"
+              className="bg-white rounded-2xl border border-border p-4 md:p-7 flex flex-col gap-3 md:gap-4"
             >
               <div
                 className={`w-10 h-1 rounded-full ${
@@ -233,12 +233,12 @@ export function Committees() {
 
         <motion.div
           variants={stagger}
-          className="mt-10 grid md:grid-cols-2 gap-6 max-w-[900px]"
+          className="mt-6 md:mt-10 grid md:grid-cols-2 gap-4 md:gap-6 max-w-[900px]"
         >
           {/* RAC */}
           <motion.div
             variants={fadeUp}
-            className="rounded-2xl border border-border bg-ink text-white p-8"
+            className="rounded-2xl border border-border bg-ink text-white p-5 md:p-8"
           >
             <div className="font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-warm mb-3">
               RAC
@@ -265,7 +265,7 @@ export function Committees() {
           {/* REC */}
           <motion.div
             variants={fadeUp}
-            className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-8"
+            className="rounded-2xl border border-primary/20 bg-primary/[0.03] p-5 md:p-8"
           >
             <div className="font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase text-primary mb-3">
               REC
@@ -326,14 +326,14 @@ export function SponsoredProjects() {
           </Dek>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-[700px]">
+        <motion.div variants={fadeUp} className="mt-6 md:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 max-w-[700px]">
           {[
             { num: '25+',    label: 'Active Projects' },
             { num: '₹3 Cr+', label: 'Total Funding' },
             { num: '8',      label: 'Funding Agencies' },
             { num: '40+',    label: 'Faculty PIs' },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-border bg-white p-5 text-center">
+            <div key={s.label} className="rounded-xl border border-border bg-white p-4 md:p-5 text-center">
               <div className="font-sans font-black text-primary text-[1.7rem] tracking-tighter-2 leading-none">
                 {s.num}
               </div>
@@ -345,12 +345,12 @@ export function SponsoredProjects() {
         </motion.div>
 
         <motion.div variants={fadeUp}>
-          <h3 className="mt-12 mb-5 font-sans font-extrabold text-foreground text-[1.1rem]">
+          <h3 className="mt-8 md:mt-12 mb-3 md:mb-5 font-sans font-extrabold text-foreground text-[1.1rem]">
             Funding Partners
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {AGENCIES.map((a) => (
-              <div key={a.name} className="flex gap-4 rounded-xl border border-border bg-white p-5">
+              <div key={a.name} className="flex gap-4 rounded-xl border border-border bg-white p-4 md:p-5">
                 <div className="w-1 self-stretch rounded-full bg-primary/30 shrink-0" />
                 <div>
                   <div className="font-sans font-bold text-foreground text-[0.95rem]">{a.name}</div>
@@ -418,12 +418,12 @@ export function ResearchCentres() {
           </Dek>
         </motion.div>
 
-        <motion.div variants={stagger} className="mt-10 space-y-5">
+        <motion.div variants={stagger} className="mt-6 md:mt-10 space-y-3 md:space-y-5">
           {CENTRES.map(({ code, name, body, areas }, i) => (
             <motion.div
               key={code}
               variants={fadeUp}
-              className="grid md:grid-cols-[auto_1fr] gap-6 rounded-2xl border border-border bg-white p-7 hover:border-primary/30 transition-colors"
+              className="grid md:grid-cols-[auto_1fr] gap-4 md:gap-6 rounded-2xl border border-border bg-white p-4 md:p-7 hover:border-primary/30 transition-colors"
             >
               <div className="flex flex-col items-start md:items-center gap-1 md:w-20 md:pt-1">
                 <span className="font-sans font-black text-foreground text-[2rem] tracking-tighter-2 leading-none tabular-nums">
@@ -453,7 +453,7 @@ export function ResearchCentres() {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-8">
+        <motion.div variants={fadeUp} className="mt-5 md:mt-8">
           <Link
             href="/research/centers"
             className="inline-flex items-center gap-2 font-sans font-bold text-[0.9rem] text-primary hover:gap-3 transition-all"
@@ -521,13 +521,13 @@ export function ResearchFacilities() {
 
         <motion.div
           variants={stagger}
-          className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="mt-6 md:mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
         >
           {FACILITIES.map((f, i) => (
             <motion.div
               key={f.name}
               variants={fadeUp}
-              className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.07] transition-colors"
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 md:p-6 hover:bg-white/[0.07] transition-colors"
             >
               <div className="font-mono text-[0.6rem] font-bold tracking-[0.22em] uppercase text-warm/70 mb-3">
                 {String(i + 1).padStart(2, '0')}
@@ -588,13 +588,13 @@ export function ResearchPolicies() {
 
         <motion.div
           variants={stagger}
-          className="mt-10 grid sm:grid-cols-2 gap-5 max-w-[900px]"
+          className="mt-6 md:mt-10 grid sm:grid-cols-2 gap-3 md:gap-5 max-w-[900px]"
         >
           {POLICIES.map((p) => (
             <motion.div
               key={p.name}
               variants={fadeUp}
-              className="rounded-xl border border-border bg-cream-2 p-6"
+              className="rounded-xl border border-border bg-cream-2 p-4 md:p-6"
             >
               <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-2">
                 {p.name}
@@ -604,7 +604,7 @@ export function ResearchPolicies() {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-8">
+        <motion.div variants={fadeUp} className="mt-5 md:mt-8">
           <Link
             href="/research/policies"
             className="inline-flex items-center gap-2 font-sans font-bold text-[0.9rem] text-primary hover:gap-3 transition-all"
@@ -651,13 +651,13 @@ export function Publications() {
 
         <motion.div
           variants={stagger}
-          className="mt-10 grid grid-cols-3 sm:grid-cols-6 gap-3"
+          className="mt-6 md:mt-10 grid grid-cols-3 sm:grid-cols-6 gap-2 md:gap-3"
         >
           {PUB_YEARS.map(({ year, count }) => (
             <motion.div
               key={year}
               variants={fadeUp}
-              className="rounded-xl border border-border bg-white p-5 text-center"
+              className="rounded-xl border border-border bg-white p-3 md:p-5 text-center"
             >
               <div className="font-sans font-black text-primary text-[1.5rem] tracking-tighter-2 leading-none">
                 {count}
@@ -669,7 +669,7 @@ export function Publications() {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
+        <motion.div variants={fadeUp} className="mt-5 md:mt-8 flex flex-wrap gap-4">
           <Link
             href="/research/publications"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold text-[0.9rem] hover:bg-primary/90 transition-colors"
@@ -728,10 +728,10 @@ export function Downloads() {
           </Dek>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-10 max-w-[780px]">
+        <motion.div variants={fadeUp} className="mt-6 md:mt-10 max-w-[780px]">
           <ul className="divide-y divide-border rounded-2xl border border-border overflow-hidden bg-white">
             {DOWNLOADS.map((d, i) => (
-              <li key={d} className="flex items-center gap-4 px-6 py-4 hover:bg-cream-2 transition-colors group">
+              <li key={d} className="flex items-center gap-4 px-4 py-3 md:px-6 md:py-4 hover:bg-cream-2 transition-colors group">
                 <span className="font-mono text-[0.62rem] font-bold tracking-[0.16em] text-muted/60 w-6 shrink-0 tabular-nums">
                   {String(i + 1).padStart(2, '0')}
                 </span>
@@ -780,19 +780,19 @@ export function ContactUs() {
           </p>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mt-10 max-w-[600px]">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-8 md:p-10">
+        <motion.div variants={fadeUp} className="mt-6 md:mt-10 max-w-[600px]">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-5 md:p-10">
             <div className="font-mono text-[0.65rem] font-bold tracking-[0.22em] uppercase text-warm mb-2">
               Dean — Research & Development
             </div>
             <h3 className="font-sans font-black text-white text-[1.5rem] tracking-tight leading-snug mb-1">
               Dr. T. Arun Kumar
             </h3>
-            <div className="font-mono text-[0.72rem] tracking-[0.14em] uppercase text-white/50 mb-8">
+            <div className="font-mono text-[0.72rem] tracking-[0.14em] uppercase text-white/50 mb-5 md:mb-8">
               MLR Institute of Technology
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <a
                 href="tel:+919491465303"
                 className="flex items-center gap-4 group"
@@ -845,7 +845,7 @@ export function ContactUs() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/10">
+            <div className="mt-5 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
               <a
                 href="mailto:deanresearch@mlrit.ac.in"
                 className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-warm text-white font-semibold text-[0.9rem] hover:bg-warm/90 transition-colors"

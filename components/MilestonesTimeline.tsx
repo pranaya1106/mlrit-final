@@ -82,7 +82,7 @@ export default function MilestonesTimeline() {
           </div>
 
           {/* ── Heading — pinned at top of sticky viewport ── */}
-          <div className="relative w-full px-6 md:px-12 lg:px-16 pt-14 pb-2 flex-shrink-0">
+          <div className="relative w-full px-4 md:px-12 lg:px-16 pt-8 md:pt-14 pb-2 flex-shrink-0">
             <div className="flex items-baseline gap-4">
               <span className="font-mono text-[0.78rem] font-extrabold tracking-[0.28em] uppercase text-primary">
                 Milestones
@@ -238,7 +238,7 @@ export default function MilestonesTimeline() {
           </div>{/* end flex-1 cards area */}
 
           {/* ── Progress dots + year rail ── */}
-          <div className="relative flex justify-center items-center gap-3 mt-10 mb-8">
+          <div className="relative flex justify-center items-center gap-3 mt-6 md:mt-10 mb-5 md:mb-8">
             {TIMELINE.map((item, i) => (
               <div key={i} className="flex flex-col items-center gap-1.5">
                 <div
