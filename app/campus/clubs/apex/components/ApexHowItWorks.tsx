@@ -15,10 +15,19 @@ const DOMAINS = [
 
 const COLORS = ['#e85d04', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7'];
 
+// Clamp input range to [0, 1] so Framer never gets offsets outside bounds
+function clamp(v: number) { return Math.max(0, Math.min(1, v)); }
+
 function getRange(i: number, total: number) {
   const center = i / (total - 1);
-  const band   = 0.5 / total;
-  return { center, band };
+  const band   = 0.42 / total;
+  return {
+    lo2: clamp(center - band * 2),
+    lo:  clamp(center - band),
+    mid: clamp(center),
+    hi:  clamp(center + band),
+    hi2: clamp(center + band * 2),
+  };
 }
 
 // ── Per-item row ──────────────────────────────────────────────────────────────
@@ -28,41 +37,34 @@ function DomainRow({ domain, index, total, scrollYProgress }: {
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  const { center, band } = getRange(index, total);
+  const r = getRange(index, total);
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [center - band * 2, center - band, center, center + band, center + band * 2],
-    [0.1, 0.28, 1, 0.28, 0.1]
-  );
-  const scale = useTransform(scrollYProgress, [center - band, center, center + band], [0.9, 1, 0.9]);
-  const x     = useTransform(scrollYProgress, [center - band, center, center + band], [0, 28, 0]);
-  const color = useTransform(
-    scrollYProgress,
-    [center - band, center, center + band],
-    ['rgba(255,255,255,0.15)', COLORS[index], 'rgba(255,255,255,0.15)']
-  );
+  const opacity = useTransform(scrollYProgress, [r.lo2, r.lo, r.mid, r.hi, r.hi2], [0.1, 0.28, 1, 0.28, 0.1]);
+  const x       = useTransform(scrollYProgress, [r.lo,  r.mid, r.hi],               [0,   28,   0]);
+  const color   = useTransform(scrollYProgress, [r.lo,  r.mid, r.hi],               ['rgba(255,255,255,0.15)', COLORS[index], 'rgba(255,255,255,0.15)']);
 
   return (
-    <motion.li
-      style={{ opacity, scale, x, color }}
-      className="flex items-baseline gap-4 py-3 select-none"
-    >
-      <span className="font-mono font-black tabular-nums flex-shrink-0"
-        style={{ fontSize: 'clamp(0.65rem, 1.1vw, 0.88rem)', color: 'rgba(255,255,255,0.22)', letterSpacing: '0.12em' }}>
-        {domain.n}
-      </span>
-      <span className="flex flex-col gap-1">
-        <span className="font-sans font-black leading-none"
-          style={{ fontSize: 'clamp(1.9rem, 4.2vw, 4.2rem)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-          {domain.title}
+    <li className="flex items-baseline gap-4 py-3 select-none">
+      <motion.div
+        style={{ opacity, x, color }}
+        className="flex items-baseline gap-4 w-full"
+      >
+        <span className="font-mono font-black tabular-nums flex-shrink-0"
+          style={{ fontSize: 'clamp(0.65rem, 1.1vw, 0.88rem)', color: 'rgba(255,255,255,0.22)', letterSpacing: '0.12em' }}>
+          {domain.n}
         </span>
-        <span className="font-mono font-medium uppercase"
-          style={{ fontSize: 'clamp(0.52rem, 0.85vw, 0.7rem)', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)' }}>
-          {domain.sub}
+        <span className="flex flex-col gap-1">
+          <span className="font-sans font-black leading-none"
+            style={{ fontSize: 'clamp(1.9rem, 4.2vw, 4.2rem)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+            {domain.title}
+          </span>
+          <span className="font-mono font-medium uppercase"
+            style={{ fontSize: 'clamp(0.52rem, 0.85vw, 0.7rem)', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)' }}>
+            {domain.sub}
+          </span>
         </span>
-      </span>
-    </motion.li>
+      </motion.div>
+    </li>
   );
 }
 
@@ -73,9 +75,9 @@ function DomainDesc({ domain, index, total, scrollYProgress }: {
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  const { center, band } = getRange(index, total);
-  const opacity = useTransform(scrollYProgress, [center - band, center, center + band], [0, 1, 0]);
-  const y       = useTransform(scrollYProgress, [center - band, center, center + band], [14, 0, -14]);
+  const r       = getRange(index, total);
+  const opacity = useTransform(scrollYProgress, [r.lo, r.mid, r.hi], [0, 1, 0]);
+  const y       = useTransform(scrollYProgress, [r.lo, r.mid, r.hi], [14, 0, -14]);
 
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
@@ -92,13 +94,14 @@ function DomainDot({ index, total, scrollYProgress }: {
   total: number;
   scrollYProgress: MotionValue<number>;
 }) {
-  const { center, band } = getRange(index, total);
-  const scale   = useTransform(scrollYProgress, [center - band, center, center + band], [1, 2, 1]);
-  const opacity = useTransform(scrollYProgress, [center - band, center, center + band], [0.2, 1, 0.2]);
+  const r       = getRange(index, total);
+  const opacity = useTransform(scrollYProgress, [r.lo, r.mid, r.hi], [0.18, 1, 0.18]);
+  const scaleY  = useTransform(scrollYProgress, [r.lo, r.mid, r.hi], [1, 2.5, 1]);
+
   return (
     <motion.div
-      style={{ scale, opacity, backgroundColor: COLORS[index] }}
-      className="w-1.5 h-1.5 rounded-full"
+      style={{ opacity, scaleY, backgroundColor: COLORS[index] }}
+      className="w-[3px] h-3 rounded-full origin-center"
     />
   );
 }
@@ -135,12 +138,12 @@ export default function ApexHowItWorks({
         </h2>
       </div>
 
-      {/* Tall scroll container — each domain gets 100vh of scroll travel */}
+      {/* Tall scroll container */}
       <div ref={containerRef} style={{ height: `${DOMAINS.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
 
-            {/* Left — domain list (all 5 visible, active one glows) */}
+            {/* Left — domain list */}
             <div className="flex-1 min-w-0">
               <ul className="list-none p-0 m-0">
                 {DOMAINS.map((d, i) => (
@@ -149,7 +152,7 @@ export default function ApexHowItWorks({
               </ul>
             </div>
 
-            {/* Right — description panel (items stack, each fades in/out) */}
+            {/* Right — description panel */}
             <div className="hidden lg:block lg:w-[300px] xl:w-[360px] flex-shrink-0 relative" style={{ height: 220 }}>
               {DOMAINS.map((d, i) => (
                 <DomainDesc key={d.n} domain={d} index={i} total={DOMAINS.length} scrollYProgress={scrollYProgress} />
@@ -158,7 +161,7 @@ export default function ApexHowItWorks({
 
           </div>
 
-          {/* Scroll progress dots — right edge */}
+          {/* Progress dots — right edge */}
           <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3">
             {DOMAINS.map((_, i) => (
               <DomainDot key={i} index={i} total={DOMAINS.length} scrollYProgress={scrollYProgress} />
