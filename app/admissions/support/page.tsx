@@ -236,8 +236,8 @@ export default function SupportPage() {
                       <tr key={c.name} className={`border-t border-border ${i % 2 === 0 ? '' : 'bg-warm-light/20'}`}>
                         <td className="px-5 py-3 font-sans font-semibold text-foreground">{c.name}</td>
                         <td className="px-5 py-3 text-muted hidden md:table-cell">{c.role}</td>
-                        <td className="px-5 py-3">
-                          <a href={`tel:+91${c.phone.replace(/\s/g,'')}`} className="font-mono text-secondary hover:underline text-[0.85rem]">
+                        <td className="px-5 py-3 whitespace-nowrap">
+                          <a href={`tel:+91${c.phone.replace(/\s/g,'')}`} className="font-mono text-secondary hover:underline text-[0.85rem] whitespace-nowrap">
                             {c.phone}
                           </a>
                         </td>

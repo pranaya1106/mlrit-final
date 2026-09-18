@@ -79,17 +79,6 @@ export default function PlacementsQuickNav({ active }: { active: string }) {
             );
           })}
         </div>
-
-        {activeSections.length > 0 && (
-          <div className="hidden lg:flex items-center gap-1 pb-2 border-t border-border/40 pt-1.5">
-            <span className="font-mono text-[0.6rem] font-bold tracking-[0.18em] uppercase text-muted/60 mr-2 shrink-0">On this page</span>
-            {activeSections.map((s) => (
-              <a key={s.id} href={`#${s.id}`} className="shrink-0 px-3 py-1 rounded-full text-[0.78rem] font-medium text-muted hover:text-primary hover:bg-orange-50 border border-transparent hover:border-primary/20 transition-all duration-200 whitespace-nowrap">
-                {s.label}
-              </a>
-            ))}
-          </div>
-        )}
       </div>
     </nav>
   );

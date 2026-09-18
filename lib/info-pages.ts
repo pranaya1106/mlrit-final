@@ -852,7 +852,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
       {
         kind: 'lead',
         text:
-          'MLRIT supports 30+ student-led clubs across technical, cultural, social and sports domains. Every department hosts at least one technical society; the cultural calendar runs throughout the year.',
+          'MLRIT supports 17 student-led clubs across technical, cultural, social and sports domains. Every department hosts at least one technical society; the cultural calendar runs throughout the year.',
       },
       {
         kind: 'cards',
@@ -892,7 +892,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
     eyebrow: 'Campus · Life',
     title: 'Facilities &',
     italic: 'Amenities',
-    dek: 'A campus built for the complete student — 26,000 sq ft indoor stadium, dual hostels, a central cafeteria, 27 bus routes, and over 30 active student clubs.',
+    dek: 'A campus built for the complete student — 26,000 sq ft indoor stadium, dual hostels, a central cafeteria, 27 bus routes, and 17 active student clubs.',
     crumbs: [{ label: 'Home', href: '/' }, { label: 'Life at MLR', href: '/student-life' }, { label: 'Facilities & Amenities' }],
     blocks: [
       {
@@ -907,7 +907,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
           { num: '26,000+', label: 'Sq ft indoor sports complex' },
           { num: '27',      label: 'Institute bus routes' },
           { num: '4',       label: 'Meals served daily in hostels' },
-          { num: '30+',     label: 'Active student clubs' },
+          { num: '17',      label: 'Active student clubs' },
         ],
       },
       { kind: 'heading', eyebrow: 'Sports & Fitness', title: 'A stadium built for', italic: 'champions.' },

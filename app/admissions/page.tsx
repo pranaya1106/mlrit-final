@@ -69,13 +69,13 @@ const SCHOLARSHIPS = [
   {
     type: 'Industry & External',
     sub: 'Cybage Khushboo Trust · Partner schemes',
-    img: '/placements/drives/drive-slk-auditorium.jpg',
+    img: '/placements/drives/drive-seminar.jpg',
     href: '/admissions/scholarships',
   },
   {
     type: 'SC / ST / EWS',
     sub: 'Full fee reimbursement via state ePass',
-    img: '/images/campus/graduation.png',
+    img: '/images/students/students-laughing.png',
     href: '/admissions/scholarships',
   },
 ];
