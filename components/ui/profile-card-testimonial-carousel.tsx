@@ -115,7 +115,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       {/* DESKTOP */}
       <div className="hidden md:block relative">
         {/* Card — full width, left padding reserves space for the video overlap */}
-        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 pl-[300px] border border-neutral-200/60 min-h-[320px] flex items-center">
+        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 pl-[510px] border border-neutral-200/60 min-h-[470px] flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.name}
@@ -155,7 +155,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
         </div>
 
         {/* Video — absolutely positioned, overlapping the left side of the card */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[260px] h-[340px] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.22)] z-10">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[470px] h-[470px] rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.22)] z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.videoUrl}
