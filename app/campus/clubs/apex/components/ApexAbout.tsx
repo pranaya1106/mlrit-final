@@ -1,15 +1,14 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import {
   motion,
   useScroll,
-  useTransform,
+  useSpring,
+  useMotionValueEvent,
   useReducedMotion,
-  type MotionValue,
 } from 'framer-motion';
 
-// ─── APEX about text ──────────────────────────────────────────────────────────
 const ABOUT_TEXT =
   'APEX MLRIT is a student-led esports and game development community. ' +
   'Established March 2024, it brings players, developers, designers and ' +
@@ -30,68 +29,95 @@ const FACTS = [
 
 const APEX_RED = '#D80000';
 
-// DIM_OPACITY matches the reference — barely-there grey
-const DIM  = 'rgba(255,255,255,0.18)';
-const FULL = 'rgba(255,255,255,1.00)';
+const DIM_COLOR  = 'rgba(255,255,255,0.18)';
+const FULL_COLOR = 'rgba(255,255,255,1.00)';
 
-// ─── Per-character span ───────────────────────────────────────────────────────
-// Reference: sharp binary transition at the scroll front — no trailing glow.
-// Each char gets a small window [start, end] that is just wide enough to
-// prevent a hard step function but narrow enough to look like a moving front.
-function Char({
-  char,
-  progress,
-  start,
-  end,
-  reduced,
-}: {
-  char:     string;
-  progress: MotionValue<number>;
-  start:    number;
-  end:      number;
-  reduced:  boolean;
-}) {
-  const color = useTransform(
-    progress,
-    [start, end],
-    reduced ? [FULL, FULL] : [DIM, FULL],
-  );
-  return <motion.span style={{ color }} aria-hidden="true">{char}</motion.span>;
-}
+const REVEAL_START = 0.04;
+const REVEAL_END   = 0.92;
+const SPAN         = REVEAL_END - REVEAL_START;
+const WINDOW       = 0.018; // narrow front = sharp reveal
 
-// ─── Main section ─────────────────────────────────────────────────────────────
 export default function ApexAbout() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduced    = !!useReducedMotion();
+  const sectionRef  = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const reduced      = !!useReducedMotion();
 
-  // Section is 220vh — sticky panel fills viewport for the scroll travel
   const { scrollYProgress } = useScroll({
     target:  sectionRef,
     offset:  ['start start', 'end end'],
   });
 
-  const words = useMemo(() => ABOUT_TEXT.split(' '), []);
-  const totalChars = useMemo(() => ABOUT_TEXT.replace(/ /g, '').length, []);
+  // Spring-smooth to match HowItWorks feel
+  const smooth = useSpring(scrollYProgress, { stiffness: 60, damping: 18, mass: 0.4 });
 
-  // Reveal window: narrow (~3 chars worth) so the front looks sharp
-  // Reference shows near-binary transition, not a wide gradient
-  const REVEAL_START = 0.04;
-  const REVEAL_END   = 0.92;
-  const SPAN         = REVEAL_END - REVEAL_START;
-  const WINDOW       = 0.022; // tight — about 2 chars wide at the front
+  // Build per-char metadata once (index → threshold pair)
+  const chars = useMemo(() => {
+    const result: { char: string; start: number; end: number; isSpace: boolean }[] = [];
+    const words = ABOUT_TEXT.split(' ');
+    let charIdx = 0;
+    const totalChars = ABOUT_TEXT.replace(/ /g, '').length;
 
-  const wordCharOffsets = useMemo(() => {
-    let offset = 0;
-    return words.map(w => { const o = offset; offset += w.length; return o; });
-  }, [words]);
+    words.forEach((word, wi) => {
+      Array.from(word).forEach((ch) => {
+        const t     = charIdx / (totalChars - 1);
+        const start = REVEAL_START + t * (SPAN - WINDOW);
+        result.push({ char: ch, start, end: start + WINDOW, isSpace: false });
+        charIdx++;
+      });
+      // space between words (not counted in totalChars)
+      if (wi < words.length - 1) {
+        result.push({ char: ' ', start: 0, end: 0, isSpace: true });
+      }
+    });
+    return result;
+  }, []);
 
-  // Header fade-in at section start
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
-  const headerY       = useTransform(scrollYProgress, [0, 0.04], [12, 0]);
+  // Refs to all char spans for direct DOM mutation — zero React re-renders on scroll
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  // Facts fade in near end
-  const factsOpacity = useTransform(scrollYProgress, [0.82, 0.93], [0, 1]);
-  const factsY       = useTransform(scrollYProgress, [0.82, 0.93], [16, 0]);
+  // On first render, initialise colours
+  useEffect(() => {
+    spanRefs.current.forEach((el) => {
+      if (el) el.style.color = reduced ? FULL_COLOR : DIM_COLOR;
+    });
+  }, [reduced]);
+
+  // Single motion-value event drives ALL DOM colour writes — no React involved
+  useMotionValueEvent(smooth, 'change', (progress) => {
+    if (reduced) return;
+    spanRefs.current.forEach((el, i) => {
+      if (!el) return;
+      const { start, end, isSpace } = chars[i];
+      if (isSpace) return;
+      const t = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+      // Linear interpolate opacity component only (much cheaper than full rgba parse)
+      const alpha = 0.18 + t * (1 - 0.18);
+      el.style.color = `rgba(255,255,255,${alpha.toFixed(3)})`;
+    });
+  });
+
+  // Header + facts use lightweight motion values (only 2 elements)
+  const headerOpacity = useMemo(() => smooth, [smooth]); // proxy — we'll use range in style
+  const factsRef      = useRef<HTMLDivElement>(null);
+
+  useMotionValueEvent(smooth, 'change', (progress) => {
+    // Header — fade in 0→0.04
+    const headerEl = containerRef.current?.querySelector<HTMLElement>('.apex-about-header');
+    if (headerEl) {
+      const o = Math.min(1, progress / 0.04);
+      const y = 12 - o * 12;
+      headerEl.style.opacity   = String(o);
+      headerEl.style.transform = `translateY(${y}px)`;
+    }
+    // Facts — fade in 0.82→0.93
+    const factsEl = factsRef.current;
+    if (factsEl) {
+      const o = Math.max(0, Math.min(1, (progress - 0.82) / 0.11));
+      const y = 16 - o * 16;
+      factsEl.style.opacity   = String(o);
+      factsEl.style.transform = `translateY(${y}px)`;
+    }
+  });
 
   return (
     <section
@@ -100,54 +126,50 @@ export default function ApexAbout() {
       style={{ height: '220vh' }}
       aria-label="What is APEX?"
     >
-      <div className="sticky top-0 flex items-center justify-center min-h-screen overflow-hidden px-6 py-20">
+      <div
+        ref={containerRef}
+        className="sticky top-0 flex items-center justify-center min-h-screen overflow-hidden px-6 py-20"
+      >
         <div className="max-w-[860px] w-full mx-auto">
 
-          {/* Eyebrow */}
-          <motion.div
-            style={{ opacity: headerOpacity, y: headerY }}
-            className="flex items-center gap-3 mb-8"
+          {/* Eyebrow — direct DOM, no Framer wrapper needed */}
+          <div
+            className="apex-about-header flex items-center gap-3 mb-8"
+            style={{ opacity: 0, transform: 'translateY(12px)', willChange: 'opacity, transform' }}
           >
             <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
             <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
               What is APEX?
             </span>
-          </motion.div>
+          </div>
 
-          {/* Text reveal — reference accurate */}
-          {/* Each word wrapped in inline-block span to prevent mid-word breaks */}
+          {/* Text reveal — plain spans, colours written via ref, zero re-renders */}
           <p
             className="font-sans font-bold leading-[1.6]"
             style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.85rem)' }}
             aria-label={ABOUT_TEXT}
           >
-            {words.map((word, wi) => (
-              <span key={wi} className="inline-block mr-[0.28em] whitespace-nowrap" aria-hidden="true">
-                {Array.from(word).map((ch, ci) => {
-                  const charIdx = wordCharOffsets[wi] + ci;
-                  const t       = charIdx / (totalChars - 1);
-                  // Map t → scroll progress range for this char
-                  const start   = REVEAL_START + t * (SPAN - WINDOW);
-                  const end     = start + WINDOW;
-                  return (
-                    <Char
-                      key={ci}
-                      char={ch}
-                      progress={scrollYProgress}
-                      start={start}
-                      end={end}
-                      reduced={reduced}
-                    />
-                  );
-                })}
-              </span>
+            {chars.map((c, i) => (
+              c.isSpace
+                ? <span key={i}>&nbsp;</span>
+                : (
+                  <span
+                    key={i}
+                    ref={el => { spanRefs.current[i] = el; }}
+                    aria-hidden="true"
+                    style={{ color: DIM_COLOR, willChange: 'color' }}
+                  >
+                    {c.char}
+                  </span>
+                )
             ))}
           </p>
 
           {/* Facts grid */}
-          <motion.div
-            style={{ opacity: factsOpacity, y: factsY }}
+          <div
+            ref={factsRef}
             className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8"
+            style={{ opacity: 0, transform: 'translateY(16px)', willChange: 'opacity, transform' }}
           >
             {FACTS.map(([k, v]) => (
               <div key={k}>
@@ -155,7 +177,7 @@ export default function ApexAbout() {
                 <div className="mt-1.5 text-white/80 text-[0.9rem] leading-snug">{v}</div>
               </div>
             ))}
-          </motion.div>
+          </div>
 
         </div>
       </div>

@@ -93,7 +93,11 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth is intentionally OMITTED globally.
+     Native smooth-scroll adds OS momentum on top of Framer Motion's scroll-driven
+     animations, causing jank/lag in sticky scroll sections (APEX, Events, etc.).
+     Per-anchor smooth scroll is applied via JS window.scrollTo({behavior:'smooth'})
+     in the components that need it, which avoids the conflict. */
   background: var(--background);
 }
 
