@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
 const APEX_RED = '#D80000';
 
@@ -10,185 +11,159 @@ const DOMAINS = [
   { n: '03', title: 'UI/UX & Game Design',      sub: 'Interface · Feedback · Game Feel',      body: "The design work that makes a build worth playing — interfaces, feedback loops, visual language and the invisible craft players feel but can't name." },
   { n: '04', title: 'Storytelling & Narrative', sub: 'World-building · Characters · Writing', body: 'Worlds and characters that give every mechanic a reason to exist. Writing workshops, narrative design and the craft of making players care.' },
   { n: '05', title: 'Emerging Tech',            sub: 'AR/VR · Procedural · New Engines',      body: 'The frontier — AR/VR, procedural generation and experimental engines where the next genre is being invented right now.' },
-] as const;
+];
 
+const COLORS = ['#e85d04', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7'];
+
+function getRange(i: number, total: number) {
+  const center = i / (total - 1);
+  const band   = 0.5 / total;
+  return { center, band };
+}
+
+// ── Per-item row ──────────────────────────────────────────────────────────────
+function DomainRow({ domain, index, total, scrollYProgress }: {
+  domain: typeof DOMAINS[number];
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const { center, band } = getRange(index, total);
+
+  const opacity = useTransform(
+    scrollYProgress,
+    [center - band * 2, center - band, center, center + band, center + band * 2],
+    [0.1, 0.28, 1, 0.28, 0.1]
+  );
+  const scale = useTransform(scrollYProgress, [center - band, center, center + band], [0.9, 1, 0.9]);
+  const x     = useTransform(scrollYProgress, [center - band, center, center + band], [0, 28, 0]);
+  const color = useTransform(
+    scrollYProgress,
+    [center - band, center, center + band],
+    ['rgba(255,255,255,0.15)', COLORS[index], 'rgba(255,255,255,0.15)']
+  );
+
+  return (
+    <motion.li
+      style={{ opacity, scale, x, color }}
+      className="flex items-baseline gap-4 py-3 select-none"
+    >
+      <span className="font-mono font-black tabular-nums flex-shrink-0"
+        style={{ fontSize: 'clamp(0.65rem, 1.1vw, 0.88rem)', color: 'rgba(255,255,255,0.22)', letterSpacing: '0.12em' }}>
+        {domain.n}
+      </span>
+      <span className="flex flex-col gap-1">
+        <span className="font-sans font-black leading-none"
+          style={{ fontSize: 'clamp(1.9rem, 4.2vw, 4.2rem)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
+          {domain.title}
+        </span>
+        <span className="font-mono font-medium uppercase"
+          style={{ fontSize: 'clamp(0.52rem, 0.85vw, 0.7rem)', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.22)' }}>
+          {domain.sub}
+        </span>
+      </span>
+    </motion.li>
+  );
+}
+
+// ── Per-item description ──────────────────────────────────────────────────────
+function DomainDesc({ domain, index, total, scrollYProgress }: {
+  domain: typeof DOMAINS[number];
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const { center, band } = getRange(index, total);
+  const opacity = useTransform(scrollYProgress, [center - band, center, center + band], [0, 1, 0]);
+  const y       = useTransform(scrollYProgress, [center - band, center, center + band], [14, 0, -14]);
+
+  return (
+    <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
+      <p className="text-white/55 leading-[1.78] text-[0.97rem] md:text-[1.02rem]">{domain.body}</p>
+      <div className="mt-4 font-mono text-[0.58rem] font-bold tracking-[0.22em] uppercase text-white/20">{domain.sub}</div>
+      <div className="mt-6 h-px w-10" style={{ backgroundColor: COLORS[index], opacity: 0.7 }} />
+    </motion.div>
+  );
+}
+
+// ── Per-item dot ──────────────────────────────────────────────────────────────
+function DomainDot({ index, total, scrollYProgress }: {
+  index: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const { center, band } = getRange(index, total);
+  const scale   = useTransform(scrollYProgress, [center - band, center, center + band], [1, 2, 1]);
+  const opacity = useTransform(scrollYProgress, [center - band, center, center + band], [0.2, 1, 0.2]);
+  return (
+    <motion.div
+      style={{ scale, opacity, backgroundColor: COLORS[index] }}
+      className="w-1.5 h-1.5 rounded-full"
+    />
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 export default function ApexHowItWorks({
   sectionRef: externalRef,
 }: {
   sectionRef?: React.RefObject<HTMLElement | null>;
 }) {
-  const internalRef = useRef<HTMLElement>(null);
-  const sectionRef  = (externalRef ?? internalRef) as React.RefObject<HTMLElement>;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const internalRef  = useRef<HTMLElement>(null);
+  const sectionRef   = (externalRef ?? internalRef) as React.RefObject<HTMLElement>;
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative z-10"
-      aria-label="How the club works"
-    >
-      <style>{`
-        .apex-list-section {
-          padding: 8rem 0;
-        }
+    <section ref={sectionRef} className="relative z-10" aria-label="How the club works">
 
-        .apex-list-container {
-          display: grid;
-          grid-template-columns: auto 1fr;
-          column-gap: 3rem;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 2.5rem;
-          align-items: start;
-        }
-
-        .apex-sticky-label {
-          font-size: clamp(2rem, 4vw, 3.5rem);
-          font-weight: 800;
-          color: rgba(255,255,255,0.9);
-          position: sticky;
-          top: calc(50vh - 0.6lh);
-          align-self: flex-start;
-          min-width: max-content;
-          letter-spacing: -0.03em;
-          line-height: 1.1;
-        }
-
-        .apex-sticky-label span {
-          display: block;
-          color: ${APEX_RED};
-          font-size: 0.55em;
-          font-weight: 700;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          font-family: monospace;
-          margin-bottom: 0.5rem;
-        }
-
-        .apex-domains-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          font-size: clamp(2.2rem, 5vw, 5rem);
-          font-weight: 700;
-        }
-
-        .apex-domains-list li {
-          line-height: 1.3;
-          padding: 0.6rem 0;
-          scroll-snap-align: center;
-          color: rgba(255,255,255,0.18);
-          transition: color 0.2s;
-          cursor: default;
-          display: flex;
-          align-items: baseline;
-          gap: 0.6rem;
-        }
-
-        .apex-domains-list li .apex-num {
-          font-size: 0.35em;
-          font-weight: 900;
-          color: rgba(255,255,255,0.2);
-          font-family: monospace;
-          letter-spacing: 0.1em;
-          flex-shrink: 0;
-          transition: color 0.2s;
-        }
-
-        .apex-domains-list li .apex-sub {
-          display: block;
-          font-size: 0.28em;
-          font-weight: 500;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.15);
-          font-family: monospace;
-          margin-top: 0.2rem;
-          line-height: 1;
-        }
-
-        .apex-domains-list li .apex-title-wrap {
-          display: flex;
-          flex-direction: column;
-        }
-
-        /* CSS scroll-driven brightness animation */
-        @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
-          .apex-domains-list li:first-of-type  { --start-opacity: 1; }
-          .apex-domains-list li:last-of-type   { --end-opacity: 1;   }
-
-          .apex-domains-list li {
-            opacity: 0.18;
-            animation-name: apex-brighten;
-            animation-fill-mode: both;
-            animation-timing-function: linear;
-            animation-timeline: view();
-            animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
-          }
-
-          .apex-domains-list li.apex-colored:nth-child(1)  { --hue: 0;   }
-          .apex-domains-list li.apex-colored:nth-child(2)  { --hue: 72;  }
-          .apex-domains-list li.apex-colored:nth-child(3)  { --hue: 144; }
-          .apex-domains-list li.apex-colored:nth-child(4)  { --hue: 216; }
-          .apex-domains-list li.apex-colored:nth-child(5)  { --hue: 288; }
-
-          /* last item stays white */
-          .apex-domains-list li:last-of-type {
-            color: rgba(255,255,255,0.9) !important;
-          }
-
-          @keyframes apex-brighten {
-            0%   { opacity: var(--start-opacity, 0.18); }
-            50%  { opacity: 1; color: oklch(72% 0.22 var(--hue, 0)); }
-            100% { opacity: var(--end-opacity,   0.18); }
-          }
-        }
-
-        @media (max-width: 640px) {
-          .apex-list-container {
-            column-gap: 1rem;
-            padding: 0 1.25rem;
-          }
-          .apex-sticky-label {
-            font-size: clamp(1.1rem, 5vw, 2rem);
-          }
-        }
-      `}</style>
-
-      <div className="apex-list-section">
-        {/* Section header — above the scroll list */}
-        <div className="max-w-[1200px] mx-auto px-10 mb-16">
-          <div className="flex items-center gap-3 mb-4">
-            <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
-            <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
-              How it works
-            </span>
-          </div>
-          <h2
-            className="font-sans font-black text-white leading-[1.02]"
-            style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
-          >
-            Five domains. One community.
-          </h2>
+      {/* Section header */}
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
+          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
+            How it works
+          </span>
         </div>
+        <h2 className="font-sans font-black text-white leading-[1.02]"
+          style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}>
+          Five domains. One community.
+        </h2>
+      </div>
 
-        {/* Scroll list */}
-        <div className="apex-list-container">
-          <p className="apex-sticky-label" aria-hidden>
-            <span>APEX</span>
-            Domains
-          </p>
+      {/* Tall scroll container — each domain gets 100vh of scroll travel */}
+      <div ref={containerRef} style={{ height: `${DOMAINS.length * 100}vh` }}>
+        <div className="sticky top-0 h-screen overflow-hidden flex items-center">
+          <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
 
-          <ul className="apex-domains-list">
-            {DOMAINS.map((d) => (
-              <li key={d.n} className="apex-colored">
-                <span className="apex-num">{d.n}</span>
-                <span className="apex-title-wrap">
-                  {d.title}
-                  <span className="apex-sub">{d.sub}</span>
-                </span>
-              </li>
+            {/* Left — domain list (all 5 visible, active one glows) */}
+            <div className="flex-1 min-w-0">
+              <ul className="list-none p-0 m-0">
+                {DOMAINS.map((d, i) => (
+                  <DomainRow key={d.n} domain={d} index={i} total={DOMAINS.length} scrollYProgress={scrollYProgress} />
+                ))}
+              </ul>
+            </div>
+
+            {/* Right — description panel (items stack, each fades in/out) */}
+            <div className="hidden lg:block lg:w-[300px] xl:w-[360px] flex-shrink-0 relative" style={{ height: 220 }}>
+              {DOMAINS.map((d, i) => (
+                <DomainDesc key={d.n} domain={d} index={i} total={DOMAINS.length} scrollYProgress={scrollYProgress} />
+              ))}
+            </div>
+
+          </div>
+
+          {/* Scroll progress dots — right edge */}
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3">
+            {DOMAINS.map((_, i) => (
+              <DomainDot key={i} index={i} total={DOMAINS.length} scrollYProgress={scrollYProgress} />
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </section>

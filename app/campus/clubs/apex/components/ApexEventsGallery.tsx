@@ -5,15 +5,28 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
 const APEX_RED = '#D80000';
 
-// ─── Asset config — replace paths here without touching component logic ────────
-const EVENTS = [
+// ─── Asset config — alternating video / image ─────────────────────────────────
+type EventItem =
+  | { slug: string; name: string; kind: string; caption: string; src: string; type: 'video'; poster?: string }
+  | { slug: string; name: string; kind: string; caption: string; src: string; type: 'image' };
+
+const EVENTS: EventItem[] = [
   {
     slug:    'genesis-vid',
     name:    'GENESIS',
     kind:    'Workshop · Gameathon',
     caption: 'A Unity intensive where industry mentors guided teams that shipped full games from scratch.',
     src:     '/videos/apex-genesis.mp4',
-    type:    'video' as const,
+    poster:  '/images/clubs/apex/events/genesis.jpg',
+    type:    'video',
+  },
+  {
+    slug:    'genesis-img',
+    name:    'GENESIS',
+    kind:    'Workshop · Gameathon',
+    caption: 'Industry mentors, teams of two, one game shipped — GENESIS in stills.',
+    src:     '/images/clubs/apex/events/genesis.jpg',
+    type:    'image',
   },
   {
     slug:    'vcc-vid',
@@ -21,7 +34,16 @@ const EVENTS = [
     kind:    'Tournament · Valorant',
     caption: "MLRIT's Valorant Campus Championship — intense 5v5 rounds, campus-wide competition.",
     src:     '/videos/apex-vcc.mp4',
-    type:    'video' as const,
+    poster:  '/images/clubs/apex/events/vcc.jpg',
+    type:    'video',
+  },
+  {
+    slug:    'vcc-img',
+    name:    'VCC',
+    kind:    'Tournament · Valorant',
+    caption: 'The first campus Valorant championship — bracket play, spectators, and a stage.',
+    src:     '/images/clubs/apex/events/vcc.jpg',
+    type:    'image',
   },
   {
     slug:    'esports-vid',
@@ -29,7 +51,16 @@ const EVENTS = [
     kind:    'Championship · BGMI + Valorant',
     caption: 'The first-ever Interdepartmental Esports Championship — 180+ gamers, 17 departments.',
     src:     '/videos/apex-esports.mp4',
-    type:    'video' as const,
+    poster:  '/images/clubs/apex/events/interdept.jpg',
+    type:    'video',
+  },
+  {
+    slug:    'esports-img',
+    name:    'Interdepartmental Esports',
+    kind:    'Championship · BGMI + Valorant',
+    caption: '180+ students, 17 departments — the championship that brought the whole campus to one arena.',
+    src:     '/images/clubs/apex/events/interdept.jpg',
+    type:    'image',
   },
   {
     slug:    'apex-vid',
@@ -37,9 +68,17 @@ const EVENTS = [
     kind:    'Community · All Events',
     caption: 'A look at what APEX is — the people, the games, the energy that defines the club.',
     src:     '/videos/apex-vid.mp4',
-    type:    'video' as const,
+    type:    'video',
   },
-] as const;
+  {
+    slug:    'apex-img',
+    name:    'APEX Highlights',
+    kind:    'Community · All Events',
+    caption: 'Every event. Every member. Every moment — APEX.',
+    src:     '/images/clubs/apex/events/interdept.jpg',
+    type:    'image',
+  },
+];
 
 const TOTAL = EVENTS.length; // 8
 
@@ -73,7 +112,7 @@ function BgMedia({ item, active }: { item: typeof EVENTS[number]; active: boolea
         <video
           ref={videoRef}
           src={item.src}
-          poster={'poster' in item ? item.poster : undefined}
+          poster={item.type === 'video' ? item.poster : undefined}
           muted
           loop
           playsInline
