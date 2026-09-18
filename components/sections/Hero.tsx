@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { ChevronRight } from '../icons';
 import type { DeptReel } from '@/lib/departments';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
@@ -37,22 +37,11 @@ export default function Hero(props: HeroProps) {
 
   const [filmOpen, setFilmOpen] = useState(false);
 
-  // Scroll-driven expansion for the floating video preview — mastersunion.org style.
-  // Native scroll listener into a motion value; useTransform maps it to
-  // scale/x/y. Native listener works with GSAP ScrollTo (used elsewhere) and
-  // avoids useScroll's ref-timing quirks.
+  // Video preview stays static — no scroll-driven scale/drift.
   const sectionRef = useRef<HTMLElement>(null);
-  const scrollY = useMotionValue(0);
-  useEffect(() => {
-    const update = () => scrollY.set(window.scrollY);
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
-  }, [scrollY]);
-  // From 0 to one viewport of scroll, the card grows by 55% and drifts inward.
-  const previewScale = useTransform(scrollY, [0, 700], [1, 1.55]);
-  const previewX     = useTransform(scrollY, [0, 700], [0, -40]);
-  const previewY     = useTransform(scrollY, [0, 700], [0, 80]);
+  const previewScale = 1;
+  const previewX = 0;
+  const previewY = 0;
 
   return (
     <section ref={sectionRef} id={sectionDomId('home/hero')} className="relative pt-5 md:pt-7 lg:pt-8 overflow-hidden">

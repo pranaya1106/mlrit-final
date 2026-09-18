@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" role="img" aria-label="EPAM">
+  <style>
+    .ep-t { font: 900 44px "Helvetica Neue", Arial, sans-serif; letter-spacing:-2px; }
+  </style>
+  <text x="10" y="44" class="ep-t" fill="#31B5A6">EPAM</text>
+</svg>

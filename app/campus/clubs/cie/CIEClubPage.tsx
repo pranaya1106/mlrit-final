@@ -84,31 +84,184 @@ function useCountUp(target: number, ms = 1400) {
   return { ref, n };
 }
 
-function StatItem({ value, label, suffix, showDivider }: { value: number; label: string; suffix: string; showDivider: boolean }) {
+function StatItem({ value, label, suffix, showDivider, index }: { value: number; label: string; suffix: string; showDivider: boolean; index: number }) {
   const { ref, n } = useCountUp(value);
   return (
-    <div className={`px-4 md:px-6 ${showDivider ? 'md:border-r md:border-white/10' : ''}`}>
-      <div ref={ref} className="font-sans font-black text-white text-[clamp(2.2rem,3.6vw,3.2rem)] leading-none tracking-tighter-2 tabular-nums">
+    <motion.div
+      className="group relative px-4 md:px-8 lg:px-10 py-2 md:py-6"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: '-30% 0px' }}
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.1 } },
+      }}
+    >
+      {/* Vertical hairline divider — grows from centre outward on enter */}
+      {showDivider && (
+        <motion.span
+          aria-hidden
+          className="hidden md:block absolute top-1/2 right-0 -translate-y-1/2 w-px bg-white/10 origin-center"
+          style={{ height: '100%' }}
+          variants={{
+            hidden: { scaleY: 0 },
+            show:   { scaleY: 1, transition: { duration: 0.9, ease: EASE } },
+          }}
+        />
+      )}
+      {/* Tiny counter on top — for editorial rhythm */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, x: -6 },
+          show:   { opacity: 0.5, x: 0, transition: { duration: 0.5, ease: EASE } },
+        }}
+        className="font-mono text-[0.58rem] font-bold tracking-[0.28em] uppercase text-white/40 mb-4"
+      >
+        № 0{index + 1}
+      </motion.div>
+      <motion.div
+        ref={ref}
+        variants={{
+          hidden: { opacity: 0, y: 28 },
+          show:   { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
+        }}
+        className="font-sans font-black text-white leading-[0.85] tracking-tighter-3 tabular-nums group-hover:text-primary transition-colors duration-700"
+        style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)' }}
+      >
         {n.toLocaleString('en-IN')}
         <span className="text-primary">{suffix}</span>
-      </div>
-      <div className="mt-4 font-mono text-[0.64rem] font-bold tracking-[0.24em] uppercase text-white/50">
+      </motion.div>
+      <motion.div
+        aria-hidden
+        variants={{
+          hidden: { scaleX: 0 },
+          show:   { scaleX: 1, transition: { duration: 0.8, ease: EASE } },
+        }}
+        className="mt-6 h-px bg-white/15 origin-left w-[70%] group-hover:bg-primary transition-colors duration-500"
+      />
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 12 },
+          show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+        }}
+        className="mt-4 font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/60"
+      >
         {label}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
-// Tiny mono-caps eyebrow — reused across the page so every section shares the
-// same rail.
+// ─── Motion primitives ───────────────────────────────────────────────────────
+// One set of easing curves and reveal patterns reused across every section so
+// the whole page reads as one deliberately-timed piece.
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
+
+const fadeUpTight = {
+  hidden: { opacity: 0, y: 12 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+};
+
+const stagger = (childDelay = 0.06, initial = 0.02) => ({
+  hidden: {},
+  show: { transition: { staggerChildren: childDelay, delayChildren: initial } },
+});
+
+const IN_VIEW = { once: true, margin: '-80px' } as const;
+
+// Eyebrow — rule draws left→right, then label fades in with a small x-shift.
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
-      <span aria-hidden className="h-px w-6 bg-primary" />
-      <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase text-primary">
+    <motion.div
+      className="flex items-center gap-3"
+      initial="hidden"
+      whileInView="show"
+      viewport={IN_VIEW}
+      variants={stagger(0.15, 0)}
+    >
+      <motion.span
+        aria-hidden
+        className="h-px w-8 bg-primary origin-left"
+        variants={{
+          hidden: { scaleX: 0 },
+          show:   { scaleX: 1, transition: { duration: 0.7, ease: EASE } },
+        }}
+      />
+      <motion.span
+        className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase text-primary"
+        variants={{
+          hidden: { opacity: 0, x: -6 },
+          show:   { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+        }}
+      >
         {children}
-      </span>
-    </div>
+      </motion.span>
+    </motion.div>
+  );
+}
+
+// Word-split heading — splits by whitespace, staggers each word's opacity+y.
+function WordStagger({ text, className, style, as = 'h2' }: {
+  text: string;
+  className?: string;
+  style?: React.CSSProperties;
+  as?: 'h1' | 'h2' | 'h3';
+}) {
+  const Tag = as as any;
+  const words = text.split(' ');
+  return (
+    <Tag className={className} style={style}>
+      <motion.span
+        initial="hidden"
+        whileInView="show"
+        viewport={IN_VIEW}
+        variants={stagger(0.07, 0.05)}
+        style={{ display: 'inline-block' }}
+      >
+        {words.map((w, i) => (
+          <motion.span
+            key={i}
+            variants={{
+              hidden: { opacity: 0, y: '0.4em' },
+              show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+            }}
+            style={{ display: 'inline-block', marginRight: '0.28em' }}
+          >
+            {w}
+          </motion.span>
+        ))}
+      </motion.span>
+    </Tag>
+  );
+}
+
+// Ledger row — the horizontal hairline draws in, then the number and body
+// stagger up together. Used by the Pillars and Facilities sections.
+function LedgerRow({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      viewport={IN_VIEW}
+      variants={stagger(0.08, 0)}
+      className="relative grid grid-cols-[auto_1fr] gap-6 py-7"
+    >
+      <motion.span
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-px bg-white/10 origin-left"
+        variants={{
+          hidden: { scaleX: 0 },
+          show:   { scaleX: 1, transition: { duration: 0.8, ease: EASE } },
+        }}
+      />
+      {children}
+    </motion.div>
   );
 }
 
@@ -188,130 +341,283 @@ export default function CIEClubPage() {
         </div>
       </section>
 
-      {/* ═════════ ABOUT — plain editorial spread ═════════ */}
-      <section id="about" className="relative bg-black py-20 md:py-28 overflow-hidden">
-        {/* Decorative photo strip tucked into the section — echoes the hero's
-            photo-cutout language. Hidden on small screens. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/clubs/cie/decor/photo-strip.svg"
-          alt=""
+      {/* ═════════ ABOUT — split spread with chapter mark ═════════ */}
+      <section id="about" className="relative bg-black py-24 md:py-36 overflow-hidden">
+        {/* Signature move — a huge ghost "02" chapter numeral bleeding off the left edge */}
+        <div
           aria-hidden
-          className="hidden lg:block absolute right-6 top-16 w-[240px] h-auto pointer-events-none select-none rounded-lg"
-          style={{ opacity: 0.45, transform: 'rotate(4deg)' }}
-        />
+          className="pointer-events-none select-none absolute -left-6 md:left-4 lg:left-8 top-[10%] hidden lg:block z-[0]"
+        >
+          <div className="font-mono text-[0.68rem] font-bold tracking-[0.36em] uppercase text-white/25 mb-2 ml-2">
+            § Chapter Two
+          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={IN_VIEW}
+            transition={{ duration: 1, ease: EASE }}
+            className="font-sans font-black text-white/[0.06] leading-[0.8] tracking-tighter-3"
+            style={{ fontSize: 'clamp(12rem, 22vw, 26rem)' }}
+          >
+            02
+          </motion.div>
+        </div>
 
-        <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>About</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-10 md:mb-12">
-            About CIE.
-          </h2>
+        {/* Signature top-right corner bracket */}
+        <div aria-hidden className="absolute top-8 right-8 w-8 h-8 pointer-events-none hidden md:block z-[1]">
+          <span className="absolute top-0 right-0 w-full h-px bg-primary" />
+          <span className="absolute top-0 right-0 w-px h-full bg-primary" />
+        </div>
 
-          <div className="max-w-[64ch] space-y-5 text-white/75 leading-[1.8] text-[1.02rem] md:text-[1.08rem]">
-            <p>
-              CIE is MLRIT&apos;s Centre for Innovation and Entrepreneurship — a
+        <div className="relative max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 z-[1]">
+          <div className="grid lg:grid-cols-12 gap-y-14 lg:gap-x-10">
+            {/* LEFT — meta rail */}
+            <div className="lg:col-span-4 lg:pt-4">
+              <Eyebrow>About · The room</Eyebrow>
+              <div className="mt-10 space-y-6 border-l border-white/10 pl-6">
+                {[
+                  ['Location',  'Dundigal, Hyderabad'],
+                  ['Model',     'Student-run'],
+                  ['Verticals', 'MP · CS · PD · SC'],
+                  ['Home',      'Innovation Hub / EPICS'],
+                ].map(([k, v], i) => (
+                  <motion.div
+                    key={k}
+                    initial={{ opacity: 0, x: -12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={IN_VIEW}
+                    transition={{ duration: 0.55, delay: 0.2 + i * 0.08, ease: EASE }}
+                    className="relative"
+                  >
+                    <span
+                      aria-hidden
+                      className="absolute -left-[26px] top-2 w-1.5 h-1.5 rounded-full bg-primary"
+                      style={{ boxShadow: '0 0 8px rgba(232,93,4,0.6)' }}
+                    />
+                    <div className="font-mono text-[0.6rem] font-bold tracking-[0.24em] uppercase text-white/40">
+                      {k}
+                    </div>
+                    <div className="mt-1 text-white text-[0.98rem] leading-snug font-medium">
+                      {v}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT — display heading + prose with drop cap */}
+            <div className="lg:col-span-8 lg:pl-8 lg:border-l lg:border-white/10">
+              <WordStagger
+                text="A student-run incubator, built for building."
+                className="font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.4rem,5.6vw,5rem)] mb-10 md:mb-14 max-w-[16ch]"
+              />
+
+              <motion.div
+                className="max-w-[62ch] space-y-6 text-white/75 leading-[1.8] text-[1.05rem] md:text-[1.12rem]"
+            initial="hidden"
+            whileInView="show"
+            viewport={IN_VIEW}
+            variants={stagger(0.14, 0.05)}
+          >
+            <motion.p variants={fadeUp}>
+              <span className="float-left text-white font-sans font-black text-[3.6rem] leading-[0.85] mr-3 pt-1 tracking-tighter-2">
+                C
+              </span>
+              IE is MLRIT&apos;s Centre for Innovation and Entrepreneurship — a
               student-run incubator on the Dundigal campus. It exists to give
               students a place to actually build the things they&apos;d otherwise
               only talk about.
-            </p>
-            <p>
+            </motion.p>
+            <motion.p variants={fadeUp}>
               The room is open. First years and final years show up, from every
               branch. Some come to ship games or products; others come to run
               tournaments, film the events, or handle the media desk for the
               club that shipped last week.
-            </p>
-            <p>
+            </motion.p>
+            <motion.p variants={fadeUp}>
               Failure is treated as part of the learning, not the outcome.
               Ideas get argued with, not dismissed. Everyone here is either
               building something or helping someone else build something.
-            </p>
-          </div>
-
-          {/* Fact strip — inline, hairline-separated */}
-          <div className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8">
-            {[
-              ['Location',  'Dundigal, Hyderabad'],
-              ['Model',     'Student-run'],
-              ['Verticals', 'MP · CS · PD · SC'],
-              ['Home',      'Innovation Hub / EPICS'],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <div className="font-mono text-[0.6rem] font-bold tracking-[0.22em] uppercase text-white/40">
-                  {k}
-                </div>
-                <div className="mt-1.5 text-white text-[0.92rem] leading-snug">
-                  {v}
-                </div>
-              </div>
-            ))}
+            </motion.p>
+          </motion.div>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ═════════ PHOTO BAND — full-bleed between About and V/M ═════════ */}
+      <div className="relative w-full h-[260px] md:h-[380px] overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/clubs/cie/gallery/cie.jpg"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <span aria-hidden className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 w-full flex items-center justify-between gap-6">
+            <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/70">
+              § Field notes · The floor
+            </div>
+            <div className="font-sans text-white/90 text-[clamp(1rem,1.8vw,1.6rem)] max-w-[38ch] text-right hidden md:block italic leading-snug">
+              &ldquo;Every idea starts somewhere.&rdquo;
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ═════════ VISION + MISSION — two blocks, one rule ═════════ */}
       <section className="relative bg-black py-20 md:py-24 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Vision &amp; Mission</Eyebrow>
 
-          <div className="mt-10 grid lg:grid-cols-2 lg:divide-x lg:divide-white/10">
-            <div className="lg:pr-14">
-              <div className="flex items-baseline gap-4">
-                <span className="font-sans font-black text-white/25 text-[3rem] leading-none tracking-tighter-2">
-                  01
-                </span>
-                <span className="font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/55">
-                  Vision
-                </span>
-              </div>
-              <p className="mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]">
-                Create a student culture where innovation is not limited to
-                competitions or special occasions.
-              </p>
-            </div>
-            <div className="mt-12 lg:mt-0 lg:pl-14">
-              <div className="flex items-baseline gap-4">
-                <span className="font-sans font-black text-white/25 text-[3rem] leading-none tracking-tighter-2">
-                  02
-                </span>
-                <span className="font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/55">
-                  Mission
-                </span>
-              </div>
-              <p className="mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]">
-                Make learning more practical, collaborative and student-driven.
-              </p>
-            </div>
-          </div>
+          <motion.div
+            className="mt-10 grid lg:grid-cols-2 lg:divide-x lg:divide-white/10"
+            initial="hidden"
+            whileInView="show"
+            viewport={IN_VIEW}
+            variants={stagger(0.16, 0.1)}
+          >
+            {[
+              { n: '01', label: 'Vision',  body: 'Create a student culture where innovation is not limited to competitions or special occasions.' },
+              { n: '02', label: 'Mission', body: 'Make learning more practical, collaborative and student-driven.' },
+            ].map((v, i) => (
+              <motion.div
+                key={v.n}
+                variants={stagger(0.1, 0)}
+                className={i === 0 ? 'lg:pr-14' : 'mt-12 lg:mt-0 lg:pl-14'}
+              >
+                <div className="flex items-baseline gap-4">
+                  <motion.span
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      show:   { opacity: 0.25, y: 0, transition: { duration: 0.8, ease: EASE } },
+                    }}
+                    className="font-sans font-black text-white text-[3rem] leading-none tracking-tighter-2 tabular-nums"
+                    style={{ display: 'inline-block' }}
+                  >
+                    {v.n}
+                  </motion.span>
+                  <motion.span
+                    variants={fadeUpTight}
+                    className="font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/55"
+                  >
+                    {v.label}
+                  </motion.span>
+                </div>
+                <motion.p
+                  variants={fadeUp}
+                  className="mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]"
+                >
+                  {v.body}
+                </motion.p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* ═════════ PILLARS — vertical ledger, no cards ═════════ */}
       <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>Six pillars</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
-            How we work.
-          </h2>
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
+          {/* Header row with 03 / 06 counter as editorial mark */}
+          <div className="flex items-end justify-between gap-6 mb-16 md:mb-20 flex-wrap">
+            <div>
+              <Eyebrow>Six pillars · How we work</Eyebrow>
+              <WordStagger
+                text="Six ways of moving."
+                className="mt-6 font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.6rem,6vw,5.5rem)] max-w-[14ch]"
+              />
+            </div>
+            <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/40 pb-2">
+              § 01 → 06
+            </div>
+          </div>
 
-          <div className="grid md:grid-cols-2 md:gap-x-14 lg:gap-x-20">
-            {OBJECTIVES.map((o, i) => (
-              <div
-                key={o.n}
-                className="grid grid-cols-[auto_1fr] gap-6 py-7 border-t border-white/10"
-              >
-                <span className="font-sans font-black text-white/30 text-[2.4rem] md:text-[3rem] leading-none tracking-tighter-2 tabular-nums">
-                  {o.n}
-                </span>
-                <div className="pt-1">
-                  <h3 className="font-sans font-extrabold text-white text-[1.1rem] md:text-[1.2rem] leading-tight">
-                    {o.t}
-                  </h3>
-                  <p className="mt-2 text-white/55 text-[0.9rem] md:text-[0.95rem] leading-[1.65] max-w-[44ch]">
-                    {o.b}
-                  </p>
-                </div>
-              </div>
-            ))}
+          {/* Off-grid staggered stack — alternating rows slide in from left/right,
+              with the numeral bleeding out into the margin. Each row's own
+              hairline draws in on view. */}
+          <div className="space-y-2">
+            {OBJECTIVES.map((o, i) => {
+              const isEven = i % 2 === 0;
+              return (
+                <motion.div
+                  key={o.n}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={IN_VIEW}
+                  variants={stagger(0.1, 0)}
+                  whileHover="hover"
+                  className={`group relative py-8 md:py-10 lg:py-12 ${isEven ? '' : 'lg:pl-[8%]'}`}
+                >
+                  {/* Row hairline — top */}
+                  <motion.span
+                    aria-hidden
+                    className="absolute top-0 left-0 right-0 h-px bg-white/15 origin-left"
+                    variants={{
+                      hidden: { scaleX: 0 },
+                      show:   { scaleX: 1, transition: { duration: 0.9, ease: EASE } },
+                      hover:  { backgroundColor: 'rgba(232,93,4,0.7)', transition: { duration: 0.35 } },
+                    }}
+                  />
+
+                  <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_auto] gap-6 md:gap-10 items-start">
+                    {/* Big numeral — bleeds toward margin, gets orange glow on hover */}
+                    <motion.div
+                      variants={{
+                        hidden: { opacity: 0, y: 32, x: -8 },
+                        show:   { opacity: 1, y: 0, x: 0, transition: { duration: 0.8, ease: EASE } },
+                      }}
+                      className="relative"
+                    >
+                      <div
+                        className="font-sans font-black leading-[0.85] tracking-tighter-3 tabular-nums text-white/40 group-hover:text-primary transition-colors duration-500"
+                        style={{ fontSize: 'clamp(3.8rem, 8vw, 7rem)' }}
+                      >
+                        {o.n}
+                      </div>
+                    </motion.div>
+
+                    {/* Title + body */}
+                    <motion.div
+                      variants={fadeUpTight}
+                      className="pt-2 md:pt-4 max-w-[62ch]"
+                    >
+                      <h3 className="font-sans font-black text-white text-[clamp(1.3rem,2vw,1.8rem)] leading-[1.1] tracking-tight">
+                        {o.t}
+                      </h3>
+                      <p className="mt-3 md:mt-4 text-white/55 text-[0.98rem] md:text-[1.02rem] leading-[1.7]">
+                        {o.b}
+                      </p>
+                    </motion.div>
+
+                    {/* Right side — small mono counter and hover arrow */}
+                    <motion.div
+                      variants={fadeUpTight}
+                      className="hidden md:flex flex-col items-end gap-3 pt-3 min-w-[3rem]"
+                    >
+                      <span className="font-mono text-[0.6rem] font-bold tracking-[0.24em] uppercase text-white/30">
+                        Pillar
+                      </span>
+                      <span
+                        aria-hidden
+                        className="w-8 h-px bg-white/15 group-hover:bg-primary group-hover:w-14 transition-all duration-500 ease-out-quart"
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })}
+            {/* Final hairline to close the ledger */}
+            <motion.span
+              aria-hidden
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={IN_VIEW}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="block h-px bg-white/15 origin-left"
+            />
           </div>
         </div>
       </section>
@@ -328,36 +634,120 @@ export default function CIEClubPage() {
           style={{ opacity: 0.35, mixBlendMode: 'screen' }}
         />
 
-        <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>What&apos;s inside</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
-            Four verticals.
-          </h2>
+        <div className="relative max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
+          <div className="flex items-end justify-between gap-6 mb-16 md:mb-20 flex-wrap max-w-[1200px]">
+            <div>
+              <Eyebrow>What&apos;s inside</Eyebrow>
+              <WordStagger
+                text="Four rooms. Four teams."
+                className="mt-6 font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.6rem,6vw,5.5rem)] max-w-[14ch]"
+              />
+            </div>
+            <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/40 pb-2">
+              § 04 / MP · CS · PD · SC
+            </div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            {VERTICALS.map((v) => (
-              <div
-                key={v.code}
-                className="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-500 p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8"
-              >
-                <div className="w-[220px] h-[220px] md:w-[240px] md:h-[240px] flex-shrink-0 flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={v.logo}
-                    alt={`${v.name} logo`}
-                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+          {/* Full-width alternating bands — logo left OR right, big display code letters as graphic */}
+          <div className="space-y-2">
+            {VERTICALS.map((v, i) => {
+              const flipped = i % 2 === 1;
+              return (
+                <motion.article
+                  key={v.code}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={IN_VIEW}
+                  variants={stagger(0.08, 0)}
+                  whileHover="hover"
+                  className="group relative py-10 md:py-14 lg:py-16"
+                >
+                  {/* Row hairline */}
+                  <motion.span
+                    aria-hidden
+                    className="absolute top-0 left-0 right-0 h-px bg-white/15 origin-left"
+                    variants={{
+                      hidden: { scaleX: 0 },
+                      show:   { scaleX: 1, transition: { duration: 0.9, ease: EASE } },
+                      hover:  { backgroundColor: 'rgba(232,93,4,0.7)', transition: { duration: 0.35 } },
+                    }}
                   />
-                </div>
-                <div className="text-center md:text-left md:pt-4">
-                  <h3 className="font-sans font-black text-white text-[1.35rem] md:text-[1.5rem] leading-tight tracking-tight">
-                    {v.name}
-                  </h3>
-                  <p className="mt-3 text-white/60 text-[0.92rem] md:text-[0.96rem] leading-[1.65] max-w-[38ch]">
-                    {v.body}
-                  </p>
-                </div>
-              </div>
-            ))}
+
+                  {/* Ambient hover glow */}
+                  <span
+                    aria-hidden
+                    className={`pointer-events-none absolute top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl ${flipped ? 'right-0 md:-right-20' : 'left-0 md:-left-20'}`}
+                    style={{ backgroundColor: 'rgba(232,93,4,0.12)' }}
+                  />
+
+                  <div className={`relative grid gap-8 md:gap-14 items-center ${flipped ? 'md:grid-cols-[1fr_auto]' : 'md:grid-cols-[auto_1fr]'}`}>
+                    {/* LOGO (with big display code letters behind it) */}
+                    <motion.div
+                      variants={{
+                        hidden: { opacity: 0, scale: 0.85, y: 20 },
+                        show:   { opacity: 1, scale: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
+                      }}
+                      className={`relative flex-shrink-0 mx-auto md:mx-0 ${flipped ? 'md:order-2' : ''}`}
+                    >
+                      {/* Big display code letters — the graphic anchor */}
+                      <div
+                        aria-hidden
+                        className={`absolute inset-0 flex items-center pointer-events-none select-none ${flipped ? 'justify-end -mr-8' : 'justify-start -ml-8'}`}
+                      >
+                        <span
+                          className="font-sans font-black leading-[0.75] tracking-tighter-3 text-white/[0.05] group-hover:text-white/[0.08] transition-colors duration-700"
+                          style={{ fontSize: 'clamp(9rem, 18vw, 20rem)' }}
+                        >
+                          {v.code}
+                        </span>
+                      </div>
+
+                      {/* The logo itself, sitting above the display letters */}
+                      <motion.div
+                        className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] flex items-center justify-center"
+                        whileHover={{ rotate: [-1.5, 1.5, -1, 0] }}
+                        transition={{ duration: 0.7, ease: EASE }}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={v.logo}
+                          alt={`${v.name} logo`}
+                          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.06]"
+                        />
+                      </motion.div>
+                    </motion.div>
+
+                    {/* TEXT */}
+                    <motion.div
+                      variants={fadeUpTight}
+                      className={`max-w-[52ch] ${flipped ? 'md:order-1 md:text-right md:ml-auto' : ''}`}
+                    >
+                      <div className={`flex items-center gap-3 mb-4 ${flipped ? 'md:justify-end' : ''}`}>
+                        <span className="font-mono text-[0.62rem] font-bold tracking-[0.28em] uppercase text-primary">
+                          Vertical · {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span aria-hidden className="h-px w-8 bg-primary" />
+                      </div>
+                      <h3 className="font-sans font-black text-white text-[clamp(1.8rem,3.4vw,3rem)] leading-[0.98] tracking-tighter-2">
+                        {v.name}
+                      </h3>
+                      <p className={`mt-5 text-white/60 text-[1rem] md:text-[1.05rem] leading-[1.75] ${flipped ? 'md:ml-auto' : ''}`}>
+                        {v.body}
+                      </p>
+                    </motion.div>
+                  </div>
+                </motion.article>
+              );
+            })}
+            {/* Closing hairline */}
+            <motion.span
+              aria-hidden
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={IN_VIEW}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="block h-px bg-white/15 origin-left"
+            />
           </div>
         </div>
       </section>
@@ -366,12 +756,19 @@ export default function CIEClubPage() {
       <section id="events" className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 mb-12">
           <Eyebrow>Events</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
-            The record.
-          </h2>
-          <p className="mt-3 text-white/50 text-[0.92rem] max-w-[52ch]">
+          <WordStagger
+            text="The record."
+            className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={IN_VIEW}
+            transition={{ duration: 0.6, delay: 0.35, ease: EASE }}
+            className="mt-3 text-white/50 text-[0.92rem] max-w-[52ch]"
+          >
             Hover any poster to read what it was.
-          </p>
+          </motion.p>
         </div>
 
         <div
@@ -450,20 +847,38 @@ export default function CIEClubPage() {
       <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Facilities</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14">
-            Rooms we use.
-          </h2>
+          <WordStagger
+            text="Rooms we use."
+            className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14"
+          />
 
           <div className="grid md:grid-cols-2 md:gap-x-14 lg:gap-x-20">
             {FACILITIES.map((f, i) => (
-              <div
+              <motion.div
                 key={f.title}
-                className="grid grid-cols-[auto_1fr] gap-6 py-6 border-t border-white/10"
+                initial="hidden"
+                whileInView="show"
+                viewport={IN_VIEW}
+                variants={stagger(0.08, 0)}
+                whileHover="hover"
+                className="relative grid grid-cols-[auto_1fr] gap-6 py-6"
               >
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase text-primary pt-1 min-w-[2rem] tabular-nums">
+                <motion.span
+                  aria-hidden
+                  className="absolute top-0 left-0 right-0 h-px bg-white/10 origin-left"
+                  variants={{
+                    hidden: { scaleX: 0 },
+                    show:   { scaleX: 1, transition: { duration: 0.8, ease: EASE } },
+                    hover:  { backgroundColor: 'rgba(232,93,4,0.55)', transition: { duration: 0.4 } },
+                  }}
+                />
+                <motion.span
+                  variants={fadeUpTight}
+                  className="font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase text-primary pt-1 min-w-[2rem] tabular-nums"
+                >
                   {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
+                </motion.span>
+                <motion.div variants={fadeUpTight}>
                   <div className="flex items-baseline justify-between gap-3 flex-wrap">
                     <h3 className="font-sans font-extrabold text-white text-[1.05rem] md:text-[1.15rem] leading-tight">
                       {f.title}
@@ -475,18 +890,34 @@ export default function CIEClubPage() {
                   <p className="mt-2 text-white/55 text-[0.88rem] leading-[1.65]">
                     {f.body}
                   </p>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═════════ NUMBERS ═════════ */}
-      <section className="relative bg-black py-20 md:py-24 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>By the numbers</Eyebrow>
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-y-10">
+      {/* ═════════ NUMBERS — dramatic display treatment ═════════ */}
+      <section className="relative bg-black py-24 md:py-32 overflow-hidden border-t border-white/[0.08]">
+        {/* Background ambient — big "07" chapter marker in the corner */}
+        <div aria-hidden className="absolute top-8 right-8 hidden md:block z-[1]">
+          <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/40 text-right">
+            § Chapter Seven
+          </div>
+        </div>
+
+        <div className="relative max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 z-[1]">
+          <div className="flex items-end justify-between gap-6 mb-16 md:mb-20 flex-wrap">
+            <div>
+              <Eyebrow>By the numbers</Eyebrow>
+              <WordStagger
+                text="In practice."
+                className="mt-6 font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.6rem,6vw,5.5rem)]"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-14 md:gap-y-0">
             {STATS.map((s, i) => (
               <StatItem
                 key={s.label}
@@ -494,6 +925,7 @@ export default function CIEClubPage() {
                 label={s.label}
                 suffix={s.suffix}
                 showDivider={i < STATS.length - 1}
+                index={i}
               />
             ))}
           </div>
@@ -549,15 +981,31 @@ export default function CIEClubPage() {
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
           <div className="max-w-[1200px] mx-auto mb-12">
             <Eyebrow>Gallery</Eyebrow>
-            <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]">
-              Living document.
-            </h2>
+            <WordStagger
+              text="Living document."
+              className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]"
+            />
           </div>
 
-          <div className="grid grid-cols-12 gap-3 md:gap-4">
+          <motion.div
+            className="grid grid-cols-12 gap-3 md:gap-4"
+            initial="hidden"
+            whileInView="show"
+            viewport={IN_VIEW}
+            variants={stagger(0.06, 0.05)}
+          >
             {GALLERY.map((g) => (
-              <figure
+              <motion.figure
                 key={g.src}
+                variants={{
+                  hidden: { opacity: 0, y: 32, clipPath: 'inset(0 0 100% 0)' },
+                  show:   {
+                    opacity: 1,
+                    y: 0,
+                    clipPath: 'inset(0 0 0% 0)',
+                    transition: { duration: 0.9, ease: EASE },
+                  },
+                }}
                 className="relative group overflow-hidden rounded-xl bg-white/[0.03] aspect-[4/3]"
                 style={{ gridColumn: `span ${g.span} / span ${g.span}` }}
               >
@@ -565,22 +1013,29 @@ export default function CIEClubPage() {
                 <img
                   src={g.src}
                   alt={g.caption}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
                 />
                 <div
                   aria-hidden
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-500"
                   style={{
                     background:
-                      'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.7) 100%)',
+                      'linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.78) 100%)',
                   }}
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 p-3 md:p-4 font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-white/85">
-                  {g.caption}
+                {/* Caption slides up on hover with a hairline accent */}
+                <figcaption className="absolute inset-x-0 bottom-0 p-3 md:p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-500 ease-out-quart">
+                  <span
+                    aria-hidden
+                    className="block h-px w-0 group-hover:w-8 bg-primary transition-all duration-500 ease-out-quart mb-2"
+                  />
+                  <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-white/85">
+                    {g.caption}
+                  </span>
                 </figcaption>
-              </figure>
+              </motion.figure>
             ))}
-          </div>
+          </motion.div>
 
           <div className="mt-10 flex justify-center">
             <Link
@@ -600,15 +1055,28 @@ export default function CIEClubPage() {
       <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           <Eyebrow>Get involved</Eyebrow>
-          <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8">
-            Bring the idea.
-          </h2>
-          <p className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch]">
+          <WordStagger
+            text="Bring the idea."
+            className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={IN_VIEW}
+            transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+            className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch]"
+          >
             Any branch, any year. Walk in during club hours, or reach out on
             any channel below.
-          </p>
+          </motion.p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={IN_VIEW}
+            transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+            className="mt-10 flex flex-wrap items-center gap-3"
+          >
             <Link
               href="https://mlritcie.in"
               target="_blank"
@@ -626,7 +1094,7 @@ export default function CIEClubPage() {
               <Mail className="w-4 h-4" />
               Email us
             </Link>
-          </div>
+          </motion.div>
 
           <div className="mt-14 border-t border-white/10 pt-8 grid md:grid-cols-3 gap-y-8 gap-x-10">
             <div>
