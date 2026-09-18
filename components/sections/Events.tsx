@@ -120,6 +120,13 @@ export default function Events(props: EventsProps) {
   const { slides } = useMergedSection('home/events', props);
   const SLIDE_LIST = slidesFrom(slides);
   const [active, setActive] = useState(0);
+
+  // The editor can delete slides while this carousel is mounted. `active` is
+  // state, so it survives the list shrinking and would index past the end —
+  // SLIDE_LIST[active] is then undefined and reading slide.tag blanks the whole
+  // preview. Clamp for the render that happens before the effect can correct
+  // the state, and reset the state itself so navigation stays consistent.
+  const safeActive = Math.min(active, SLIDE_LIST.length - 1);
   const autoRef  = useRef<number | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -162,11 +169,15 @@ export default function Events(props: EventsProps) {
     return () => stopAuto();
   }, [paint, startAuto]);
 
-  const next = () => { const nxt = (active + 1) % SLIDE_LIST.length; paint(nxt); startAuto(); };
-  const prev = () => { const p = (active - 1 + SLIDE_LIST.length) % SLIDE_LIST.length; paint(p); startAuto(); };
+  useEffect(() => {
+    setActive((current) => (current >= SLIDE_LIST.length ? 0 : current));
+  }, [SLIDE_LIST.length]);
+
+  const next = () => { const nxt = (safeActive + 1) % SLIDE_LIST.length; paint(nxt); startAuto(); };
+  const prev = () => { const p = (safeActive - 1 + SLIDE_LIST.length) % SLIDE_LIST.length; paint(p); startAuto(); };
   const jump = (i: number) => { paint(i); startAuto(); };
 
-  const slide = SLIDE_LIST[active];
+  const slide = SLIDE_LIST[safeActive];
 
   return (
     <div id={sectionDomId('home/events')}>
@@ -181,7 +192,7 @@ export default function Events(props: EventsProps) {
           key={i}
           ref={(el) => { videoRefs.current[i] = el; }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out-quart z-0 ${
-            i === active ? 'opacity-100' : 'opacity-0'
+            i === safeActive ? 'opacity-100' : 'opacity-0'
           }`}
           muted
           loop
@@ -256,7 +267,7 @@ export default function Events(props: EventsProps) {
       {/* Centered CTA — pill */}
       <button
         type="button"
-        onClick={() => jump((active + 1) % SLIDE_LIST.length)}
+        onClick={() => jump((safeActive + 1) % SLIDE_LIST.length)}
         className="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 z-[7] inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-ink font-sans font-bold text-[0.78rem] tracking-[0.22em] uppercase hover:bg-warm transition-colors"
       >
         Watch Next Event
@@ -290,7 +301,7 @@ export default function Events(props: EventsProps) {
               }}
               aria-label={`Show ${s.alt}`}
               className={`group relative w-20 h-14 md:w-24 md:h-16 rounded-md overflow-hidden transition-all duration-400 ${
-                i === active
+                i === safeActive
                   ? 'ring-2 ring-warm ring-offset-2 ring-offset-transparent scale-105'
                   : 'opacity-70 hover:opacity-100 border border-white/20 hover:ring-1 hover:ring-white/60'
               }`}
@@ -308,7 +319,7 @@ export default function Events(props: EventsProps) {
               {/* Play overlay — hidden on active, appears on hover for others */}
               <span
                 className={`absolute inset-0 grid place-items-center transition-opacity duration-300 ${
-                  i === active ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+                  i === safeActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
                 }`}
                 aria-hidden
               >
@@ -318,7 +329,7 @@ export default function Events(props: EventsProps) {
                   </svg>
                 </span>
               </span>
-              {i === active && (
+              {i === safeActive && (
                 <span className="absolute inset-0 bg-black/10" />
               )}
             </button>
@@ -331,7 +342,7 @@ export default function Events(props: EventsProps) {
             <span
               key={i}
               className={`h-1 rounded-full transition-all duration-300 ${
-                i === active ? 'w-6 bg-warm' : 'w-1.5 bg-white/40'
+                i === safeActive ? 'w-6 bg-warm' : 'w-1.5 bg-white/40'
               }`}
             />
           ))}

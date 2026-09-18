@@ -176,8 +176,12 @@ export default function Programs(props: ProgramsProps) {
 
       {/* Desktop — original pinned scroll-stack effect, unchanged */}
       <div className="hidden lg:block">
+        {/* Keyed on the card count as well as the tab: ScrollStack measures
+            .scroll-stack-card once in a layout effect, so a card added from
+            the CMS is never measured and the stacking maths stays stale. The
+            public page renders a fixed number, so this key is constant there. */}
         <ScrollStack
-          key={tab}
+          key={`${tab}-${rows.length}`}
           useWindowScroll
           itemDistance={140}
           itemScale={0.02}
