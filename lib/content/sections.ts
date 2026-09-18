@@ -814,9 +814,19 @@ export const asRepeaterItems = (value: unknown): RepeaterItem[] => {
  * Accepts the number itself and the string an <input type="number"> produces;
  * anything unusable yields the fallback so a half-typed row renders the
  * component's own value rather than NaN.
+ *
+ * Blank is checked before parsing, and that is the whole point: Number('') is
+ * 0, and 0 is finite, so an absent or empty value used to sail through as a
+ * legitimate zero and the fallback never ran. That is how a headline figure
+ * with nothing saved rendered as "0 LPA".
  */
 export const asNumber = (value: unknown, fallback: number): number => {
-  const parsed = typeof value === 'number' ? value : Number(String(value ?? '').trim());
+  if (typeof value === 'number') return Number.isFinite(value) ? value : fallback;
+
+  const text = String(value ?? '').trim();
+  if (text === '') return fallback;
+
+  const parsed = Number(text);
   return Number.isFinite(parsed) ? parsed : fallback;
 };
 

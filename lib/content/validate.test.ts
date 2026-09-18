@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { asNumber, asText } from './sections';
 import { findTransientMediaError } from './validate';
 
 // home/why-mlrit carries a single `video` media field alongside its copy.
@@ -268,4 +269,48 @@ test('hero film and poster are validated as single media fields', () => {
     }),
     null
   );
+});
+
+// --- column coercion -------------------------------------------------------
+// These back every numeric and text field the CMS renders, and had no tests
+// until an absent value rendered a headline figure as "0 LPA".
+
+test('asNumber falls back when the value is absent or blank', () => {
+  // Number('') is 0 and 0 is finite, so a naive parse treats "nothing saved"
+  // as a real zero. Each of these must yield the fallback instead.
+  assert.equal(asNumber(undefined, 44), 44);
+  assert.equal(asNumber(null, 44), 44);
+  assert.equal(asNumber('', 44), 44);
+  assert.equal(asNumber('   ', 44), 44);
+});
+
+test('asNumber keeps a real zero', () => {
+  // The fallback must not swallow a deliberate 0.
+  assert.equal(asNumber(0, 44), 0);
+  assert.equal(asNumber('0', 44), 0);
+});
+
+test('asNumber reads numbers and the strings a number input produces', () => {
+  assert.equal(asNumber(21, 44), 21);
+  assert.equal(asNumber('21', 44), 21);
+  assert.equal(asNumber(' 21 ', 44), 21);
+  assert.equal(asNumber('98.6', 0), 98.6);
+  assert.equal(asNumber('-5', 0), -5);
+});
+
+test('asNumber falls back on values that cannot be a number', () => {
+  assert.equal(asNumber('twenty', 44), 44);
+  assert.equal(asNumber('21abc', 44), 44);
+  assert.equal(asNumber(Number.NaN, 44), 44);
+  assert.equal(asNumber(Infinity, 44), 44);
+  assert.equal(asNumber({}, 44), 44);
+});
+
+test('asText trims, and falls back only when nothing is left', () => {
+  assert.equal(asText('  Highest Package  '), 'Highest Package');
+  assert.equal(asText('', 'LPA'), 'LPA');
+  assert.equal(asText('   ', 'LPA'), 'LPA');
+  assert.equal(asText(undefined, 'LPA'), 'LPA');
+  assert.equal(asText(42, 'LPA'), 'LPA');
+  assert.equal(asText(''), '');
 });
