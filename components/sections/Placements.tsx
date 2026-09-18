@@ -5,22 +5,55 @@ import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
-import { asGalleryItems } from '@/lib/content/sections';
+import { asGalleryItems, asNumber, asRepeaterItems, asText } from '@/lib/content/sections';
 import { recruiterLogosFrom } from '@/lib/placements';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
+/** The headline package figure and its unit, above the mini-stat grid. */
+const DEFAULT_HIGHEST = 44;
+const DEFAULT_HIGHEST_UNIT = 'LPA';
+
 type PlacementsProps = {
   logos?: unknown;
+  /** Repeater rows from home/placements; falls back to the bundled MINI_STATS. */
+  stats?: unknown;
+  /** Headline package figure; counts up from 0 like the mini stats. */
+  highest?: string;
+  highestUnit?: string;
 };
 
 type MiniStat = { value: string; label: string; note: string };
 
+/**
+ * Fallback counters. Used whenever the CMS repeater is empty, absent or fails
+ * to load, so the 2x2 grid always renders four complete cards.
+ */
 const MINI_STATS: MiniStat[] = [
   { value: '5,000+', label: 'Students Placed',      note: 'in Top MNCs since 2005' },
   { value: '200+',   label: 'Recruiters on Campus', note: 'incl. IIT / IIM / NIT hirers' },
   { value: '18 LPA', label: 'Average · Top Quartile', note: 'Placed batch of 2025' },
   { value: '98 %',   label: 'Placement Rate',        note: 'Batch of 2025 · Verified' },
 ];
+
+/**
+ * Maps repeater rows onto MiniStat. `value` is plain text here rather than a
+ * number plus suffix: the redesign renders '5,000+' and '18 LPA' verbatim, so
+ * splitting them would force the editor to encode formatting it cannot see.
+ * An empty list yields MINI_STATS verbatim.
+ *
+ * Every row is rendered; the 2-column grid wraps extras onto another line
+ * rather than the mapper dropping them.
+ */
+function miniStatsFrom(value: unknown): MiniStat[] {
+  const rows = asRepeaterItems(value);
+  if (rows.length === 0) return MINI_STATS;
+
+  return rows.map((row) => ({
+    value: asText(row.value),
+    label: asText(row.label),
+    note: asText(row.note),
+  }));
+}
 
 /** Split a logo list into two roughly-equal halves for the dual marquee. */
 function splitLogos<T>(list: T[]): [T[], T[]] {
@@ -49,13 +82,21 @@ function useCountUp(target: number, durationMs = 1400) {
 }
 
 export default function Placements(props: PlacementsProps) {
+  // Two section keys meet in this component: the logos are shared with
+  // /placements/recruiters, the counters are homepage-only. Each is merged
+  // against its own key so the editor's preview updates the right one.
   const { logos } = useMergedSection('placements/recruiters', props);
+  const { stats, highest: highestValue, highestUnit } = useMergedSection('home/placements', props);
+  const miniStats = miniStatsFrom(stats);
   const recruiterLogos = recruiterLogosFrom(asGalleryItems(logos));
   const [rowA, rowB] = splitLogos(recruiterLogos);
 
-  const highest = useCountUp(44);
+  // asNumber keeps a half-typed value from reaching the animation as NaN.
+  const highest = useCountUp(asNumber(highestValue, DEFAULT_HIGHEST));
+  const highestUnitText = asText(highestUnit, DEFAULT_HIGHEST_UNIT);
 
   return (
+    <div id={sectionDomId('home/placements')}>
     <div id={sectionDomId('placements/recruiters')}>
       <section
         id="placements"
@@ -197,7 +238,7 @@ export default function Placements(props: PlacementsProps) {
                       {highest.n}
                     </span>
                     <span className="font-display italic font-medium text-primary text-[clamp(2.4rem,4vw,3.6rem)] leading-[0.9]">
-                      LPA
+                      {highestUnitText}
                     </span>
                   </div>
                   <div className="mt-4 font-sans font-medium text-white/70 text-[1.02rem] md:text-[1.1rem] max-w-[520px] leading-[1.55]">
@@ -223,7 +264,7 @@ export default function Placements(props: PlacementsProps) {
 
             {/* Mini stats — 2×2 grid on the right */}
             <div className="grid grid-cols-2 gap-3 md:gap-5">
-              {MINI_STATS.map((s, i) => (
+              {miniStats.map((s, i) => (
                 <MiniStatCard key={i} stat={s} index={i} />
               ))}
             </div>
@@ -298,6 +339,7 @@ export default function Placements(props: PlacementsProps) {
           </div>
         </div>
       </section>
+    </div>
     </div>
   );
 }

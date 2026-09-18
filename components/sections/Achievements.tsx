@@ -3,14 +3,37 @@
 import { motion } from 'framer-motion';
 
 import { resolveAssetUrl } from '@/lib/cdn/url';
-import { asGalleryItems } from '@/lib/content/sections';
+import { asGalleryItems, asRepeaterItems, asText } from '@/lib/content/sections';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
-const RANKS = [
+type Rank = { num: string; title: string; sub: string; tint: string };
+
+/**
+ * Fallback rank cards. Used whenever the CMS repeater is empty, absent or
+ * fails to load, so the row is never blank.
+ */
+const RANKS: Rank[] = [
   { num: '201',  title: 'NIRF Rankings 2024',       sub: '201–300 Band · Engineering Category', tint: '#e85d04' },
   { num: '#6',   title: 'Times Engineering Survey', sub: '6th in Telangana',                    tint: '#1F6B24' },
   { num: 'AAAA', title: 'Careers360 Rating',        sub: 'Four-A Accredited Institution',       tint: '#c26a2b' },
 ];
+
+/**
+ * Maps repeater rows onto the Rank shape. An empty list yields RANKS verbatim.
+ * `tint` falls back per position rather than to a single colour, so a row left
+ * blank keeps the palette the design intended instead of turning orange.
+ */
+function ranksFrom(value: unknown): Rank[] {
+  const rows = asRepeaterItems(value);
+  if (rows.length === 0) return RANKS;
+
+  return rows.map((row, i) => ({
+    num: asText(row.num),
+    title: asText(row.title),
+    sub: asText(row.sub),
+    tint: asText(row.tint, RANKS[i]?.tint ?? RANKS[0].tint),
+  }));
+}
 
 /**
  * Fallback logos used until the CMS supplies its own gallery.
@@ -42,10 +65,12 @@ type AchievementsProps = {
   body?: string;
   /** Gallery items from the CMS; falls back to LOGOS. */
   logos?: unknown;
+  /** Repeater rows from the CMS; falls back to the bundled RANKS. */
+  ranks?: unknown;
 };
 
 export default function Achievements(props: AchievementsProps) {
-  const { headlineLead, headlineAccent, body, logos } = useMergedSection(
+  const { headlineLead, headlineAccent, body, logos, ranks } = useMergedSection(
     'home/achievements',
     props
   );
@@ -53,6 +78,7 @@ export default function Achievements(props: AchievementsProps) {
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
   const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
   const bodyText = body?.trim() || DEFAULT_BODY;
+  const rankCards = ranksFrom(ranks);
 
   // Uploaded logos win; empty CMS field renders the bundled list untouched.
   const uploaded = asGalleryItems(logos);
@@ -117,9 +143,9 @@ export default function Achievements(props: AchievementsProps) {
 
           {/* ── ROW 2 · RANK CARDS — 3-across, full width, generous ── */}
           <ul className="relative z-10 mt-6 md:mt-14 grid gap-4 md:gap-8 md:grid-cols-3">
-            {RANKS.map((r, i) => (
+            {rankCards.map((r, i) => (
               <motion.li
-                key={r.title}
+                key={`${r.title}-${i}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}

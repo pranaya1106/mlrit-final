@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
+import { asRepeaterItems, asText } from '@/lib/content/sections';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 type Card = {
@@ -14,6 +15,10 @@ type Card = {
   accent?: 'green' | 'orange' | 'navy';
 };
 
+/**
+ * Fallback cards. Used whenever the CMS repeaters are empty, absent or fail to
+ * load, so each tab always has a full grid.
+ */
 const UG: Card[] = [
   { slug: 'cse',          dept: 'CSE',     name: 'Computer Science & Engineering',  meta: 'B.Tech · 4 Years · 240 seats', desc: 'Industry-aligned curriculum across AI/ML, systems, web and cybersecurity.',     accent: 'green'  },
   { slug: 'aiml',         dept: 'AIML',    name: 'AI & Machine Learning',           meta: 'B.Tech · 4 Years',             desc: 'Foundational ML, deep learning and applied AI research on dedicated GPU hardware.', accent: 'orange' },
@@ -75,18 +80,48 @@ type ProgramsProps = {
   headlineLead?: string;
   headlineAccent?: string;
   body?: string;
+  /** Repeater rows from the CMS; each falls back to its bundled list. */
+  ug?: unknown;
+  pg?: unknown;
 };
+
+/** The three accents the card styling understands; anything else is orange. */
+const ACCENTS = new Set(['green', 'orange', 'navy']);
+
+/**
+ * Maps repeater rows onto Card. An empty list yields the bundled cards
+ * verbatim. `accent` is narrowed here rather than trusted: a typo in the CMS
+ * would otherwise reach the className helpers and render an unstyled card.
+ */
+function cardsFrom(value: unknown, fallback: Card[]): Card[] {
+  const rows = asRepeaterItems(value);
+  if (rows.length === 0) return fallback;
+
+  return rows.map((row, i) => {
+    const accent = asText(row.accent).toLowerCase();
+    return {
+      slug: asText(row.slug, fallback[i]?.slug ?? ''),
+      dept: asText(row.dept),
+      name: asText(row.name),
+      meta: asText(row.meta),
+      desc: asText(row.desc),
+      accent: (ACCENTS.has(accent) ? accent : 'orange') as Card['accent'],
+    };
+  });
+}
 
 export default function Programs(props: ProgramsProps) {
   // Live-preview draft wins over the saved props; fallbacks below are unchanged.
-  const { headlineLead, headlineAccent, body } = useMergedSection('home/programs', props);
+  const { headlineLead, headlineAccent, body, ug, pg } = useMergedSection('home/programs', props);
+  const ugCards = cardsFrom(ug, UG);
+  const pgCards = cardsFrom(pg, PG);
 
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
   const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
   const bodyText = body?.trim() || DEFAULT_BODY;
 
   const [tab, setTab] = useState<'ug' | 'pg'>('ug');
-  const rows = pairs(tab === 'ug' ? UG : PG);
+  const rows = pairs(tab === 'ug' ? ugCards : pgCards);
 
   return (
     <div id={sectionDomId('home/programs')}>
@@ -133,7 +168,7 @@ export default function Programs(props: ProgramsProps) {
       {/* Mobile / tablet — simple bento grid, no pinned scroll-stack effect */}
       <div className="lg:hidden max-w-[1600px] mx-auto pl-6 pr-11 md:pl-12 md:pr-11">
         <div className="grid grid-cols-2 gap-3">
-          {(tab === 'ug' ? UG : PG).map((card) => (
+          {(tab === 'ug' ? ugCards : pgCards).map((card) => (
             <BentoCard key={card.slug} card={card} />
           ))}
         </div>
@@ -141,8 +176,12 @@ export default function Programs(props: ProgramsProps) {
 
       {/* Desktop — original pinned scroll-stack effect, unchanged */}
       <div className="hidden lg:block">
+        {/* Keyed on the card count as well as the tab: ScrollStack measures
+            .scroll-stack-card once in a layout effect, so a card added from
+            the CMS is never measured and the stacking maths stays stale. The
+            public page renders a fixed number, so this key is constant there. */}
         <ScrollStack
-          key={tab}
+          key={`${tab}-${rows.length}`}
           useWindowScroll
           itemDistance={140}
           itemScale={0.02}

@@ -8,9 +8,15 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { resolveAssetUrl } from '@/lib/cdn/url';
 import {
   asGalleryItems,
+  asRepeaterItems,
   fieldType,
+  galleryAccept,
+  galleryItemFields,
+  isMediaColumn,
+  repeaterItemFields,
   type FieldConfig,
   type GalleryItem,
+  type RepeaterItem,
 } from '@/lib/content/sections';
 import { MESSAGE, PREVIEW_PARAM } from '@/lib/preview/context';
 
@@ -219,27 +225,61 @@ export default function ContentEditor({
   // discarded the new item, so no thumbnail ever appeared. The same defect was
   // latent in remove/reorder/revert whenever two updates landed in one tick.
 
-  /** Applies a transform to one gallery field, computed from live state. */
-  const updateGallery = (
+  /** Mints an id that survives reordering; shared by both list kinds. */
+  const newRowId = (): string =>
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+  /**
+   * Applies a transform to one list field, computed from live state.
+   *
+   * `narrow` decides how the stored value is read — gallery items or repeater
+   * rows — so both kinds share add/remove/reorder rather than growing a second
+   * copy of the same logic and the same latent one-tick bug.
+   */
+  const updateList = <T extends { id: string }>(
     fieldName: string,
-    transform: (items: GalleryItem[]) => GalleryItem[]
+    narrow: (value: unknown) => T[],
+    transform: (items: T[]) => T[]
   ) =>
     setValues((current) => ({
       ...current,
-      [fieldName]: transform(asGalleryItems(current[fieldName])),
+      [fieldName]: transform(narrow(current[fieldName])),
     }));
+
+  const updateGallery = (
+    fieldName: string,
+    transform: (items: GalleryItem[]) => GalleryItem[]
+  ) => updateList(fieldName, asGalleryItems, transform);
+
+  const updateRepeater = (
+    fieldName: string,
+    transform: (items: RepeaterItem[]) => RepeaterItem[]
+  ) => updateList(fieldName, asRepeaterItems, transform);
 
   const patchItem = (fieldName: string, id: string, patch: Partial<GalleryItem>) =>
     updateGallery(fieldName, (items) =>
       items.map((item) => (item.id === id ? { ...item, ...patch } : item))
     );
 
+  const patchRow = (fieldName: string, id: string, patch: Partial<RepeaterItem>) =>
+    updateRepeater(fieldName, (items) =>
+      items.map((item) => (item.id === id ? { ...item, ...patch } : item))
+    );
+
+  /** Reorders by swapping with the neighbour; a no-op at either end. */
+  const swapAt = <T,>(items: T[], from: number, delta: -1 | 1): T[] => {
+    const to = from + delta;
+    if (from < 0 || to < 0 || to >= items.length) return items;
+    const next = [...items];
+    [next[from], next[to]] = [next[to], next[from]];
+    return next;
+  };
+
   /** Appends an item, then uploads into it. The id is stable across reorders. */
   function addGalleryImage(fieldName: string, file: File) {
-    const id =
-      typeof crypto !== 'undefined' && 'randomUUID' in crypto
-        ? crypto.randomUUID()
-        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const id = newRowId();
 
     updateGallery(fieldName, (items) => [...items, { id, key: '' }]);
 
@@ -266,20 +306,65 @@ export default function ContentEditor({
     );
   }
 
+  /**
+   * Uploads into one media COLUMN of a gallery item — the slide poster or logo
+   * that sits alongside the item's primary key. Slot carries the column so two
+   * uploads on the same row stay independent.
+   */
+  function uploadItemColumn(fieldName: string, id: string, column: string, file: File) {
+    const previous =
+      (asGalleryItems(valuesRef.current[fieldName]).find((item) => item.id === id)?.[column] as
+        | string
+        | undefined) ?? '';
+
+    return runUpload(
+      `${fieldName}::${id}::${column}`,
+      file,
+      (value) => patchItem(fieldName, id, { [column]: value }),
+      () => patchItem(fieldName, id, { [column]: previous })
+    );
+  }
+
+  /**
+   * Appends an empty gallery row with every declared column present, so a new
+   * entry has the same shape as the seeded ones and its inputs are controlled
+   * from the first render. The file is attached afterwards via Replace, which
+   * is what lets someone write the copy first and source the image later.
+   */
+  function addGalleryRow(fieldName: string, columns: readonly { name: string }[]) {
+    const blank = Object.fromEntries(columns.map((column) => [column.name, '']));
+    updateGallery(fieldName, (items) => [...items, { ...blank, id: newRowId(), key: '' }]);
+  }
+
   function removeGalleryItem(fieldName: string, id: string) {
     updateGallery(fieldName, (items) => items.filter((item) => item.id !== id));
   }
 
   function moveGalleryItem(fieldName: string, id: string, delta: -1 | 1) {
-    updateGallery(fieldName, (items) => {
-      const from = items.findIndex((item) => item.id === id);
-      const to = from + delta;
-      if (from < 0 || to < 0 || to >= items.length) return items;
+    updateGallery(fieldName, (items) =>
+      swapAt(items, items.findIndex((item) => item.id === id), delta)
+    );
+  }
 
-      const next = [...items];
-      [next[from], next[to]] = [next[to], next[from]];
-      return next;
-    });
+  // ---- repeater helpers -----------------------------------------------------
+  // No uploads here, so no in-flight state — but the same functional-update
+  // discipline applies: adding a row and typing into it can land in one tick.
+
+  function addRepeaterRow(fieldName: string, columns: readonly { name: string }[]) {
+    // Every column starts present and empty, so a new row's inputs are
+    // controlled from the first render rather than flipping uncontrolled.
+    const blank = Object.fromEntries(columns.map((column) => [column.name, '']));
+    updateRepeater(fieldName, (items) => [...items, { ...blank, id: newRowId() }]);
+  }
+
+  function removeRepeaterRow(fieldName: string, id: string) {
+    updateRepeater(fieldName, (items) => items.filter((item) => item.id !== id));
+  }
+
+  function moveRepeaterRow(fieldName: string, id: string, delta: -1 | 1) {
+    updateRepeater(fieldName, (items) =>
+      swapAt(items, items.findIndex((item) => item.id === id), delta)
+    );
   }
 
   async function handleSave() {
@@ -324,14 +409,22 @@ export default function ContentEditor({
     router.refresh();
   }
 
+  // fixed, not h-screen: h-screen measures the viewport but still sits in
+  // normal flow, so anything rendered above pushed the editor below the fold
+  // and the window scrolled as one. Pinned to the viewport, the two panes own
+  // their own scrolling whatever surrounds them.
   return (
-    <main className="flex h-screen overflow-hidden bg-ink">
+    <main className="fixed inset-0 z-50 flex overflow-hidden bg-ink">
       {/* Left: the form. Scrolls independently of the preview. Hidden rather
           than unmounted in full-screen, so the iframe keeps its position in the
           tree and is never remounted — scroll position and draft survive. */}
       <div
         className={
-          fullScreen ? 'hidden' : 'w-[420px] shrink-0 overflow-y-auto px-6 py-10'
+          fullScreen
+            ? 'hidden'
+            : // overscroll-contain stops a scroll that reaches the end of the
+              // form from chaining onward to the document behind it.
+              'w-[420px] shrink-0 overflow-y-auto overscroll-contain px-6 py-10'
         }
       >
         <header className="flex items-baseline justify-between gap-4">
@@ -389,10 +482,120 @@ export default function ContentEditor({
                 )}
 
 
+                {type === 'repeater' && (
+                  <div className="mt-1.5">
+                    {asRepeaterItems(values[name]).length === 0 && (
+                      <p className="font-mono text-[0.7rem] text-subtle">
+                        No rows — the built-in ones are used.
+                      </p>
+                    )}
+
+                    {/* Same reasoning as the gallery cap: the component renders
+                        a fixed number of slots, so say what will be dropped
+                        rather than letting a row vanish silently. */}
+                    {typeof field.maxItems === 'number' &&
+                      asRepeaterItems(values[name]).length > field.maxItems && (
+                        <p
+                          role="alert"
+                          className="mb-3 rounded border border-orange-200 bg-orange-50 px-3 py-2 text-[0.78rem] text-orange-700"
+                        >
+                          Only the first {field.maxItems} rows will be shown —{' '}
+                          {asRepeaterItems(values[name]).length - field.maxItems} extra won&apos;t
+                          appear.
+                        </p>
+                      )}
+
+                    <ul className="space-y-3">
+                      {asRepeaterItems(values[name]).map((item, index, all) => (
+                        <li
+                          key={item.id}
+                          className="flex gap-3 rounded-md border border-border bg-neutral-0 p-3"
+                        >
+                          <span className="mt-1 shrink-0 font-mono text-[0.65rem] uppercase text-subtle">
+                            {index + 1}
+                          </span>
+
+                          <div className="min-w-0 flex-1 space-y-2">
+                            {repeaterItemFields(field).map((column) => (
+                              <label key={column.name} className="block">
+                                <span className="font-mono text-[0.6rem] uppercase tracking-wider text-subtle">
+                                  {column.label}
+                                </span>
+                                <input
+                                  type={column.type === 'number' ? 'number' : 'text'}
+                                  value={
+                                    // Numbers arrive as numbers from
+                                    // defaultItems and as strings once typed;
+                                    // both render, and '' keeps the input
+                                    // controlled while a row is being filled.
+                                    item[column.name] === undefined
+                                      ? ''
+                                      : String(item[column.name])
+                                  }
+                                  onChange={(e) =>
+                                    patchRow(name, item.id, {
+                                      // Stored as typed. The component coerces
+                                      // on read, so a half-typed '-' or '' is
+                                      // never written back as NaN.
+                                      [column.name]: e.target.value,
+                                    })
+                                  }
+                                  className="mt-0.5 w-full rounded border border-border bg-neutral-0 px-2 py-1 text-sm text-foreground outline-none focus:border-primary"
+                                />
+                              </label>
+                            ))}
+                          </div>
+
+                          <div className="flex shrink-0 flex-col items-end justify-between">
+                            <div className="flex gap-1">
+                              <button
+                                type="button"
+                                aria-label="Move up"
+                                disabled={index === 0}
+                                onClick={() => moveRepeaterRow(name, item.id, -1)}
+                                className="rounded px-1.5 font-mono text-xs text-muted hover:text-foreground disabled:opacity-30"
+                              >
+                                ↑
+                              </button>
+                              <button
+                                type="button"
+                                aria-label="Move down"
+                                disabled={index === all.length - 1}
+                                onClick={() => moveRepeaterRow(name, item.id, 1)}
+                                className="rounded px-1.5 font-mono text-xs text-muted hover:text-foreground disabled:opacity-30"
+                              >
+                                ↓
+                              </button>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeRepeaterRow(name, item.id)}
+                              className="font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-orange-600"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <button
+                      type="button"
+                      onClick={() => addRepeaterRow(name, repeaterItemFields(field))}
+                      className="mt-3 rounded border border-border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted hover:border-primary hover:text-primary"
+                    >
+                      + Add row
+                    </button>
+                  </div>
+                )}
+
                 {type === 'gallery' && (
                   <div className="mt-1.5">
                     {asGalleryItems(values[name]).length === 0 && (
-                      <p className="font-mono text-[0.7rem] text-subtle">No images yet.</p>
+                      <p className="font-mono text-[0.7rem] text-subtle">
+                        No {galleryAccept(field) === 'video' ? 'videos' : 'images'} yet — the
+                        built-in ones are used.
+                      </p>
                     )}
 
                     {/* The consuming component renders a fixed number of slots;
@@ -428,12 +631,25 @@ export default function ContentEditor({
                           >
                             <div className="h-16 w-24 shrink-0 overflow-hidden rounded bg-neutral-100">
                               {src ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                  src={src}
-                                  alt={item.title ?? ''}
-                                  className="h-full w-full object-cover"
-                                />
+                                galleryAccept(field) === 'video' ? (
+                                  // Muted autoplay loop, so the editor can tell
+                                  // which clip a row holds without opening it.
+                                  <video
+                                    src={src}
+                                    muted
+                                    loop
+                                    playsInline
+                                    autoPlay
+                                    className="h-full w-full object-cover"
+                                  />
+                                ) : (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={src}
+                                    alt={(item.title as string | undefined) ?? ''}
+                                    className="h-full w-full object-cover"
+                                  />
+                                )
                               ) : (
                                 <span className="grid h-full place-items-center font-mono text-[0.6rem] uppercase text-subtle">
                                   {busy ? 'up…' : '—'}
@@ -442,7 +658,66 @@ export default function ContentEditor({
                             </div>
 
                             <div className="min-w-0 flex-1 space-y-2">
-                              {(field.itemFields ?? []).map((itemField) => {
+                              {/* Object columns — arbitrary text, or a media
+                                  slot of their own. Legacy enum itemFields are
+                                  rendered below; a field uses one style or the
+                                  other, never both. */}
+                              {repeaterItemFields(field).map((column) => {
+                                if (isMediaColumn(column)) {
+                                  const colSlot = `${name}::${item.id}::${column.name}`;
+                                  const colBusy = uploading.includes(colSlot);
+                                  const colValue = (item[column.name] as string | undefined) ?? '';
+
+                                  return (
+                                    <div key={column.name} className="flex items-center gap-2">
+                                      <span className="font-mono text-[0.6rem] uppercase tracking-wider text-subtle">
+                                        {column.label}
+                                      </span>
+                                      <label className="cursor-pointer font-mono text-[0.62rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-foreground">
+                                        {colBusy ? 'Uploading…' : colValue ? 'Replace' : 'Upload'}
+                                        <input
+                                          type="file"
+                                          accept={column.type === 'video' ? 'video/*' : 'image/*'}
+                                          disabled={colBusy}
+                                          onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) uploadItemColumn(name, item.id, column.name, file);
+                                            e.target.value = '';
+                                          }}
+                                          className="hidden"
+                                        />
+                                      </label>
+                                      {colValue && (
+                                        <span className="truncate font-mono text-[0.58rem] text-subtle">
+                                          {colValue.split('/').pop()}
+                                        </span>
+                                      )}
+                                    </div>
+                                  );
+                                }
+
+                                return (
+                                  <label key={column.name} className="block">
+                                    <span className="font-mono text-[0.6rem] uppercase tracking-wider text-subtle">
+                                      {column.label}
+                                    </span>
+                                    <input
+                                      type={column.type === 'number' ? 'number' : 'text'}
+                                      value={
+                                        item[column.name] === undefined
+                                          ? ''
+                                          : String(item[column.name])
+                                      }
+                                      onChange={(e) =>
+                                        patchItem(name, item.id, { [column.name]: e.target.value })
+                                      }
+                                      className="mt-0.5 w-full rounded border border-border bg-neutral-0 px-2 py-1 text-sm text-foreground outline-none focus:border-primary"
+                                    />
+                                  </label>
+                                );
+                              })}
+
+                              {galleryItemFields(field).map((itemField) => {
                                 if (itemField === 'active') {
                                   return (
                                     <label
@@ -504,10 +779,12 @@ export default function ContentEditor({
                                     position survive, so the constellation slot
                                     it occupies does not move. */}
                                 <label className="cursor-pointer font-mono text-[0.65rem] uppercase tracking-wider text-muted underline underline-offset-4 hover:text-foreground">
-                                  {busy ? 'Uploading…' : 'Replace image'}
+                                  {busy
+                                    ? 'Uploading…'
+                                    : `Replace ${galleryAccept(field) === 'video' ? 'video' : 'image'}`}
                                   <input
                                     type="file"
-                                    accept="image/*"
+                                    accept={galleryAccept(field) === 'video' ? 'video/*' : 'image/*'}
                                     disabled={busy}
                                     onChange={(e) => {
                                       const file = e.target.files?.[0];
@@ -533,7 +810,7 @@ export default function ContentEditor({
 
                     <input
                       type="file"
-                      accept="image/*"
+                      accept={galleryAccept(field) === 'video' ? 'video/*' : 'image/*'}
                       multiple
                       onChange={(e) => {
                         // One upload per file, appended in selection order and
@@ -547,8 +824,22 @@ export default function ContentEditor({
                       className={`${INPUT_CLASS} file:mr-3 file:rounded file:border-0 file:bg-neutral-100 file:px-3 file:py-1.5 file:text-sm`}
                     />
                     <span className="mt-1 block font-mono text-[0.7rem] text-subtle">
-                      Add images — several can be picked at once
+                      Add {galleryAccept(field) === 'video' ? 'videos' : 'images'} — several can be
+                      picked at once
                     </span>
+
+                    {/* Text-first alternative to the picker above: create the
+                        entry, write its copy, attach the file later. Only
+                        offered when the row HAS copy to write. */}
+                    {repeaterItemFields(field).length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => addGalleryRow(name, repeaterItemFields(field))}
+                        className="mt-3 rounded border border-border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted hover:border-primary hover:text-primary"
+                      >
+                        + Add empty entry
+                      </button>
+                    )}
                   </div>
                 )}
 

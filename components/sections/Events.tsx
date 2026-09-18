@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+import { resolveAssetUrl } from '@/lib/cdn/url';
+import { asGalleryItems, asText } from '@/lib/content/sections';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
+
 type Slide = {
   logo: string;
   alt: string;
@@ -15,6 +19,10 @@ type Slide = {
   poster: string;
 };
 
+/**
+ * Fallback slides. Used whenever the CMS gallery is empty, absent or fails to
+ * load, so the carousel always has something to play.
+ */
 const SLIDES: Slide[] = [
   {
     logo:  '/assets/logo.svg',
@@ -78,8 +86,59 @@ const SLIDES: Slide[] = [
   },
 ];
 
-export default function Events() {
+type EventsProps = {
+  /** Gallery items from the CMS; falls back to the bundled SLIDES. */
+  slides?: unknown;
+};
+
+/**
+ * Maps gallery items onto Slide. The item's primary key is the clip; `logo`
+ * and `poster` are media columns of their own, because one slide carries three
+ * separate files. An empty gallery yields SLIDES verbatim.
+ *
+ * Media falls back per position rather than globally, so a row missing only a
+ * poster still shows the bundled poster for that slot instead of nothing.
+ */
+function slidesFrom(value: unknown): Slide[] {
+  const items = asGalleryItems(value);
+  if (items.length === 0) return SLIDES;
+
+  const mapped = items.map((item, i) => {
+    const fallback = SLIDES[i] ?? SLIDES[0];
+    const title = asText(item.title, fallback.title);
+    return {
+      title,
+      // `alt` is not separately editable — it always described the same thing
+      // the title does, and two fields that must agree is a bug waiting.
+      alt: title,
+      tag: asText(item.tag),
+      desc: asText(item.desc),
+      quote: asText(item.quote),
+      speaker: asText(item.speaker),
+      speakerRole: asText(item.speakerRole),
+      video: resolveAssetUrl(item.key, { allowTransient: true }) ?? fallback.video,
+      logo:
+        resolveAssetUrl(asText(item.logo), { allowTransient: true }) ?? fallback.logo,
+      poster:
+        resolveAssetUrl(asText(item.poster), { allowTransient: true }) ?? fallback.poster,
+    };
+  });
+
+  return mapped.length > 0 ? mapped : SLIDES;
+}
+
+export default function Events(props: EventsProps) {
+  // Live-preview draft wins over the saved props; the fallback is unchanged.
+  const { slides } = useMergedSection('home/events', props);
+  const SLIDE_LIST = slidesFrom(slides);
   const [active, setActive] = useState(0);
+
+  // The editor can delete slides while this carousel is mounted. `active` is
+  // state, so it survives the list shrinking and would index past the end —
+  // SLIDE_LIST[active] is then undefined and reading slide.tag blanks the whole
+  // preview. Clamp for the render that happens before the effect can correct
+  // the state, and reset the state itself so navigation stays consistent.
+  const safeActive = Math.min(active, SLIDE_LIST.length - 1);
   const autoRef  = useRef<number | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -102,7 +161,7 @@ export default function Events() {
     if (autoRef.current) window.clearInterval(autoRef.current);
     autoRef.current = window.setInterval(() => {
       setActive((cur) => {
-        const nxt = (cur + 1) % SLIDES.length;
+        const nxt = (cur + 1) % SLIDE_LIST.length;
         paint(nxt);
         return nxt;
       });
@@ -122,25 +181,30 @@ export default function Events() {
     return () => stopAuto();
   }, [paint, startAuto]);
 
-  const next = () => { const nxt = (active + 1) % SLIDES.length; paint(nxt); startAuto(); };
-  const prev = () => { const p = (active - 1 + SLIDES.length) % SLIDES.length; paint(p); startAuto(); };
+  useEffect(() => {
+    setActive((current) => (current >= SLIDE_LIST.length ? 0 : current));
+  }, [SLIDE_LIST.length]);
+
+  const next = () => { const nxt = (safeActive + 1) % SLIDE_LIST.length; paint(nxt); startAuto(); };
+  const prev = () => { const p = (safeActive - 1 + SLIDE_LIST.length) % SLIDE_LIST.length; paint(p); startAuto(); };
   const jump = (i: number) => { paint(i); startAuto(); };
 
-  const slide = SLIDES[active];
+  const slide = SLIDE_LIST[safeActive];
 
   return (
+    <div id={sectionDomId('home/events')}>
     <section
       id="events"
       className="relative w-full h-screen min-h-[640px] overflow-hidden bg-ink"
       aria-label="Featured events"
     >
       {/* Rotating videos */}
-      {SLIDES.map((s, i) => (
+      {SLIDE_LIST.map((s, i) => (
         <video
           key={i}
           ref={(el) => { videoRefs.current[i] = el; }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out-quart z-0 ${
-            i === active ? 'opacity-100' : 'opacity-0'
+            i === safeActive ? 'opacity-100' : 'opacity-0'
           }`}
           muted
           loop
@@ -187,7 +251,7 @@ export default function Events() {
             {slide.tag}
           </div>
           <div className="mt-1 font-mono text-[0.62rem] tracking-[0.18em] uppercase text-white/45">
-            {String(active + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
+            {String(active + 1).padStart(2, '0')} / {String(SLIDE_LIST.length).padStart(2, '0')}
           </div>
         </div>
       </div>
@@ -215,7 +279,7 @@ export default function Events() {
       {/* Centered CTA — pill */}
       <button
         type="button"
-        onClick={() => jump((active + 1) % SLIDES.length)}
+        onClick={() => jump((safeActive + 1) % SLIDE_LIST.length)}
         className="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 z-[7] inline-flex items-center gap-2 px-7 py-3 rounded-full bg-white text-ink font-sans font-bold text-[0.78rem] tracking-[0.22em] uppercase hover:bg-warm transition-colors"
       >
         Watch Next Event
@@ -234,7 +298,7 @@ export default function Events() {
 
         {/* Thumbnail strip — video previews on hover with play icon */}
         <div className="hidden sm:flex items-center gap-2">
-          {SLIDES.map((s, i) => (
+          {SLIDE_LIST.map((s, i) => (
             <button
               type="button"
               key={i}
@@ -249,7 +313,7 @@ export default function Events() {
               }}
               aria-label={`Show ${s.alt}`}
               className={`group relative w-20 h-14 md:w-24 md:h-16 rounded-md overflow-hidden transition-all duration-400 ${
-                i === active
+                i === safeActive
                   ? 'ring-2 ring-warm ring-offset-2 ring-offset-transparent scale-105'
                   : 'opacity-70 hover:opacity-100 border border-white/20 hover:ring-1 hover:ring-white/60'
               }`}
@@ -267,7 +331,7 @@ export default function Events() {
               {/* Play overlay — hidden on active, appears on hover for others */}
               <span
                 className={`absolute inset-0 grid place-items-center transition-opacity duration-300 ${
-                  i === active ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
+                  i === safeActive ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
                 }`}
                 aria-hidden
               >
@@ -277,7 +341,7 @@ export default function Events() {
                   </svg>
                 </span>
               </span>
-              {i === active && (
+              {i === safeActive && (
                 <span className="absolute inset-0 bg-black/10" />
               )}
             </button>
@@ -286,11 +350,11 @@ export default function Events() {
 
         {/* Progress dots on mobile */}
         <div className="flex sm:hidden gap-1.5">
-          {SLIDES.map((_, i) => (
+          {SLIDE_LIST.map((_, i) => (
             <span
               key={i}
               className={`h-1 rounded-full transition-all duration-300 ${
-                i === active ? 'w-6 bg-warm' : 'w-1.5 bg-white/40'
+                i === safeActive ? 'w-6 bg-warm' : 'w-1.5 bg-white/40'
               }`}
             />
           ))}
@@ -330,5 +394,6 @@ export default function Events() {
         }
       `}</style>
     </section>
+    </div>
   );
 }

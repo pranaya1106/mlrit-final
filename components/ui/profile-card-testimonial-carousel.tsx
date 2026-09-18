@@ -71,7 +71,16 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
   const desktopVid = useRef<HTMLVideoElement | null>(null);
   const mobileVid  = useRef<HTMLVideoElement | null>(null);
 
-  const current = testimonials[currentIndex];
+  // The CMS can shorten this list while the carousel is mounted, and
+  // currentIndex is state that survives that — it would then index past the
+  // end and `current.name` would blank the section. Clamp for the render that
+  // happens before the effect can reset the state.
+  const safeIndex = Math.min(currentIndex, testimonials.length - 1);
+  const current = testimonials[safeIndex];
+
+  useEffect(() => {
+    setCurrentIndex((i) => (i >= testimonials.length ? 0 : i));
+  }, [testimonials.length]);
 
   // Whenever the slide changes, force the videos to reload and play
   useEffect(() => {
@@ -82,7 +91,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       const p = v.play();
       if (p && p.catch) p.catch(() => {});
     });
-  }, [currentIndex, muted]);
+  }, [safeIndex, muted]);
 
   // Auto-advance every 4 seconds. Pauses while the user is hovering / interacting
   // so they can actually watch the alumni video.
@@ -94,8 +103,8 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
     return () => window.clearInterval(t);
   }, [paused, testimonials.length]);
 
-  const handleNext = () => { setCurrentIndex((i) => (i + 1) % testimonials.length); };
-  const handlePrev = () => { setCurrentIndex((i) => (i - 1 + testimonials.length) % testimonials.length); };
+  const handleNext = () => { setCurrentIndex((safeIndex + 1) % testimonials.length); };
+  const handlePrev = () => { setCurrentIndex((safeIndex - 1 + testimonials.length) % testimonials.length); };
 
   const socialIcons = [
     { Icon: Linkedin, url: current.linkedinUrl, label: 'LinkedIn' },
@@ -275,7 +284,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               onClick={() => setCurrentIndex(i)}
               className={cn(
                 'h-2 rounded-full transition-all',
-                i === currentIndex ? 'w-7 bg-neutral-900 dark:bg-white' : 'w-2 bg-neutral-400 dark:bg-white/40 hover:bg-neutral-600'
+                i === safeIndex ? 'w-7 bg-neutral-900 dark:bg-white' : 'w-2 bg-neutral-400 dark:bg-white/40 hover:bg-neutral-600'
               )}
               aria-label={`Go to testimonial ${i + 1}`}
             />

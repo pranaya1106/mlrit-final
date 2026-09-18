@@ -2,6 +2,10 @@
 
 import { motion } from 'framer-motion';
 
+import { resolveAssetUrl } from '@/lib/cdn/url';
+import { asGalleryItems, asText } from '@/lib/content/sections';
+import { sectionDomId, useMergedSection } from '@/lib/preview/context';
+
 type Card = {
   img: string;
   season: string;
@@ -9,6 +13,10 @@ type Card = {
   detail?: string;
 };
 
+/**
+ * Fallback cards. Used whenever the CMS gallery is empty, absent or fails to
+ * load, so the marquee is never blank.
+ */
 const CARDS: Card[] = [
   {
     img: 'https://i.ibb.co/MxvbKjRH/8.jpg',
@@ -48,8 +56,54 @@ const CARDS: Card[] = [
   },
 ];
 
-export default function SuccessStories() {
+const DEFAULT_EYEBROW = 'Wall of Achievements';
+const DEFAULT_HEADING_LEAD = 'Building Real Careers,';
+const DEFAULT_HEADING_ACCENT = 'Not Just Degrees.';
+const DEFAULT_BODY =
+  "Real placements, real achievements — MLRIT students on the biggest campus stages and the country's top recruiters.";
+
+type SuccessStoriesProps = {
+  eyebrow?: string;
+  headingLead?: string;
+  headingAccent?: string;
+  body?: string;
+  /** Gallery items from the CMS; falls back to the bundled CARDS. */
+  cards?: unknown;
+};
+
+/**
+ * Maps gallery items onto Card. An empty gallery yields CARDS verbatim, so an
+ * unsaved section renders exactly as the design ships it.
+ */
+function cardsFrom(value: unknown): Card[] {
+  const items = asGalleryItems(value);
+  if (items.length === 0) return CARDS;
+
+  return items
+    .map((item, i) => ({
+      img: resolveAssetUrl(item.key, { allowTransient: true }) ?? CARDS[i]?.img ?? '',
+      season: asText(item.season),
+      name: asText(item.name),
+      detail: asText(item.detail) || undefined,
+    }))
+    .filter((card) => card.img);
+}
+
+export default function SuccessStories(props: SuccessStoriesProps) {
+  // Live-preview draft wins over the saved props; fallbacks below are unchanged.
+  const { eyebrow, headingLead, headingAccent, body, cards } = useMergedSection(
+    'home/success-stories',
+    props
+  );
+
+  const eyebrowText = eyebrow?.trim() || DEFAULT_EYEBROW;
+  const headingLeadText = headingLead?.trim() || DEFAULT_HEADING_LEAD;
+  const headingAccentText = headingAccent?.trim() || DEFAULT_HEADING_ACCENT;
+  const bodyText = body?.trim() || DEFAULT_BODY;
+  const items = cardsFrom(cards);
+
   return (
+    <div id={sectionDomId('home/success-stories')}>
     <section id="ssSection" className="relative bg-paper grain-texture text-foreground overflow-hidden py-16 md:py-20">
       {/* Soft warm glows */}
       <div
@@ -74,13 +128,13 @@ export default function SuccessStories() {
           <div className="flex items-center justify-center gap-3 mb-5">
             <span aria-hidden className="h-px w-8 bg-primary/70" />
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.3em] uppercase text-primary">
-              Wall of Achievements
+              {eyebrowText}
             </span>
             <span aria-hidden className="h-px w-8 bg-primary/70" />
           </div>
 
           <h2 className="font-sans font-black text-foreground leading-[0.96] tracking-tighter-3 text-[clamp(2.2rem,4.8vw,4.2rem)]">
-            <span className="block">Building Real Careers,</span>
+            <span className="block">{headingLeadText}</span>
             <span className="relative inline-block mt-1 md:mt-2">
               {/* Upright, not italic: Playfair's italic capital "J" has a
                   swash descender that reads as an "f" at this size. */}
@@ -93,7 +147,7 @@ export default function SuccessStories() {
                   lineHeight: 1.08,
                 }}
               >
-                Not Just Degrees.
+                {headingAccentText}
               </span>
               <svg
                 aria-hidden
@@ -119,8 +173,7 @@ export default function SuccessStories() {
             </span>
           </h2>
           <p className="mt-6 mx-auto max-w-[620px] text-muted leading-[1.7] text-[0.98rem] md:text-[1.02rem]">
-            Real placements, real achievements — MLRIT students on the biggest
-            campus stages and the country&apos;s top recruiters.
+            {bodyText}
           </p>
         </motion.div>
       </div>
@@ -137,7 +190,7 @@ export default function SuccessStories() {
       >
         <div className="flex w-max gap-5 md:gap-6 py-2 marquee-cards">
           {/* Duplicated once so the track loops seamlessly at -50% */}
-          {[...CARDS, ...CARDS].map((c, i) => (
+          {[...items, ...items].map((c, i) => (
             <div
               key={i}
               className="flex-shrink-0 w-[74vw] max-w-[380px] md:w-[36vw] md:max-w-[440px] lg:w-[26vw] lg:max-w-[420px] aspect-[3/4] relative rounded-2xl md:rounded-[24px] overflow-hidden bg-ink-2 group cursor-pointer"
@@ -195,5 +248,6 @@ export default function SuccessStories() {
         }
       `}</style>
     </section>
+    </div>
   );
 }

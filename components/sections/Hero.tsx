@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ChevronRight } from '../icons';
 import type { DeptReel } from '@/lib/departments';
+import { resolveAssetUrl } from '@/lib/cdn/url';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 import VideoLightbox from '../VideoLightbox';
 
@@ -17,11 +18,18 @@ const DEFAULT_HEADLINE_LEAD = 'Engineering';
 const DEFAULT_HEADLINE_ACCENT = 'the Future.';
 const DEFAULT_BODY =
   "Two decades of shaping minds. 11,000+ engineers and counting. At MLRIT, we don't just teach the future — we build it.";
+/** Bundled media, used until something is uploaded for this section. */
+const DEFAULT_FILM = '/videos/hero.mp4';
+const DEFAULT_POSTER = '/images/campus/SBS_1131.JPG';
 
 type HeroProps = {
   headlineLead?: string;
   headlineAccent?: string;
   body?: string;
+  /** Uploaded hero film; falls back to the bundled clip. */
+  film?: string;
+  /** Uploaded campus still; falls back to the bundled photograph. */
+  poster?: string;
 };
 
 // Kept for API compatibility.
@@ -29,11 +37,16 @@ const HERO_REELS: DeptReel[] = [];
 void HERO_REELS;
 
 export default function Hero(props: HeroProps) {
-  const { headlineLead, headlineAccent, body } = useMergedSection('home/hero', props);
+  const { headlineLead, headlineAccent, body, film, poster } = useMergedSection('home/hero', props);
 
   const lead = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
   const accent = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
   const bodyText = body?.trim() || DEFAULT_BODY;
+  // allowTransient: the live preview hands over a blob: URL for a file still
+  // uploading, which is the correct source inside the editor iframe. Saved
+  // content that is somehow blob: resolves to undefined and falls back.
+  const filmSrc = resolveAssetUrl(film?.trim(), { allowTransient: true }) || DEFAULT_FILM;
+  const posterSrc = resolveAssetUrl(poster?.trim(), { allowTransient: true }) || DEFAULT_POSTER;
 
   const [filmOpen, setFilmOpen] = useState(false);
 
@@ -90,7 +103,7 @@ export default function Hero(props: HeroProps) {
       <VideoLightbox
         open={filmOpen}
         onClose={() => setFilmOpen(false)}
-        src="/videos/hero.mp4"
+        src={filmSrc}
         eyebrow="MLRIT · Campus Film"
         title="Two decades of engineering in two minutes."
         description="Founded in 2005 · Autonomous under UGC since 2015 · 11,000+ engineers and counting. A short film across the campus, the courts, the classrooms, and the people who built them."
@@ -113,7 +126,7 @@ export default function Hero(props: HeroProps) {
         {/* Background image — the campus facade. Static hero visual so
             the moving campus film below gets to be the video moment. */}
         <motion.img
-          src="/images/campus/SBS_1131.JPG"
+          src={posterSrc}
           alt="MLR Institute of Technology main campus"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -214,7 +227,8 @@ export default function Hero(props: HeroProps) {
         >
           <div className="relative aspect-video">
             <video
-              src="/videos/hero.mp4"
+              key={filmSrc}
+              src={filmSrc}
               autoPlay
               muted
               loop
