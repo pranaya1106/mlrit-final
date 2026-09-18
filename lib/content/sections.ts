@@ -479,6 +479,10 @@ export const CONTENT_SECTIONS = {
   'home/placements': {
     label: 'Homepage — Placement counters',
     fields: [
+      // The headline figure above the grid — it counts up, so it is a number
+      // with its unit beside it rather than one preformatted string.
+      { name: 'highest', label: 'Headline figure', defaultValue: '44' },
+      { name: 'highestUnit', label: 'Headline unit', defaultValue: 'LPA' },
       {
         name: 'stats',
         label: 'Counters',
@@ -546,6 +550,82 @@ export const CONTENT_SECTIONS = {
           { id: 'p15', name: 'Recruiter', key: '/placements/p15.png' },
           { id: 'p16', name: 'Recruiter', key: '/placements/p16.png' },
         ],
+      },
+    ],
+  },
+
+  // Footer — shown on every page, so it lives under its own `site` slug rather
+  // than `home`. The Useful Links accordion is deliberately not here: it is a
+  // nested structure a flat list cannot express, and it changes rarely.
+  'site/footer': {
+    label: 'Site — Footer',
+    fields: [
+      {
+        name: 'links',
+        label: 'Navigation links',
+        type: 'repeater',
+        // Flat, with `head` naming the column. Rows are grouped by head in
+        // render order, so reordering rows moves both links and columns
+        // without needing a nested editor.
+        itemFields: [
+          { name: 'head', label: 'Column' },
+          { name: 'label', label: 'Label' },
+          { name: 'href', label: 'Link' },
+          { name: 'external', label: 'Opens in new tab (yes / blank)' },
+        ],
+        defaultItems: [
+          { id: "about-about-mlrit-0", head: "About", label: "About MLRIT", href: "/about", external: "" },
+          { id: "about-vision-mission-1", head: "About", label: "Vision & Mission", href: "/about/vision-mission/vision-mission", external: "" },
+          { id: "about-legacy-2", head: "About", label: "Legacy", href: "/about/legacy", external: "" },
+          { id: "about-rankings-awards-3", head: "About", label: "Rankings & Awards", href: "/about/rankings-awards", external: "" },
+          { id: "about-internal-governance-4", head: "About", label: "Internal Governance", href: "/about/internal-governance", external: "" },
+          { id: "admissions-overview-5", head: "Admissions", label: "Overview", href: "/admissions", external: "" },
+          { id: "admissions-counselling-6", head: "Admissions", label: "Counselling", href: "/admissions/counselling", external: "" },
+          { id: "admissions-scholarships-7", head: "Admissions", label: "Scholarships", href: "/admissions/scholarships", external: "" },
+          { id: "admissions-fee-structure-8", head: "Admissions", label: "Fee Structure", href: "/admissions/fees", external: "" },
+          { id: "admissions-why-mlrit-9", head: "Admissions", label: "Why MLRIT", href: "/admissions/why-mlrit", external: "" },
+          { id: "examinations-overview-10", head: "Examinations", label: "Overview", href: "/examinations", external: "" },
+          { id: "examinations-timetable-11", head: "Examinations", label: "Timetable", href: "/examinations/timetable", external: "" },
+          { id: "examinations-regulations-12", head: "Examinations", label: "Regulations", href: "/examinations/regulations", external: "" },
+          { id: "examinations-aqar-13", head: "Examinations", label: "AQAR", href: "/iqac/aqar", external: "" },
+          { id: "follow-us-linkedin-14", head: "Follow Us", label: "LinkedIn", href: "https://www.linkedin.com/school/mlr-institute-of-technology/", external: "yes" },
+          { id: "follow-us-instagram-15", head: "Follow Us", label: "Instagram", href: "https://www.instagram.com/mlritofficial/", external: "yes" },
+          { id: "follow-us-facebook-16", head: "Follow Us", label: "Facebook", href: "https://www.facebook.com/Mlrit/", external: "yes" },
+          { id: "follow-us-x-com-17", head: "Follow Us", label: "X.com", href: "https://x.com/mlritin", external: "yes" },
+          { id: "follow-us-youtube-18", head: "Follow Us", label: "YouTube", href: "https://www.youtube.com/channel/UCAfZfemyTCM-965RZy6QiGA", external: "yes" },
+        ],
+      },
+      {
+        name: 'logos',
+        label: 'Accreditation logos',
+        type: 'gallery',
+        itemFields: [{ name: 'name', label: 'Alt text' }],
+        defaultItems: [
+          { id: 'naac', key: '/legacy/nirf/naac.svg', name: 'NAAC' },
+          { id: 'aicte', key: '/legacy/nirf/aicte.svg', name: 'AICTE' },
+          { id: 'nba', key: '/legacy/nirf/nba.svg', name: 'NBA' },
+        ],
+      },
+      { name: 'watermark', label: 'Watermark word', defaultValue: 'MLRIT' },
+      { name: 'craftedLead', label: 'Crafted line — lead', defaultValue: 'Crafted with passion by ' },
+      { name: 'craftedName', label: 'Crafted line — name', defaultValue: 'The Students' },
+      { name: 'craftedTail', label: 'Crafted line — tail', defaultValue: ' of MLRIT' },
+      { name: 'copyright', label: 'Copyright', defaultValue: '\u00a9 2026 KMR Educational Society' },
+      {
+        name: 'badges',
+        label: 'Legal badges',
+        type: 'repeater',
+        itemFields: [{ name: 'label', label: 'Label' }],
+        defaultItems: [
+          { id: 'jntuh', label: 'Affiliated to JNTUH' },
+          { id: 'aicte', label: 'Approved by AICTE' },
+        ],
+      },
+      { name: 'disclosuresLabel', label: 'Disclosures link label', defaultValue: 'Disclosures' },
+      {
+        name: 'disclosuresHref',
+        label: 'Disclosures link URL',
+        defaultValue: 'https://mlrit.ac.in/mandatory-disclosures/',
       },
     ],
   },

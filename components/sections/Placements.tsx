@@ -5,14 +5,21 @@ import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
-import { asGalleryItems, asRepeaterItems, asText } from '@/lib/content/sections';
+import { asGalleryItems, asNumber, asRepeaterItems, asText } from '@/lib/content/sections';
 import { recruiterLogosFrom } from '@/lib/placements';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
+
+/** The headline package figure and its unit, above the mini-stat grid. */
+const DEFAULT_HIGHEST = 44;
+const DEFAULT_HIGHEST_UNIT = 'LPA';
 
 type PlacementsProps = {
   logos?: unknown;
   /** Repeater rows from home/placements; falls back to the bundled MINI_STATS. */
   stats?: unknown;
+  /** Headline package figure; counts up from 0 like the mini stats. */
+  highest?: string;
+  highestUnit?: string;
 };
 
 type MiniStat = { value: string; label: string; note: string };
@@ -79,12 +86,14 @@ export default function Placements(props: PlacementsProps) {
   // /placements/recruiters, the counters are homepage-only. Each is merged
   // against its own key so the editor's preview updates the right one.
   const { logos } = useMergedSection('placements/recruiters', props);
-  const { stats } = useMergedSection('home/placements', props);
+  const { stats, highest: highestValue, highestUnit } = useMergedSection('home/placements', props);
   const miniStats = miniStatsFrom(stats);
   const recruiterLogos = recruiterLogosFrom(asGalleryItems(logos));
   const [rowA, rowB] = splitLogos(recruiterLogos);
 
-  const highest = useCountUp(44);
+  // asNumber keeps a half-typed value from reaching the animation as NaN.
+  const highest = useCountUp(asNumber(highestValue, DEFAULT_HIGHEST));
+  const highestUnitText = asText(highestUnit, DEFAULT_HIGHEST_UNIT);
 
   return (
     <div id={sectionDomId('home/placements')}>
@@ -229,7 +238,7 @@ export default function Placements(props: PlacementsProps) {
                       {highest.n}
                     </span>
                     <span className="font-display italic font-medium text-primary text-[clamp(2.4rem,4vw,3.6rem)] leading-[0.9]">
-                      LPA
+                      {highestUnitText}
                     </span>
                   </div>
                   <div className="mt-4 font-sans font-medium text-white/70 text-[1.02rem] md:text-[1.1rem] max-w-[520px] leading-[1.55]">

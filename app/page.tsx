@@ -92,6 +92,7 @@ export default async function HomePage() {
     stats,
     placementStats,
     eventSlides,
+    placementHeadline,
   ] = await Promise.all([
     getSectionCopy('hero', HEADLINE_FIELDS, ['film', 'poster'] as const),
     getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos', 'ranks'] as const),
@@ -123,6 +124,8 @@ export default async function HomePage() {
     // fields rather than through getSectionCopy's all-or-nothing text gate.
     getListField('home', 'stats', 'stats'),
     getListField('home', 'placements', 'stats'),
+    // Headline figure lives on the same section but is plain text, not a list.
+    getSectionCopy('placements', [] as const, ['highest', 'highestUnit'] as const),
     getListField('home', 'events', 'slides'),
   ]);
 
@@ -138,7 +141,7 @@ export default async function HomePage() {
       <WhyMLRIT {...whyMlrit} />
       <SuccessStories {...successStories} />
       <Programs {...programs} />
-      <Placements logos={recruiterLogos} stats={placementStats} />
+      <Placements logos={recruiterLogos} stats={placementStats} {...placementHeadline} />
       <Testimonials {...testimonials} />
       <Events slides={eventSlides} />
     </PreviewProvider>

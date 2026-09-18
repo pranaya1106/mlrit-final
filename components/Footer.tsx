@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUp } from './icons';
+import { resolveAssetUrl } from '@/lib/cdn/url';
+import { asGalleryItems, asRepeaterItems, asText } from '@/lib/content/sections';
 
 // ── Main nav columns (kept clean — no Careers, no Academics) ──────────────
 const MAIN_COLS = [
@@ -170,7 +172,96 @@ function UsefulLinksAccordion() {
   );
 }
 
-export default function Footer() {
+/** Bundled accreditation marks, used until the CMS gallery is populated. */
+const ACCREDITATION = [
+  { src: '/legacy/nirf/naac.svg', name: 'NAAC' },
+  { src: '/legacy/nirf/aicte.svg', name: 'AICTE' },
+  { src: '/legacy/nirf/nba.svg', name: 'NBA' },
+];
+
+const DEFAULT_WATERMARK = 'MLRIT';
+const DEFAULT_CRAFTED_LEAD = 'Crafted with passion by ';
+const DEFAULT_CRAFTED_NAME = 'The Students';
+const DEFAULT_CRAFTED_TAIL = ' of MLRIT';
+const DEFAULT_COPYRIGHT = '© 2026 KMR Educational Society';
+const DEFAULT_BADGES = ['Affiliated to JNTUH', 'Approved by AICTE'];
+const DEFAULT_DISCLOSURES_LABEL = 'Disclosures';
+const DEFAULT_DISCLOSURES_HREF = 'https://mlrit.ac.in/mandatory-disclosures/';
+
+export type FooterContent = {
+  links?: unknown;
+  logos?: unknown;
+  watermark?: string;
+  craftedLead?: string;
+  craftedName?: string;
+  craftedTail?: string;
+  copyright?: string;
+  badges?: unknown;
+  disclosuresLabel?: string;
+  disclosuresHref?: string;
+};
+
+type FooterColumn = { head: string; links: { label: string; href: string; ext?: boolean }[] };
+
+/**
+ * Groups the flat CMS link list back into columns, in row order — the first
+ * time a `head` appears fixes that column's position. A flat list is what a
+ * repeater can express; the nesting is rebuilt here rather than asking an
+ * editor to manage two levels.
+ *
+ * An empty list yields MAIN_COLS verbatim.
+ */
+function columnsFrom(value: unknown): FooterColumn[] {
+  const rows = asRepeaterItems(value);
+  if (rows.length === 0) return MAIN_COLS as FooterColumn[];
+
+  const byHead = new Map<string, FooterColumn>();
+  for (const row of rows) {
+    const head = asText(row.head);
+    const label = asText(row.label);
+    const href = asText(row.href);
+    if (!head || !label || !href) continue;
+
+    if (!byHead.has(head)) byHead.set(head, { head, links: [] });
+    byHead.get(head)!.links.push({
+      label,
+      href,
+      ext: asText(row.external).toLowerCase() === 'yes' || undefined,
+    });
+  }
+
+  const columns = [...byHead.values()];
+  return columns.length > 0 ? columns : (MAIN_COLS as FooterColumn[]);
+}
+
+export default function Footer(props: FooterContent = {}) {
+  const columns = columnsFrom(props.links);
+
+  const uploaded = asGalleryItems(props.logos);
+  const logos =
+    uploaded.length > 0
+      ? uploaded
+          .map((item, i) => ({
+            src: resolveAssetUrl(item.key, { allowTransient: true }) ?? ACCREDITATION[i]?.src ?? '',
+            name: asText(item.name, ACCREDITATION[i]?.name ?? ''),
+          }))
+          .filter((logo) => logo.src)
+      : ACCREDITATION;
+
+  const badgeRows = asRepeaterItems(props.badges);
+  const badges =
+    badgeRows.length > 0
+      ? badgeRows.map((row) => asText(row.label)).filter(Boolean)
+      : DEFAULT_BADGES;
+
+  const watermark = props.watermark?.trim() || DEFAULT_WATERMARK;
+  const craftedLead = props.craftedLead?.trim() || DEFAULT_CRAFTED_LEAD;
+  const craftedName = props.craftedName?.trim() || DEFAULT_CRAFTED_NAME;
+  const craftedTail = props.craftedTail?.trim() || DEFAULT_CRAFTED_TAIL;
+  const copyright = props.copyright?.trim() || DEFAULT_COPYRIGHT;
+  const disclosuresLabel = props.disclosuresLabel?.trim() || DEFAULT_DISCLOSURES_LABEL;
+  const disclosuresHref = props.disclosuresHref?.trim() || DEFAULT_DISCLOSURES_HREF;
+
   return (
     <footer className="bg-warm-light border-t border-border relative isolate">
 
@@ -179,7 +270,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 md:gap-8">
 
           {/* 4 main columns */}
-          {MAIN_COLS.map((c) => (
+          {columns.map((c) => (
             <div key={c.head}>
               <h5 className="text-primary font-bold text-[0.7rem] tracking-[0.2em] uppercase mb-4">
                 {c.head}
@@ -215,9 +306,15 @@ export default function Footer() {
             Accredited by
           </span>
           <div className="flex items-center gap-7 flex-1 min-w-0">
-            <img src="/legacy/nirf/naac.svg"  alt="NAAC"  className="h-9 w-auto opacity-90" />
-            <img src="/legacy/nirf/aicte.svg" alt="AICTE" className="h-9 w-auto opacity-90" />
-            <img src="/legacy/nirf/nba.svg"   alt="NBA"   className="h-9 w-auto opacity-90" />
+            {logos.map((logo) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={logo.src}
+                src={logo.src}
+                alt={logo.name}
+                className="h-9 w-auto opacity-90"
+              />
+            ))}
           </div>
           <BackToTop />
         </div>
@@ -236,12 +333,12 @@ export default function Footer() {
             color: 'transparent',
           }}
         >
-          MLRIT
+          {watermark}
         </div>
         <p className="mt-3 mb-6 tracking-[0.22em] uppercase select-none" style={{ fontSize: '0.68rem', color: '#9a9080' }}>
-          <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}>Crafted with passion by </span>
-          <span className="font-sans font-black not-italic" style={{ color: '#3d3328', letterSpacing: '0.22em' }}>The Students</span>
-          <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}> of MLRIT</span>
+          <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}>{craftedLead}</span>
+          <span className="font-sans font-black not-italic" style={{ color: '#3d3328', letterSpacing: '0.22em' }}>{craftedName}</span>
+          <span className="font-display italic" style={{ fontStyle: 'italic', letterSpacing: '0.18em' }}>{craftedTail}</span>
         </p>
       </div>
 
@@ -249,14 +346,18 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[0.8rem] text-muted font-sans">
           <div className="flex flex-wrap gap-x-4 gap-y-1.5 items-center">
-            <span>© 2026 KMR Educational Society</span>
+            <span>{copyright}</span>
             {/* Dot bundled with the label that follows it so a mobile wrap
                 can't strand the separator alone at the end of a line. */}
-            <span><span className="text-subtle mr-1">·</span>Affiliated to JNTUH</span>
-            <span><span className="text-subtle mr-1">·</span>Approved by AICTE</span>
+            {badges.map((badge) => (
+              <span key={badge}>
+                <span className="text-subtle mr-1">·</span>
+                {badge}
+              </span>
+            ))}
           </div>
           <div className="flex gap-6">
-            <a href="https://mlrit.ac.in/mandatory-disclosures/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Disclosures</a>
+            <a href={disclosuresHref} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{disclosuresLabel}</a>
           </div>
         </div>
       </div>

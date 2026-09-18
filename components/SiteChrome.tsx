@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 
 import Chatbot from '@/components/Chatbot';
-import Footer from '@/components/Footer';
+import Footer, { type FooterContent } from '@/components/Footer';
 import Header from '@/components/Header';
 import SideButtons from '@/components/SideButtons';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -23,7 +23,13 @@ import SmoothScroll from '@/components/SmoothScroll';
  * keep their static rendering; only this wrapper ships to the client, and it
  * only reads the pathname.
  */
-export default function SiteChrome({ children }: { children: React.ReactNode }) {
+export default function SiteChrome({
+  children,
+  footer = {},
+}: {
+  children: React.ReactNode;
+  footer?: FooterContent;
+}) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin') ?? false;
 
@@ -34,7 +40,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <SmoothScroll />
       <Header />
       <main className="pt-[var(--header-h)]">{children}</main>
-      <Footer />
+      <Footer {...footer} />
       <SideButtons />
       <Chatbot />
     </>
