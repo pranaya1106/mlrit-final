@@ -55,18 +55,25 @@ test('ignores blob: in a non-media field (home/hero has no media fields)', () =>
 });
 
 // --- gallery fields --------------------------------------------------------
-// test/gallery-sandbox declares `images` (with itemFields) and `plainImages`.
+// home/success-stories declares `cards`, an image gallery with text columns.
+
+const SS_BASE = {
+  eyebrow: 'Wall of Achievements',
+  headingLead: 'Building Real Careers,',
+  headingAccent: 'Not Just Degrees.',
+  body: 'Body copy.',
+};
 
 const gallery = (items: unknown) =>
-  findTransientMediaError('test', 'gallery-sandbox', { heading: 'H', images: items });
+  findTransientMediaError('home', 'success-stories', { ...SS_BASE, cards: items });
 
 test('rejects a gallery item still holding a blob: key', () => {
   const result = gallery([
-    { id: 'a', key: 'test-gallery-sandbox/aaa.png' },
+    { id: 'a', key: 'home-success-stories/aaa.png' },
     { id: 'b', key: 'blob:http://localhost:3000/pending' },
   ]);
   assert.ok(result, 'expected a rejection');
-  assert.equal(result.field, 'images');
+  assert.equal(result.field, 'cards');
   assert.match(result.error, /image 2 is still uploading/);
 });
 
@@ -77,8 +84,8 @@ test('rejects a data: key inside a gallery item', () => {
 test('accepts a gallery of real storage keys', () => {
   assert.equal(
     gallery([
-      { id: 'a', key: 'test-gallery-sandbox/aaa.png', title: 'One', active: true },
-      { id: 'b', key: 'test-gallery-sandbox/bbb.png' },
+      { id: 'a', key: 'home-success-stories/aaa.png', name: 'One', season: 'Placement' },
+      { id: 'b', key: 'home-success-stories/bbb.png' },
     ]),
     null
   );
@@ -86,7 +93,7 @@ test('accepts a gallery of real storage keys', () => {
 
 test('accepts an empty gallery and a missing gallery', () => {
   assert.equal(gallery([]), null);
-  assert.equal(findTransientMediaError('test', 'gallery-sandbox', { heading: 'H' }), null);
+  assert.equal(findTransientMediaError('home', 'success-stories', SS_BASE), null);
 });
 
 test('ignores malformed gallery entries rather than throwing', () => {

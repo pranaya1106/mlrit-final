@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getSection } from '@/lib/content/client';
 import { CONTENT_SECTIONS } from '@/lib/content/sections';
+import { canEditSection, getAdminUser, isOwner, type AdminUser } from '@/lib/content/permissions';
 import { getServiceClient } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
@@ -53,8 +54,13 @@ const truncate = (text: string): string =>
  * One row per configured section. A failed lookup degrades to an empty preview
  * rather than taking the whole dashboard down — the link still works.
  */
-async function loadSections(): Promise<SectionSummary[]> {
-  const entries = Object.entries(CONTENT_SECTIONS);
+async function loadSections(admin: AdminUser | null): Promise<SectionSummary[]> {
+  // An editor sees only what they can change. The write route enforces the
+  // same rule, so this is about not offering a door that will not open.
+  const entries = Object.entries(CONTENT_SECTIONS).filter(([key]) => {
+    const [page, section] = key.split('/');
+    return canEditSection(admin, page, section);
+  });
 
   return Promise.all(
     entries.map(async ([key, config]) => {
@@ -139,7 +145,12 @@ const rowClass =
 const metaClass = 'font-mono text-[0.7rem] uppercase tracking-wider text-subtle';
 
 export default async function AdminDashboardPage() {
-  const [sections, bannerCounts] = await Promise.all([loadSections(), loadBannerCounts()]);
+  const admin = await getAdminUser();
+  const owner = isOwner(admin);
+  const [sections, bannerCounts] = await Promise.all([
+    loadSections(admin),
+    owner ? loadBannerCounts() : Promise.resolve(null),
+  ]);
 
   // Grouped by the page slug ahead of the slash, so a future "about/…" or
   // "placements/…" section gets its own group with no code change here.
@@ -190,6 +201,7 @@ export default async function AdminDashboardPage() {
           </section>
         ))}
 
+        {owner && (
         <section className="mt-10">
           <h2 className={metaClass}>Media</h2>
           <ul className="mt-3 divide-y divide-neutral-800 rounded-lg bg-ink-2 px-4">
@@ -206,8 +218,19 @@ export default async function AdminDashboardPage() {
                 </span>
               </Link>
             </li>
+            <li>
+              <Link href="/admin/users" className={`${rowClass} text-neutral-0`}>
+                <span className="min-w-0">
+                  <span className="block truncate text-sm">People</span>
+                  <span className="mt-0.5 block truncate text-xs text-subtle">
+                    Who can sign in, and which sections they may edit
+                  </span>
+                </span>
+              </Link>
+            </li>
           </ul>
         </section>
+        )}
       </div>
     </main>
   );

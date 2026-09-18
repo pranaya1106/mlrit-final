@@ -1,9 +1,8 @@
-import { createServerClient } from '@supabase/ssr';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { getSection, saveSection, SectionWriteError } from '@/lib/content/client';
+import { canEditSection, getAdminUser } from '@/lib/content/permissions';
 import { getSectionConfig, isRequiredField } from '@/lib/content/sections';
 import { findTransientMediaError } from '@/lib/content/validate';
 
@@ -24,46 +23,23 @@ const requiredFieldsFor = (page: string, section: string): readonly string[] =>
     ?.fields.filter(isRequiredField)
     .map((field) => field.name) ?? DEFAULT_REQUIRED_FIELDS;
 
-/**
- * Resolves the caller's session, returning the authenticated user or null.
- *
- * Deliberately independent of middleware.ts: this route is reachable by any
- * HTTP client, and an auth check that assumes a proxy ran in front of it is not
- * an auth check. The user is returned rather than a boolean so writes can
- * record who made them without a second round-trip.
- */
-async function getSessionUser(): Promise<{ email: string | null } | null> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
-
-  const cookieStore = cookies();
-
-  const supabase = createServerClient(url, key, {
-    cookies: {
-      getAll() {
-        return cookieStore.getAll();
-      },
-      // Route handlers cannot always write cookies; token refresh is the
-      // middleware's job, so dropping the write here is intentional.
-      setAll() {},
-    },
-  });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return user ? { email: user.email ?? null } : null;
-}
-
 export async function PUT(
   request: Request,
   { params }: { params: { page: string; section: string } }
 ) {
-  const user = await getSessionUser();
-  if (!user) {
+  const admin = await getAdminUser();
+  if (!admin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // The authorisation gate. The admin UI hides sections a user cannot edit,
+  // but this route is reachable by any HTTP client holding a valid session, so
+  // hiding is presentation and this is the control.
+  if (!canEditSection(admin, params.page, params.section)) {
+    return NextResponse.json(
+      { error: 'You do not have permission to edit this section.' },
+      { status: 403 }
+    );
   }
 
   let payload: unknown;
@@ -126,7 +102,7 @@ export async function PUT(
       params.section,
       record,
       expectedVersion,
-      user.email
+      admin.email
     );
 
     // Drop the cached homepage render so the edit is live on the next visit

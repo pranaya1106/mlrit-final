@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import ContentEditor from '@/app/admin/ContentEditor';
 import { getSection } from '@/lib/content/client';
+import { canEditSection, getAdminUser } from '@/lib/content/permissions';
 import {
   asGalleryItems,
   asRepeaterItems,
@@ -28,6 +29,32 @@ export default async function SectionAdminPage({
   params: { page: string; section: string };
 }) {
   const config = getSectionConfig(params.page, params.section);
+
+  // Presentation only — the write route enforces this independently. Someone
+  // who reaches this URL without rights sees the notice; someone who POSTs
+  // past it gets a 403.
+  const admin = await getAdminUser();
+  if (config && !canEditSection(admin, params.page, params.section)) {
+    return (
+      <main className="min-h-screen bg-ink px-6 py-12">
+        <div className="mx-auto w-full max-w-[720px]">
+          <Link
+            href="/admin"
+            className="font-mono text-xs uppercase tracking-widest text-subtle hover:text-neutral-0"
+          >
+            ← all sections
+          </Link>
+          <h1 className="mt-4 text-2xl font-semibold text-neutral-0">Not your section</h1>
+          <p className="mt-2 font-mono text-xs uppercase tracking-wider text-subtle">
+            {params.page} / {params.section}
+          </p>
+          <p className="mt-4 max-w-[52ch] text-sm text-subtle">
+            Your account does not have access to this section. Ask an owner to grant it.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   if (!config) {
     return (

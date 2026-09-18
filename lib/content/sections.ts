@@ -630,22 +630,6 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
-  // TEMPORARY. Exists only to exercise the gallery field end to end without
-  // touching production content. No public component reads test/*. Delete this
-  // entry once a real section (banners, placements, achievements) is wired up.
-  'test/gallery-sandbox': {
-    label: 'Sandbox — Gallery field',
-    fields: [
-      { name: 'heading', label: 'Heading' },
-      {
-        name: 'images',
-        label: 'Gallery (with per-item metadata)',
-        type: 'gallery',
-        itemFields: ['title', 'linkUrl', 'active', 'startDate', 'endDate'],
-      },
-      { name: 'plainImages', label: 'Gallery (images only)', type: 'gallery' },
-    ],
-  },
 } as const;
 
 export type SectionKey = keyof typeof CONTENT_SECTIONS;
