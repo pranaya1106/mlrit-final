@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import { useRef } from 'react';
 
 const APEX_RED = '#D80000';
 
@@ -13,14 +12,6 @@ const DOMAINS = [
   { n: '05', title: 'Emerging Tech',            sub: 'AR/VR · Procedural · New Engines',      body: 'The frontier — AR/VR, procedural generation and experimental engines where the next genre is being invented right now.' },
 ] as const;
 
-const COUNT  = DOMAINS.length;
-const ROW_H  = 68; // px
-const SPEED  = 0.42; // items per second
-
-function gaussian(dist: number, sigma = 1.6) {
-  return Math.exp(-0.5 * Math.pow(dist / sigma, 2));
-}
-
 export default function ApexHowItWorks({
   sectionRef: externalRef,
 }: {
@@ -28,168 +19,177 @@ export default function ApexHowItWorks({
 }) {
   const internalRef = useRef<HTMLElement>(null);
   const sectionRef  = (externalRef ?? internalRef) as React.RefObject<HTMLElement>;
-  const reduced     = !!useReducedMotion();
-
-  const [activeFloat, setActiveFloat] = useState(0);
-  const floatRef = useRef(0);
-  const rafRef   = useRef<number>(0);
-  const lastRef  = useRef<number>(0);
-
-  const tick = useCallback((now: number) => {
-    const dt = Math.min((now - lastRef.current) / 1000, 0.05);
-    lastRef.current = now;
-    if (!reduced) {
-      floatRef.current = (floatRef.current + SPEED * dt + COUNT) % COUNT;
-      setActiveFloat(floatRef.current);
-    }
-    rafRef.current = requestAnimationFrame(tick);
-  }, [reduced]);
-
-  useEffect(() => {
-    const onVis = () => { if (!document.hidden) lastRef.current = performance.now(); };
-    document.addEventListener('visibilitychange', onVis);
-    return () => document.removeEventListener('visibilitychange', onVis);
-  }, []);
-
-  useEffect(() => {
-    lastRef.current = performance.now();
-    rafRef.current  = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [tick]);
-
-  const activeIdx = Math.round(activeFloat) % COUNT;
-
-  function getDist(i: number) {
-    let d = i - activeFloat;
-    while (d >  COUNT / 2) d -= COUNT;
-    while (d < -COUNT / 2) d += COUNT;
-    return d;
-  }
-
-  // render furthest items first (behind), closest last (on top)
-  const sorted = [...DOMAINS.keys()].sort((a, b) => Math.abs(getDist(b)) - Math.abs(getDist(a)));
 
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 min-h-screen flex items-center"
+      className="relative z-10"
       aria-label="How the club works"
     >
-      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 py-20 flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+      <style>{`
+        .apex-list-section {
+          padding: 8rem 0;
+        }
 
-        {/* Left — kinetic wheel */}
-        <div className="flex-1 w-full min-w-0">
-          <div className="flex items-center gap-3 mb-6">
+        .apex-list-container {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          column-gap: 3rem;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2.5rem;
+          align-items: start;
+        }
+
+        .apex-sticky-label {
+          font-size: clamp(2rem, 4vw, 3.5rem);
+          font-weight: 800;
+          color: rgba(255,255,255,0.9);
+          position: sticky;
+          top: calc(50vh - 0.6lh);
+          align-self: flex-start;
+          min-width: max-content;
+          letter-spacing: -0.03em;
+          line-height: 1.1;
+        }
+
+        .apex-sticky-label span {
+          display: block;
+          color: ${APEX_RED};
+          font-size: 0.55em;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          font-family: monospace;
+          margin-bottom: 0.5rem;
+        }
+
+        .apex-domains-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          font-size: clamp(2.2rem, 5vw, 5rem);
+          font-weight: 700;
+        }
+
+        .apex-domains-list li {
+          line-height: 1.3;
+          padding: 0.6rem 0;
+          scroll-snap-align: center;
+          color: rgba(255,255,255,0.18);
+          transition: color 0.2s;
+          cursor: default;
+          display: flex;
+          align-items: baseline;
+          gap: 0.6rem;
+        }
+
+        .apex-domains-list li .apex-num {
+          font-size: 0.35em;
+          font-weight: 900;
+          color: rgba(255,255,255,0.2);
+          font-family: monospace;
+          letter-spacing: 0.1em;
+          flex-shrink: 0;
+          transition: color 0.2s;
+        }
+
+        .apex-domains-list li .apex-sub {
+          display: block;
+          font-size: 0.28em;
+          font-weight: 500;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.15);
+          font-family: monospace;
+          margin-top: 0.2rem;
+          line-height: 1;
+        }
+
+        .apex-domains-list li .apex-title-wrap {
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* CSS scroll-driven brightness animation */
+        @supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
+          .apex-domains-list li:first-of-type  { --start-opacity: 1; }
+          .apex-domains-list li:last-of-type   { --end-opacity: 1;   }
+
+          .apex-domains-list li {
+            opacity: 0.18;
+            animation-name: apex-brighten;
+            animation-fill-mode: both;
+            animation-timing-function: linear;
+            animation-timeline: view();
+            animation-range: cover calc(50% - 1lh) calc(50% + 1lh);
+          }
+
+          .apex-domains-list li.apex-colored:nth-child(1)  { --hue: 0;   }
+          .apex-domains-list li.apex-colored:nth-child(2)  { --hue: 72;  }
+          .apex-domains-list li.apex-colored:nth-child(3)  { --hue: 144; }
+          .apex-domains-list li.apex-colored:nth-child(4)  { --hue: 216; }
+          .apex-domains-list li.apex-colored:nth-child(5)  { --hue: 288; }
+
+          /* last item stays white */
+          .apex-domains-list li:last-of-type {
+            color: rgba(255,255,255,0.9) !important;
+          }
+
+          @keyframes apex-brighten {
+            0%   { opacity: var(--start-opacity, 0.18); }
+            50%  { opacity: 1; color: oklch(72% 0.22 var(--hue, 0)); }
+            100% { opacity: var(--end-opacity,   0.18); }
+          }
+        }
+
+        @media (max-width: 640px) {
+          .apex-list-container {
+            column-gap: 1rem;
+            padding: 0 1.25rem;
+          }
+          .apex-sticky-label {
+            font-size: clamp(1.1rem, 5vw, 2rem);
+          }
+        }
+      `}</style>
+
+      <div className="apex-list-section">
+        {/* Section header — above the scroll list */}
+        <div className="max-w-[1200px] mx-auto px-10 mb-16">
+          <div className="flex items-center gap-3 mb-4">
             <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
             <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
               How it works
             </span>
           </div>
           <h2
-            className="font-sans font-black text-white leading-[1.02] mb-10"
+            className="font-sans font-black text-white leading-[1.02]"
             style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
           >
             Five domains. One community.
           </h2>
-
-          {/* Wheel container — overflow-y hidden to clip top/bottom, overflow-x visible so titles don't get cut */}
-          <div
-            className="relative"
-            style={{ height: ROW_H * 5.5, overflowY: 'hidden', overflowX: 'clip' }}
-            aria-live="polite"
-            aria-label={`Active domain: ${DOMAINS[activeIdx].title}`}
-          >
-            {/* Top + bottom fade masks */}
-            <div aria-hidden className="absolute inset-x-0 top-0 h-20 pointer-events-none z-10"
-              style={{ background: 'linear-gradient(to bottom, #080808 30%, transparent)' }} />
-            <div aria-hidden className="absolute inset-x-0 bottom-0 h-20 pointer-events-none z-10"
-              style={{ background: 'linear-gradient(to top, #080808 30%, transparent)' }} />
-
-            {sorted.map(i => {
-              const dist    = getDist(i);
-              const g       = gaussian(dist);
-              const fontSize = 1.1 + g * (3.6 - 1.1);
-              const opacity  = 0.15 + g * 0.85;
-              const x        = g * 40;
-              const colorVal = Math.round(50 + g * 205);
-              const color    = `rgb(${colorVal},${colorVal},${colorVal})`;
-              const isActive = Math.abs(dist) < 0.5;
-
-              return (
-                <div
-                  key={DOMAINS[i].n}
-                  style={{
-                    position:   'absolute',
-                    top:        '50%',
-                    left:       0,
-                    right:      0,
-                    transform:  `translateY(calc(-50% + ${dist * ROW_H}px))`,
-                    transition: reduced ? 'none' : 'transform 0.1s linear',
-                  }}
-                >
-                  <motion.div
-                    animate={{ x, opacity }}
-                    transition={{ type: 'spring', stiffness: 140, damping: 20 }}
-                    className="flex items-baseline gap-3 select-none pr-4"
-                  >
-                    <motion.span
-                      animate={{ color: isActive ? APEX_RED : 'rgba(255,255,255,0.22)' }}
-                      transition={{ duration: 0.2 }}
-                      className="font-sans font-black tabular-nums flex-shrink-0"
-                      style={{ fontSize: `${Math.max(0.7, fontSize * 0.38)}rem`, lineHeight: 1 }}
-                    >
-                      {DOMAINS[i].n}
-                    </motion.span>
-                    <motion.span
-                      animate={{ color, fontSize: `${fontSize}rem` }}
-                      transition={{ type: 'spring', stiffness: 140, damping: 20 }}
-                      className="font-sans font-black leading-none"
-                      style={{ lineHeight: 1, whiteSpace: 'nowrap' }}
-                    >
-                      {DOMAINS[i].title}
-                    </motion.span>
-                  </motion.div>
-                </div>
-              );
-            })}
-          </div>
         </div>
 
-        {/* Right — description */}
-        <div className="lg:w-[320px] flex-shrink-0">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={activeIdx}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: reduced ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="text-white/55 leading-[1.78] text-[0.97rem] md:text-[1.02rem]"
-            >
-              {DOMAINS[activeIdx].body}
-            </motion.p>
-          </AnimatePresence>
+        {/* Scroll list */}
+        <div className="apex-list-container">
+          <p className="apex-sticky-label" aria-hidden>
+            <span>APEX</span>
+            Domains
+          </p>
 
-          <div className="mt-5 font-mono text-[0.58rem] font-bold tracking-[0.22em] uppercase text-white/20">
-            {DOMAINS[activeIdx].sub}
-          </div>
-
-          <div className="mt-8 flex items-center gap-1.5">
-            {DOMAINS.map((_, i) => (
-              <motion.div
-                key={i}
-                animate={{
-                  width:           i === activeIdx ? 20 : 5,
-                  opacity:         i === activeIdx ? 1 : 0.25,
-                  backgroundColor: i === activeIdx ? APEX_RED : '#ffffff',
-                }}
-                transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-                className="h-[3px] rounded-full"
-              />
+          <ul className="apex-domains-list">
+            {DOMAINS.map((d) => (
+              <li key={d.n} className="apex-colored">
+                <span className="apex-num">{d.n}</span>
+                <span className="apex-title-wrap">
+                  {d.title}
+                  <span className="apex-sub">{d.sub}</span>
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-
       </div>
     </section>
   );
