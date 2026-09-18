@@ -96,7 +96,15 @@ export default async function HomePage() {
     getSectionCopy('hero', HEADLINE_FIELDS, ['film', 'poster'] as const),
     getSectionCopy('achievements', HEADLINE_FIELDS, [], ['logos', 'ranks'] as const),
     getSectionCopy('programs', HEADLINE_FIELDS, [], ['ug', 'pg'] as const),
-    getSectionCopy('why-mlrit', ['heading', 'body'] as const, ['video'] as const),
+    // Only `body` is required here. The row predates the redesign's split
+    // headline, so demanding the new fields would fail the all-or-nothing gate
+    // and silently drop copy an editor had already saved. Each of these falls
+    // back independently inside the component anyway.
+    getSectionCopy(
+      'why-mlrit',
+      ['body'] as const,
+      ['headlineLead', 'headlineAccent', 'headlineTail', 'footnote', 'video'] as const
+    ),
     getSectionCopy(
       'success-stories',
       ['eyebrow', 'headingLead', 'headingAccent'] as const,
@@ -127,7 +135,7 @@ export default async function HomePage() {
       <Stats stats={stats} />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
       <Achievements {...achievements} />
-      <WhyMLRIT {...whyMlrit} video={resolveAssetUrl(whyMlrit.video)} />
+      <WhyMLRIT {...whyMlrit} />
       <SuccessStories {...successStories} />
       <Programs {...programs} />
       <Placements logos={recruiterLogos} stats={placementStats} />

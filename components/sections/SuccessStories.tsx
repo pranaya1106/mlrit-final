@@ -59,11 +59,14 @@ const CARDS: Card[] = [
 const DEFAULT_EYEBROW = 'Wall of Achievements';
 const DEFAULT_HEADING_LEAD = 'Building Real Careers,';
 const DEFAULT_HEADING_ACCENT = 'Not Just Degrees.';
+const DEFAULT_BODY =
+  "Real placements, real achievements — MLRIT students on the biggest campus stages and the country's top recruiters.";
 
 type SuccessStoriesProps = {
   eyebrow?: string;
   headingLead?: string;
   headingAccent?: string;
+  body?: string;
   /** Gallery items from the CMS; falls back to the bundled CARDS. */
   cards?: unknown;
 };
@@ -88,7 +91,7 @@ function cardsFrom(value: unknown): Card[] {
 
 export default function SuccessStories(props: SuccessStoriesProps) {
   // Live-preview draft wins over the saved props; fallbacks below are unchanged.
-  const { eyebrow, headingLead, headingAccent, cards } = useMergedSection(
+  const { eyebrow, headingLead, headingAccent, body, cards } = useMergedSection(
     'home/success-stories',
     props
   );
@@ -96,6 +99,7 @@ export default function SuccessStories(props: SuccessStoriesProps) {
   const eyebrowText = eyebrow?.trim() || DEFAULT_EYEBROW;
   const headingLeadText = headingLead?.trim() || DEFAULT_HEADING_LEAD;
   const headingAccentText = headingAccent?.trim() || DEFAULT_HEADING_ACCENT;
+  const bodyText = body?.trim() || DEFAULT_BODY;
   const items = cardsFrom(cards);
 
   return (
@@ -169,8 +173,7 @@ export default function SuccessStories(props: SuccessStoriesProps) {
             </span>
           </h2>
           <p className="mt-6 mx-auto max-w-[620px] text-muted leading-[1.7] text-[0.98rem] md:text-[1.02rem]">
-            Real placements, real achievements — MLRIT students on the biggest
-            campus stages and the country&apos;s top recruiters.
+            {bodyText}
           </p>
         </motion.div>
       </div>

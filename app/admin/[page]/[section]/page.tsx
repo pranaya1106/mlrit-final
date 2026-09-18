@@ -54,7 +54,11 @@ export default async function SectionAdminPage({
   const initialContent: Record<string, unknown> = {};
   for (const field of config.fields) {
     if (!isListField(field)) {
-      initialContent[field.name] = asString(content[field.name]);
+      // Seed from defaultValue only when nothing is stored, mirroring the
+      // defaultItems rule below: the form shows the component's current copy,
+      // and content_blocks stays untouched until Save.
+      const stored = asString(content[field.name]);
+      initialContent[field.name] = stored || (field.defaultValue ?? '');
       continue;
     }
 

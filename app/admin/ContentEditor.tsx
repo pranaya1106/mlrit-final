@@ -225,6 +225,12 @@ export default function ContentEditor({
   // discarded the new item, so no thumbnail ever appeared. The same defect was
   // latent in remove/reorder/revert whenever two updates landed in one tick.
 
+  /** Mints an id that survives reordering; shared by both list kinds. */
+  const newRowId = (): string =>
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
   /**
    * Applies a transform to one list field, computed from live state.
    *
@@ -273,10 +279,7 @@ export default function ContentEditor({
 
   /** Appends an item, then uploads into it. The id is stable across reorders. */
   function addGalleryImage(fieldName: string, file: File) {
-    const id =
-      typeof crypto !== 'undefined' && 'randomUUID' in crypto
-        ? crypto.randomUUID()
-        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const id = newRowId();
 
     updateGallery(fieldName, (items) => [...items, { id, key: '' }]);
 
@@ -322,6 +325,17 @@ export default function ContentEditor({
     );
   }
 
+  /**
+   * Appends an empty gallery row with every declared column present, so a new
+   * entry has the same shape as the seeded ones and its inputs are controlled
+   * from the first render. The file is attached afterwards via Replace, which
+   * is what lets someone write the copy first and source the image later.
+   */
+  function addGalleryRow(fieldName: string, columns: readonly { name: string }[]) {
+    const blank = Object.fromEntries(columns.map((column) => [column.name, '']));
+    updateGallery(fieldName, (items) => [...items, { ...blank, id: newRowId(), key: '' }]);
+  }
+
   function removeGalleryItem(fieldName: string, id: string) {
     updateGallery(fieldName, (items) => items.filter((item) => item.id !== id));
   }
@@ -335,12 +349,6 @@ export default function ContentEditor({
   // ---- repeater helpers -----------------------------------------------------
   // No uploads here, so no in-flight state — but the same functional-update
   // discipline applies: adding a row and typing into it can land in one tick.
-
-  /** Mints an id that survives reordering, matching the gallery's scheme. */
-  const newRowId = (): string =>
-    typeof crypto !== 'undefined' && 'randomUUID' in crypto
-      ? crypto.randomUUID()
-      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
   function addRepeaterRow(fieldName: string, columns: readonly { name: string }[]) {
     // Every column starts present and empty, so a new row's inputs are
@@ -811,6 +819,19 @@ export default function ContentEditor({
                       Add {galleryAccept(field) === 'video' ? 'videos' : 'images'} — several can be
                       picked at once
                     </span>
+
+                    {/* Text-first alternative to the picker above: create the
+                        entry, write its copy, attach the file later. Only
+                        offered when the row HAS copy to write. */}
+                    {repeaterItemFields(field).length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => addGalleryRow(name, repeaterItemFields(field))}
+                        className="mt-3 rounded border border-border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted hover:border-primary hover:text-primary"
+                      >
+                        + Add empty entry
+                      </button>
+                    )}
                   </div>
                 )}
 

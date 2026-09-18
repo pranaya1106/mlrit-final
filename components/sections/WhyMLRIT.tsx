@@ -4,18 +4,31 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Phone, ArrowRight } from 'lucide-react';
 
+import { resolveAssetUrl } from '@/lib/cdn/url';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
 const DEFAULT_BODY =
   'An integrated curriculum that gives equal weight to academics, employable skills, and sport.';
 
+const DEFAULT_VIDEO = '/videos/sports.mp4';
+const DEFAULT_HEADLINE_LEAD = 'Industry.';
+const DEFAULT_HEADLINE_ACCENT = 'Integrated.';
+const DEFAULT_HEADLINE_TAIL = 'Blended with sport.';
+
 const DEFAULT_FOOTNOTE =
   'Founded in **2005** by the KMR Education Trust, headed by **Mr. Marri Laxman Reddy**. Located in Dundigal, Hyderabad. Affiliated to JNTUH. Granted autonomous status by the UGC in 2015.';
 
 type WhyMLRITProps = {
-  heading?: string;   // kept for CMS compat; layout ignores it in favour of the split headline
+  /** The headline renders as three separately-styled lines, so it is stored
+      as three fields rather than one string with markup in it. */
+  headlineLead?: string;
+  headlineAccent?: string;
+  headlineTail?: string;
   body?: string;
-  video?: string;     // kept for CMS compat
+  /** Founding note under the body; supports **bold**. */
+  footnote?: string;
+  /** Uploaded clip for the portrait card; falls back to the bundled sports reel. */
+  video?: string;
 };
 
 /**
@@ -37,7 +50,16 @@ function renderRich(text: string) {
 }
 
 export default function WhyMLRIT(props: WhyMLRITProps) {
-  const { body } = useMergedSection('home/why-mlrit', props);
+  const { headlineLead, headlineAccent, headlineTail, body, footnote, video } =
+    useMergedSection('home/why-mlrit', props);
+
+  const leadText = headlineLead?.trim() || DEFAULT_HEADLINE_LEAD;
+  const accentText = headlineAccent?.trim() || DEFAULT_HEADLINE_ACCENT;
+  const tailText = headlineTail?.trim() || DEFAULT_HEADLINE_TAIL;
+  const footnoteText = footnote?.trim() || DEFAULT_FOOTNOTE;
+  // allowTransient: the live preview supplies a blob: URL while an upload is in
+  // flight, which is the correct source inside the editor iframe.
+  const videoSrc = resolveAssetUrl(video?.trim(), { allowTransient: true }) || DEFAULT_VIDEO;
   const bodyText = body?.trim() || DEFAULT_BODY;
 
   return (
@@ -98,7 +120,7 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
 
           {/* Multi-line headline */}
           <h2 className="mt-8 font-sans font-black leading-[0.98] tracking-tighter-2 text-foreground text-[clamp(2.6rem,5.6vw,4.6rem)]">
-            <span className="block">Industry.</span>
+            <span className="block">{leadText}</span>
             <span
               className="block pb-[0.14em]"
               style={{
@@ -110,10 +132,10 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
                 lineHeight: '1.08',
               }}
             >
-              Integrated.
+              {accentText}
             </span>
             <span className="block font-display italic font-medium text-foreground/70 mt-1">
-              Blended with sport.
+              {tailText}
             </span>
           </h2>
 
@@ -124,7 +146,7 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
 
           {/* Founding footnote */}
           <p className="mt-4 text-foreground/60 leading-[1.7] text-[0.95rem] max-w-[560px]">
-            {renderRich(DEFAULT_FOOTNOTE)}
+            {renderRich(footnoteText)}
           </p>
 
           {/* CTA row — orange rectangular button + phone pill */}
@@ -174,7 +196,8 @@ export default function WhyMLRIT(props: WhyMLRITProps) {
         >
           <div className="relative overflow-hidden rounded-2xl md:rounded-[24px] bg-ink shadow-[0_40px_90px_-30px_rgba(15,15,15,0.35)] aspect-[3/4] max-h-[640px]">
             <video
-              src="/videos/sports.mp4"
+              key={videoSrc}
+              src={videoSrc}
               autoPlay
               muted
               loop

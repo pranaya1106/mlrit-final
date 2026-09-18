@@ -9,9 +9,9 @@ export const CONTENT_SECTIONS = {
   'home/hero': {
     label: 'Homepage — Hero',
     fields: [
-      { name: 'headlineLead', label: 'Headline lead' },
-      { name: 'headlineAccent', label: 'Headline accent' },
-      { name: 'body', label: 'Body', multiline: true },
+      { name: 'headlineLead', label: 'Headline lead', defaultValue: "Engineering" },
+      { name: 'headlineAccent', label: 'Headline accent', defaultValue: "the Future." },
+      { name: 'body', label: 'Body', multiline: true, defaultValue: "Two decades of shaping minds. 11,000+ engineers and counting. At MLRIT, we don't just teach the future — we build it." },
       // One upload drives both the inline preview and the lightbox — they are
       // the same film, and letting them diverge would be a bug, not a feature.
       { name: 'film', label: 'Hero film', type: 'video' },
@@ -76,9 +76,9 @@ export const CONTENT_SECTIONS = {
   'home/achievements': {
     label: 'Homepage — Accreditations',
     fields: [
-      { name: 'headlineLead', label: 'Headline lead' },
-      { name: 'headlineAccent', label: 'Headline accent' },
-      { name: 'body', label: 'Body', multiline: true },
+      { name: 'headlineLead', label: 'Headline lead', defaultValue: "Accreditations" },
+      { name: 'headlineAccent', label: 'Headline accent', defaultValue: "and Approvals." },
+      { name: 'body', label: 'Body', multiline: true, defaultValue: "AICTE, NAAC, NBA, ARIIA and more — MLRIT is recognised by every leading national body for academic excellence, programme quality and innovation." },
       // 7 = the number of constellation slots in Achievements.tsx (BUBBLES).
       // defaultItems mirror that component's bundled logos so the editor opens
       // with the live set already listed and editable.
@@ -139,9 +139,9 @@ export const CONTENT_SECTIONS = {
   'home/programs': {
     label: 'Homepage — Programmes',
     fields: [
-      { name: 'headlineLead', label: 'Headline lead' },
-      { name: 'headlineAccent', label: 'Headline accent' },
-      { name: 'body', label: 'Body', multiline: true },
+      { name: 'headlineLead', label: 'Headline lead', defaultValue: "Find the programme" },
+      { name: 'headlineAccent', label: 'Headline accent', defaultValue: "built for you." },
+      { name: 'body', label: 'Body', multiline: true, defaultValue: "Scroll through every UG and PG programme — each card stacks into view, revealing the next." },
       // Two lists, one per tab. `accent` is a plain string rather than an enum
       // input: the component already narrows anything unrecognised to orange,
       // so a typo degrades to the default instead of breaking the card.
@@ -297,18 +297,27 @@ export const CONTENT_SECTIONS = {
   'home/why-mlrit': {
     label: 'Homepage — Why MLRIT',
     fields: [
-      { name: 'heading', label: 'Heading' },
-      { name: 'body', label: 'Body', multiline: true },
-      { name: 'video', label: 'Background video', type: 'video' },
+      { name: 'headlineLead', label: 'Headline line 1', defaultValue: "Industry." },
+      { name: 'headlineAccent', label: 'Headline line 2 (gradient)', defaultValue: "Integrated." },
+      { name: 'headlineTail', label: 'Headline line 3 (italic)', defaultValue: "Blended with sport." },
+      { name: 'body', label: 'Body', multiline: true, defaultValue: "An integrated curriculum that gives equal weight to academics, employable skills, and sport." },
+      {
+        name: 'footnote',
+        label: 'Founding note (**bold** supported)',
+        multiline: true,
+        defaultValue: "Founded in **2005** by the KMR Education Trust, headed by **Mr. Marri Laxman Reddy**. Located in Dundigal, Hyderabad. Affiliated to JNTUH. Granted autonomous status by the UGC in 2015.",
+      },
+      { name: 'video', label: 'Portrait video', type: 'video' },
     ],
   },
 
   'home/success-stories': {
     label: 'Homepage — Success stories',
     fields: [
-      { name: 'eyebrow', label: 'Eyebrow' },
-      { name: 'headingLead', label: 'Heading line 1' },
-      { name: 'headingAccent', label: 'Heading line 2' },
+      { name: 'eyebrow', label: 'Eyebrow', defaultValue: "Wall of Achievements" },
+      { name: 'headingLead', label: 'Heading line 1', defaultValue: "Building Real Careers," },
+      { name: 'headingAccent', label: 'Heading line 2', defaultValue: "Not Just Degrees." },
+      { name: 'body', label: 'Body', multiline: true, defaultValue: "Real placements, real achievements — MLRIT students on the biggest campus stages and the country's top recruiters." },
       {
         name: 'cards',
         label: 'Cards',
@@ -348,10 +357,10 @@ export const CONTENT_SECTIONS = {
   'home/testimonials': {
     label: 'Homepage \u2014 Alumni voices',
     fields: [
-      { name: 'eyebrow', label: 'Eyebrow' },
-      { name: 'headingLead', label: 'Heading lead' },
-      { name: 'headingAccent', label: 'Heading accent' },
-      { name: 'body', label: 'Body', multiline: true },
+      { name: 'eyebrow', label: 'Eyebrow', defaultValue: "Alumni Voices" },
+      { name: 'headingLead', label: 'Heading lead', defaultValue: "What Our" },
+      { name: 'headingAccent', label: 'Heading accent', defaultValue: "Graduates Say." },
+      { name: 'body', label: 'Body', multiline: true, defaultValue: "Five MLRIT alumni — five different paths, one shared starting line." },
       {
         name: 'people',
         label: 'Alumni clips',
@@ -631,6 +640,16 @@ export type FieldConfig = {
    * quietly convert every section from fallback-driven to CMS-driven.
    */
   readonly defaultItems?: readonly GalleryItem[] | readonly RepeaterItem[];
+  /**
+   * Text fields only. Seeds the EDITOR when nothing has been saved yet, the
+   * same contract defaultItems gives lists: the form opens showing the copy
+   * the component currently renders, as editable text.
+   *
+   * Never written to the database on load — only an explicit Save persists it.
+   * Without this a required text field opens blank, which both hides the live
+   * copy and makes the section unsavable until every field is retyped.
+   */
+  readonly defaultValue?: string;
 };
 
 /**

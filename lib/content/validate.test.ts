@@ -3,8 +3,15 @@ import test from 'node:test';
 
 import { findTransientMediaError } from './validate';
 
-// home/why-mlrit is the only section with a media field (`video`).
-const BASE = { heading: 'Industry Integrated Curriculum', body: 'Body copy.' };
+// home/why-mlrit carries a single `video` media field alongside its copy.
+// The redesign renamed the text fields; the media guard is what these cover.
+const BASE = {
+  headlineLead: 'Industry.',
+  headlineAccent: 'Integrated.',
+  headlineTail: 'Blended with sport.',
+  body: 'Body copy.',
+  footnote: 'Founded in **2005**.',
+};
 const forVideo = (video: unknown) => findTransientMediaError('home', 'why-mlrit', { ...BASE, video });
 
 test('rejects a blob: URL — the value that once reached the live homepage', () => {
