@@ -112,50 +112,10 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      {/* DESKTOP */}
-      <div className="hidden md:block relative">
-        {/* Card — full width, left padding reserves space for the video overlap */}
-        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 pl-[510px] border border-neutral-200/60 min-h-[470px] flex items-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.name}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full"
-            >
-              <div className="mb-6">
-                <h2 className="font-sans text-2xl md:text-3xl font-extrabold tracking-tight !text-neutral-900 mb-2">
-                  {current.name}
-                </h2>
-                <p className="font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase !text-neutral-500">
-                  {current.title}
-                </p>
-              </div>
-              <p className="!text-neutral-700 leading-relaxed text-[1.02rem] mb-8">
-                {current.description}
-              </p>
-              <div className="flex space-x-3">
-                {socialIcons.map(({ Icon, url, label }) => (
-                  <Link
-                    key={label}
-                    href={url || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 bg-neutral-900 dark:bg-white rounded-full flex items-center justify-center hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-all hover:scale-105"
-                    aria-label={label}
-                  >
-                    <Icon className="w-5 h-5 text-white dark:text-neutral-900" />
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Video — absolutely positioned, overlapping the left side of the card */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[470px] h-[470px] rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.22)] z-10">
+      {/* DESKTOP — video left, card right, video overlaps card edge */}
+      <div className="hidden md:flex relative items-center">
+        {/* Video — sits on top of the card's left edge via z-10 */}
+        <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.videoUrl}
@@ -179,15 +139,54 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               </video>
             </motion.div>
           </AnimatePresence>
-          <span className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 to-transparent" />
+          <span className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
           <button
             type="button"
             onClick={() => setMuted((m) => !m)}
             aria-label={muted ? 'Unmute' : 'Mute'}
-            className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center hover:bg-black/70 transition-colors"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/45 backdrop-blur text-white grid place-items-center hover:bg-black/70 transition-colors"
           >
-            {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            {muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
           </button>
+        </div>
+
+        {/* Card — pulled left so video overlaps it, sits behind video */}
+        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 ml-[-80px] z-0 flex-1 border border-neutral-200/60">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.name}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="mb-6 pl-20">
+                <h2 className="font-sans text-2xl md:text-3xl font-extrabold tracking-tight !text-neutral-900 mb-2">
+                  {current.name}
+                </h2>
+                <p className="font-mono text-[0.72rem] font-semibold tracking-[0.16em] uppercase !text-neutral-500">
+                  {current.title}
+                </p>
+              </div>
+              <p className="!text-neutral-700 leading-relaxed text-[1.02rem] mb-8 pl-20">
+                {current.description}
+              </p>
+              <div className="flex space-x-3 pl-20">
+                {socialIcons.map(({ Icon, url, label }) => (
+                  <Link
+                    key={label}
+                    href={url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-neutral-900 dark:bg-white rounded-full flex items-center justify-center hover:bg-neutral-700 dark:hover:bg-neutral-200 transition-all hover:scale-105"
+                    aria-label={label}
+                  >
+                    <Icon className="w-5 h-5 text-white dark:text-neutral-900" />
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
