@@ -27,14 +27,14 @@ export default function PlacementsQuickNav({ active }: { active: string }) {
       aria-label="Placements sections"
     >
       <span aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
-      <div className="w-full px-6 md:px-10 lg:px-12">
-        <div className="flex flex-wrap gap-2 py-3 lg:hidden">
+      <div className="w-full px-4 md:px-10 lg:px-12">
+        <div className="flex flex-wrap gap-1 py-1.5 lg:hidden">
           {PLACEMENTS_NAV.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={l.href === active ? 'page' : undefined}
-              className={`px-3.5 py-2 rounded-full text-[0.82rem] font-medium border transition-colors whitespace-nowrap ${
+              className={`px-2.5 py-1 rounded-full text-[0.7rem] leading-tight font-medium border transition-colors whitespace-nowrap ${
                 l.href === active
                   ? 'bg-primary text-white border-primary font-semibold'
                   : 'bg-white text-muted border-border hover:border-primary hover:text-foreground'
@@ -43,16 +43,16 @@ export default function PlacementsQuickNav({ active }: { active: string }) {
               {l.label}
             </Link>
           ))}
-          {activeSections.length > 0 && (
-            <div className="w-full flex flex-wrap gap-2 pt-1 border-t border-border/50 mt-1">
-              {activeSections.map((s) => (
-                <a key={s.id} href={`#${s.id}`} className="px-3 py-1.5 rounded-full text-[0.78rem] font-medium bg-orange-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors whitespace-nowrap">
-                  {s.label}
-                </a>
-              ))}
-            </div>
-          )}
         </div>
+        {activeSections.length > 0 && (
+          <div className="flex flex-wrap gap-1 pb-1.5 border-t border-border/50 pt-1 lg:hidden">
+            {activeSections.map((s) => (
+              <a key={s.id} href={`#${s.id}`} className="px-2 py-0.5 rounded-full text-[0.65rem] leading-tight font-medium bg-orange-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors whitespace-nowrap">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        )}
 
         <div className="hidden lg:flex items-center gap-1 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
           {PLACEMENTS_NAV.map((l) => {

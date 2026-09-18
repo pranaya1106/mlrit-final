@@ -94,8 +94,8 @@ export default function CertificatesPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="certificates" className="bg-white py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section id="certificates" className="bg-white py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
 
           {/* Application form download */}
           <Reveal>
@@ -107,11 +107,11 @@ export default function CertificatesPage() {
             <p className="mt-4 text-muted text-[0.93rem] max-w-[600px] leading-relaxed">
               A single application form covers all certificate types. Select the certificate(s) you need, complete the form and submit it to the COE office in person or by email.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-3">
               <DocActions href="/examinations/apply-for-certificates.pdf" viewLabel="View Form" downloadLabel="Download Form" />
               <a
                 href="/examinations/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"
               >
                 Contact COE Office →
               </a>
@@ -119,16 +119,16 @@ export default function CertificatesPage() {
           </Reveal>
 
           {/* Certificate cards */}
-          <div className="mt-16">
+          <div className="mt-10 md:mt-16">
             <Reveal>
               <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-muted">Available Documents</span>
             </Reveal>
-            <Stagger className="mt-6 grid md:grid-cols-2 gap-4" delay={0.05}>
+            <Stagger className="mt-4 md:mt-6 grid md:grid-cols-2 gap-3 md:gap-4" delay={0.05}>
               {CERTIFICATES.map((c) => (
                 <StaggerItem key={c.title}>
-                  <div className="rounded-2xl border border-border bg-warm-light p-6 h-full">
+                  <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-6 h-full">
                     <h3 className="font-sans font-extrabold text-foreground text-[0.97rem] mb-2">{c.title}</h3>
-                    <p className="text-muted text-[0.84rem] leading-relaxed mb-4">{c.desc}</p>
+                    <p className="text-muted text-[0.84rem] leading-relaxed mb-3 md:mb-4">{c.desc}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-border font-mono text-[0.65rem] font-bold text-secondary">
                         {c.timeline}
@@ -142,7 +142,7 @@ export default function CertificatesPage() {
 
           {/* Submission note */}
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-12 p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
+            <div className="mt-8 md:mt-12 p-4 md:p-5 rounded-xl border border-border bg-warm-light flex items-start gap-3">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                 className="text-secondary shrink-0 mt-0.5" aria-hidden>
                 <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>

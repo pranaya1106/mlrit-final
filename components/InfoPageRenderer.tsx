@@ -111,7 +111,7 @@ export default function InfoPageRenderer({ page }: { page: InfoPage }) {
       />
       <PageQuickNav />
       <div className="bg-white">
-        <div className="w-full px-6 md:px-10 lg:px-12 py-8 md:py-10 space-y-10 md:space-y-14">
+        <div className="w-full px-4 md:px-10 lg:px-12 py-6 md:py-10 space-y-7 md:space-y-14">
           {page.blocks.map((block, i) => (
             <Block key={i} block={block} index={i} />
           ))}
@@ -160,11 +160,11 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'bullet-groups':
       return (
-        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
+        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" delay={0.06}>
           {block.items.map((g) => (
             <StaggerItem key={g.title}>
-              <div className="rounded-2xl border border-border bg-white p-7 h-full">
-                <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] tracking-tight mb-4">
+              <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full">
+                <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] tracking-tight mb-3 md:mb-4">
                   {g.title}
                 </h3>
                 <ul className="space-y-3">
@@ -183,14 +183,14 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'stat-grid':
       return (
-        <Stagger className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6" delay={0.06}>
+        <Stagger className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6" delay={0.06}>
           {block.items.map((s) => (
             <StaggerItem key={s.label}>
-              <div className="rounded-2xl border border-border bg-cream p-7 hover:-translate-y-1 hover:shadow-card-soft transition-all duration-300 h-full">
+              <div className="rounded-2xl border border-border bg-cream p-4 md:p-7 hover:-translate-y-1 hover:shadow-card-soft transition-all duration-300 h-full">
                 <div className="font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3vw,2.6rem)] leading-none">
                   {s.num}
                 </div>
-                <div className="mt-3 font-mono text-[0.66rem] tracking-[0.18em] uppercase text-muted leading-tight">
+                <div className="mt-2 md:mt-3 font-mono text-[0.66rem] tracking-[0.18em] uppercase text-muted leading-tight">
                   {s.label}
                 </div>
               </div>
@@ -201,20 +201,20 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'cards':
       return (
-        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
+        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" delay={0.06}>
           {block.items.map((c) => {
             const inner = (
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-2xl border border-border bg-white p-7 h-full hover:border-primary hover:shadow-card-soft transition-all duration-300"
+                className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full hover:border-primary hover:shadow-card-soft transition-all duration-300"
               >
-                <h3 className="font-sans font-extrabold text-foreground text-[1.15rem] tracking-tighter-2 leading-tight">
+                <h3 className="font-sans font-extrabold text-foreground text-[1rem] md:text-[1.15rem] tracking-tighter-2 leading-tight">
                   {c.title}
                 </h3>
-                <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{c.body}</p>
+                <p className="mt-1.5 md:mt-3 text-muted leading-relaxed text-[0.85rem] md:text-[0.96rem]">{c.body}</p>
                 {c.href && (
-                  <div className="mt-5 inline-flex items-center gap-1.5 text-primary font-sans font-bold text-[0.86rem]">
+                  <div className="mt-3 md:mt-5 inline-flex items-center gap-1.5 text-primary font-sans font-bold text-[0.86rem]">
                     Learn more <span>→</span>
                   </div>
                 )}
@@ -238,12 +238,12 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
     case 'quote':
       return (
         <Reveal>
-          <div className="border-l-[3px] border-primary pl-7 md:pl-10 max-w-[820px]">
-            <span aria-hidden className="font-display text-primary text-[5rem] leading-[0.7] block">&ldquo;</span>
+          <div className="border-l-[3px] border-primary pl-5 md:pl-10 max-w-[820px]">
+            <span aria-hidden className="font-display text-primary text-[3rem] md:text-[5rem] leading-[0.7] block">&ldquo;</span>
             <p className="font-display italic font-medium text-foreground text-[clamp(1.3rem,2.2vw,1.8rem)] leading-[1.4] tracking-tight">
               {block.text}
             </p>
-            <div className="mt-7 flex items-center gap-4">
+            <div className="mt-5 md:mt-7 flex items-center gap-4">
               <span className="w-12 h-px bg-primary" />
               <div>
                 <div className="font-sans font-bold text-foreground text-[0.98rem]">{block.attribution}</div>
@@ -298,7 +298,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
             {block.items.map((s) => (
               <div
                 key={s.label}
-                className="flex-1 px-6 py-7 md:px-8 border-b sm:border-b-0 sm:border-r last:border-0 border-white/10"
+                className="flex-1 px-6 py-5 md:py-7 md:px-8 border-b sm:border-b-0 sm:border-r last:border-0 border-white/10"
               >
                 <div className="font-sans font-black tracking-tighter-2 text-white text-[clamp(1.8rem,2.6vw,2.4rem)] leading-none">
                   {s.num}
@@ -321,17 +321,17 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
           ? 'lg:grid-cols-3'
           : 'lg:grid-cols-2';
       return (
-        <Stagger className={`grid sm:grid-cols-2 ${cols} gap-5`} delay={0.06}>
+        <Stagger className={`grid sm:grid-cols-2 ${cols} gap-3 md:gap-5`} delay={0.06}>
           {block.items.map((c) => {
             const inner = (
-              <div className="group rounded-2xl border border-border bg-white p-7 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
+              <div className="group rounded-2xl border border-border bg-white p-4 md:p-7 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
                 <span className="inline-flex w-12 h-12 rounded-xl bg-secondary/10 text-secondary items-center justify-center transition-colors group-hover:bg-secondary group-hover:text-white">
                   <Ico name={c.icon} className="w-6 h-6" />
                 </span>
-                <h3 className="mt-5 font-sans font-extrabold text-foreground text-[1.12rem] tracking-tight">
+                <h3 className="mt-3 md:mt-5 font-sans font-extrabold text-foreground text-[1rem] md:text-[1.12rem] tracking-tight">
                   {c.title}
                 </h3>
-                <p className="mt-2 text-muted leading-relaxed text-[0.95rem]">{c.body}</p>
+                <p className="mt-1.5 md:mt-2 text-muted leading-relaxed text-[0.85rem] md:text-[0.95rem]">{c.body}</p>
                 {c.href && (
                   <div className="mt-4 inline-flex items-center gap-1.5 text-primary font-sans font-bold text-[0.84rem]">
                     Learn more <ArrowRight className="w-3.5 h-3.5" />
@@ -357,17 +357,17 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'numbered-cards':
       return (
-        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
+        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" delay={0.06}>
           {block.items.map((c, i) => (
             <StaggerItem key={c.title}>
-              <div className="rounded-2xl border border-border bg-white p-7 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
+              <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
                 <span className="font-mono text-[0.72rem] font-bold tracking-[0.2em] text-primary">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-3 font-sans font-extrabold text-foreground text-[1.08rem] tracking-tight">
+                <h3 className="mt-2 md:mt-3 font-sans font-extrabold text-foreground text-[1rem] md:text-[1.08rem] tracking-tight">
                   {c.title}
                 </h3>
-                <p className="mt-2 text-muted leading-relaxed text-[0.92rem]">{c.body}</p>
+                <p className="mt-1.5 md:mt-2 text-muted leading-relaxed text-[0.85rem] md:text-[0.92rem]">{c.body}</p>
               </div>
             </StaggerItem>
           ))}
@@ -376,10 +376,10 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'ranking-cards':
       return (
-        <Stagger className="grid sm:grid-cols-2 gap-5" delay={0.06}>
+        <Stagger className="grid sm:grid-cols-2 gap-3 md:gap-5" delay={0.06}>
           {block.items.map((c) => (
             <StaggerItem key={c.title}>
-              <div className="flex items-start gap-4 rounded-2xl border border-border bg-white p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
+              <div className="flex items-start gap-4 rounded-2xl border border-border bg-white p-4 md:p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
                 <span className="inline-flex w-11 h-11 rounded-xl bg-secondary/10 text-secondary items-center justify-center flex-shrink-0">
                   <Ico name={c.icon} className="w-5 h-5" />
                 </span>
@@ -411,13 +411,13 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'pillars':
       return (
-        <Stagger className="grid md:grid-cols-2 gap-6" delay={0.1}>
+        <Stagger className="grid md:grid-cols-2 gap-4 md:gap-6" delay={0.1}>
           {block.items.map((p) => {
             const green = p.variant === 'green';
             return (
               <StaggerItem key={p.title}>
                 <div
-                  className={`rounded-3xl p-8 md:p-10 h-full border ${
+                  className={`rounded-3xl p-5 md:p-10 h-full border ${
                     green
                       ? 'bg-green-hero text-white border-transparent'
                       : 'bg-white border-border'
@@ -431,26 +431,26 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
                     <Ico name={p.icon} className="w-6 h-6" />
                   </span>
                   <div
-                    className={`mt-6 font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase ${
+                    className={`mt-4 md:mt-6 font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase ${
                       green ? 'text-white/60' : 'text-secondary'
                     }`}
                   >
                     {p.eyebrow}
                   </div>
                   <h3
-                    className={`mt-2 font-sans font-extrabold tracking-tight text-[1.4rem] md:text-[1.6rem] leading-[1.2] ${
+                    className={`mt-2 font-sans font-extrabold tracking-tight text-[1.2rem] md:text-[1.6rem] leading-[1.2] ${
                       green ? 'text-white' : 'text-foreground'
                     }`}
                   >
                     {p.title}
                   </h3>
                   {p.body && (
-                    <p className={`mt-4 leading-relaxed ${green ? 'text-white/80' : 'text-muted'}`}>
+                    <p className={`mt-3 md:mt-4 leading-relaxed ${green ? 'text-white/80' : 'text-muted'}`}>
                       {p.body}
                     </p>
                   )}
                   {p.bullets && (
-                    <ul className="mt-5 space-y-3">
+                    <ul className="mt-4 md:mt-5 space-y-3">
                       {p.bullets.map((b) => (
                         <li
                           key={b}
@@ -477,12 +477,12 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'leadership':
       return (
-        <Stagger className="grid md:grid-cols-2 gap-6" delay={0.08}>
+        <Stagger className="grid md:grid-cols-2 gap-4 md:gap-6" delay={0.08}>
           {block.items.map((l) => {
             const orange = l.accent === 'orange';
             return (
               <StaggerItem key={l.name}>
-                <div className="relative rounded-2xl border border-border bg-white p-8 h-full overflow-hidden">
+                <div className="relative rounded-2xl border border-border bg-white p-5 md:p-8 h-full overflow-hidden">
                   <span className={`absolute top-0 inset-x-0 h-1 ${orange ? 'bg-primary' : 'bg-secondary'}`} />
                   <div className="flex items-center gap-4">
                     <span
@@ -503,13 +503,13 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
                       <div className="font-sans font-extrabold text-foreground text-[1.1rem]">{l.name}</div>
                     </div>
                   </div>
-                  <p className="mt-5 font-display italic text-foreground/80 leading-[1.6] text-[1.05rem]">
+                  <p className="mt-3 md:mt-5 font-display italic text-foreground/80 leading-[1.6] text-[0.95rem] md:text-[1.05rem]">
                     &ldquo;{l.quote}&rdquo;
                   </p>
                   {l.href && (
                     <Link
                       href={l.href}
-                      className={`mt-6 inline-flex items-center gap-2 font-sans font-bold text-[0.86rem] ${
+                      className={`mt-4 md:mt-6 inline-flex items-center gap-2 font-sans font-bold text-[0.86rem] ${
                         orange ? 'text-primary' : 'text-secondary'
                       }`}
                     >
@@ -525,10 +525,10 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
 
     case 'chips':
       return (
-        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5" delay={0.04}>
+        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5 md:gap-3.5" delay={0.04}>
           {block.items.map((c) => (
             <StaggerItem key={c.label}>
-              <div className="flex items-center gap-3 rounded-xl border border-border bg-white px-5 py-4 h-full">
+              <div className="flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 md:px-5 md:py-4 h-full">
                 <span className="w-2 h-2 rounded-full bg-secondary flex-shrink-0" />
                 <div className="min-w-0">
                   <div className="font-sans font-bold text-foreground text-[0.95rem]">{c.label}</div>
@@ -558,9 +558,9 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
               <img src={block.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
             ) : null}
             <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
-            <div className="relative px-6 md:px-12 py-14 md:py-20">
+            <div className="relative px-4 md:px-12 py-8 md:py-20">
               {block.title && (
-                <h3 className="text-center font-display italic font-bold text-white text-[clamp(1.8rem,3.6vw,2.8rem)] mb-10 md:mb-12">
+                <h3 className="text-center font-display italic font-bold text-white text-[clamp(1.8rem,3.6vw,2.8rem)] mb-6 md:mb-12">
                   {block.title}
                 </h3>
               )}
@@ -586,9 +586,9 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
     case 'brochure-card':
       return (
         <Reveal preset="scale">
-          <div className="relative rounded-3xl overflow-hidden bg-green-hero text-white p-8 md:p-12">
+          <div className="relative rounded-3xl overflow-hidden bg-green-hero text-white p-5 md:p-12">
             <div aria-hidden className="absolute -top-20 -right-16 w-72 h-72 rounded-full bg-white/5 blur-[60px]" />
-            <div className="relative flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+            <div className="relative flex flex-col md:flex-row md:items-center gap-5 md:gap-12">
               <div className="flex-1">
                 <span className="inline-flex items-center gap-2 font-display text-2xl font-bold tracking-tight">
                   <GraduationCap className="w-7 h-7 text-warm" /> MLRIT
@@ -688,7 +688,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
                   {block.columns.map((c) => (
                     <th
                       key={c}
-                      className="px-5 py-4 font-mono text-[0.62rem] font-bold tracking-[0.16em] uppercase text-muted whitespace-nowrap"
+                      className="px-3 py-3 md:px-5 md:py-4 font-mono text-[0.62rem] font-bold tracking-[0.16em] uppercase text-muted whitespace-nowrap"
                     >
                       {c}
                     </th>
@@ -704,7 +704,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
                     {row.map((cell, ci) => (
                       <td
                         key={ci}
-                        className={`px-5 py-4 text-[0.92rem] leading-snug align-top ${
+                        className={`px-3 py-3 md:px-5 md:py-4 text-[0.92rem] leading-snug align-top ${
                           ci === 0 ? 'font-sans font-bold text-foreground' : 'text-muted'
                         }`}
                       >
@@ -753,7 +753,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
                           isRight ? 'md:col-start-2' : 'md:col-start-1 md:text-right'
                         }`}
                       >
-                        <div className="group block rounded-2xl border border-border bg-white p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
+                        <div className="group block rounded-2xl border border-border bg-white p-4 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft">
                           <div className={`flex items-baseline gap-3 ${isRight ? '' : 'md:justify-end'}`}>
                             <span className="font-display italic font-black text-secondary text-[clamp(1.8rem,2.6vw,2.4rem)] leading-none tracking-tighter-2">
                               {t.y}

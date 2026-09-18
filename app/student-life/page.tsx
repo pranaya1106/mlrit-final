@@ -112,11 +112,11 @@ export default function StudentLifeOverviewPage() {
 
       {/* ─── STATS ────────────────────────────────────────────────────────── */}
       <section
-        className="w-full py-16 md:py-20"
+        className="w-full py-10 md:py-20"
         aria-label="Student life at a glance"
       >
         {/* Heading block */}
-        <div className="text-center px-6 mb-12 md:mb-16">
+        <div className="text-center px-4 md:px-6 mb-8 md:mb-16">
           <h2
             className="font-sans font-semibold"
             style={{
@@ -141,7 +141,7 @@ export default function StudentLifeOverviewPage() {
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center px-8 md:px-12 py-4"
+              className="flex flex-col items-center px-5 md:px-12 py-4"
               style={{
                 borderLeft: i > 0 ? '1px solid rgba(15,15,15,0.10)' : 'none',
                 minWidth: 'clamp(140px, 18vw, 220px)',
@@ -175,7 +175,7 @@ export default function StudentLifeOverviewPage() {
 
       {/* ─── CELEBRATE CAMPUS ENGAGEMENTS ─────────────────────────────────── */}
       <section
-        className="w-full py-10 md:py-14"
+        className="w-full py-8 md:py-14"
         style={{ backgroundColor: '#f1ece1' }}
         aria-label="Campus Engagements"
       >
@@ -199,7 +199,7 @@ export default function StudentLifeOverviewPage() {
           </div>
 
           {/* Two-column text row */}
-          <div className="mt-8 md:mt-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-0">
+          <div className="mt-6 md:mt-10 flex flex-col md:flex-row md:items-start gap-4 md:gap-0">
             {/* Left: heading */}
             <div className="md:w-1/2 md:pr-12">
               <h2

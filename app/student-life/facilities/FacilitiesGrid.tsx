@@ -271,7 +271,7 @@ function FacilityModal({ facility, onClose }: { facility: Facility; onClose: () 
           </div>
 
           {/* ── Right: info panel ── */}
-          <div className="flex-1 flex flex-col p-7 md:p-10 overflow-y-auto">
+          <div className="flex-1 flex flex-col p-4 md:p-10 overflow-y-auto">
             {/* Close button */}
             <div className="flex justify-end mb-5">
               <button onClick={onClose}
@@ -411,11 +411,11 @@ export default function FacilitiesGrid() {
 
   return (
     <>
-      <section aria-label="Campus facilities" className="bg-[#faf7f0] py-14 md:py-20">
+      <section aria-label="Campus facilities" className="bg-[#faf7f0] py-8 md:py-20">
         <div className="max-w-[1280px] mx-auto px-4 md:px-8 lg:px-16">
 
           {/* Section eyebrow */}
-          <div className="mb-8 flex items-center gap-3">
+          <div className="mb-5 md:mb-8 flex items-center gap-3">
             <span className="h-px w-10" style={{ background: '#e85d04', opacity: 0.5 }} />
             <span className="font-mono font-bold uppercase text-ink/30"
               style={{ fontSize: '0.6rem', letterSpacing: '0.22em' }}>

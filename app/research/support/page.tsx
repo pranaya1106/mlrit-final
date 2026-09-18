@@ -49,16 +49,16 @@ export default function ResearchSupportPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="support" className="bg-warm-light min-h-screen py-10 md:py-14">
-        <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
+      <section id="support" className="bg-warm-light min-h-screen py-6 md:py-14">
+        <div className="max-w-[720px] mx-auto px-4 md:px-12 lg:px-20 space-y-4 md:space-y-6">
 
           {CONTACTS.map((c) => (
             <Reveal key={c.role} preset="up">
-              <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+              <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
                 <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{c.role}</p>
                 <h3 className="font-sans font-extrabold text-foreground text-[1.1rem]">{c.name}</h3>
                 <p className="mt-1 text-muted text-[0.88rem]">{c.purpose}</p>
-                <div className="mt-5 flex flex-col gap-2.5">
+                <div className="mt-4 md:mt-5 flex flex-col gap-2.5">
                   {c.phone === 'To be updated' ? (
                     <span className="inline-flex items-center gap-2 text-muted text-[0.88rem] italic">Phone — To be updated</span>
                   ) : (
@@ -88,7 +88,7 @@ export default function ResearchSupportPage() {
           ))}
 
           <Reveal preset="up">
-            <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+            <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
               <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
               <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">R&D Cell — Research Block</h3>
               <p className="text-foreground text-[0.93rem] leading-relaxed">
@@ -96,7 +96,7 @@ export default function ResearchSupportPage() {
                 Survey No. 444, Dundigal, Gandi Maisamma<br />
                 Medchal Malkajgiri, Telangana – 500 043
               </p>
-              <div className="mt-5">
+              <div className="mt-4 md:mt-5">
                 <a
                   href="mailto:research@mlrinstitutions.ac.in"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"

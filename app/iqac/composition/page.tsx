@@ -153,22 +153,22 @@ export default function CompositionPage() {
             <H2 italic="">IQAC Members</H2>
             <Lede>The IQAC functions as the nodal agency for quality assurance and enhancement, bringing together institutional leadership, faculty, and external experts.</Lede>
             <Reveal preset="up" delay={0.08}>
-              <div className="mt-8 overflow-x-auto rounded-2xl border border-border">
+              <div className="mt-5 md:mt-8 overflow-x-auto rounded-2xl border border-border">
                 <table className="w-full text-left">
                   <caption className="sr-only">IQAC Member Composition</caption>
                   <thead>
                     <tr className="bg-warm-light border-b border-border">
-                      <th scope="col" className="px-5 py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted w-12">S.No.</th>
-                      <th scope="col" className="px-5 py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Category</th>
-                      <th scope="col" className="px-5 py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Position</th>
+                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted w-12">S.No.</th>
+                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Category</th>
+                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Position</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
                     {MEMBERS.map((m) => (
                       <tr key={m.sno} className="bg-white hover:bg-warm-light/40 transition-colors">
-                        <td className="px-5 py-3.5 font-mono text-muted text-[0.82rem]">{m.sno}</td>
-                        <td className="px-5 py-3.5 text-foreground text-[0.93rem]">{m.category}</td>
-                        <td className="px-5 py-3.5">
+                        <td className="px-3 md:px-5 py-2.5 md:py-3.5 font-mono text-muted text-[0.82rem]">{m.sno}</td>
+                        <td className="px-3 md:px-5 py-2.5 md:py-3.5 text-foreground text-[0.93rem]">{m.category}</td>
+                        <td className="px-3 md:px-5 py-2.5 md:py-3.5">
                           <span className={[
                             'inline-block px-2.5 py-0.5 rounded-full font-mono text-[0.68rem] font-bold tracking-wide',
                             m.position === 'IQAC Coordinator'
@@ -193,7 +193,7 @@ export default function CompositionPage() {
           <Section id="head-iqac">
             <H2 italic="">Head IQAC</H2>
             <Reveal preset="up" delay={0.1}>
-              <div className="mt-8 rounded-2xl border border-border bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8">
+              <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white p-5 md:p-10 flex flex-col md:flex-row gap-5 md:gap-8">
                 <div className="shrink-0 w-40 h-44 md:w-44 md:h-48 rounded-2xl overflow-hidden border border-border self-start">
                   <img src="/images/leadership/dr-radhika-devi.jpg" alt="Dr. Radhika Devi V" className="w-full h-full object-cover object-top" />
                 </div>
@@ -219,7 +219,7 @@ export default function CompositionPage() {
                   </div>
                 </div>
                 <div className="md:w-64 shrink-0">
-                  <div className="rounded-2xl border border-border bg-warm-light p-6 space-y-4">
+                  <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-6 space-y-4">
                     <div>
                       <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Qualification</div>
                       <p className="text-foreground text-[0.93rem]">M.Sc., Ph.D — Physics<br /><span className="text-muted text-[0.85rem]">Hyderabad Central University</span></p>
@@ -247,10 +247,10 @@ export default function CompositionPage() {
                 The IQAC functions as the nodal agency for quality assurance and enhancement, ensuring that the institution continuously improves its academic and administrative performance.
               </p>
             </Reveal>
-            <div className="mt-8 space-y-4">
+            <div className="mt-5 md:mt-8 space-y-4">
               {ROLES.map((r, i) => (
                 <Reveal key={r.role} preset="right" delay={i * 0.05}>
-                  <div className="rounded-2xl border border-border bg-white p-6">
+                  <div className="rounded-2xl border border-border bg-white p-4 md:p-6">
                     <h3 className="font-sans font-extrabold text-foreground text-[1rem] mb-4">{r.role}</h3>
                     <ul className="space-y-2">
                       {r.responsibilities.map((resp, j) => (

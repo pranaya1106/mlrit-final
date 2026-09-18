@@ -82,11 +82,13 @@ export default function SuccessStories() {
           <h2 className="font-sans font-black text-foreground leading-[0.96] tracking-tighter-3 text-[clamp(2.2rem,4.8vw,4.2rem)]">
             <span className="block">Building Real Careers,</span>
             <span className="relative inline-block mt-1 md:mt-2">
+              {/* Upright, not italic: Playfair's italic capital "J" has a
+                  swash descender that reads as an "f" at this size. */}
               <span
-                className="font-display italic font-medium pb-[0.14em] text-foreground"
+                className="font-display font-medium pb-[0.14em] text-foreground"
                 style={{
                   fontFamily: 'var(--font-playfair), Georgia, serif',
-                  fontStyle: 'italic',
+                  fontStyle: 'normal',
                   fontWeight: 500,
                   lineHeight: 1.08,
                 }}

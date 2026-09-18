@@ -147,7 +147,7 @@ function ProgrammeCard({
   abbr, name, seats, duration, desc, href,
 }: (typeof BTECH)[number]) {
   return (
-    <div className="bg-white rounded-2xl border border-border shadow-card-soft p-6 flex flex-col gap-4 hover:shadow-card-strong transition-shadow group">
+    <div className="bg-white rounded-2xl border border-border shadow-card-soft p-4 md:p-6 flex flex-col gap-3 md:gap-4 hover:shadow-card-strong transition-shadow group">
       <div className="flex items-start justify-between gap-3">
         <span className="inline-flex px-3 py-1 rounded-full bg-green-50 border border-green-200 text-secondary font-mono font-bold text-[0.7rem] tracking-widest uppercase shrink-0">
           {abbr}
@@ -198,12 +198,12 @@ export default function ByDegreePage() {
       <section className="bg-warm-light min-h-screen py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           {/* Tabs */}
-          <div className="flex gap-2 p-1.5 bg-white border border-border rounded-2xl shadow-card-soft w-fit mb-12">
+          <div className="flex gap-2 p-1.5 bg-white border border-border rounded-2xl shadow-card-soft w-fit mb-6 md:mb-12">
             {TABS.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-2.5 rounded-xl font-sans font-semibold text-sm transition-all ${
+                className={`px-4 py-2.5 md:px-6 rounded-xl font-sans font-semibold text-sm transition-all ${
                   activeTab === tab.id
                     ? 'bg-secondary text-white shadow-secondary-glow'
                     : 'text-muted hover:text-foreground'
@@ -220,7 +220,7 @@ export default function ByDegreePage() {
           {/* Programme grid */}
           <div
             key={activeTab}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 transition-opacity duration-300 animate-fade-in"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 transition-opacity duration-300 animate-fade-in"
             style={{ animation: 'tabFadeIn 0.3s ease forwards' }}
           >
             {programmes.map(p => (
@@ -240,9 +240,9 @@ export default function ByDegreePage() {
 
           {/* Admission criteria note */}
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-16 bg-white border border-border rounded-2xl p-8 shadow-card-soft">
+            <div className="mt-8 md:mt-16 bg-white border border-border rounded-2xl p-5 md:p-8 shadow-card-soft">
               <h3 className="font-sans font-bold text-[1.08rem] text-foreground mb-4">Admission Criteria</h3>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                 {[
                   { degree: 'B.Tech', via: 'AP/TS EAMCET', qual: '10+2 with Maths, Physics, Chemistry (Min 45%)' },
                   { degree: 'M.Tech', via: 'GATE / PGECET', qual: 'B.Tech in relevant branch (Min 50%)' },

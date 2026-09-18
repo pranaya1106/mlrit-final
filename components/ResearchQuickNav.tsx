@@ -21,12 +21,12 @@ export default function ResearchQuickNav({ active }: { active: string }) {
       aria-label="Research sub-navigation"
     >
       {/* Mobile — wrapping pill buttons */}
-      <div className="lg:hidden w-full px-4 py-3 flex flex-wrap gap-2">
+      <div className="lg:hidden w-full px-4 py-1.5 flex flex-wrap gap-1">
         {TABS.map((t) => (
           <Link
             key={t.href}
             href={t.href}
-            className={`px-3.5 py-1.5 rounded-full text-[0.8rem] font-medium border transition-colors whitespace-nowrap ${
+            className={`px-2.5 py-1 rounded-full text-[0.7rem] leading-tight font-medium border transition-colors whitespace-nowrap ${
               t.href === active
                 ? 'bg-primary text-white border-primary font-semibold'
                 : 'bg-white text-muted border-border hover:border-primary/50 hover:text-foreground'

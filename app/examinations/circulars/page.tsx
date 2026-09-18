@@ -205,8 +205,8 @@ export default function CircularsPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="circulars" className="bg-warm-light min-h-[60vh] py-10 md:py-14">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section id="circulars" className="bg-warm-light min-h-[60vh] py-8 md:py-14">
+        <div className="w-full px-4 md:px-10 lg:px-12">
 
           <Reveal>
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
@@ -220,10 +220,10 @@ export default function CircularsPage() {
             </p>
           </Reveal>
 
-          <Stagger className="mt-10 space-y-3" delay={0.04}>
+          <Stagger className="mt-6 md:mt-10 space-y-3" delay={0.04}>
             {CIRCULARS.map((c) => (
               <StaggerItem key={c.file}>
-                <div className="bg-white rounded-2xl border border-border px-5 py-4 flex items-center gap-4 hover:border-secondary/40 transition-colors">
+                <div className="bg-white rounded-2xl border border-border px-4 py-3 md:px-5 md:py-4 flex items-center gap-3 md:gap-4 hover:border-secondary/40 transition-colors">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full border text-[0.6rem] font-mono font-bold tracking-widest uppercase ${BADGE_STYLES[c.category]}`}>
@@ -247,7 +247,7 @@ export default function CircularsPage() {
           </Stagger>
 
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-8 p-5 rounded-xl border border-border bg-white flex items-start gap-3">
+            <div className="mt-6 md:mt-8 p-4 md:p-5 rounded-xl border border-border bg-white flex items-start gap-3">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-secondary shrink-0 mt-0.5" aria-hidden>
                 <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M8 7v5M8 5v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>

@@ -60,14 +60,14 @@ export default function Hero(props: HeroProps) {
           tick marks, and small brand-color dots. Every mark under 30%
           opacity so they read as printers' precision, never noise. */}
       <div aria-hidden className="absolute inset-x-0 top-0 z-[0] pointer-events-none">
-        {/* Top-left "+" register mark */}
-        <div className="absolute top-3 md:top-4 left-3 md:left-5 w-3 h-3">
+        {/* Top-left "+" register mark — desktop only, too fussy at phone width */}
+        <div className="hidden md:block absolute top-3 md:top-4 left-3 md:left-5 w-3 h-3">
           <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-foreground/30" />
           <span className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-foreground/30" />
         </div>
 
-        {/* Top-right "+" register mark */}
-        <div className="absolute top-3 md:top-4 right-3 md:right-5 w-3 h-3">
+        {/* Top-right "+" register mark — desktop only, too fussy at phone width */}
+        <div className="hidden md:block absolute top-3 md:top-4 right-3 md:right-5 w-3 h-3">
           <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-foreground/30" />
           <span className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-foreground/30" />
         </div>
@@ -122,7 +122,7 @@ export default function Hero(props: HeroProps) {
           the headline/body/CTA appear to sit on cream. Card must beat
           Stats so its ink bg wins in the overlap zone. */}
       <div
-        className="relative z-[2] mx-4 md:mx-6 lg:mx-8 h-[calc(100vh-var(--header-h)+8rem)] min-h-[640px] overflow-hidden bg-ink rounded-[24px] md:rounded-[32px] shadow-[0_40px_100px_-30px_rgba(15,15,15,0.35)]"
+        className="relative z-[2] mx-4 md:mx-6 lg:mx-8 h-[80vh] min-h-[480px] md:h-[calc(100vh-var(--header-h)+8rem)] md:min-h-[640px] overflow-hidden bg-ink rounded-[24px] md:rounded-[32px] shadow-[0_40px_100px_-30px_rgba(15,15,15,0.35)]"
         style={{ marginBottom: 0 }}
       >
         {/* Background image — the campus facade. Static hero visual so
@@ -152,14 +152,16 @@ export default function Hero(props: HeroProps) {
           {/* Spacer — pushes bottom content to the bottom of the card */}
           <div className="flex-1 min-h-0" />
 
-          {/* Bottom content — headline, body, CTA. Deep pb so the block
-              lifts above the fold even though the card itself extends
-              past the viewport for the overlap effect. */}
+          {/* Bottom content — headline, body, CTA. Deep pb on desktop so the
+              block lifts above the fold even though the card extends past
+              the viewport there for the overlap effect. Mobile's card is a
+              fixed 80vh with no overlap, so a small pb sits it right at
+              the bottom of the image instead. */}
           <motion.div
             initial="hidden"
             animate="show"
             variants={{ show: { transition: { staggerChildren: 0.14, delayChildren: 0.35 } } }}
-            className="px-6 md:px-12 lg:px-20 pb-44 md:pb-52 lg:pb-56"
+            className="px-6 md:px-12 lg:px-20 pb-8 md:pb-52 lg:pb-56"
           >
             <motion.h1
               variants={lineUp}
@@ -223,7 +225,7 @@ export default function Hero(props: HeroProps) {
             y: previewY,
             transformOrigin: 'top right',
           }}
-          className="group absolute right-5 md:right-8 top-[55%] md:top-[58%] z-[3] w-64 md:w-80 lg:w-[380px] rounded-2xl overflow-hidden bg-ink border border-white/12 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] hover:border-white/30 hover:shadow-[0_36px_100px_-20px_rgba(0,0,0,0.8)] transition-[border-color,box-shadow] duration-300 will-change-transform"
+          className="hidden md:block group absolute right-5 md:right-8 top-[55%] md:top-[58%] z-[3] w-64 md:w-80 lg:w-[380px] rounded-2xl overflow-hidden bg-ink border border-white/12 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] hover:border-white/30 hover:shadow-[0_36px_100px_-20px_rgba(0,0,0,0.8)] transition-[border-color,box-shadow] duration-300 will-change-transform"
         >
           <div className="relative aspect-video">
             <video
@@ -258,6 +260,15 @@ export default function Hero(props: HeroProps) {
             </div>
           </div>
         </motion.button>
+      </div>
+
+      {/* "01 · Est 2005" chapter mark — anchors to the hero image instead of
+          floating detached at the top of Stats below. Mobile only; Stats
+          hides its own copy of this same first-item caption so it isn't
+          shown twice. */}
+      <div className="md:hidden flex items-center gap-2 mx-4 mt-4">
+        <span className="chapter-mark !text-[0.66rem]">01</span>
+        <span className="editorial-eyebrow !text-[0.66rem]">Est · 2005</span>
       </div>
     </section>
   );

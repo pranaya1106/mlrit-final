@@ -132,7 +132,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
         style={{ background: 'linear-gradient(to left, white 0%, transparent 100%)' }} />
       <div
         ref={ref}
-        className="flex items-center gap-5 py-2"
+        className="flex items-center gap-3 md:gap-5 py-2"
         style={{ width: 'max-content', willChange: 'transform' }}
       >
         {/* Render items twice for seamless visual density */}
@@ -140,7 +140,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
           item.type === 'pill' ? (
             <div
               key={i}
-              className="shrink-0 px-9 py-5 font-sans font-bold text-[1.05rem] md:text-[1.35rem] select-none"
+              className="shrink-0 px-5 py-3 md:px-9 md:py-5 font-sans font-bold text-[1.05rem] md:text-[1.35rem] select-none"
               style={{
                 background: item.bg,
                 color: item.color,
@@ -172,7 +172,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
 
   return (
     <section ref={sectionRef} className="bg-white py-10 md:py-14 overflow-hidden">
-      <div className="w-full px-6 md:px-10 lg:px-12 mb-14">
+      <div className="w-full px-6 md:px-10 lg:px-12 mb-8 md:mb-14">
         <div className="text-center">
           <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
           <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
@@ -337,7 +337,7 @@ export default function AdmissionsPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
+          <div className="mt-8 md:mt-14 flex flex-col lg:flex-row gap-8 lg:gap-20 items-start">
 
             {/* Sticky image */}
             <div className="lg:sticky lg:top-28 lg:w-[420px] shrink-0">
@@ -378,7 +378,7 @@ export default function AdmissionsPage() {
                 <div
                   key={s.num}
                   ref={el => { stepRefs.current[i] = el; }}
-                  className="relative flex gap-5 pb-4 last:pb-0"
+                  className="relative flex gap-3 md:gap-5 pb-4 last:pb-0"
                 >
                   {/* Vertical connector */}
                   {i < STEPS.length - 1 && (
@@ -408,7 +408,7 @@ export default function AdmissionsPage() {
 
                   {/* Card — full highlighted when active */}
                   <div
-                    className="flex-1 rounded-2xl border-2 px-6 py-5 mb-5 transition-all duration-500"
+                    className="flex-1 rounded-2xl border-2 px-4 py-4 md:px-6 md:py-5 mb-3 md:mb-5 transition-all duration-500"
                     style={{
                       borderColor:  activeStep === i ? '#01741f' : activeStep > i ? '#d4f0d8' : '#e5e0d8',
                       background:   activeStep === i ? '#f0faf1' : activeStep > i ? '#fafffe' : '#ffffff',
@@ -424,7 +424,7 @@ export default function AdmissionsPage() {
                       Step {s.num}
                     </div>
                     <h3
-                      className="font-sans font-extrabold text-[1.2rem] leading-snug transition-colors duration-500"
+                      className="font-sans font-extrabold text-[1rem] md:text-[1.2rem] leading-snug transition-colors duration-500"
                       style={{ color: activeStep === i ? '#0a2e0f' : activeStep > i ? '#4a5568' : '#6b7280' }}
                     >
                       {s.title}
@@ -439,7 +439,7 @@ export default function AdmissionsPage() {
                 </div>
               ))}
 
-              <div className="mt-10 ml-[3.75rem] flex flex-wrap gap-4">
+              <div className="mt-6 md:mt-10 ml-[3.75rem] flex flex-wrap gap-4">
                 <Link
                   href="/admissions/how-to-apply"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
@@ -468,7 +468,7 @@ export default function AdmissionsPage() {
       <section className="bg-white py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <div className="mb-12">
+            <div className="mb-8 md:mb-12">
               <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Financial Support</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
                 Scholarship <span className="font-display italic font-medium" style={gradientText}>types.</span>
@@ -476,7 +476,7 @@ export default function AdmissionsPage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid md:grid-cols-3 gap-6">
+          <Stagger className="grid md:grid-cols-3 gap-4 md:gap-6">
             {SCHOLARSHIPS.map(s => (
               <StaggerItem key={s.type}>
                 <Link href={s.href} className="group block">
@@ -513,7 +513,7 @@ export default function AdmissionsPage() {
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <div
-              className="relative rounded-3xl overflow-hidden px-10 md:px-16 pt-14 pb-0 md:pb-0"
+              className="relative rounded-3xl overflow-hidden px-6 md:px-16 pt-8 md:pt-14 pb-0 md:pb-0"
               style={{ background: '#01741f' }}
             >
               {/* Decorative shapes */}
@@ -524,16 +524,16 @@ export default function AdmissionsPage() {
                 <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, #ffffff, transparent 70%)' }} />
               </div>
 
-              <div className="relative grid md:grid-cols-2 gap-10 items-end">
+              <div className="relative grid md:grid-cols-2 gap-6 md:gap-10 items-end">
                 {/* Text */}
-                <div className="pb-14">
+                <div className="pb-8 md:pb-14">
                   <h2 className="font-sans font-black text-white text-[clamp(2rem,3.5vw,3.2rem)] leading-[1.06] tracking-tighter-2">
                     Fees &<br />Scholarships
                   </h2>
                   <p className="mt-5 text-white/75 text-[1rem] leading-relaxed max-w-[420px]">
                     We believe no student should miss out on quality education for financial reasons. MLRIT disburses scholarships across merit, need, sports and SC/ST categories every year.
                   </p>
-                  <div className="mt-8 flex flex-wrap gap-4">
+                  <div className="mt-5 md:mt-8 flex flex-wrap gap-4">
                     <Link
                       href="/admissions/fees"
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-colors"

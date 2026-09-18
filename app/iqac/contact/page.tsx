@@ -44,7 +44,7 @@ export default function ContactIQACPage() {
           <Section id="contact">
             <H2 italic="">Contact Details</H2>
             <Reveal preset="up">
-              <div className="mt-6 rounded-2xl border border-border bg-white p-8 space-y-5 max-w-[560px]">
+              <div className="mt-4 md:mt-6 rounded-2xl border border-border bg-white p-5 md:p-8 space-y-5 max-w-[560px]">
                 {CONTACT_DETAILS.map((c) => (
                   <div key={c.label} className="flex flex-col gap-0.5">
                     <span className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted">{c.label}</span>
@@ -58,7 +58,7 @@ export default function ContactIQACPage() {
           <Section id="send-query">
             <H2 italic="">Send Query</H2>
             <Reveal preset="up">
-              <div className="mt-6 rounded-2xl border-2 border-secondary bg-green-50/40 p-8 flex flex-col gap-4 max-w-[560px]">
+              <div className="mt-4 md:mt-6 rounded-2xl border-2 border-secondary bg-green-50/40 p-5 md:p-8 flex flex-col gap-4 max-w-[560px]">
                 <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Send a Query</div>
                 <p className="text-foreground leading-relaxed text-[0.97rem]">
                   For questions related to accreditation, quality assurance reports, feedback forms or IQAC activities, write to us directly or visit the IQAC office during working hours.

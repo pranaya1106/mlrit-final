@@ -104,7 +104,7 @@ function AboutSection({ club }: { club: Club }) {
   const totalWords = whatWords + whyWords;
 
   const litContent = (
-    <div className="space-y-10">
+    <div className="space-y-6 md:space-y-10">
       {club.about && club.tagline && (
         <p className="font-display italic font-medium text-warm leading-snug"
           style={{ fontSize: 'clamp(1.3rem, 2vw, 1.7rem)' }}>
@@ -145,7 +145,7 @@ function AboutSection({ club }: { club: Club }) {
       {/* Tall sticky container — scroll drives the word light-up (sports page pattern) */}
       <div ref={containerRef} className="bg-ink relative" style={{ height: '400vh' }}>
         <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-          <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24">
+          <div className="w-full px-4 md:px-10 lg:px-16 max-w-[900px] mx-auto py-8 md:py-24">
             <Eyebrow>About the club</Eyebrow>
             <div className="mt-6">
               {litContent}
@@ -157,10 +157,10 @@ function AboutSection({ club }: { club: Club }) {
       {/* Non-sticky: activities, recognition, socials — normal scroll flow below */}
       {club.about && (
         <section className="bg-ink border-t border-white/06">
-          <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24 space-y-14">
+          <div className="w-full px-4 md:px-10 lg:px-16 max-w-[900px] mx-auto py-8 md:py-24 space-y-8 md:space-y-14">
             <Reveal>
               <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-6">What do they do?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {club.about.activities.map((a, i) => (
                   <Reveal key={a.title} delay={0.05 * i}>
                     <div className="rounded-xl border border-white/10 p-5" style={{ backgroundColor: '#16161a' }}>
@@ -173,7 +173,7 @@ function AboutSection({ club }: { club: Club }) {
             </Reveal>
 
             {club.about.recognition && (
-              <Reveal className="pt-10 border-t border-white/10">
+              <Reveal className="pt-6 md:pt-10 border-t border-white/10">
                 <h3 className="font-sans font-extrabold text-white text-[1.15rem] mb-2">Achievements &amp; recognition</h3>
                 <p className="text-white/70 leading-relaxed" style={{ fontSize: 'clamp(1rem, 1.2vw, 1.15rem)' }}>
                   {club.about.recognition}
@@ -318,14 +318,14 @@ function EventPosters({ club }: { club: Club }) {
   const hasRealLinks = club.events.some((ev) => ev.link);
   return (
     <section className="bg-ink border-t border-white/06">
-      <div className="w-full px-6 md:px-10 lg:px-16 max-w-[1320px] mx-auto py-16 md:py-24">
+      <div className="w-full px-4 md:px-10 lg:px-16 max-w-[1320px] mx-auto py-8 md:py-24">
         <Reveal preset="right" className="mb-3"><Eyebrow>Event posters</Eyebrow></Reveal>
         <Reveal delay={0.05} className="mb-2">
           <SectionHeading>
             On the <span className="font-display italic font-medium text-warm">floor</span>
           </SectionHeading>
         </Reveal>
-        <Reveal delay={0.08} className="mb-10">
+        <Reveal delay={0.08} className="mb-6 md:mb-10">
           <p className="text-white/40 text-[0.85rem]">
             {hasRealArt
               ? 'Hover a poster for details, or click through to the real recap.'
@@ -335,7 +335,7 @@ function EventPosters({ club }: { club: Club }) {
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
           {club.events.map((ev, i) => (
             <Reveal key={ev.id} delay={0.05 * i}>
               <EventPosterTile ev={ev} />
@@ -411,9 +411,9 @@ function MemoryLane({ images, clubShortName }: { images: ClubMemoryImage[]; club
 
   return (
     <section className="bg-ink border-t border-white/06">
-      <div className="w-full px-6 md:px-10 lg:px-16 max-w-[1320px] mx-auto py-16 md:py-24">
+      <div className="w-full px-4 md:px-10 lg:px-16 max-w-[1320px] mx-auto py-8 md:py-24">
         <Reveal preset="right" className="mb-3"><Eyebrow>Memory lane</Eyebrow></Reveal>
-        <Reveal delay={0.05} className="mb-10">
+        <Reveal delay={0.05} className="mb-6 md:mb-10">
           <SectionHeading>
             Moments from <span className="font-display italic font-medium text-warm">{clubShortName}</span>
           </SectionHeading>
@@ -449,7 +449,7 @@ function BuiltToolSection({ club }: { club: Club }) {
 
   return (
     <section className="border-t border-white/06" style={{ backgroundColor: '#16161a' }}>
-      <div className="w-full px-6 md:px-10 lg:px-16 max-w-[1100px] mx-auto py-16 md:py-24">
+      <div className="w-full px-4 md:px-10 lg:px-16 max-w-[1100px] mx-auto py-8 md:py-24">
         <Reveal preset="right" className="mb-3">
           <Eyebrow>Built by {club.shortName}</Eyebrow>
         </Reveal>
@@ -467,7 +467,7 @@ function BuiltToolSection({ club }: { club: Club }) {
         </Reveal>
 
         {tool.stats && tool.stats.length > 0 && (
-          <Reveal delay={0.15} className="mt-10 flex flex-wrap gap-x-10 gap-y-5">
+          <Reveal delay={0.15} className="mt-6 md:mt-10 flex flex-wrap gap-x-6 md:gap-x-10 gap-y-4 md:gap-y-5">
             {tool.stats.map((s) => (
               <div key={s.label}>
                 <div className="font-sans font-black text-white text-[1.6rem] leading-none">{s.value}</div>
@@ -479,7 +479,7 @@ function BuiltToolSection({ club }: { club: Club }) {
           </Reveal>
         )}
 
-        <Reveal delay={0.2} className="mt-10">
+        <Reveal delay={0.2} className="mt-6 md:mt-10">
           <a
             href={tool.url}
             target="_blank"
@@ -644,8 +644,8 @@ export default function ClubDetail({ club }: { club: Club }) {
 
       {/* ── Closing CTA ── */}
       <section className="bg-ink border-t border-white/06">
-        <div className="w-full px-6 md:px-10 lg:px-16 max-w-[900px] mx-auto py-16 md:py-24">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        <div className="w-full px-4 md:px-10 lg:px-16 max-w-[900px] mx-auto py-8 md:py-24">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 md:gap-8">
             <div>
               <h2
                 className="font-sans font-black tracking-tighter-2 leading-[1.05] text-white"

@@ -42,12 +42,12 @@ export default function PlacementsSupportPage() {
         <div className="flex-1 min-w-0">
 
       {/* Contact cards */}
-      <section id="support" className="bg-warm-light min-h-[50vh] py-10 md:py-16">
-        <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-6">
+      <section id="support" className="bg-warm-light min-h-[50vh] py-6 md:py-16">
+        <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-4 md:space-y-6">
 
           {PLACEMENT_CONTACTS.map((c) => (
             <Reveal key={c.designation} preset="up">
-              <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+              <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
                 <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{c.designation}</p>
                 <h2 className="font-sans font-extrabold text-foreground text-[1.1rem]">{c.name}</h2>
                 <p className="mt-1 text-muted text-[0.88rem]">{c.purpose}</p>
@@ -83,7 +83,7 @@ export default function PlacementsSupportPage() {
 
           {/* Office location */}
           <Reveal preset="up">
-            <div className="bg-white rounded-2xl border border-border p-7 shadow-card-soft">
+            <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
               <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
               <h2 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">T&P Cell — Ground Floor, Main Block</h2>
               <address className="not-italic text-foreground text-[0.93rem] leading-relaxed">
