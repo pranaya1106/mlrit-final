@@ -409,14 +409,22 @@ export default function ContentEditor({
     router.refresh();
   }
 
+  // fixed, not h-screen: h-screen measures the viewport but still sits in
+  // normal flow, so anything rendered above pushed the editor below the fold
+  // and the window scrolled as one. Pinned to the viewport, the two panes own
+  // their own scrolling whatever surrounds them.
   return (
-    <main className="flex h-screen overflow-hidden bg-ink">
+    <main className="fixed inset-0 z-50 flex overflow-hidden bg-ink">
       {/* Left: the form. Scrolls independently of the preview. Hidden rather
           than unmounted in full-screen, so the iframe keeps its position in the
           tree and is never remounted — scroll position and draft survive. */}
       <div
         className={
-          fullScreen ? 'hidden' : 'w-[420px] shrink-0 overflow-y-auto px-6 py-10'
+          fullScreen
+            ? 'hidden'
+            : // overscroll-contain stops a scroll that reaches the end of the
+              // form from chaining onward to the document behind it.
+              'w-[420px] shrink-0 overflow-y-auto overscroll-contain px-6 py-10'
         }
       >
         <header className="flex items-baseline justify-between gap-4">
