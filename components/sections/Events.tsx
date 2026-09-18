@@ -54,6 +54,18 @@ const SLIDES: Slide[] = [
   },
   {
     logo:  '/assets/logo.svg',
+    alt:   'Traditional Day 2K26',
+    tag:   'Traditional Day · 2026',
+    title: 'Traditional Day 2K26',
+    desc:  "A campus-wide celebration of culture and heritage, organised by the Came Club — traditional attire, music and dance filling the main grounds.",
+    quote: '"Traditional Day is the one day the whole campus dresses like home — sarees, kurtas, the works. Came Club pulled off something the whole college showed up for."',
+    speaker: 'Came Club',
+    speakerRole: 'Organising Committee',
+    video: '/videos/traditionalday.mp4',
+    poster:'/images/events/traditionalday-poster.jpg',
+  },
+  {
+    logo:  '/assets/logo.svg',
     alt:   'Navrat Naveli 2025',
     tag:   'Cultural · Dussehra · 2025',
     title: 'Navrat Naveli 2025',

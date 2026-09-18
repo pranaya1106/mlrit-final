@@ -118,15 +118,19 @@ function SectionLabel({ n, label, dark = false }: { n: string; label: string; da
 function ImageReveal({ src, alt, className, delay = 0 }: {
   src: string; alt: string; className?: string; delay?: number;
 }) {
-  const reduced = useReducedMotion();
+  const [loaded, setLoaded] = useState(false);
   return (
-    <motion.div className={`overflow-hidden ${className ?? ''}`}
-      initial={reduced ? {} : { clipPath: 'inset(100% 0 0 0)' }}
-      whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.85, delay, ease: EASE }}>
-      <img src={src} alt={alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-    </motion.div>
+    <div className={`overflow-hidden ${className ?? ''}`}>
+      <img
+        src={src}
+        alt={alt}
+        className="absolute inset-0 w-full h-full object-cover transition-opacity ease-out-quart"
+        style={{ opacity: loaded ? 1 : 0, transitionDuration: '700ms', transitionDelay: `${delay}s` }}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        ref={(el) => { if (el?.complete) setLoaded(true); }}
+      />
+    </div>
   );
 }
 
@@ -225,8 +229,7 @@ function GreenCampusStory() {
       <div className="mt-3 flex gap-1.5 overflow-hidden" style={{ height: 'clamp(100px, 14vw, 170px)' }}>
         {IMGS.slice(1).map((src, i) => (
           <motion.div key={i} className="flex-1 min-w-0 overflow-hidden"
-            initial={reduced ? {} : { opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
+            initial={reduced ? {} : { opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08 * i, ease: EASE }}>
             <img src={src} alt="" aria-hidden="true"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
@@ -704,10 +707,11 @@ const CLUB_PHOTOS = [
 ];
 
 const CLUBS = [
-  'INVENTE Tech Fest','IEEE Student Branch','Coding Club','Robotics Team',
-  'Photography Club','NSS','NCC','Drama Society','Music Club','AI & ML Club',
-  'E-Cell','Environmental Club','Dance Troupe','Literary Society','Quizzing Club',
-  'Zignasa Cultural Fest','Equinox Events','Blockchain Enthusiasts','Gaming Guild',
+  'SCOPE','APEX Club','CIE','EWB-IUCEE-IEEE','AWS Student Builder Group',
+  'Robotics Club','CSE–DS Society','AIM — Aspiring Intellectual Minds','CODE Club',
+  'Mechanical Engineering Society','EEE Department Society','ECE Department Society',
+  'Aeronautical Engineering Society','CAME Club','Club Literati','NSS Unit',
+  'CSI Student Chapter',
 ];
 
 function StudentCommunitiesStory() {
@@ -737,7 +741,7 @@ function StudentCommunitiesStory() {
             <Reveal><SectionLabel n="06" label="Clubs &amp; Communities" dark /></Reveal>
             <Reveal delay={0.07}>
               <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-[clamp(2.4rem,5vw,4.2rem)] leading-[0.93] text-white">
-                30+ clubs. <span className="font-display italic font-medium text-primary">One community.</span>
+                17 clubs. <span className="font-display italic font-medium text-primary">One community.</span>
               </h2>
             </Reveal>
             <Reveal delay={0.14}>
@@ -747,7 +751,7 @@ function StudentCommunitiesStory() {
               </p>
             </Reveal>
             <StaggerGroup className="mt-5 md:mt-8 flex gap-4" stagger={0.1} delayChildren={0.2}>
-              {[{ val: 30, suffix: '+', sub: 'Student clubs' }, { val: 5000, suffix: '+', sub: 'Members' }].map((s) => (
+              {[{ val: 17, suffix: '', sub: 'Student clubs' }, { val: 5000, suffix: '+', sub: 'Members' }].map((s) => (
                 <StaggerItem key={s.sub}>
                   <div className="bg-white/[0.07] border border-white/10 rounded-2xl px-4 py-3 md:px-5 md:py-4">
                     <div className="font-sans font-black tracking-tighter-2 text-[1.8rem] leading-none text-primary">
