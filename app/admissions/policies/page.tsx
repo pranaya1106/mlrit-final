@@ -204,15 +204,15 @@ export default function PoliciesPage() {
       <AdmissionsQuickNav active="/admissions/policies" />
 
       <section className="bg-warm-light min-h-screen py-10 md:py-14">
-        <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-10">
+        <div className="max-w-[960px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col gap-6 md:gap-10">
           {POLICIES.map((policy, i) => (
             <Reveal key={policy.id} preset="up" delay={i * 0.07}>
               <div className="bg-white rounded-2xl border border-border shadow-card-soft overflow-hidden">
-                <div className="flex items-center gap-3 px-7 py-5 border-b border-border bg-green-50/50">
+                <div className="flex items-center gap-3 px-5 py-4 md:px-7 md:py-5 border-b border-border bg-green-50/50">
                   <span className="text-secondary">{policy.icon}</span>
                   <h2 className="font-sans font-bold text-[1.08rem] text-foreground">{policy.title}</h2>
                 </div>
-                <div className="px-7 py-6">
+                <div className="px-5 py-4 md:px-7 md:py-6">
                   {policy.content}
                 </div>
               </div>

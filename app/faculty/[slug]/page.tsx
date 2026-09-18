@@ -113,11 +113,11 @@ export default function FacultyProfilePage({
       />
 
       <div className="bg-cream min-h-screen">
-        <div className="w-full px-6 md:px-10 lg:px-12 py-12 md:py-16">
-          <div className="grid lg:grid-cols-[300px_1fr] gap-10 xl:gap-16">
+        <div className="w-full px-4 md:px-10 lg:px-12 py-8 md:py-16">
+          <div className="grid lg:grid-cols-[300px_1fr] gap-6 xl:gap-16">
 
             {/* ── Left column: portrait + identity ── */}
-            <aside className="flex flex-col gap-6">
+            <aside className="flex flex-col gap-4 md:gap-6">
               {/* Portrait */}
               <div
                 className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-card-soft"
@@ -139,7 +139,7 @@ export default function FacultyProfilePage({
               </div>
 
               {/* Identity card */}
-              <div className="rounded-2xl border border-border bg-white p-6 space-y-4">
+              <div className="rounded-2xl border border-border bg-white p-4 md:p-6 space-y-4">
                 <div>
                   <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
                     Designation
@@ -254,7 +254,7 @@ export default function FacultyProfilePage({
             </aside>
 
             {/* ── Right column: profile content ── */}
-            <main className="space-y-10">
+            <main className="space-y-6 md:space-y-10">
 
               {/* Biography */}
               {f.description && (

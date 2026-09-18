@@ -41,9 +41,16 @@
   --orange-200: #ffcfa6;
   --green-50:   #f1f8f4;
   --green-nav:  #01741f;
+  --forest:     #143c22;   /* muted, editorial deep-green for rails */
+  --forest-2:   #0d2a17;
 
-  /* ── Surfaces (light) ── */
-  --background: #ffffff;
+  /* ── Surfaces (light) — paper-first, not white-first ── */
+  /* The site's default canvas is cream, not pure white. Pure white next to
+     brand orange + brand green reads as the tricolor; a warm cream ground
+     lets the same accents feel editorial instead. */
+  --background: #faf7f0;   /* was #ffffff — now cream by default */
+  --paper:      #faf7f0;
+  --paper-2:    #f1ece1;
   --snow:       #fbfbfa;
   --cream:      #faf7f0;
   --cream-2:    #f1ece1;
@@ -94,10 +101,36 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 17px;                    /* was 16px — nudges the whole editorial rhythm up */
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.005em;
   margin: 0;
+}
+
+/* ── Editorial noise texture ──────────────────────────────────
+   SVG turbulence baked as a data-URI. Applied via a utility class
+   so any section can pick it up without another network request.
+   The alpha stays at ~4% so the grain is felt, not seen. */
+.grain-texture {
+  position: relative;
+  isolation: isolate;                /* create a stacking context so ::before at z-index -1 stays inside */
+}
+.grain-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  z-index: -1;                       /* sits behind children without needing to touch their position */
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+.grain-ink::before {
+  mix-blend-mode: screen;
+  opacity: 0.045;
 }
 
 ::selection { background: var(--primary); color: #fff; }
@@ -146,3 +179,260 @@ button { font: inherit; cursor: pointer; }
   .marquee-track { animation: none !important; }
 }
 
+/* ════════════════════════════════════════════════════════════════
+   EDITORIAL UTILITIES — small, disciplined helpers for the redesign.
+   Keep them semantic so section components stay readable.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Small-caps mono eyebrow used above section headlines and marginalia rows. */
+.editorial-eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Gold hairline used as a divider between eyebrow spans and above section starts. */
+.editorial-rule {
+  display: inline-block;
+  vertical-align: middle;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--gold) 60%, transparent);
+}
+
+/* Section paper — cream ground with a hair of grain so it doesn't read flat. */
+.paper-ground {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(1200px 400px at 15% 0%, rgba(232, 93, 4, 0.035), transparent 55%),
+    radial-gradient(1000px 400px at 90% 100%, rgba(20, 60, 34, 0.035), transparent 55%);
+}
+
+/* Editorial ink card — for the rounded hero video frame. */
+.ink-card {
+  background: var(--ink);
+  border-radius: 28px;
+  box-shadow:
+    0 40px 80px -20px rgba(15, 15, 15, 0.35),
+    0 10px 30px -8px rgba(15, 15, 15, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Serif italic accent — display-family italic, used inside headlines and pulls. */
+.editorial-italic {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+/* Chapter marker — the "01·" style numeric that anchors editorial columns. */
+.chapter-mark {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+/* Precious CTA — bordered ink instead of a full orange fill. Reserved for
+   the primary action inside dark hero cards. Kept small on purpose. */
+.btn-precious {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  padding: 0 22px 0 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: -0.005em;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  transition: background 0.25s var(--ease-out), border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+.btn-precious:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-1px);
+}
+.btn-precious .btn-precious__dot {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px rgba(232, 93, 4, 0.15);
+}
+
+/* Editorial ornament — a tiny fleuron-like mark used between eyebrow spans.
+   Not a Unicode fleuron because those render poorly cross-platform;
+   this is a hand-drawn asterisk-diamond that stays consistent. */
+.editorial-ornament {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  color: var(--gold);
+  opacity: 0.7;
+  transform: rotate(0deg);
+}
+.editorial-ornament::before {
+  content: '✦';
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Ghost numeral — the huge muted number sitting behind a section's
+   chapter mark. Adds editorial weight without competing with content. */
+.ghost-numeral {
+  position: absolute;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(12rem, 22vw, 22rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(15, 15, 15, 0.06);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.ghost-numeral--ink {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Editorial vertical rail — used on the outer margin of sections for
+   date/place/edition marginalia. Only visible on large screens. */
+.side-rail {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Editorial pull-mark — a big italic quote glyph that decorates
+   pull-quotes and section corners in the classical way. */
+.pull-mark {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.5;
+  color: var(--primary);
+}
+
+/* Scroll cue at the base of the hero — micro-animation, respects reduced motion. */
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 0.65; }
+  50%      { transform: translateY(6px); opacity: 1; }
+}
+.scroll-cue {
+  animation: scroll-cue 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue { animation: none; }
+}
+
+
+/* ── ChroniclesAttentionButton ─────────────────────────────── */
+@keyframes chron-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes chron-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.18); }
+}
+.chron-wrap {
+  position: relative;
+  display: inline-block;
+  border-radius: 8px;
+  padding: 2px;
+}
+.chron-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.chron-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 220%; height: 220%;
+  background: conic-gradient(
+    from 0deg,
+    transparent  0%,
+    transparent  38%,
+    rgba(232,93,4,0.6) 46%,
+    rgba(255,180,60,1) 50%,
+    rgba(232,93,4,0.6) 54%,
+    transparent  62%,
+    transparent 100%
+  );
+  animation: chron-spin 2.2s linear infinite;
+}
+.chron-ring::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 6px;
+  background: #b0ada8;
+}
+.chron-box {
+  cursor: pointer;
+  border: 3px solid #d0cdc8;
+  background-color: #b0ada8;
+  padding-bottom: 6px;
+  transition: 0.1s ease-in-out;
+  user-select: none;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
+}
+.chron-box .chron-inner {
+  background-color: #fff;
+  border: 3px solid #fff;
+  padding: 5px 14px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.chron-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chron-box:active {
+  padding: 0;
+  margin-bottom: 6px;
+  transform: translateY(6px);
+}
+.chron-new {
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: #e85d04;
+  color: #fff;
+  font-family: monospace;
+  flex-shrink: 0;
+  animation: chron-pulse 2s ease-in-out infinite;
+  display: inline-block;
+}

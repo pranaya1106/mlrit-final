@@ -30,9 +30,9 @@ export default function PGPage() {
       <Section>
         <H2 italic="specialisations">M.Tech</H2>
         <Lede>Four research-led M.Tech tracks across CSE, VLSI, Power Systems and Aerospace Propulsion.</Lede>
-        <div className="mt-10 grid md:grid-cols-2 gap-5">
+        <div className="mt-6 md:mt-10 grid md:grid-cols-2 gap-3 md:gap-5">
           {MTECH.map((m) => (
-            <div key={m.code} className="rounded-2xl border border-border bg-white p-7 hover:border-primary transition-colors">
+            <div key={m.code} className="rounded-2xl border border-border bg-white p-4 md:p-7 hover:border-primary transition-colors">
               <div className="font-mono text-[0.7rem] tracking-[0.16em] uppercase text-secondary">{m.code}</div>
               <div className="mt-2 font-sans font-extrabold text-foreground text-xl">{m.name}</div>
               <p className="mt-3 text-muted leading-relaxed">{m.tag}</p>
@@ -43,7 +43,7 @@ export default function PGPage() {
       <Section surface>
         <H2 italic="(Management)">MBA</H2>
         <Lede>{mba.tagline}</Lede>
-        <Link href="/departments/mba" className="mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-white font-semibold hover:bg-primary transition-colors">
+        <Link href="/departments/mba" className="mt-5 md:mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-white font-semibold hover:bg-primary transition-colors">
           Explore MBA programme →
         </Link>
       </Section>

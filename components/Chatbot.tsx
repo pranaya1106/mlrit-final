@@ -878,10 +878,6 @@ export default function Chatbot() {
           </motion.span>
         )}
 
-        {/* Pulse ring when offline and closed */}
-        {status === 'offline' && !isOpen && (
-          <span className="absolute inset-0 rounded-full bg-red-500/20 animate-ping" />
-        )}
       </motion.button>
     </div>
   );

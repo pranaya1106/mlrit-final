@@ -5,19 +5,19 @@ import Link from 'next/link';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight, Menu, X, ChevronDown } from './icons';
 import { Search } from 'lucide-react';
-import ChroniclesAttentionButton from './ChroniclesAttentionButton';
 import SearchOverlay from './SearchOverlay';
+import ChroniclesAttentionButton from './ChroniclesAttentionButton';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileItem, setOpenMobileItem] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [watermarkOpacity, setWatermarkOpacity] = useState(0.42);
   const headerRef = useRef<HTMLElement>(null);
 
   const closeMobileMenu = () => { setMobileOpen(false); setOpenMobileItem(null); };
 
-  // Global Ctrl+K keyboard shortcut for search
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -29,8 +29,6 @@ export default function Header() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // Close the drawer if the viewport crosses back into desktop (e.g. devtools
-  // resize) so it can't get stuck open with body scroll locked.
   useEffect(() => {
     if (!mobileOpen) return;
     const onResize = () => { if (window.innerWidth >= 1024) closeMobileMenu(); };
@@ -49,9 +47,6 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
-  // Keep --header-h in sync with the header's real rendered height (the
-  // badge row can wrap to a second line at some widths) so the sticky
-  // sub-nav bars and main's padding never drift out of sync with it.
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
@@ -74,11 +69,15 @@ export default function Header() {
       if (y < 140) {
         setHidden(false);
       } else if (y > lastY + 4) {
-        setHidden(true); // scrolling down
+        setHidden(true);
       } else if (y < lastY - 4) {
-        setHidden(false); // scrolling up
+        setHidden(false);
       }
       lastY = y;
+
+      // Watermark fade — full at scrollY 0, gone by scrollY 400
+      const t = Math.min(1, y / 400);
+      setWatermarkOpacity(0.42 * (1 - t));
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -91,160 +90,194 @@ export default function Header() {
 
   return (
     <>
-    <header
-      ref={headerRef}
-      className={`fixed inset-x-0 top-0 z-[1000] bg-white border-b border-border transition-transform duration-300 ease-out-quart ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
-      }`}
-    >
-      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <header
+        ref={headerRef}
+        className={`fixed inset-x-0 top-0 z-[1000] bg-paper/95 backdrop-blur-md transition-transform duration-300 ease-out-quart ${
+          hidden ? '-translate-y-full' : 'translate-y-0'
+        }`}
+      >
+        <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
-      {/* MASTHEAD */}
-      <div className="bg-white">
-        <div className="flex items-center justify-between lg:justify-start gap-3 lg:gap-7 px-4 lg:px-7 py-3 min-h-[64px] lg:min-h-[78px]">
-          {/* Logo */}
-          <Link href="/" aria-label="MLRIT Home" className="flex-shrink-0">
-            <img
-              src="/legacy/mlrit-logo-main.png"
-              alt="MLRIT Logo"
-              className="h-10 lg:h-14 w-auto"
-            />
-          </Link>
+        {/* Decorative background artwork — same SVG as Hero + WhyMLRIT.
+            Sits at low opacity so the nav links / logo / CTAs read
+            cleanly on top; z-[0] keeps it behind everything. */}
+        <img
+          src="/vectors/whymlrit-background.svg"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[0] opacity-25"
+        />
 
-          {/* Institute block — desktop/tablet only; logo alone carries branding on mobile */}
-          <div className="hidden lg:flex flex-col items-start pl-6 border-l border-[#e5e2db]">
-            <div className="font-extrabold text-[1.02rem] text-foreground tracking-wide">
-              M<span className="text-primary mx-0.5 font-black">·</span>L
-              <span className="text-primary mx-0.5 font-black">·</span>R
+        {/* ── MLRIT brand watermark ───────────────────────────
+            Big logo pinned to the top-left. Sits between the header's
+            paper background and the nav content, extends below the
+            header into the hero area, and fades out as the user scrolls
+            past the hero. `overflow-visible` on the header lets it
+            spill downward. */}
+        <img
+          src="/vectors/mlrit-logo-colorful.svg"
+          alt=""
+          aria-hidden
+          className="absolute z-[0] pointer-events-none w-[170px] md:w-[220px] lg:w-[270px]"
+          style={{
+            top: '-24px',
+            left: '-30px',
+            opacity: watermarkOpacity,
+            transition: 'opacity 0.2s linear',
+            // Boost the natural brand colours — orange top-leaf, deep green
+            // body, bright green edge — instead of desaturating them.
+            filter: 'saturate(1.15)',
+            WebkitMaskImage:
+              'linear-gradient(180deg, #000 0%, #000 30%, rgba(0,0,0,0.4) 55%, transparent 78%)',
+            maskImage:
+              'linear-gradient(180deg, #000 0%, #000 30%, rgba(0,0,0,0.4) 55%, transparent 78%)',
+          }}
+          id="mlrit-brand-watermark"
+        />
+
+        {/* ── ROW 1 · MASTHEAD ────────────────────────────────
+            Logo lockup on the left, serif institute name after a hair
+            divider. Mobile shows the utility rail here instead. */}
+        <div className="relative z-[1]">
+          <div className="mx-auto max-w-[1440px] flex items-center justify-between gap-4 px-5 lg:px-10 pt-4 pb-4">
+            <div className="flex items-center gap-5 lg:gap-6">
+              <Link href="/" aria-label="MLRIT Home" className="flex-shrink-0">
+                <img
+                  src="/legacy/mlrit-logo-main.png"
+                  alt="MLRIT Logo"
+                  className="h-11 lg:h-14 w-auto"
+                />
+              </Link>
+
+              {/* Institute name — Playfair serif, all caps, editorial letterspacing */}
+              <div className="hidden md:flex items-center pl-5 lg:pl-6 border-l border-border/80">
+                <span className="font-display text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] text-foreground/90 uppercase">
+                  MLR Institute of Technology
+                </span>
+              </div>
             </div>
-            <div className="font-display italic text-[0.86rem] text-neutral-800 mt-1">
-              Institute of Technology
-            </div>
-            <div className="w-8 h-0.5 bg-primary rounded my-1.5" />
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-50 border border-orange-200">
-                <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-                <span className="font-mono font-bold text-[0.56rem] tracking-[0.14em] uppercase text-primary">EST · 2005</span>
-              </span>
-              <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase text-neutral-500">DUNDIGAL · HYDERABAD</span>
-              <span className="font-mono font-bold text-[0.56rem] tracking-[0.12em] uppercase px-2 py-0.5 rounded-full border border-[#f0d28e] text-[#a07820] bg-[#fffbf0]">AUTONOMOUS · UGC &apos;15</span>
+
+            {/* Mobile utility — search + hamburger */}
+            <div className="lg:hidden flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                aria-label="Open search"
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-border text-foreground hover:bg-white transition-colors"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open menu"
+                aria-expanded={mobileOpen}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-border text-foreground hover:bg-white transition-colors"
+              >
+                <Menu className="w-4 h-4" />
+              </button>
             </div>
           </div>
-
-          {/* Spacer */}
-          <div className="hidden lg:block flex-1 min-w-3" />
-
-          {/* Search Button — desktop/tablet only */}
-          <button
-            id="search-trigger-btn"
-            type="button"
-            onClick={() => setIsSearchOpen(true)}
-            className="hidden lg:flex items-center gap-2.5 h-9 pl-3 pr-3.5 rounded-full border border-border bg-[#f8f9fa] text-muted hover:border-green-400 hover:bg-green-50 hover:text-green-700 hover:shadow-sm transition-all mr-2 flex-shrink-0"
-            title="Search (Ctrl+K)"
-            aria-label="Open search (Ctrl+K)"
-          >
-            <Search className="w-4 h-4 transition-colors" />
-            <span className="hidden sm:block text-[0.78rem] font-medium">Search</span>
-          </button>
-
-          {/* Search Button — mobile/tablet only, icon-only */}
-          <button
-            type="button"
-            onClick={() => setIsSearchOpen(true)}
-            aria-label="Open search"
-            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground hover:bg-neutral-50 transition-colors flex-shrink-0"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-
-          {/* Contact CTA — desktop/tablet only; folded into the drawer on mobile */}
-          <Link
-            href="/admissions/support"
-            className="hidden lg:inline-flex flex-shrink-0 items-center gap-2.5 h-10 pl-3 pr-5 rounded-[10px] bg-primary text-white font-semibold text-[0.86rem] border border-primary transition-all duration-300 ease-out-quart hover:bg-primary-hover hover:shadow-primary-glow hover:-translate-y-0.5"
-          >
-            <span className="inline-flex items-center justify-center w-5.5 h-5.5 rounded-md bg-white/20">
-              <ChevronRight className="w-3.5 h-3.5" />
-            </span>
-            Contact Us
-          </Link>
-
-          {/* Hamburger — mobile/tablet only */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={mobileOpen}
-            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground hover:bg-neutral-50 transition-colors flex-shrink-0"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
         </div>
-      </div>
 
-      {/* MAIN NAV (green) — desktop only; collapses into the hamburger drawer below lg */}
-      <nav className="hidden lg:block bg-green-nav text-white shadow-[0_4px_16px_rgba(1,116,31,0.18)]" aria-label="Main">
-        <ul className="flex items-stretch px-6">
-          {NAV_PRIMARY.map((item) => (
-            <li key={item.label} className="group relative flex-shrink-0">
-              {item.href && !item.cols ? (
-                <Link
-                  href={item.href}
-                  className="flex items-center h-[52px] px-3 text-[0.92rem] font-medium tracking-[-0.005em] hover:bg-white/10 transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  className="flex items-center gap-1 h-[52px] px-3 text-[0.92rem] font-medium tracking-[-0.005em] hover:bg-white/10 transition-colors"
-                >
-                  {item.label}
-                  <span className="inline-block w-1.5 h-1.5 border-r border-b border-white/70 -rotate-45 translate-y-[-2px] ml-0.5" />
-                </button>
-              )}
-              {/* Dropdown */}
-              {item.cols && (
-                <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 absolute left-0 top-full mt-1.5 bg-white border border-border rounded-2xl shadow-[0_18px_48px_rgba(17,17,17,0.10)] p-6 grid gap-6 min-w-max max-w-[calc(100vw-2rem)] z-50"
-                     style={{ gridTemplateColumns: `repeat(${item.cols.length}, minmax(${item.colMinWidth ?? 180}px, 1fr))` }}>
-                  {item.cols.map((col) => (
-                    <div key={col.heading}>
-                      <h4 className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted mb-3">
-                        {col.heading}
-                      </h4>
-                      <ul className="space-y-1.5">
-                        {col.links.map((link) => (
-                          <li key={link.label}>
-                            <Link
-                              href={link.href}
-                              target={link.external ? '_blank' : undefined}
-                              rel={link.external ? 'noopener' : undefined}
-                              className="block text-[0.92rem] font-medium text-foreground hover:text-primary hover:bg-orange-50 rounded-lg px-2 py-1.5 transition-colors"
-                            >
-                              {link.label}
-                            </Link>
-                          </li>
+        {/* ── ROW 2 · NAV RAIL ──────────────────────────────
+            Primary nav on the left, Chronicles + Contact on the right.
+            Each nav item carries a persistent hairline underline that
+            intensifies to primary on hover. */}
+        <div className="hidden lg:block relative z-[1]">
+          <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
+            <nav
+              aria-label="Main"
+              className="inline-flex rounded-full px-2 border border-white/70 bg-white/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_14px_34px_-18px_rgba(24,20,15,0.22),inset_0_1px_0_rgba(255,255,255,0.75)]"
+              style={{
+                WebkitBackdropFilter: 'blur(28px) saturate(160%)',
+                backdropFilter: 'blur(28px) saturate(160%)',
+              }}
+            >
+              <ul className="flex items-stretch gap-1">
+                {NAV_PRIMARY.map((item) => (
+                  <li key={item.label} className="group relative">
+                    {item.href && !item.cols ? (
+                      <Link
+                        href={item.href}
+                        className="relative flex items-center h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart hover:after:bg-primary hover:after:h-[1.5px]"
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        className="relative flex items-center gap-1.5 h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart group-hover:after:bg-primary group-hover:after:h-[1.5px]"
+                      >
+                        {item.label}
+                        <ChevronDown className="w-3.5 h-3.5 opacity-50 transition-transform duration-200 group-hover:rotate-180 group-hover:opacity-100" />
+                      </button>
+                    )}
+                    {item.cols && (
+                      <div
+                        className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 absolute left-0 top-full mt-2 bg-white border border-border rounded-2xl shadow-[0_18px_48px_rgba(17,17,17,0.10)] p-6 grid gap-6 min-w-max max-w-[calc(100vw-2rem)] z-50"
+                        style={{ gridTemplateColumns: `repeat(${item.cols.length}, minmax(${item.colMinWidth ?? 180}px, 1fr))` }}
+                      >
+                        {item.cols.map((col) => (
+                          <div key={col.heading}>
+                            <h4 className="editorial-eyebrow mb-3">
+                              {col.heading}
+                            </h4>
+                            <ul className="space-y-0.5">
+                              {col.links.map((link) => (
+                                <li key={link.label}>
+                                  <Link
+                                    href={link.href}
+                                    target={link.external ? '_blank' : undefined}
+                                    rel={link.external ? 'noopener' : undefined}
+                                    className="block text-[0.9rem] font-medium text-foreground hover:text-primary hover:bg-orange-50/60 rounded-lg px-2 py-1.5 transition-colors"
+                                  >
+                                    {link.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </li>
-          ))}
-          {/* Right item — Chronicles attention button */}
-          <li className="ml-auto flex-shrink-0 flex items-center pr-2">
-            <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
-          </li>
-        </ul>
-      </nav>
-    </header>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-    {/* MOBILE / TABLET DRAWER — collapses the green nav below lg.
-        Rendered as a sibling of <header>, not a descendant: the header's
-        translate-y transform (for hide-on-scroll) creates a containing
-        block for `position: fixed` children, which would otherwise trap
-        this drawer inside the header's own ~70px box instead of the
-        viewport. */}
+            {/* Utility rail — right side: search, Chronicles, Contact */}
+            <div className="flex items-end gap-4">
+              <button
+                id="search-trigger-btn"
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                className="inline-flex items-center justify-center w-10 h-10 mb-2 rounded-full text-muted hover:text-primary transition-colors"
+                title="Search (Ctrl+K)"
+                aria-label="Open search (Ctrl+K)"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
+              <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
+
+              {/* Contact — orange CTA pill */}
+              <Link
+                href="/admissions/support"
+                style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
+                className="group inline-flex items-center gap-3 h-[56px] mb-[1px] pl-7 pr-6 rounded-full text-[1.05rem] font-semibold border hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300 ease-out-quart tracking-[-0.005em]"
+              >
+                Contact
+                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+                  <ChevronRight className="w-4 h-4" />
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ── MOBILE DRAWER ─────────────────────────────────────── */}
       <div
         className={`lg:hidden fixed inset-0 z-[1100] bg-black/45 transition-opacity duration-300 ease-out-quart ${
           mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -253,7 +286,7 @@ export default function Header() {
         aria-hidden={!mobileOpen}
       />
       <div
-        className={`lg:hidden fixed inset-y-0 right-0 z-[1200] w-[86vw] max-w-[380px] bg-white shadow-[-16px_0_48px_rgba(17,17,17,0.18)] flex flex-col transition-transform duration-300 ease-out-quart ${
+        className={`lg:hidden fixed inset-y-0 right-0 z-[1200] w-[86vw] max-w-[380px] bg-paper shadow-[-16px_0_48px_rgba(17,17,17,0.18)] flex flex-col transition-transform duration-300 ease-out-quart ${
           mobileOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         role="dialog"
@@ -261,14 +294,14 @@ export default function Header() {
         aria-label="Main menu"
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-border flex-shrink-0">
-          <span className="font-sans font-extrabold text-[1rem] text-foreground tracking-wide">Menu</span>
+          <span className="editorial-eyebrow">Menu</span>
           <button
             type="button"
             onClick={closeMobileMenu}
             aria-label="Close menu"
-            className="inline-flex items-center justify-center w-11 h-11 rounded-lg hover:bg-neutral-50 transition-colors text-foreground"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-white transition-colors text-foreground border border-border"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -306,7 +339,7 @@ export default function Header() {
                       <div className="pb-3 pl-3 pr-2 grid gap-4">
                         {item.cols?.map((col) => (
                           <div key={col.heading}>
-                            <h4 className="font-mono text-[0.66rem] font-bold tracking-[0.16em] uppercase text-muted mb-1.5">
+                            <h4 className="editorial-eyebrow mb-1.5">
                               {col.heading}
                             </h4>
                             <ul className="space-y-0.5">
@@ -348,12 +381,10 @@ export default function Header() {
           <Link
             href="/admissions/support"
             onClick={closeMobileMenu}
-            className="flex items-center justify-center gap-2.5 h-12 rounded-[10px] bg-primary text-white font-semibold text-[0.92rem] border border-primary transition-all duration-300 ease-out-quart hover:bg-primary-hover"
+            className="flex items-center justify-center gap-2.5 h-12 rounded-full bg-ink text-white font-semibold text-[0.92rem] border border-ink hover:bg-ink-2 transition-all duration-300 ease-out-quart"
           >
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-white/20">
-              <ChevronRight className="w-3.5 h-3.5" />
-            </span>
-            Contact Us
+            Contact the Institute
+            <ChevronRight className="w-3.5 h-3.5 opacity-80" />
           </Link>
         </div>
       </div>

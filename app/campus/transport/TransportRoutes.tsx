@@ -45,7 +45,7 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
         style={{ background: '#faf7f0', border: '1px solid #e8e3d9', borderRadius: 4, boxShadow: '0 24px 64px rgba(0,0,0,0.18)' }}
       >
         {/* Sticky header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between px-6 pt-6 pb-5"
+        <div className="sticky top-0 z-10 flex items-center justify-between px-5 md:px-6 pt-5 md:pt-6 pb-4 md:pb-5"
           style={{ background: 'linear-gradient(to bottom, #faf7f0 80%, rgba(250,247,240,0))', borderBottom: '1px solid #e8e3d9' }}>
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl flex items-center justify-center font-mono font-black text-xl flex-shrink-0"
@@ -66,9 +66,9 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
           </button>
         </div>
 
-        <div className="px-6 pb-8 pt-4">
+        <div className="px-5 md:px-6 pb-6 md:pb-8 pt-4">
           {/* Origin → Destination */}
-          <div className="flex items-center gap-3 mb-6 px-4 py-3.5 rounded-2xl"
+          <div className="flex items-center gap-3 mb-4 md:mb-6 px-4 py-3.5 rounded-2xl"
             style={{ background: 'rgba(232,93,4,0.06)', border: '1.5px solid rgba(232,93,4,0.18)' }}>
             <div className="flex-1 min-w-0">
               <p className="font-mono mb-0.5" style={{ fontSize: '0.62rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b5afa6' }}>From</p>
@@ -85,7 +85,7 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
           <p className="font-mono mb-3" style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b5afa6' }}>
             Route Map — {route.stops.length} stops
           </p>
-          <ol aria-label={`Stops for Route ${route.routeNumber}`} className="mb-6">
+          <ol aria-label={`Stops for Route ${route.routeNumber}`} className="mb-4 md:mb-6">
             {route.stops.map((stop, i) => {
               const isFirst = i === 0, isLast = i === route.stops.length - 1;
               return (
@@ -119,7 +119,7 @@ function RouteModal({ route, onClose }: { route: BusRoute; onClose: () => void }
           </ol>
 
           {/* Driver & Incharge */}
-          <div className="grid grid-cols-2 gap-3 mb-5">
+          <div className="grid grid-cols-2 gap-3 mb-3 md:mb-5">
             {[
               { icon: <MapPin className="w-3 h-3" />, label: 'Driver', name: route.driverName, contact: route.driverContact },
               { icon: <Phone className="w-3 h-3" />, label: 'Incharge', name: route.inchargeName, contact: route.inchargeContact },
@@ -371,16 +371,32 @@ function ParallaxCardGrid({
   onViewDetails: (r: BusRoute) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const NUM_COLS = 3;
+  // 3 fixed-width (min 200px) columns need ~624px — wider than a phone screen,
+  // which forced horizontal overflow. Use 2 columns below `md` (matches the
+  // mobile/desktop breakpoint used across the rest of the site), with no
+  // fixed per-column minimum so they can share the narrower width evenly;
+  // desktop keeps the original 3-column parallax layout untouched.
+  const [numCols, setNumCols] = useState(3);
 
-  // Distribute routes into columns in order: col0=[0,3,6…], col1=[1,4,7…]
-  const columns: BusRoute[][] = Array.from({ length: NUM_COLS }, () => []);
-  routes.forEach((r, i) => columns[i % NUM_COLS].push(r));
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const update = () => setNumCols(mq.matches ? 2 : 3);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  // Distribute routes into columns in order: col0=[0,2,4…], col1=[1,3,5…]
+  const columns: BusRoute[][] = Array.from({ length: numCols }, () => []);
+  routes.forEach((r, i) => columns[i % numCols].push(r));
+
+  const gridTemplateColumns =
+    numCols === 3 ? 'repeat(3, minmax(200px, 1fr))' : `repeat(${numCols}, minmax(0, 1fr))`;
 
   return (
     // Overflow hidden so fast columns don't bleed outside the section
     <div ref={containerRef} style={{ overflow: 'hidden', paddingBlock: 32 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(200px, 1fr))', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns, gap: 12 }}>
         {columns.map((col, ci) => (
           <ParallaxColumn
             key={ci}
@@ -410,12 +426,12 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
 
   return (
     <>
-      <section style={{ background: '#faf7f0' }} className="pb-28" aria-label="Bus network">
+      <section style={{ background: '#faf7f0' }} className="pb-16 md:pb-28" aria-label="Bus network">
         <div className="w-full px-6 md:px-10 lg:px-12">
 
           {/* ── Transport Incharges ── */}
-          <div className="pt-14 pb-10" style={{ borderBottom: '1px solid #e4e0d7' }}>
-            <h2 className="font-sans font-black leading-[1.04] mb-6"
+          <div className="pt-8 md:pt-14 pb-6 md:pb-10" style={{ borderBottom: '1px solid #e4e0d7' }}>
+            <h2 className="font-sans font-black leading-[1.04] mb-4 md:mb-6"
               style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', letterSpacing: '-0.03em', color: '#0f0f0f' }}>
               Transport Incharges
             </h2>
@@ -444,7 +460,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
           </div>
 
           {/* ── Header ── */}
-          <div className="pt-12 pb-7">
+          <div className="pt-7 md:pt-12 pb-5 md:pb-7">
             <p className="font-mono text-primary mb-3" style={{ fontSize: '0.67rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Bus Network
             </p>
@@ -458,7 +474,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
           </div>
 
           {/* ── Search ── */}
-          <div className="mb-8 flex flex-wrap items-center gap-3">
+          <div className="mb-5 md:mb-8 flex flex-wrap items-center gap-3">
             <div className="relative min-w-[260px] max-w-[480px] flex-1">
               <label htmlFor="route-search" className="sr-only">Search routes</label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: '#9d9b94' }} />
@@ -501,7 +517,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
 
           {/* ── Card grid ── */}
           {filtered.length === 0 ? (
-            <div className="py-20 text-center">
+            <div className="py-10 md:py-20 text-center">
               <MapPin className="w-8 h-8 mx-auto mb-3" style={{ color: '#c4bdb0' }} />
               <p style={{ fontSize: '0.9rem', color: '#9d9b94' }}>No routes match that area or stop.</p>
             </div>

@@ -112,10 +112,10 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      {/* DESKTOP */}
+      {/* DESKTOP — video left, card right, video overlaps card edge */}
       <div className="hidden md:flex relative items-center">
-        {/* Video pane */}
-        <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative">
+        {/* Video — sits on top of the card's left edge via z-10 */}
+        <div className="w-[470px] h-[470px] rounded-3xl overflow-hidden bg-neutral-200 dark:bg-neutral-800 flex-shrink-0 relative z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.videoUrl}
@@ -139,9 +139,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               </video>
             </motion.div>
           </AnimatePresence>
-          {/* Subtle bottom gradient for legibility */}
           <span className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
-          {/* Mute toggle */}
           <button
             type="button"
             onClick={() => setMuted((m) => !m)}
@@ -152,8 +150,8 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
           </button>
         </div>
 
-        {/* Card */}
-        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 ml-[-80px] z-10 max-w-xl flex-1 border border-neutral-200/60">
+        {/* Card — pulled left so video overlaps it, sits behind video */}
+        <div className="bg-white dark:bg-card rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.18)] p-8 ml-[-80px] z-0 flex-1 border border-neutral-200/60">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.name}
@@ -162,7 +160,7 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="mb-6">
+              <div className="mb-6 pl-20">
                 <h2 className="font-sans text-2xl md:text-3xl font-extrabold tracking-tight !text-neutral-900 mb-2">
                   {current.name}
                 </h2>
@@ -170,10 +168,10 @@ export function TestimonialCarousel({ className, testimonials = DEFAULT_TESTIMON
                   {current.title}
                 </p>
               </div>
-              <p className="!text-neutral-700 leading-relaxed text-[1.02rem] mb-8">
+              <p className="!text-neutral-700 leading-relaxed text-[1.02rem] mb-8 pl-20">
                 {current.description}
               </p>
-              <div className="flex space-x-3">
+              <div className="flex space-x-3 pl-20">
                 {socialIcons.map(({ Icon, url, label }) => (
                   <Link
                     key={label}

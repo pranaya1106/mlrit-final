@@ -21,10 +21,10 @@ const SLIDES: Slide[] = [
     alt:   'The Equinox E-Summit 2K24',
     tag:   'Entrepreneurship · 2024',
     title: 'The Equinox E-Summit 2K24',
-    desc:  "MLRIT's flagship annual summit bringing together entrepreneurs, investors, and innovators.",
-    quote: '"The Equinox gave me the first real room where founders, investors and students spoke to each other as equals — that shifted what I thought college could be."',
-    speaker: 'Aditya Rao',
-    speakerRole: 'CSE · Batch 2025',
+    desc:  'Equinox E-Summit is MLRIT\'s annual entrepreneurship summit — live startup pitches, investor panels, product showcases and workshops run by founders. Students pitch real ideas to real investors, on campus.',
+    quote: 'Live pitches. Real investors. Zero rehearsal. Equinox is where student ideas meet the people who fund them.',
+    speaker: 'Equinox E-Summit',
+    speakerRole: 'Annual · MLRIT Campus',
     video: '/videos/equinox.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_0711.JPG',
   },
@@ -33,10 +33,10 @@ const SLIDES: Slide[] = [
     alt:   'Zignasa 2025',
     tag:   'Tech · Cultural · 2025',
     title: 'Zignasa 2025',
-    desc:  "MLRIT's grand annual extravaganza featuring technical competitions, hackathons and cultural nights.",
-    quote: '"Zignasa is where every branch of MLRIT shows up — coding, robotics, dance, music. It is the one week the whole campus becomes one team."',
-    speaker: 'Priya Menon',
-    speakerRole: 'ECE · Cultural Lead',
+    desc:  'Zignasa is MLRIT\'s inter-departmental fest — hackathons, robotics arenas, coding contests, music, dance and film screenings running simultaneously. Every department competes. Every stage is open.',
+    quote: 'Every department on stage. Zignasa is the event that turns the whole campus into one team.',
+    speaker: 'Zignasa',
+    speakerRole: 'Annual Fest · MLRIT',
     video: '/videos/zignasa.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_0750.JPG',
   },
@@ -45,23 +45,23 @@ const SLIDES: Slide[] = [
     alt:   'Zenith 2K25',
     tag:   'National Tech Fest · 2025',
     title: 'Zenith 2K25',
-    desc:  'Three days, dozens of events — robotics arenas, coding marathons and headline bands on the main grounds.',
-    quote: '"The Zenith robotics arena was intense — three colleges, ninety-second rounds, and our bot came out of it holding its own. That felt earned."',
-    speaker: 'Karthik Reddy',
-    speakerRole: 'MECH · Zenith Robotics',
-    video: '/videos/sports.mp4',
+    desc:  'Zenith is MLRIT\'s national-level technical festival — colleges from across India compete in robotics, circuit design, coding sprints and product challenges. Open registrations, multi-college participation.',
+    quote: 'National-level. Multi-college. Engineering at full intensity — Zenith is where MLRIT competes with the country.',
+    speaker: 'Zenith',
+    speakerRole: 'National Tech Fest · MLRIT',
+    video: '/videos/zenith.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_0998.JPG',
   },
   {
     logo:  '/assets/logo.svg',
-    alt:   'Trishna Annual Day 2K26',
-    tag:   'Annual Day · 2026',
-    title: 'Trishna Annual Day 2K26',
-    desc:  "MLRIT's 21st Annual Day — student awards, alumni stories and a quiet evening that earned its applause.",
-    quote: '"Trishna is the one night you see twenty-one years of MLRIT compressed onto one stage — alumni, awards, and the class right behind you already planning next year."',
-    speaker: 'Sana Iyer',
-    speakerRole: 'IT · Batch 2026',
-    video: '/videos/av3.mp4',
+    alt:   'Navrat Naveli 2025',
+    tag:   'Cultural · Dussehra · 2025',
+    title: 'Navrat Naveli 2025',
+    desc:  'Navrat Naveli is MLRIT\'s Dussehra cultural event — classical and folk performances, garba, rangoli, traditional food and student-led celebrations marking the spirit of the festival across the campus.',
+    quote: 'Music, dance, colour and tradition — Navrat Naveli is how MLRIT celebrates Dussehra together.',
+    speaker: 'Navrat Naveli',
+    speakerRole: 'Cultural Fest · MLRIT',
+    video: '/videos/came.mp4',
     poster:'https://mlrit-next.vercel.app/assets/SBS_1131.JPG',
   },
 ];
@@ -119,7 +119,7 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative w-full h-screen min-h-[640px] overflow-hidden bg-black"
+      className="relative w-full h-screen min-h-[640px] overflow-hidden bg-ink"
       aria-label="Featured events"
     >
       {/* Rotating videos */}
@@ -164,7 +164,7 @@ export default function Events() {
           className="font-display italic text-white/85 text-[clamp(1.25rem,1.6vw,1.8rem)] tracking-tight"
           style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}
         >
-          In Their Words…
+          Our Clubs
         </span>
       </div>
 

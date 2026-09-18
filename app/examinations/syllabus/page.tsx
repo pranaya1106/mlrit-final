@@ -135,8 +135,8 @@ export default function SyllabusPage() {
         </aside>
         <div className="flex-1 min-w-0">
 
-      <section id="syllabus" className="bg-white py-14 md:py-20">
-        <div className="w-full px-6 md:px-10 lg:px-12 space-y-8">
+      <section id="syllabus" className="bg-white py-8 md:py-20">
+        <div className="w-full px-4 md:px-10 lg:px-12 space-y-5 md:space-y-8">
 
           {/* Step 1 — Department */}
           <div>
@@ -227,7 +227,7 @@ export default function SyllabusPage() {
           {/* Results */}
           {activeSem ? (
             <div>
-              <div className="mb-5">
+              <div className="mb-3 md:mb-5">
                 <h2 className="font-sans font-black tracking-tighter text-[1.35rem]" style={gradientText}>
                   {DEPARTMENTS.find(d => d.key === dept)?.short}
                   {' · '}{activeReg.toUpperCase()}
@@ -239,7 +239,7 @@ export default function SyllabusPage() {
               </div>
 
               {courses.length === 0 ? (
-                <div className="rounded-2xl border border-border bg-warm-light p-8 text-center">
+                <div className="rounded-2xl border border-border bg-warm-light p-5 md:p-8 text-center">
                   <p className="font-sans text-muted text-[0.9rem]">
                     Syllabus data for this combination is not yet available.
                   </p>
@@ -255,7 +255,7 @@ export default function SyllabusPage() {
               )}
             </div>
           ) : (
-            <div className="rounded-2xl border border-border/60 bg-warm-light p-10 text-center">
+            <div className="rounded-2xl border border-border/60 bg-warm-light p-6 md:p-10 text-center">
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                 <svg width="22" height="22" viewBox="0 0 20 20" fill="none" className="text-primary" aria-hidden>
                   <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.6"/>

@@ -81,9 +81,9 @@ export default function COEPage() {
         <div className="flex-1 min-w-0">
 
       {/* Autonomy — editorial lead treatment */}
-      <section id="coe" className="bg-white py-12 md:py-16">
-        <div className="w-full px-6 md:px-10 lg:px-12">
-          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-start">
+      <section id="coe" className="bg-white py-8 md:py-16">
+        <div className="w-full px-4 md:px-10 lg:px-12">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-6 lg:gap-16 items-start">
             <Reveal>
               <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">
                 Autonomous Since 2015
@@ -94,7 +94,7 @@ export default function COEPage() {
                   examination framework.
                 </span>
               </h2>
-              <div className="mt-6 border-l-[3px] border-primary pl-6">
+              <div className="mt-4 md:mt-6 border-l-[3px] border-primary pl-4 md:pl-6">
                 <p className="font-display italic font-medium text-foreground text-[clamp(1.1rem,1.4vw,1.4rem)] leading-[1.5]">
                   A UGC-autonomous institution designing its own regulations, grading norms and academic policies — aligned with Outcome-Based Education and NEP 2020.
                 </p>
@@ -102,9 +102,9 @@ export default function COEPage() {
             </Reveal>
 
             <Reveal preset="up" delay={0.1}>
-              <div className="space-y-5">
+              <div className="space-y-3 md:space-y-5">
                 <p className="text-foreground/85 text-[1.05rem] leading-[1.75]">
-                  <span className="font-display italic font-black text-primary text-[3.4rem] leading-[0.7] float-left mr-3 mt-1">A</span>
+                  <span className="font-display italic font-black text-primary text-[2.4rem] md:text-[3.4rem] leading-[0.7] float-left mr-3 mt-1">A</span>
                   s a UGC-autonomous institution since 2015, MLRIT designs and administers its own examination regulations, grading norms and academic policies — fully aligned with Outcome-Based Education (OBE) and the National Education Policy 2020.
                 </p>
                 <p className="text-muted text-[1rem] leading-[1.75]">
@@ -115,7 +115,7 @@ export default function COEPage() {
           </div>
 
           {/* Facts strip */}
-          <Stagger className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4" delay={0.07}>
+          <Stagger className="mt-8 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" delay={0.07}>
             {[
               { val: '2015', lbl: 'Year of autonomy' },
               { val: '4',    lbl: 'Active regulations' },
@@ -123,8 +123,8 @@ export default function COEPage() {
               { val: 'OBE',  lbl: 'Framework' },
             ].map((s, i) => (
               <StaggerItem key={s.lbl}>
-                <div className="relative rounded-2xl bg-warm-light border border-border p-6 h-full overflow-hidden group hover:-translate-y-1 hover:shadow-card-soft transition-all duration-300">
-                  <span aria-hidden className="absolute -top-2 -right-2 font-display italic font-black text-[5rem] leading-none tracking-tighter text-foreground/[0.05] select-none">
+                <div className="relative rounded-2xl bg-warm-light border border-border p-4 md:p-6 h-full overflow-hidden group hover:-translate-y-1 hover:shadow-card-soft transition-all duration-300">
+                  <span aria-hidden className="absolute -top-2 -right-2 font-display italic font-black text-[3.5rem] md:text-[5rem] leading-none tracking-tighter text-foreground/[0.05] select-none">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div className="relative">
@@ -143,8 +143,8 @@ export default function COEPage() {
       </section>
 
       {/* COE Functions — no icons, numbered cards */}
-      <section className="bg-warm-light py-12 md:py-16 border-t border-border">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section className="bg-warm-light py-8 md:py-16 border-t border-border">
+        <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">Functions</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
@@ -153,11 +153,11 @@ export default function COEPage() {
             </h2>
           </Reveal>
 
-          <Stagger className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.06}>
+          <Stagger className="mt-6 md:mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" delay={0.06}>
             {FUNCTIONS.map((f, i) => (
               <StaggerItem key={f.title}>
-                <div className="relative bg-white rounded-2xl border border-border p-7 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft overflow-hidden">
-                  <span aria-hidden className="absolute -top-3 -right-3 font-display italic font-black text-[5.5rem] leading-none tracking-tighter text-primary/[0.06] select-none">
+                <div className="relative bg-white rounded-2xl border border-border p-4 md:p-7 h-full transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-card-soft overflow-hidden">
+                  <span aria-hidden className="absolute -top-3 -right-3 font-display italic font-black text-[3.8rem] md:text-[5.5rem] leading-none tracking-tighter text-primary/[0.06] select-none">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div className="relative">
@@ -177,8 +177,8 @@ export default function COEPage() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-white py-12 md:py-16 border-t border-border">
-        <div className="w-full px-6 md:px-10 lg:px-12">
+      <section className="bg-white py-8 md:py-16 border-t border-border">
+        <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
             <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">Timeline</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
@@ -187,7 +187,7 @@ export default function COEPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-10 relative">
+          <div className="mt-6 md:mt-10 relative">
             <div className="absolute left-[7.5rem] top-2 bottom-2 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
             <div className="space-y-6">
               {MILESTONES.map((m, i) => (
@@ -201,7 +201,7 @@ export default function COEPage() {
                     <div className="relative shrink-0 z-10 mt-2 w-4 h-4 rounded-full border-2 border-primary bg-white grid place-items-center">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                     </div>
-                    <div className="flex-1 rounded-2xl border border-border bg-warm-light p-5 md:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-card-soft">
+                    <div className="flex-1 rounded-2xl border border-border bg-warm-light p-4 md:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:shadow-card-soft">
                       <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] tracking-tight">{m.event}</h3>
                       <p className="mt-2 text-muted text-[0.94rem] leading-[1.7]">{m.note}</p>
                     </div>
@@ -212,11 +212,11 @@ export default function COEPage() {
           </div>
 
           <Reveal preset="up" delay={0.2}>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-6 md:mt-10 flex flex-wrap items-center gap-3">
               <DocActions href="/examinations/coe-profile.pdf" viewLabel="View Profile" downloadLabel="Download Profile" />
               <a
                 href="/examinations/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-primary hover:text-primary transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-primary hover:text-primary transition-colors"
               >
                 Contact the COE Office →
               </a>

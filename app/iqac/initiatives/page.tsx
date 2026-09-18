@@ -75,11 +75,11 @@ export default function InitiativesPage() {
               The IQAC actively coordinates institutional initiatives in the following areas to ensure holistic institutional development:
             </Lede>
             <Reveal preset="up" delay={0.08}>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="mt-5 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {INITIATIVES.map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 rounded-xl border border-border bg-white px-5 py-4 hover:border-secondary transition-colors"
+                    className="flex items-start gap-3 rounded-xl border border-border bg-white px-4 md:px-5 py-3 md:py-4 hover:border-secondary transition-colors"
                   >
                     <span className="shrink-0 w-6 h-6 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.6rem] font-bold flex items-center justify-center mt-0.5">
                       {String(i + 1).padStart(2, '0')}
@@ -99,7 +99,7 @@ export default function InitiativesPage() {
               </p>
             </Reveal>
             <Reveal preset="up" delay={0.08}>
-              <div className="mt-6 rounded-2xl border border-border bg-white p-7">
+              <div className="mt-4 md:mt-6 rounded-2xl border border-border bg-white p-4 md:p-7">
                 <ul className="space-y-3">
                   {RESPONSIBILITIES.map((resp, i) => (
                     <li key={i} className="flex items-start gap-2.5">

@@ -98,7 +98,6 @@ export default function PlacementsWall() {
           transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.08] border border-white/20 backdrop-blur-md text-warm font-sans font-extrabold text-[0.72rem] tracking-[0.24em] uppercase mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-warm animate-pulse" />
           Training &amp; Placement Cell
         </motion.span>
 

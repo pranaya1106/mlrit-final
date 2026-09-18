@@ -1,90 +1,220 @@
 'use client';
-import { useEffect, useRef } from 'react';
 
-import Reveal from '@/components/motion/Reveal';
-import { resolveAssetUrl } from '@/lib/cdn/url';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Phone, ArrowRight } from 'lucide-react';
+
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 
-/**
- * Fallback copy. Used whenever the CMS lookup in app/page.tsx fails, returns
- * nothing, or returns a row missing any field — the section must always render
- * complete text, never a blank or half-filled heading.
- */
-const DEFAULT_HEADING = 'Industry Integrated Curriculum Blended With Sports';
 const DEFAULT_BODY =
-  'MLRIT is the only engineering college in Telangana where athletic performance is built into your degree — with national-level coaching, sports scholarships, and dedicated training hours. Our students compete at state and national levels across cricket, badminton, athletics, and more, backed by professional infrastructure and full institutional support.';
-const DEFAULT_VIDEO = '/videos/sports.mp4';
+  'An integrated curriculum that gives equal weight to academics, employable skills, and sport.';
+
+const DEFAULT_FOOTNOTE =
+  'Founded in **2005** by the KMR Education Trust, headed by **Mr. Marri Laxman Reddy**. Located in Dundigal, Hyderabad. Affiliated to JNTUH. Granted autonomous status by the UGC in 2015.';
 
 type WhyMLRITProps = {
-  heading?: string;
+  heading?: string;   // kept for CMS compat; layout ignores it in favour of the split headline
   body?: string;
-  /** Full URL for the background clip; falls back to the bundled file. */
-  video?: string;
+  video?: string;     // kept for CMS compat
 };
 
+/**
+ * Turn markdown-lite `**bold**` chunks into real <strong> elements.
+ * Only bold is supported here — that's all the footnote needs.
+ */
+function renderRich(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="font-semibold text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 export default function WhyMLRIT(props: WhyMLRITProps) {
-  // Live-preview draft wins over the saved props; fallbacks below are unchanged.
-  const { heading, body, video } = useMergedSection('home/why-mlrit', props);
-
-  // The first character carries the display-italic drop-cap treatment, so the
-  // heading is split rather than rendered as one node.
-  const headingText = heading?.trim() || DEFAULT_HEADING;
-  const headingInitial = headingText.slice(0, 1);
-  const headingRest = headingText.slice(1);
+  const { body } = useMergedSection('home/why-mlrit', props);
   const bodyText = body?.trim() || DEFAULT_BODY;
-  // Resolved here too: a preview override carries the raw stored value, which
-  // bypasses the resolution app/page.tsx applies to the prop. Idempotent.
-  // allowTransient: this component also renders live-preview drafts, where a
-  // blob: URL minted by the iframe is the correct source. Saved content that
-  // is somehow blob: resolves to undefined and falls back to DEFAULT_VIDEO.
-  const videoSrc = resolveAssetUrl(video?.trim(), { allowTransient: true }) || DEFAULT_VIDEO;
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Changing the src attribute does not make an already-loaded <video> fetch
-  // the new file — the element keeps playing what it has. The live preview
-  // swaps a local blob: URL for the uploaded key once the upload resolves, so
-  // force a reload whenever the resolved URL changes, and resume playback
-  // because the markup is autoPlay.
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    el.load();
-    el.play().catch(() => {
-      // Autoplay can be refused (e.g. tab backgrounded); not worth surfacing.
-    });
-  }, [videoSrc]);
 
   return (
-    <section id={sectionDomId('home/why-mlrit')} className="relative bg-neutral-900 text-white py-10 md:py-14 overflow-hidden">
-      <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-2 gap-10 items-center">
-        <Reveal preset="right">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-white/55 font-sans font-bold text-[0.66rem] tracking-[0.22em] uppercase mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Why MLRIT
-          </span>
-          <h2 className="font-sans font-black tracking-tighter-2 leading-[1.04] text-[clamp(2rem,3.6vw,3rem)]">
-            <span className="text-primary">&ldquo;</span>
-            <span className="font-display italic font-bold text-[1.05em]">{headingInitial}</span>
-            {headingRest}
-            <span className="text-primary">&rdquo;</span>
+    <section
+      id={sectionDomId('home/why-mlrit')}
+      className="relative bg-cream grain-texture overflow-hidden pt-10 pb-20 md:py-28"
+    >
+      {/* Ambient soft glow — subtle radial blobs in brand tones */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-70"
+        style={{
+          background:
+            'radial-gradient(1100px 500px at 25% 40%, rgba(232,93,4,0.06) 0%, transparent 60%),' +
+            'radial-gradient(900px 500px at 85% 70%, rgba(1,116,31,0.05) 0%, transparent 60%)',
+        }}
+      />
+
+      {/* ── Decorative background artwork — full opacity everywhere.
+          Hidden on mobile: the single-column stack puts body copy across
+          the full width, and the ribbon (sized for the desktop spotlight
+          mask) cuts straight across the footnote paragraph there. */}
+      <img
+        src="/vectors/whymlrit-background.svg"
+        alt=""
+        aria-hidden
+        className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none z-[0]"
+      />
+
+      {/* Strong cream spotlight anchored precisely over the headline zone
+          (top-left of the section). Fully opaque cream at the centre so
+          the "Industry." word reads sharp, fading out to transparent at
+          the edges so the ribbons stay visible everywhere else. */}
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 w-[60%] lg:w-[52%] h-[70%] pointer-events-none z-[1]"
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 55% at 32% 40%, rgba(250, 247, 240, 1) 0%, rgba(250, 247, 240, 0.95) 35%, rgba(250, 247, 240, 0.55) 65%, rgba(250, 247, 240, 0) 100%)',
+        }}
+      />
+
+      <div className="relative z-[2] mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20 items-start">
+        {/* ── LEFT — Editorial headline column ─────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Small caps eyebrow */}
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-px w-8 bg-primary/70" />
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.3em] uppercase text-primary">
+              Curriculum · Sports · Life
+            </span>
+          </div>
+
+          {/* Multi-line headline */}
+          <h2 className="mt-8 font-sans font-black leading-[0.98] tracking-tighter-2 text-foreground text-[clamp(2.6rem,5.6vw,4.6rem)]">
+            <span className="block">Industry.</span>
+            <span
+              className="block pb-[0.14em]"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, var(--primary) 0%, #7a3b00 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+                lineHeight: '1.08',
+              }}
+            >
+              Integrated.
+            </span>
+            <span className="block font-display italic font-medium text-foreground/70 mt-1">
+              Blended with sport.
+            </span>
           </h2>
-          <p className="mt-6 text-white/72 font-light leading-relaxed text-[1.04rem] max-w-[560px]">
+
+          {/* Body */}
+          <p className="mt-8 text-foreground/80 leading-[1.6] text-[clamp(1rem,1.15vw,1.15rem)] max-w-[560px]">
             {bodyText}
           </p>
-        </Reveal>
-        <Reveal preset="scale" delay={0.2} className="rounded-2xl overflow-hidden aspect-video bg-black/40">
-          <video
-            ref={videoRef}
-            src={videoSrc}
-            muted
-            loop
-            playsInline
-            autoPlay
-            preload="metadata"
-            className="w-full h-full object-cover"
-          />
-        </Reveal>
+
+          {/* Founding footnote */}
+          <p className="mt-4 text-foreground/60 leading-[1.7] text-[0.95rem] max-w-[560px]">
+            {renderRich(DEFAULT_FOOTNOTE)}
+          </p>
+
+          {/* CTA row — orange rectangular button + phone pill */}
+          <div className="mt-10 flex flex-col gap-4 max-w-[520px]">
+            <Link
+              href="/admissions/overview"
+              style={{ backgroundColor: '#e85d04' }}
+              className="group inline-flex items-center gap-3 h-12 md:h-14 pl-5 pr-5 rounded-xl text-white font-semibold text-[0.95rem] md:text-[1rem] tracking-[-0.005em] hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300 ease-out-quart w-fit"
+            >
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-white/20 group-hover:bg-white/30 transition-colors">
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+              Start Your Application
+            </Link>
+
+            {/* Phone pill — admissions contact */}
+            <a
+              href="tel:+919652226061"
+              className="group inline-flex items-center gap-3 md:gap-4 h-14 md:h-16 pl-2 pr-4 md:pr-6 rounded-full bg-white border border-border hover:border-primary/40 hover:shadow-sm transition-all max-w-full"
+            >
+              <span
+                className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full text-white flex-shrink-0"
+                style={{ backgroundColor: '#e85d04' }}
+              >
+                <Phone className="w-4 h-4 md:w-5 md:h-5" />
+              </span>
+              <div className="flex flex-col leading-none min-w-0">
+                <span className="font-mono text-[0.56rem] md:text-[0.65rem] font-bold tracking-[0.1em] md:tracking-[0.22em] uppercase text-muted whitespace-nowrap">
+                  <span className="md:hidden">Talk to Us</span>
+                  <span className="hidden md:inline">Admissions · Talk to Us</span>
+                </span>
+                <span className="mt-1.5 font-sans font-bold text-foreground text-[1.15rem] md:text-[1.35rem] tabular-nums tracking-tight">
+                  9652226061
+                </span>
+              </div>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* ── RIGHT — Portrait campus card with overlay ────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
+        >
+          <div className="relative overflow-hidden rounded-2xl md:rounded-[24px] bg-ink shadow-[0_40px_90px_-30px_rgba(15,15,15,0.35)] aspect-[3/4] max-h-[640px]">
+            <video
+              src="/videos/sports.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {/* Bottom vignette */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-[55%] pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(12,12,14,0) 0%, rgba(12,12,14,0.85) 100%)',
+              }}
+            />
+
+            {/* Caption stack */}
+            <div className="absolute inset-x-0 bottom-0 z-[2] p-6 md:p-8 pointer-events-none">
+              <div className="font-mono text-[0.62rem] md:text-[0.68rem] font-bold tracking-[0.24em] uppercase text-white/70">
+                Since 2005 — Dundigal, Hyderabad
+              </div>
+              <div className="mt-3 font-sans font-black text-white leading-[1.02] tracking-tighter-2 text-[clamp(1.6rem,2.6vw,2.2rem)]">
+                Twenty acres.
+              </div>
+              <div className="mt-1 font-display italic font-medium text-white/80 text-[clamp(1.1rem,1.7vw,1.4rem)] leading-[1.15]">
+                Engineered for the next generation.
+              </div>
+            </div>
+          </div>
+
+          {/* Small caption below the card */}
+          <div className="mt-4 flex items-center gap-2 justify-end">
+            <span aria-hidden className="h-px w-6 bg-muted/50" />
+            <span className="font-mono text-[0.62rem] font-bold tracking-[0.28em] uppercase text-muted">
+              KMR Education Trust
+            </span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

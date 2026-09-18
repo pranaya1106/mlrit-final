@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable}`}>
-      <body className="bg-background text-foreground font-sans antialiased">
+      <body className="bg-paper text-foreground font-sans antialiased">
         <SmoothScroll />
         <Header />
         <main className="pt-[var(--header-h)]">{children}</main>

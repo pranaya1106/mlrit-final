@@ -52,7 +52,7 @@ export default function NBAPage() {
           {/* About NBA */}
           <Section id="about">
             <H2 italic="NBA">About</H2>
-            <div className="mt-6 grid md:grid-cols-2 gap-8">
+            <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
                   The National Board of Accreditation (NBA) is an autonomous body that evaluates the quality of technical programmes in India. NBA accreditation signifies that a programme meets the defined standards of quality in terms of curriculum, infrastructure, faculty, and outcomes.
@@ -69,7 +69,7 @@ export default function NBAPage() {
                     { val: 'OBE',     sub: 'Outcome Based Edu.'    },
                     { val: '2025',    sub: 'Current Cycle End'      },
                   ].map((s) => (
-                    <div key={s.sub} className="rounded-2xl border border-border bg-warm-light p-6">
+                    <div key={s.sub} className="rounded-2xl border border-border bg-warm-light p-4 md:p-6">
                       <div className="font-sans font-black text-secondary tracking-tighter-2 text-[1.8rem] leading-none">{s.val}</div>
                       <div className="mt-2 font-mono text-muted text-[0.7rem] tracking-wide uppercase">{s.sub}</div>
                     </div>
@@ -83,31 +83,31 @@ export default function NBAPage() {
           <Section id="programmes" surface>
             <H2 italic="programmes">Accredited</H2>
             <Lede>The following B.Tech programmes at MLRIT are currently accredited by the National Board of Accreditation under the Tier-1 framework.</Lede>
-            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-white shadow-card-soft">
+            <div className="mt-5 md:mt-8 overflow-hidden rounded-2xl border border-border bg-white shadow-card-soft">
               <table className="w-full text-left">
                 <thead className="bg-warm-light/60 border-b border-border">
                   <tr>
-                    <th className="px-6 py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">Programme</th>
-                    <th className="px-6 py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted hidden md:table-cell">Accreditation Cycle</th>
-                    <th className="px-6 py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">Status</th>
-                    <th className="px-6 py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">DCP</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">Programme</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted hidden md:table-cell">Accreditation Cycle</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">Status</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">DCP</th>
                   </tr>
                 </thead>
                 <tbody>
                   {programmes.map((p, i) => (
                     <tr key={p.code} className={`border-t border-border ${i % 2 === 0 ? '' : 'bg-warm-light/20'}`}>
-                      <td className="px-6 py-4">
+                      <td className="px-3 md:px-6 py-3 md:py-4">
                         <div className="font-sans font-bold text-foreground">{p.dept}</div>
                         <div className="font-mono text-muted text-[0.7rem] tracking-wide mt-0.5">{p.code}</div>
                       </td>
-                      <td className="px-6 py-4 text-foreground font-mono text-[0.88rem] hidden md:table-cell">{p.cycle}</td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 md:px-6 py-3 md:py-4 text-foreground font-mono text-[0.88rem] hidden md:table-cell">{p.cycle}</td>
+                      <td className="px-3 md:px-6 py-3 md:py-4">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 border border-green-200 text-secondary font-semibold text-[0.75rem]">
                           <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
                           {p.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 md:px-6 py-3 md:py-4">
                         <a
                           href={p.dcp}
                           target="_blank"
@@ -131,14 +131,14 @@ export default function NBAPage() {
           <Section id="dcp">
             <H2 italic="Reports">DCP</H2>
             <Lede>Departmental Compliance Profile (DCP) documents for each NBA-accredited programme at MLRIT.</Lede>
-            <Stagger className="mt-8 grid md:grid-cols-3 gap-5" delay={0.07}>
+            <Stagger className="mt-5 md:mt-8 grid md:grid-cols-3 gap-3 md:gap-5" delay={0.07}>
               {programmes.map((p) => (
                 <StaggerItem key={p.code}>
                   <a
                     href={p.dcp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block rounded-2xl border-2 border-border bg-white p-7 hover:border-secondary hover:-translate-y-1 transition-all h-full"
+                    className="group block rounded-2xl border-2 border-border bg-white p-4 md:p-7 hover:border-secondary hover:-translate-y-1 transition-all h-full"
                   >
                     <div className="w-10 h-10 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-4">
                       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-secondary" aria-hidden>

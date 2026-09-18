@@ -132,7 +132,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
         style={{ background: 'linear-gradient(to left, white 0%, transparent 100%)' }} />
       <div
         ref={ref}
-        className="flex items-center gap-5 py-2"
+        className="flex items-center gap-3 md:gap-5 py-2"
         style={{ width: 'max-content', willChange: 'transform' }}
       >
         {/* Render items twice for seamless visual density */}
@@ -140,7 +140,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
           item.type === 'pill' ? (
             <div
               key={i}
-              className="shrink-0 px-9 py-5 font-sans font-bold text-[1.05rem] md:text-[1.35rem] select-none"
+              className="shrink-0 px-5 py-3 md:px-9 md:py-5 font-sans font-bold text-[1.05rem] md:text-[1.35rem] select-none"
               style={{
                 background: item.bg,
                 color: item.color,
@@ -172,7 +172,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
 
   return (
     <section ref={sectionRef} className="bg-white py-10 md:py-14 overflow-hidden">
-      <div className="w-full px-6 md:px-10 lg:px-12 mb-14">
+      <div className="w-full px-6 md:px-10 lg:px-12 mb-8 md:mb-14">
         <div className="text-center">
           <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Our Foundation</span>
           <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
@@ -221,63 +221,85 @@ export default function AdmissionsPage() {
 
   return (
     <>
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .hero-fade { animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both; }
-      `}</style>
+      {/* ── HERO ── dark ink, matches About/Research/Examinations PageHeader system */}
+      <section className="ph-hero relative overflow-hidden bg-black text-white" style={{ minHeight: 'clamp(440px, 60vh, 620px)' }}>
+        {/* Ambient masked grid */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none z-[0]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(114,114,114,1) 1px, transparent 1px),' +
+              'linear-gradient(90deg, rgba(114,114,114,1) 1px, transparent 1px)',
+            backgroundSize: '52px 52px',
+            opacity: 0.08,
+            WebkitMaskImage: 'radial-gradient(ellipse 60% 55% at 30% 45%, #000 0%, rgba(0,0,0,0.5) 55%, transparent 100%)',
+            maskImage: 'radial-gradient(ellipse 60% 55% at 30% 45%, #000 0%, rgba(0,0,0,0.5) 55%, transparent 100%)',
+          }}
+        />
+        {/* Accent glows */}
+        <div aria-hidden className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none blur-[100px] z-[0]" style={{ backgroundColor: '#01741f', opacity: 0.14 }} />
+        <div aria-hidden className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full pointer-events-none blur-[100px] z-[0]" style={{ backgroundColor: '#01741f', opacity: 0.10 }} />
 
-      {/* ── HERO ── full viewport, green bg, bold typographic */}
-      <section
-        className="relative min-h-[85vh] flex flex-col justify-center overflow-hidden"
-        style={{ background: '#01741f' }}
-      >
-        {/* Background texture circles */}
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #ffffff 0%, transparent 70%)' }} />
-        <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-10"
-          style={{ background: 'radial-gradient(circle, #e85d04 0%, transparent 70%)' }} />
+        {/* Ghost display word */}
+        <div aria-hidden className="absolute -left-4 md:-left-8 lg:-left-12 pointer-events-none select-none z-[0] hidden md:block" style={{ top: '50%', transform: 'translateY(-50%)' }}>
+          <div className="ph-ghost font-sans font-black leading-[0.78] tracking-tighter-3 whitespace-nowrap" style={{ fontSize: 'clamp(14rem, 28vw, 36rem)', color: 'rgba(255,255,255,0.05)' }}>
+            ADMISSIONS
+          </div>
+        </div>
 
-        <div className="relative w-full px-6 md:px-10 lg:px-12 pt-28 pb-20">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/50 mb-8 hero-fade" style={{ animationDelay: '0.1s' }}>
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white/80">Admissions</span>
+        {/* Corner bracket */}
+        <div aria-hidden className="ph-bracket absolute top-8 right-8 w-8 h-8 pointer-events-none hidden md:block z-[3]">
+          <span className="absolute top-0 right-0 w-full h-px" style={{ backgroundColor: '#01741f' }} />
+          <span className="absolute top-0 right-0 w-px h-full" style={{ backgroundColor: '#01741f' }} />
+        </div>
+
+        <div className="relative z-[2] max-w-[1600px] mx-auto px-6 md:px-10 lg:px-16 py-16 md:py-20 lg:py-28 flex flex-col justify-center" style={{ minHeight: 'clamp(440px, 60vh, 620px)' }}>
+          {/* Breadcrumbs */}
+          <div className="ph-crumbs flex flex-wrap items-center gap-2 font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase mb-8" style={{ color: 'rgba(255,255,255,0.55)' }}>
+            <Link href="/" style={{ opacity: 0.85 }}>Home</Link>
+            <span style={{ opacity: 0.4 }}>/</span>
+            <span>Admissions</span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+            {/* Left: headline + CTAs */}
             <div>
-              <span className="hero-fade inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/80 mb-6"
-                style={{ animationDelay: '0.2s' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Admissions 2025–26 Open
-              </span>
+              {/* Eyebrow */}
+              <div className="flex items-center gap-3 mb-6">
+                <span aria-hidden className="ph-rule h-px w-8 origin-left block" style={{ backgroundColor: '#01741f' }} />
+                <span className="ph-eyebrow font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: '#01741f' }}>
+                  Admissions 2025–26
+                </span>
+              </div>
 
-              <h1 className="hero-fade font-sans font-black text-white leading-[1.02] tracking-tighter-2"
-                style={{ fontSize: 'clamp(2.8rem,5.5vw,5rem)', animationDelay: '0.3s' }}>
-                You&apos;re more than<br />a score. And we&apos;re<br />
-                <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
-                  more than a college.
+              <h1 className="ph-title font-sans font-black tracking-tighter-3 leading-[0.98] text-white" style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)' }}>
+                {['You\'re', 'more', 'than'].map((word, i) => (
+                  <span key={i} className="ph-word inline-block" style={{ marginRight: '0.28em', animationDelay: `${0.2 + i * 0.06}s` }}>{word}</span>
+                ))}
+                {['a', 'score.'].map((word, i) => (
+                  <span key={i} className="ph-word inline-block" style={{ marginRight: '0.28em', animationDelay: `${0.38 + i * 0.06}s` }}>{word}</span>
+                ))}
+                <span className="block font-display italic font-medium mt-2" style={{ color: '#01741f', fontSize: '0.86em', lineHeight: 1.05 }}>
+                  {['more', 'than', 'a', 'college.'].map((word, i) => (
+                    <span key={i} className="ph-word inline-block" style={{ marginRight: '0.24em', animationDelay: `${0.56 + i * 0.05}s` }}>{word}</span>
+                  ))}
                 </span>
               </h1>
 
-              <p className="hero-fade mt-6 text-white/75 text-[1.06rem] leading-relaxed max-w-[480px]"
-                style={{ animationDelay: '0.45s' }}>
+              <span aria-hidden className="ph-underline block mt-7 h-px origin-left" style={{ width: '22%', minWidth: '120px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+
+              <p className="ph-dek mt-7 leading-[1.7] text-[clamp(1rem,1.3vw,1.18rem)] max-w-[62ch] text-white/70">
                 MLRIT opens its doors to students who are curious, driven and ready to shape the future. A transparent, merit-based admissions process — designed for you.
               </p>
 
-              <div className="hero-fade mt-10 flex flex-wrap gap-4" style={{ animationDelay: '0.6s' }}>
+              <div className="ph-dek mt-10 flex flex-wrap gap-4">
                 <Link
                   href="/admissions/why-mlrit"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-all hover:scale-105"
                 >
                   Why MLRIT
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </Link>
                 <Link
                   href="/admissions/b-category"
@@ -285,9 +307,7 @@ export default function AdmissionsPage() {
                   style={{ boxShadow: '0 0 0 2px rgba(232,93,4,0.35)' }}
                 >
                   B-Category
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </Link>
                 <a
                   href="/admissions/mlrit-brochure.pdf"
@@ -296,34 +316,33 @@ export default function AdmissionsPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
                 >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path d="M8 2v8m-3-3 3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M8 2v8m-3-3 3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   Download Brochure
                 </a>
               </div>
             </div>
 
-            {/* Stats on hero */}
-            <div className="hero-fade grid grid-cols-2 gap-4" style={{ animationDelay: '0.5s' }}>
-              {STATS.map(s => (
-                <div key={s.label} className="bg-white/10 border border-white/15 rounded-2xl p-6 backdrop-blur-sm hover:bg-white/15 transition-colors">
-                  <div className="font-sans font-black text-white tracking-tighter-2" style={{ fontSize: 'clamp(1.8rem,3vw,2.4rem)' }}>
+            {/* Right: stats grid */}
+            <div className="ph-dek grid grid-cols-2 gap-4" style={{ animationDelay: '0.5s' }}>
+              {STATS.map((s, i) => (
+                <div key={s.label} className="relative rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-md p-5 md:p-6 hover:bg-white/[0.09] transition-colors">
+                  <div className="font-mono text-[0.6rem] font-bold tracking-[0.2em] text-white/35 mb-2">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <div className="font-sans font-black tracking-tighter-2 text-white" style={{ fontSize: 'clamp(1.8rem,3vw,2.4rem)', lineHeight: 1 }}>
                     {s.value}
                   </div>
-                  <div className="mt-1 font-sans font-bold text-white/90 text-[0.9rem]">{s.label}</div>
-                  <div className="mt-0.5 font-mono text-white/50 text-[0.65rem] tracking-wide uppercase">{s.sub}</div>
+                  <div className="mt-2 font-sans font-bold text-white/80 text-[0.88rem]">{s.label}</div>
+                  <div className="mt-0.5 font-mono text-white/40 text-[0.62rem] tracking-wide uppercase">{s.sub}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 60 C360 0 1080 0 1440 60 L1440 60 L0 60Z" fill="#faf7f0"/>
-          </svg>
+        {/* Chapter mark */}
+        <div aria-hidden className="absolute right-8 bottom-8 pointer-events-none hidden md:block font-mono text-[0.62rem] font-bold tracking-[0.28em] uppercase ph-mark" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          § Admissions
         </div>
       </section>
 
@@ -337,7 +356,7 @@ export default function AdmissionsPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-14 flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
+          <div className="mt-8 md:mt-14 flex flex-col lg:flex-row gap-8 lg:gap-20 items-start">
 
             {/* Sticky image */}
             <div className="lg:sticky lg:top-28 lg:w-[420px] shrink-0">
@@ -378,7 +397,7 @@ export default function AdmissionsPage() {
                 <div
                   key={s.num}
                   ref={el => { stepRefs.current[i] = el; }}
-                  className="relative flex gap-5 pb-4 last:pb-0"
+                  className="relative flex gap-3 md:gap-5 pb-4 last:pb-0"
                 >
                   {/* Vertical connector */}
                   {i < STEPS.length - 1 && (
@@ -408,7 +427,7 @@ export default function AdmissionsPage() {
 
                   {/* Card — full highlighted when active */}
                   <div
-                    className="flex-1 rounded-2xl border-2 px-6 py-5 mb-5 transition-all duration-500"
+                    className="flex-1 rounded-2xl border-2 px-4 py-4 md:px-6 md:py-5 mb-3 md:mb-5 transition-all duration-500"
                     style={{
                       borderColor:  activeStep === i ? '#01741f' : activeStep > i ? '#d4f0d8' : '#e5e0d8',
                       background:   activeStep === i ? '#f0faf1' : activeStep > i ? '#fafffe' : '#ffffff',
@@ -424,7 +443,7 @@ export default function AdmissionsPage() {
                       Step {s.num}
                     </div>
                     <h3
-                      className="font-sans font-extrabold text-[1.2rem] leading-snug transition-colors duration-500"
+                      className="font-sans font-extrabold text-[1rem] md:text-[1.2rem] leading-snug transition-colors duration-500"
                       style={{ color: activeStep === i ? '#0a2e0f' : activeStep > i ? '#4a5568' : '#6b7280' }}
                     >
                       {s.title}
@@ -439,7 +458,7 @@ export default function AdmissionsPage() {
                 </div>
               ))}
 
-              <div className="mt-10 ml-[3.75rem] flex flex-wrap gap-4">
+              <div className="mt-6 md:mt-10 ml-[3.75rem] flex flex-wrap gap-4">
                 <Link
                   href="/admissions/how-to-apply"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-all shadow-primary-glow hover:scale-105"
@@ -468,7 +487,7 @@ export default function AdmissionsPage() {
       <section className="bg-white py-10 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <div className="mb-12">
+            <div className="mb-8 md:mb-12">
               <span className="font-mono text-[0.68rem] tracking-[0.2em] uppercase text-secondary font-bold">Financial Support</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-[clamp(2rem,3.5vw,3rem)] leading-[1.04] text-foreground">
                 Scholarship <span className="font-display italic font-medium" style={gradientText}>types.</span>
@@ -476,7 +495,7 @@ export default function AdmissionsPage() {
             </div>
           </Reveal>
 
-          <Stagger className="grid md:grid-cols-3 gap-6">
+          <Stagger className="grid md:grid-cols-3 gap-4 md:gap-6">
             {SCHOLARSHIPS.map(s => (
               <StaggerItem key={s.type}>
                 <Link href={s.href} className="group block">
@@ -513,7 +532,7 @@ export default function AdmissionsPage() {
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
             <div
-              className="relative rounded-3xl overflow-hidden px-10 md:px-16 pt-14 pb-0 md:pb-0"
+              className="relative rounded-3xl overflow-hidden px-6 md:px-16 pt-8 md:pt-14 pb-0 md:pb-0"
               style={{ background: '#01741f' }}
             >
               {/* Decorative shapes */}
@@ -524,16 +543,16 @@ export default function AdmissionsPage() {
                 <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, #ffffff, transparent 70%)' }} />
               </div>
 
-              <div className="relative grid md:grid-cols-2 gap-10 items-end">
+              <div className="relative grid md:grid-cols-2 gap-6 md:gap-10 items-end">
                 {/* Text */}
-                <div className="pb-14">
+                <div className="pb-8 md:pb-14">
                   <h2 className="font-sans font-black text-white text-[clamp(2rem,3.5vw,3.2rem)] leading-[1.06] tracking-tighter-2">
                     Fees &<br />Scholarships
                   </h2>
                   <p className="mt-5 text-white/75 text-[1rem] leading-relaxed max-w-[420px]">
                     We believe no student should miss out on quality education for financial reasons. MLRIT disburses scholarships across merit, need, sports and SC/ST categories every year.
                   </p>
-                  <div className="mt-8 flex flex-wrap gap-4">
+                  <div className="mt-5 md:mt-8 flex flex-wrap gap-4">
                     <Link
                       href="/admissions/fees"
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-colors"

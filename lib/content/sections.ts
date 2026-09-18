@@ -27,15 +27,44 @@ export const CONTENT_SECTIONS = {
           { name: 'target', label: 'Number', type: 'number' },
           { name: 'suffix', label: 'Suffix' },
           { name: 'label', label: 'Label' },
+          { name: 'caption', label: 'Caption (above)' },
+          { name: 'footnote', label: 'Footnote (below)' },
         ],
-        // 4 = the grid is grid-cols-2 md:grid-cols-4; a fifth would wrap
-        // alone onto a second row.
+        // 4 = the ledger grid is md:grid-cols-4; a fifth would wrap alone.
         maxItems: 4,
         defaultItems: [
-          { id: 'years', target: 20, suffix: '+', label: 'Years of Excellence' },
-          { id: 'students', target: 11, suffix: 'K+', label: 'Students Enrolled' },
-          { id: 'placement-rate', target: 98, suffix: '%', label: 'Placement Rate' },
-          { id: 'recruiters', target: 200, suffix: '+', label: 'Recruiting Companies' },
+          {
+            id: 'years',
+            target: 20,
+            suffix: '+',
+            label: 'Years of Excellence',
+            caption: 'Est \u00b7 2005',
+            footnote: 'Autonomous under UGC since 2015',
+          },
+          {
+            id: 'students',
+            target: 11,
+            suffix: 'K+',
+            label: 'Students Enrolled',
+            caption: 'UG \u00b7 PG \u00b7 Research',
+            footnote: 'Across 8 engineering programmes',
+          },
+          {
+            id: 'placement-rate',
+            target: 98,
+            suffix: '%',
+            label: 'Placement Rate',
+            caption: 'Batch of 2025',
+            footnote: 'Verified \u00b7 Placement Cell records',
+          },
+          {
+            id: 'recruiters',
+            target: 200,
+            suffix: '+',
+            label: 'Recruiting Companies',
+            caption: 'Incl. IIT / IIM / NIT hirers',
+            footnote: 'Fortune 500 \u00b7 Startups \u00b7 MNCs',
+          },
         ],
       },
     ],
@@ -130,22 +159,35 @@ export const CONTENT_SECTIONS = {
         name: 'stats',
         label: 'Counters',
         type: 'repeater',
+        // `value` is free text, not number + suffix: the redesign prints
+        // '5,000+' and '18 LPA' verbatim, so splitting them would make the
+        // editor encode formatting it cannot see in the preview.
         itemFields: [
-          { name: 'target', label: 'Number', type: 'number' },
-          { name: 'suffix', label: 'Suffix' },
+          { name: 'value', label: 'Value' },
           { name: 'label', label: 'Label' },
+          { name: 'note', label: 'Note' },
         ],
-        // 4 = grid-cols-2 md:grid-cols-4, same reasoning as home/stats.
+        // 4 = a 2x2 grid; a fifth would leave a ragged cell.
         maxItems: 4,
         defaultItems: [
-          { id: 'highest', target: 44, suffix: 'LPA', label: 'Highest Package' },
-          { id: 'placed', target: 5, suffix: 'K+', label: 'Students Placed in Top MNCs' },
-          { id: 'average', target: 18, suffix: 'LPA', label: 'Avg. Salary \u2014 Top 25%' },
+          { id: 'placed', value: '5,000+', label: 'Students Placed', note: 'in Top MNCs since 2005' },
           {
             id: 'recruiters',
-            target: 200,
-            suffix: '+',
-            label: 'Recruiters incl. IIT/IIM/NIT Hirers',
+            value: '200+',
+            label: 'Recruiters on Campus',
+            note: 'incl. IIT / IIM / NIT hirers',
+          },
+          {
+            id: 'average',
+            value: '18 LPA',
+            label: 'Average \u00b7 Top Quartile',
+            note: 'Placed batch of 2025',
+          },
+          {
+            id: 'rate',
+            value: '98 %',
+            label: 'Placement Rate',
+            note: 'Batch of 2025 \u00b7 Verified',
           },
         ],
       },

@@ -76,8 +76,8 @@ export default function AboutPage() {
         <div className="flex-1 min-w-0">
 
           {/* ── OUR STORY ──────────────────────────────────────────────────────── */}
-          <section id="story" className="bg-white py-10 md:py-14">
-            <div className="w-full px-6 md:px-10 lg:px-12 grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-14 items-start">
+          <section id="story" className="bg-white py-6 md:py-14">
+            <div className="w-full px-4 md:px-10 lg:px-12 grid lg:grid-cols-[1fr_1.2fr] gap-6 lg:gap-14 items-start">
               <Reveal preset="right">
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Our Story</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -87,15 +87,15 @@ export default function AboutPage() {
                     to a benchmark today.
                   </span>
                 </h2>
-                <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="mt-5 md:mt-8 grid grid-cols-2 gap-3 md:gap-4">
                   {[
                     { num: '20+', label: 'Years of excellence' },
                     { num: '11,000+', label: 'Students enrolled' },
                     { num: '7,000+', label: 'Alumni worldwide' },
                     { num: '621', label: 'Placements in 2025–26' },
                   ].map((s) => (
-                    <div key={s.label} className="rounded-xl border border-border bg-warm-light p-4">
-                      <p className="font-sans font-black text-foreground text-[1.5rem] tracking-tighter">{s.num}</p>
+                    <div key={s.label} className="rounded-xl border border-border bg-warm-light p-3 md:p-4">
+                      <p className="font-sans font-black text-foreground text-[1.25rem] md:text-[1.5rem] tracking-tighter">{s.num}</p>
                       <p className="font-mono text-[0.65rem] text-muted tracking-wide uppercase mt-0.5">{s.label}</p>
                     </div>
                   ))}
@@ -103,7 +103,7 @@ export default function AboutPage() {
               </Reveal>
 
               <Reveal preset="up" delay={0.1}>
-                <div className="space-y-4 text-foreground leading-relaxed text-[1.05rem]">
+                <div className="space-y-3 md:space-y-4 text-foreground leading-relaxed text-[0.95rem] md:text-[1.05rem]">
                   <p>
                     MLR Institute of Technology was founded in 2005 by{' '}
                     <strong>Sri Marri Laxman Reddy Garu</strong> and his family under the{' '}
@@ -124,7 +124,7 @@ export default function AboutPage() {
                     <em>right education, bright placements.</em>
                   </p>
                 </div>
-                <div className="mt-8 flex flex-wrap gap-4">
+                <div className="mt-5 md:mt-8 flex flex-wrap gap-4">
                   <Link
                     href="/about/legacy"
                     className="inline-flex items-center gap-2 text-primary font-semibold text-[0.9rem] hover:gap-3 transition-all"
@@ -143,8 +143,8 @@ export default function AboutPage() {
           </section>
 
           {/* ── SIX PILLARS ────────────────────────────────────────────────────── */}
-          <section id="pillars" className="bg-warm-light py-12 md:py-16">
-            <div className="w-full px-6 md:px-10 lg:px-12">
+          <section id="pillars" className="bg-warm-light py-8 md:py-16">
+            <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">What Defines Us</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
@@ -152,15 +152,15 @@ export default function AboutPage() {
                   <span className="font-display italic font-medium" style={gradientText}>MLRIT.</span>
                 </h2>
               </Reveal>
-              <Stagger className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.07}>
+              <Stagger className="mt-8 md:mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" delay={0.07}>
                 {PILLARS.map((p, i) => (
                   <StaggerItem key={p.title}>
-                    <div className="rounded-2xl border border-border bg-white p-7 h-full hover:border-primary hover:-translate-y-1 transition-all">
+                    <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full hover:border-primary hover:-translate-y-1 transition-all">
                       <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-primary mb-1">
                         {String(i + 1).padStart(2, '0')}
                       </div>
-                      <h3 className="mt-1 font-sans font-extrabold text-foreground text-xl tracking-tight">{p.title}</h3>
-                      <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{p.body}</p>
+                      <h3 className="mt-1 font-sans font-extrabold text-foreground text-base md:text-xl tracking-tight">{p.title}</h3>
+                      <p className="mt-1.5 md:mt-3 text-muted leading-relaxed text-[0.85rem] md:text-[0.96rem]">{p.body}</p>
                     </div>
                   </StaggerItem>
                 ))}

@@ -16,7 +16,7 @@ export type Publication = { title: string; authors: string; journal: string; yea
 export type HonourEntry = { year: string; name: string; achievement: string; score: string };
 export type InternshipEntry = { company: string; type: string; students: string; year: string };
 export type StatItem = { label: string; value: string };
-export type MouEntry = { name: string; domain: string };
+export type MouEntry = { name: string; domain: string; logo?: string };
 
 export type DeptData = {
   vision: string;

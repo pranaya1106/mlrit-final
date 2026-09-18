@@ -40,7 +40,7 @@ export default function PlacementsAlumniPage() {
         <div className="flex-1 min-w-0">
 
       {/* Re-Member section */}
-      <section id="alumni" className="bg-ink text-white py-10 md:py-14">
+      <section id="alumni" className="bg-ink text-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="max-w-[760px]">
             <Reveal>
@@ -61,7 +61,7 @@ export default function PlacementsAlumniPage() {
             </Reveal>
 
             <Reveal delay={0.18}>
-              <div className="mt-10 grid sm:grid-cols-3 gap-5">
+              <div className="mt-6 md:mt-10 grid sm:grid-cols-3 gap-5">
                 {[
                   { title: 'Reconnect', body: 'Find former batchmates and faculty. Stay in touch with the people who mattered.' },
                   { title: 'Mentor', body: 'Guide current students with your experience. Your insight can open the right door at the right time.' },
@@ -77,7 +77,7 @@ export default function PlacementsAlumniPage() {
             </Reveal>
 
             <Reveal delay={0.22}>
-              <div className="mt-10 flex flex-wrap gap-4 items-center">
+              <div className="mt-6 md:mt-10 flex flex-wrap gap-4 items-center">
                 {/* Alumni portal URL not yet confirmed — link intentionally withheld */}
                 <span
                   className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-warm text-white font-semibold text-[0.92rem] cursor-not-allowed opacity-70"

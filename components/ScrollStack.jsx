@@ -2,24 +2,18 @@
 import { useLayoutEffect, useRef, useCallback, useEffect } from 'react';
 
 /**
- * ScrollStack — buttery-smooth pinned-card stack.
+ * ScrollStack — pixel-perfect pinned card stack.
  *
- * Why it doesn't jitter (esp. on scroll-up):
- *  • All per-card layout offsets are cached at mount and on resize.
- *    No getBoundingClientRect / offsetTop reads happen during scroll.
- *  • Updates run on a single requestAnimationFrame loop, not on every
- *    `scroll` event. The loop also lerps the current scroll position
- *    toward the latest scrollY, so abrupt direction changes glide
- *    instead of snapping.
- *  • Transforms are sub-pixel (no Math.round) so reverse-scroll
- *    interpolations don't visibly step.
- *  • Lenis is removed — it was double-smoothing native scroll and
- *    fighting the browser's compositor on scroll-up.
+ * Rendered pin position uses CSS `position: sticky` so cards snap to the
+ * exact viewport pixel every frame — the browser does the math, not JS.
+ * A small rAF loop only writes `scale` (a transform that doesn't affect
+ * layout), which lets us gently shrink stacked cards without ever
+ * introducing sub-pixel drift on the pin itself.
  */
 
 export const ScrollStackItem = ({ children, itemClassName = '' }) => (
   <div
-    className={`scroll-stack-card relative w-full my-8 box-border origin-top ${itemClassName}`.trim()}
+    className={`scroll-stack-card relative w-full box-border origin-top ${itemClassName}`.trim()}
     style={{
       willChange: 'transform',
       transformStyle: 'preserve-3d',
@@ -33,21 +27,18 @@ export const ScrollStackItem = ({ children, itemClassName = '' }) => (
 const ScrollStack = ({
   children,
   className = '',
-  itemDistance = 100,
-  itemScale = 0.03,
-  itemStackDistance = 30,
-  stackPosition = '20%',
-  scaleEndPosition = '10%',
-  baseScale = 0.85,
-  useWindowScroll = true,
+  itemDistance = 100,          // gap between successive cards, in px
+  itemScale = 0.02,            // per-index scale added at rest
+  itemStackDistance = 30,      // px of vertical offset between stacked cards
+  stackPosition = '22%',       // where the top card pins, from viewport top
+  scaleEndPosition = '10%',    // where scale interpolation completes
+  baseScale = 0.9,             // scale of the deepest card in the stack
+  useWindowScroll = true,      // scroll relative to window, not container
   onStackComplete,
 }) => {
   const scrollerRef = useRef(null);
   const cardsRef = useRef([]);
-  const offsetsRef = useRef([]);       // cached per-card [{ top, height }]
-  const endTopRef = useRef(0);
-  const lenScroll = useRef(0);          // lerped scroll position
-  const targetScroll = useRef(0);       // latest raw scroll position
+  const offsetsRef = useRef([]);
   const rafRef = useRef(null);
   const completedRef = useRef(false);
 
@@ -58,53 +49,37 @@ const ScrollStack = ({
     return parseFloat(value);
   }, []);
 
-  /** Read layout offsets once. Cheap, run on mount and resize only. */
+  /** Measure card layout once per mount / resize. */
   const measure = useCallback(() => {
     const cards = cardsRef.current;
     if (!cards.length) return;
-
-    const offsets = cards.map((card) => {
+    offsetsRef.current = cards.map((card) => {
       const rect = card.getBoundingClientRect();
       return {
         top: rect.top + window.scrollY,
         height: rect.height,
       };
     });
-    offsetsRef.current = offsets;
+  }, []);
 
-    const endEl = useWindowScroll
-      ? document.querySelector('.scroll-stack-end')
-      : scrollerRef.current?.querySelector('.scroll-stack-end');
-    if (endEl) {
-      const rect = endEl.getBoundingClientRect();
-      endTopRef.current = rect.top + window.scrollY;
-    }
-  }, [useWindowScroll]);
-
-  /** Apply transforms from cached offsets. Runs every rAF. */
-  const apply = useCallback(() => {
+  /** rAF loop — writes SCALE only. Sticky handles the pin natively. */
+  const tick = useCallback(() => {
     const cards = cardsRef.current;
     const offsets = offsetsRef.current;
-    if (!cards.length || !offsets.length) return;
-
-    const containerHeight = window.innerHeight;
-    const stackPx = parsePct(stackPosition, containerHeight);
-    const scaleEndPx = parsePct(scaleEndPosition, containerHeight);
-    const endTop = endTopRef.current;
-    const scrollTop = lenScroll.current;
+    const scrollTop = window.scrollY;
+    const viewportH = window.innerHeight;
+    const stackPx = parsePct(stackPosition, viewportH);
+    const scaleEndPx = parsePct(scaleEndPosition, viewportH);
 
     for (let i = 0; i < cards.length; i++) {
       const card = cards[i];
       const off = offsets[i];
       if (!card || !off) continue;
 
-      const cardTop = off.top;
-      const triggerStart = cardTop - stackPx - itemStackDistance * i;
-      const triggerEnd = cardTop - scaleEndPx;
-      const pinStart = triggerStart;
-      const pinEnd = endTop - containerHeight / 2;
-
-      // Scale interpolation
+      // Scale progress: 0 when card sits at its natural position,
+      //                 1 when it has passed scaleEndPx above the viewport top.
+      const triggerStart = off.top - stackPx - itemStackDistance * i;
+      const triggerEnd = off.top - scaleEndPx;
       let p = 0;
       if (scrollTop > triggerStart) {
         p = (scrollTop - triggerStart) / Math.max(1, triggerEnd - triggerStart);
@@ -112,29 +87,18 @@ const ScrollStack = ({
       }
       const targetScale = baseScale + i * itemScale;
       const scale = 1 - p * (1 - targetScale);
+      card.style.transform = `scale(${scale})`;
 
-      // Pin translation
-      let translateY = 0;
-      if (scrollTop >= pinStart && scrollTop <= pinEnd) {
-        translateY = scrollTop - cardTop + stackPx + itemStackDistance * i;
-      } else if (scrollTop > pinEnd) {
-        translateY = pinEnd - cardTop + stackPx + itemStackDistance * i;
-      }
-
-      // Single sub-pixel transform write — no rounding, no filter, no rotate
-      card.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
-
-      // Completion event
       if (i === cards.length - 1) {
-        const inView = scrollTop >= pinStart && scrollTop <= pinEnd;
-        if (inView && !completedRef.current) {
+        if (p >= 1 && !completedRef.current) {
           completedRef.current = true;
           onStackComplete?.();
-        } else if (!inView && completedRef.current) {
+        } else if (p < 1 && completedRef.current) {
           completedRef.current = false;
         }
       }
     }
+    rafRef.current = requestAnimationFrame(tick);
   }, [
     parsePct,
     stackPosition,
@@ -145,29 +109,6 @@ const ScrollStack = ({
     onStackComplete,
   ]);
 
-  /** rAF loop: lerp lenScroll → targetScroll then apply transforms. */
-  const tick = useCallback(() => {
-    const t = targetScroll.current;
-    const l = lenScroll.current;
-    // Inside the CMS preview pane the easing reads as lag: the editor is
-    // checking layout, not enjoying the effect, and a trailing viewport feels
-    // like the wheel is being fought. Track scroll 1:1 there; the public site
-    // keeps the eased motion.
-    const instant =
-      typeof document !== 'undefined' && document.documentElement.dataset.cmsPreview === '1';
-    // Lerp factor: higher = snappier. 0.18 is smooth without lag.
-    const next = instant ? t : l + (t - l) * 0.18;
-    // Snap to exact value when very close to avoid sub-pixel drift over time.
-    lenScroll.current = Math.abs(next - t) < 0.05 ? t : next;
-    apply();
-    rafRef.current = requestAnimationFrame(tick);
-  }, [apply]);
-
-  /** Cheap scroll handler: just stores the target value. */
-  const onScroll = useCallback(() => {
-    targetScroll.current = window.scrollY;
-  }, []);
-
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
@@ -177,37 +118,39 @@ const ScrollStack = ({
         ? document.querySelectorAll('.scroll-stack-card')
         : scroller.querySelectorAll('.scroll-stack-card')
     );
-
     cardsRef.current = cards;
 
-    // Style each card once
+    // Style each card once — sticky pin + progressive top offset + gap.
+    // Top uses CSS calc(22vh + Npx) so the browser resolves the viewport
+    // percentage natively — pixel-perfect at every screen size, no JS
+    // re-measurement needed on resize.
+    const topExpr =
+      typeof stackPosition === 'string' && stackPosition.includes('%')
+        ? `${parseFloat(stackPosition)}vh`
+        : `${parseFloat(stackPosition)}px`;
+
     cards.forEach((card, i) => {
+      card.style.position = 'sticky';
+      card.style.top = `calc(${topExpr} + ${Math.round(itemStackDistance * i)}px)`;
       if (i < cards.length - 1) card.style.marginBottom = `${itemDistance}px`;
       card.style.willChange = 'transform';
       card.style.transformOrigin = 'top center';
       card.style.backfaceVisibility = 'hidden';
-      card.style.transform = 'translate3d(0,0,0) scale(1)';
+      card.style.transform = 'scale(1)';
     });
 
-    // Initial measurement and seed scroll values
     measure();
-    targetScroll.current = window.scrollY;
-    lenScroll.current = window.scrollY;
-    apply();
-
-    // Listeners
-    window.addEventListener('scroll', onScroll, { passive: true });
-    const ro = new ResizeObserver(() => {
-      measure();
-    });
-    cards.forEach((c) => ro.observe(c));
-    window.addEventListener('resize', measure);
-
     rafRef.current = requestAnimationFrame(tick);
 
+    // Resize handling — only re-measures for the scale calculation; the
+    // sticky top uses CSS vh so nothing needs re-writing.
+    const onResize = () => measure();
+    window.addEventListener('resize', onResize);
+    const ro = new ResizeObserver(measure);
+    cards.forEach((c) => ro.observe(c));
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', measure);
+      window.removeEventListener('resize', onResize);
       ro.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       cardsRef.current = [];
@@ -222,13 +165,11 @@ const ScrollStack = ({
     scaleEndPosition,
     baseScale,
     useWindowScroll,
-    apply,
     measure,
-    onScroll,
     tick,
   ]);
 
-  // After images / fonts load, remeasure once (offsets may change).
+  // After images / fonts load, remeasure once (heights may change).
   useEffect(() => {
     const onLoad = () => measure();
     window.addEventListener('load', onLoad);

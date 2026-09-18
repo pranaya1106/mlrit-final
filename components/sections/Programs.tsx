@@ -90,13 +90,20 @@ export default function Programs(props: ProgramsProps) {
 
   return (
     <div id={sectionDomId('home/programs')}>
-    <section id="programs" className="bg-cream py-10 md:py-14 relative">
+    <section id="programs" className="bg-cream grain-texture py-14 md:py-20 relative overflow-x-clip">
+      {/* Same decorative background artwork as the other sections. Hidden
+          on mobile: it cuts across the tab toggle and body copy there. */}
+      <img
+        src="/vectors/whymlrit-background.svg"
+        alt=""
+        aria-hidden
+        className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none z-[0] opacity-60"
+      />
       {/* Header */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div className="max-w-[680px]">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border text-secondary font-sans font-extrabold text-[0.66rem] tracking-[0.22em] uppercase shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
               Programmes
             </span>
             <h2 className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-foreground text-[clamp(2.4rem,4.4vw,3.8rem)]">
@@ -199,13 +206,6 @@ function ProgramCard({ card }: { card: Card }) {
 
       {/* Top accent bar */}
       <span className={`absolute top-0 left-0 right-0 h-[3px] ${accentBar(card.accent)}`} />
-
-      {/* Giant dept code as decorative background type */}
-      <span
-        className={`pointer-events-none absolute -right-4 -bottom-10 font-display italic font-black text-[12rem] md:text-[14rem] leading-none ${accentText(card.accent)} opacity-[0.06] tracking-tighter select-none`}
-      >
-        {card.dept.split('-')[0]}
-      </span>
 
       <div className="relative z-10 flex flex-col h-full p-9 md:p-11">
         {/* Dept chip */}

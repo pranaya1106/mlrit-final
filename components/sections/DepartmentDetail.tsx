@@ -21,7 +21,7 @@ import Link from 'next/link';
 import type { Department } from '@/lib/departments';
 import { DEPT_DATA, type DeptData } from '@/lib/dept-data';
 import { getFacultyByDepartment, type FacultyProfile } from '@/lib/faculty';
-import StudentReelSlider from '@/components/sections/StudentReelSlider';
+import DepartmentHero from '@/components/sections/DepartmentHero';
 import DeptIntakeChart from '@/components/DeptIntakeChart';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
 import { useHideOnScroll } from '@/lib/useHideOnScroll';
@@ -178,39 +178,8 @@ export default function DepartmentDetail({ department: d }: Props) {
 
   return (
     <>
-      {/* ── HERO — reel slider as full-bleed cover ─────────── */}
-      {d.reels && d.reels.length > 0 ? (
-        <StudentReelSlider reels={d.reels} label={`${d.degree} — ${d.name}`} />
-      ) : (
-        <section
-          className="relative overflow-hidden"
-          style={{
-            background:
-              'linear-gradient(135deg, #1F6B24 0%, #2d8b55 50%, #1F6B24 100%)',
-            minHeight: '40vh',
-          }}
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(circle at 75% 30%, rgba(232,93,4,0.18), transparent 55%)',
-            }}
-          />
-          <div
-            className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16 flex flex-col justify-end"
-            style={{ minHeight: '40vh' }}
-          >
-            <span className="inline-flex self-start items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 border border-white/30 font-mono text-[0.7rem] font-extrabold tracking-[0.18em] uppercase text-secondary shadow-sm">
-              {d.degree} — {d.name}
-            </span>
-            <h1 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,4.2vw,3.6rem)] max-w-[1100px]">
-              Department of {d.name}
-            </h1>
-          </div>
-        </section>
-      )}
+      {/* ── HERO — editorial chapter cover ─────────────────── */}
+      <DepartmentHero department={d} reels={d.reels ?? []} />
 
       {/* ── ACADEMICS QUICK NAV ────────────────────────────── */}
       <AcademicsQuickNav active={`/departments/${d.slug}`} />
@@ -225,7 +194,7 @@ export default function DepartmentDetail({ department: d }: Props) {
         {/* Mobile / tablet — all tabs visible at once, wrapping instead of scrolling off-screen.
             The whole bar slides away on scroll-down and back on scroll-up, same as the main
             navbar — but only below lg (the lg:translate-y-0 override keeps desktop static). */}
-        <div className="flex flex-wrap gap-2 max-w-[1600px] mx-auto pl-4 pr-14 py-3 lg:hidden">
+        <div className="flex flex-wrap gap-1 max-w-[1600px] mx-auto pl-4 pr-14 py-1.5 lg:hidden">
           {visibleTabs.map((t) => {
             const active = t.id === tab;
             return (
@@ -239,7 +208,7 @@ export default function DepartmentDetail({ department: d }: Props) {
                     behavior: 'auto',
                   });
                 }}
-                className={`px-3.5 py-2 rounded-full text-[0.82rem] font-medium border transition-colors whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-full text-[0.7rem] leading-tight font-medium border transition-colors whitespace-nowrap ${
                   active
                     ? 'bg-primary text-white border-primary font-semibold'
                     : 'bg-white text-muted border-border hover:border-primary hover:text-foreground'
@@ -655,9 +624,7 @@ function ObjectivesPanel({ d, data }: PanelProps) {
           Comprehensive document covering curriculum, regulations, attendance, evaluation, code of conduct and all
           programme-level information.
         </p>
-        <a href="#" className="mt-4 inline-flex items-center gap-2 font-sans font-bold text-[0.82rem] text-primary hover:gap-3 transition-all">
-          Download handbook →
-        </a>
+        <p className="mt-4 text-sm text-muted">Available from the department office. Contact your HOD or email <a href="mailto:info@mlrinstitutions.ac.in" className="text-primary hover:underline">info@mlrinstitutions.ac.in</a>.</p>
       </div>
     </div>
   );
@@ -1436,6 +1403,18 @@ function PlacementsPanel({ data }: { data: DeptData }) {
    Panel 5d — MOUs
    ═════════════════════════════════════════════════════════ */
 
+// Well-known brand → logo path map. Any MOU whose name matches (case-insensitive,
+// startsWith) automatically gets the logo painted in the card.
+const BRAND_LOGOS: { match: RegExp; src: string; alt: string }[] = [
+  { match: /^boeing/i, src: '/images/brands/boeing.svg', alt: 'Boeing' },
+  { match: /^cyient/i, src: '/images/brands/cyient.svg', alt: 'Cyient' },
+  { match: /^epam/i,   src: '/images/brands/epam.svg',   alt: 'EPAM' },
+];
+function brandLogoFor(name: string): { src: string; alt: string } | null {
+  for (const b of BRAND_LOGOS) if (b.match.test(name.trim())) return b;
+  return null;
+}
+
 function MousPanel({ data }: { data: DeptData }) {
   const mous = data.mous ?? [];
 
@@ -1448,15 +1427,31 @@ function MousPanel({ data }: { data: DeptData }) {
 
       {mous.length > 0 ? (
         <div className="mt-8 grid sm:grid-cols-2 gap-5 max-w-[900px]">
-          {mous.map((m) => (
-            <div
-              key={m.name}
-              className="rounded-xl bg-white p-6 shadow-card-soft border-l-[3px] border-secondary hover:-translate-y-1 hover:shadow-card-strong transition-all"
-            >
-              <h4 className="font-sans font-bold text-foreground text-[0.98rem] mb-1.5">{m.name}</h4>
-              <p className="text-muted text-[0.88rem] leading-relaxed">{m.domain}</p>
-            </div>
-          ))}
+          {mous.map((m) => {
+            const logo = m.logo
+              ? { src: m.logo, alt: m.name }
+              : brandLogoFor(m.name);
+            return (
+              <div
+                key={m.name}
+                className="group relative rounded-xl bg-white p-6 shadow-card-soft border-l-[3px] border-secondary hover:-translate-y-1 hover:shadow-card-strong transition-all overflow-hidden"
+              >
+                {/* Brand logo — top-right, quiet, colored, saturates on hover */}
+                {logo && (
+                  <div className="absolute top-4 right-4 h-8 md:h-9 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-full w-auto object-contain"
+                    />
+                  </div>
+                )}
+                <h4 className={`font-sans font-bold text-foreground text-[0.98rem] mb-1.5 ${logo ? 'pr-24' : ''}`}>{m.name}</h4>
+                <p className="text-muted text-[0.88rem] leading-relaxed">{m.domain}</p>
+              </div>
+            );
+          })}
         </div>
       ) : (
         <p className="mt-8 text-muted leading-relaxed max-w-[720px]">

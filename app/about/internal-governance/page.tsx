@@ -223,7 +223,7 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
             )}
 
             {/* Name overlay at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 px-6 pb-5 pt-10 pointer-events-none">
+            <div className="absolute bottom-0 left-0 right-0 px-4 md:px-6 pb-4 md:pb-5 pt-8 md:pt-10 pointer-events-none">
               <span
                 className="font-mono text-[0.58rem] font-bold tracking-[0.22em] uppercase"
                 style={{ color: leader.accent }}
@@ -237,13 +237,13 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
           </div>
 
           {/* ── Message column ───────────────────────────────── */}
-          <div className="flex flex-col justify-between p-7 md:p-10">
+          <div className="flex flex-col justify-between p-4 md:p-10">
             <div>
               <p className="font-mono text-[0.68rem] text-muted tracking-wide">
                 {leader.role}
               </p>
 
-              <div className="my-6 h-px bg-border" />
+              <div className="my-4 md:my-6 h-px bg-border" />
 
               <blockquote className="pl-5 border-l-[3px]" style={{ borderColor: leader.accent }}>
                 <p className="font-display italic text-[clamp(1rem,1.4vw,1.15rem)] text-foreground/80 leading-[1.8]">
@@ -255,7 +255,7 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
               {leader.videoUrl && (
                 <button
                   onClick={() => setVideoOpen(true)}
-                  className="mt-7 inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-bold tracking-[0.14em] uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:underline"
+                  className="mt-5 md:mt-7 inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-bold tracking-[0.14em] uppercase transition-opacity hover:opacity-70 focus:outline-none focus-visible:underline"
                   style={{ color: leader.accent }}
                   aria-label={`Play ${leader.tag}'s message video`}
                 >
@@ -272,7 +272,7 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
               )}
             </div>
 
-            <div className="mt-8 h-0.5 w-12 rounded-full" style={{ background: leader.accent }} />
+            <div className="mt-6 md:mt-8 h-0.5 w-12 rounded-full" style={{ background: leader.accent }} />
           </div>
         </div>
       </div>
@@ -302,7 +302,7 @@ export default function InternalGovernancePage() {
 
       <AboutQuickNav active="/about/internal-governance" />
 
-      <section className="bg-[#f7f5f0] py-14 md:py-20">
+      <section className="bg-[#f7f5f0] py-8 md:py-20">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="mb-4">
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
@@ -316,7 +316,7 @@ export default function InternalGovernancePage() {
                 Principal.
               </span>
             </h2>
-            <p className="mt-3 text-muted text-[1rem] leading-relaxed max-w-[520px]">
+            <p className="mt-3 text-muted text-[0.9rem] md:text-[1rem] leading-relaxed max-w-[520px]">
               The people who lead and shape MLR Institute of Technology.
             </p>
           </div>

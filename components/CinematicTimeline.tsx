@@ -219,7 +219,6 @@ function RightCard({ step, index }: { step: Step; index: number }) {
         >
           {/* Chapter chip */}
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white border border-border shadow-card-soft">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             <span className="font-mono text-[0.66rem] font-extrabold tracking-[0.22em] uppercase text-secondary">
               {step.y} · Milestone {String(index + 1).padStart(2, '0')}
             </span>
