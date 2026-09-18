@@ -18,9 +18,6 @@ const STATS: Stat[] = [
   { target: 200, suffix: '+',   label: 'Recruiting Companies',  caption: 'Incl. IIT / IIM / NIT hirers', footnote: 'Fortune 500 · Startups · MNCs' },
 ];
 
-/** 4 = the ledger grid is md:grid-cols-4; a fifth would wrap alone. */
-const MAX_STATS = 4;
-
 type StatsProps = {
   /** Repeater rows from home/stats; falls back to the bundled counters. */
   stats?: unknown;
@@ -30,12 +27,16 @@ type StatsProps = {
  * Maps repeater rows onto the Stat shape, coercing per column so a half-typed
  * row renders a number rather than NaN. An empty list yields STATS verbatim,
  * so an unsaved section renders exactly as the redesign ships it.
+ *
+ * Every row is rendered. This used to slice to four, which silently discarded
+ * a fifth counter an editor had filled in and saved — the grid wraps it onto a
+ * second line, which is a layout question, not a reason to drop content.
  */
 function statsFrom(value: unknown): Stat[] {
   const rows = asRepeaterItems(value);
   if (rows.length === 0) return STATS;
 
-  return rows.slice(0, MAX_STATS).map((row, i) => ({
+  return rows.map((row, i) => ({
     target: asNumber(row.target, STATS[i]?.target ?? 0),
     suffix: asText(row.suffix),
     label: asText(row.label),

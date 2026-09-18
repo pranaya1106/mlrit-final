@@ -28,20 +28,20 @@ const MINI_STATS: MiniStat[] = [
   { value: '98 %',   label: 'Placement Rate',        note: 'Batch of 2025 · Verified' },
 ];
 
-/** 4 = the grid is grid-cols-2 in two rows; a fifth would leave a ragged cell. */
-const MAX_STATS = 4;
-
 /**
  * Maps repeater rows onto MiniStat. `value` is plain text here rather than a
  * number plus suffix: the redesign renders '5,000+' and '18 LPA' verbatim, so
  * splitting them would force the editor to encode formatting it cannot see.
  * An empty list yields MINI_STATS verbatim.
+ *
+ * Every row is rendered; the 2-column grid wraps extras onto another line
+ * rather than the mapper dropping them.
  */
 function miniStatsFrom(value: unknown): MiniStat[] {
   const rows = asRepeaterItems(value);
   if (rows.length === 0) return MINI_STATS;
 
-  return rows.slice(0, MAX_STATS).map((row) => ({
+  return rows.map((row) => ({
     value: asText(row.value),
     label: asText(row.label),
     note: asText(row.note),

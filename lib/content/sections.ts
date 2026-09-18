@@ -34,8 +34,6 @@ export const CONTENT_SECTIONS = {
           { name: 'caption', label: 'Caption (above)' },
           { name: 'footnote', label: 'Footnote (below)' },
         ],
-        // 4 = the ledger grid is md:grid-cols-4; a fifth would wrap alone.
-        maxItems: 4,
         defaultItems: [
           {
             id: 'years',
@@ -79,15 +77,14 @@ export const CONTENT_SECTIONS = {
       { name: 'headlineLead', label: 'Headline lead', defaultValue: "Accreditations" },
       { name: 'headlineAccent', label: 'Headline accent', defaultValue: "and Approvals." },
       { name: 'body', label: 'Body', multiline: true, defaultValue: "AICTE, NAAC, NBA, ARIIA and more — MLRIT is recognised by every leading national body for academic excellence, programme quality and innovation." },
-      // 7 = the number of constellation slots in Achievements.tsx (BUBBLES).
-      // defaultItems mirror that component's bundled logos so the editor opens
-      // with the live set already listed and editable.
+      // defaultItems mirror the component's bundled logos so the editor opens
+      // with the live set already listed and editable. No cap: the redesign
+      // renders these in a marquee, which takes any number.
       {
         name: 'logos',
         label: 'Accreditation logos',
         type: 'gallery',
         itemFields: ['name'],
-        maxItems: 7,
         defaultItems: [
           { id: 'naac', name: 'NAAC', key: '/legacy/nirf/naac.svg' },
           { id: 'aicte', name: 'AICTE', key: '/legacy/nirf/aicte.svg' },
@@ -494,8 +491,6 @@ export const CONTENT_SECTIONS = {
           { name: 'label', label: 'Label' },
           { name: 'note', label: 'Note' },
         ],
-        // 4 = a 2x2 grid; a fifth would leave a ragged cell.
-        maxItems: 4,
         defaultItems: [
           { id: 'placed', value: '5,000+', label: 'Students Placed', note: 'in Top MNCs since 2005' },
           {
