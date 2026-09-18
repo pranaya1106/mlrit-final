@@ -66,7 +66,24 @@ export default function Stats(props: StatsProps) {
       <div className="relative mx-auto max-w-[1440px] px-6 md:px-10 lg:px-12 pt-10 md:pt-0 pb-6 md:pb-10">
 
         {/* The 4 ledger numbers — single column stack on mobile, 4-up on desktop */}
-        <Stagger className="grid grid-cols-1 md:grid-cols-4 gap-x-6 md:gap-x-10 gap-y-5 md:gap-y-12" delay={0.08}>
+        {/* Keyed on the row count so adding or removing a counter remounts the
+            group and replays the reveal.
+
+            Stagger is the parent: it holds whileInView with once:true, and each
+            StaggerItem inherits its variant state rather than observing for
+            itself. Once that parent has fired and detached its observer, a
+            child mounted afterwards has no active animation to inherit and
+            stays at `hidden` — opacity 0. The row was in the DOM and correct;
+            it was simply invisible until a reload replayed the whole group,
+            which is why a new counter only appeared after save + refresh.
+
+            The public page renders a fixed number of rows, so the key never
+            changes there and nothing re-animates. */}
+        <Stagger
+          key={items.length}
+          className="grid grid-cols-1 md:grid-cols-4 gap-x-6 md:gap-x-10 gap-y-5 md:gap-y-12"
+          delay={0.08}
+        >
           {items.map((s, i) => (
             <StaggerItem key={i}>
               <StatItem index={i} {...s} />
