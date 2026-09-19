@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight, Menu, X, ChevronDown } from './icons';
 import { Search } from 'lucide-react';
@@ -15,6 +16,9 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [watermarkOpacity, setWatermarkOpacity] = useState(0.42);
   const headerRef = useRef<HTMLElement>(null);
+
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   const closeMobileMenu = () => { setMobileOpen(false); setOpenMobileItem(null); };
 
@@ -195,18 +199,22 @@ export default function Header() {
               }}
             >
               <ul className="flex items-stretch gap-1">
-                <li>
-                  <Link
-                    href="/"
-                    aria-label="Home"
-                    className="relative flex items-center justify-center h-[56px] px-3 text-foreground/60 hover:text-primary transition-colors"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden>
-                      <path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H13v-4H7v4H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-                    </svg>
-                  </Link>
-                </li>
-                <li className="self-center w-px h-4 bg-border/60 mx-1" aria-hidden />
+                {!isHome && (
+                  <>
+                    <li>
+                      <Link
+                        href="/"
+                        aria-label="Home"
+                        className="relative flex items-center justify-center h-[56px] px-3 text-foreground/60 hover:text-primary transition-colors"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden>
+                          <path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H13v-4H7v4H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+                        </svg>
+                      </Link>
+                    </li>
+                    <li className="self-center w-px h-4 bg-border/60 mx-1" aria-hidden />
+                  </>
+                )}
                 {NAV_PRIMARY.map((item) => (
                   <li key={item.label} className="group relative">
                     {item.href && !item.cols ? (
