@@ -281,16 +281,18 @@ export default function Header() {
 
               <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
 
-              {/* Contact — orange CTA pill */}
+              {/* Contact — full pill on homepage, compact on inner pages */}
               <Link
                 href="/admissions/support"
                 style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
-                className="group inline-flex items-center gap-3 h-[56px] mb-[1px] pl-7 pr-6 rounded-full text-[1.05rem] font-semibold border hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300 ease-out-quart tracking-[-0.005em]"
+                className={`group inline-flex items-center border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] ${
+                  isHome
+                    ? 'gap-3 h-[56px] mb-[1px] pl-7 pr-6 text-[1.05rem]'
+                    : 'gap-2 h-[36px] mb-2 pl-5 pr-4 text-[0.82rem]'
+                }`}
               >
                 Contact
-                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                  <ChevronRight className="w-4 h-4" />
-                </span>
+                <ChevronRight className={isHome ? 'w-4 h-4' : 'w-3 h-3'} />
               </Link>
             </div>
           </div>
