@@ -9,17 +9,16 @@ import {
   MotionValue,
 } from 'framer-motion';
 
-const APEX_RED = '#D80000';
+const EWB_GREEN = '#3FAE5C';
 
 const DOMAINS = [
-  { n: '01', title: 'Game Development',         sub: 'Unity · Unreal · Godot',               body: 'Real games on real engines — mobile, PC and VR. Members ship playable projects every semester, guided by peers who have shipped before.' },
-  { n: '02', title: 'E-Sports',                 sub: 'Valorant · BGMI · FIFA · Multi-title',  body: 'Competitive gaming from the ground up — team formation, scrims, coaching, casting, and the community that makes every match worth playing.' },
-  { n: '03', title: 'UI/UX & Game Design',      sub: 'Interface · Feedback · Game Feel',      body: "The design work that makes a build worth playing — interfaces, feedback loops, visual language and the invisible craft players feel but can't name." },
-  { n: '04', title: 'Storytelling & Narrative', sub: 'World-building · Characters · Writing', body: 'Worlds and characters that give every mechanic a reason to exist. Writing workshops, narrative design and the craft of making players care.' },
-  { n: '05', title: 'Emerging Tech',            sub: 'AR/VR · Procedural · New Engines',      body: 'The frontier — AR/VR, procedural generation and experimental engines where the next genre is being invented right now.' },
+  { n: '01', title: 'Sustainability Projects', sub: 'Bio-Brick · UpPETure · AI Drone', body: 'Real engineering builds addressing environmental and community challenges — Bio-Brick (eco-fuel briquettes from organic waste), UpPETure (upcycling plastic bottles), AI Climate Drone (aerial deforestation tracking), Propulsion System, and Fusion 360 AI.' },
+  { n: '02', title: 'Events & Competitions',   sub: 'Eloqvent · ESF-R',              body: 'Eloqvent (communication and business model pitching) and ESF-R (Engineers Student Forum Regional — collaborative platform for real-world business model development).' },
+  { n: '03', title: 'Global Networks',         sub: 'IEEE · IUCEE Summits',          body: 'Access to IEEE global technical network, IUCEE leadership summits, international conferences, multidisciplinary research, and industry mentorship through global chapter partnerships.' },
+  { n: '04', title: 'Innovation & Design',     sub: 'Design Thinking · Mentorship',  body: 'Continuous project work, mentorship programs, and on-field sustainability challenges applying design thinking and entrepreneurship to real-world engineering problems.' },
 ];
 
-const COLORS = ['#e85d04', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7'];
+const COLORS = ['#3FAE5C', '#6FBF3F', '#1F7A3D', '#C0392B'];
 
 // Spring config for smooth scroll following — near-critically damped so it
 // tracks scroll closely instead of trailing behind and crawling to catch up.
@@ -136,7 +135,7 @@ function DomainDot({ index, total, smooth }: {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function ApexHowItWorks({
+export default function EwbHowItWorks({
   sectionRef: externalRef,
 }: {
   sectionRef?: React.RefObject<HTMLElement | null>;
@@ -160,8 +159,8 @@ export default function ApexHowItWorks({
       {/* Section header — outside the scroll container so it scrolls away */}
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-12">
         <div className="flex items-center gap-3 mb-4">
-          <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
-          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
+          <span aria-hidden className="h-px w-6" style={{ backgroundColor: EWB_GREEN }} />
+          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: EWB_GREEN }}>
             How it works
           </span>
         </div>
@@ -169,11 +168,11 @@ export default function ApexHowItWorks({
           className="font-sans font-black text-white leading-[1.02]"
           style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
         >
-          Five domains. One community.
+          Four domains. One chapter.
         </h2>
       </div>
 
-      {/* Tall scroll container — 5 × 100vh gives 1 full viewport per domain */}
+      {/* Tall scroll container — 4 × 100vh gives 1 full viewport per domain */}
       <div ref={containerRef} style={{ height: `${DOMAINS.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">

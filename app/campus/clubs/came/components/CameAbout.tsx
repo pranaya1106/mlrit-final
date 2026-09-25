@@ -8,24 +8,24 @@ import {
   useReducedMotion,
 } from 'framer-motion';
 
-const APEX_RED = '#D80000';
+const CAME_ORANGE = '#F5760A';
 
 const ABOUT_TEXT =
-  'APEX MLRIT is a student-led esports and game development community. ' +
-  'Established March 2024, it brings players, developers, designers and ' +
-  'storytellers into one active gaming culture on the Dundigal campus. ' +
-  'The club runs Valorant, BGMI, FIFA and multi-title events — bootcamps, ' +
-  'casting, production and content collabs. Members ship real mobile, PC and ' +
-  'VR games on Unity, Unreal Engine and Godot. Others film, cast or run the ' +
-  'media desk for the tournament next week. ' +
-  'We build teams, scrim regularly and climb leaderboards. ' +
-  'Inclusive, respectful and hype — we celebrate wins, share highlights and make friends for life.';
+  'CAME — Creating Aspirations for Meeting Elevation — is the cultural and ' +
+  'student engagement platform of MLR Institute of Technology, dedicated to ' +
+  'enriching campus life through creativity, cultural expression, and active ' +
+  'student participation. The club provides students with opportunities to ' +
+  'showcase and develop their talents across dance, music, drama and skits, ' +
+  'anchoring, cultural presentations, and event coordination. CAME plays an ' +
+  'active role in the planning and execution of major institutional ' +
+  'programmes, cultural celebrations, awareness initiatives, national ' +
+  'events, and student-centric activities.';
 
 const FACTS = [
-  ['Established', 'March 2024'],
-  ['Location',    'MLRIT · Dundigal'],
-  ['Titles',      'Valorant · BGMI · FIFA'],
-  ['Engines',     'Unity · Unreal · Godot'],
+  ['Members', '96'],
+  ['Location', 'MLRIT · Dundigal'],
+  ['Focus', 'Dance · Music · Drama'],
+  ['Events', '10+ Campus-Wide'],
 ] as const;
 
 const DIM  = 'rgba(255,255,255,0.18)';
@@ -36,7 +36,7 @@ const REVEAL_END   = 0.92;
 const SPAN         = REVEAL_END - REVEAL_START;
 const WINDOW       = 0.018;
 
-export default function ApexAbout() {
+export default function CameAbout() {
   const sectionRef   = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const factsRef     = useRef<HTMLDivElement>(null);
@@ -75,7 +75,7 @@ export default function ApexAbout() {
   // Single listener — direct DOM writes, zero React re-renders per frame
   useMotionValueEvent(smooth, 'change', (progress) => {
     // Eyebrow header
-    const hdr = containerRef.current?.querySelector<HTMLElement>('.apex-about-hdr');
+    const hdr = containerRef.current?.querySelector<HTMLElement>('.came-about-hdr');
     if (hdr) {
       const o = Math.min(1, progress / 0.04);
       hdr.style.opacity   = String(o);
@@ -108,7 +108,7 @@ export default function ApexAbout() {
       ref={sectionRef}
       className="relative z-10"
       style={{ height: '220vh' }}
-      aria-label="What is APEX?"
+      aria-label="What is CAME?"
     >
       <div
         ref={containerRef}
@@ -118,12 +118,12 @@ export default function ApexAbout() {
 
           {/* Eyebrow */}
           <div
-            className="apex-about-hdr flex items-center gap-3 mb-8"
+            className="came-about-hdr flex items-center gap-3 mb-8"
             style={{ opacity: 0, transform: 'translateY(12px)', willChange: 'opacity, transform' }}
           >
-            <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
-            <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
-              What is APEX?
+            <span aria-hidden className="h-px w-6" style={{ backgroundColor: CAME_ORANGE }} />
+            <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: CAME_ORANGE }}>
+              What is CAME?
             </span>
           </div>
 

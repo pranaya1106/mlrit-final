@@ -9,17 +9,16 @@ import {
   MotionValue,
 } from 'framer-motion';
 
-const APEX_RED = '#D80000';
+const CAME_ORANGE = '#F5760A';
 
 const DOMAINS = [
-  { n: '01', title: 'Game Development',         sub: 'Unity · Unreal · Godot',               body: 'Real games on real engines — mobile, PC and VR. Members ship playable projects every semester, guided by peers who have shipped before.' },
-  { n: '02', title: 'E-Sports',                 sub: 'Valorant · BGMI · FIFA · Multi-title',  body: 'Competitive gaming from the ground up — team formation, scrims, coaching, casting, and the community that makes every match worth playing.' },
-  { n: '03', title: 'UI/UX & Game Design',      sub: 'Interface · Feedback · Game Feel',      body: "The design work that makes a build worth playing — interfaces, feedback loops, visual language and the invisible craft players feel but can't name." },
-  { n: '04', title: 'Storytelling & Narrative', sub: 'World-building · Characters · Writing', body: 'Worlds and characters that give every mechanic a reason to exist. Writing workshops, narrative design and the craft of making players care.' },
-  { n: '05', title: 'Emerging Tech',            sub: 'AR/VR · Procedural · New Engines',      body: 'The frontier — AR/VR, procedural generation and experimental engines where the next genre is being invented right now.' },
+  { n: '01', title: 'Cultural Performances',    sub: 'Dance · Music · Drama',        body: 'Dance, music, drama, and skits addressing patriotism, social responsibility, cultural heritage, and student life — performed before large institutional audiences.' },
+  { n: '02', title: 'Event Coordination',       sub: 'Ceremonies · Programmes',      body: 'Active contribution to Graduation Day, Orientation Day, Independence Day, Republic Day, and Annual Day — supporting smooth conduct of ceremonies and cultural segments.' },
+  { n: '03', title: 'Cultural Celebrations',    sub: 'Festivals · Traditions',       body: "Navrat Naveli (Bathukamma, Garba, traditional performances), Kite Fest, Traditional Day, and other festive programmes celebrating India's diverse cultural traditions." },
+  { n: '04', title: 'Hellenic & Ecstacy',       sub: 'Signature Events',             body: 'High-energy campus events featuring student performances, skits, stand-up, live music, and invited artists — including the Ecstacy concert night and the themed Hellenic programme.' },
 ];
 
-const COLORS = ['#e85d04', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7'];
+const COLORS = ['#DC2626', '#F5760A', '#F59E0B', '#FBBF24'];
 
 // Spring config for smooth scroll following — near-critically damped so it
 // tracks scroll closely instead of trailing behind and crawling to catch up.
@@ -136,7 +135,7 @@ function DomainDot({ index, total, smooth }: {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function ApexHowItWorks({
+export default function CameHowItWorks({
   sectionRef: externalRef,
 }: {
   sectionRef?: React.RefObject<HTMLElement | null>;
@@ -160,8 +159,8 @@ export default function ApexHowItWorks({
       {/* Section header — outside the scroll container so it scrolls away */}
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-12">
         <div className="flex items-center gap-3 mb-4">
-          <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
-          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
+          <span aria-hidden className="h-px w-6" style={{ backgroundColor: CAME_ORANGE }} />
+          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: CAME_ORANGE }}>
             How it works
           </span>
         </div>
@@ -169,11 +168,11 @@ export default function ApexHowItWorks({
           className="font-sans font-black text-white leading-[1.02]"
           style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
         >
-          Five domains. One community.
+          Four domains. One stage.
         </h2>
       </div>
 
-      {/* Tall scroll container — 5 × 100vh gives 1 full viewport per domain */}
+      {/* Tall scroll container — 4 × 100vh gives 1 full viewport per domain */}
       <div ref={containerRef} style={{ height: `${DOMAINS.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">

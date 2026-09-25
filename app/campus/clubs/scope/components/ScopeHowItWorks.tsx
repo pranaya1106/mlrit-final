@@ -9,17 +9,18 @@ import {
   MotionValue,
 } from 'framer-motion';
 
-const APEX_RED = '#D80000';
+const SCOPE_CYAN = '#00C2FF';
 
 const DOMAINS = [
-  { n: '01', title: 'Game Development',         sub: 'Unity · Unreal · Godot',               body: 'Real games on real engines — mobile, PC and VR. Members ship playable projects every semester, guided by peers who have shipped before.' },
-  { n: '02', title: 'E-Sports',                 sub: 'Valorant · BGMI · FIFA · Multi-title',  body: 'Competitive gaming from the ground up — team formation, scrims, coaching, casting, and the community that makes every match worth playing.' },
-  { n: '03', title: 'UI/UX & Game Design',      sub: 'Interface · Feedback · Game Feel',      body: "The design work that makes a build worth playing — interfaces, feedback loops, visual language and the invisible craft players feel but can't name." },
-  { n: '04', title: 'Storytelling & Narrative', sub: 'World-building · Characters · Writing', body: 'Worlds and characters that give every mechanic a reason to exist. Writing workshops, narrative design and the craft of making players care.' },
-  { n: '05', title: 'Emerging Tech',            sub: 'AR/VR · Procedural · New Engines',      body: 'The frontier — AR/VR, procedural generation and experimental engines where the next genre is being invented right now.' },
+  { n: '01', title: 'Technical Workshops',       sub: 'Cloud · Web & App Dev',            body: 'Hands-on workshops and training on coding, web and app development, cloud computing (including AWS), and other emerging, industry-relevant technologies.' },
+  { n: '02', title: 'Coding Competitions',       sub: 'Contests · Hackathons',             body: 'Coding contests, competitive programming challenges, and hackathons that let members practice problem-solving and apply their technical knowledge under real deadlines.' },
+  { n: '03', title: 'Project Development',       sub: 'Web · App · Game Dev',              body: 'Turning ideas into working solutions — web and app development, game development, hackathon builds, and other student-led projects.' },
+  { n: '04', title: 'SCOPE Sessions',            sub: 'Peer-Led Learning',                 body: 'Peer-learning sessions where members learn coding concepts, tools, and technologies directly from seniors and fellow students — with room to ask questions and dig in.' },
+  { n: '05', title: 'Career & Industry Exposure', sub: 'Talks · Career Paths',             body: 'Career-oriented talks and technical sessions that introduce students to current technologies, industry expectations, and different career paths — often with practicing professionals in the room.' },
+  { n: '06', title: 'Community Learning',        sub: 'Team Activities',                   body: 'Student-led sessions and team-based activities where seniors and peers share what they know and work through problems together, beyond formal workshops.' },
 ];
 
-const COLORS = ['#e85d04', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7'];
+const COLORS = ['#00C2FF', '#3DD9A4', '#5B9EE8', '#9333EA', '#22D3EE', '#6EE7B7'];
 
 // Spring config for smooth scroll following — near-critically damped so it
 // tracks scroll closely instead of trailing behind and crawling to catch up.
@@ -78,7 +79,7 @@ function DomainRow({ domain, index, total, smooth }: {
         <span className="flex flex-col gap-0.5">
           <span
             className="font-sans font-black leading-none text-white"
-            style={{ fontSize: 'clamp(1.75rem, 3.8vw, 3.8rem)', letterSpacing: '-0.03em', lineHeight: 1.08 }}
+            style={{ fontSize: 'clamp(1.5rem, 3.2vw, 3.2rem)', letterSpacing: '-0.03em', lineHeight: 1.08 }}
           >
             {domain.title}
           </span>
@@ -136,7 +137,7 @@ function DomainDot({ index, total, smooth }: {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function ApexHowItWorks({
+export default function ScopeHowItWorks({
   sectionRef: externalRef,
 }: {
   sectionRef?: React.RefObject<HTMLElement | null>;
@@ -160,8 +161,8 @@ export default function ApexHowItWorks({
       {/* Section header — outside the scroll container so it scrolls away */}
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-12">
         <div className="flex items-center gap-3 mb-4">
-          <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
-          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
+          <span aria-hidden className="h-px w-6" style={{ backgroundColor: SCOPE_CYAN }} />
+          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: SCOPE_CYAN }}>
             How it works
           </span>
         </div>
@@ -169,11 +170,11 @@ export default function ApexHowItWorks({
           className="font-sans font-black text-white leading-[1.02]"
           style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
         >
-          Five domains. One community.
+          Six domains. One community.
         </h2>
       </div>
 
-      {/* Tall scroll container — 5 × 100vh gives 1 full viewport per domain */}
+      {/* Tall scroll container — 6 × 100vh gives 1 full viewport per domain */}
       <div ref={containerRef} style={{ height: `${DOMAINS.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">

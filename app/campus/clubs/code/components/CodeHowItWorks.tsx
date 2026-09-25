@@ -9,17 +9,16 @@ import {
   MotionValue,
 } from 'framer-motion';
 
-const APEX_RED = '#D80000';
+const CODE_GREEN = '#3DDC5A';
 
 const DOMAINS = [
-  { n: '01', title: 'Game Development',         sub: 'Unity · Unreal · Godot',               body: 'Real games on real engines — mobile, PC and VR. Members ship playable projects every semester, guided by peers who have shipped before.' },
-  { n: '02', title: 'E-Sports',                 sub: 'Valorant · BGMI · FIFA · Multi-title',  body: 'Competitive gaming from the ground up — team formation, scrims, coaching, casting, and the community that makes every match worth playing.' },
-  { n: '03', title: 'UI/UX & Game Design',      sub: 'Interface · Feedback · Game Feel',      body: "The design work that makes a build worth playing — interfaces, feedback loops, visual language and the invisible craft players feel but can't name." },
-  { n: '04', title: 'Storytelling & Narrative', sub: 'World-building · Characters · Writing', body: 'Worlds and characters that give every mechanic a reason to exist. Writing workshops, narrative design and the craft of making players care.' },
-  { n: '05', title: 'Emerging Tech',            sub: 'AR/VR · Procedural · New Engines',      body: 'The frontier — AR/VR, procedural generation and experimental engines where the next genre is being invented right now.' },
+  { n: '01', title: 'Weekly Problem Sets',   sub: 'Loops · Graphs · Algorithms',   body: "A running set of graded problems spanning every year's syllabus, from loops to graph algorithms." },
+  { n: '02', title: 'Peer Debugging',        sub: 'Drop-In Sessions',              body: 'Drop-in sessions where seniors help juniors work through a stuck bug, live.' },
+  { n: '03', title: 'Placement Prep',        sub: 'DSA · System Design',           body: 'Structured prep covering the DSA and system-design rounds most placement drives actually ask.' },
+  { n: '04', title: 'Mini Projects',         sub: 'Guided Builds',                 body: 'Small, guided projects that turn syllabus concepts into something you can show in an interview.' },
 ];
 
-const COLORS = ['#e85d04', '#f59e0b', '#22c55e', '#3b82f6', '#a855f7'];
+const COLORS = ['#3DDC5A', '#22C55E', '#0EA85A', '#84E8A0'];
 
 // Spring config for smooth scroll following — near-critically damped so it
 // tracks scroll closely instead of trailing behind and crawling to catch up.
@@ -136,7 +135,7 @@ function DomainDot({ index, total, smooth }: {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function ApexHowItWorks({
+export default function CodeHowItWorks({
   sectionRef: externalRef,
 }: {
   sectionRef?: React.RefObject<HTMLElement | null>;
@@ -160,8 +159,8 @@ export default function ApexHowItWorks({
       {/* Section header — outside the scroll container so it scrolls away */}
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 pt-24 pb-12">
         <div className="flex items-center gap-3 mb-4">
-          <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
-          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
+          <span aria-hidden className="h-px w-6" style={{ backgroundColor: CODE_GREEN }} />
+          <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: CODE_GREEN }}>
             How it works
           </span>
         </div>
@@ -169,11 +168,11 @@ export default function ApexHowItWorks({
           className="font-sans font-black text-white leading-[1.02]"
           style={{ fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)' }}
         >
-          Five domains. One community.
+          Four habits. Every year.
         </h2>
       </div>
 
-      {/* Tall scroll container — 5 × 100vh gives 1 full viewport per domain */}
+      {/* Tall scroll container — 4 × 100vh gives 1 full viewport per domain */}
       <div ref={containerRef} style={{ height: `${DOMAINS.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden flex items-center">
           <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
