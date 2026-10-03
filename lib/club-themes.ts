@@ -41,6 +41,20 @@ export const CLUB_THEMES: ClubTheme[] = [
     background: '#071209',
   },
   {
+    slug:       'code',
+    name:       'CODE',
+    initials:   'CODE',
+    primary:    '#3DDC5A',
+    background: '#050d07',
+  },
+  {
+    slug:       'ewb',
+    name:       'EWB',
+    initials:   'EWB',
+    primary:    '#3FAE5C',
+    background: '#041009',
+  },
+  {
     slug:       'aim',
     name:       'AIM',
     logo:       '/images/clubs/aim-logo.png',

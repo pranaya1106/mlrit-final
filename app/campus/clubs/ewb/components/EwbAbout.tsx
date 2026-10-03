@@ -68,7 +68,10 @@ export default function EwbAbout() {
   // Initialise
   useEffect(() => {
     spanRefs.current.forEach((el) => {
-      if (el) el.style.color = reduced ? FULL : DIM;
+      if (!el) return;
+      el.style.color = reduced ? FULL : DIM;
+      (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke = '0px transparent';
+      el.style.textShadow = 'none';
     });
   }, [reduced]);
 
@@ -82,7 +85,7 @@ export default function EwbAbout() {
       hdr.style.transform = `translateY(${12 - o * 12}px)`;
     }
 
-    // Char colour reveal
+    // Char colour reveal + club-coloured stroke + sporty glow
     if (!reduced) {
       spanRefs.current.forEach((el, i) => {
         if (!el) return;
@@ -91,6 +94,14 @@ export default function EwbAbout() {
         const t     = Math.max(0, Math.min(1, (progress - start) / (end - start)));
         const alpha = 0.18 + t * 0.82;
         el.style.color = `rgba(255,255,255,${alpha.toFixed(3)})`;
+        const strokeW = (t * 0.4).toFixed(3);
+        (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke =
+          `${strokeW}px ${EWB_GREEN}`;
+        const a1 = Math.round(t * 178).toString(16).padStart(2, '0');
+        const a2 = Math.round(t * 89).toString(16).padStart(2, '0');
+        el.style.textShadow = t > 0.05
+          ? `0 0 8px ${EWB_GREEN}${a1}, 0 0 28px ${EWB_GREEN}${a2}`
+          : 'none';
       });
     }
 
