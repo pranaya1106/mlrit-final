@@ -71,6 +71,7 @@ export default function ApexAbout() {
       if (!el) return;
       el.style.color = reduced ? FULL : DIM;
       (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke = '0px transparent';
+      el.style.textShadow = 'none';
     });
   }, [reduced]);
 
@@ -97,6 +98,12 @@ export default function ApexAbout() {
         const strokeW = (t * 0.4).toFixed(3);
         (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke =
           `${strokeW}px ${APEX_RED}`;
+        // Sporty glow — tight inner bloom + wide outer halo, both scale with reveal
+        const a1 = Math.round(t * 178).toString(16).padStart(2, '0');
+        const a2 = Math.round(t * 89).toString(16).padStart(2, '0');
+        el.style.textShadow = t > 0.05
+          ? `0 0 8px ${APEX_RED}${a1}, 0 0 28px ${APEX_RED}${a2}`
+          : 'none';
       });
     }
 

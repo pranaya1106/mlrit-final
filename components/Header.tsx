@@ -98,9 +98,18 @@ export default function Header() {
     <>
       <header
         ref={headerRef}
-        className={`fixed inset-x-0 top-0 z-[1000] bg-paper/95 backdrop-blur-md transition-transform duration-300 ease-out-quart ${
+        className={`fixed inset-x-0 top-0 z-[1000] backdrop-blur-md transition-transform duration-300 ease-out-quart ${
           hidden ? '-translate-y-full' : 'translate-y-0'
         }`}
+        style={{
+          backgroundColor: clubTheme
+            ? `color-mix(in srgb, ${clubTheme.primary} 7%, rgb(250 248 244 / 0.97))`
+            : 'rgb(250 248 244 / 0.95)',
+          boxShadow: clubTheme
+            ? `0 1px 0 0 ${clubTheme.primary}30`
+            : undefined,
+          transition: 'background-color 0.6s ease, box-shadow 0.6s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1)',
+        }}
       >
         <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
@@ -142,8 +151,8 @@ export default function Header() {
         />
 
         {/* ── ROW 1 · MASTHEAD ────────────────────────────────
-            Logo lockup on the left, serif institute name after a hair
-            divider. Mobile shows the utility rail here instead. */}
+            Logo lockup on the left. Right side: club identity on desktop,
+            search + hamburger on mobile. */}
         <div className="relative z-[1]">
           <div className="mx-auto max-w-[1440px] flex items-center justify-between gap-4 px-5 lg:px-10 pt-4 pb-4">
             <div className="flex items-center gap-5 lg:gap-6">
@@ -162,6 +171,44 @@ export default function Header() {
                 </span>
               </div>
             </div>
+
+            {/* Desktop right: club identity badge (only on club pages) */}
+            {clubTheme && (
+              <div className="hidden lg:flex items-center gap-3">
+                {/* Separator */}
+                <div className="h-8 w-px" style={{ backgroundColor: `${clubTheme.primary}30` }} />
+                {/* Badge */}
+                <div
+                  className="flex items-center gap-2.5 px-4 h-10 rounded-full border"
+                  style={{
+                    borderColor: `${clubTheme.primary}50`,
+                    backgroundColor: `${clubTheme.primary}0f`,
+                    boxShadow: `0 0 16px 0 ${clubTheme.primary}28, inset 0 1px 0 ${clubTheme.primary}18`,
+                  }}
+                >
+                  {clubTheme.logo ? (
+                    <img
+                      src={clubTheme.logo}
+                      alt={clubTheme.name}
+                      className="h-5 w-auto object-contain"
+                    />
+                  ) : (
+                    <span
+                      className="font-mono text-[0.72rem] font-bold tracking-[0.22em] uppercase"
+                      style={{ color: clubTheme.primary }}
+                    >
+                      {clubTheme.initials}
+                    </span>
+                  )}
+                  <span
+                    className="text-[0.78rem] font-semibold tracking-[0.04em]"
+                    style={{ color: `${clubTheme.primary}cc` }}
+                  >
+                    Club
+                  </span>
+                </div>
+              </div>
+            )}
 
             {/* Mobile utility — search + hamburger */}
             <div className="lg:hidden flex items-center gap-2">
@@ -287,35 +334,6 @@ export default function Header() {
               </button>
 
               <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
-
-              {/* Club badge — shown only on club pages */}
-              {clubTheme && (
-                <div
-                  className="mb-2 flex items-center gap-2 px-3 h-9 rounded-full border transition-all duration-500"
-                  style={{
-                    borderColor: `${clubTheme.primary}55`,
-                    backgroundColor: `${clubTheme.primary}12`,
-                    boxShadow: `0 0 12px 0 ${clubTheme.primary}22`,
-                  }}
-                  title={`${clubTheme.name} Club`}
-                >
-                  {clubTheme.logo ? (
-                    <img
-                      src={clubTheme.logo}
-                      alt={clubTheme.name}
-                      className="h-5 w-auto object-contain"
-                      style={{ filter: 'brightness(0) invert(1)' }}
-                    />
-                  ) : (
-                    <span
-                      className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase"
-                      style={{ color: clubTheme.primary }}
-                    >
-                      {clubTheme.initials}
-                    </span>
-                  )}
-                </div>
-              )}
 
               {/* Contact — full pill on homepage, compact on inner pages */}
               <Link

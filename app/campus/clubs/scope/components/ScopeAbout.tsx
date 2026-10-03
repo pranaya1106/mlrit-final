@@ -69,6 +69,7 @@ export default function ScopeAbout() {
       if (!el) return;
       el.style.color = reduced ? FULL : DIM;
       (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke = '0px transparent';
+      el.style.textShadow = 'none';
     });
   }, [reduced]);
 
@@ -94,6 +95,11 @@ export default function ScopeAbout() {
         const strokeW = (t * 0.4).toFixed(3);
         (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke =
           `${strokeW}px ${SCOPE_CYAN}`;
+        const a1 = Math.round(t * 178).toString(16).padStart(2, '0');
+        const a2 = Math.round(t * 89).toString(16).padStart(2, '0');
+        el.style.textShadow = t > 0.05
+          ? `0 0 8px ${SCOPE_CYAN}${a1}, 0 0 28px ${SCOPE_CYAN}${a2}`
+          : 'none';
       });
     }
 
