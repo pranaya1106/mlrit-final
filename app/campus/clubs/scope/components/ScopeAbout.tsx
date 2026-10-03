@@ -66,7 +66,9 @@ export default function ScopeAbout() {
   // Initialise
   useEffect(() => {
     spanRefs.current.forEach((el) => {
-      if (el) el.style.color = reduced ? FULL : DIM;
+      if (!el) return;
+      el.style.color = reduced ? FULL : DIM;
+      (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke = '0px transparent';
     });
   }, [reduced]);
 
@@ -80,7 +82,7 @@ export default function ScopeAbout() {
       hdr.style.transform = `translateY(${12 - o * 12}px)`;
     }
 
-    // Char colour reveal
+    // Char colour reveal + club-coloured stroke that fades in as char reveals
     if (!reduced) {
       spanRefs.current.forEach((el, i) => {
         if (!el) return;
@@ -89,6 +91,9 @@ export default function ScopeAbout() {
         const t     = Math.max(0, Math.min(1, (progress - start) / (end - start)));
         const alpha = 0.18 + t * 0.82;
         el.style.color = `rgba(255,255,255,${alpha.toFixed(3)})`;
+        const strokeW = (t * 0.4).toFixed(3);
+        (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke =
+          `${strokeW}px ${SCOPE_CYAN}`;
       });
     }
 

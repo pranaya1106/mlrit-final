@@ -2,15 +2,15 @@
 
 import { useEffect, useRef } from 'react';
 
-import ScopeHero          from './components/ScopeHero';
-import ScopeQuote         from './components/ScopeQuote';
-import ScopeAbout         from './components/ScopeAbout';
-import ScopeHowItWorks    from './components/ScopeHowItWorks';
-import ScopeEventsGallery from './components/ScopeEventsGallery';
-import ScopeMemoryLane    from './components/ScopeMemoryLane';
-import ScopeBuiltTool     from './components/ScopeBuiltTool';
-import ScopeAtmosphere    from './components/ScopeAtmosphere';
-import ScopeGlow          from './components/ScopeGlow';
+import ScopeHero                   from './components/ScopeHero';
+import ScopeQuote                  from './components/ScopeQuote';
+import ScopeAbout                  from './components/ScopeAbout';
+import ScopeHowItWorks             from './components/ScopeHowItWorks';
+import ScopeEventsGallery          from './components/ScopeEventsGallery';
+import ScopeMemoryLane             from './components/ScopeMemoryLane';
+import ScopeBuiltTool              from './components/ScopeBuiltTool';
+import ScopeAtmosphere             from './components/ScopeAtmosphere';
+import ScopeGlow                   from './components/ScopeGlow';
 
 export default function SCOPEClubPage() {
   useEffect(() => {

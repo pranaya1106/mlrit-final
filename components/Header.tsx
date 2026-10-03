@@ -8,6 +8,7 @@ import { ChevronRight, Menu, X, ChevronDown } from './icons';
 import { Search } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
 import ChroniclesAttentionButton from './ChroniclesAttentionButton';
+import { getClubTheme, type ClubTheme } from '@/lib/club-themes';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
@@ -19,6 +20,7 @@ export default function Header() {
 
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const clubTheme: ClubTheme | null = getClubTheme(pathname);
 
   const closeMobileMenu = () => { setMobileOpen(false); setOpenMobileItem(null); };
 
@@ -192,10 +194,15 @@ export default function Header() {
           <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
             <nav
               aria-label="Main"
-              className="inline-flex rounded-full px-2 border border-white/70 bg-white/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_14px_34px_-18px_rgba(24,20,15,0.22),inset_0_1px_0_rgba(255,255,255,0.75)]"
+              className="inline-flex rounded-full px-2 border bg-white/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_14px_34px_-18px_rgba(24,20,15,0.22),inset_0_1px_0_rgba(255,255,255,0.75)]"
               style={{
                 WebkitBackdropFilter: 'blur(28px) saturate(160%)',
                 backdropFilter: 'blur(28px) saturate(160%)',
+                borderColor: clubTheme ? `${clubTheme.primary}44` : 'rgba(255,255,255,0.70)',
+                boxShadow: clubTheme
+                  ? `0 14px 34px -18px rgba(24,20,15,0.22), inset 0 1px 0 rgba(255,255,255,0.75), 0 0 0 1px ${clubTheme.primary}22`
+                  : undefined,
+                transition: 'border-color 0.5s ease, box-shadow 0.5s ease',
               }}
             >
               <ul className="flex items-stretch gap-1">
@@ -266,7 +273,7 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Utility rail — right side: search, Chronicles, Contact */}
+            {/* Utility rail — right side: search, Chronicles, [club badge], Contact */}
             <div className="flex items-end gap-4">
               <button
                 id="search-trigger-btn"
@@ -280,6 +287,35 @@ export default function Header() {
               </button>
 
               <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
+
+              {/* Club badge — shown only on club pages */}
+              {clubTheme && (
+                <div
+                  className="mb-2 flex items-center gap-2 px-3 h-9 rounded-full border transition-all duration-500"
+                  style={{
+                    borderColor: `${clubTheme.primary}55`,
+                    backgroundColor: `${clubTheme.primary}12`,
+                    boxShadow: `0 0 12px 0 ${clubTheme.primary}22`,
+                  }}
+                  title={`${clubTheme.name} Club`}
+                >
+                  {clubTheme.logo ? (
+                    <img
+                      src={clubTheme.logo}
+                      alt={clubTheme.name}
+                      className="h-5 w-auto object-contain"
+                      style={{ filter: 'brightness(0) invert(1)' }}
+                    />
+                  ) : (
+                    <span
+                      className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase"
+                      style={{ color: clubTheme.primary }}
+                    >
+                      {clubTheme.initials}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Contact — full pill on homepage, compact on inner pages */}
               <Link
@@ -399,7 +435,35 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="flex-shrink-0 p-4 border-t border-border">
+        <div className="flex-shrink-0 p-4 border-t border-border space-y-3">
+          {clubTheme && (
+            <div
+              className="flex items-center gap-2.5 px-4 h-10 rounded-full border"
+              style={{
+                borderColor: `${clubTheme.primary}44`,
+                backgroundColor: `${clubTheme.primary}10`,
+              }}
+            >
+              {clubTheme.logo ? (
+                <img
+                  src={clubTheme.logo}
+                  alt={clubTheme.name}
+                  className="h-4 w-auto object-contain"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
+              ) : (
+                <span
+                  className="font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase"
+                  style={{ color: clubTheme.primary }}
+                >
+                  {clubTheme.initials}
+                </span>
+              )}
+              <span className="text-[0.82rem] font-medium text-foreground/70">
+                {clubTheme.name} Club
+              </span>
+            </div>
+          )}
           <Link
             href="/admissions/support"
             onClick={closeMobileMenu}
