@@ -6,7 +6,7 @@ import EwbHero          from './components/EwbHero';
 import EwbQuote         from './components/EwbQuote';
 import EwbAbout         from './components/EwbAbout';
 import EwbHowItWorks    from './components/EwbHowItWorks';
-import EwbEventsGallery from './components/EwbEventsGallery';
+import EwbCollectionGallery from './components/EwbCollectionGallery';
 import EwbMemoryLane    from './components/EwbMemoryLane';
 import EwbAtmosphere    from './components/EwbAtmosphere';
 import EwbGlow          from './components/EwbGlow';
@@ -30,7 +30,7 @@ export default function EWBClubPage() {
       <EwbQuote />
       <EwbAbout />
       <EwbHowItWorks sectionRef={howItWorksRef} />
-      <EwbEventsGallery />
+      <EwbCollectionGallery />
       <EwbMemoryLane />
     </div>
   );

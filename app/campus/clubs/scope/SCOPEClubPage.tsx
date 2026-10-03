@@ -6,7 +6,7 @@ import ScopeHero                   from './components/ScopeHero';
 import ScopeQuote                  from './components/ScopeQuote';
 import ScopeAbout                  from './components/ScopeAbout';
 import ScopeHowItWorks             from './components/ScopeHowItWorks';
-import ScopeEventsGallery          from './components/ScopeEventsGallery';
+import ScopeCollectionGallery       from './components/ScopeCollectionGallery';
 import ScopeMemoryLane             from './components/ScopeMemoryLane';
 import ScopeBuiltTool              from './components/ScopeBuiltTool';
 import ScopeAtmosphere             from './components/ScopeAtmosphere';
@@ -31,7 +31,7 @@ export default function SCOPEClubPage() {
       <ScopeQuote />
       <ScopeAbout />
       <ScopeHowItWorks sectionRef={howItWorksRef} />
-      <ScopeEventsGallery />
+      <ScopeCollectionGallery />
       <ScopeMemoryLane />
       <ScopeBuiltTool />
     </div>

@@ -6,7 +6,7 @@ import CodeHero          from './components/CodeHero';
 import CodeQuote         from './components/CodeQuote';
 import CodeAbout         from './components/CodeAbout';
 import CodeHowItWorks    from './components/CodeHowItWorks';
-import CodeEventsGallery from './components/CodeEventsGallery';
+import CodeCollectionGallery from './components/CodeCollectionGallery';
 import CodeMemoryLane    from './components/CodeMemoryLane';
 import CodeAtmosphere    from './components/CodeAtmosphere';
 import CodeGlow          from './components/CodeGlow';
@@ -30,7 +30,7 @@ export default function CODEClubPage() {
       <CodeQuote />
       <CodeAbout />
       <CodeHowItWorks sectionRef={howItWorksRef} />
-      <CodeEventsGallery />
+      <CodeCollectionGallery />
       <CodeMemoryLane />
     </div>
   );
