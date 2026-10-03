@@ -10,6 +10,7 @@ import CameCollectionGallery from './components/CameCollectionGallery';
 import CameMemoryLane    from './components/CameMemoryLane';
 import CameAtmosphere    from './components/CameAtmosphere';
 import CameGlow          from './components/CameGlow';
+import CameFireCursor    from './components/CameFireCursor';
 
 export default function CAMEClubPage() {
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function CAMEClubPage() {
     <div ref={pageRef} className="relative bg-[#0a0705] text-white" style={{ overflowX: 'clip' }}>
       <CameAtmosphere />
       <CameGlow endRef={howItWorksRef} />
+      <CameFireCursor />
 
       <CameHero />
       <CameQuote />
