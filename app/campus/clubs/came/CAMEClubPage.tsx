@@ -6,7 +6,7 @@ import CameHero          from './components/CameHero';
 import CameQuote         from './components/CameQuote';
 import CameAbout         from './components/CameAbout';
 import CameHowItWorks    from './components/CameHowItWorks';
-import CameEventsGallery from './components/CameEventsGallery';
+import CameCollectionGallery from './components/CameCollectionGallery';
 import CameMemoryLane    from './components/CameMemoryLane';
 import CameAtmosphere    from './components/CameAtmosphere';
 import CameGlow          from './components/CameGlow';
@@ -30,7 +30,7 @@ export default function CAMEClubPage() {
       <CameQuote />
       <CameAbout />
       <CameHowItWorks sectionRef={howItWorksRef} />
-      <CameEventsGallery />
+      <CameCollectionGallery />
       <CameMemoryLane />
     </div>
   );
