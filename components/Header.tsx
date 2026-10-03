@@ -103,10 +103,10 @@ export default function Header() {
         }`}
         style={{
           backgroundColor: clubTheme
-            ? `color-mix(in srgb, ${clubTheme.primary} 7%, rgb(250 248 244 / 0.97))`
+            ? `color-mix(in srgb, ${clubTheme.primary} 9%, rgb(8 8 8 / 0.96))`
             : 'rgb(250 248 244 / 0.95)',
           boxShadow: clubTheme
-            ? `0 1px 0 0 ${clubTheme.primary}30`
+            ? `0 1px 0 0 ${clubTheme.primary}35`
             : undefined,
           transition: 'background-color 0.6s ease, box-shadow 0.6s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1)',
         }}
@@ -165,8 +165,14 @@ export default function Header() {
               </Link>
 
               {/* Institute name — Playfair serif, all caps, editorial letterspacing */}
-              <div className="hidden md:flex items-center pl-5 lg:pl-6 border-l border-border/80">
-                <span className="font-display text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] text-foreground/90 uppercase">
+              <div
+                className="hidden md:flex items-center pl-5 lg:pl-6 border-l"
+                style={{ borderColor: clubTheme ? 'rgba(255,255,255,0.18)' : undefined }}
+              >
+                <span
+                  className="font-display text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] uppercase"
+                  style={{ color: clubTheme ? 'rgba(255,255,255,0.80)' : undefined }}
+                >
                   MLR Institute of Technology
                 </span>
               </div>
@@ -241,15 +247,16 @@ export default function Header() {
           <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
             <nav
               aria-label="Main"
-              className="inline-flex rounded-full px-2 border bg-white/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_14px_34px_-18px_rgba(24,20,15,0.22),inset_0_1px_0_rgba(255,255,255,0.75)]"
+              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150"
               style={{
                 WebkitBackdropFilter: 'blur(28px) saturate(160%)',
                 backdropFilter: 'blur(28px) saturate(160%)',
+                backgroundColor: clubTheme ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.55)',
                 borderColor: clubTheme ? `${clubTheme.primary}44` : 'rgba(255,255,255,0.70)',
                 boxShadow: clubTheme
-                  ? `0 14px 34px -18px rgba(24,20,15,0.22), inset 0 1px 0 rgba(255,255,255,0.75), 0 0 0 1px ${clubTheme.primary}22`
-                  : undefined,
-                transition: 'border-color 0.5s ease, box-shadow 0.5s ease',
+                  ? `0 14px 34px -18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px ${clubTheme.primary}22`
+                  : '0 14px 34px -18px rgba(24,20,15,0.22), inset 0 1px 0 rgba(255,255,255,0.75)',
+                transition: 'background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease',
               }}
             >
               <ul className="flex items-stretch gap-1">
@@ -259,14 +266,19 @@ export default function Header() {
                       <Link
                         href="/"
                         aria-label="Home"
-                        className="relative flex items-center justify-center h-[56px] px-3 text-foreground/60 hover:text-primary transition-colors"
+                        className="relative flex items-center justify-center h-[56px] px-3 transition-colors"
+                        style={{ color: clubTheme ? 'rgba(255,255,255,0.5)' : undefined }}
                       >
                         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden>
                           <path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H13v-4H7v4H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
                         </svg>
                       </Link>
                     </li>
-                    <li className="self-center w-px h-4 bg-border/60 mx-1" aria-hidden />
+                    <li
+                      className="self-center w-px h-4 mx-1"
+                      style={{ backgroundColor: clubTheme ? 'rgba(255,255,255,0.15)' : undefined }}
+                      aria-hidden
+                    />
                   </>
                 )}
                 {NAV_PRIMARY.map((item) => (
@@ -274,14 +286,19 @@ export default function Header() {
                     {item.href && !item.cols ? (
                       <Link
                         href={item.href}
-                        className="relative flex items-center h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart hover:after:bg-primary hover:after:h-[1.5px]"
+                        className="relative flex items-center h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart hover:after:h-[1.5px]"
+                        style={{
+                          color: clubTheme ? 'rgba(255,255,255,0.75)' : undefined,
+                          // after: pseudo can't be targeted via inline style, hover handled by group
+                        }}
                       >
                         {item.label}
                       </Link>
                     ) : (
                       <button
                         type="button"
-                        className="relative flex items-center gap-1.5 h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart group-hover:after:bg-primary group-hover:after:h-[1.5px]"
+                        className="relative flex items-center gap-1.5 h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart group-hover:after:h-[1.5px]"
+                        style={{ color: clubTheme ? 'rgba(255,255,255,0.75)' : undefined }}
                       >
                         {item.label}
                         <ChevronDown className="w-3.5 h-3.5 opacity-50 transition-transform duration-200 group-hover:rotate-180 group-hover:opacity-100" />
@@ -326,7 +343,8 @@ export default function Header() {
                 id="search-trigger-btn"
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="inline-flex items-center justify-center w-10 h-10 mb-2 rounded-full text-muted hover:text-primary transition-colors"
+                className="inline-flex items-center justify-center w-10 h-10 mb-2 rounded-full transition-colors"
+                style={{ color: clubTheme ? 'rgba(255,255,255,0.5)' : undefined }}
                 title="Search (Ctrl+K)"
                 aria-label="Open search (Ctrl+K)"
               >
