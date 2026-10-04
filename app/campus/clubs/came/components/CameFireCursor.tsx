@@ -2,21 +2,22 @@
 
 import { useEffect, useRef, useId } from 'react';
 
-// Flame-streak ember cursor for CAME club.
-// Each particle is a tiny elongated streak/trail — like the floating embers
-// in the reference images: small bright sparks drifting upward with a comet tail.
+// Flame-streak ember cursor — tiny comet-tail sparks floating up from cursor.
+// Each ember stores its last N positions so we draw a real pixel trail,
+// not just a single-frame gradient line that disappears instantly.
 
-// Color ramp: deep crimson → orange → bright amber
-const DEEP   = [200,  30,   5] as const;
-const ORANGE = [245, 118,  10] as const;
-const AMBER  = [255, 185,  40] as const;
-const SPARK  = [255, 240, 160] as const;  // white-hot centre
-
-const PARTICLE_COUNT = 38;
-const CANVAS_W = 160;
-const CANVAS_H = 180;
+const PARTICLE_COUNT = 44;
+const CANVAS_W = 180;
+const CANVAS_H = 200;
 const CX = CANVAS_W / 2;
-const BASE_Y = CANVAS_H - 10;
+const BASE_Y = CANVAS_H - 12;
+
+// Trail: store last this many positions per particle
+const TRAIL_LEN = 12;
+
+function rand(a: number, b: number) {
+  return a + Math.random() * (b - a);
+}
 
 interface Ember {
   x: number;
@@ -25,57 +26,52 @@ interface Ember {
   vy: number;
   life: number;    // 0→1
   decay: number;
-  size: number;    // head radius
-  trail: number;   // tail length multiplier
-  hue: number;     // 0=deep, 1=spark
-  angle: number;   // rotation of streak
-  spin: number;    // angular velocity
+  r: number;       // head radius
+  // ring buffer of past positions
+  trail: Array<{ x: number; y: number }>;
+  // color: 0=deep-red, 1=white-hot
+  heat: number;
 }
 
-function rand(a: number, b: number) {
-  return a + Math.random() * (b - a);
-}
-
-function lerpRgb(
-  a: readonly [number, number, number],
-  b: readonly [number, number, number],
-  t: number,
-): [number, number, number] {
-  return [
-    Math.round(a[0] + (b[0] - a[0]) * t),
-    Math.round(a[1] + (b[1] - a[1]) * t),
-    Math.round(a[2] + (b[2] - a[2]) * t),
-  ];
-}
-
-function emberColor(hue: number, alpha: number): string {
-  let rgb: [number, number, number];
-  if (hue < 0.33) {
-    rgb = lerpRgb(DEEP, ORANGE, hue / 0.33);
-  } else if (hue < 0.66) {
-    rgb = lerpRgb(ORANGE, AMBER, (hue - 0.33) / 0.33);
+// Color stops
+function heatColor(heat: number, alpha: number): string {
+  // 0   → deep crimson  200,30,5
+  // 0.3 → orange        245,118,10
+  // 0.6 → amber         255,185,40
+  // 1.0 → white-spark   255,240,160
+  let r: number, g: number, b: number;
+  if (heat < 0.3) {
+    const t = heat / 0.3;
+    r = Math.round(200 + t * 45);
+    g = Math.round(30  + t * 88);
+    b = Math.round(5   + t * 5);
+  } else if (heat < 0.6) {
+    const t = (heat - 0.3) / 0.3;
+    r = 245;
+    g = Math.round(118 + t * 67);
+    b = Math.round(10  + t * 30);
   } else {
-    rgb = lerpRgb(AMBER, SPARK, (hue - 0.66) / 0.34);
+    const t = (heat - 0.6) / 0.4;
+    r = 255;
+    g = Math.round(185 + t * 55);
+    b = Math.round(40  + t * 120);
   }
-  return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha.toFixed(3)})`;
+  return `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
 }
 
 function spawnEmber(): Ember {
-  // Spawn in a tight cluster at the bottom centre, spread outward
-  const spread = rand(0, Math.PI * 2);
-  const radius = rand(0, 14);
+  const angle = rand(-Math.PI * 0.6, -Math.PI * 0.4); // mostly upward
+  const speed = rand(1.4, 3.8);
   return {
-    x:     CX + Math.cos(spread) * radius,
-    y:     BASE_Y + rand(-6, 6),
-    vx:    rand(-1.1, 1.1),
-    vy:    rand(-3.8, -1.6),       // mainly upward
-    life:  0,
-    decay: rand(0.008, 0.018),     // slow decay → long visible trail
-    size:  rand(1.2, 3.2),
-    trail: rand(3, 9),             // tail length = size × trail
-    hue:   rand(0.3, 0.85),        // mid-orange to near-white-hot
-    angle: Math.atan2(rand(-1, 1), rand(-1, 1)),
-    spin:  rand(-0.06, 0.06),
+    x:     CX + rand(-16, 16),
+    y:     BASE_Y + rand(-5, 5),
+    vx:    Math.cos(angle) * speed * rand(0.2, 0.8),
+    vy:    Math.sin(angle) * speed,
+    life:  rand(0, 0.3),   // stagger start
+    decay: rand(0.007, 0.016),
+    r:     rand(1.5, 3.8),
+    trail: [],
+    heat:  rand(0.35, 0.9),
   };
 }
 
@@ -85,7 +81,7 @@ export default function CameFireCursor() {
   const wrapRef   = useRef<HTMLDivElement>(null);
   const embers    = useRef<Ember[]>(Array.from({ length: PARTICLE_COUNT }, spawnEmber));
   const rafRef    = useRef(0);
-  const noiseRef  = useRef(0);
+  const noiseT    = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -96,14 +92,12 @@ export default function CameFireCursor() {
     if (!ctx) return;
     const c = ctx;
 
-    // ── mouse tracking ────────────────────────────────────────────────────────
-    const onMove = (e: MouseEvent) => {
-      wrap.style.left = `${e.clientX - CANVAS_W / 2}px`;
-      wrap.style.top  = `${e.clientY - CANVAS_H + 10}px`;
-    };
-
     const SELECTOR = 'a,button,[role="button"],[role="tab"],input,select,textarea';
 
+    const onMove = (e: MouseEvent) => {
+      wrap.style.left = `${e.clientX - CANVAS_W / 2}px`;
+      wrap.style.top  = `${e.clientY - CANVAS_H + 12}px`;
+    };
     const onEnter = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest(SELECTOR)) {
         wrap.style.opacity = '1';
@@ -119,16 +113,14 @@ export default function CameFireCursor() {
     document.addEventListener('mouseover', onEnter, { passive: true });
     document.addEventListener('mouseout',  onLeave, { passive: true });
 
-    // ── draw loop ─────────────────────────────────────────────────────────────
     function draw() {
       rafRef.current = requestAnimationFrame(draw);
-      // Fade trail: very light erase so streaks persist for a few frames
-      c.globalCompositeOperation = 'source-over';
-      c.fillStyle = 'rgba(0,0,0,0.18)';
-      c.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-      noiseRef.current += 0.028;
-      const noise = noiseRef.current;
+      // Full clear each frame — trail is stored in particle data, not canvas state
+      c.clearRect(0, 0, CANVAS_W, CANVAS_H);
+
+      noiseT.current += 0.03;
+      const noise = noiseT.current;
 
       for (let i = 0; i < embers.current.length; i++) {
         const p = embers.current[i];
@@ -140,65 +132,75 @@ export default function CameFireCursor() {
 
         p.life += p.decay;
 
-        // Turbulent drift — sin/cos wobble mimics hot-air convection
-        const wobble = Math.sin(noise * 2.1 + i * 1.9) * 0.14
-                     + Math.cos(noise * 1.4 + i * 2.7) * 0.09;
-        p.vx += wobble;
-        p.vx *= 0.96;
-        p.vy -= rand(0, 0.04);   // slight upward acceleration (heat rise)
+        // Convective wobble
+        const wx = Math.sin(noise * 2.2 + i * 1.7) * 0.12
+                 + Math.cos(noise * 1.5 + i * 3.1) * 0.08;
+        p.vx += wx;
+        p.vx *= 0.95;
+        p.vy *= 0.985;  // slight drag
 
         p.x += p.vx;
         p.y += p.vy;
-        p.angle += p.spin;
 
-        const t = p.life;
-        // Size: ember stays bright then shrinks and fades at end
-        const headR = p.size * Math.max(0.2, 1 - t * 0.6);
-        // Hue: shifts from orange→white-hot as it ages, then back to deep red
-        const hue   = t < 0.5 ? p.hue + t * 0.3 : Math.max(0, p.hue - (t - 0.5) * 1.2);
-        // Alpha: quick fade-in, long hold, fast fade-out tail
-        const alpha = t < 0.12
-          ? t / 0.12
-          : t < 0.75
+        // Store trail point
+        p.trail.push({ x: p.x, y: p.y });
+        if (p.trail.length > TRAIL_LEN) p.trail.shift();
+
+        if (p.trail.length < 2) continue;
+
+        const t    = p.life;
+        // Particle alpha envelope: ramp up → hold → ramp down
+        const life_alpha = t < 0.15
+          ? t / 0.15
+          : t < 0.7
             ? 1
-            : Math.max(0, 1 - (t - 0.75) / 0.25);
+            : Math.max(0, 1 - (t - 0.7) / 0.3);
 
-        if (alpha < 0.008 || headR < 0.3) continue;
+        if (life_alpha < 0.01) continue;
 
-        // --- Draw streak: a tapered line (tail) + bright dot (head) ---
-        const tailLen = headR * p.trail * (1 - t * 0.4);
-        const tx = Math.cos(p.angle + Math.PI * 0.5) * tailLen;
-        const ty = Math.sin(p.angle + Math.PI * 0.5) * tailLen;
+        // Heat shifts hotter as ember rises, then cools
+        const curHeat = t < 0.45
+          ? Math.min(1, p.heat + t * 0.5)
+          : Math.max(0, p.heat - (t - 0.45) * 1.1);
 
-        // Tail gradient: bright at head → transparent at tip
-        try {
-          const tailGrad = c.createLinearGradient(p.x, p.y, p.x + tx, p.y + ty);
-          tailGrad.addColorStop(0,   emberColor(Math.min(1, hue + 0.15), alpha * 0.9));
-          tailGrad.addColorStop(0.4, emberColor(hue, alpha * 0.45));
-          tailGrad.addColorStop(1,   emberColor(Math.max(0, hue - 0.3), 0));
+        // Draw trail: iterate segments from oldest (tail) to newest (head)
+        const n = p.trail.length;
+        for (let j = 1; j < n; j++) {
+          const segFrac  = j / (n - 1);           // 0=tail, 1=head
+          const segAlpha = life_alpha * segFrac * segFrac; // quadratic falloff toward tail
+          const segHeat  = curHeat * (0.3 + 0.7 * segFrac); // cooler at tail
+          const segWidth = p.r * segFrac * 2.2;   // thicker at head
 
-          c.globalCompositeOperation = 'screen';
+          if (segAlpha < 0.005 || segWidth < 0.3) continue;
+
+          const prev = p.trail[j - 1];
+          const curr = p.trail[j];
+
           c.beginPath();
-          c.moveTo(p.x, p.y);
-          c.lineTo(p.x + tx, p.y + ty);
-          c.strokeStyle = tailGrad;
-          c.lineWidth   = headR * 1.6;
+          c.moveTo(prev.x, prev.y);
+          c.lineTo(curr.x, curr.y);
+          c.strokeStyle = heatColor(segHeat, segAlpha);
+          c.lineWidth   = segWidth;
           c.lineCap     = 'round';
+          c.lineJoin    = 'round';
           c.stroke();
+        }
 
-          // Bright core dot at the head
-          const headGrad = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, headR * 1.8);
-          headGrad.addColorStop(0,   emberColor(Math.min(1, hue + 0.35), alpha));
-          headGrad.addColorStop(0.5, emberColor(Math.min(1, hue + 0.15), alpha * 0.7));
-          headGrad.addColorStop(1,   emberColor(hue, 0));
-          c.beginPath();
-          c.arc(p.x, p.y, headR * 1.8, 0, Math.PI * 2);
-          c.fillStyle = headGrad;
-          c.fill();
-        } catch { /* ignore rare gradient errors */ }
+        // Bright head glow
+        const headR = p.r * (1 - t * 0.45);
+        if (headR > 0.4 && life_alpha > 0.02) {
+          try {
+            const grd = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, headR * 2.5);
+            grd.addColorStop(0,   heatColor(Math.min(1, curHeat + 0.2), life_alpha));
+            grd.addColorStop(0.4, heatColor(curHeat, life_alpha * 0.6));
+            grd.addColorStop(1,   heatColor(Math.max(0, curHeat - 0.2), 0));
+            c.beginPath();
+            c.arc(p.x, p.y, headR * 2.5, 0, Math.PI * 2);
+            c.fillStyle = grd;
+            c.fill();
+          } catch { /* gradient bounds error */ }
+        }
       }
-
-      c.globalCompositeOperation = 'source-over';
     }
 
     draw();
@@ -213,22 +215,20 @@ export default function CameFireCursor() {
 
   return (
     <>
-      {/* SVG filter: turbulence warps the edges for organic fire distortion */}
       <svg
         aria-hidden
         style={{ position: 'fixed', top: 0, left: 0, width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}
       >
         <defs>
-          <filter id={`ember-${filterId}`} x="-40%" y="-40%" width="180%" height="180%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.035 0.055" numOctaves={2} seed={7} result="turb">
-              <animate attributeName="baseFrequency" values="0.035 0.055;0.045 0.07;0.035 0.055" dur="3s" repeatCount="indefinite" />
+          <filter id={`ember-${filterId}`} x="-30%" y="-30%" width="160%" height="160%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves={2} seed={4} result="turb">
+              <animate attributeName="baseFrequency" values="0.03 0.05;0.04 0.065;0.03 0.05" dur="3.2s" repeatCount="indefinite" />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="turb" scale={7} xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="turb" scale={5} xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </defs>
       </svg>
 
-      {/* Canvas — follows cursor, only visible on interactive elements */}
       <div
         ref={wrapRef}
         aria-hidden="true"
@@ -239,7 +239,7 @@ export default function CameFireCursor() {
           pointerEvents: 'none',
           zIndex:        9999,
           opacity:       0,
-          transition:    'opacity 0.22s ease',
+          transition:    'opacity 0.2s ease',
           filter:        `url(#ember-${filterId})`,
           mixBlendMode:  'screen',
         }}
