@@ -247,7 +247,17 @@ export default function Header() {
           <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
             <nav
               aria-label="Main"
-              className="inline-flex px-2"
+              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150"
+              style={{
+                WebkitBackdropFilter: 'blur(28px) saturate(160%)',
+                backdropFilter: 'blur(28px) saturate(160%)',
+                backgroundColor: clubTheme ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.55)',
+                borderColor: clubTheme ? `${clubTheme.primary}44` : 'rgba(255,255,255,0.70)',
+                boxShadow: clubTheme
+                  ? `0 14px 34px -18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px ${clubTheme.primary}22`
+                  : '0 14px 34px -18px rgba(24,20,15,0.22), inset 0 1px 0 rgba(255,255,255,0.75)',
+                transition: 'background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease',
+              }}
             >
               <ul className="flex items-stretch gap-1">
                 {!isHome && (
@@ -340,6 +350,8 @@ export default function Header() {
               >
                 <Search className="w-4 h-4" />
               </button>
+
+              <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
 
               {/* Contact — compact pill on all pages */}
               <Link
