@@ -822,45 +822,6 @@ export const CLUBS: Club[] = [
     ],
   },
   {
-    id: 'ece',
-    name: 'ECE Department Society',
-    shortName: 'ECE',
-    category: 'Department',
-    description:
-      'Electronics and Communication society — PCB design workshops, embedded systems challenges, VLSI seminars, and Smart India Hackathon teams.',
-    image: '/images/students/reel-ece.png',
-    members: '87',
-    hasDetailPage: true,
-    about: {
-      what:
-        'The ECE Department Society is MLRIT\'s home for embedded systems, PCB design, and communication engineering — beyond what a single course can cover.',
-      why:
-        'VLSI and embedded systems move fast, and coursework can\'t keep pace alone. The society exists to fill that gap with workshops, hackathon teams, and hands-on board design.',
-      activities: [
-        { title: 'PCB Design Workshops', description: 'Workshops taking a schematic all the way to a fabricated, working PCB.' },
-        { title: 'Embedded Systems Challenges', description: 'Timed challenges building embedded firmware against a fixed hardware spec.' },
-        { title: 'VLSI Seminars', description: 'Seminars breaking down VLSI design flow, from RTL to fabrication basics.' },
-        { title: 'SIH Team Prep', description: 'Focused prep cycles forming and coaching the society\'s Smart India Hackathon teams.' },
-      ],
-    },
-    events: [
-      { id: 'ece-sih-prep', title: 'SIH Prep Bootcamp', tag: 'Flagship', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', blurb: 'An intensive bootcamp forming and coaching teams ahead of Smart India Hackathon.' },
-      { id: 'ece-pcb-workshop', title: 'PCB Design Workshop', tag: 'Workshop', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', blurb: 'A hands-on workshop taking a circuit from schematic to a fabricated, working PCB.' },
-      { id: 'ece-embedded-challenge', title: 'Embedded Systems Challenge', tag: 'Contest', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', blurb: 'Teams race to build working embedded firmware against a fixed hardware spec.' },
-      { id: 'ece-vlsi-seminar', title: 'VLSI Design Seminar', tag: 'Seminar', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', blurb: 'A seminar walking through the VLSI design flow, from RTL description to fabrication basics.' },
-    ],
-    memoryLane: [
-      { src: '/images/students/reel-ece.png', alt: 'ECE students at a design session' },
-      { src: '/images/facilities/campus/sti-hub-2.jpg', alt: 'STI Hub lab space' },
-      { src: '/images/students/faculty-classroom.png', alt: 'An ECE department seminar' },
-      { src: '/images/students/faculty-seminar-2.png', alt: 'A VLSI seminar in progress' },
-      { src: '/images/students/classroom-chat.png', alt: 'Students in a technical discussion' },
-      { src: '/images/students/students-laughing.png', alt: 'Students bonding on campus' },
-      { src: '/images/students/campus-group.png', alt: 'An ECE society group photo' },
-      { src: '/images/students/club-event.png', alt: 'Students at a club event' },
-    ],
-  },
-  {
     id: 'aero',
     name: 'Aeronautical Engineering Society',
     shortName: 'AERO',
