@@ -20,12 +20,16 @@ interface Ember {
   bright: number; // 0=deep red, 1=bright orange-white
 }
 
-function spawnEmber(w: number, h: number, stagger = false): Ember {
+// side: 'left' = left 20% of screen, 'right' = right 20%
+function spawnEmber(w: number, h: number, side: 'left' | 'right', stagger = false): Ember {
+  const x = side === 'left'
+    ? rand(0, w * 0.20)
+    : rand(w * 0.80, w);
   return {
-    x:      rand(0, w),
-    y:      stagger ? rand(0, h) : h + rand(0, 80),
-    vx:     rand(-0.9, 0.9),
-    vy:     rand(-1.8, -0.4),   // upward drift, varied speed
+    x,
+    y:      stagger ? rand(h * 0.3, h) : h + rand(0, 60),
+    vx:     rand(-0.4, 0.4),
+    vy:     rand(-1.8, -0.5),   // upward only
     life:   stagger ? rand(0, 1) : 0,
     decay:  rand(0.003, 0.008),
     r:      rand(2.5, 12),
@@ -73,9 +77,11 @@ export default function CameFireCursor() {
     const resize = () => {
       canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
-      embers.current = Array.from({ length: PARTICLE_COUNT }, (_, i) =>
-        spawnEmber(canvas.width, canvas.height, i < PARTICLE_COUNT * 0.7),
-      );
+      // Half on each side, most staggered so columns are full immediately
+      embers.current = Array.from({ length: PARTICLE_COUNT }, (_, i) => {
+        const side: 'left' | 'right' = i < PARTICLE_COUNT / 2 ? 'left' : 'right';
+        return spawnEmber(canvas.width, canvas.height, side, i % 3 !== 0);
+      });
     };
 
     resize();
@@ -93,8 +99,9 @@ export default function CameFireCursor() {
       for (let i = 0; i < embers.current.length; i++) {
         const p = embers.current[i];
 
-        if (p.life >= 1 || p.y < -20 || p.x < -20 || p.x > W + 20) {
-          embers.current[i] = spawnEmber(W, H);
+        if (p.life >= 1 || p.y < -20) {
+          const side: 'left' | 'right' = i < PARTICLE_COUNT / 2 ? 'left' : 'right';
+          embers.current[i] = spawnEmber(W, H, side);
           continue;
         }
 
