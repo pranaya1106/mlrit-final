@@ -359,6 +359,70 @@ export const CLUBS: Club[] = [
   },
 
   {
+    id: 'came',
+    name: 'CAME Club',
+    shortName: 'CAME',
+    category: 'Cultural',
+    description:
+      'Creating Aspirations for Meeting Elevation — the cultural and student engagement platform of MLRIT. Dance, music, drama, anchoring, and event coordination across Graduation Day, Navrat Naveli, Hellenic, Kite Fest, and Annual Day.',
+    image: '/images/students/club-event.png',
+    members: '96',
+    tagline: 'Creating Aspirations, Celebrating Talent, Elevating Campus Life.',
+    hasDetailPage: true,
+    instagramUrl: 'https://www.instagram.com/cameclub_mlrit/',
+    about: {
+      what:
+        'CAME — Creating Aspirations for Meeting Elevation — is the cultural and student engagement platform of MLR Institute of Technology, dedicated to enriching campus life through creativity, cultural expression, and active student participation. The club provides students with opportunities to showcase and develop their talents across dance, music, drama and skits, anchoring, cultural presentations, and event coordination. CAME plays an active role in the planning and execution of major institutional programmes, cultural celebrations, awareness initiatives, national events, and student-centric activities.',
+      why:
+        'Not every skill that matters fits in a lecture hall. CAME exists to give students who perform, create, and connect a real stage and a structured calendar to build toward — developing confidence, teamwork, discipline, and leadership through active participation in the institution\'s cultural and ceremonial life.',
+      activities: [
+        {
+          title: 'Cultural Performances',
+          description:
+            'Dance, music, drama, and skits addressing patriotism, social responsibility, cultural heritage, and student life — performed before large institutional audiences.',
+        },
+        {
+          title: 'Institutional Event Coordination',
+          description:
+            'Active contribution to Graduation Day, Orientation Day, Independence Day, Republic Day, and Annual Day — supporting smooth conduct of ceremonies and cultural segments.',
+        },
+        {
+          title: 'Cultural Celebrations',
+          description:
+            'Navrat Naveli (Bathukamma, Garba, traditional performances), Kite Fest, Traditional Day, and other festive programmes celebrating India\'s diverse cultural traditions.',
+        },
+        {
+          title: 'Hellenic & Ecstacy',
+          description:
+            'High-energy campus events featuring student performances, skits, stand-up, live music, and invited artists — including the Ecstacy concert night and the themed Hellenic programme.',
+        },
+      ],
+    },
+    events: [
+      { id: 'came-hellenic', title: 'Hellenic', tag: 'Signature Event', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', posterImage: '/images/clubs/events/came-hellenic.png', blurb: 'A high-energy campus event with changing themes — student performances, skits, live music by Band Echo, movie team interaction, and DJ.' },
+      { id: 'came-navrat-naveli', title: 'Navrat Naveli', tag: 'Cultural Fest', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', posterImage: '/images/clubs/events/came-navrat-naveli.png', blurb: 'A vibrant cultural celebration featuring Bathukamma, traditional rituals, Garba, skits, and prize distribution.' },
+      { id: 'came-ecstacy', title: 'Ecstacy', tag: 'Concert Night', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', posterImage: '/images/clubs/events/came-ecstacy.jpg', blurb: 'High-energy concert night featuring live performances by artists invited from outside the institution.' },
+      { id: 'came-kite-fest', title: 'Kite Fest', tag: 'Festive Event', posterGradient: 'linear-gradient(155deg, #1a3a5f 0%, #2563eb 55%, #1e40af 100%)', posterImage: '/images/clubs/events/came-kite-fest.png', blurb: 'A festive celebration of Bhogi — Rangoli competitions, kite flying, and campus-wide participation marking the harvest season.' },
+      { id: 'came-graduation', title: 'Graduation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', posterImage: '/images/clubs/events/came-graduation.png', blurb: 'Academic procession, lamp lighting, graduation oath, gold medal distribution, and cultural performances celebrating the graduating batch.' },
+      { id: 'came-annual-day', title: 'Annual Day', tag: 'Institution Event', posterGradient: 'linear-gradient(155deg, #2d1a00 0%, #92400e 55%, #451a03 100%)', posterImage: '/images/clubs/events/came-annual-day.png', blurb: 'MLRIT\'s flagship annual celebration — student cultural performances, awards, and recognition of achievement across the institution.' },
+      { id: 'came-orientation', title: 'Orientation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #0f2a1a 0%, #166534 55%, #0f2a1a 100%)', posterImage: '/images/clubs/events/came-orientation.jpg', blurb: 'Welcome programme for incoming students — cultural performances, introductions, and the official start of campus life at MLRIT.' },
+      { id: 'came-independence-day', title: 'Independence Day', tag: 'National Event', posterGradient: 'linear-gradient(155deg, #0f2a0f 0%, #15803d 55%, #1a3a0a 100%)', posterImage: '/images/clubs/events/came-independence-day.png', blurb: 'Flag hoisting, patriotic performances, drama, and student presentations marking India\'s Independence Day on campus.' },
+      { id: 'came-republic-day', title: 'Republic Day', tag: 'National Event', posterGradient: 'linear-gradient(155deg, #0a1628 0%, #1d4ed8 55%, #0a1628 100%)', posterImage: '/images/clubs/events/came-republic-day.jpg', blurb: 'Flag hoisting, march past, patriotic cultural performances, and campus celebrations marking India\'s Republic Day.' },
+      { id: 'came-traditional-day', title: 'Traditional Day', tag: 'Cultural Event', posterGradient: 'linear-gradient(155deg, #3a1a00 0%, #c2410c 55%, #3a1a00 100%)', posterImage: '/images/clubs/events/came-traditional-day.png', blurb: 'A day celebrating India\'s cultural diversity — students dress in traditional attire from their home states, with performances and cultural showcases.' },
+    ],
+    memoryLane: [
+      { src: '/images/students/club-event.png', alt: 'A CAME cultural performance' },
+      { src: '/images/students/p1.png', alt: 'Students at a CAME stage performance' },
+      { src: '/images/students/p2.png', alt: 'A CAME cultural event moment' },
+      { src: '/images/students/students-laughing.png', alt: 'CAME members bonding on campus' },
+      { src: '/images/campus/canteen-friends.png', alt: 'Friends at the campus canteen' },
+      { src: '/images/students/p3.png', alt: 'A CAME fest performance' },
+      { src: '/images/students/campus-group.png', alt: 'CAME club group photo' },
+      { src: '/images/students/campus-steps.png', alt: 'Students on campus steps' },
+    ],
+  },
+
+  {
     id: 'aws-sbg',
     name: 'AWS Student Builder Group',
     shortName: 'AWS SBG',
@@ -862,69 +926,6 @@ export const CLUBS: Club[] = [
   },
 
   // ─── Cultural ─────────────────────────────────────────────────────────────
-  {
-    id: 'came',
-    name: 'CAME Club',
-    shortName: 'CAME',
-    category: 'Cultural',
-    description:
-      'Creating Aspirations for Meeting Elevation — the cultural and student engagement platform of MLRIT. Dance, music, drama, anchoring, and event coordination across Graduation Day, Navrat Naveli, Hellenic, Kite Fest, and Annual Day.',
-    image: '/images/students/club-event.png',
-    members: '96',
-    tagline: 'Creating Aspirations, Celebrating Talent, Elevating Campus Life.',
-    hasDetailPage: true,
-    instagramUrl: 'https://www.instagram.com/cameclub_mlrit/',
-    about: {
-      what:
-        'CAME — Creating Aspirations for Meeting Elevation — is the cultural and student engagement platform of MLR Institute of Technology, dedicated to enriching campus life through creativity, cultural expression, and active student participation. The club provides students with opportunities to showcase and develop their talents across dance, music, drama and skits, anchoring, cultural presentations, and event coordination. CAME plays an active role in the planning and execution of major institutional programmes, cultural celebrations, awareness initiatives, national events, and student-centric activities.',
-      why:
-        'Not every skill that matters fits in a lecture hall. CAME exists to give students who perform, create, and connect a real stage and a structured calendar to build toward — developing confidence, teamwork, discipline, and leadership through active participation in the institution\'s cultural and ceremonial life.',
-      activities: [
-        {
-          title: 'Cultural Performances',
-          description:
-            'Dance, music, drama, and skits addressing patriotism, social responsibility, cultural heritage, and student life — performed before large institutional audiences.',
-        },
-        {
-          title: 'Institutional Event Coordination',
-          description:
-            'Active contribution to Graduation Day, Orientation Day, Independence Day, Republic Day, and Annual Day — supporting smooth conduct of ceremonies and cultural segments.',
-        },
-        {
-          title: 'Cultural Celebrations',
-          description:
-            'Navrat Naveli (Bathukamma, Garba, traditional performances), Kite Fest, Traditional Day, and other festive programmes celebrating India\'s diverse cultural traditions.',
-        },
-        {
-          title: 'Hellenic & Ecstacy',
-          description:
-            'High-energy campus events featuring student performances, skits, stand-up, live music, and invited artists — including the Ecstacy concert night and the themed Hellenic programme.',
-        },
-      ],
-    },
-    events: [
-      { id: 'came-hellenic', title: 'Hellenic', tag: 'Signature Event', posterGradient: 'linear-gradient(155deg, #023d10 0%, #01741f 55%, #0a3d1f 100%)', posterImage: '/images/clubs/events/came-hellenic.png', blurb: 'A high-energy campus event with changing themes — student performances, skits, live music by Band Echo, movie team interaction, and DJ.' },
-      { id: 'came-navrat-naveli', title: 'Navrat Naveli', tag: 'Cultural Fest', posterGradient: 'linear-gradient(155deg, #3a1503 0%, #b45309 55%, #7a3706 100%)', posterImage: '/images/clubs/events/came-navrat-naveli.png', blurb: 'A vibrant cultural celebration featuring Bathukamma, traditional rituals, Garba, skits, and prize distribution.' },
-      { id: 'came-ecstacy', title: 'Ecstacy', tag: 'Concert Night', posterGradient: 'linear-gradient(155deg, #0b1f3d 0%, #1e3a5f 55%, #14294a 100%)', posterImage: '/images/clubs/events/came-ecstacy.jpg', blurb: 'High-energy concert night featuring live performances by artists invited from outside the institution.' },
-      { id: 'came-kite-fest', title: 'Kite Fest', tag: 'Festive Event', posterGradient: 'linear-gradient(155deg, #1a3a5f 0%, #2563eb 55%, #1e40af 100%)', posterImage: '/images/clubs/events/came-kite-fest.png', blurb: 'A festive celebration of Bhogi — Rangoli competitions, kite flying, and campus-wide participation marking the harvest season.' },
-      { id: 'came-graduation', title: 'Graduation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #1a0b3d 0%, #6b3fa0 55%, #3a1f5f 100%)', posterImage: '/images/clubs/events/came-graduation.png', blurb: 'Academic procession, lamp lighting, graduation oath, gold medal distribution, and cultural performances celebrating the graduating batch.' },
-      { id: 'came-annual-day', title: 'Annual Day', tag: 'Institution Event', posterGradient: 'linear-gradient(155deg, #2d1a00 0%, #92400e 55%, #451a03 100%)', posterImage: '/images/clubs/events/came-annual-day.png', blurb: 'MLRIT\'s flagship annual celebration — student cultural performances, awards, and recognition of achievement across the institution.' },
-      { id: 'came-orientation', title: 'Orientation Day', tag: 'Ceremonial', posterGradient: 'linear-gradient(155deg, #0f2a1a 0%, #166534 55%, #0f2a1a 100%)', posterImage: '/images/clubs/events/came-orientation.jpg', blurb: 'Welcome programme for incoming students — cultural performances, introductions, and the official start of campus life at MLRIT.' },
-      { id: 'came-independence-day', title: 'Independence Day', tag: 'National Event', posterGradient: 'linear-gradient(155deg, #0f2a0f 0%, #15803d 55%, #1a3a0a 100%)', posterImage: '/images/clubs/events/came-independence-day.png', blurb: 'Flag hoisting, patriotic performances, drama, and student presentations marking India\'s Independence Day on campus.' },
-      { id: 'came-republic-day', title: 'Republic Day', tag: 'National Event', posterGradient: 'linear-gradient(155deg, #0a1628 0%, #1d4ed8 55%, #0a1628 100%)', posterImage: '/images/clubs/events/came-republic-day.jpg', blurb: 'Flag hoisting, march past, patriotic cultural performances, and campus celebrations marking India\'s Republic Day.' },
-      { id: 'came-traditional-day', title: 'Traditional Day', tag: 'Cultural Event', posterGradient: 'linear-gradient(155deg, #3a1a00 0%, #c2410c 55%, #3a1a00 100%)', posterImage: '/images/clubs/events/came-traditional-day.png', blurb: 'A day celebrating India\'s cultural diversity — students dress in traditional attire from their home states, with performances and cultural showcases.' },
-    ],
-    memoryLane: [
-      { src: '/images/students/club-event.png', alt: 'A CAME cultural performance' },
-      { src: '/images/students/p1.png', alt: 'Students at a CAME stage performance' },
-      { src: '/images/students/p2.png', alt: 'A CAME cultural event moment' },
-      { src: '/images/students/students-laughing.png', alt: 'CAME members bonding on campus' },
-      { src: '/images/campus/canteen-friends.png', alt: 'Friends at the campus canteen' },
-      { src: '/images/students/p3.png', alt: 'A CAME fest performance' },
-      { src: '/images/students/campus-group.png', alt: 'CAME club group photo' },
-      { src: '/images/students/campus-steps.png', alt: 'Students on campus steps' },
-    ],
-  },
   {
     id: 'lit',
     name: 'Club Literati',
