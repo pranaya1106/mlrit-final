@@ -1,6 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useId } from 'react';
+import { useEffect, useRef, useId, RefObject } from 'react';
+
+interface Props {
+  startRef: RefObject<HTMLDivElement | null>;
+  endRef:   RefObject<HTMLDivElement | null>;
+}
 
 // Flying ember particles matching the reference video:
 // glowing orange/red dots scattered across the viewport, drifting upward
@@ -60,12 +65,13 @@ function emberColor(bright: number, alpha: number): [string, string] {
   ];
 }
 
-export default function CameFireCursor() {
+export default function CameFireCursor({ startRef, endRef }: Props) {
   const filterId  = useId().replace(/:/g, '');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const embers    = useRef<Ember[]>([]);
   const rafRef    = useRef(0);
   const noiseT    = useRef(0);
+  const visibleRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,6 +79,30 @@ export default function CameFireCursor() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const c = ctx;
+
+    // Show embers only while scrolled between startRef and endRef
+    let startVisible = false;
+    let endVisible   = false;
+
+    const updateVisibility = () => {
+      // visible = startRef has left the top (scrolled past hero)
+      //           AND endRef hasn't entered the top yet (not yet at HowItWorks)
+      const active = startVisible && !endVisible;
+      visibleRef.current = active;
+      canvas.style.opacity = active ? '1' : '0';
+    };
+
+    const startObs = new IntersectionObserver(
+      ([e]) => { startVisible = !e.isIntersecting; updateVisibility(); },
+      { threshold: 0, rootMargin: '0px 0px 0px 0px' },
+    );
+    const endObs = new IntersectionObserver(
+      ([e]) => { endVisible = e.isIntersecting; updateVisibility(); },
+      { threshold: 0, rootMargin: '0px 0px 0px 0px' },
+    );
+
+    if (startRef.current) startObs.observe(startRef.current);
+    if (endRef.current)   endObs.observe(endRef.current);
 
     const resize = () => {
       canvas.width  = window.innerWidth;
@@ -165,8 +195,10 @@ export default function CameFireCursor() {
     return () => {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener('resize', resize);
+      startObs.disconnect();
+      endObs.disconnect();
     };
-  }, []);
+  }, [startRef, endRef]);
 
   return (
     <>
@@ -191,6 +223,8 @@ export default function CameFireCursor() {
           height:        '100%',
           pointerEvents: 'none',
           zIndex:        5,
+          opacity:       0,
+          transition:    'opacity 0.8s ease',
           filter:        `url(#ember-${filterId})`,
           mixBlendMode:  'screen',
         }}
