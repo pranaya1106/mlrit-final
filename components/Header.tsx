@@ -244,10 +244,10 @@ export default function Header() {
             Each nav item carries a persistent hairline underline that
             intensifies to primary on hover. */}
         <div className="hidden lg:block relative z-[1]">
-          <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1 gap-3 min-w-0">
+          <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
             <nav
               aria-label="Main"
-              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150 min-w-0 shrink overflow-hidden"
+              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150"
               style={{
                 WebkitBackdropFilter: 'blur(28px) saturate(160%)',
                 backdropFilter: 'blur(28px) saturate(160%)',
@@ -338,7 +338,7 @@ export default function Header() {
             </nav>
 
             {/* Utility rail — right side: search, Chronicles, [club badge], Contact */}
-            <div className="flex items-end gap-4 flex-shrink-0">
+            <div className="flex items-end gap-4">
               <button
                 id="search-trigger-btn"
                 type="button"
@@ -353,18 +353,14 @@ export default function Header() {
 
               <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
 
-              {/* Contact — full pill on homepage, compact on inner pages */}
+              {/* Contact — compact pill on all pages */}
               <Link
                 href="/admissions/support"
                 style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
-                className={`group inline-flex items-center border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] ${
-                  isHome
-                    ? 'gap-3 h-[56px] mb-[1px] pl-7 pr-6 text-[1.05rem]'
-                    : 'gap-2 h-[36px] mb-2 pl-5 pr-4 text-[0.82rem]'
-                }`}
+                className="group inline-flex items-center gap-2 h-[36px] mb-2 pl-5 pr-4 border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] text-[0.82rem]"
               >
                 Contact
-                <ChevronRight className={isHome ? 'w-4 h-4' : 'w-3 h-3'} />
+                <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
           </div>
