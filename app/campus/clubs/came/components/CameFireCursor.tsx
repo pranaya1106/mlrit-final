@@ -2,18 +2,12 @@
 
 import { useEffect, useRef, useId } from 'react';
 
-// Flame-streak ember cursor — tiny comet-tail sparks floating up from cursor.
-// Each ember stores its last N positions so we draw a real pixel trail,
-// not just a single-frame gradient line that disappears instantly.
+// Ambient fire-streak embers — always present, scattered across the page.
+// Embers spawn from random x positions along the bottom, float upward with
+// comet tails, and loop continuously. No interaction required.
 
-const PARTICLE_COUNT = 44;
-const CANVAS_W = 180;
-const CANVAS_H = 200;
-const CX = CANVAS_W / 2;
-const BASE_Y = CANVAS_H - 12;
-
-// Trail: store last this many positions per particle
-const TRAIL_LEN = 12;
+const PARTICLE_COUNT = 55;
+const TRAIL_LEN = 14;
 
 function rand(a: number, b: number) {
   return a + Math.random() * (b - a);
@@ -24,21 +18,14 @@ interface Ember {
   y: number;
   vx: number;
   vy: number;
-  life: number;    // 0→1
+  life: number;
   decay: number;
-  r: number;       // head radius
-  // ring buffer of past positions
+  r: number;
   trail: Array<{ x: number; y: number }>;
-  // color: 0=deep-red, 1=white-hot
   heat: number;
 }
 
-// Color stops
 function heatColor(heat: number, alpha: number): string {
-  // 0   → deep crimson  200,30,5
-  // 0.3 → orange        245,118,10
-  // 0.6 → amber         255,185,40
-  // 1.0 → white-spark   255,240,160
   let r: number, g: number, b: number;
   if (heat < 0.3) {
     const t = heat / 0.3;
@@ -59,117 +46,107 @@ function heatColor(heat: number, alpha: number): string {
   return `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
 }
 
-function spawnEmber(): Ember {
-  const angle = rand(-Math.PI * 0.6, -Math.PI * 0.4); // mostly upward
-  const speed = rand(1.4, 3.8);
+function spawnEmber(w: number, h: number): Ember {
+  const angle = rand(-Math.PI * 0.65, -Math.PI * 0.35); // mostly upward
+  const speed = rand(1.2, 3.4);
   return {
-    x:     CX + rand(-16, 16),
-    y:     BASE_Y + rand(-5, 5),
-    vx:    Math.cos(angle) * speed * rand(0.2, 0.8),
+    x:     rand(0, w),
+    y:     h + rand(0, 30),          // spawn below visible area
+    vx:    Math.cos(angle) * speed * rand(0.15, 0.7),
     vy:    Math.sin(angle) * speed,
-    life:  rand(0, 0.3),   // stagger start
-    decay: rand(0.007, 0.016),
-    r:     rand(1.5, 3.8),
+    life:  rand(0, 0.9),             // stagger so they don't all appear at once
+    decay: rand(0.004, 0.012),       // slower decay = longer visible lifetime
+    r:     rand(1.2, 3.2),
     trail: [],
-    heat:  rand(0.35, 0.9),
+    heat:  rand(0.3, 0.95),
   };
 }
 
 export default function CameFireCursor() {
   const filterId  = useId().replace(/:/g, '');
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const wrapRef   = useRef<HTMLDivElement>(null);
-  const embers    = useRef<Ember[]>(Array.from({ length: PARTICLE_COUNT }, spawnEmber));
+  const embers    = useRef<Ember[]>([]);
   const rafRef    = useRef(0);
   const noiseT    = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const wrap   = wrapRef.current;
-    if (!canvas || !wrap) return;
+    if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const c = ctx;
 
-    const SELECTOR = 'a,button,[role="button"],[role="tab"],input,select,textarea';
-
-    const onMove = (e: MouseEvent) => {
-      wrap.style.left = `${e.clientX - CANVAS_W / 2}px`;
-      wrap.style.top  = `${e.clientY - CANVAS_H + 12}px`;
-    };
-    const onEnter = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).closest(SELECTOR)) {
-        wrap.style.opacity = '1';
-      }
-    };
-    const onLeave = (e: MouseEvent) => {
-      if (!(e.relatedTarget as HTMLElement | null)?.closest(SELECTOR)) {
-        wrap.style.opacity = '0';
-      }
+    const resize = () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // Re-seed embers on resize so they fill the new dimensions
+      embers.current = Array.from(
+        { length: PARTICLE_COUNT },
+        () => spawnEmber(canvas.width, canvas.height),
+      );
     };
 
-    document.addEventListener('mousemove', onMove, { passive: true });
-    document.addEventListener('mouseover', onEnter, { passive: true });
-    document.addEventListener('mouseout',  onLeave, { passive: true });
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
 
     function draw() {
       rafRef.current = requestAnimationFrame(draw);
 
-      // Full clear each frame — trail is stored in particle data, not canvas state
-      c.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      const W = canvas!.width;
+      const H = canvas!.height;
 
-      noiseT.current += 0.03;
+      c.clearRect(0, 0, W, H);
+
+      noiseT.current += 0.022;
       const noise = noiseT.current;
 
       for (let i = 0; i < embers.current.length; i++) {
         const p = embers.current[i];
 
-        if (p.life >= 1) {
-          embers.current[i] = spawnEmber();
+        // Respawn below screen when fully spent or drifted off sides
+        if (p.life >= 1 || p.x < -40 || p.x > W + 40) {
+          embers.current[i] = spawnEmber(W, H);
           continue;
         }
 
         p.life += p.decay;
 
         // Convective wobble
-        const wx = Math.sin(noise * 2.2 + i * 1.7) * 0.12
-                 + Math.cos(noise * 1.5 + i * 3.1) * 0.08;
+        const wx = Math.sin(noise * 2.1 + i * 1.9) * 0.14
+                 + Math.cos(noise * 1.4 + i * 3.3) * 0.09;
         p.vx += wx;
-        p.vx *= 0.95;
-        p.vy *= 0.985;  // slight drag
+        p.vx *= 0.94;
+        p.vy *= 0.988;
 
         p.x += p.vx;
         p.y += p.vy;
 
-        // Store trail point
         p.trail.push({ x: p.x, y: p.y });
         if (p.trail.length > TRAIL_LEN) p.trail.shift();
 
         if (p.trail.length < 2) continue;
 
-        const t    = p.life;
-        // Particle alpha envelope: ramp up → hold → ramp down
-        const life_alpha = t < 0.15
-          ? t / 0.15
-          : t < 0.7
+        const t = p.life;
+        const life_alpha = t < 0.12
+          ? t / 0.12
+          : t < 0.72
             ? 1
-            : Math.max(0, 1 - (t - 0.7) / 0.3);
+            : Math.max(0, 1 - (t - 0.72) / 0.28);
 
         if (life_alpha < 0.01) continue;
 
-        // Heat shifts hotter as ember rises, then cools
         const curHeat = t < 0.45
           ? Math.min(1, p.heat + t * 0.5)
           : Math.max(0, p.heat - (t - 0.45) * 1.1);
 
-        // Draw trail: iterate segments from oldest (tail) to newest (head)
+        // Trail segments
         const n = p.trail.length;
         for (let j = 1; j < n; j++) {
-          const segFrac  = j / (n - 1);           // 0=tail, 1=head
-          const segAlpha = life_alpha * segFrac * segFrac; // quadratic falloff toward tail
-          const segHeat  = curHeat * (0.3 + 0.7 * segFrac); // cooler at tail
-          const segWidth = p.r * segFrac * 2.2;   // thicker at head
+          const segFrac  = j / (n - 1);
+          const segAlpha = life_alpha * segFrac * segFrac;
+          const segHeat  = curHeat * (0.3 + 0.7 * segFrac);
+          const segWidth = p.r * segFrac * 2.2;
 
           if (segAlpha < 0.005 || segWidth < 0.3) continue;
 
@@ -186,7 +163,7 @@ export default function CameFireCursor() {
           c.stroke();
         }
 
-        // Bright head glow
+        // Head glow
         const headR = p.r * (1 - t * 0.45);
         if (headR > 0.4 && life_alpha > 0.02) {
           try {
@@ -198,7 +175,7 @@ export default function CameFireCursor() {
             c.arc(p.x, p.y, headR * 2.5, 0, Math.PI * 2);
             c.fillStyle = grd;
             c.fill();
-          } catch { /* gradient bounds error */ }
+          } catch { /* gradient bounds */ }
         }
       }
     }
@@ -207,9 +184,7 @@ export default function CameFireCursor() {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseover', onEnter);
-      document.removeEventListener('mouseout',  onLeave);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
@@ -220,37 +195,29 @@ export default function CameFireCursor() {
         style={{ position: 'fixed', top: 0, left: 0, width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}
       >
         <defs>
-          <filter id={`ember-${filterId}`} x="-30%" y="-30%" width="160%" height="160%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves={2} seed={4} result="turb">
-              <animate attributeName="baseFrequency" values="0.03 0.05;0.04 0.065;0.03 0.05" dur="3.2s" repeatCount="indefinite" />
+          <filter id={`ember-${filterId}`} x="-10%" y="-10%" width="120%" height="120%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.025 0.04" numOctaves={2} seed={7} result="turb">
+              <animate attributeName="baseFrequency" values="0.025 0.04;0.035 0.055;0.025 0.04" dur="4s" repeatCount="indefinite" />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="turb" scale={5} xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="turb" scale={4} xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </defs>
       </svg>
 
-      <div
-        ref={wrapRef}
+      <canvas
+        ref={canvasRef}
         aria-hidden="true"
         style={{
           position:      'fixed',
-          width:         CANVAS_W,
-          height:        CANVAS_H,
+          inset:         0,
+          width:         '100%',
+          height:        '100%',
           pointerEvents: 'none',
-          zIndex:        9999,
-          opacity:       0,
-          transition:    'opacity 0.2s ease',
+          zIndex:        5,
           filter:        `url(#ember-${filterId})`,
           mixBlendMode:  'screen',
         }}
-      >
-        <canvas
-          ref={canvasRef}
-          width={CANVAS_W}
-          height={CANVAS_H}
-          style={{ display: 'block' }}
-        />
-      </div>
+      />
     </>
   );
 }
