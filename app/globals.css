@@ -396,7 +396,7 @@ button { font: inherit; cursor: pointer; }
   cursor: pointer;
   border: 3px solid #d0cdc8;
   background-color: #b0ada8;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
   transition: 0.1s ease-in-out;
   user-select: none;
   display: inline-block;
@@ -408,7 +408,7 @@ button { font: inherit; cursor: pointer; }
 .chron-box .chron-inner {
   background-color: #fff;
   border: 3px solid #fff;
-  padding: 5px 14px;
+  padding: 4px 14px;
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -423,8 +423,8 @@ button { font: inherit; cursor: pointer; }
 }
 .chron-box:active {
   padding: 0;
-  margin-bottom: 6px;
-  transform: translateY(6px);
+  margin-bottom: 4px;
+  transform: translateY(4px);
 }
 .chron-new {
   font-size: 0.55rem;
