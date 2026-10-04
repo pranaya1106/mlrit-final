@@ -244,10 +244,10 @@ export default function Header() {
             Each nav item carries a persistent hairline underline that
             intensifies to primary on hover. */}
         <div className="hidden lg:block relative z-[1]">
-          <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
+          <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1 gap-3 min-w-0">
             <nav
               aria-label="Main"
-              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150"
+              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150 min-w-0 shrink overflow-hidden"
               style={{
                 WebkitBackdropFilter: 'blur(28px) saturate(160%)',
                 backdropFilter: 'blur(28px) saturate(160%)',
@@ -338,7 +338,7 @@ export default function Header() {
             </nav>
 
             {/* Utility rail — right side: search, Chronicles, [club badge], Contact */}
-            <div className="flex items-end gap-4">
+            <div className="flex items-end gap-4 flex-shrink-0">
               <button
                 id="search-trigger-btn"
                 type="button"
