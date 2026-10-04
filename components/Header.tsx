@@ -338,17 +338,17 @@ export default function Header() {
             </nav>
 
             {/* Utility rail — right side: search, Chronicles, [club badge], Contact */}
-            <div className="flex items-end gap-4">
+            <div className="flex items-end gap-2.5">
               <button
                 id="search-trigger-btn"
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="inline-flex items-center justify-center w-10 h-10 mb-2 rounded-full transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 mb-2 rounded-full transition-colors"
                 style={{ color: clubTheme ? 'rgba(255,255,255,0.5)' : undefined }}
                 title="Search (Ctrl+K)"
                 aria-label="Open search (Ctrl+K)"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4 h-4" />
               </button>
 
               <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
@@ -357,10 +357,10 @@ export default function Header() {
               <Link
                 href="/admissions/support"
                 style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
-                className="group inline-flex items-center gap-2 h-[36px] mb-2 pl-5 pr-4 border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] text-[0.82rem]"
+                className="group inline-flex items-center gap-1.5 h-[30px] mb-2 pl-4 pr-3 border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] text-[0.78rem]"
               >
                 Contact
-                <ChevronRight className="w-3 h-3" />
+                <ChevronRight className="w-2.5 h-2.5" />
               </Link>
             </div>
           </div>
