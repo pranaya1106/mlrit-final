@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -15,7 +17,8 @@ const NAV_ITEMS = [
   { id: 'responsibilities', label: 'Key Responsibilities' },
 ];
 
-const INITIATIVES = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_INITIATIVES = [
   'Academic Quality Enhancement',
   'Curriculum Enrichment',
   'Faculty Development Programmes',
@@ -35,7 +38,8 @@ const INITIATIVES = [
   'National Ranking and Accreditation Support',
 ];
 
-const RESPONSIBILITIES = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_RESPONSIBILITIES = [
   'Planning quality initiatives',
   'Monitoring academic processes',
   'Supporting strategic planning',
@@ -48,7 +52,14 @@ const RESPONSIBILITIES = [
   'Driving continuous improvement across all functional areas',
 ];
 
-export default function InitiativesPage() {
+export const revalidate = 60;
+
+export default async function InitiativesPage() {
+  const saved_initiatives = await getRows('iqac', 'initiatives', 'initiatives');
+  const INITIATIVES = saved_initiatives.length > 0 ? saved_initiatives.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_INITIATIVES;
+  const saved_responsibilities = await getRows('iqac', 'initiatives', 'responsibilities');
+  const RESPONSIBILITIES = saved_responsibilities.length > 0 ? saved_responsibilities.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_RESPONSIBILITIES;
+
   return (
     <>
       <PageHeader

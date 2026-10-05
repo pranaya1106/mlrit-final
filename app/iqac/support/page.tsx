@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import Reveal from '@/components/motion/Reveal';
 
@@ -8,7 +10,8 @@ export const metadata: Metadata = {
   description: 'Contact the IQAC office at MLRIT for queries related to accreditation, AQAR, NBA and institutional quality assurance.',
 };
 
-const CONTACTS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_CONTACTS = [
   {
     name: 'Dr. Radhika Devi V',
     role: 'Head IQAC — Director & Dean H&S',
@@ -26,7 +29,12 @@ const CONTACTS = [
   },
 ];
 
-export default function IQACSupportPage() {
+export const revalidate = 60;
+
+export default async function IQACSupportPage() {
+  const saved_contacts = await getRows('iqac', 'support', 'contacts');
+  const CONTACTS = saved_contacts.length > 0 ? saved_contacts.map((r) => ({ name: asText(r.name), role: asText(r.role), phone: asText(r.phone), tollFree: asText(r.tollFree).toLowerCase() === 'yes', email: asText(r.email), purpose: asText(r.purpose) })) : FALLBACK_CONTACTS;
+
   return (
     <>
       <PageHeader

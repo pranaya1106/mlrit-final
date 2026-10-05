@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -17,7 +19,8 @@ const NAV_ITEMS = [
   { id: 'quality-framework', label: 'Quality Framework' },
 ];
 
-const MISSION_POINTS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_MISSION_POINTS = [
   'To institutionalize quality assurance practices across academic and administrative domains.',
   'To promote excellence in teaching, learning, research, innovation, and extension activities.',
   'To facilitate outcome-based education and continuous curriculum improvement.',
@@ -26,7 +29,8 @@ const MISSION_POINTS = [
   'To achieve excellence in accreditation, ranking, and national quality frameworks.',
 ];
 
-const COMMITMENT_ITEMS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_COMMITMENT_ITEMS = [
   'Academic Excellence',
   'Continuous Quality Improvement',
   'Student-Centric Learning',
@@ -39,7 +43,8 @@ const COMMITMENT_ITEMS = [
   'Inclusive Growth',
 ];
 
-const QUALITY_FRAMEWORKS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_QUALITY_FRAMEWORKS = [
   { code: 'NAAC', label: 'National Assessment and Accreditation Council' },
   { code: 'NBA', label: 'National Board of Accreditation' },
   { code: 'NIRF', label: 'National Institutional Ranking Framework' },
@@ -50,7 +55,16 @@ const QUALITY_FRAMEWORKS = [
   { code: 'OBE', label: 'Outcome-Based Education' },
 ];
 
-export default function IQACPage() {
+export const revalidate = 60;
+
+export default async function IQACPage() {
+  const saved_mission = await getRows('iqac', 'overview', 'mission');
+  const MISSION_POINTS = saved_mission.length > 0 ? saved_mission.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_MISSION_POINTS;
+  const saved_commitments = await getRows('iqac', 'overview', 'commitments');
+  const COMMITMENT_ITEMS = saved_commitments.length > 0 ? saved_commitments.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_COMMITMENT_ITEMS;
+  const saved_frameworks = await getRows('iqac', 'overview', 'frameworks');
+  const QUALITY_FRAMEWORKS = saved_frameworks.length > 0 ? saved_frameworks.map((r) => ({ code: asText(r.code), label: asText(r.label) })) : FALLBACK_QUALITY_FRAMEWORKS;
+
   return (
     <>
       <PageHeader
