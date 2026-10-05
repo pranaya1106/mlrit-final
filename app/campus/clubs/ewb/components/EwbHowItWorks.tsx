@@ -168,20 +168,21 @@ export default function EwbHowItWorks({
   const BOOK_H = 'clamp(400px, 58vw, 620px)';
   const SHIFT_X = Math.min(420, typeof window !== 'undefined' ? window.innerWidth * 0.88 : 420) / 2;
 
-  const handleClick = async () => {
+  const stopTilt = () => {
+    tiltStopped.current = true;
+    tiltControls.stop();
+    tiltControls.start({ rotateY: 0, transition: { duration: 0.3, ease: 'easeOut' } });
+  };
+
+  const openBook = () => {
+    stopTilt();
+    setIsBookClosed(false);
+    bookContainerControls.start({ x: SHIFT_X, transition: { duration: 0.6, ease: 'easeInOut' } });
+  };
+
+  const handleNext = async () => {
     const current = flippedRef.current;
-
-    if (current === 0) {
-      tiltStopped.current = true;
-      tiltControls.stop();
-      tiltControls.start({ rotateY: 0, transition: { duration: 0.3, ease: 'easeOut' } });
-      setIsBookClosed(false);
-      bookContainerControls.start({
-        x: SHIFT_X,
-        transition: { duration: 0.6, ease: 'easeInOut' },
-      });
-    }
-
+    if (current === 0) openBook();
     if (current < TOTAL_LEAVES) {
       setFlippedCount(current + 1);
       flippedRef.current = current + 1;
@@ -190,19 +191,29 @@ export default function EwbHowItWorks({
         transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] },
       });
     } else {
-      bookContainerControls.start({
-        x: 0,
-        transition: { duration: 0.8, ease: 'easeInOut' },
-      });
+      bookContainerControls.start({ x: 0, transition: { duration: 0.8, ease: 'easeInOut' } });
       for (let i = TOTAL_LEAVES - 1; i >= 0; i--) {
-        controlsPool[i].start({
-          rotateY: 0,
-          transition: { duration: 0.5, ease: 'easeInOut' },
-        });
+        controlsPool[i].start({ rotateY: 0, transition: { duration: 0.5, ease: 'easeInOut' } });
         await new Promise<void>(r => setTimeout(r, 80));
       }
       setFlippedCount(0);
       flippedRef.current = 0;
+      setIsBookClosed(true);
+    }
+  };
+
+  const handlePrev = async () => {
+    const current = flippedRef.current;
+    if (current === 0) return;
+    const target = current - 1;
+    setFlippedCount(target);
+    flippedRef.current = target;
+    await controlsPool[target].start({
+      rotateY: 0,
+      transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] },
+    });
+    if (target === 0) {
+      bookContainerControls.start({ x: 0, transition: { duration: 0.6, ease: 'easeInOut' } });
       setIsBookClosed(true);
     }
   };
@@ -233,9 +244,6 @@ export default function EwbHowItWorks({
           overflow: 'visible',
           paddingBottom: 48,
         }}
-        onClick={handleClick}
-        role="button"
-        aria-label={isBookClosed ? 'Open book' : flippedCount < TOTAL_LEAVES ? 'Flip page' : 'Close book'}
       >
         <motion.div
           animate={tiltControls}
@@ -255,6 +263,9 @@ export default function EwbHowItWorks({
             transition: 'box-shadow 0.6s ease',
           }}
         >
+          <div onClick={isBookClosed ? handleNext : handlePrev} style={{ position: 'absolute', inset: 0, right: '50%', zIndex: 200, cursor: isBookClosed ? 'pointer' : flippedCount > 0 ? 'w-resize' : 'default' }} aria-label="Previous page" />
+          <div onClick={handleNext} style={{ position: 'absolute', inset: 0, left: '50%', zIndex: 200, cursor: 'e-resize' }} aria-label="Next page" />
+
           {LEAF_PAIRS.map(([frontPage, backPage], index) => {
             const isFlipped  = index < flippedCount;
             const isFlipping = index === flippedCount - 1;
@@ -310,13 +321,12 @@ export default function EwbHowItWorks({
         </motion.div>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-8">
         <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)' }}>
-          {isBookClosed
-            ? 'Click to open'
-            : flippedCount < TOTAL_LEAVES
-            ? 'Click to flip'
-            : 'Click to close'}
+          {isBookClosed ? 'Click to open' : '← prev'}
+        </span>
+        <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)' }}>
+          {isBookClosed ? '' : flippedCount < TOTAL_LEAVES ? 'next →' : 'close →'}
         </span>
       </div>
 
