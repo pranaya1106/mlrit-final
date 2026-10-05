@@ -1,8 +1,10 @@
 
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
-import { MOUS } from '@/lib/placements';
+import { type Mou, MOUS } from '@/lib/placements';
 import SideQuickNav from '@/components/SideQuickNav';
 
 const gradientText: React.CSSProperties = {
@@ -11,14 +13,24 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
-const coes = MOUS.filter((m) => m.type === 'Centre of Excellence');
-const partners = MOUS.filter((m) => m.type === 'MoU Partner');
 
 const NAV_ITEMS = [
   { id: 'mous', label: 'MoUs & Partnerships' },
 ];
 
-export default function PlacementsMoUsPage() {
+// `type` drives which of the two lists a MoU lands in, and the CMS stores it
+// as free text — narrowed on read so a typo files the row under MoU Partner
+// instead of making it vanish from both.
+export const revalidate = 60;
+
+export default async function PlacementsMoUsPage() {
+  const saved_mous = await getRows('placements', 'mous', 'mous');
+  const MOUS_LIVE: Mou[] = saved_mous.length > 0 ? saved_mous.map((r) => ({ name: asText(r.name), domain: asText(r.domain), package: asText(r.package), type: asText(r.type) === 'Centre of Excellence' ? 'Centre of Excellence' : 'MoU Partner', docs: asText(r.docFile) ? [{ label: asText(r.docLabel), file: asText(r.docFile) }] : [] })) : MOUS;
+
+  // Derived after the CMS read, or an edit would never reach these two lists.
+  const coes = MOUS_LIVE.filter((m) => m.type === 'Centre of Excellence');
+  const partners = MOUS_LIVE.filter((m) => m.type === 'MoU Partner');
+
   return (
     <>
       <PageHeader

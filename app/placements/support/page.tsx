@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import Reveal from '@/components/motion/Reveal';
@@ -20,7 +22,12 @@ const NAV_ITEMS = [
   { id: 'support', label: 'Contact T&P' },
 ];
 
-export default function PlacementsSupportPage() {
+export const revalidate = 60;
+
+export default async function PlacementsSupportPage() {
+  const saved_contacts = await getRows('placements', 'support', 'contacts');
+  const PLACEMENT_CONTACTS_LIVE = saved_contacts.length > 0 ? saved_contacts.map((r) => ({ name: asText(r.name), designation: asText(r.designation), phones: asText(r.phones).split(',').map((v) => v.trim()).filter(Boolean), email: asText(r.email), purpose: asText(r.purpose) })) : PLACEMENT_CONTACTS;
+
   return (
     <>
       <PageHeader
@@ -45,7 +52,7 @@ export default function PlacementsSupportPage() {
       <section id="support" className="bg-warm-light min-h-[50vh] py-6 md:py-16">
         <div className="max-w-[720px] mx-auto px-6 md:px-12 lg:px-20 space-y-4 md:space-y-6">
 
-          {PLACEMENT_CONTACTS.map((c) => (
+          {PLACEMENT_CONTACTS_LIVE.map((c) => (
             <Reveal key={c.designation} preset="up">
               <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
                 <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{c.designation}</p>

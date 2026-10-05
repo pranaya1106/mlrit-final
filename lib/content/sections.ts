@@ -520,6 +520,97 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  'placements/statistics': {
+    label: 'Placements — Statistics',
+    fields: [
+      { name: 'highlights', label: 'Headline figures', type: 'repeater',
+        itemFields: [
+          { name: 'value', label: 'Value' },
+          { name: 'label', label: 'Label' },
+          { name: 'sub', label: 'Sub-label' },
+        ],
+        defaultItems: [
+          { id: "students-getting-placed", value: "81%", label: "Students getting placed", sub: "Consistently every year" },
+          { id: "years-of-experience", value: "21", label: "Years of experience", sub: "Since inception" },
+          { id: "alumni-placed-in-mncs", value: "7000+", label: "Alumni placed in MNCs", sub: "Across industries" },
+          { id: "campus-visiting-partners", value: "200+", label: "Campus visiting partners", sub: "MNCs to startups" },
+          { id: "highest-package", value: "₹58 LPA", label: "Highest package", sub: "Palo Alto Networks · 2023" },
+        ] },
+      { name: 'infrastructure', label: 'Infrastructure list', type: 'repeater',
+        itemFields: [{ name: 'text', label: 'Item' }],
+        defaultItems: [
+          { id: "infra-1", text: "800+ networked computer systems with webcams and 1 Gbps internet connectivity" },
+          { id: "infra-2", text: "Auditorium with 1,200-seat capacity for pre-placement talks and mass drives" },
+          { id: "infra-3", text: "Dedicated placement block with seminar halls, GD rooms, and interview panels" },
+          { id: "infra-4", text: "Uninterrupted power backup across all placement facilities" },
+          { id: "infra-5", text: "Centres of Excellence with Virtusa and EPAM Systems for advanced domain training" },
+        ] },
+      { name: 'infraStats', label: 'Infrastructure figures', type: 'repeater',
+        itemFields: [
+          { name: 'num', label: 'Figure' },
+          { name: 'label', label: 'Label' },
+        ],
+        defaultItems: [
+          { id: "systems", num: "800+", label: "Systems" },
+          { id: "seat-auditorium", num: "1200", label: "Seat Auditorium" },
+          { id: "connectivity", num: "1 Gbps", label: "Connectivity" },
+        ] },
+    ],
+  },
+
+  'placements/mous': {
+    label: 'Placements — MoUs',
+    fields: [
+      { name: 'mous', label: 'MoUs', type: 'repeater',
+        // One document per MoU, flattened into two columns: every bundled
+        // entry has at most one, and a nested list is not something a
+        // repeater row can hold.
+        itemFields: [
+          { name: 'name', label: 'Partner' },
+          { name: 'domain', label: 'Domain' },
+          { name: 'package', label: 'Package' },
+          { name: 'type', label: 'Type' },
+          { name: 'docLabel', label: 'Document label' },
+          { name: 'docFile', label: 'Document link' },
+        ],
+        defaultItems: [
+          { id: "virtusa", name: "Virtusa", domain: "Talend Data Integration and AWS — hands-on training with live industry projects through a dedicated on-campus Centre of Excellence.", package: "5.5 – 7 LPA", type: "Centre of Excellence", docLabel: "MoU · CoE Agreement 2026", docFile: "/placements/mou/virtusa-coe-2026.pdf" },
+          { id: "epam-systems", name: "EPAM Systems", domain: "Fullstack Development and Cloud Engineering — specialised curriculum delivered by EPAM practitioners at our on-campus CoE.", package: "8 – 12 LPA", type: "Centre of Excellence", docLabel: "UpSkill Programme Agreement", docFile: "/placements/mou/epam-upskill.pdf" },
+          { id: "hcl-tech", name: "HCL Tech", domain: "Specialised technical training in Snowflake, Informatica, and Java — developing job-ready professionals through industry-designed learning.", package: "", type: "Centre of Excellence", docLabel: "", docFile: "" },
+          { id: "tata-technologies", name: "Tata Technologies", domain: "PLM and Engineering Design — dedicated Tata Technologies Centre of Excellence for advanced product lifecycle and manufacturing skills.", package: "", type: "Centre of Excellence", docLabel: "", docFile: "" },
+          { id: "boeing", name: "Boeing", domain: "Aerospace Design and Manufacturing — formal partnership enabling internships, research collaboration, and direct recruitment.", package: "", type: "MoU Partner", docLabel: "", docFile: "" },
+          { id: "cyient", name: "Cyient", domain: "Engineering and Technology Services — strategic MoU covering campus recruitment, joint technical training, and faculty development.", package: "", type: "MoU Partner", docLabel: "", docFile: "" },
+          { id: "infosys", name: "Infosys", domain: "Campus Connect Programme — structured industry partnership providing Infosys-designed curriculum, certification, and campus recruitment.", package: "", type: "MoU Partner", docLabel: "", docFile: "" },
+          { id: "revature", name: "Revature", domain: "Technology staffing and training partnership — placing graduates into software development roles at Fortune 500 clients through Revature's workforce model.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/revature-mou.pdf" },
+          { id: "cybage-software", name: "Cybage Software", domain: "Strategic MoU enabling campus recruitment, joint training initiatives, and industry exposure for MLRIT students through Cybage's technology services platform.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/cybage-mou.pdf" },
+          { id: "ite-c-department-govt-of-telangana", name: "ITE&C Department, Govt. of Telangana", domain: "Formal partnership with the IT, Electronics and Communications Department of Telangana Government — covering Blockchain technology training and digital skilling initiatives.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/itec-blockchain.pdf" },
+          { id: "aleap-we-hub", name: "ALEAP We Hub", domain: "Collaboration with ALEAP We Hub, Hyderabad — supporting women entrepreneurship, skill development, and industry-readiness programmes for students.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/aleap-wehub.pdf" },
+          { id: "idea-labs-futuretech-ventures", name: "Idea Labs Futuretech Ventures", domain: "Partnership with Idea Labs Futuretech Ventures — enabling emerging technology exposure, innovation-driven training, and startup ecosystem engagement for students.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/idealabs-futuretech.pdf" },
+          { id: "india-matters-foundation", name: "India Matters Foundation", domain: "Social impact partnership with India Matters Foundation, Chennai — focused on employability, professional development, and community engagement initiatives.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/india-matters-foundation.pdf" },
+          { id: "itca-bengaluru", name: "ITCA Bengaluru", domain: "Indo-Israel technology initiative through ITCA, Bengaluru — providing access to cutting-edge training programmes and international technology collaboration opportunities.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/itca-mou.pdf" },
+          { id: "movate", name: "Movate", domain: "Strategic MoU with Movate (formerly CSS Corp) — a global technology services company — covering campus recruitment, domain training, and professional development.", package: "", type: "MoU Partner", docLabel: "MoU Agreement", docFile: "/placements/mou/movate-mou.pdf" },
+        ] },
+    ],
+  },
+
+  'placements/support': {
+    label: 'Placements — Contacts',
+    fields: [
+      { name: 'contacts', label: 'Contacts', type: 'repeater',
+        itemFields: [
+          { name: 'name', label: 'Name' },
+          { name: 'designation', label: 'Designation' },
+          { name: 'phones', label: 'Phones (comma separated)' },
+          { name: 'email', label: 'Email' },
+          { name: 'purpose', label: 'Purpose' },
+        ],
+        defaultItems: [
+          { id: "mr-ravi-chandra-p", name: "Mr. Ravi Chandra P", designation: "Head of Placements", phones: "+91 98499 91299, +91 96522 26061", email: "ravichandra@mlrinstitutions.ac.in", purpose: "Campus recruitment, company tie-ups, placement policy and student placement queries." },
+          { id: "mr-s-arun-kumar", name: "Mr. S. Arun Kumar", designation: "Asst. Training & Placement Officer", phones: "+91 98661 93405", email: "placements@mlrinstitutions.ac.in", purpose: "Student registration, resume prep, mock interviews and training schedules." },
+        ] },
+    ],
+  },
+
   // Recruiter logos, shared by the homepage marquee and /placements/recruiters.
   // One field, two consumers — previously the same 16 paths were generated
   // independently in both places and would have drifted the moment either was

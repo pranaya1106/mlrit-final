@@ -1,4 +1,6 @@
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import PlacementTrackRecord from '@/components/placements/PlacementTrackRecord';
@@ -19,7 +21,16 @@ const NAV_ITEMS = [
   { id: 'statistics', label: 'Statistics' },
 ];
 
-export default function PlacementsStatisticsPage() {
+export const revalidate = 60;
+
+export default async function PlacementsStatisticsPage() {
+  const saved_highlights = await getRows('placements', 'statistics', 'highlights');
+  const PLACEMENT_HIGHLIGHTS_LIVE = saved_highlights.length > 0 ? saved_highlights.map((r) => ({ value: asText(r.value), label: asText(r.label), sub: asText(r.sub) })) : PLACEMENT_HIGHLIGHTS;
+  const saved_infrastructure = await getRows('placements', 'statistics', 'infrastructure');
+  const INFRASTRUCTURE_LIST_LIVE = saved_infrastructure.length > 0 ? saved_infrastructure.map((r) => asText(r.text)).filter(Boolean) : INFRASTRUCTURE_LIST;
+  const saved_infraStats = await getRows('placements', 'statistics', 'infraStats');
+  const INFRA_STATS_LIVE = saved_infraStats.length > 0 ? saved_infraStats.map((r) => ({ num: asText(r.num), label: asText(r.label) })) : INFRA_STATS;
+
   return (
     <>
       <PageHeader
@@ -44,7 +55,7 @@ export default function PlacementsStatisticsPage() {
       <section id="statistics" className="bg-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" delay={0.06}>
-            {PLACEMENT_HIGHLIGHTS.map((h) => (
+            {PLACEMENT_HIGHLIGHTS_LIVE.map((h) => (
               <StaggerItem key={h.label}>
                 <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-6 h-full">
                   <div
@@ -79,7 +90,7 @@ export default function PlacementsStatisticsPage() {
               MLRIT maintains a dedicated placement block equipped to host large-scale campus recruitment drives throughout the year.
             </p>
             <ul className="mt-5 md:mt-7 space-y-3.5" aria-label="Infrastructure facilities">
-              {INFRASTRUCTURE_LIST.map((item) => (
+              {INFRASTRUCTURE_LIST_LIVE.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[1.02rem] text-foreground">
                   <span className="mt-2 w-2 h-2 rounded-full bg-primary flex-shrink-0" aria-hidden />
                   {item}
@@ -88,7 +99,7 @@ export default function PlacementsStatisticsPage() {
             </ul>
           </Reveal>
           <Stagger className="grid grid-cols-1 gap-5" delay={0.12}>
-            {INFRA_STATS.map((s) => (
+            {INFRA_STATS_LIVE.map((s) => (
               <StaggerItem key={s.label}>
                 <div className="rounded-2xl bg-warm-light border border-border p-4 md:p-7">
                   <div className="font-sans font-black text-foreground text-[clamp(2rem,3vw,2.6rem)] leading-none tracking-tighter-2">{s.num}</div>
