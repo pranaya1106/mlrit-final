@@ -1,5 +1,6 @@
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { getRows } from '@/lib/content/rows';
+import { trackRecordFrom } from '@/lib/content/track-record';
 import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
@@ -24,6 +25,12 @@ const NAV_ITEMS = [
 export const revalidate = 60;
 
 export default async function PlacementsStatisticsPage() {
+  const [trackYears, trackCompanies] = await Promise.all([
+    getRows('placements', 'track-record', 'years'),
+    getRows('placements', 'track-record', 'companies'),
+  ]);
+  const trackRecord = trackRecordFrom(trackYears, trackCompanies);
+
   const saved_highlights = await getRows('placements', 'statistics', 'highlights');
   const PLACEMENT_HIGHLIGHTS_LIVE = saved_highlights.length > 0 ? saved_highlights.map((r) => ({ value: asText(r.value), label: asText(r.label), sub: asText(r.sub) })) : PLACEMENT_HIGHLIGHTS;
   const saved_infrastructure = await getRows('placements', 'statistics', 'infrastructure');
@@ -76,7 +83,7 @@ export default async function PlacementsStatisticsPage() {
       </section>
 
       {/* Year-on-year track record — client component */}
-      <PlacementTrackRecord />
+      <PlacementTrackRecord years={trackRecord} />
 
       {/* Infrastructure */}
       <section className="bg-white py-6 md:py-14">
