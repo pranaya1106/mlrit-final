@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -19,8 +21,8 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
-export default function NBAPage() {
-  const programmes = [
+/** Fallback table, used until the CMS section is saved. */
+const PROGRAMMES = [
     { dept: 'Computer Science & Engineering',  code: 'CSE',  cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-cse.pdf'  },
     { dept: 'Electronics & Communication',     code: 'ECE',  cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-ece.pdf'  },
     { dept: 'Mechanical Engineering',          code: 'MECH', cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-mech.pdf'   },
@@ -28,6 +30,21 @@ export default function NBAPage() {
     { dept: 'CSE — Data Science',              code: 'DS',   cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-ds.pdf'   },
     { dept: 'CSE — AI & Machine Learning',     code: 'AIML', cycle: '2022–2025', status: 'Accredited', dcp: '/iqac/dcp-aiml.pdf' },
   ];
+
+export const revalidate = 60;
+
+export default async function NBAPage() {
+  const saved = await getRows('iqac', 'nba', 'programmes');
+  const programmes =
+    saved.length > 0
+      ? saved.map((r) => ({
+          dept: asText(r.dept),
+          code: asText(r.code),
+          cycle: asText(r.cycle),
+          status: asText(r.status),
+          dcp: asText(r.dcp),
+        }))
+      : PROGRAMMES;
 
   return (
     <>

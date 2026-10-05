@@ -554,6 +554,33 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  // NBA accreditation table — the cycle and status move every few years.
+  'iqac/nba': {
+    label: 'IQAC — NBA accredited programmes',
+    fields: [
+      {
+        name: 'programmes',
+        label: 'Accredited programmes',
+        type: 'repeater',
+        itemFields: [
+          { name: 'dept', label: 'Department' },
+          { name: 'code', label: 'Code' },
+          { name: 'cycle', label: 'Cycle' },
+          { name: 'status', label: 'Status' },
+          { name: 'dcp', label: 'DCP report link' },
+        ],
+        defaultItems: [
+          { id: "cse", dept: "Computer Science & Engineering", code: "CSE", cycle: "2022–2025", status: "Accredited", dcp: "/iqac/dcp-cse.pdf" },
+          { id: "ece", dept: "Electronics & Communication", code: "ECE", cycle: "2022–2025", status: "Accredited", dcp: "/iqac/dcp-ece.pdf" },
+          { id: "mech", dept: "Mechanical Engineering", code: "MECH", cycle: "2022–2025", status: "Accredited", dcp: "/iqac/dcp-mech.pdf" },
+          { id: "aero", dept: "Aeronautical Engineering", code: "AERO", cycle: "2022–2025", status: "Accredited", dcp: "/iqac/dcp-aero.pdf" },
+          { id: "ds", dept: "CSE — Data Science", code: "DS", cycle: "2022–2025", status: "Accredited", dcp: "/iqac/dcp-ds.pdf" },
+          { id: "aiml", dept: "CSE — AI & Machine Learning", code: "AIML", cycle: "2022–2025", status: "Accredited", dcp: "/iqac/dcp-aiml.pdf" },
+        ],
+      },
+    ],
+  },
+
   // The shared chapter-cover hero, on every secondary page. Keyed by route
   // path: PageHeader reads its own path, so adding a page here needs no change
   // at the call site.
