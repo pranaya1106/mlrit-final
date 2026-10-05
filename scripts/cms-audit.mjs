@@ -37,8 +37,12 @@ function audit(file) {
     .replace(/^\s*\/\/.*$/gm, '');
   const lineOf = (index) => stripped.slice(0, index).split('\n').length;
 
-  for (const m of stripped.matchAll(/>([^<>{}]+)</g)) {
-    const t = m[1].replace(/\s+/g, ' ').trim();
+  // Same guard as cms-wire: `=>` is not a tag, and a run containing code
+  // punctuation is not prose.
+  const CODE = /[;=(){}[\]]|=>|\breturn\b|\bconst\b/;
+  for (const m of stripped.matchAll(/(.)>([^<>{}]+)</g)) {
+    if (m[1] === '=' || CODE.test(m[2])) continue;
+    const t = m[2].replace(/\s+/g, ' ').trim();
     if (t.length > 2 && !NOISE.test(t) && /[a-z]{3}/i.test(t)) {
       findings.push({ n: lineOf(m.index), kind: 'text', t });
     }

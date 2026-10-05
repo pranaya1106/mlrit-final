@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import { Section, H2, Lede } from '@/components/PageSection';
@@ -34,6 +35,10 @@ const PROGRAMMES = [
 export const revalidate = 60;
 
 export default async function NBAPage() {
+  const row = await getSection('iqac', 'nba').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved = await getRows('iqac', 'nba', 'programmes');
   const programmes =
     saved.length > 0
@@ -68,7 +73,7 @@ export default async function NBAPage() {
 
           {/* About NBA */}
           <Section id="about">
-            <H2 italic="NBA">About</H2>
+            <H2 italic="NBA">{copy('about', 'About')}</H2>
             <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
@@ -98,15 +103,15 @@ export default async function NBAPage() {
 
           {/* Accredited Programmes */}
           <Section id="programmes" surface>
-            <H2 italic="programmes">Accredited</H2>
-            <Lede>The following B.Tech programmes at MLRIT are currently accredited by the National Board of Accreditation under the Tier-1 framework.</Lede>
+            <H2 italic="programmes">{copy('accredited', 'Accredited')}</H2>
+            <Lede>{copy('theFollowingBTech', 'The following B.Tech programmes at MLRIT are currently accredited by the National Board of Accreditation under the Tier-1 framework.')}</Lede>
             <div className="mt-5 md:mt-8 overflow-hidden rounded-2xl border border-border bg-white shadow-card-soft">
               <table className="w-full text-left">
                 <thead className="bg-warm-light/60 border-b border-border">
                   <tr>
-                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">Programme</th>
-                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted hidden md:table-cell">Accreditation Cycle</th>
-                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">Status</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">{copy('programme', 'Programme')}</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted hidden md:table-cell">{copy('accreditationCycle', 'Accreditation Cycle')}</th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">{copy('status', 'Status')}</th>
                     <th className="px-3 md:px-6 py-3 md:py-4 font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted">DCP</th>
                   </tr>
                 </thead>
@@ -133,9 +138,7 @@ export default async function NBAPage() {
                         >
                           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                             <path d="M6.5 1.5v7M4 6.5l2.5 2.5 2.5-2.5M1.5 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                          Download
-                        </a>
+                          </svg>{copy('download', 'Download')}</a>
                       </td>
                     </tr>
                   ))}
@@ -169,9 +172,7 @@ export default async function NBAPage() {
                     <div className="mt-4 inline-flex items-center gap-1.5 text-secondary font-semibold text-[0.8rem] group-hover:gap-2.5 transition-all">
                       <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                         <path d="M6.5 1.5v7M4 6.5l2.5 2.5 2.5-2.5M1.5 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      Download PDF
-                    </div>
+                      </svg>{copy('downloadPdf', 'Download PDF')}</div>
                   </a>
                 </StaggerItem>
               ))}

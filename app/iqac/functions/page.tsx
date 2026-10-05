@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
@@ -54,6 +55,10 @@ const FALLBACK_PROCESS_FLOW_STEPS = [
 export const revalidate = 60;
 
 export default async function FunctionsPage() {
+  const row = await getSection('iqac', 'functions').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_functions = await getRows('iqac', 'functions', 'functions');
   const FUNCTIONS = saved_functions.length > 0 ? saved_functions.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_FUNCTIONS;
   const saved_steps = await getRows('iqac', 'functions', 'steps');
@@ -80,7 +85,7 @@ export default async function FunctionsPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="functions">
-            <H2 italic="">Key Functions</H2>
+            <H2 italic="">{copy('keyFunctions', 'Key Functions')}</H2>
             <div className="mt-5 md:mt-8 flex flex-col gap-3">
               {FUNCTIONS.map((f, i) => (
                 <Reveal key={i} preset="right" delay={i * 0.04}>
@@ -96,19 +101,15 @@ export default async function FunctionsPage() {
           </Section>
 
           <Section id="process-flow">
-            <H2 italic="">IQAC Process Flow</H2>
+            <H2 italic="">{copy('iqacProcessFlow', 'IQAC Process Flow')}</H2>
             <Reveal preset="right">
-              <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-                The IQAC follows the <strong className="text-foreground">Plan–Do–Check–Act (PDCA)</strong> methodology and aligns institutional quality initiatives with the requirements of NAAC, NBA, AICTE, UGC, JNTUH, NIRF, AISHE, and other statutory and regulatory bodies.
-              </p>
-              <p className="mt-3 text-muted leading-relaxed text-[1rem]">
-                The quality assurance process is participative, involving all stakeholders, including management, faculty, students, alumni, employers, parents, and industry experts.
-              </p>
+              <p className="mt-4 text-muted leading-relaxed text-[1rem]">{copy('theIqacFollowsThe', 'The IQAC follows the')}<strong className="text-foreground">Plan–Do–Check–Act (PDCA)</strong>{copy('methodologyAndAlignsInstitutional', 'methodology and aligns institutional quality initiatives with the requirements of NAAC, NBA, AICTE, UGC, JNTUH, NIRF, AISHE, and other statutory and regulatory bodies.')}</p>
+              <p className="mt-3 text-muted leading-relaxed text-[1rem]">{copy('theQualityAssuranceProcess', 'The quality assurance process is participative, involving all stakeholders, including management, faculty, students, alumni, employers, parents, and industry experts.')}</p>
             </Reveal>
             <Reveal preset="up" delay={0.1}>
               <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white overflow-hidden">
                 <div className="px-4 md:px-6 py-3 md:py-4 bg-warm-light border-b border-border">
-                  <span className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">IQAC Quality Assurance Process</span>
+                  <span className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">{copy('iqacQualityAssuranceProcess', 'IQAC Quality Assurance Process')}</span>
                 </div>
                 <div className="p-4 md:p-6">
                   <ol className="relative border-l-2 border-secondary/30 space-y-0 ml-3">

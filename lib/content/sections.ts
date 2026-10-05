@@ -837,6 +837,12 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — Functions',
     previewPath: '/iqac/functions',
     fields: [
+      { name: 'theQualityAssuranceProcess', label: "The quality assurance process is participative…", multiline: true, defaultValue: "The quality assurance process is participative, involving all stakeholders, including management, faculty, students, alumni, employers, parents, and industry experts." },
+      { name: 'methodologyAndAlignsInstitutional', label: "methodology and aligns institutional quality i…", multiline: true, defaultValue: "methodology and aligns institutional quality initiatives with the requirements of NAAC, NBA, AICTE, UGC, JNTUH, NIRF, AISHE, and other statutory and regulatory bodies." },
+      { name: 'theIqacFollowsThe', label: "The IQAC follows the", defaultValue: "The IQAC follows the" },
+      { name: 'iqacQualityAssuranceProcess', label: "IQAC Quality Assurance Process", defaultValue: "IQAC Quality Assurance Process" },
+      { name: 'iqacProcessFlow', label: "IQAC Process Flow", defaultValue: "IQAC Process Flow" },
+      { name: 'keyFunctions', label: "Key Functions", defaultValue: "Key Functions" },
       {
         name: 'functions',
         label: 'Functions',
@@ -889,6 +895,12 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — Objectives',
     previewPath: '/iqac/objectives',
     fields: [
+      { name: 'drivingExcellenceThroughContinuous', label: "Driving Excellence through Continuous Quality …", multiline: true, defaultValue: "Driving Excellence through Continuous Quality Enhancement — by integrating quality benchmarks into all institutional processes, IQAC ensures that every academic and administrative activity contributes to sustainable growth, stakeholder satisfaction, and national and international recognition." },
+      { name: 'theInstituteStrivesTo', label: "The Institute strives to continuously enhance …", multiline: true, defaultValue: "The Institute strives to continuously enhance academic and administrative processes by adopting transparent governance, learner-centric education, industry engagement, digital transformation, and evidence-based decision-making to produce competent professionals and responsible citizens." },
+      { name: 'committedToAcademicExcellence', label: "Committed to Academic Excellence and Continuou…", defaultValue: "Committed to Academic Excellence and Continuous Improvement" },
+      { name: 'qualityPolicyStatementThe', label: "Quality Policy Statement — The Institution is …", defaultValue: "Quality Policy Statement — The Institution is committed to:" },
+      { name: 'strategicGoalsOfIqac', label: "Strategic Goals of IQAC", defaultValue: "Strategic Goals of IQAC" },
+      { name: 'qualityPolicy', label: "Quality Policy", defaultValue: "Quality Policy" },
       {
         name: 'objectives',
         label: 'Objectives',
@@ -1060,6 +1072,12 @@ export const CONTENT_SECTIONS = {
     label: "IQAC — Reports & documents",
     previewPath: '/iqac/reports',
     fields: [
+      { name: 'contentToBeUpdated', label: "Content to be updated.", defaultValue: "Content to be updated." },
+      { name: 'policyDocuments', label: "Policy Documents", defaultValue: "Policy Documents" },
+      { name: 'auditReports', label: "Audit Reports", defaultValue: "Audit Reports" },
+      { name: 'aqarReports', label: "AQAR Reports", defaultValue: "AQAR Reports" },
+      { name: 'minutes', label: "Minutes", defaultValue: "Minutes" },
+      { name: 'open', label: "Open →", defaultValue: "Open →" },
       {
         name: "aqar",
         label: "AQAR reports",
@@ -1156,6 +1174,14 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — NBA accredited programmes',
     previewPath: '/iqac/nba',
     fields: [
+      { name: 'theFollowingBTech', label: "The following B.Tech programmes at MLRIT are c…", multiline: true, defaultValue: "The following B.Tech programmes at MLRIT are currently accredited by the National Board of Accreditation under the Tier-1 framework." },
+      { name: 'download', label: "Download", defaultValue: "Download" },
+      { name: 'downloadPdf', label: "Download PDF", defaultValue: "Download PDF" },
+      { name: 'accreditationCycle', label: "Accreditation Cycle", defaultValue: "Accreditation Cycle" },
+      { name: 'accredited', label: "Accredited", defaultValue: "Accredited" },
+      { name: 'programme', label: "Programme", defaultValue: "Programme" },
+      { name: 'status', label: "Status", defaultValue: "Status" },
+      { name: 'about', label: "About", defaultValue: "About" },
       {
         name: 'programmes',
         label: 'Accredited programmes',

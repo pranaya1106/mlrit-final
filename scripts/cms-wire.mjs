@@ -64,8 +64,16 @@ let out = src;
 
 // Longest first: replacing a short string that also occurs inside a longer one
 // would corrupt the longer match.
-const nodes = [...src.matchAll(/>([^<>{}]+)</g)]
-  .map((m) => ({ raw: m[1], text: decode(m[1].replace(/\s+/g, ' ').trim()) }))
+// `>` also ends an arrow function and `<` opens a generic, so a naive
+// >text< match can span real JavaScript. It did: a run from `=>` to the next
+// JSX tag was rewritten as copy(), producing `; return (')}<`. Two guards:
+// the `>` must not be part of `=>`, and the captured run must not contain
+// characters that only appear in code.
+const CODE = /[;=(){}[\]]|=>|\breturn\b|\bconst\b/;
+
+const nodes = [...src.matchAll(/(.)>([^<>{}]+)</g)]
+  .filter((m) => m[1] !== '=' && !CODE.test(m[2]))
+  .map((m) => ({ raw: m[2], text: decode(m[2].replace(/\s+/g, ' ').trim()) }))
   .filter((n) => n.text.length > 2 && !NOISE.test(n.text) && /[a-z]{3}/i.test(n.text))
   .sort((a, b) => b.raw.length - a.raw.length);
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -33,6 +34,10 @@ const FALLBACK_OTHER_REPORTS = [
 export const revalidate = 60;
 
 export default async function ReportsPage() {
+  const row = await getSection('iqac', 'reports').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_aqar = await getRows('iqac', 'reports', 'aqar');
   const AQAR_REPORTS =
     saved_aqar.length > 0
@@ -84,7 +89,7 @@ export default async function ReportsPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="aqar-reports">
-            <H2 italic="">AQAR Reports</H2>
+            <H2 italic="">{copy('aqarReports', 'AQAR Reports')}</H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {AQAR_REPORTS.map((r) => (
                 <a
@@ -96,14 +101,14 @@ export default async function ReportsPage() {
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">Open →</div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">{copy('open', 'Open →')}</div>
                 </a>
               ))}
             </div>
           </Section>
 
           <Section id="minutes">
-            <H2 italic="">Minutes</H2>
+            <H2 italic="">{copy('minutes', 'Minutes')}</H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {MINUTES.map((r) => (
                 <a
@@ -115,21 +120,21 @@ export default async function ReportsPage() {
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">Open →</div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">{copy('open', 'Open →')}</div>
                 </a>
               ))}
             </div>
           </Section>
 
           <Section id="audit-reports">
-            <H2 italic="">Audit Reports</H2>
+            <H2 italic="">{copy('auditReports', 'Audit Reports')}</H2>
             <div className="mt-4 md:mt-6 rounded-2xl border border-dashed border-border bg-warm-light/40 p-5 md:p-8 text-center">
-              <p className="text-muted italic text-[0.95rem]">Content to be updated.</p>
+              <p className="text-muted italic text-[0.95rem]">{copy('contentToBeUpdated', 'Content to be updated.')}</p>
             </div>
           </Section>
 
           <Section id="policy-documents">
-            <H2 italic="">Policy Documents</H2>
+            <H2 italic="">{copy('policyDocuments', 'Policy Documents')}</H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {OTHER_REPORTS.map((r) => (
                 <a
@@ -141,7 +146,7 @@ export default async function ReportsPage() {
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">Open →</div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">{copy('open', 'Open →')}</div>
                 </a>
               ))}
             </div>
