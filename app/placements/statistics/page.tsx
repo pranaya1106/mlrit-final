@@ -1,5 +1,6 @@
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { trackRecordFrom } from '@/lib/content/track-record';
 import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
@@ -31,6 +32,10 @@ export default async function PlacementsStatisticsPage() {
   ]);
   const trackRecord = trackRecordFrom(trackYears, trackCompanies);
 
+  const row = await getSection('placements', 'statistics').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_highlights = await getRows('placements', 'statistics', 'highlights');
   const PLACEMENT_HIGHLIGHTS_LIVE = saved_highlights.length > 0 ? saved_highlights.map((r) => ({ value: asText(r.value), label: asText(r.label), sub: asText(r.sub) })) : PLACEMENT_HIGHLIGHTS;
   const saved_infrastructure = await getRows('placements', 'statistics', 'infrastructure');
@@ -53,7 +58,7 @@ export default async function PlacementsStatisticsPage() {
       <div className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
           <div className="pt-12 pl-6">
-            <SideQuickNav items={NAV_ITEMS} />
+            <SideQuickNav items={[{ id: 'statistics', label: copy('navLabel', 'Statistics') }]} />
           </div>
         </aside>
         <div className="flex-1 min-w-0">
@@ -89,12 +94,18 @@ export default async function PlacementsStatisticsPage() {
       <section className="bg-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12 grid md:grid-cols-[1.2fr_1fr] gap-6 md:gap-12 items-center">
           <Reveal preset="right">
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Facilities</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('infraEyebrow', 'Facilities')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Placement <span className="font-display italic font-medium" style={gradientText}>infrastructure.</span>
+              {copy('infraHeadingLead', 'Placement')}{' '}
+              <span className="font-display italic font-medium" style={gradientText}>
+                {copy('infraHeadingItalic', 'infrastructure.')}
+              </span>
             </h2>
             <p className="mt-4 text-muted leading-relaxed max-w-[560px]">
-              MLRIT maintains a dedicated placement block equipped to host large-scale campus recruitment drives throughout the year.
+              {copy(
+                'infraBody',
+                'MLRIT maintains a dedicated placement block equipped to host large-scale campus recruitment drives throughout the year.'
+              )}
             </p>
             <ul className="mt-5 md:mt-7 space-y-3.5" aria-label="Infrastructure facilities">
               {INFRASTRUCTURE_LIST_LIVE.map((item) => (

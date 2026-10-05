@@ -625,6 +625,11 @@ export const CONTENT_SECTIONS = {
     label: 'Placements — Statistics',
     previewPath: '/placements/statistics',
     fields: [
+      { name: 'navLabel', label: 'Side-nav label', defaultValue: 'Statistics' },
+      { name: 'infraEyebrow', label: 'Infrastructure eyebrow', defaultValue: 'Facilities' },
+      { name: 'infraHeadingLead', label: 'Infrastructure heading', defaultValue: 'Placement' },
+      { name: 'infraHeadingItalic', label: 'Infrastructure heading (italic)', defaultValue: 'infrastructure.' },
+      { name: 'infraBody', label: 'Infrastructure intro', multiline: true, defaultValue: "MLRIT maintains a dedicated placement block equipped to host large-scale campus recruitment drives throughout the year." },
       { name: 'highlights', label: 'Headline figures', type: 'repeater',
         itemFields: [
           { name: 'value', label: 'Value' },
