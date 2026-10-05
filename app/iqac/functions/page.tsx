@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -15,7 +17,8 @@ const NAV_ITEMS = [
   { id: 'process-flow', label: 'Process Flow' },
 ];
 
-const FUNCTIONS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_FUNCTIONS = [
   'Develops and monitors institutional quality benchmarks.',
   'Coordinates accreditation and ranking activities.',
   'Facilitates Academic and Administrative Audits.',
@@ -30,7 +33,8 @@ const FUNCTIONS = [
   'Maintains quality documentation and evidence for accreditation.',
 ];
 
-const PROCESS_FLOW_STEPS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_PROCESS_FLOW_STEPS = [
   { n: '01', label: 'Vision & Mission' },
   { n: '02', label: 'Strategic Planning' },
   { n: '03', label: 'Quality Objectives & Benchmarks' },
@@ -47,7 +51,14 @@ const PROCESS_FLOW_STEPS = [
   { n: '14', label: 'Institutional Excellence' },
 ];
 
-export default function FunctionsPage() {
+export const revalidate = 60;
+
+export default async function FunctionsPage() {
+  const saved_functions = await getRows('iqac', 'functions', 'functions');
+  const FUNCTIONS = saved_functions.length > 0 ? saved_functions.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_FUNCTIONS;
+  const saved_steps = await getRows('iqac', 'functions', 'steps');
+  const PROCESS_FLOW_STEPS = saved_steps.length > 0 ? saved_steps.map((r) => ({ n: asText(r.n), label: asText(r.label) })) : FALLBACK_PROCESS_FLOW_STEPS;
+
   return (
     <>
       <PageHeader

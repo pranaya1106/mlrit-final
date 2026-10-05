@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -15,7 +17,8 @@ const NAV_ITEMS = [
   { id: 'quality-policy', label: 'Quality Policy' },
 ];
 
-const OBJECTIVES = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_OBJECTIVES = [
   {
     n: '01',
     t: 'Academic Excellence',
@@ -68,7 +71,8 @@ const OBJECTIVES = [
   },
 ];
 
-const QUALITY_POLICY_COMMITMENTS = [
+/** Fallback, used until the CMS section is saved. */
+const FALLBACK_QUALITY_POLICY_COMMITMENTS = [
   'Deliver quality education through effective curriculum planning, innovative teaching-learning practices, and robust assessment systems.',
   'Promote Outcome-Based Education to ensure attainment of defined learning outcomes and graduate attributes.',
   'Foster a culture of continuous quality improvement through regular monitoring, evaluation, and quality audits.',
@@ -81,7 +85,14 @@ const QUALITY_POLICY_COMMITMENTS = [
   'Comply with statutory, regulatory, and accreditation requirements while continually improving institutional effectiveness.',
 ];
 
-export default function ObjectivesPage() {
+export const revalidate = 60;
+
+export default async function ObjectivesPage() {
+  const saved_objectives = await getRows('iqac', 'objectives', 'objectives');
+  const OBJECTIVES = saved_objectives.length > 0 ? saved_objectives.map((r) => ({ n: asText(r.n), t: asText(r.t), d: asText(r.d) })) : FALLBACK_OBJECTIVES;
+  const saved_commitments = await getRows('iqac', 'objectives', 'commitments');
+  const QUALITY_POLICY_COMMITMENTS = saved_commitments.length > 0 ? saved_commitments.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_QUALITY_POLICY_COMMITMENTS;
+
   return (
     <>
       <PageHeader

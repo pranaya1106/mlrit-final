@@ -604,6 +604,103 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  'iqac/functions': {
+    label: 'IQAC — Functions',
+    fields: [
+      {
+        name: 'functions',
+        label: 'Functions',
+        type: 'repeater',
+        itemFields: [{ name: 'text', label: 'Function' }],
+        defaultItems: [
+          { id: "fn-1", text: "Develops and monitors institutional quality benchmarks." },
+          { id: "fn-2", text: "Coordinates accreditation and ranking activities." },
+          { id: "fn-3", text: "Facilitates Academic and Administrative Audits." },
+          { id: "fn-4", text: "Promotes Outcome-Based Education (OBE)." },
+          { id: "fn-5", text: "Encourages innovative teaching-learning methodologies." },
+          { id: "fn-6", text: "Collects and analyses stakeholder feedback." },
+          { id: "fn-7", text: "Monitors implementation of quality initiatives." },
+          { id: "fn-8", text: "Coordinates Annual Quality Assurance Report (AQAR) preparation." },
+          { id: "fn-9", text: "Supports NBA, NAAC, NIRF, AISHE, and statutory compliance." },
+          { id: "fn-10", text: "Organizes faculty development programmes, workshops, seminars, and quality awareness activities." },
+          { id: "fn-11", text: "Promotes best practices and institutional distinctiveness." },
+          { id: "fn-12", text: "Maintains quality documentation and evidence for accreditation." },
+        ],
+      },
+      {
+        name: 'steps',
+        label: 'Process flow steps',
+        type: 'repeater',
+        itemFields: [
+          { name: 'n', label: 'Number' },
+          { name: 'label', label: 'Label' },
+        ],
+        defaultItems: [
+          { id: "step-01", n: "01", label: "Vision & Mission" },
+          { id: "step-02", n: "02", label: "Strategic Planning" },
+          { id: "step-03", n: "03", label: "Quality Objectives & Benchmarks" },
+          { id: "step-04", n: "04", label: "Department Quality Planning" },
+          { id: "step-05", n: "05", label: "Implementation of Academic & Administrative Processes" },
+          { id: "step-06", n: "06", label: "Monitoring & Documentation" },
+          { id: "step-07", n: "07", label: "Internal Academic Audit / Administrative Audit" },
+          { id: "step-08", n: "08", label: "Stakeholder Feedback Collection" },
+          { id: "step-09", n: "09", label: "Performance Analysis" },
+          { id: "step-10", n: "10", label: "IQAC Review Meeting" },
+          { id: "step-11", n: "11", label: "Action Taken Report (ATR)" },
+          { id: "step-12", n: "12", label: "Corrective & Preventive Actions" },
+          { id: "step-13", n: "13", label: "Continuous Quality Improvement" },
+          { id: "step-14", n: "14", label: "Institutional Excellence" },
+        ],
+      },
+    ],
+  },
+
+  'iqac/objectives': {
+    label: 'IQAC — Objectives',
+    fields: [
+      {
+        name: 'objectives',
+        label: 'Objectives',
+        type: 'repeater',
+        itemFields: [
+          { name: 'n', label: 'Number' },
+          { name: 't', label: 'Title' },
+          { name: 'd', label: 'Description' },
+        ],
+        defaultItems: [
+          { id: "obj-01", n: "01", t: "Academic Excellence", d: "Strengthen the quality of teaching-learning processes through innovative pedagogical practices, curriculum enrichment, experiential learning, and outcome-based education to enhance student learning outcomes." },
+          { id: "obj-02", n: "02", t: "Continuous Quality Improvement", d: "Establish robust quality assurance mechanisms that facilitate periodic review, monitoring, assessment, and continual enhancement of academic and administrative processes." },
+          { id: "obj-03", n: "03", t: "Outcome-Based Education (OBE)", d: "Promote effective implementation of Outcome-Based Education by aligning curriculum delivery, assessment, and attainment with Programme Outcomes (POs), Programme Specific Outcomes (PSOs), and Course Outcomes (COs)." },
+          { id: "obj-04", n: "04", t: "Research, Innovation and Consultancy", d: "Encourage faculty and students to engage in impactful research, interdisciplinary collaborations, innovation, entrepreneurship, consultancy, patents, and technology transfer." },
+          { id: "obj-05", n: "05", t: "Faculty Empowerment", d: "Support continuous professional development through Faculty Development Programmes (FDPs), workshops, certifications, research opportunities, and industry interactions." },
+          { id: "obj-06", n: "06", t: "Student Development", d: "Create a learner-centric environment that nurtures technical competence, leadership, ethical values, innovation, employability skills, and lifelong learning." },
+          { id: "obj-07", n: "07", t: "Digital Transformation", d: "Leverage digital technologies and data-driven systems to improve academic administration, documentation, quality monitoring, and institutional decision-making." },
+          { id: "obj-08", n: "08", t: "Accreditation and Ranking Excellence", d: "Strengthen institutional preparedness for accreditation and ranking frameworks such as NAAC, NBA, NIRF, AISHE, AICTE, and other quality assessment agencies." },
+          { id: "obj-09", n: "09", t: "Stakeholder Engagement", d: "Develop effective mechanisms to obtain, analyze, and act upon feedback from students, faculty, alumni, employers, parents, and industry to enhance institutional effectiveness." },
+          { id: "obj-10", n: "10", t: "Sustainable Institutional Development", d: "Promote environmentally responsible practices, social responsibility, inclusiveness, ethical governance, and community engagement to achieve long-term institutional sustainability." },
+        ],
+      },
+      {
+        name: 'commitments',
+        label: 'Quality policy commitments',
+        type: 'repeater',
+        itemFields: [{ name: 'text', label: 'Commitment' }],
+        defaultItems: [
+          { id: "commitment-1", text: "Deliver quality education through effective curriculum planning, innovative teaching-learning practices, and robust assessment systems." },
+          { id: "commitment-2", text: "Promote Outcome-Based Education to ensure attainment of defined learning outcomes and graduate attributes." },
+          { id: "commitment-3", text: "Foster a culture of continuous quality improvement through regular monitoring, evaluation, and quality audits." },
+          { id: "commitment-4", text: "Encourage research, innovation, entrepreneurship, consultancy, and interdisciplinary collaboration." },
+          { id: "commitment-5", text: "Strengthen industry partnerships to enhance experiential learning, internships, skill development, and employability." },
+          { id: "commitment-6", text: "Provide opportunities for faculty development, leadership, and professional growth." },
+          { id: "commitment-7", text: "Create an inclusive, student-centric, and technology-enabled learning environment." },
+          { id: "commitment-8", text: "Ensure transparent, participative, and accountable governance practices." },
+          { id: "commitment-9", text: "Promote environmental sustainability, social responsibility, and ethical values." },
+          { id: "commitment-10", text: "Comply with statutory, regulatory, and accreditation requirements while continually improving institutional effectiveness." },
+        ],
+      },
+    ],
+  },
+
   'iqac/reports': {
     label: "IQAC — Reports & documents",
     fields: [
