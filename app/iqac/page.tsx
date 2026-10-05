@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
@@ -58,6 +59,10 @@ const FALLBACK_QUALITY_FRAMEWORKS = [
 export const revalidate = 60;
 
 export default async function IQACPage() {
+  const row = await getSection('iqac', 'overview').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_mission = await getRows('iqac', 'overview', 'mission');
   const MISSION_POINTS = saved_mission.length > 0 ? saved_mission.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_MISSION_POINTS;
   const saved_commitments = await getRows('iqac', 'overview', 'commitments');
@@ -86,49 +91,39 @@ export default async function IQACPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="about">
-            <H2 italic="">About IQAC</H2>
+            <H2 italic="">{copy('aboutIqac', 'About IQAC')}</H2>
             <div className="mt-6 space-y-4">
               <Reveal preset="right">
-                <p className="text-foreground leading-relaxed text-[1.05rem]">
-                  The Internal Quality Assurance Cell (IQAC) serves as the quality sustenance and enhancement mechanism of the institution. Established in accordance with the guidelines of the National Assessment and Accreditation Council (NAAC), IQAC promotes a culture of quality through systematic planning, monitoring, documentation, and continuous improvement of academic and administrative processes.
-                </p>
+                <p className="text-foreground leading-relaxed text-[1.05rem]">{copy('theInternalQualityAssurance', 'The Internal Quality Assurance Cell (IQAC) serves as the quality sustenance and enhancement mechanism of the institution. Established in accordance with the guidelines of the National Assessment and Accreditation Council (NAAC), IQAC promotes a culture of quality through systematic planning, monitoring, documentation, and continuous improvement of academic and administrative processes.')}</p>
               </Reveal>
               <Reveal preset="right" delay={0.05}>
-                <p className="text-muted leading-relaxed text-[1rem]">
-                  The IQAC acts as a catalyst for institutional excellence by encouraging innovation, outcome-based education, digital transformation, stakeholder participation, and evidence-based decision making. It coordinates quality initiatives aligned with NAAC, NBA, NIRF, AISHE, UGC, AICTE, and other regulatory frameworks to ensure holistic institutional development.
-                </p>
+                <p className="text-muted leading-relaxed text-[1rem]">{copy('theIqacActsAs', 'The IQAC acts as a catalyst for institutional excellence by encouraging innovation, outcome-based education, digital transformation, stakeholder participation, and evidence-based decision making. It coordinates quality initiatives aligned with NAAC, NBA, NIRF, AISHE, UGC, AICTE, and other regulatory frameworks to ensure holistic institutional development.')}</p>
               </Reveal>
               <Reveal preset="right" delay={0.1}>
-                <p className="text-muted leading-relaxed text-[1rem]">
-                  Through continuous monitoring and periodic reviews, IQAC strengthens teaching-learning processes, research, extension activities, governance, infrastructure, and student support systems, thereby contributing to the realization of the institution&apos;s vision and mission.
-                </p>
+                <p className="text-muted leading-relaxed text-[1rem]">{copy('throughContinuousMonitoringAnd', 'Through continuous monitoring and periodic reviews, IQAC strengthens teaching-learning processes, research, extension activities, governance, infrastructure, and student support systems, thereby contributing to the realization of the institution\'s vision and mission.')}</p>
               </Reveal>
             </div>
 
             <Reveal preset="up" delay={0.12}>
               <blockquote className="mt-5 md:mt-8 rounded-2xl border-l-4 border-secondary bg-green-50/40 px-4 md:px-7 py-4 md:py-5">
-                <p className="font-sans font-semibold text-foreground text-[1rem] leading-relaxed italic">
-                  &ldquo;Quality is not an event; it is a continuous journey towards excellence.&rdquo;
-                </p>
-                <footer className="mt-2 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-secondary">IQAC Motto</footer>
+                <p className="font-sans font-semibold text-foreground text-[1rem] leading-relaxed italic">{copy('qualityIsNotAn', '“Quality is not an event; it is a continuous journey towards excellence.”')}</p>
+                <footer className="mt-2 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-secondary">{copy('iqacMotto', 'IQAC Motto')}</footer>
               </blockquote>
             </Reveal>
           </Section>
 
           <Section id="vision-mission">
-            <H2 italic="">Vision &amp; Mission</H2>
+            <H2 italic="">{copy('visionMission', 'Vision & Mission')}</H2>
             <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-3 md:gap-6">
               <Reveal preset="right">
                 <div className="rounded-2xl border-2 border-secondary bg-green-50/40 p-4 md:p-7 h-full">
-                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-3">Vision</div>
-                  <p className="font-sans font-extrabold text-foreground text-[1rem] leading-snug">
-                    To nurture a culture of continuous quality enhancement and innovation that transforms MLR Institute of Technology into a globally recognized institution of academic excellence, research, innovation, and societal impact.
-                  </p>
+                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-3">{copy('vision', 'Vision')}</div>
+                  <p className="font-sans font-extrabold text-foreground text-[1rem] leading-snug">{copy('toNurtureACulture', 'To nurture a culture of continuous quality enhancement and innovation that transforms MLR Institute of Technology into a globally recognized institution of academic excellence, research, innovation, and societal impact.')}</p>
                 </div>
               </Reveal>
               <Reveal preset="up" delay={0.1}>
                 <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full">
-                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-4">Mission</div>
+                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-4">{copy('mission', 'Mission')}</div>
                   <ul className="space-y-2.5">
                     {MISSION_POINTS.map((point, i) => (
                       <li key={i} className="flex items-start gap-2.5">
@@ -143,8 +138,8 @@ export default async function IQACPage() {
           </Section>
 
           <Section id="commitment">
-            <H2 italic="">Our Commitment to Quality</H2>
-            <p className="mt-3 text-muted leading-relaxed text-[1rem]">IQAC is committed to:</p>
+            <H2 italic="">{copy('ourCommitmentToQuality', 'Our Commitment to Quality')}</H2>
+            <p className="mt-3 text-muted leading-relaxed text-[1rem]">{copy('iqacIsCommittedTo', 'IQAC is committed to:')}</p>
             <Reveal preset="up" delay={0.08}>
               <div className="mt-4 md:mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                 {COMMITMENT_ITEMS.map((item) => (
@@ -157,17 +152,15 @@ export default async function IQACPage() {
           </Section>
 
           <Section id="quality-framework">
-            <H2 italic="">Institutional Quality Framework</H2>
-            <p className="mt-3 text-muted leading-relaxed text-[1rem]">
-              IQAC aligns institutional activities with the following quality frameworks:
-            </p>
+            <H2 italic="">{copy('institutionalQualityFramework', 'Institutional Quality Framework')}</H2>
+            <p className="mt-3 text-muted leading-relaxed text-[1rem]">{copy('iqacAlignsInstitutionalActivities', 'IQAC aligns institutional activities with the following quality frameworks:')}</p>
             <Reveal preset="up" delay={0.08}>
               <div className="mt-4 md:mt-6 overflow-x-auto rounded-2xl border border-border">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="bg-warm-light border-b border-border">
-                      <th className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Framework</th>
-                      <th className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Full Name</th>
+                      <th className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">{copy('framework', 'Framework')}</th>
+                      <th className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">{copy('fullName', 'Full Name')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
