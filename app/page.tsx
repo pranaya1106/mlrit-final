@@ -1,4 +1,3 @@
-import Banners from '@/components/sections/Banners';
 import { resolveAssetUrl } from '@/lib/cdn/url';
 import { PreviewProvider } from '@/lib/preview/context';
 import Hero from '@/components/sections/Hero';
@@ -134,7 +133,6 @@ export default async function HomePage() {
       {/* Media resolves here for the server render; the components resolve
           again for live-preview drafts, which is idempotent. */}
       <Hero {...hero} film={resolveAssetUrl(hero.film)} poster={resolveAssetUrl(hero.poster)} />
-      <Banners />
       <Stats stats={stats} />
       {/* New order: Accreditations → Why MLRIT → Success Stories THEN Programs */}
       <Achievements {...achievements} />

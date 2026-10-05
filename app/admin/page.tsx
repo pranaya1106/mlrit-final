@@ -155,60 +155,6 @@ async function loadOrphans(): Promise<string[]> {
   }
 }
 
-type BannerCounts = { live: number; scheduled: number; draft: number; expired: number };
-
-/**
- * Banner counts. Service-role so drafts and expired rows are visible — the anon
- * policy deliberately hides exactly the rows an editor most needs to see.
- *
- * The four buckets partition the table, so every row is accounted for. `expired`
- * exists because an active banner whose end_date has passed is none of the other
- * three, and silently dropping it would make the totals lie.
- */
-async function loadBannerCounts(): Promise<BannerCounts | null> {
-  try {
-    const { data, error } = await getServiceClient()
-      .from('banners')
-      .select('active, start_date, end_date');
-
-    if (error) throw error;
-
-    const now = Date.now();
-    const counts: BannerCounts = { live: 0, scheduled: 0, draft: 0, expired: 0 };
-
-    for (const row of data ?? []) {
-      // An editor switching a banner off outranks any date maths — that is a
-      // deliberate act, not a queue state.
-      if (!row.active) {
-        counts.draft += 1;
-        continue;
-      }
-
-      const started = !row.start_date || new Date(row.start_date).getTime() <= now;
-      const notEnded = !row.end_date || new Date(row.end_date).getTime() >= now;
-
-      // "Live" mirrors the banners_public_read policy exactly.
-      if (started && notEnded) counts.live += 1;
-      else if (!started) counts.scheduled += 1;
-      else counts.expired += 1;
-    }
-
-    return counts;
-  } catch (err) {
-    console.error('[admin] failed to count banners:', err);
-    return null;
-  }
-}
-
-/** "2 live, 1 draft" — zero buckets are dropped so the common case stays quiet. */
-function formatBannerCounts(counts: BannerCounts): string {
-  const parts = (['live', 'scheduled', 'draft', 'expired'] as const)
-    .filter((bucket) => counts[bucket] > 0)
-    .map((bucket) => `${counts[bucket]} ${bucket}`);
-
-  return parts.length > 0 ? parts.join(', ') : 'none yet';
-}
-
 /**
  * Readable names for the page slug each section is keyed under, and the order
  * the groups appear in. Anything unlisted sorts last, alphabetically, under
@@ -238,9 +184,8 @@ const metaClass = 'font-mono text-[0.7rem] uppercase tracking-wider text-subtle'
 export default async function AdminDashboardPage() {
   const admin = await getAdminUser();
   const owner = isOwner(admin);
-  const [sections, bannerCounts, orphans] = await Promise.all([
+  const [sections, orphans] = await Promise.all([
     loadSections(admin),
-    owner ? loadBannerCounts() : Promise.resolve(null),
     owner ? loadOrphans() : Promise.resolve([]),
   ]);
 
@@ -314,21 +259,8 @@ export default async function AdminDashboardPage() {
 
         {owner && (
         <section className="mt-10">
-          <h2 className={metaClass}>Media</h2>
+          <h2 className={metaClass}>Access</h2>
           <ul className="mt-3 divide-y divide-neutral-800 rounded-lg bg-ink-2 px-4">
-            <li>
-              <Link href="/admin/banners" className={`${rowClass} text-neutral-0`}>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm">Banners</span>
-                  <span className="mt-0.5 block truncate text-xs text-subtle">
-                    Upload, schedule and retire promotional slots
-                  </span>
-                </span>
-                <span className={`${metaClass} shrink-0 text-right`}>
-                  {bannerCounts ? formatBannerCounts(bannerCounts) : 'unavailable'}
-                </span>
-              </Link>
-            </li>
             <li>
               <Link href="/admin/users" className={`${rowClass} text-neutral-0`}>
                 <span className="min-w-0">
