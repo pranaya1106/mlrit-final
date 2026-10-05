@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import Chatbot from '@/components/Chatbot';
 import Footer, { type FooterContent } from '@/components/Footer';
 import { PageHeaderProvider, type HeaderOverride } from '@/lib/content/page-headers';
+import { BrochureProvider } from '@/lib/content/documents-client';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents';
 import Header from '@/components/Header';
 import SideButtons from '@/components/SideButtons';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -28,25 +30,35 @@ export default function SiteChrome({
   children,
   footer = {},
   pageHeaders = {},
+  brochureUrl = DEFAULT_BROCHURE,
 }: {
   children: React.ReactNode;
   footer?: FooterContent;
   pageHeaders?: Record<string, HeaderOverride>;
+  /** Prospectus link, shared by the side button and the chatbot. */
+  brochureUrl?: string;
 }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin') ?? false;
 
   // The provider wraps the admin too: the live preview renders real pages.
-  if (isAdmin) return <PageHeaderProvider value={pageHeaders}>{children}</PageHeaderProvider>;
+  if (isAdmin)
+    return (
+      <BrochureProvider value={brochureUrl}>
+        <PageHeaderProvider value={pageHeaders}>{children}</PageHeaderProvider>
+      </BrochureProvider>
+    );
 
   return (
+    <BrochureProvider value={brochureUrl}>
     <PageHeaderProvider value={pageHeaders}>
       <SmoothScroll />
       <Header />
       <main className="pt-[var(--header-h)]">{children}</main>
       <Footer {...footer} />
-      <SideButtons />
-      <Chatbot />
+      <SideButtons brochureUrl={brochureUrl} />
+      <Chatbot brochureUrl={brochureUrl} />
     </PageHeaderProvider>
+    </BrochureProvider>
   );
 }

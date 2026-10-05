@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -142,7 +143,7 @@ function getPrimaryLabel(msg: Message): string {
 
 // Derives contextual quick-action links from an assistant reply, using only real,
 // existing site routes. Returns [] when nothing relevant applies.
-function getSmartActions(msg: Message): SmartAction[] {
+function getSmartActions(msg: Message, brochureUrl: string = DEFAULT_BROCHURE): SmartAction[] {
   if (msg.role !== 'assistant' || msg.isError) return [];
 
   // Multi-entity responses (faculty lists, HOD lists, etc.) make each entity
@@ -182,7 +183,7 @@ function getSmartActions(msg: Message): SmartAction[] {
   } else if (target === 'admissions' || /\badmissions?\b/.test(text)) {
     actions = [
       { label: 'Open Admissions', href: '/admissions' },
-      { label: 'Download Brochure', href: '/admissions/mlrit-brochure.pdf' },
+      { label: 'Download Brochure', href: brochureUrl },
       { label: 'Contact Admissions', href: '/admissions/support' },
     ];
   } else if (/\bacademics?\b|curriculum|regulations?/.test(text)) {
@@ -438,7 +439,7 @@ function formatContent(content: string, entities?: EntityLink[]) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function Chatbot() {
+export default function Chatbot({ brochureUrl = DEFAULT_BROCHURE }: { brochureUrl?: string }) {
   // Plain in-memory state — the chatbot is mounted once in the root layout, so
   // ordinary client-side navigation (Smart Actions, entity links, any internal
   // <Link>) never unmounts it and the conversation naturally survives. A full
@@ -654,7 +655,7 @@ export default function Chatbot() {
               className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-white relative scroll-smooth"
             >
               {messages.map((msg, idx) => {
-                const smartActions = idx === 0 ? [] : getSmartActions(msg);
+                const smartActions = idx === 0 ? [] : getSmartActions(msg, brochureUrl);
                 return (
                 <div
                   key={idx}

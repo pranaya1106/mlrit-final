@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useBrochureUrl } from '@/lib/content/documents-client';
 import Link from 'next/link';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
@@ -197,6 +198,8 @@ const gradientText: React.CSSProperties = {
 };
 
 export default function AdmissionsPage() {
+  const brochureUrl = useBrochureUrl();
+
   const stepRefs  = useRef<(HTMLDivElement | null)[]>([]);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -310,7 +313,7 @@ export default function AdmissionsPage() {
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </Link>
                 <a
-                  href="/admissions/mlrit-brochure.pdf"
+                  href={brochureUrl}
                   download="MLRIT-Brochure-2025-26.pdf"
                   target="_blank"
                   rel="noopener noreferrer"

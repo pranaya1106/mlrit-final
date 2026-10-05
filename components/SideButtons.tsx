@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents';
 import Link from 'next/link';
 
 /* ── Sub-popup for Syllabus & PYQs ─────────────────────────────── */
@@ -157,7 +158,7 @@ const TAB_STYLE: React.CSSProperties = {
   color: 'white',
 };
 
-export default function SideButtons() {
+export default function SideButtons({ brochureUrl = DEFAULT_BROCHURE }: { brochureUrl?: string }) {
   const [open, setOpen] = useState(false);
   const [subOpen, setSubOpen] = useState(false);
   const close = useCallback(() => { setOpen(false); setSubOpen(false); }, []);
@@ -182,7 +183,7 @@ export default function SideButtons() {
       >
         {/* Brochure tab */}
         <a
-          href="/admissions/mlrit-brochure.pdf"
+          href={brochureUrl}
           download="MLRIT-Brochure-2025-26.pdf"
           target="_blank"
           rel="noopener noreferrer"

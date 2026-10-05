@@ -768,7 +768,7 @@ export default function ContentEditor({
                                         {colBusy ? 'Uploading…' : colValue ? 'Replace' : 'Upload'}
                                         <input
                                           type="file"
-                                          accept={column.type === 'video' ? 'video/*' : 'image/*'}
+                                          accept={column.type === 'video' ? 'video/*' : column.type === 'document' ? 'application/pdf' : 'image/*'}
                                           disabled={colBusy}
                                           onChange={(e) => {
                                             const file = e.target.files?.[0];
@@ -934,11 +934,13 @@ export default function ContentEditor({
                   </div>
                 )}
 
-                {(type === 'image' || type === 'video') && (
+                {(type === 'image' || type === 'video' || type === 'document') && (
                   <>
                     <input
                       type="file"
-                      accept={type === 'image' ? 'image/*' : 'video/*'}
+                      accept={
+                        type === 'image' ? 'image/*' : type === 'video' ? 'video/*' : 'application/pdf'
+                      }
                       disabled={uploading.includes(name)}
                       onChange={(e) => {
                         const file = e.target.files?.[0];

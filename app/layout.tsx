@@ -4,6 +4,7 @@ import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import type { FooterContent } from '@/components/Footer';
 import { headerMapFrom, type HeaderOverride } from '@/lib/content/page-headers';
+import { getBrochureUrl } from '@/lib/content/documents';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -76,12 +77,16 @@ async function getPageHeaders(): Promise<Record<string, HeaderOverride>> {
 export const revalidate = 60;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [footer, pageHeaders] = await Promise.all([getFooterContent(), getPageHeaders()]);
+  const [footer, pageHeaders, brochureUrl] = await Promise.all([
+    getFooterContent(),
+    getPageHeaders(),
+    getBrochureUrl(),
+  ]);
 
   return (
     <html lang="en" className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable}`}>
       <body className="bg-paper text-foreground font-sans antialiased">
-        <SiteChrome footer={footer} pageHeaders={pageHeaders}>
+        <SiteChrome footer={footer} pageHeaders={pageHeaders} brochureUrl={brochureUrl}>
           {children}
         </SiteChrome>
       </body>

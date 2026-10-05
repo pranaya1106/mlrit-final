@@ -1662,6 +1662,21 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  // The prospectus. One field, three consumers — the admissions page, the
+  // floating side button and the chatbot's quick links all linked the same
+  // path independently, so replacing it meant finding all three.
+  'site/documents': {
+    label: 'Site — Documents',
+    fields: [
+      { name: 'brochure', label: 'Prospectus / brochure (PDF)', type: 'document' },
+      {
+        name: 'brochureLabel',
+        label: 'Brochure link text',
+        defaultValue: 'Download Brochure',
+      },
+    ],
+  },
+
   // Footer — shown on every page, so it lives under its own `site` slug rather
   // than `home`. The Useful Links accordion is deliberately not here: it is a
   // nested structure a flat list cannot express, and it changes rarely.
@@ -1742,7 +1757,15 @@ export const CONTENT_SECTIONS = {
 
 export type SectionKey = keyof typeof CONTENT_SECTIONS;
 
-export type FieldType = 'text' | 'multiline' | 'image' | 'video' | 'gallery' | 'repeater';
+export type FieldType =
+  | 'text'
+  | 'multiline'
+  | 'image'
+  | 'video'
+  /** A PDF — brochures, AQAR reports, DCP documents. */
+  | 'document'
+  | 'gallery'
+  | 'repeater';
 
 /** Per-item metadata a gallery may collect alongside each image. */
 export type GalleryItemField = 'name' | 'title' | 'linkUrl' | 'active' | 'startDate' | 'endDate';
@@ -1760,12 +1783,12 @@ export type RepeaterItemField = {
    * row can carry several files — an event slide needs a logo, a clip and a
    * poster, which a single `key` cannot express.
    */
-  readonly type?: 'text' | 'number' | 'image' | 'video';
+  readonly type?: 'text' | 'number' | 'image' | 'video' | 'document';
 };
 
 /** Columns that hold an uploaded asset key rather than typed text. */
 export const isMediaColumn = (column: RepeaterItemField): boolean =>
-  column.type === 'image' || column.type === 'video';
+  column.type === 'image' || column.type === 'video' || column.type === 'document';
 
 export type FieldConfig = {
   readonly name: string;
@@ -1870,7 +1893,7 @@ export const fieldType = (field: FieldConfig): FieldType =>
  */
 export const isMediaField = (field: FieldConfig): boolean => {
   const type = fieldType(field);
-  return type === 'image' || type === 'video' || type === 'gallery';
+  return type === 'image' || type === 'video' || type === 'document' || type === 'gallery';
 };
 
 /** What a gallery item's primary key accepts — images unless stated. */

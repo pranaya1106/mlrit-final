@@ -8,9 +8,11 @@ import { uploadAsset } from '@/lib/cdn/client';
 // so 25MB covers the kind of clip this section actually uses. The site does
 // carry two ~29MB videos (placements, equinox) — raise this if those ever need
 // to be CMS-managed.
-const MAX_BYTES: Record<'image' | 'video', number> = {
+const MAX_BYTES: Record<'image' | 'video' | 'document', number> = {
   image: 5 * 1024 * 1024,
   video: 25 * 1024 * 1024,
+  // Brochures, AQAR reports and DCP documents. Scanned PDFs run large.
+  document: 20 * 1024 * 1024,
 };
 
 /**
@@ -83,15 +85,20 @@ export async function POST(request: Request) {
     ? 'image'
     : file.type.startsWith('video/')
       ? 'video'
-      : null;
+      : // Exact match, not a prefix: application/* also covers executables,
+        // and uploadAsset derives the stored extension from this type.
+        file.type === 'application/pdf'
+        ? 'document'
+        : null;
 
   if (!kind) {
-    return badRequest('File must be an image or a video.', 'file');
+    return badRequest('File must be an image, a video or a PDF.', 'file');
   }
 
   if (file.size > MAX_BYTES[kind]) {
     const limitMb = Math.round(MAX_BYTES[kind] / (1024 * 1024));
-    return badRequest(`${kind === 'image' ? 'Image' : 'Video'} must be ${limitMb}MB or smaller.`, 'file');
+    const noun = kind === 'image' ? 'Image' : kind === 'video' ? 'Video' : 'PDF';
+    return badRequest(`${noun} must be ${limitMb}MB or smaller.`, 'file');
   }
 
   try {
