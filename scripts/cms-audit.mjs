@@ -28,17 +28,25 @@ function audit(file) {
   const src = readFileSync(file, 'utf8');
   const findings = [];
 
+  // Text nodes are matched over the whole file, not line by line: a paragraph
+  // wrapped across several lines is still one string a visitor reads, and a
+  // per-line scan walks straight past it — which it did, on three paragraphs
+  // of the IQAC overview.
+  const stripped = src
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/^\s*\/\/.*$/gm, '');
+  const lineOf = (index) => stripped.slice(0, index).split('\n').length;
+
+  for (const m of stripped.matchAll(/>([^<>{}]+)</g)) {
+    const t = m[1].replace(/\s+/g, ' ').trim();
+    if (t.length > 2 && !NOISE.test(t) && /[a-z]{3}/i.test(t)) {
+      findings.push({ n: lineOf(m.index), kind: 'text', t });
+    }
+  }
+
   src.split('\n').forEach((line, i) => {
     const n = i + 1;
     if (/^\s*(\/\/|\*|\/\*)/.test(line)) return;
-
-    // JSX text between tags: >text<
-    for (const m of line.matchAll(/>([^<>{}]+)</g)) {
-      const t = m[1].trim();
-      if (t.length > 2 && !NOISE.test(t) && /[a-z]{3}/i.test(t)) {
-        findings.push({ n, kind: 'text', t });
-      }
-    }
 
     // String-valued props that render as copy
     for (const m of line.matchAll(/\b([a-zA-Z-]+)="([^"]{3,})"/g)) {
