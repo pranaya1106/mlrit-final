@@ -33,9 +33,10 @@ export const MESSAGE = {
   exitFullscreen: 'cms-preview-exit-fullscreen',
 } as const;
 
-/** Stable DOM id for a section, e.g. "home/hero" -> "cms-section-home-hero". */
-export const sectionDomId = (sectionKey: string): string =>
-  `cms-section-${sectionKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
+// Re-exported so existing client imports keep working; the implementation
+// lives in a neutral module that Server Components can call too.
+export { sectionDomId } from '@/lib/preview/dom';
+import { sectionDomId } from '@/lib/preview/dom';
 
 /** Values may be strings, or arrays of objects for gallery fields. */
 type SectionOverride = Record<string, unknown>;

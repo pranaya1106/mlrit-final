@@ -653,6 +653,22 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — AQAR reports',
     previewPath: '/iqac/aqar',
     fields: [
+      { name: 'aboutHeading', label: 'About heading', defaultValue: 'About AQAR' },
+      { name: 'aboutBody1', label: 'About paragraph 1', multiline: true, defaultValue: "The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT's Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year." },
+      { name: 'aboutBody2', label: 'About paragraph 2', multiline: true, defaultValue: "AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance." },
+      { name: 'facts', label: 'Fact cards', type: 'repeater',
+        itemFields: [
+          { name: 'val', label: 'Value' },
+          { name: 'sub', label: 'Label' },
+        ],
+        defaultItems: [
+          { id: 'years', val: '7+', sub: 'Years of Reports' },
+          { id: 'submitted-to', val: 'NAAC', sub: 'Submitted To' },
+          { id: 'prepared-by', val: 'IQAC', sub: 'Prepared By' },
+          { id: 'frequency', val: 'Annual', sub: 'Submission Frequency' },
+        ] },
+      { name: 'reportsHeading', label: 'Reports heading', defaultValue: 'AQAR Reports' },
+      { name: 'reportsLede', label: 'Reports intro', multiline: true, defaultValue: "Annual Quality Assurance Reports for each academic year. Click to download the PDF." },
       {
         name: 'reports',
         label: 'AQAR reports',

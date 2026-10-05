@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
+import { sectionDomId } from '@/lib/preview/dom';
 import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import { Section, H2, Lede } from '@/components/PageSection';
@@ -25,6 +27,14 @@ const FALLBACK_REPORTS = [
   { year: '2016–17', file: '/iqac/aqar/aqar-2016-17.pdf', available: false, latest: false },
 ];
 
+/** Fallback fact cards, used until the CMS section is saved. */
+const FALLBACK_FACTS = [
+  { val: '7+',     sub: 'Years of Reports'      },
+  { val: 'NAAC',   sub: 'Submitted To'          },
+  { val: 'IQAC',   sub: 'Prepared By'           },
+  { val: 'Annual', sub: 'Submission Frequency'  },
+];
+
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
   WebkitBackgroundClip: 'text', backgroundClip: 'text',
@@ -34,6 +44,10 @@ const gradientText: React.CSSProperties = {
 export const revalidate = 60;
 
 export default async function AQARPage() {
+  const row = await getSection('iqac', 'aqar').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved = await getRows('iqac', 'aqar', 'reports');
   const REPORTS =
     saved.length > 0
@@ -45,6 +59,12 @@ export default async function AQARPage() {
           latest: asText(r.latest).toLowerCase() === 'yes',
         }))
       : FALLBACK_REPORTS;
+
+  const savedFacts = await getRows('iqac', 'aqar', 'facts');
+  const FACTS =
+    savedFacts.length > 0
+      ? savedFacts.map((r) => ({ val: asText(r.val), sub: asText(r.sub) }))
+      : FALLBACK_FACTS;
 
   return (
     <>
@@ -58,7 +78,7 @@ export default async function AQARPage() {
       />
       <IQACQuickNav active="/iqac/aqar" />
 
-      <div className="lg:flex lg:gap-0 items-start">
+      <div id={sectionDomId('iqac/aqar')} className="lg:flex lg:gap-0 items-start">
         <aside className="hidden lg:block lg:w-56 shrink-0 self-start sticky top-28">
           <div className="pt-12 pl-6">
             <SideQuickNav items={NAV_ITEMS} />
@@ -68,24 +88,25 @@ export default async function AQARPage() {
 
           {/* About */}
           <Section id="about">
-            <H2 italic="">About AQAR</H2>
+            <H2 italic="">{copy('aboutHeading', 'About AQAR')}</H2>
             <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
-                  The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT&apos;s Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year.
+                  {copy(
+                    'aboutBody1',
+                    "The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT's Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year."
+                  )}
                 </p>
                 <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-                  AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance.
+                  {copy(
+                    'aboutBody2',
+                    'AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance.'
+                  )}
                 </p>
               </Reveal>
               <Reveal preset="up" delay={0.1}>
                 <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { val: '7+',    sub: 'Years of Reports'       },
-                    { val: 'NAAC',  sub: 'Submitted To'           },
-                    { val: 'IQAC',  sub: 'Prepared By'            },
-                    { val: 'Annual', sub: 'Submission Frequency'  },
-                  ].map((s) => (
+                  {FACTS.map((s) => (
                     <div key={s.sub} className="rounded-2xl border border-border bg-warm-light p-4 md:p-6">
                       <div className="font-sans font-black text-secondary tracking-tighter-2 text-[1.8rem] leading-none">{s.val}</div>
                       <div className="mt-2 font-mono text-muted text-[0.7rem] tracking-wide uppercase">{s.sub}</div>
@@ -98,8 +119,13 @@ export default async function AQARPage() {
 
           {/* Reports */}
           <Section id="reports" surface>
-            <H2 italic="">AQAR Reports</H2>
-            <Lede>Annual Quality Assurance Reports for each academic year. Click to download the PDF.</Lede>
+            <H2 italic="">{copy('reportsHeading', 'AQAR Reports')}</H2>
+            <Lede>
+              {copy(
+                'reportsLede',
+                'Annual Quality Assurance Reports for each academic year. Click to download the PDF.'
+              )}
+            </Lede>
             <Stagger className="mt-5 md:mt-8 grid md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" delay={0.06}>
               {REPORTS.map((r) => (
                 <StaggerItem key={r.year}>
