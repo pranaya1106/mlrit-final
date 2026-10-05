@@ -47,6 +47,7 @@ export default function ContentEditor({
   fields,
   initialContent,
   initialVersion,
+  previewPath = '/',
 }: {
   page: string;
   section: string;
@@ -54,6 +55,8 @@ export default function ContentEditor({
   fields: readonly FieldConfig[];
   initialContent: Record<string, unknown>;
   initialVersion: number;
+  /** Page the preview loads. Defaults to the homepage for global sections. */
+  previewPath?: string;
 }) {
   const router = useRouter();
   const [values, setValues] = useState(initialContent);
@@ -935,7 +938,7 @@ export default function ContentEditor({
             page inside scrolls exactly like an ordinary tab. */}
         <iframe
           ref={iframeRef}
-          src={`/?${PREVIEW_PARAM}=1`}
+          src={`${previewPath}${previewPath.includes('?') ? '&' : '?'}${PREVIEW_PARAM}=1`}
           title="Live preview"
           className="h-full w-full border-0"
         />

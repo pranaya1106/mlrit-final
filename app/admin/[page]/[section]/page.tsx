@@ -109,6 +109,7 @@ export default async function SectionAdminPage({
       fields={config.fields}
       initialContent={initialContent}
       initialVersion={row?.version ?? 1}
+      previewPath={config.previewPath ?? '/'}
     />
   );
 }

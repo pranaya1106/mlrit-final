@@ -522,6 +522,7 @@ export const CONTENT_SECTIONS = {
 
   'placements/statistics': {
     label: 'Placements — Statistics',
+    previewPath: '/placements/statistics',
     fields: [
       { name: 'highlights', label: 'Headline figures', type: 'repeater',
         itemFields: [
@@ -560,6 +561,7 @@ export const CONTENT_SECTIONS = {
 
   'placements/mous': {
     label: 'Placements — MoUs',
+    previewPath: '/placements/mous',
     fields: [
       { name: 'mous', label: 'MoUs', type: 'repeater',
         // One document per MoU, flattened into two columns: every bundled
@@ -595,6 +597,7 @@ export const CONTENT_SECTIONS = {
 
   'placements/support': {
     label: 'Placements — Contacts',
+    previewPath: '/placements/support',
     fields: [
       { name: 'contacts', label: 'Contacts', type: 'repeater',
         itemFields: [
@@ -617,6 +620,7 @@ export const CONTENT_SECTIONS = {
   // edited.
   'placements/recruiters': {
     label: 'Placements — Recruiter logos',
+    previewPath: '/placements/recruiters',
     fields: [
       {
         name: 'logos',
@@ -647,6 +651,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/aqar': {
     label: 'IQAC — AQAR reports',
+    previewPath: '/iqac/aqar',
     fields: [
       {
         name: 'reports',
@@ -676,6 +681,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/best-practices': {
     label: 'IQAC — Best practices',
+    previewPath: '/iqac/best-practices',
     fields: [
       {
         name: 'practices',
@@ -697,6 +703,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/functions': {
     label: 'IQAC — Functions',
+    previewPath: '/iqac/functions',
     fields: [
       {
         name: 'functions',
@@ -748,6 +755,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/objectives': {
     label: 'IQAC — Objectives',
+    previewPath: '/iqac/objectives',
     fields: [
       {
         name: 'objectives',
@@ -794,6 +802,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/overview': {
     label: 'IQAC — Overview',
+    previewPath: '/iqac',
     fields: [
       { name: 'mission', label: 'Mission points', type: 'repeater',
         itemFields: [{ name: 'text', label: 'Point' }],
@@ -839,6 +848,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/initiatives': {
     label: 'IQAC — Initiatives',
+    previewPath: '/iqac/initiatives',
     fields: [
       { name: 'initiatives', label: 'Initiatives', type: 'repeater',
         itemFields: [{ name: 'text', label: 'Initiative' }],
@@ -880,6 +890,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/support': {
     label: 'IQAC — Support contacts',
+    previewPath: '/iqac/support',
     fields: [
       { name: 'contacts', label: 'Contacts', type: 'repeater',
         itemFields: [
@@ -899,6 +910,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/reports': {
     label: "IQAC — Reports & documents",
+    previewPath: '/iqac/reports',
     fields: [
       {
         name: "aqar",
@@ -947,6 +959,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/feedback': {
     label: "IQAC — Feedback types",
+    previewPath: '/iqac/feedback',
     fields: [
       {
         name: "types",
@@ -969,6 +982,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/contact': {
     label: "IQAC — Contact details",
+    previewPath: '/iqac/contact',
     fields: [
       {
         name: "details",
@@ -992,6 +1006,7 @@ export const CONTENT_SECTIONS = {
   // NBA accreditation table — the cycle and status move every few years.
   'iqac/nba': {
     label: 'IQAC — NBA accredited programmes',
+    previewPath: '/iqac/nba',
     fields: [
       {
         name: 'programmes',
@@ -1024,6 +1039,10 @@ export const CONTENT_SECTIONS = {
   // headers come from the record being shown, not from fixed copy.
   'site/page-headers': {
     label: 'Page headers',
+    // This list spans 36 routes, so the preview can only show one of them.
+    // /iqac is a representative page that uses the hero; edits to other rows
+    // are saved correctly but will not be visible until that page is opened.
+    previewPath: '/iqac',
     fields: [
       {
         name: 'headers',
@@ -1339,6 +1358,8 @@ export const CONTENT_SECTIONS = {
   // real block editor to be safely editable; the bundled blocks still render.
   'info/pages': {
     label: 'Info pages — headers',
+    // Same caveat as page headers: one list, seventeen pages, one preview.
+    previewPath: '/admissions/eligibility',
     fields: [
       {
         name: 'pages',
@@ -1786,10 +1807,24 @@ export const asGalleryItems = (value: unknown): GalleryItem[] => {
 };
 
 /** Field config for a page/section pair, or null when it is not editable. */
+export type SectionConfig = {
+  label: string;
+  fields: readonly FieldConfig[];
+  /**
+   * The page the live preview should load for this section.
+   *
+   * Defaults to the homepage, which was the hardcoded behaviour and is still
+   * right for home/* and for anything global. Every other section names the
+   * route it actually appears on, or the editor previews a page that does not
+   * contain what is being edited.
+   */
+  previewPath?: string;
+};
+
 export function getSectionConfig(
   page: string,
   section: string
-): { label: string; fields: readonly FieldConfig[] } | null {
+): SectionConfig | null {
   const key = `${page}/${section}`;
   if (!Object.prototype.hasOwnProperty.call(CONTENT_SECTIONS, key)) return null;
   return CONTENT_SECTIONS[key as SectionKey];
