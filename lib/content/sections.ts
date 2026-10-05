@@ -554,6 +554,56 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  'iqac/aqar': {
+    label: 'IQAC — AQAR reports',
+    fields: [
+      {
+        name: 'reports',
+        label: 'AQAR reports',
+        type: 'repeater',
+        // `available` and `latest` are yes/blank rather than checkboxes: a
+        // repeater column holds text, and the component reads them the same
+        // way the footer reads its external-link flag.
+        itemFields: [
+          { name: 'year', label: 'Year' },
+          { name: 'file', label: 'PDF link' },
+          { name: 'available', label: 'Published (yes / blank)' },
+          { name: 'latest', label: 'Latest (yes / blank)' },
+        ],
+        defaultItems: [
+          { id: "2023-24", year: "2023–24", file: "/iqac/aqar/aqar-2023-24.pdf", available: "yes", latest: "yes" },
+          { id: "2022-23", year: "2022–23", file: "/iqac/aqar/aqar-2022-23.pdf", available: "yes", latest: "" },
+          { id: "2020-21", year: "2020–21", file: "/iqac/aqar/aqar-2020-21.pdf", available: "", latest: "" },
+          { id: "2019-20", year: "2019–20", file: "/iqac/aqar/aqar-2019-20.pdf", available: "", latest: "" },
+          { id: "2018-19", year: "2018–19", file: "/iqac/aqar/aqar-2018-19.pdf", available: "", latest: "" },
+          { id: "2017-18", year: "2017–18", file: "/iqac/aqar/aqar-2017-18.pdf", available: "", latest: "" },
+          { id: "2016-17", year: "2016–17", file: "/iqac/aqar/aqar-2016-17.pdf", available: "", latest: "" },
+        ],
+      },
+    ],
+  },
+
+  'iqac/best-practices': {
+    label: 'IQAC — Best practices',
+    fields: [
+      {
+        name: 'practices',
+        label: 'Practices',
+        type: 'repeater',
+        itemFields: [
+          { name: 'n', label: 'Number label' },
+          { name: 't', label: 'Title' },
+          { name: 'd', label: 'Description' },
+        ],
+        defaultItems: [
+          { id: "best-practice-1", n: "Best Practice 1", t: "Mentoring & Student Support System", d: "Every student is assigned a faculty mentor who tracks academic progress, attendance, personal development and career readiness throughout the programme." },
+          { id: "best-practice-2", n: "Best Practice 2", t: "Industry-Integrated Curriculum", d: "Curriculum designed in consultation with industry experts; includes live projects, internship components and elective tracks aligned to current technology domains." },
+          { id: "best-practice-3", n: "Best Practice 3", t: "Green Campus Initiatives", d: "Sustained efforts towards solar energy, tree plantation drives, water conservation and paperless administration to build an eco-sensitive campus." },
+        ],
+      },
+    ],
+  },
+
   'iqac/reports': {
     label: "IQAC — Reports & documents",
     fields: [

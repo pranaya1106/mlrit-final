@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -12,7 +14,8 @@ const NAV_ITEMS = [
   { id: 'reports', label: 'Reports'    },
 ];
 
-const REPORTS = [
+/** Fallback list, used until the CMS section is saved. */
+const FALLBACK_REPORTS = [
   { year: '2023–24', file: '/iqac/aqar/aqar-2023-24.pdf', available: true,  latest: true  },
   { year: '2022–23', file: '/iqac/aqar/aqar-2022-23.pdf', available: true,  latest: false },
   { year: '2020–21', file: '/iqac/aqar/aqar-2020-21.pdf', available: false, latest: false },
@@ -28,7 +31,21 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
-export default function AQARPage() {
+export const revalidate = 60;
+
+export default async function AQARPage() {
+  const saved = await getRows('iqac', 'aqar', 'reports');
+  const REPORTS =
+    saved.length > 0
+      ? saved.map((r) => ({
+          year: asText(r.year),
+          file: asText(r.file),
+          // yes/blank in the CMS, boolean in the component.
+          available: asText(r.available).toLowerCase() === 'yes',
+          latest: asText(r.latest).toLowerCase() === 'yes',
+        }))
+      : FALLBACK_REPORTS;
+
   return (
     <>
       <PageHeader

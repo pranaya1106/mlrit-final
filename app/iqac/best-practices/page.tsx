@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -13,13 +15,28 @@ const NAV_ITEMS = [
   { id: 'best-practice-3', label: 'Best Practice 3' },
 ];
 
-const PRACTICES = [
+/** Fallback list, used until the CMS section is saved. */
+const FALLBACK_PRACTICES = [
   { id: 'best-practice-1', n: 'Best Practice 1', t: 'Mentoring & Student Support System', d: 'Every student is assigned a faculty mentor who tracks academic progress, attendance, personal development and career readiness throughout the programme.' },
   { id: 'best-practice-2', n: 'Best Practice 2', t: 'Industry-Integrated Curriculum', d: 'Curriculum designed in consultation with industry experts; includes live projects, internship components and elective tracks aligned to current technology domains.' },
   { id: 'best-practice-3', n: 'Best Practice 3', t: 'Green Campus Initiatives', d: 'Sustained efforts towards solar energy, tree plantation drives, water conservation and paperless administration to build an eco-sensitive campus.' },
 ];
 
-export default function BestPracticesPage() {
+export const revalidate = 60;
+
+export default async function BestPracticesPage() {
+  const saved = await getRows('iqac', 'best-practices', 'practices');
+  const PRACTICES =
+    saved.length > 0
+      ? saved.map((r) => ({
+          // The row id doubles as the anchor the in-page nav links to.
+          id: r.id,
+          n: asText(r.n),
+          t: asText(r.t),
+          d: asText(r.d),
+        }))
+      : FALLBACK_PRACTICES;
+
   return (
     <>
       <PageHeader
