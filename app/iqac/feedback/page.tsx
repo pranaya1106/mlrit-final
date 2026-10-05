@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -14,14 +16,28 @@ const NAV_ITEMS = [
   { id: 'employer-feedback', label: 'Employer Feedback' },
 ];
 
-const FEEDBACK_TYPES = [
+const FALLBACK_FEEDBACK_TYPES = [
   { id: 'student-feedback', tag: 'Students',  title: 'Student Feedback',  desc: 'Semester-wise feedback on teaching quality, course delivery, infrastructure and overall campus experience collected from all enrolled students.' },
   { id: 'faculty-feedback', tag: 'Faculty',   title: 'Faculty Feedback',   desc: 'Feedback from faculty on curriculum relevance, administrative support, professional development opportunities and institutional processes.' },
   { id: 'alumni-feedback', tag: 'Alumni',    title: 'Alumni Feedback',    desc: 'Inputs from alumni on the long-term impact of their MLRIT education on career growth and professional development.' },
   { id: 'employer-feedback', tag: 'Employers', title: 'Employer Feedback',  desc: 'Annual feedback from recruiting organisations on graduate competency, workplace readiness and industry-alignment of MLRIT programmes.' },
 ];
 
-export default function FeedbackPage() {
+export const revalidate = 60;
+
+export default async function FeedbackPage() {
+  const saved_types = await getRows('iqac', 'feedback', 'types');
+  const FEEDBACK_TYPES =
+    saved_types.length > 0
+      ? saved_types.map((r) => ({
+            // The repeater's own row id doubles as the anchor id the nav links to.
+            id: r.id,
+            tag: asText(r.tag),
+            title: asText(r.title),
+            desc: asText(r.desc),
+          }))
+      : FALLBACK_FEEDBACK_TYPES;
+
   return (
     <>
       <PageHeader

@@ -554,6 +554,98 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  'iqac/reports': {
+    label: "IQAC — Reports & documents",
+    fields: [
+      {
+        name: "aqar",
+        label: "AQAR reports",
+        type: 'repeater',
+        itemFields: [
+          { name: "label", label: "Label" },
+          { name: "href", label: "Link" },
+          { name: "tag", label: "Tag" },
+        ],
+        defaultItems: [
+          { id: "aqar-reports", label: "AQAR Reports", href: "/iqac/aqar", tag: "Annual Report" },
+        ],
+      },
+      {
+        name: "minutes",
+        label: "Minutes",
+        type: 'repeater',
+        itemFields: [
+          { name: "label", label: "Label" },
+          { name: "href", label: "Link" },
+          { name: "tag", label: "Tag" },
+        ],
+        defaultItems: [
+          { id: "iqac-minutes-of-meeting", label: "IQAC Minutes of Meeting", href: "https://mlrit.ac.in/iqac-mom/", tag: "Governance" },
+        ],
+      },
+      {
+        name: "other",
+        label: "Other reports",
+        type: 'repeater',
+        itemFields: [
+          { name: "label", label: "Label" },
+          { name: "href", label: "Link" },
+          { name: "tag", label: "Tag" },
+        ],
+        defaultItems: [
+          { id: "strategic-perspective-plan", label: "Strategic Perspective Plan", href: "https://mlrit.ac.in/iqac/", tag: "Planning" },
+          { id: "policies", label: "Policies", href: "https://mlrit.ac.in/iqac/policies/", tag: "Policy" },
+          { id: "newsletters", label: "Newsletters", href: "https://mlrit.ac.in/iqac/", tag: "Publications" },
+          { id: "nba-programme-accreditation", label: "NBA — Programme Accreditation", href: "/iqac/nba", tag: "Accreditation" },
+        ],
+      },
+    ],
+  },
+
+  'iqac/feedback': {
+    label: "IQAC — Feedback types",
+    fields: [
+      {
+        name: "types",
+        label: "Feedback types",
+        type: 'repeater',
+        itemFields: [
+          { name: "tag", label: "Tag" },
+          { name: "title", label: "Title" },
+          { name: "desc", label: "Description" },
+        ],
+        defaultItems: [
+          { id: "student-feedback", tag: "Students", title: "Student Feedback", desc: "Semester-wise feedback on teaching quality, course delivery, infrastructure and overall campus experience collected from all enrolled students." },
+          { id: "faculty-feedback", tag: "Faculty", title: "Faculty Feedback", desc: "Feedback from faculty on curriculum relevance, administrative support, professional development opportunities and institutional processes." },
+          { id: "alumni-feedback", tag: "Alumni", title: "Alumni Feedback", desc: "Inputs from alumni on the long-term impact of their MLRIT education on career growth and professional development." },
+          { id: "employer-feedback", tag: "Employers", title: "Employer Feedback", desc: "Annual feedback from recruiting organisations on graduate competency, workplace readiness and industry-alignment of MLRIT programmes." },
+        ],
+      },
+    ],
+  },
+
+  'iqac/contact': {
+    label: "IQAC — Contact details",
+    fields: [
+      {
+        name: "details",
+        label: "Contact details",
+        type: 'repeater',
+        itemFields: [
+          { name: "label", label: "Label" },
+          { name: "value", label: "Value" },
+        ],
+        defaultItems: [
+          { id: "head-iqac", label: "Head IQAC", value: "Dr. Radhika Devi V — Director & Dean H&S" },
+          { id: "phone", label: "Phone", value: "+91-40-2304 4444" },
+          { id: "email", label: "Email", value: "iqac@mlrit.ac.in" },
+          { id: "address", label: "Address", value: "IQAC Office, MLRIT, Dundigal, Hyderabad – 500 043, Telangana, India" },
+          { id: "office-hours", label: "Office Hours", value: "Monday – Saturday, 9:00 AM – 5:00 PM" },
+        ],
+      },
+    ],
+  },
+
   // NBA accreditation table — the cycle and status move every few years.
   'iqac/nba': {
     label: 'IQAC — NBA accredited programmes',

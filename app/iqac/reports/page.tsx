@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import SideQuickNav from '@/components/SideQuickNav';
@@ -13,22 +15,54 @@ const NAV_ITEMS = [
   { id: 'policy-documents', label: 'Policy Documents' },
 ];
 
-const AQAR_REPORTS = [
+const FALLBACK_AQAR_REPORTS = [
   { label: 'AQAR Reports',                  href: '/iqac/aqar',                          tag: 'Annual Report' },
 ];
 
-const MINUTES = [
+const FALLBACK_MINUTES = [
   { label: 'IQAC Minutes of Meeting',       href: 'https://mlrit.ac.in/iqac-mom/',       tag: 'Governance'    },
 ];
 
-const OTHER_REPORTS = [
+const FALLBACK_OTHER_REPORTS = [
   { label: 'Strategic Perspective Plan',    href: 'https://mlrit.ac.in/iqac/',           tag: 'Planning'      },
   { label: 'Policies',                      href: 'https://mlrit.ac.in/iqac/policies/',  tag: 'Policy'        },
   { label: 'Newsletters',                   href: 'https://mlrit.ac.in/iqac/',           tag: 'Publications'  },
   { label: 'NBA — Programme Accreditation', href: '/iqac/nba',                           tag: 'Accreditation' },
 ];
 
-export default function ReportsPage() {
+export const revalidate = 60;
+
+export default async function ReportsPage() {
+  const saved_aqar = await getRows('iqac', 'reports', 'aqar');
+  const AQAR_REPORTS =
+    saved_aqar.length > 0
+      ? saved_aqar.map((r) => ({
+            label: asText(r.label),
+            href: asText(r.href),
+            tag: asText(r.tag),
+          }))
+      : FALLBACK_AQAR_REPORTS;
+
+  const saved_minutes = await getRows('iqac', 'reports', 'minutes');
+  const MINUTES =
+    saved_minutes.length > 0
+      ? saved_minutes.map((r) => ({
+            label: asText(r.label),
+            href: asText(r.href),
+            tag: asText(r.tag),
+          }))
+      : FALLBACK_MINUTES;
+
+  const saved_other = await getRows('iqac', 'reports', 'other');
+  const OTHER_REPORTS =
+    saved_other.length > 0
+      ? saved_other.map((r) => ({
+            label: asText(r.label),
+            href: asText(r.href),
+            tag: asText(r.tag),
+          }))
+      : FALLBACK_OTHER_REPORTS;
+
   return (
     <>
       <PageHeader

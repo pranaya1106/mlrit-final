@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import { getRows } from '@/lib/content/rows';
+import { asText } from '@/lib/content/sections';
 import { Section, H2 } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -12,7 +14,7 @@ const NAV_ITEMS = [
   { id: 'send-query', label: 'Send Query' },
 ];
 
-const CONTACT_DETAILS = [
+const FALLBACK_CONTACT_DETAILS = [
   { label: 'Head IQAC',    value: 'Dr. Radhika Devi V — Director & Dean H&S' },
   { label: 'Phone',        value: '+91-40-2304 4444' },
   { label: 'Email',        value: 'iqac@mlrit.ac.in' },
@@ -20,7 +22,18 @@ const CONTACT_DETAILS = [
   { label: 'Office Hours', value: 'Monday – Saturday, 9:00 AM – 5:00 PM' },
 ];
 
-export default function ContactIQACPage() {
+export const revalidate = 60;
+
+export default async function ContactIQACPage() {
+  const saved_details = await getRows('iqac', 'contact', 'details');
+  const CONTACT_DETAILS =
+    saved_details.length > 0
+      ? saved_details.map((r) => ({
+            label: asText(r.label),
+            value: asText(r.value),
+          }))
+      : FALLBACK_CONTACT_DETAILS;
+
   return (
     <>
       <PageHeader
