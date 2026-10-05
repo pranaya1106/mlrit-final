@@ -3,7 +3,7 @@
 import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import { resolveAssetUrl } from '@/lib/cdn/url';
 import {
@@ -509,7 +509,26 @@ export default function ContentEditor({
                       )}
 
                     <ul className="space-y-3">
-                      {asRepeaterItems(values[name]).map((item, index, all) => (
+                      {asRepeaterItems(values[name]).map((item, index, all) => {
+                        // A heading whenever the grouping column changes, so a
+                        // sixty-row list reads as six tables rather than one.
+                        const group = field.groupByColumn
+                          ? String(item[field.groupByColumn] ?? '')
+                          : null;
+                        const prev = index > 0 && field.groupByColumn
+                          ? String(all[index - 1][field.groupByColumn] ?? '')
+                          : null;
+                        const startsGroup = group !== null && group !== prev;
+
+                        return (
+                        <Fragment key={item.id}>
+                        {startsGroup && (
+                          <li
+                            className="pt-3 first:pt-0 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-subtle"
+                          >
+                            {group || 'Ungrouped'}
+                          </li>
+                        )}
                         <li
                           key={item.id}
                           className="flex gap-3 rounded-md border border-border bg-neutral-0 p-3"
@@ -579,7 +598,9 @@ export default function ContentEditor({
                             </button>
                           </div>
                         </li>
-                      ))}
+                        </Fragment>
+                        );
+                      })}
                     </ul>
 
                     <button

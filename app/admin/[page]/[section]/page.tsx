@@ -98,7 +98,21 @@ export default async function SectionAdminPage({
     const stored = isRepeaterField(field)
       ? asRepeaterItems(content[field.name])
       : asGalleryItems(content[field.name]);
-    initialContent[field.name] = stored.length > 0 ? stored : (field.defaultItems ?? []);
+    const seeded = stored.length > 0 ? stored : (field.defaultItems ?? []);
+
+    // Grouped fields open sorted by their grouping column, newest first, so a
+    // row added at the bottom of the list joins its own group on reload
+    // instead of sitting sixty rows away from the year it belongs to.
+    // Stable, so order within a group survives — the first company of a
+    // placement year is the one badged "top".
+    initialContent[field.name] =
+      field.groupByColumn && seeded.length > 0
+        ? [...seeded].sort((a, b) =>
+            String((b as Record<string, unknown>)[field.groupByColumn!] ?? '').localeCompare(
+              String((a as Record<string, unknown>)[field.groupByColumn!] ?? '')
+            )
+          )
+        : seeded;
   }
 
   return (

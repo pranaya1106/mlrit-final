@@ -542,6 +542,7 @@ export const CONTENT_SECTIONS = {
           { id: "2021", year: "2021", academicYear: "2020–21", jobOffers: "740", companiesVisited: "49", highestPackageLpa: "18.1", provisional: "" },
         ] },
       { name: 'companies', label: 'Company rows', type: 'repeater',
+        groupByColumn: 'year',
         // Flat, with `year` naming the table each row belongs to — grouped on
         // read, the same way the footer rebuilds its columns. A repeater row
         // cannot hold a nested list, and asking an editor to manage two levels
@@ -1764,6 +1765,15 @@ export type FieldConfig = {
    * and event carousels hold.
    */
   readonly accept?: 'image' | 'video';
+  /**
+   * Repeater only. Keeps rows grouped by this column in the editor: the list
+   * is sorted by it, newest value first, and a heading marks each change.
+   *
+   * The sort is stable, so order *within* a group is whatever the editor set
+   * — which matters when position carries meaning, as the first company of a
+   * placement year does.
+   */
+  readonly groupByColumn?: string;
   /**
    * Gallery only. Seeds the EDITOR when nothing has been saved yet, so a
    * section that currently ships hardcoded assets opens with those assets as
