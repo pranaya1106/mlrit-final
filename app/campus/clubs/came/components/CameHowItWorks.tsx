@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
 
 const CAME_ORANGE = '#F5760A';
@@ -152,8 +152,10 @@ export default function CameHowItWorks({
   const [flippedCount, setFlippedCount] = useState(0);
   const [isBookClosed, setIsBookClosed] = useState(true);
   const flippedRef = useRef(0);
+  const tiltStopped = useRef(false);
 
   const bookContainerControls = useAnimationControls();
+  const tiltControls = useAnimationControls();
   const lc0 = useAnimationControls();
   const lc1 = useAnimationControls();
   const lc2 = useAnimationControls();
@@ -166,11 +168,31 @@ export default function CameHowItWorks({
   // Shift amount — half the book width so spine sits at viewport centre
   const SHIFT_X = Math.min(420, typeof window !== 'undefined' ? window.innerWidth * 0.88 : 420) / 2;
 
+  // Idle tilt — peek open to invite interaction
+  useEffect(() => {
+    let cancelled = false;
+    async function runTilt() {
+      await new Promise<void>(r => setTimeout(r, 1200));
+      while (!cancelled && !tiltStopped.current) {
+        await tiltControls.start({ rotateY: -14, transition: { duration: 1.1, ease: [0.4, 0, 0.2, 1] } });
+        if (cancelled || tiltStopped.current) break;
+        await tiltControls.start({ rotateY: 0, transition: { duration: 0.9, ease: [0.4, 0, 0.2, 1] } });
+        if (cancelled || tiltStopped.current) break;
+        await new Promise<void>(r => setTimeout(r, 2800));
+      }
+    }
+    runTilt();
+    return () => { cancelled = true; };
+  }, [tiltControls]);
+
   const handleClick = async () => {
     const current = flippedRef.current;
 
     if (current === 0) {
-      // First click: open the book — shift spine to centre
+      // Stop idle tilt and snap to neutral before opening
+      tiltStopped.current = true;
+      tiltControls.stop();
+      tiltControls.start({ rotateY: 0, transition: { duration: 0.3, ease: 'easeOut' } });
       setIsBookClosed(false);
       bookContainerControls.start({
         x: SHIFT_X,
@@ -236,6 +258,11 @@ export default function CameHowItWorks({
         role="button"
         aria-label={isBookClosed ? 'Open book' : flippedCount < TOTAL_LEAVES ? 'Flip page' : 'Close book'}
       >
+        <motion.div
+          animate={tiltControls}
+          initial={{ rotateY: 0 }}
+          style={{ transformStyle: 'preserve-3d', transformOrigin: 'left center' }}
+        >
         <motion.div
           animate={bookContainerControls}
           style={{
@@ -304,6 +331,7 @@ export default function CameHowItWorks({
               </motion.div>
             );
           })}
+        </motion.div>
         </motion.div>
       </div>
 
