@@ -3,6 +3,7 @@ import { Manrope, Playfair_Display, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import type { FooterContent } from '@/components/Footer';
+import { headerMapFrom, type HeaderOverride } from '@/lib/content/page-headers';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -61,15 +62,28 @@ async function getFooterContent(): Promise<FooterContent> {
 
 // Matches the homepage window, so an edited footer goes live on the same
 // cadence as edited section copy rather than waiting for a redeploy.
+/** Page-header overrides, keyed by route. Same silent-failure rule as above. */
+async function getPageHeaders(): Promise<Record<string, HeaderOverride>> {
+  try {
+    const { getSection } = await import('@/lib/content/client');
+    const row = await getSection('site', 'page-headers');
+    return headerMapFrom((row?.content as Record<string, unknown> | undefined)?.headers);
+  } catch {
+    return {};
+  }
+}
+
 export const revalidate = 60;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const footer = await getFooterContent();
+  const [footer, pageHeaders] = await Promise.all([getFooterContent(), getPageHeaders()]);
 
   return (
     <html lang="en" className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable}`}>
       <body className="bg-paper text-foreground font-sans antialiased">
-        <SiteChrome footer={footer}>{children}</SiteChrome>
+        <SiteChrome footer={footer} pageHeaders={pageHeaders}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );

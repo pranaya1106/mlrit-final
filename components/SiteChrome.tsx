@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 
 import Chatbot from '@/components/Chatbot';
 import Footer, { type FooterContent } from '@/components/Footer';
+import { PageHeaderProvider, type HeaderOverride } from '@/lib/content/page-headers';
 import Header from '@/components/Header';
 import SideButtons from '@/components/SideButtons';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -26,23 +27,26 @@ import SmoothScroll from '@/components/SmoothScroll';
 export default function SiteChrome({
   children,
   footer = {},
+  pageHeaders = {},
 }: {
   children: React.ReactNode;
   footer?: FooterContent;
+  pageHeaders?: Record<string, HeaderOverride>;
 }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin') ?? false;
 
-  if (isAdmin) return <>{children}</>;
+  // The provider wraps the admin too: the live preview renders real pages.
+  if (isAdmin) return <PageHeaderProvider value={pageHeaders}>{children}</PageHeaderProvider>;
 
   return (
-    <>
+    <PageHeaderProvider value={pageHeaders}>
       <SmoothScroll />
       <Header />
       <main className="pt-[var(--header-h)]">{children}</main>
       <Footer {...footer} />
       <SideButtons />
       <Chatbot />
-    </>
+    </PageHeaderProvider>
   );
 }
