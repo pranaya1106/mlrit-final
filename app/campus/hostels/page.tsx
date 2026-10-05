@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import InfoPageRenderer from '@/components/InfoPageRenderer';
 import { getInfoPage } from '@/lib/info-pages';
+import { getInfoPageContent } from '@/lib/content/info-pages-cms';
 
 const SLUG = 'campus/hostels';
 
@@ -13,8 +14,10 @@ export const metadata = (() => {
   };
 })();
 
-export default function Page() {
-  const page = getInfoPage(SLUG);
+export const revalidate = 60;
+
+export default async function Page() {
+  const page = await getInfoPageContent(SLUG);
   if (!page) notFound();
   return <InfoPageRenderer page={page} />;
 }

@@ -554,6 +554,169 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  // Secondary pages rendered by InfoPageRenderer — About, Admissions, Campus,
+  // Student Life. One list keyed by slug rather than a section per page: the
+  // fields are identical for all of them, and 17 near-empty configs would be
+  // 17 places to keep in sync.
+  //
+  // Header copy only. `blocks` is a 20-kind discriminated union and needs a
+  // real block editor to be safely editable; the bundled blocks still render.
+  'info/pages': {
+    label: 'Info pages — headers',
+    fields: [
+      {
+        name: 'pages',
+        label: 'Pages',
+        type: 'repeater',
+        itemFields: [
+          { name: 'slug', label: 'Page (do not change)' },
+          { name: 'eyebrow', label: 'Eyebrow' },
+          { name: 'title', label: 'Title' },
+          { name: 'italic', label: 'Title italic tail' },
+          { name: 'dek', label: 'Sub-headline' },
+        ],
+        defaultItems: [
+          {
+            id: "about-vision-mission-introduction",
+            slug: "about/vision-mission/introduction",
+            eyebrow: "About MLRIT",
+            title: "Built Beyond",
+            italic: "Classrooms",
+            dek: "Since 2005, MLR Institute of Technology has been shaping engineers, thinkers, and leaders — through academics, innovation, and the culture of a campus that never stops growing.",
+          },
+          {
+            id: "about-vision-mission-vision-mission",
+            slug: "about/vision-mission/vision-mission",
+            eyebrow: "Our Purpose",
+            title: "Vision &",
+            italic: "Mission",
+            dek: "The foundational beliefs that guide every decision, programme, and experience at MLR Institute of Technology.",
+          },
+          {
+            id: "about-legacy",
+            slug: "about/legacy",
+            eyebrow: "Two Decades",
+            title: "The MLRIT",
+            italic: "Legacy",
+            dek: "From a single campus in Dundigal to a nationally recognised institution — a timeline of milestones and the leadership that built them.",
+          },
+          {
+            id: "about-rankings-awards",
+            slug: "about/rankings-awards",
+            eyebrow: "Recognition",
+            title: "Rankings &",
+            italic: "Awards",
+            dek: "National rankings, institutional accreditations, research achievements, and recognitions that reflect the quality MLRIT delivers.",
+          },
+          {
+            id: "about-brochure",
+            slug: "about/brochure",
+            eyebrow: "Official Brochure",
+            title: "Everything about MLRIT,",
+            italic: "in one document",
+            dek: "Programmes, campus life, research, sports, facilities, admissions — the complete MLRIT story, ready to download.",
+          },
+          {
+            id: "about-messages-principal",
+            slug: "about/messages/principal",
+            eyebrow: "About · Messages",
+            title: "",
+            italic: "message.",
+            dek: "From the desk of the Principal, MLR Institute of Technology.",
+          },
+          {
+            id: "about-messages-dean",
+            slug: "about/messages/dean",
+            eyebrow: "About · Messages",
+            title: "",
+            italic: "message.",
+            dek: "From the desk of the Director, MLR Institute of Technology.",
+          },
+          {
+            id: "admissions-how-to-apply",
+            slug: "admissions/how-to-apply",
+            eyebrow: "Admissions",
+            title: "How to",
+            italic: "apply.",
+            dek: "A step-by-step guide to applying to MLRIT — across B.Tech, M.Tech and MBA programmes. Source: mlrit.ac.in/admissions/.",
+          },
+          {
+            id: "admissions-eligibility",
+            slug: "admissions/eligibility",
+            eyebrow: "Admissions",
+            title: "Eligibility",
+            italic: "criteria.",
+            dek: "Programme-wise eligibility requirements for B.Tech, M.Tech and MBA admissions at MLRIT. Source: mlrit.ac.in/admissions/.",
+          },
+          {
+            id: "admissions-fee-structure",
+            slug: "admissions/fee-structure",
+            eyebrow: "Admissions",
+            title: "Fee",
+            italic: "structure.",
+            dek: "Annual fee structure across UG and PG programmes at MLRIT for 2025–26. Source: mlrit.ac.in/admissions/.",
+          },
+          {
+            id: "admissions-scholarships",
+            slug: "admissions/scholarships",
+            eyebrow: "Admissions",
+            title: "Scholarships",
+            italic: "and aid.",
+            dek: "State, central and institute-level scholarships available to MLRIT students.",
+          },
+          {
+            id: "campus-hostels",
+            slug: "campus/hostels",
+            eyebrow: "Campus · Life",
+            title: "Hostels",
+            italic: "on campus.",
+            dek: "Home away from home — purpose-built residential blocks for boys and girls, steps from the academic campus, for 1,650+ students.",
+          },
+          {
+            id: "campus-sports",
+            slug: "campus/sports",
+            eyebrow: "Campus · Life",
+            title: "Sports",
+            italic: "at MLRIT.",
+            dek: "World-class indoor and outdoor sports infrastructure, resident coaching staff, and a legacy of champions — cricket, volleyball, football, basketball, badminton and table tennis.",
+          },
+          {
+            id: "campus-cafeteria",
+            slug: "campus/cafeteria",
+            eyebrow: "Campus · Life",
+            title: "Cafeteria",
+            italic: "& food.",
+            dek: "Multiple food courts and a central cafeteria — affordable, hygienic, and open all day.",
+          },
+          {
+            id: "campus-transport",
+            slug: "campus/transport",
+            eyebrow: "Campus · Life",
+            title: "Transport",
+            italic: "services.",
+            dek: "Institute-operated buses across 40+ routes covering Hyderabad — punctual, safe, GPS-tracked.",
+          },
+          {
+            id: "campus-clubs",
+            slug: "campus/clubs",
+            eyebrow: "Campus · Life",
+            title: "Clubs and",
+            italic: "societies.",
+            dek: "From robotics and coding to dance, drama and debate — student-led clubs that build community.",
+          },
+          {
+            id: "student-life-facilities",
+            slug: "student-life/facilities",
+            eyebrow: "Campus · Life",
+            title: "Facilities &",
+            italic: "Amenities",
+            dek: "A campus built for the complete student — 26,000 sq ft indoor stadium, dual hostels, a central cafeteria, 27 bus routes, and over 30 active student clubs.",
+          },
+        ],
+      },
+    ],
+  },
+
   // Footer — shown on every page, so it lives under its own `site` slug rather
   // than `home`. The Useful Links accordion is deliberately not here: it is a
   // nested structure a flat list cannot express, and it changes rarely.
