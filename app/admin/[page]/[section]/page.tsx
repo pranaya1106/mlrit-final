@@ -124,6 +124,7 @@ export default async function SectionAdminPage({
       initialContent={initialContent}
       initialVersion={row?.version ?? 1}
       previewPath={config.previewPath ?? '/'}
+      liveDraft={config.liveDraft ?? false}
     />
   );
 }

@@ -8,6 +8,7 @@
 export const CONTENT_SECTIONS = {
   'home/hero': {
     label: 'Homepage — Hero',
+    liveDraft: true,
     fields: [
       { name: 'headlineLead', label: 'Headline lead', defaultValue: "Engineering" },
       { name: 'headlineAccent', label: 'Headline accent', defaultValue: "the Future." },
@@ -22,6 +23,7 @@ export const CONTENT_SECTIONS = {
   // an empty repeater leaves that array in charge.
   'home/stats': {
     label: 'Homepage — Stat counters',
+    liveDraft: true,
     fields: [
       {
         name: 'stats',
@@ -73,6 +75,7 @@ export const CONTENT_SECTIONS = {
   },
   'home/achievements': {
     label: 'Homepage — Accreditations',
+    liveDraft: true,
     fields: [
       { name: 'headlineLead', label: 'Headline lead', defaultValue: "Accreditations" },
       { name: 'headlineAccent', label: 'Headline accent', defaultValue: "and Approvals." },
@@ -135,6 +138,7 @@ export const CONTENT_SECTIONS = {
   },
   'home/programs': {
     label: 'Homepage — Programmes',
+    liveDraft: true,
     fields: [
       { name: 'headlineLead', label: 'Headline lead', defaultValue: "Find the programme" },
       { name: 'headlineAccent', label: 'Headline accent', defaultValue: "built for you." },
@@ -293,6 +297,7 @@ export const CONTENT_SECTIONS = {
   },
   'home/why-mlrit': {
     label: 'Homepage — Why MLRIT',
+    liveDraft: true,
     fields: [
       { name: 'headlineLead', label: 'Headline line 1', defaultValue: "Industry." },
       { name: 'headlineAccent', label: 'Headline line 2 (gradient)', defaultValue: "Integrated." },
@@ -310,6 +315,7 @@ export const CONTENT_SECTIONS = {
 
   'home/success-stories': {
     label: 'Homepage — Success stories',
+    liveDraft: true,
     fields: [
       { name: 'eyebrow', label: 'Eyebrow', defaultValue: "Wall of Achievements" },
       { name: 'headingLead', label: 'Heading line 1', defaultValue: "Building Real Careers," },
@@ -353,6 +359,7 @@ export const CONTENT_SECTIONS = {
 
   'home/testimonials': {
     label: 'Homepage \u2014 Alumni voices',
+    liveDraft: true,
     fields: [
       { name: 'eyebrow', label: 'Eyebrow', defaultValue: "Alumni Voices" },
       { name: 'headingLead', label: 'Heading lead', defaultValue: "What Our" },
@@ -401,6 +408,7 @@ export const CONTENT_SECTIONS = {
 
   'home/events': {
     label: 'Homepage \u2014 Events',
+    liveDraft: true,
     fields: [
       {
         name: 'slides',
@@ -478,6 +486,7 @@ export const CONTENT_SECTIONS = {
   // numbers, different component, edited independently.
   'home/placements': {
     label: 'Homepage — Placement counters',
+    liveDraft: true,
     fields: [
       // The headline figure above the grid — it counts up, so it is a number
       // with its unit beside it rather than one preformatted string.
@@ -726,6 +735,7 @@ export const CONTENT_SECTIONS = {
   // edited.
   'placements/recruiters': {
     label: 'Placements — Recruiter logos',
+    liveDraft: true,
     previewPath: '/placements/recruiters',
     fields: [
       {
@@ -1950,6 +1960,16 @@ export type SectionConfig = {
    * contain what is being edited.
    */
   previewPath?: string;
+  /**
+   * Whether the preview updates as you type.
+   *
+   * True only where the rendering component subscribes to the draft store via
+   * useMergedSection — the homepage sections and the recruiter marquee. Pages
+   * wired later are Server Components that read the database at render, so
+   * their preview can only refresh after a save. The badge says which, rather
+   * than claiming live editing everywhere and looking broken.
+   */
+  liveDraft?: boolean;
 };
 
 export function getSectionConfig(

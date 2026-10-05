@@ -105,9 +105,17 @@ export async function PUT(
       admin.email
     );
 
-    // Drop the cached homepage render so the edit is live on the next visit
-    // instead of waiting out the ISR window in app/page.tsx.
+    // Drop the cached render for the page this section is on, not just the
+    // homepage. Every section used to revalidate '/', so editing an IQAC or
+    // placements section left that page serving its old ISR copy for up to a
+    // minute and the save looked like it had done nothing.
+    //
+    // '/' is still revalidated unconditionally: the footer and page headers
+    // render on every page, and the homepage is the one page they are certain
+    // to be visible on.
+    const previewPath = getSectionConfig(params.page, params.section)?.previewPath;
     revalidatePath('/');
+    if (previewPath && previewPath !== '/') revalidatePath(previewPath);
 
     return NextResponse.json(saved);
   } catch (error) {

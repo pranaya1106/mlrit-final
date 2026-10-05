@@ -48,6 +48,7 @@ export default function ContentEditor({
   initialContent,
   initialVersion,
   previewPath = '/',
+  liveDraft = false,
 }: {
   page: string;
   section: string;
@@ -57,6 +58,8 @@ export default function ContentEditor({
   initialVersion: number;
   /** Page the preview loads. Defaults to the homepage for global sections. */
   previewPath?: string;
+  /** Whether the preview re-renders as you type, or only after a save. */
+  liveDraft?: boolean;
 }) {
   const router = useRouter();
   const [values, setValues] = useState(initialContent);
@@ -71,6 +74,7 @@ export default function ContentEditor({
   const [groupFilter, setGroupFilter] = useState<Record<string, string>>({});
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const previewSrc = `${previewPath}${previewPath.includes('?') ? '&' : '?'}${PREVIEW_PARAM}=1`;
   // Read inside callbacks without making them depend on every keystroke.
   const valuesRef = useRef(values);
   valuesRef.current = values;
@@ -400,6 +404,17 @@ export default function ContentEditor({
       // as a stale write.
       setVersion(data.version);
       setStatus({ kind: 'saved' });
+
+      // Reload the preview. Homepage sections re-render from the draft as you
+      // type, but the pages wired since are Server Components: they read the
+      // database at render and never see a postMessage, so the only way they
+      // reflect an edit is to fetch again. The route has just revalidated this
+      // path, so the reload gets the new content rather than the ISR copy.
+      if (iframeRef.current) {
+        // Reassigning src rather than calling reload(): same-origin reload()
+        // works, but this also survives the iframe having been navigated.
+        iframeRef.current.src = previewSrc;
+      }
     } catch {
       setStatus({ kind: 'error', message: 'Network error. Changes were not saved.' });
     }
@@ -997,7 +1012,7 @@ export default function ContentEditor({
       <div className="relative flex-1 border-l border-neutral-800 bg-neutral-900">
         <div className="pointer-events-none absolute left-4 right-4 top-3 z-10 flex items-center justify-between gap-3">
           <span className="rounded bg-ink/80 px-2 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-subtle">
-            Live preview · unsaved
+            {liveDraft ? 'Live preview · unsaved' : 'Preview · updates on save'}
           </span>
           <button
             type="button"
@@ -1011,7 +1026,7 @@ export default function ContentEditor({
             page inside scrolls exactly like an ordinary tab. */}
         <iframe
           ref={iframeRef}
-          src={`${previewPath}${previewPath.includes('?') ? '&' : '?'}${PREVIEW_PARAM}=1`}
+          src={previewSrc}
           title="Live preview"
           className="h-full w-full border-0"
         />
