@@ -28,6 +28,7 @@ export const CLUB_THEMES: ClubTheme[] = [
   {
     slug:       'came',
     name:       'CAME',
+    logo:       '/images/clubs/came-logo.png',
     initials:   'CAME',
     primary:    '#F5760A',
     background: '#0a0705',
