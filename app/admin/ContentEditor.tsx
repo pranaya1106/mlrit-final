@@ -66,6 +66,9 @@ export default function ContentEditor({
   // at once and each finishes independently.
   const [uploading, setUploading] = useState<string[]>([]);
   const [fullScreen, setFullScreen] = useState(false);
+  // Which group each grouped repeater is filtered to, keyed by field name.
+  // '' means show everything.
+  const [groupFilter, setGroupFilter] = useState<Record<string, string>>({});
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
   // Read inside callbacks without making them depend on every keystroke.
@@ -508,8 +511,49 @@ export default function ContentEditor({
                         </p>
                       )}
 
+                    {/* Year-style filter. A sixty-row list is quicker to edit
+                        one group at a time, and the chips double as a count. */}
+                    {field.groupByColumn &&
+                      (() => {
+                        const col = field.groupByColumn;
+                        const rows = asRepeaterItems(values[name]);
+                        const groups = [...new Set(rows.map((r) => String(r[col] ?? '')))].filter(
+                          Boolean
+                        );
+                        if (groups.length < 2) return null;
+                        const active = groupFilter[name] ?? '';
+
+                        return (
+                          <div className="mb-3 flex flex-wrap gap-1.5">
+                            {['', ...groups].map((g) => (
+                              <button
+                                key={g || 'all'}
+                                type="button"
+                                onClick={() => setGroupFilter((c) => ({ ...c, [name]: g }))}
+                                className={`rounded-full border px-2.5 py-1 font-mono text-[0.68rem] uppercase tracking-wider transition-colors ${
+                                  active === g
+                                    ? 'border-primary bg-primary/10 text-primary'
+                                    : 'border-border text-muted hover:border-primary hover:text-primary'
+                                }`}
+                              >
+                                {g || 'All'}{' '}
+                                <span className="opacity-60">
+                                  {g ? rows.filter((r) => String(r[col] ?? '') === g).length : rows.length}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        );
+                      })()}
+
                     <ul className="space-y-3">
-                      {asRepeaterItems(values[name]).map((item, index, all) => {
+                      {asRepeaterItems(values[name])
+                        .filter((item) => {
+                          const col = field.groupByColumn;
+                          const active = col ? (groupFilter[name] ?? '') : '';
+                          return !active || String(item[col!] ?? '') === active;
+                        })
+                        .map((item, index, all) => {
                         // A heading whenever the grouping column changes, so a
                         // sixty-row list reads as six tables rather than one.
                         const group = field.groupByColumn
@@ -569,7 +613,15 @@ export default function ContentEditor({
                           </div>
 
                           <div className="flex shrink-0 flex-col items-end justify-between">
-                            <div className="flex gap-1">
+                            {/* Hidden while filtered: the arrows swap with the
+                                neighbour in the stored list, which may not be
+                                on screen, so the row would appear to jump
+                                nowhere. Clear the filter to reorder. */}
+                            <div
+                              className={`flex gap-1 ${
+                                field.groupByColumn && (groupFilter[name] ?? '') ? 'invisible' : ''
+                              }`}
+                            >
                               <button
                                 type="button"
                                 aria-label="Move up"
