@@ -3,7 +3,6 @@ import type { Field } from 'payload';
 import {
   fieldType,
   galleryAccept,
-  galleryItemFields,
   isMediaColumn,
   repeaterItemFields,
   type FieldConfig,
@@ -110,6 +109,17 @@ export function toPayloadField(field: FieldConfig): Field {
 
     case 'gallery': {
       const accept = galleryAccept(field);
+      // A gallery's itemFields comes in two forms. Most name metadata from the
+      // fixed GalleryItemField set; four (success-stories cards, testimonials
+      // people, events slides, footer logos) instead declare columns inline the
+      // way a repeater does. Handling only the first form silently produced an
+      // array of bare images, and the migration's round-trip check caught it:
+      // every season/name/detail on the success stories was being dropped.
+      const columns = (field.itemFields ?? []).map((column) =>
+        typeof column === 'string'
+          ? GALLERY_ITEM_FIELD[column]
+          : repeaterColumn(column as RepeaterItemField)
+      );
       return {
         ...common,
         type: 'array',
@@ -117,7 +127,7 @@ export function toPayloadField(field: FieldConfig): Field {
         defaultValue: defaultRows(field),
         fields: [
           mediaField('key', accept === 'video' ? 'Video' : 'Image', accept),
-          ...galleryItemFields(field).map((name) => GALLERY_ITEM_FIELD[name]),
+          ...columns,
           ITEM_ID,
         ],
       };

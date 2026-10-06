@@ -36,6 +36,13 @@ export default buildConfig({
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URI || '' },
+    // No dev-time schema push. Left on, `next dev` silently syncs the schema
+    // and writes a `dev` row into payload_migrations, after which
+    // `payload migrate` refuses to run without a "data loss will occur" prompt
+    // because it can no longer tell what is already applied. Migrations are the
+    // only way the schema changes here, which is also what the eventual move to
+    // RDS needs.
+    push: false,
     // Payload's tables live beside the existing public.content_blocks rather
     // than in it. Keeping them in their own schema means the migration can be
     // re-run and the old CMS rolled back to without either side colliding.

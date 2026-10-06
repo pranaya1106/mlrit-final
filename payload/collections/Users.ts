@@ -18,6 +18,23 @@ export const Users: CollectionConfig = {
   slug: 'users',
   auth: true,
   admin: { useAsTitle: 'email', group: 'Administration' },
+  hooks: {
+    beforeChange: [
+      async ({ data, operation, req }) => {
+        if (operation !== 'create') return data;
+        // The first account must be an owner. `role` defaults to editor and
+        // only an owner may change it, so a first user created as an editor
+        // would leave nobody able to promote anyone — the CMS locked out of
+        // itself. Payload's create-first-user screen runs before any owner
+        // exists, which is exactly when that happens.
+        const { totalDocs } = await req.payload.count({
+          collection: 'users',
+          overrideAccess: true,
+        });
+        return totalDocs === 0 ? { ...data, role: 'owner' } : data;
+      },
+    ],
+  },
   access: {
     // Anyone signed in can read the user list (the admin UI needs it), but only
     // an owner may create, change or delete accounts — an editor must not be

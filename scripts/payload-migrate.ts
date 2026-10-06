@@ -68,12 +68,40 @@ function expectedContent(block: Block): Record<string, unknown> {
   return expected;
 }
 
+/**
+ * Key-order-independent, and scalar-type-independent.
+ *
+ * A repeater column declared `number` stores "37" in content_blocks and comes
+ * back from Postgres as 37. That is a type normalisation, not a loss — every
+ * consumer already reads these through asNumber(), which the RepeaterItem docs
+ * call out explicitly ("consumers coerce rather than trust"). Comparing the
+ * rendered form keeps the check honest about content while ignoring it.
+ */
 const stable = (value: unknown): string =>
-  JSON.stringify(value, (_k, v) =>
-    v && typeof v === 'object' && !Array.isArray(v)
-      ? Object.fromEntries(Object.entries(v as object).sort(([a], [b]) => a.localeCompare(b)))
-      : v
-  );
+  JSON.stringify(value, (_k, v) => {
+    if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      return Object.fromEntries(Object.entries(v as object).sort(([a], [b]) => a.localeCompare(b)));
+    }
+    return v;
+  });
+
+/**
+ * `actual` reduced to the keys the source row actually carried.
+ *
+ * Payload returns a global's defaultValue for any field the stored blob never
+ * had — the same text the component already renders as its fallback, so the
+ * page is unchanged — but comparing against it would report every unsaved
+ * field as a mismatch. Those are counted and reported separately instead.
+ */
+const addedByDefault = (actual: Record<string, unknown>, expected: Record<string, unknown>) =>
+  Object.keys(actual).filter((key) => !(key in expected));
+
+const restrict = (
+  actual: Record<string, unknown>,
+  expected: Record<string, unknown>
+): Record<string, unknown> =>
+  Object.fromEntries(Object.entries(actual).filter(([key]) => key in expected));
 
 async function main() {
   const payload = await getPayload({ config });
@@ -94,7 +122,9 @@ async function main() {
       continue;
     }
 
-    const slug = toGlobalSlug(key);
+    // payload-types.ts narrows slug to the union of known globals; this one is
+    // computed from CONTENT_SECTIONS, which is the same set by construction.
+    const slug = toGlobalSlug(key) as Parameters<typeof payload.findGlobal>[0]['slug'];
     const { data, dropped } = toPayloadData(block.page_slug, block.section_key, block.content);
 
     if (!verifyOnly) {
@@ -105,20 +135,34 @@ async function main() {
       slug,
       depth: 0,
       overrideAccess: true,
-    })) as Record<string, unknown>;
+    })) as unknown as Record<string, unknown>;
 
     const actual = toContent(block.page_slug, block.section_key, readback);
     const expected = expectedContent(block);
-    const match = stable(actual) === stable(expected);
+    const added = addedByDefault(actual, expected);
+    const match = stable(restrict(actual, expected)) === stable(expected);
 
     if (!match) failures.push(key);
 
-    const note = dropped.length ? `  (dropped unknown field(s): ${dropped.join(', ')})` : '';
-    console.log(`${match ? 'ok  ' : 'FAIL'}  ${key}  v${block.version}${note}`);
+    const notes = [
+      dropped.length ? `dropped unknown field(s): ${dropped.join(', ')}` : '',
+      added.length ? `defaults filled in: ${added.join(', ')}` : '',
+    ].filter(Boolean);
+    console.log(
+      `${match ? 'ok  ' : 'FAIL'}  ${key}  v${block.version}` +
+        (notes.length ? `  (${notes.join('; ')})` : '')
+    );
 
     if (!match) {
-      console.log(`      expected: ${stable(expected)}`);
-      console.log(`      actual:   ${stable(actual)}`);
+      for (const field of Object.keys(expected)) {
+        const a = stable(restrict(actual, expected)[field]);
+        const e = stable(expected[field]);
+        if (a !== e) {
+          console.log(`      field "${field}" differs`);
+          console.log(`        expected: ${e.slice(0, 300)}`);
+          console.log(`        actual:   ${a.slice(0, 300)}`);
+        }
+      }
     }
   }
 
@@ -134,10 +178,13 @@ async function main() {
 
   if (failures.length) {
     console.error(`\n${failures.length} section(s) did not round trip: ${failures.join(', ')}`);
-    process.exit(1);
+    // Not process.exit(): stdout to a pipe is asynchronous, and exiting here
+    // discards everything still buffered — which is the whole report.
+    process.exitCode = 1;
   }
-
-  process.exit(0);
 }
 
-void main();
+// Top-level await, not `void main()`: Payload's runner does not wait on a
+// floating promise, so the process exited before the first row was read — exit
+// 0 with no output at all.
+await main();
