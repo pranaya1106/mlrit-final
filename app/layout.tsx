@@ -1,30 +1,7 @@
 import type { Metadata } from 'next';
-import { Manrope, Playfair_Display, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import SiteChrome from '@/components/SiteChrome';
 import type { FooterContent } from '@/components/Footer';
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800'],
-  variable: '--font-manrope',
-  display: 'swap',
-});
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
-  variable: '--font-playfair',
-  display: 'swap',
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-mono',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'MLRIT — Marri Laxman Reddy Institute of Technology',
@@ -67,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const footer = await getFooterContent();
 
   return (
-    <html lang="en" className={`${manrope.variable} ${playfair.variable} ${jetbrains.variable}`}>
+    <html lang="en">
       <body className="bg-paper text-foreground font-sans antialiased">
         <SiteChrome footer={footer}>{children}</SiteChrome>
       </body>

@@ -2,21 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ────────────────────────────────────────────────────────────────
-   Font-variable hard fallbacks.
-   next/font injects --font-manrope / --font-playfair / --font-mono
-   via hashed class names on <html>. If a stale cache ever breaks
-   that injection, these rules ensure the correct web-safe fallbacks
-   are used instead of the browser default (Times New Roman).
-   ──────────────────────────────────────────────────────────────── */
-body, .font-sans {
-  font-family: var(--font-manrope, 'Manrope', ui-sans-serif, system-ui, sans-serif);
-}
-.font-display, h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-playfair, 'Playfair Display', Georgia, 'Times New Roman', serif);
-}
-.font-mono, code, pre, kbd {
-  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', ui-monospace, monospace);
+/* Self-hosted fonts — no next/font/google, no network dependency */
+@import url('/fonts/fonts.css');
+
+/* Font CSS variables — defined here so all var(--font-*) references resolve
+   regardless of next/font cache state. Points to the self-hosted font names. */
+:root {
+  --font-manrope:  'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* ────────────────────────────────────────────────────────────────
