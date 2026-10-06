@@ -783,6 +783,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/aqar': {
     label: 'IQAC — AQAR reports',
+    liveDraft: true,
     previewPath: '/iqac/aqar',
     fields: [
       { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
