@@ -20,7 +20,10 @@ const SKIP_ATTR =
   /^(className|style|href|src|id|key|alt|aria-hidden|aria-label|type|rel|target|width|height|viewBox|fill|stroke|d|preserveAspectRatio|download|variant|tone|preset|delay|active|name|property|content)$/;
 // PageHeader's copy is editable through site/page-headers, keyed by route, so
 // the literals at the call site are fallbacks rather than unwired content.
-const PAGE_HEADER_ATTR = /^(eyebrow|title|italic|dek)$/;
+// `k` and `sectionKey` on <Copy>/<SectionContent> are field identifiers, not
+// copy — flagging them reported a page as unwired precisely because it had
+// been wired.
+const PAGE_HEADER_ATTR = /^(eyebrow|title|italic|dek|k|sectionKey)$/;
 // Not prose: css values, paths, single tokens, numbers, entities.
 const NOISE = /^(\s*|[\d\s.,%+–—-]*|#[0-9a-f]{3,8}|\/[^\s]*|https?:\/\/\S+|[a-z-]+|[A-Z_]+|&[a-z]+;)$/;
 
