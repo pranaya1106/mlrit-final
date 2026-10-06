@@ -1,7 +1,8 @@
 import { asText } from '@/lib/content/sections';
 
-/** Bundled prospectus, used until one is uploaded. */
-export const DEFAULT_BROCHURE = '/admissions/mlrit-brochure.pdf';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents-shared';
+
+export { DEFAULT_BROCHURE };
 
 /**
  * The brochure URL, resolved once on the server.

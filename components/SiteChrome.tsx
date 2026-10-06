@@ -6,7 +6,7 @@ import Chatbot from '@/components/Chatbot';
 import Footer, { type FooterContent } from '@/components/Footer';
 import { PageHeaderProvider, type HeaderOverride } from '@/lib/content/page-headers';
 import { BrochureProvider } from '@/lib/content/documents-client';
-import { DEFAULT_BROCHURE } from '@/lib/content/documents';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents-shared';
 import Header from '@/components/Header';
 import SideButtons from '@/components/SideButtons';
 import SmoothScroll from '@/components/SmoothScroll';

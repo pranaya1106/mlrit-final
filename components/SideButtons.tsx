@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { DEFAULT_BROCHURE } from '@/lib/content/documents';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents-shared';
 import Link from 'next/link';
 
 /* ── Sub-popup for Syllabus & PYQs ─────────────────────────────── */

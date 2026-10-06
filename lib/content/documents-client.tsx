@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from 'react';
 
-import { DEFAULT_BROCHURE } from '@/lib/content/documents';
+import { DEFAULT_BROCHURE } from '@/lib/content/documents-shared';
 
 /**
  * Site-wide document links, for client components that cannot fetch.
