@@ -8,7 +8,8 @@ const CACHE_CONTROL = 'public, max-age=31536000, immutable';
  * Serving through our own origin keeps asset URLs stable if the storage
  * provider ever changes, and lets us set our own cache headers.
  */
-export async function GET(_request: Request, { params }: { params: { path: string[] } }) {
+export async function GET(_request: Request, props: { params: Promise<{ path: string[] }> }) {
+  const params = await props.params;
   const segments = params.path ?? [];
 
   // The key is interpolated into an upstream URL, so reject anything that could

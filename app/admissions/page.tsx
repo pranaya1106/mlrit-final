@@ -125,7 +125,7 @@ function ValuesMarquee({ gradientText }: { gradientText: React.CSSProperties }) 
     };
   }, []);
 
-  const renderRow = (items: typeof ROW1, ref: React.RefObject<HTMLDivElement>) => (
+  const renderRow = (items: typeof ROW1, ref: React.RefObject<HTMLDivElement | null>) => (
     <div className="relative overflow-hidden mb-5">
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-40 z-10"
         style={{ background: 'linear-gradient(to right, white 0%, transparent 100%)' }} />

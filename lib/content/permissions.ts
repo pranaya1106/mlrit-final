@@ -36,7 +36,7 @@ async function getSessionUser(): Promise<{ id: string; email: string } | null> {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return null;
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerClient(url, key, {
     cookies: {
       getAll() {

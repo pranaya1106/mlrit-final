@@ -8,11 +8,12 @@ export function generateStaticParams() {
   return getAllFacultySlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const f = getFacultyBySlug(params.slug);
   if (!f) return { title: 'Faculty — MLRIT' };
   return {
@@ -78,11 +79,12 @@ function TagList({ items }: { items: string[] }) {
   );
 }
 
-export default function FacultyProfilePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function FacultyProfilePage(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
   const f = getFacultyBySlug(params.slug);
   if (!f) notFound();
 

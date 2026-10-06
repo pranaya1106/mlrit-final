@@ -116,7 +116,7 @@ const isPreviewWindow = (): boolean => {
 };
 
 export function PreviewProvider({ children }: { children: React.ReactNode }) {
-  const storeRef = useRef<OverrideStore>();
+  const storeRef = useRef<OverrideStore>(undefined);
   if (!storeRef.current) storeRef.current = createOverrideStore();
   const store = storeRef.current;
 
@@ -268,5 +268,8 @@ export function useMergedSection<T extends Record<string, unknown>>(
   props: T
 ): T {
   const override = usePreviewOverride(sectionKey);
-  return useMemo(() => ({ ...props, ...(override ?? {}) }) as T, [props, override]);
+  return useMemo(() => (({
+    ...props,
+    ...(override ?? {})
+  }) as T), [props, override]);
 }

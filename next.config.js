@@ -22,6 +22,9 @@ const CONNECT_SRC_EXTRA = Array.from(
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // A stray package-lock.json in the user's home directory makes Next pick the
+  // wrong workspace root for output file tracing. Pin it to this project.
+  outputFileTracingRoot: __dirname,
   // Pre-existing TS error in CIEClubPage (ref type mismatch) — does not affect runtime.
   // Tracked separately; enabling ignoreBuildErrors restores the build to its prior state.
   typescript: { ignoreBuildErrors: true },

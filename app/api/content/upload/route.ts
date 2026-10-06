@@ -25,7 +25,7 @@ async function hasValidSession(): Promise<boolean> {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return false;
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   const supabase = createServerClient(url, key, {
     cookies: {

@@ -397,7 +397,7 @@ export default function SearchOverlay({
   // near-misses. Results from this are MERGED with literal matches (not used
   // only when literal matching finds nothing), so the full relevant set is
   // always gathered — ranking then decides order, never which ones to drop.
-  const fuse = useRef<Fuse<SearchItem>>();
+  const fuse = useRef<Fuse<SearchItem>>(undefined);
   useEffect(() => {
     fuse.current = new Fuse(searchIndex.current, {
       keys: [

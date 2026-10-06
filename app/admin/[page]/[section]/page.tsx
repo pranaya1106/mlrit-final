@@ -23,11 +23,12 @@ export const fetchCache = 'force-no-store';
 
 const asString = (value: unknown): string => (typeof value === 'string' ? value : '');
 
-export default async function SectionAdminPage({
-  params,
-}: {
-  params: { page: string; section: string };
-}) {
+export default async function SectionAdminPage(
+  props: {
+    params: Promise<{ page: string; section: string }>;
+  }
+) {
+  const params = await props.params;
   const config = getSectionConfig(params.page, params.section);
 
   // Presentation only — the write route enforces this independently. Someone

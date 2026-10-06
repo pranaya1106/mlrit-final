@@ -27,11 +27,13 @@ export function generateStaticParams() {
   return params;
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<Params> }): Promise<Metadata> {
+  const params = await props.params;
   return { title: `${params.program.toUpperCase()} · ${params.regulation.toUpperCase()} · ${params.year} ${params.sem} — Syllabus` };
 }
 
-export default function SyllabusPage({ params }: { params: Params }) {
+export default async function SyllabusPage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const semNum = parseInt(params.sem.replace('sem', ''), 10);
   const courses = getSyllabusCourses(params.program, params.regulation, semNum);
 

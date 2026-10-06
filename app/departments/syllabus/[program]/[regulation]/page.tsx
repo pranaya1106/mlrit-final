@@ -19,13 +19,15 @@ export function generateStaticParams() {
   return params;
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<Params> }): Promise<Metadata> {
+  const params = await props.params;
   return {
     title: `${params.program.toUpperCase()} · ${params.regulation.toUpperCase()} Syllabus — MLRIT`,
   };
 }
 
-export default function SyllabusPage({ params }: { params: Params }) {
+export default async function SyllabusPage(props: { params: Promise<Params> }) {
+  const params = await props.params;
   const semesters = Array.from({ length: 8 }, (_, i) => {
     const semNum = i + 1;
     return { semNum, courses: getSyllabusCourses(params.program, params.regulation, semNum) };

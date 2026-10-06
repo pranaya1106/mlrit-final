@@ -25,8 +25,9 @@ const requiredFieldsFor = (page: string, section: string): readonly string[] =>
 
 export async function PUT(
   request: Request,
-  { params }: { params: { page: string; section: string } }
+  props: { params: Promise<{ page: string; section: string }> }
 ) {
+  const params = await props.params;
   const admin = await getAdminUser();
   if (!admin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

@@ -27,7 +27,7 @@ export default function ApexHowItWorks({
   sectionRef?: React.RefObject<HTMLElement | null>;
 }) {
   const internalRef = useRef<HTMLElement>(null);
-  const sectionRef  = (externalRef ?? internalRef) as React.RefObject<HTMLElement>;
+  const sectionRef  = (externalRef ?? internalRef) as React.RefObject<HTMLElement | null>;
   const reduced     = !!useReducedMotion();
 
   const [activeFloat, setActiveFloat] = useState(0);

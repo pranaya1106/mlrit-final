@@ -8,13 +8,15 @@ export function generateStaticParams() {
   return Object.keys(RESEARCH_PAGES).map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const p = RESEARCH_PAGES[params.slug];
   if (!p) return { title: 'Research — MLRIT' };
   return { title: `${p.title}${p.italic ? ' ' + p.italic : ''} — MLRIT Research` };
 }
 
-export default function ResearchSubPage({ params }: { params: { slug: string } }) {
+export default async function ResearchSubPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const data = RESEARCH_PAGES[params.slug];
   if (!data) notFound();
   return (
