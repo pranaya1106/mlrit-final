@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Copy, SectionContent } from '@/lib/content/live';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
 import { getSection } from '@/lib/content/client';
@@ -99,7 +100,7 @@ export default async function ObjectivesPage() {
   const QUALITY_POLICY_COMMITMENTS = saved_commitments.length > 0 ? saved_commitments.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_QUALITY_POLICY_COMMITMENTS;
 
   return (
-    <>
+    <SectionContent sectionKey="iqac/objectives" content={c}>
       <PageHeader
         eyebrow="IQAC"
         title="Objectives"
@@ -119,8 +120,8 @@ export default async function ObjectivesPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="goals">
-            <H2 italic="">{copy('strategicGoalsOfIqac', 'Strategic Goals of IQAC')}</H2>
-            <Lede>{copy('drivingExcellenceThroughContinuous', 'Driving Excellence through Continuous Quality Enhancement — by integrating quality benchmarks into all institutional processes, IQAC ensures that every academic and administrative activity contributes to sustainable growth, stakeholder satisfaction, and national and international recognition.')}</Lede>
+            <H2 italic=""><Copy k="strategicGoalsOfIqac">{'Strategic Goals of IQAC'}</Copy></H2>
+            <Lede><Copy k="drivingExcellenceThroughContinuous">{'Driving Excellence through Continuous Quality Enhancement — by integrating quality benchmarks into all institutional processes, IQAC ensures that every academic and administrative activity contributes to sustainable growth, stakeholder satisfaction, and national and international recognition.'}</Copy></Lede>
             <Stagger className="mt-5 md:mt-8 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.07}>
               {OBJECTIVES.map((o) => (
                 <StaggerItem key={o.n}>
@@ -135,18 +136,18 @@ export default async function ObjectivesPage() {
           </Section>
 
           <Section id="quality-policy">
-            <H2 italic="">{copy('qualityPolicy', 'Quality Policy')}</H2>
+            <H2 italic=""><Copy k="qualityPolicy">{'Quality Policy'}</Copy></H2>
             <Reveal preset="right">
-              <p className="mt-4 text-foreground leading-relaxed text-[1.05rem] font-semibold">{copy('committedToAcademicExcellence', 'Committed to Academic Excellence and Continuous Improvement')}</p>
+              <p className="mt-4 text-foreground leading-relaxed text-[1.05rem] font-semibold"><Copy k="committedToAcademicExcellence">{'Committed to Academic Excellence and Continuous Improvement'}</Copy></p>
               <p className="mt-3 text-muted leading-relaxed text-[1rem]">
                 MLR Institute of Technology (Autonomous) is committed to providing quality technical education by fostering an environment of academic excellence, innovation, research, ethical values, inclusiveness, and continuous improvement. The Internal Quality Assurance Cell (IQAC) serves as the institutional catalyst in implementing and sustaining quality assurance systems that align with national standards and global best practices.
               </p>
-              <p className="mt-3 text-muted leading-relaxed text-[1rem]">{copy('theInstituteStrivesTo', 'The Institute strives to continuously enhance academic and administrative processes by adopting transparent governance, learner-centric education, industry engagement, digital transformation, and evidence-based decision-making to produce competent professionals and responsible citizens.')}</p>
+              <p className="mt-3 text-muted leading-relaxed text-[1rem]"><Copy k="theInstituteStrivesTo">{'The Institute strives to continuously enhance academic and administrative processes by adopting transparent governance, learner-centric education, industry engagement, digital transformation, and evidence-based decision-making to produce competent professionals and responsible citizens.'}</Copy></p>
             </Reveal>
 
             <Reveal preset="up" delay={0.1}>
               <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white p-4 md:p-7">
-                <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-5">{copy('qualityPolicyStatementThe', 'Quality Policy Statement — The Institution is committed to:')}</div>
+                <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-5"><Copy k="qualityPolicyStatementThe">{'Quality Policy Statement — The Institution is committed to:'}</Copy></div>
                 <ol className="space-y-3">
                   {QUALITY_POLICY_COMMITMENTS.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
@@ -163,6 +164,6 @@ export default async function ObjectivesPage() {
 
         </div>
       </div>
-    </>
+    </SectionContent>
   );
 }

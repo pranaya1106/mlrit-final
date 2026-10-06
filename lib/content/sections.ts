@@ -856,6 +856,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/functions': {
     label: 'IQAC — Functions',
+    liveDraft: true,
     previewPath: '/iqac/functions',
     fields: [
       { name: 'theQualityAssuranceProcess', label: "The quality assurance process is participative…", multiline: true, defaultValue: "The quality assurance process is participative, involving all stakeholders, including management, faculty, students, alumni, employers, parents, and industry experts." },
@@ -914,6 +915,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/objectives': {
     label: 'IQAC — Objectives',
+    liveDraft: true,
     previewPath: '/iqac/objectives',
     fields: [
       { name: 'drivingExcellenceThroughContinuous', label: "Driving Excellence through Continuous Quality …", multiline: true, defaultValue: "Driving Excellence through Continuous Quality Enhancement — by integrating quality benchmarks into all institutional processes, IQAC ensures that every academic and administrative activity contributes to sustainable growth, stakeholder satisfaction, and national and international recognition." },
@@ -1102,6 +1104,7 @@ export const CONTENT_SECTIONS = {
 
   'iqac/reports': {
     label: "IQAC — Reports & documents",
+    liveDraft: true,
     previewPath: '/iqac/reports',
     fields: [
       { name: 'contentToBeUpdated', label: "Content to be updated.", defaultValue: "Content to be updated." },
@@ -1209,6 +1212,7 @@ export const CONTENT_SECTIONS = {
   // NBA accreditation table — the cycle and status move every few years.
   'iqac/nba': {
     label: 'IQAC — NBA accredited programmes',
+    liveDraft: true,
     previewPath: '/iqac/nba',
     fields: [
       { name: 'theFollowingBTech', label: "The following B.Tech programmes at MLRIT are c…", multiline: true, defaultValue: "The following B.Tech programmes at MLRIT are currently accredited by the National Board of Accreditation under the Tier-1 framework." },

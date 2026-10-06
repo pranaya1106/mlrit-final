@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Copy, SectionContent } from '@/lib/content/live';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
 import { getSection } from '@/lib/content/client';
@@ -65,7 +66,7 @@ export default async function FunctionsPage() {
   const PROCESS_FLOW_STEPS = saved_steps.length > 0 ? saved_steps.map((r) => ({ n: asText(r.n), label: asText(r.label) })) : FALLBACK_PROCESS_FLOW_STEPS;
 
   return (
-    <>
+    <SectionContent sectionKey="iqac/functions" content={c}>
       <PageHeader
         eyebrow="IQAC"
         title="Functions"
@@ -85,7 +86,7 @@ export default async function FunctionsPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="functions">
-            <H2 italic="">{copy('keyFunctions', 'Key Functions')}</H2>
+            <H2 italic=""><Copy k="keyFunctions">{'Key Functions'}</Copy></H2>
             <div className="mt-5 md:mt-8 flex flex-col gap-3">
               {FUNCTIONS.map((f, i) => (
                 <Reveal key={i} preset="right" delay={i * 0.04}>
@@ -101,15 +102,15 @@ export default async function FunctionsPage() {
           </Section>
 
           <Section id="process-flow">
-            <H2 italic="">{copy('iqacProcessFlow', 'IQAC Process Flow')}</H2>
+            <H2 italic=""><Copy k="iqacProcessFlow">{'IQAC Process Flow'}</Copy></H2>
             <Reveal preset="right">
-              <p className="mt-4 text-muted leading-relaxed text-[1rem]">{copy('theIqacFollowsThe', 'The IQAC follows the')}<strong className="text-foreground">Plan–Do–Check–Act (PDCA)</strong>{copy('methodologyAndAlignsInstitutional', 'methodology and aligns institutional quality initiatives with the requirements of NAAC, NBA, AICTE, UGC, JNTUH, NIRF, AISHE, and other statutory and regulatory bodies.')}</p>
-              <p className="mt-3 text-muted leading-relaxed text-[1rem]">{copy('theQualityAssuranceProcess', 'The quality assurance process is participative, involving all stakeholders, including management, faculty, students, alumni, employers, parents, and industry experts.')}</p>
+              <p className="mt-4 text-muted leading-relaxed text-[1rem]"><Copy k="theIqacFollowsThe">{'The IQAC follows the'}</Copy><strong className="text-foreground">Plan–Do–Check–Act (PDCA)</strong><Copy k="methodologyAndAlignsInstitutional">{'methodology and aligns institutional quality initiatives with the requirements of NAAC, NBA, AICTE, UGC, JNTUH, NIRF, AISHE, and other statutory and regulatory bodies.'}</Copy></p>
+              <p className="mt-3 text-muted leading-relaxed text-[1rem]"><Copy k="theQualityAssuranceProcess">{'The quality assurance process is participative, involving all stakeholders, including management, faculty, students, alumni, employers, parents, and industry experts.'}</Copy></p>
             </Reveal>
             <Reveal preset="up" delay={0.1}>
               <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white overflow-hidden">
                 <div className="px-4 md:px-6 py-3 md:py-4 bg-warm-light border-b border-border">
-                  <span className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">{copy('iqacQualityAssuranceProcess', 'IQAC Quality Assurance Process')}</span>
+                  <span className="font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted"><Copy k="iqacQualityAssuranceProcess">{'IQAC Quality Assurance Process'}</Copy></span>
                 </div>
                 <div className="p-4 md:p-6">
                   <ol className="relative border-l-2 border-secondary/30 space-y-0 ml-3">
@@ -143,6 +144,6 @@ export default async function FunctionsPage() {
 
         </div>
       </div>
-    </>
+    </SectionContent>
   );
 }
