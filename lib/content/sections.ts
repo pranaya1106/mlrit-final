@@ -1755,6 +1755,8 @@ export const CONTENT_SECTIONS = {
     label: 'Examinations — Certificates',
     previewPath: '/examinations/certificates',
     fields: [
+      { name: 'viewLabel', label: "View Form", defaultValue: "View Form" },
+      { name: 'downloadLabel', label: "Download Form", defaultValue: "Download Form" },
       { name: 'attachSupportingDocumentsAnd', label: ". Attach supporting documents and proof of fee…", defaultValue: ". Attach supporting documents and proof of fee payment where applicable." },
       { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
       { name: 'contactCoeOffice', label: "Contact COE Office →", defaultValue: "Contact COE Office →" },
@@ -1768,6 +1770,8 @@ export const CONTENT_SECTIONS = {
     label: 'Examinations — Circulars',
     previewPath: '/examinations/circulars',
     fields: [
+      { name: 'viewLabel', label: "View", defaultValue: "View" },
+      { name: 'downloadLabel', label: "Download", defaultValue: "Download" },
       { name: 'allDocumentsBelowAre', label: "All documents below are hosted locally. Use Vi…", multiline: true, defaultValue: "All documents below are hosted locally. Use View to open in-browser or Download to save a copy." },
       { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
       { name: 'contactUs', label: "Contact Us", defaultValue: "Contact Us" },
@@ -1780,6 +1784,8 @@ export const CONTENT_SECTIONS = {
     label: 'Examinations — Citizen charter',
     previewPath: '/examinations/citizen-charter',
     fields: [
+      { name: 'viewLabel', label: "View PDF", defaultValue: "View PDF" },
+      { name: 'downloadLabel', label: "Download PDF", defaultValue: "Download PDF" },
       { name: 'theCitizenCharterCommits', label: "The Citizen Charter commits the Controller of …", multiline: true, defaultValue: "The Citizen Charter commits the Controller of Examinations office to delivering services within defined timelines. It also outlines the grievance redressal procedure for unresolved complaints." },
       { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
       { name: 'contactCoeOffice', label: "Contact COE Office →", defaultValue: "Contact COE Office →" },
@@ -1794,6 +1800,8 @@ export const CONTENT_SECTIONS = {
     label: 'Examinations — Controller of Examinations',
     previewPath: '/examinations/coe',
     fields: [
+      { name: 'viewLabel', label: "View Profile", defaultValue: "View Profile" },
+      { name: 'downloadLabel', label: "Download Profile", defaultValue: "Download Profile" },
       { name: 'aUgcAutonomousInstitution', label: "A UGC-autonomous institution designing its own…", multiline: true, defaultValue: "A UGC-autonomous institution designing its own regulations, grading norms and academic policies — aligned with Outcome-Based Education and NEP 2020." },
       { name: 'theCoeOfficeEnsures', label: "The COE office ensures transparency, consisten…", multiline: true, defaultValue: "The COE office ensures transparency, consistency and integrity across all programmes — from timetable notification to final grade cards." },
       { name: 'examinationFramework', label: "examination framework.", defaultValue: "examination framework." },

@@ -106,7 +106,7 @@ export default async function CitizenCharterPage() {
             </h2>
             <p className="mt-4 text-muted text-[0.93rem] max-w-[660px] leading-relaxed">{copy('theCitizenCharterCommits', 'The Citizen Charter commits the Controller of Examinations office to delivering services within defined timelines. It also outlines the grievance redressal procedure for unresolved complaints.')}</p>
             <div className="mt-4 md:mt-6">
-              <DocActions href="/examinations/citizen-charter.pdf" viewLabel="View PDF" downloadLabel="Download PDF" />
+              <DocActions href="/examinations/citizen-charter.pdf" viewLabel={copy('viewLabel', 'View PDF')} downloadLabel={copy('downloadLabel', 'Download PDF')} />
             </div>
           </Reveal>
 

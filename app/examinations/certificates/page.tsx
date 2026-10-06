@@ -116,7 +116,7 @@ export default async function CertificatesPage() {
               A single application form covers all certificate types. Select the certificate(s) you need, complete the form and submit it to the COE office in person or by email.
             </p>
             <div className="mt-4 md:mt-6 flex flex-wrap items-center gap-3">
-              <DocActions href="/examinations/apply-for-certificates.pdf" viewLabel="View Form" downloadLabel="Download Form" />
+              <DocActions href="/examinations/apply-for-certificates.pdf" viewLabel={copy('viewLabel', 'View Form')} downloadLabel={copy('downloadLabel', 'Download Form')} />
               <a
                 href="/examinations/contact"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"

@@ -213,7 +213,7 @@ export default async function COEPage() {
 
           <Reveal preset="up" delay={0.2}>
             <div className="mt-6 md:mt-10 flex flex-wrap items-center gap-3">
-              <DocActions href="/examinations/coe-profile.pdf" viewLabel="View Profile" downloadLabel="Download Profile" />
+              <DocActions href="/examinations/coe-profile.pdf" viewLabel={copy('viewLabel', 'View Profile')} downloadLabel={copy('downloadLabel', 'Download Profile')} />
               <a
                 href="/examinations/contact"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-primary hover:text-primary transition-colors"

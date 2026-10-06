@@ -243,8 +243,8 @@ export default async function CircularsPage() {
                   <DocActions
                     href={`/examinations/circulars/${c.file}`}
                     filename={c.file}
-                    viewLabel="View"
-                    downloadLabel="Download"
+                    viewLabel={copy('viewLabel', 'View')}
+                    downloadLabel={copy('downloadLabel', 'Download')}
                   />
                 </div>
               </StaggerItem>
