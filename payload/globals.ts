@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import type { GlobalConfig } from 'payload';
 
 import { CONTENT_SECTIONS, type SectionConfig, type SectionKey } from '@/lib/content/sections';
@@ -47,6 +48,27 @@ export const sectionGlobal = (key: SectionKey): GlobalConfig => {
       // reloads the iframe itself, so it works on every section rather than
       // only the homepage ones that subscribed to the old store.
       livePreview: { url: ({ req }) => new URL(config.previewPath ?? '/', req.origin ?? '').href },
+    },
+    hooks: {
+      afterChange: [
+        () => {
+          // Without this a publish only shows up when the page's 60s ISR
+          // window lapses, which reads as "nothing happened" to whoever just
+          // clicked Publish. Both paths are purged: the section's own page and
+          // the homepage, since several sections render in both places.
+          //
+          // Wrapped because this config is also loaded outside a request —
+          // `payload migrate`, the data migration script — where
+          // revalidatePath has no store to act on and throws.
+          try {
+            revalidatePath('/');
+            const path = config.previewPath;
+            if (path && path !== '/') revalidatePath(path);
+          } catch {
+            // Not in a Next request context (CLI). Nothing to revalidate.
+          }
+        },
+      ],
     },
     versions: { drafts: true, max: 20 },
     access: { read: () => true, update: canEditSection(key) },
