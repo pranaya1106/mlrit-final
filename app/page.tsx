@@ -1,5 +1,4 @@
 import { resolveAssetUrl } from '@/lib/cdn/url';
-import { PreviewProvider } from '@/lib/preview/context';
 import Hero from '@/components/sections/Hero';
 import Stats from '@/components/sections/Stats';
 import Achievements from '@/components/sections/Achievements';
@@ -129,7 +128,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <PreviewProvider>
+    <>
       {/* Media resolves here for the server render; the components resolve
           again for live-preview drafts, which is idempotent. */}
       <Hero {...hero} film={resolveAssetUrl(hero.film)} poster={resolveAssetUrl(hero.poster)} />
@@ -142,6 +141,6 @@ export default async function HomePage() {
       <Placements logos={recruiterLogos} stats={placementStats} {...placementHeadline} />
       <Testimonials {...testimonials} />
       <Events slides={eventSlides} />
-    </PreviewProvider>
+    </>
   );
 }

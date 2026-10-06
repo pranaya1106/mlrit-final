@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Chatbot from '@/components/Chatbot';
 import Footer, { type FooterContent } from '@/components/Footer';
 import { PageHeaderProvider, type HeaderOverride } from '@/lib/content/page-headers';
+import { PreviewProvider } from '@/lib/preview/context';
 import { BrochureProvider } from '@/lib/content/documents-client';
 import { DEFAULT_BROCHURE } from '@/lib/content/documents-shared';
 import Header from '@/components/Header';
@@ -45,19 +46,26 @@ export default function SiteChrome({
   if (isAdmin)
     return (
       <BrochureProvider value={brochureUrl}>
-        <PageHeaderProvider value={pageHeaders}>{children}</PageHeaderProvider>
+        <PageHeaderProvider value={pageHeaders}>
+          <PreviewProvider>{children}</PreviewProvider>
+        </PageHeaderProvider>
       </BrochureProvider>
     );
 
   return (
     <BrochureProvider value={brochureUrl}>
     <PageHeaderProvider value={pageHeaders}>
+    {/* The draft store lives here, not on one page: the editor previews any
+        route now, and <Copy> on a secondary page needs the same store the
+        homepage sections use. Outside the preview iframe it does nothing. */}
+    <PreviewProvider>
       <SmoothScroll />
       <Header />
       <main className="pt-[var(--header-h)]">{children}</main>
       <Footer {...footer} />
       <SideButtons brochureUrl={brochureUrl} />
       <Chatbot brochureUrl={brochureUrl} />
+    </PreviewProvider>
     </PageHeaderProvider>
     </BrochureProvider>
   );
