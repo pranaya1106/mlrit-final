@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { FACULTY, getFacultyBySlug, getAllFacultySlugs } from '@/lib/faculty';
 import PageHeader from '@/components/PageHeader';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export function generateStaticParams() {
   return getAllFacultySlugs().map((slug) => ({ slug }));
@@ -84,6 +86,9 @@ export default async function FacultyProfilePage(
     params: Promise<{ slug: string }>;
   }
 ) {
+  const row = await getSection('site', 'faculty-profile').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   const params = await props.params;
   const f = getFacultyBySlug(params.slug);
   if (!f) notFound();
@@ -143,26 +148,20 @@ export default async function FacultyProfilePage(
               {/* Identity card */}
               <div className="rounded-2xl border border-border bg-white p-4 md:p-6 space-y-4">
                 <div>
-                  <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
-                    Designation
-                  </div>
+                  <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">{copy('designation', 'Designation')}</div>
                   <div className="font-sans font-bold text-foreground text-[0.95rem] leading-snug">
                     {f.designation}
                   </div>
                 </div>
                 <div>
-                  <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
-                    Department
-                  </div>
+                  <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">{copy('department', 'Department')}</div>
                   <div className="font-sans text-foreground text-[0.9rem] leading-snug">
                     {deptLabel}
                   </div>
                 </div>
                 {f.empId && (
                   <div>
-                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
-                      Emp ID
-                    </div>
+                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">{copy('empId', 'Emp ID')}</div>
                     <div className="font-sans font-bold text-foreground text-[0.9rem]">
                       {f.empId}
                     </div>
@@ -170,9 +169,7 @@ export default async function FacultyProfilePage(
                 )}
                 {f.experience && (
                   <div>
-                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
-                      Teaching Experience
-                    </div>
+                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">{copy('teachingExperience', 'Teaching Experience')}</div>
                     <div className="font-sans font-bold text-foreground text-[0.9rem]">
                       {f.experience} years
                     </div>
@@ -180,9 +177,7 @@ export default async function FacultyProfilePage(
                 )}
                 {f.email && (
                   <div>
-                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">
-                      Email
-                    </div>
+                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-1">{copy('email', 'Email')}</div>
                     <a
                       href={`mailto:${f.email}`}
                       className="font-sans text-primary text-[0.85rem] hover:underline break-all"
@@ -193,9 +188,7 @@ export default async function FacultyProfilePage(
                 )}
                 {f.profileLinks && Object.keys(f.profileLinks).length > 0 && (
                   <div>
-                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-2">
-                      Profiles
-                    </div>
+                    <div className="font-mono text-[0.68rem] tracking-[0.16em] uppercase text-muted mb-2">{copy('profiles', 'Profiles')}</div>
                     <div className="flex flex-col gap-1.5">
                       {f.profileLinks.googleScholar && (
                         <a
@@ -203,9 +196,7 @@ export default async function FacultyProfilePage(
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[0.82rem] text-primary hover:underline truncate"
-                        >
-                          Google Scholar
-                        </a>
+                        >{copy('googleScholar', 'Google Scholar')}</a>
                       )}
                       {f.profileLinks.scopus && (
                         <a
@@ -213,9 +204,7 @@ export default async function FacultyProfilePage(
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[0.82rem] text-primary hover:underline truncate"
-                        >
-                          Scopus
-                        </a>
+                        >{copy('scopus', 'Scopus')}</a>
                       )}
                       {f.profileLinks.orcid && (
                         <a
@@ -233,9 +222,7 @@ export default async function FacultyProfilePage(
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[0.82rem] text-primary hover:underline truncate"
-                        >
-                          LinkedIn
-                        </a>
+                        >{copy('linkedin', 'LinkedIn')}</a>
                       )}
                     </div>
                   </div>
@@ -262,7 +249,7 @@ export default async function FacultyProfilePage(
               {f.description && (
                 <section aria-labelledby="bio-heading">
                   <SectionHeading>
-                    <span id="bio-heading">Profile</span>
+                    <span id="bio-heading">{copy('profile', 'Profile')}</span>
                   </SectionHeading>
                   <p className="text-foreground leading-relaxed text-[0.97rem] max-w-[70ch]">
                     {f.description}
@@ -274,7 +261,7 @@ export default async function FacultyProfilePage(
               {f.qualifications.length > 0 && (
                 <section aria-labelledby="quals-heading">
                   <SectionHeading>
-                    <span id="quals-heading">Academic Qualifications</span>
+                    <span id="quals-heading">{copy('academicQualifications', 'Academic Qualifications')}</span>
                   </SectionHeading>
                   <dl className="divide-y divide-border/60">
                     {f.qualifications.map((q, i) => (
@@ -290,7 +277,7 @@ export default async function FacultyProfilePage(
               {f.specialization.length > 0 && (
                 <section aria-labelledby="spec-heading">
                   <SectionHeading>
-                    <span id="spec-heading">Areas of Specialisation</span>
+                    <span id="spec-heading">{copy('areasOfSpecialisation', 'Areas of Specialisation')}</span>
                   </SectionHeading>
                   <TagList items={f.specialization} />
                 </section>
@@ -300,7 +287,7 @@ export default async function FacultyProfilePage(
               {f.subjectsTaught.length > 0 && (
                 <section aria-labelledby="subjects-heading">
                   <SectionHeading>
-                    <span id="subjects-heading">Subjects Taught</span>
+                    <span id="subjects-heading">{copy('subjectsTaught', 'Subjects Taught')}</span>
                   </SectionHeading>
                   <TagList items={f.subjectsTaught} />
                 </section>
@@ -310,7 +297,7 @@ export default async function FacultyProfilePage(
               {f.publications.length > 0 && (
                 <section aria-labelledby="pubs-heading">
                   <SectionHeading>
-                    <span id="pubs-heading">Publications</span>
+                    <span id="pubs-heading">{copy('publications', 'Publications')}</span>
                   </SectionHeading>
                   <ol className="space-y-3 list-decimal list-outside pl-5">
                     {f.publications.map((pub, i) => (
@@ -329,7 +316,7 @@ export default async function FacultyProfilePage(
               {f.patents.length > 0 && (
                 <section aria-labelledby="patents-heading">
                   <SectionHeading>
-                    <span id="patents-heading">Patents</span>
+                    <span id="patents-heading">{copy('patents', 'Patents')}</span>
                   </SectionHeading>
                   <ol className="space-y-3 list-decimal list-outside pl-5">
                     {f.patents.map((p, i) => (
@@ -345,7 +332,7 @@ export default async function FacultyProfilePage(
               {f.books.length > 0 && (
                 <section aria-labelledby="books-heading">
                   <SectionHeading>
-                    <span id="books-heading">Books & Book Chapters</span>
+                    <span id="books-heading">{copy('booksBookChapters', 'Books & Book Chapters')}</span>
                   </SectionHeading>
                   <ol className="space-y-3 list-decimal list-outside pl-5">
                     {f.books.map((b, i) => (

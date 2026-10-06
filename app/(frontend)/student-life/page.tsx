@@ -63,7 +63,7 @@ export default async function StudentLifeOverviewPage() {
           style={{ top: 'calc(-11.11vw + 14vw)' }}
         >
           <CurvedLoopText
-            text="A lifetime of memories"
+            text={copy('aLifetimeOfMemories', 'A lifetime of memories')}
             fontSize={130}
             fontWeight="600"
             letterSpacing="-2px"
@@ -92,7 +92,7 @@ export default async function StudentLifeOverviewPage() {
             alt="MLRIT Chairman"
             fill
             quality={85}
-            sizes="(max-width: 768px) 80vw, 38vw"
+            sizes={copy('maxWidth768px80vw', '(max-width: 768px) 80vw, 38vw')}
             className="object-contain object-bottom"
           />
         </div>
@@ -195,7 +195,7 @@ export default async function StudentLifeOverviewPage() {
               alt="Students celebrating on campus — classroom, canteen, and sports"
               fill
               quality={85}
-              sizes="(max-width: 1360px) 100vw, 1360px"
+              sizes={copy('maxWidth1360px100vw', '(max-width: 1360px) 100vw, 1360px')}
               className="object-cover object-center"
             />
           </div>

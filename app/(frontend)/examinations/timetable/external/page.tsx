@@ -286,8 +286,8 @@ export default async function ExternalTimetablePage() {
                   <DocActions
                     href={`/examinations/timetables/${encodeURIComponent(t.file)}`}
                     filename={t.file}
-                    viewLabel="View PDF"
-                    downloadLabel="Download"
+                    viewLabel={copy('viewPdf', 'View PDF')}
+                    downloadLabel={copy('download', 'Download')}
                   />
                 </div>
               </StaggerItem>

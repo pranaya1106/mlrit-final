@@ -170,8 +170,8 @@ export default async function NotificationsPage() {
                   <DocActions
                     href={`/examinations/circulars/${n.file}`}
                     filename={n.file}
-                    viewLabel="View"
-                    downloadLabel="Download"
+                    viewLabel={copy('view', 'View')}
+                    downloadLabel={copy('download', 'Download')}
                   />
                 </div>
               </StaggerItem>

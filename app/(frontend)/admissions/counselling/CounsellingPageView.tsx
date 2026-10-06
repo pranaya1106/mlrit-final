@@ -107,69 +107,6 @@ const ADMISSION_STEPS = [
   },
 ];
 
-const COUNSELLING_SCHEDULE = [
-  {
-    id: 'eamcet',
-    title: 'AP / TS EAMCET Counselling',
-    body: (
-      <div className="space-y-3">
-        {[
-          { round: 'Round 1',    dates: 'July 10–18, 2025 (Tentative)' },
-          { round: 'Round 2',    dates: 'August 1–8, 2025 (Tentative)'  },
-          { round: 'Spot Round', dates: 'August 20–22, 2025 (Tentative)'},
-        ].map(r => (
-          <div key={r.round} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-            <span className="font-sans font-semibold text-foreground text-sm">{r.round}</span>
-            <span className="font-mono text-[0.8rem] text-muted">{r.dates}</span>
-          </div>
-        ))}
-        <p className="text-[0.85rem] text-muted pt-2">
-          Dates are indicative. Refer to the official AP/TS EAMCET counselling website for confirmed schedules.
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: 'icet',
-    title: 'AP / TS ICET Counselling (MBA)',
-    body: (
-      <div className="space-y-3">
-        {[
-          { round: 'Phase 1', dates: 'August 5–12, 2025 (Tentative)' },
-          { round: 'Phase 2', dates: 'August 20–25, 2025 (Tentative)'},
-        ].map(r => (
-          <div key={r.round} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-            <span className="font-sans font-semibold text-foreground text-sm">{r.round}</span>
-            <span className="font-mono text-[0.8rem] text-muted">{r.dates}</span>
-          </div>
-        ))}
-        <p className="text-[0.85rem] text-muted pt-2">
-          Refer to the official AP ICET / TS ICET website for confirmed schedules.
-        </p>
-      </div>
-    ),
-  },
-  {
-    id: 'pgecet',
-    title: 'PGECET Counselling (M.Tech)',
-    body: (
-      <div className="space-y-3">
-        {[
-          { round: 'Round 1', dates: 'August 8–14, 2025 (Tentative)' },
-          { round: 'Round 2', dates: 'August 22–26, 2025 (Tentative)'},
-        ].map(r => (
-          <div key={r.round} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-            <span className="font-sans font-semibold text-foreground text-sm">{r.round}</span>
-            <span className="font-mono text-[0.8rem] text-muted">{r.dates}</span>
-          </div>
-        ))}
-        <p className="text-[0.85rem] text-muted pt-2">
-          GATE qualified candidates may also be considered for direct admission subject to seat availability.
-        </p>
-      </div>
-    ),
-  },
-];
 
 const DOCUMENTS = [
   {
@@ -244,6 +181,64 @@ type SectionId = string | null;
 
 export default function CounsellingPageView({ content }: { content: Record<string, unknown> }) {
   const copy = (key: string, fallback: string) => asText(content[key], fallback);
+
+  const COUNSELLING_SCHEDULE = [
+    {
+      id: 'eamcet',
+      title: 'AP / TS EAMCET Counselling',
+      body: (
+        <div className="space-y-3">
+          {[
+            { round: 'Round 1',    dates: 'July 10–18, 2025 (Tentative)' },
+            { round: 'Round 2',    dates: 'August 1–8, 2025 (Tentative)'  },
+            { round: 'Spot Round', dates: 'August 20–22, 2025 (Tentative)'},
+          ].map(r => (
+            <div key={r.round} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+              <span className="font-sans font-semibold text-foreground text-sm">{r.round}</span>
+              <span className="font-mono text-[0.8rem] text-muted">{r.dates}</span>
+            </div>
+          ))}
+          <p className="text-[0.85rem] text-muted pt-2">{copy('datesAreIndicativeRefer', 'Dates are indicative. Refer to the official AP/TS EAMCET counselling website for confirmed schedules.')}</p>
+        </div>
+      ),
+    },
+    {
+      id: 'icet',
+      title: 'AP / TS ICET Counselling (MBA)',
+      body: (
+        <div className="space-y-3">
+          {[
+            { round: 'Phase 1', dates: 'August 5–12, 2025 (Tentative)' },
+            { round: 'Phase 2', dates: 'August 20–25, 2025 (Tentative)'},
+          ].map(r => (
+            <div key={r.round} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+              <span className="font-sans font-semibold text-foreground text-sm">{r.round}</span>
+              <span className="font-mono text-[0.8rem] text-muted">{r.dates}</span>
+            </div>
+          ))}
+          <p className="text-[0.85rem] text-muted pt-2">{copy('referToTheOfficial', 'Refer to the official AP ICET / TS ICET website for confirmed schedules.')}</p>
+        </div>
+      ),
+    },
+    {
+      id: 'pgecet',
+      title: 'PGECET Counselling (M.Tech)',
+      body: (
+        <div className="space-y-3">
+          {[
+            { round: 'Round 1', dates: 'August 8–14, 2025 (Tentative)' },
+            { round: 'Round 2', dates: 'August 22–26, 2025 (Tentative)'},
+          ].map(r => (
+            <div key={r.round} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+              <span className="font-sans font-semibold text-foreground text-sm">{r.round}</span>
+              <span className="font-mono text-[0.8rem] text-muted">{r.dates}</span>
+            </div>
+          ))}
+          <p className="text-[0.85rem] text-muted pt-2">{copy('gateQualifiedCandidatesMay', 'GATE qualified candidates may also be considered for direct admission subject to seat availability.')}</p>
+        </div>
+      ),
+    },
+  ];
   const [openStep, setOpenStep]  = useState<SectionId>(null);
   const [openSched, setOpenSched] = useState<SectionId>(null);
   const [openDoc, setOpenDoc]     = useState<SectionId>(null);

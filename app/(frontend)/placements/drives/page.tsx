@@ -40,7 +40,7 @@ export default async function PlacementDrivesPage() {
                 src={DRIVES[0].src}
                 alt={DRIVES[0].alt}
                 fill
-                sizes="(max-width: 768px) 100vw, 1280px"
+                sizes={copy('maxWidth768px100vw', '(max-width: 768px) 100vw, 1280px')}
                 className="object-cover object-center transition-transform duration-700 ease-[0.22,1,0.36,1] hover:scale-[1.015]"
                 priority
               />
@@ -60,7 +60,7 @@ export default async function PlacementDrivesPage() {
                     src={drive.src}
                     alt={drive.alt}
                     fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
+                    sizes={copy('maxWidth768px50vw', '(max-width: 768px) 50vw, 25vw')}
                     className="object-cover object-center transition-transform duration-700 ease-[0.22,1,0.36,1] hover:scale-[1.015]"
                     loading="lazy"
                   />

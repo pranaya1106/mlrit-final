@@ -17,7 +17,7 @@ import { readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
 const SKIP_ATTR =
-  /^(className|style|href|src|id|key|alt|aria-hidden|aria-label|type|rel|target|width|height|viewBox|fill|stroke|d|preserveAspectRatio|download|variant|tone|preset|delay|active|name|property|content)$/;
+  /^(\w*[Cc]lassName|style|href|src|id|key|alt|aria-hidden|aria-label|type|rel|target|width|height|viewBox|fill|stroke|d|preserveAspectRatio|download|variant|tone|preset|delay|active|name|property|content)$/;
 // PageHeader's copy is editable through site/page-headers, keyed by route, so
 // the literals at the call site are fallbacks rather than unwired content.
 // `k` and `sectionKey` on <Copy>/<SectionContent> are field identifiers, not

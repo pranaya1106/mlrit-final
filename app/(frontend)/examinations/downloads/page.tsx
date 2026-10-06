@@ -147,7 +147,7 @@ export default async function DownloadsPage() {
                       {c.label}
                     </h3>
                     {c.desc && <p className="text-muted text-[0.8rem] leading-snug">{c.desc}</p>}
-                    <DocActions href={c.href} viewLabel="View" downloadLabel="Download" />
+                    <DocActions href={c.href} viewLabel={copy('view', 'View')} downloadLabel={copy('download', 'Download')} />
                   </div>
                 </StaggerItem>
               ))}

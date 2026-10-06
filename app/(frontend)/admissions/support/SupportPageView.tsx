@@ -138,7 +138,7 @@ export default function SupportPageView({ content }: { content: Record<string, u
                 type="search"
                 value={query}
                 onChange={e => { setQuery(e.target.value); setOpenId(null); }}
-                placeholder="Search questions — e.g. 'hostel', 'fee', 'documents'…"
+                placeholder={copy('searchQuestionsEG', 'Search questions — e.g. \'hostel\', \'fee\', \'documents\'…')}
                 className="w-full pl-11 pr-5 py-3.5 rounded-2xl border border-border bg-white shadow-card-soft font-sans text-[0.95rem] text-foreground placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-secondary/40 focus:border-secondary transition"
               />
               {query && (

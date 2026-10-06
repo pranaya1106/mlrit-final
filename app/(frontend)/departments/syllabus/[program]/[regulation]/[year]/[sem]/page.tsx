@@ -3,6 +3,8 @@ import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import { getSyllabusCourses } from '@/lib/syllabus-data';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 type Params = { program: string; regulation: string; year: string; sem: string };
 
@@ -33,6 +35,9 @@ export async function generateMetadata(props: { params: Promise<Params> }): Prom
 }
 
 export default async function SyllabusPage(props: { params: Promise<Params> }) {
+  const row = await getSection('site', 'syllabus-semester').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   const params = await props.params;
   const semNum = parseInt(params.sem.replace('sem', ''), 10);
   const courses = getSyllabusCourses(params.program, params.regulation, semNum);
@@ -63,7 +68,7 @@ export default async function SyllabusPage(props: { params: Promise<Params> }) {
       />
 
       <Section>
-        <H2 italic="this semester">Courses</H2>
+        <H2 italic="this semester">{copy('courses', 'Courses')}</H2>
         {courses.length === 0 ? (
           <>
             <Lede>
@@ -86,9 +91,9 @@ export default async function SyllabusPage(props: { params: Promise<Params> }) {
               <table className="w-full text-left text-[0.94rem]">
                 <thead className="bg-warm-light/50">
                   <tr>
-                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Code</th>
-                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">Subject</th>
-                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted text-right">Syllabus</th>
+                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">{copy('code', 'Code')}</th>
+                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted">{copy('subject', 'Subject')}</th>
+                    <th className="px-3 py-3 md:px-5 md:py-3.5 font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted text-right">{copy('syllabus', 'Syllabus')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -111,9 +116,7 @@ export default async function SyllabusPage(props: { params: Promise<Params> }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 font-mono text-[0.76rem] font-bold text-primary hover:underline"
-                        >
-                          View PDF ↗
-                        </a>
+                        >{copy('viewPdf', 'View PDF ↗')}</a>
                       </td>
                     </tr>
                   ))}
@@ -125,7 +128,7 @@ export default async function SyllabusPage(props: { params: Promise<Params> }) {
       </Section>
 
       <Section surface>
-        <H2 italic="in this regulation">Other semesters</H2>
+        <H2 italic="in this regulation">{copy('otherSemesters', 'Other semesters')}</H2>
         <Lede>Switch between semesters within {params.regulation.toUpperCase()} for the {params.program.toUpperCase()} programme.</Lede>
         <div className="mt-4 md:mt-6 flex flex-wrap gap-2">
           {allSems.map((s) => (

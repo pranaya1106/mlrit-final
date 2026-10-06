@@ -59,7 +59,7 @@ export default async function StudentVerificationsPage() {
               <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">{copy('step1', 'Step 1')}</p>
               <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">{copy('downloadTheVerificationForm', 'Download the Verification Form')}</h3>
               <p className="text-muted text-[0.88rem] leading-relaxed mb-5">{copy('downloadAndCompleteThe', 'Download and complete the Student Verification Form. This form is required for all credential authentication requests submitted to the COE office.')}</p>
-              <DocActions href="/examinations/student-verification.pdf" viewLabel="View Form" downloadLabel="Download Form" />
+              <DocActions href="/examinations/student-verification.pdf" viewLabel={copy('viewForm', 'View Form')} downloadLabel={copy('downloadForm', 'Download Form')} />
             </div>
           </Reveal>
 

@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { Blocks } from '@/components/InfoPageRenderer';
 import { RESEARCH_PAGES, RESEARCH_NAV } from '@/lib/research';
 import ResearchQuickNav from '@/components/ResearchQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export function generateStaticParams() {
   return Object.keys(RESEARCH_PAGES).map((slug) => ({ slug }));
@@ -16,6 +18,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 }
 
 export default async function ResearchSubPage(props: { params: Promise<{ slug: string }> }) {
+  const row = await getSection('site', 'research-profile').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   const params = await props.params;
   const data = RESEARCH_PAGES[params.slug];
   if (!data) notFound();
@@ -35,7 +40,7 @@ export default async function ResearchSubPage(props: { params: Promise<{ slug: s
         <div className="w-full px-6 md:px-10 lg:px-12">
           <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[clamp(1.5rem,2.4vw,2rem)] mb-6">
             Browse other{' '}
-            <span className="font-display italic font-medium text-secondary">research areas</span>
+            <span className="font-display italic font-medium text-secondary">{copy('researchAreas', 'research areas')}</span>
           </h2>
           <div className="flex flex-wrap gap-2.5">
             {RESEARCH_NAV.filter((n) => n.slug !== params.slug).map((n) => (

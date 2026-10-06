@@ -23,7 +23,7 @@ if (!file || !sectionKey) {
 }
 
 const SKIP_ATTR =
-  /^(className|style|href|src|id|key|alt|aria-hidden|aria-label|type|rel|target|width|height|viewBox|fill|stroke|d|preserveAspectRatio|download|variant|tone|preset|delay|active|name|property|content|eyebrow|title|italic|dek)$/;
+  /^(\w*[Cc]lassName|style|href|src|id|key|alt|aria-hidden|aria-label|type|rel|target|width|height|viewBox|fill|stroke|d|preserveAspectRatio|download|variant|tone|preset|delay|active|name|property|content|eyebrow|title|italic|dek)$/;
 const NOISE = /^(\s*|[\d\s.,%+–—-]*|#[0-9a-f]{3,8}|\/[^\s]*|https?:\/\/\S+|[a-z-]+|[A-Z_]+|&[a-z]+;)$/;
 
 const src = readFileSync(file, 'utf8');
@@ -106,6 +106,30 @@ for (const { raw, text } of nodes) {
   fields.push({ key, text });
   // Replace every occurrence of this exact node.
   out = out.split(`>${raw}<`).join(`>{copy('${key}', '${js}')}<`);
+}
+
+/**
+ * String props, after the text nodes. A component's visible copy is just as
+ * often a prop — <Stat label="In Brief" />, <Reveal trail="Older stories" /> —
+ * and leaving those alone is what kept pages reporting as uneditable after
+ * every text node on them had been wired.
+ *
+ * Only quoted literals are touched: a prop already reading {copy(...)} or any
+ * other expression has no quotes to match. SKIP_ATTR removes the structural
+ * ones (className, href, ids, SVG geometry), NOISE the values that are not
+ * prose.
+ */
+for (const m of [...out.matchAll(/\b([a-zA-Z][\w-]*)="([^"\n]+)"/g)]) {
+  const [whole, attr, raw] = m;
+  if (SKIP_ATTR.test(attr)) continue;
+  const text = decode(raw.replace(/\s+/g, ' ').trim());
+  if (text.length <= 2 || NOISE.test(text) || !/[a-z]{3}/i.test(text)) continue;
+  if (seen.has(whole)) continue;
+  seen.add(whole);
+  const key = keyFor(text, used);
+  const js = text.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  fields.push({ key, text });
+  out = out.split(whole).join(`${attr}={copy('${key}', '${js}')}`);
 }
 
 const label = (t) => (t.length > 46 ? `${t.slice(0, 46)}…` : t);

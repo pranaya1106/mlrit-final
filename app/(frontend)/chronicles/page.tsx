@@ -141,7 +141,7 @@ export default async function ChroniclesPage() {
           {/* RIGHT RAIL — In Brief, Live Wire, Most Read */}
           <aside className="lg:pl-8 flex flex-col gap-5 md:gap-8 min-w-0">
             <section id="brief" className="scroll-mt-32">
-              <RailHead label="In Brief" meta="Today" />
+              <RailHead label={copy('inBrief', 'In Brief')} meta={copy('today', 'Today')} />
               <ul className="list-none p-0 m-0">
                 {IN_BRIEF.map((b, i) => (
                   <li
@@ -161,7 +161,7 @@ export default async function ChroniclesPage() {
             </section>
 
             <section>
-              <RailHead label="Live Wire" meta={liveWireTicker.length ? 'Auto-updated' : 'Warming up'} />
+              <RailHead label={copy('liveWire', 'Live Wire')} meta={liveWireTicker.length ? 'Auto-updated' : 'Warming up'} />
               {liveWireTicker.length === 0 ? (
                 <p className="font-display text-sm leading-snug text-black/70">
                   No live items yet — the scraper hasn&apos;t run, or the news service isn&apos;t reachable.
@@ -254,7 +254,7 @@ export default async function ChroniclesPage() {
 
         {/* PHOTO ESSAY */}
         <section id="photo-essay" className="border-b-2 border-black scroll-mt-32">
-          <SectionHead title="Photo Essay" trail="Twelve months, one campus" />
+          <SectionHead title="Photo Essay" trail={copy('twelveMonthsOneCampus', 'Twelve months, one campus')} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 pb-5 md:pb-8">
             {PHOTO_ESSAY.map((p, i) => (
               <div
@@ -281,7 +281,7 @@ export default async function ChroniclesPage() {
         </section>
 
         {/* ARCHIVE — auto-populated as items roll out of the current issue */}
-        <StoryGrid id="archive" title="From The Archives" trail="Older stories" stories={ARCHIVE_STORIES} />
+        <StoryGrid id="archive" title="From The Archives" trail={copy('olderStories', 'Older stories')} stories={ARCHIVE_STORIES} />
       </main>
     </div>
   );

@@ -292,7 +292,7 @@ export default async function PYQsPage() {
           <Stagger className="mt-6 md:mt-10" delay={0.05}>
             {BTECH.map((group) => (
               <StaggerItem key={group.year}>
-                <YearSection group={group} badge="B.Tech" badgeClass="bg-green-50 border-green-200 text-secondary" />
+                <YearSection group={group} badge={copy('bTech', 'B.Tech')} badgeClass={copy('bgGreen50Border', 'bg-green-50 border-green-200 text-secondary')} />
               </StaggerItem>
             ))}
           </Stagger>
@@ -313,7 +313,7 @@ export default async function PYQsPage() {
           <Stagger className="mt-6 md:mt-10" delay={0.05}>
             {PG.map((group) => (
               <StaggerItem key={group.year}>
-                <YearSection group={group} badge="M.Tech / MBA" badgeClass="bg-orange-50 border-orange-200 text-primary" />
+                <YearSection group={group} badge={copy('mTechMba', 'M.Tech / MBA')} badgeClass={copy('bgOrange50Border', 'bg-orange-50 border-orange-200 text-primary')} />
               </StaggerItem>
             ))}
           </Stagger>
