@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 /* ────────────────────────────────────────────────────────────────
+   Font-variable hard fallbacks.
+   next/font injects --font-manrope / --font-playfair / --font-mono
+   via hashed class names on <html>. If a stale cache ever breaks
+   that injection, these rules ensure the correct web-safe fallbacks
+   are used instead of the browser default (Times New Roman).
+   ──────────────────────────────────────────────────────────────── */
+body, .font-sans {
+  font-family: var(--font-manrope, 'Manrope', ui-sans-serif, system-ui, sans-serif);
+}
+.font-display, h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair, 'Playfair Display', Georgia, 'Times New Roman', serif);
+}
+.font-mono, code, pre, kbd {
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', ui-monospace, monospace);
+}
+
+/* ────────────────────────────────────────────────────────────────
    Hard-fallback colour classes.
    These are layered AFTER tailwind so they always resolve, even
    if the JIT layer ships a stale chunk during dev. They mirror the
