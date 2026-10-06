@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
@@ -182,7 +184,13 @@ const NAV_ITEMS = [
   { id: 'circulars', label: 'Circulars' },
 ];
 
-export default function CircularsPage() {
+export const revalidate = 60;
+
+export default async function CircularsPage() {
+  const row = await getSection('examinations', 'circulars').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   return (
     <>
       <ExaminationsHero
@@ -212,12 +220,9 @@ export default function CircularsPage() {
             <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
               {CIRCULARS.length} Circulars
             </span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
-              Recent <span className="font-display italic font-medium text-primary">circulars.</span>
+            <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">{copy('recent', 'Recent')}<span className="font-display italic font-medium text-primary">{copy('circulars', 'circulars.')}</span>
             </h2>
-            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">
-              All documents below are hosted locally. Use View to open in-browser or Download to save a copy.
-            </p>
+            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">{copy('allDocumentsBelowAre', 'All documents below are hosted locally. Use View to open in-browser or Download to save a copy.')}</p>
           </Reveal>
 
           <Stagger className="mt-6 md:mt-10 space-y-3" delay={0.04}>
@@ -254,13 +259,9 @@ export default function CircularsPage() {
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
                 For queries about a specific circular, contact the COE office at{' '}
-                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                  coe@mlrinstitutions.ac.in
-                </a>{' '}
+                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{' '}
                 or visit the{' '}
-                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">
-                  Contact Us
-                </a>{' '}
+                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">{copy('contactUs', 'Contact Us')}</a>{' '}
                 page.
               </p>
             </div>

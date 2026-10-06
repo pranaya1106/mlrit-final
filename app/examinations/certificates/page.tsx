@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -71,7 +73,13 @@ const NAV_ITEMS = [
   { id: 'certificates', label: 'Certificates' },
 ];
 
-export default function CertificatesPage() {
+export const revalidate = 60;
+
+export default async function CertificatesPage() {
+  const row = await getSection('examinations', 'certificates').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   return (
     <>
       <ExaminationsHero
@@ -99,10 +107,10 @@ export default function CertificatesPage() {
 
           {/* Application form download */}
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Start Here</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('startHere', 'Start Here')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               Download the{' '}
-              <span className="font-display italic font-medium" style={gradientText}>application form.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('applicationForm', 'application form.')}</span>
             </h2>
             <p className="mt-4 text-muted text-[0.93rem] max-w-[600px] leading-relaxed">
               A single application form covers all certificate types. Select the certificate(s) you need, complete the form and submit it to the COE office in person or by email.
@@ -112,16 +120,14 @@ export default function CertificatesPage() {
               <a
                 href="/examinations/contact"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"
-              >
-                Contact COE Office →
-              </a>
+              >{copy('contactCoeOffice', 'Contact COE Office →')}</a>
             </div>
           </Reveal>
 
           {/* Certificate cards */}
           <div className="mt-10 md:mt-16">
             <Reveal>
-              <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-muted">Available Documents</span>
+              <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-muted">{copy('availableDocuments', 'Available Documents')}</span>
             </Reveal>
             <Stagger className="mt-4 md:mt-6 grid md:grid-cols-2 gap-3 md:gap-4" delay={0.05}>
               {CERTIFICATES.map((c) => (
@@ -150,10 +156,7 @@ export default function CertificatesPage() {
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
                 Submit your completed application at the COE office (Administrative Block) or email it to{' '}
-                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                  coe@mlrinstitutions.ac.in
-                </a>. Attach supporting documents and proof of fee payment where applicable.
-              </p>
+                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{copy('attachSupportingDocumentsAnd', '. Attach supporting documents and proof of fee payment where applicable.')}</p>
             </div>
           </Reveal>
 

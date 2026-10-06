@@ -1739,6 +1739,87 @@ export const CONTENT_SECTIONS = {
     ],
   },
 
+  'examinations/annual-reports': {
+    label: 'Examinations — Annual reports',
+    previewPath: '/examinations/annual-reports',
+    fields: [
+      { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
+      { name: 'latest', label: "Latest", defaultValue: "Latest" },
+      { name: 'contactUs', label: "Contact Us", defaultValue: "Contact Us" },
+      { name: 'examinationReports', label: "examination reports.", defaultValue: "examination reports." },
+      { name: 'reports', label: "Reports", defaultValue: "Reports" },
+    ],
+  },
+
+  'examinations/certificates': {
+    label: 'Examinations — Certificates',
+    previewPath: '/examinations/certificates',
+    fields: [
+      { name: 'attachSupportingDocumentsAnd', label: ". Attach supporting documents and proof of fee…", defaultValue: ". Attach supporting documents and proof of fee payment where applicable." },
+      { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
+      { name: 'contactCoeOffice', label: "Contact COE Office →", defaultValue: "Contact COE Office →" },
+      { name: 'availableDocuments', label: "Available Documents", defaultValue: "Available Documents" },
+      { name: 'applicationForm', label: "application form.", defaultValue: "application form." },
+      { name: 'startHere', label: "Start Here", defaultValue: "Start Here" },
+    ],
+  },
+
+  'examinations/circulars': {
+    label: 'Examinations — Circulars',
+    previewPath: '/examinations/circulars',
+    fields: [
+      { name: 'allDocumentsBelowAre', label: "All documents below are hosted locally. Use Vi…", multiline: true, defaultValue: "All documents below are hosted locally. Use View to open in-browser or Download to save a copy." },
+      { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
+      { name: 'contactUs', label: "Contact Us", defaultValue: "Contact Us" },
+      { name: 'recent', label: "Recent", defaultValue: "Recent" },
+      { name: 'circulars', label: "circulars.", defaultValue: "circulars." },
+    ],
+  },
+
+  'examinations/citizen-charter': {
+    label: 'Examinations — Citizen charter',
+    previewPath: '/examinations/citizen-charter',
+    fields: [
+      { name: 'theCitizenCharterCommits', label: "The Citizen Charter commits the Controller of …", multiline: true, defaultValue: "The Citizen Charter commits the Controller of Examinations office to delivering services within defined timelines. It also outlines the grievance redressal procedure for unresolved complaints." },
+      { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
+      { name: 'contactCoeOffice', label: "Contact COE Office →", defaultValue: "Contact COE Office →" },
+      { name: 'grievanceRedressal', label: "Grievance Redressal", defaultValue: "Grievance Redressal" },
+      { name: 'serviceStandards', label: "Service Standards", defaultValue: "Service Standards" },
+      { name: 'serviceTimelines', label: "Service Timelines", defaultValue: "Service Timelines" },
+      { name: 'expectFromUs', label: "expect from us.", defaultValue: "expect from us." },
+    ],
+  },
+
+  'examinations/coe': {
+    label: 'Examinations — Controller of Examinations',
+    previewPath: '/examinations/coe',
+    fields: [
+      { name: 'aUgcAutonomousInstitution', label: "A UGC-autonomous institution designing its own…", multiline: true, defaultValue: "A UGC-autonomous institution designing its own regulations, grading norms and academic policies — aligned with Outcome-Based Education and NEP 2020." },
+      { name: 'theCoeOfficeEnsures', label: "The COE office ensures transparency, consisten…", multiline: true, defaultValue: "The COE office ensures transparency, consistency and integrity across all programmes — from timetable notification to final grade cards." },
+      { name: 'examinationFramework', label: "examination framework.", defaultValue: "examination framework." },
+      { name: 'contactTheCoeOffice', label: "Contact the COE Office →", defaultValue: "Contact the COE Office →" },
+      { name: 'autonomousSince2015', label: "Autonomous Since 2015", defaultValue: "Autonomous Since 2015" },
+      { name: 'coeOfficeDoes', label: "COE office does.", defaultValue: "COE office does." },
+      { name: 'milestones', label: "milestones.", defaultValue: "milestones." },
+      { name: 'functions', label: "Functions", defaultValue: "Functions" },
+      { name: 'timeline', label: "Timeline", defaultValue: "Timeline" },
+    ],
+  },
+
+  'examinations/contact': {
+    label: 'Examinations — Contact',
+    previewPath: '/examinations/contact',
+    fields: [
+      { name: 'medchalMalkajgiriTelangana500', label: "Medchal Malkajgiri, Telangana – 500 043", defaultValue: "Medchal Malkajgiri, Telangana – 500 043" },
+      { name: 'surveyNo444Dundigal', label: "Survey No. 444, Dundigal, Gandi Maisamma", defaultValue: "Survey No. 444, Dundigal, Gandi Maisamma" },
+      { name: 'openExamPortal', label: "Open Exam Portal ↗", defaultValue: "Open Exam Portal ↗" },
+      { name: 'emailCoeOffice', label: "Email COE Office", defaultValue: "Email COE Office" },
+      { name: 'mlrInstituteOfTechnology', label: "MLR Institute of Technology", defaultValue: "MLR Institute of Technology" },
+      { name: 'coeOfficeAdministrativeBlock', label: "COE Office — Administrative Block", defaultValue: "COE Office — Administrative Block" },
+      { name: 'officeLocation', label: "Office Location", defaultValue: "Office Location" },
+    ],
+  },
+
   // Footer — shown on every page, so it lives under its own `site` slug rather
   // than `home`. The Useful Links accordion is deliberately not here: it is a
   // nested structure a flat list cannot express, and it changes rarely.

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -57,7 +59,13 @@ const NAV_ITEMS = [
   { id: 'coe', label: 'COE' },
 ];
 
-export default function COEPage() {
+export const revalidate = 60;
+
+export default async function COEPage() {
+  const row = await getSection('examinations', 'coe').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   return (
     <>
       <ExaminationsHero
@@ -85,19 +93,13 @@ export default function COEPage() {
         <div className="w-full px-4 md:px-10 lg:px-12">
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-6 lg:gap-16 items-start">
             <Reveal>
-              <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">
-                Autonomous Since 2015
-              </span>
+              <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">{copy('autonomousSince2015', 'Autonomous Since 2015')}</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.02]">
                 OBE-driven{' '}
-                <span className="font-display italic font-medium" style={gradientText}>
-                  examination framework.
-                </span>
+                <span className="font-display italic font-medium" style={gradientText}>{copy('examinationFramework', 'examination framework.')}</span>
               </h2>
               <div className="mt-4 md:mt-6 border-l-[3px] border-primary pl-4 md:pl-6">
-                <p className="font-display italic font-medium text-foreground text-[clamp(1.1rem,1.4vw,1.4rem)] leading-[1.5]">
-                  A UGC-autonomous institution designing its own regulations, grading norms and academic policies — aligned with Outcome-Based Education and NEP 2020.
-                </p>
+                <p className="font-display italic font-medium text-foreground text-[clamp(1.1rem,1.4vw,1.4rem)] leading-[1.5]">{copy('aUgcAutonomousInstitution', 'A UGC-autonomous institution designing its own regulations, grading norms and academic policies — aligned with Outcome-Based Education and NEP 2020.')}</p>
               </div>
             </Reveal>
 
@@ -107,9 +109,7 @@ export default function COEPage() {
                   <span className="font-display italic font-black text-primary text-[2.4rem] md:text-[3.4rem] leading-[0.7] float-left mr-3 mt-1">A</span>
                   s a UGC-autonomous institution since 2015, MLRIT designs and administers its own examination regulations, grading norms and academic policies — fully aligned with Outcome-Based Education (OBE) and the National Education Policy 2020.
                 </p>
-                <p className="text-muted text-[1rem] leading-[1.75]">
-                  The COE office ensures transparency, consistency and integrity across all programmes — from timetable notification to final grade cards.
-                </p>
+                <p className="text-muted text-[1rem] leading-[1.75]">{copy('theCoeOfficeEnsures', 'The COE office ensures transparency, consistency and integrity across all programmes — from timetable notification to final grade cards.')}</p>
               </div>
             </Reveal>
           </div>
@@ -146,10 +146,10 @@ export default function COEPage() {
       <section className="bg-warm-light py-8 md:py-16 border-t border-border">
         <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">Functions</span>
+            <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">{copy('functions', 'Functions')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               What the{' '}
-              <span className="font-display italic font-medium" style={gradientText}>COE office does.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('coeOfficeDoes', 'COE office does.')}</span>
             </h2>
           </Reveal>
 
@@ -180,10 +180,10 @@ export default function COEPage() {
       <section className="bg-white py-8 md:py-16 border-t border-border">
         <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">Timeline</span>
+            <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">{copy('timeline', 'Timeline')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               Regulatory{' '}
-              <span className="font-display italic font-medium" style={gradientText}>milestones.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('milestones', 'milestones.')}</span>
             </h2>
           </Reveal>
 
@@ -217,9 +217,7 @@ export default function COEPage() {
               <a
                 href="/examinations/contact"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-primary hover:text-primary transition-colors"
-              >
-                Contact the COE Office →
-              </a>
+              >{copy('contactTheCoeOffice', 'Contact the COE Office →')}</a>
             </div>
           </Reveal>
         </div>

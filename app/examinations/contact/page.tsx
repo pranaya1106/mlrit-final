@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
@@ -14,7 +16,13 @@ const NAV_ITEMS = [
   { id: 'contact', label: 'Contact Us' },
 ];
 
-export default function ExaminationsContactPage() {
+export const revalidate = 60;
+
+export default async function ExaminationsContactPage() {
+  const row = await getSection('examinations', 'contact').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   return (
     <>
       <ExaminationsHero
@@ -73,27 +81,19 @@ export default function ExaminationsContactPage() {
 
           <Reveal preset="up">
             <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
-              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">COE Office — Administrative Block</h3>
-              <p className="text-foreground text-[0.93rem] leading-relaxed">
-                MLR Institute of Technology<br />
-                Survey No. 444, Dundigal, Gandi Maisamma<br />
-                Medchal Malkajgiri, Telangana – 500 043
-              </p>
+              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('officeLocation', 'Office Location')}</p>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">{copy('coeOfficeAdministrativeBlock', 'COE Office — Administrative Block')}</h3>
+              <p className="text-foreground text-[0.93rem] leading-relaxed">{copy('mlrInstituteOfTechnology', 'MLR Institute of Technology')}<br />{copy('surveyNo444Dundigal', 'Survey No. 444, Dundigal, Gandi Maisamma')}<br />{copy('medchalMalkajgiriTelangana500', 'Medchal Malkajgiri, Telangana – 500 043')}</p>
               <div className="mt-3 md:mt-5 flex flex-wrap gap-3">
                 <a
                   href="mailto:coe@mlrinstitutions.ac.in"
                   className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
-                >
-                  Email COE Office
-                </a>
+                >{copy('emailCoeOffice', 'Email COE Office')}</a>
                 <a
                   href="https://exams.mlrinstitutions.ac.in/"
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border bg-warm-light text-foreground font-semibold text-sm hover:border-secondary transition-colors"
-                >
-                  Open Exam Portal ↗
-                </a>
+                >{copy('openExamPortal', 'Open Exam Portal ↗')}</a>
               </div>
             </div>
           </Reveal>

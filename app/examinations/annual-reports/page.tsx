@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -46,7 +48,13 @@ const NAV_ITEMS = [
   { id: 'annual-reports', label: 'Annual Reports' },
 ];
 
-export default function AnnualReportsPage() {
+export const revalidate = 60;
+
+export default async function AnnualReportsPage() {
+  const row = await getSection('examinations', 'annual-reports').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   return (
     <>
       <ExaminationsHero
@@ -73,10 +81,10 @@ export default function AnnualReportsPage() {
         <div className="w-full px-4 md:px-10 lg:px-12">
 
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Reports</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('reports', 'Reports')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               Year-wise{' '}
-              <span className="font-display italic font-medium" style={gradientText}>examination reports.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('examinationReports', 'examination reports.')}</span>
             </h2>
           </Reveal>
 
@@ -90,9 +98,7 @@ export default function AnnualReportsPage() {
                     </span>
                     {r.current && (
                       <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.58rem] font-bold tracking-wide uppercase">
-                        <span className="w-1 h-1 rounded-full bg-secondary animate-pulse" />
-                        Latest
-                      </span>
+                        <span className="w-1 h-1 rounded-full bg-secondary animate-pulse" />{copy('latest', 'Latest')}</span>
                     )}
                   </div>
                   <div className="flex-1">
@@ -124,13 +130,9 @@ export default function AnnualReportsPage() {
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
                 Annual examination reports are available on request from the COE office. Contact{' '}
-                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                  coe@mlrinstitutions.ac.in
-                </a>{' '}
+                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{' '}
                 or visit the{' '}
-                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">
-                  Contact Us
-                </a>{' '}
+                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">{copy('contactUs', 'Contact Us')}</a>{' '}
                 page.
               </p>
             </div>

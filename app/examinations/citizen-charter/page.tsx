@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -63,7 +65,13 @@ const NAV_ITEMS = [
   { id: 'citizen-charter', label: 'Citizen Charter' },
 ];
 
-export default function CitizenCharterPage() {
+export const revalidate = 60;
+
+export default async function CitizenCharterPage() {
+  const row = await getSection('examinations', 'citizen-charter').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   return (
     <>
       <ExaminationsHero
@@ -91,14 +99,12 @@ export default function CitizenCharterPage() {
 
           {/* Intro + Download */}
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Service Standards</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('serviceStandards', 'Service Standards')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               What you can{' '}
-              <span className="font-display italic font-medium" style={gradientText}>expect from us.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('expectFromUs', 'expect from us.')}</span>
             </h2>
-            <p className="mt-4 text-muted text-[0.93rem] max-w-[660px] leading-relaxed">
-              The Citizen Charter commits the Controller of Examinations office to delivering services within defined timelines. It also outlines the grievance redressal procedure for unresolved complaints.
-            </p>
+            <p className="mt-4 text-muted text-[0.93rem] max-w-[660px] leading-relaxed">{copy('theCitizenCharterCommits', 'The Citizen Charter commits the Controller of Examinations office to delivering services within defined timelines. It also outlines the grievance redressal procedure for unresolved complaints.')}</p>
             <div className="mt-4 md:mt-6">
               <DocActions href="/examinations/citizen-charter.pdf" viewLabel="View PDF" downloadLabel="Download PDF" />
             </div>
@@ -107,7 +113,7 @@ export default function CitizenCharterPage() {
           {/* Service table */}
           <div className="mt-8 md:mt-14 overflow-x-auto">
             <Reveal>
-              <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-muted">Service Timelines</span>
+              <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-muted">{copy('serviceTimelines', 'Service Timelines')}</span>
             </Reveal>
             <Stagger className="mt-3 md:mt-5 space-y-3" delay={0.05}>
               {SERVICES.map((s) => (
@@ -131,20 +137,16 @@ export default function CitizenCharterPage() {
           {/* Grievance */}
           <Reveal preset="up" delay={0.2}>
             <div className="mt-8 md:mt-14 rounded-2xl border border-border bg-warm-light p-5 md:p-8">
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">Grievance Redressal</h3>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">{copy('grievanceRedressal', 'Grievance Redressal')}</h3>
               <p className="text-muted text-[0.88rem] leading-relaxed mb-3 md:mb-4">
                 If a service is not delivered within the committed timeline, students may escalate by writing to{' '}
-                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                  coe@mlrinstitutions.ac.in
-                </a>{' '}
+                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{' '}
                 with their application reference. The COE office will acknowledge within 2 working days and resolve within 10 working days of acknowledgement.
               </p>
               <a
                 href="/examinations/contact"
                 className="inline-flex items-center gap-2 text-secondary font-semibold text-[0.88rem] hover:underline"
-              >
-                Contact COE Office →
-              </a>
+              >{copy('contactCoeOffice', 'Contact COE Office →')}</a>
             </div>
           </Reveal>
 
