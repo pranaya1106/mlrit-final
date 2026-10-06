@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import ContentEditor from '@/app/admin/ContentEditor';
+import ContentEditor from '@/app/(frontend)/admin/ContentEditor';
 import { getSection } from '@/lib/content/client';
 import { canEditSection, getAdminUser } from '@/lib/content/permissions';
 import {

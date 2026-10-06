@@ -1,3 +1,8 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { withPayload } from '@payloadcms/next/withPayload';
+
 // Chatbot backend origin the browser needs to `fetch()` — derived from env vars so
 // CSP tracks whatever backend is actually configured, in both dev and prod,
 // instead of silently blocking the request. Falls back to the local-dev default
@@ -24,7 +29,7 @@ const nextConfig = {
   reactStrictMode: true,
   // A stray package-lock.json in the user's home directory makes Next pick the
   // wrong workspace root for output file tracing. Pin it to this project.
-  outputFileTracingRoot: __dirname,
+  outputFileTracingRoot: dirname(fileURLToPath(import.meta.url)),
   // Pre-existing TS error in CIEClubPage (ref type mismatch) — does not affect runtime.
   // Tracked separately; enabling ignoreBuildErrors restores the build to its prior state.
   typescript: { ignoreBuildErrors: true },
@@ -96,4 +101,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default withPayload(nextConfig);

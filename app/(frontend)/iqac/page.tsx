@@ -123,7 +123,7 @@ export default async function IQACPage() {
               </Reveal>
               <Reveal preset="up" delay={0.1}>
                 <div className="rounded-2xl border border-border bg-white p-4 md:p-7 h-full">
-                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-4">{copy('mission', 'Mission')}</div>
+                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary mb-4">{copy('missionHeading', 'Mission')}</div>
                   <ul className="space-y-2.5">
                     {MISSION_POINTS.map((point, i) => (
                       <li key={i} className="flex items-start gap-2.5">

@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { asNumber, asText } from './sections';
+import {
+  asNumber,
+  asText,
+  CONTENT_SECTIONS,
+  galleryItemFields,
+  isGalleryField,
+  isRepeaterField,
+  repeaterItemFields,
+} from './sections';
 import { findTransientMediaError } from './validate';
 
 // home/why-mlrit carries a single `video` media field alongside its copy.
@@ -313,4 +321,58 @@ test('asText trims, and falls back only when nothing is left', () => {
   assert.equal(asText(undefined, 'LPA'), 'LPA');
   assert.equal(asText(42, 'LPA'), 'LPA');
   assert.equal(asText(''), '');
+});
+
+/**
+ * Field names are object keys in the stored content blob, so two fields that
+ * share a name silently collide: the editor renders two inputs, one of which
+ * writes over the other. iqac/overview ("mission") and iqac/reports
+ * ("minutes") both shipped that way — a text heading and a repeater with the
+ * same name — until Payload's own schema check surfaced it. Payload refuses to
+ * start on a duplicate; this keeps the failure visible in `npm test` too.
+ */
+const duplicates = (names: readonly string[]): string[] => {
+  const seen = new Set<string>();
+  return names.filter((name) => (seen.has(name) ? true : (seen.add(name), false)));
+};
+
+test('no section declares the same field name twice', () => {
+  for (const [key, config] of Object.entries(CONTENT_SECTIONS)) {
+    assert.deepEqual(
+      duplicates(config.fields.map((field) => field.name)),
+      [],
+      `${key} declares a field name more than once`
+    );
+  }
+});
+
+test('no list column collides with a sibling or with the reserved item keys', () => {
+  // `key` holds a gallery item's own upload and `id`/`itemId` its stable
+  // identifier, so a declared column may not take either name.
+  const RESERVED = new Set(['id', 'itemId']);
+
+  for (const [sectionKey, config] of Object.entries(CONTENT_SECTIONS)) {
+    for (const field of config.fields) {
+      const where = `${sectionKey}.${field.name}`;
+
+      if (isRepeaterField(field)) {
+        const names = repeaterItemFields(field).map((column) => column.name);
+        assert.deepEqual(duplicates(names), [], `${where} repeats a column name`);
+        for (const name of names) {
+          assert.ok(!RESERVED.has(name), `${where} uses reserved column name "${name}"`);
+        }
+      }
+
+      if (isGalleryField(field)) {
+        const names = galleryItemFields(field) as readonly string[];
+        assert.deepEqual(duplicates(names), [], `${where} repeats an item field`);
+        for (const name of names) {
+          assert.ok(
+            !RESERVED.has(name) && name !== 'key',
+            `${where} uses reserved item field "${name}"`
+          );
+        }
+      }
+    }
+  }
 });

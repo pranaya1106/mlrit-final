@@ -109,7 +109,7 @@ export default async function ReportsPage() {
           </Section>
 
           <Section id="minutes">
-            <H2 italic=""><Copy k="minutes">{'Minutes'}</Copy></H2>
+            <H2 italic=""><Copy k="minutesHeading">{'Minutes'}</Copy></H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {MINUTES.map((r) => (
                 <a

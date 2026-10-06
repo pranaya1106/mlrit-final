@@ -985,7 +985,7 @@ export const CONTENT_SECTIONS = {
       { name: 'iqacMotto', label: "IQAC Motto", defaultValue: "IQAC Motto" },
       { name: 'framework', label: "Framework", defaultValue: "Framework" },
       { name: 'fullName', label: "Full Name", defaultValue: "Full Name" },
-      { name: 'mission', label: "Mission", defaultValue: "Mission" },
+      { name: 'missionHeading', label: "Mission heading", defaultValue: "Mission" },
       { name: 'vision', label: "Vision", defaultValue: "Vision" },
       { name: 'mission', label: 'Mission points', type: 'repeater',
         itemFields: [{ name: 'text', label: 'Point' }],
@@ -1111,7 +1111,7 @@ export const CONTENT_SECTIONS = {
       { name: 'policyDocuments', label: "Policy Documents", defaultValue: "Policy Documents" },
       { name: 'auditReports', label: "Audit Reports", defaultValue: "Audit Reports" },
       { name: 'aqarReports', label: "AQAR Reports", defaultValue: "AQAR Reports" },
-      { name: 'minutes', label: "Minutes", defaultValue: "Minutes" },
+      { name: 'minutesHeading', label: "Minutes heading", defaultValue: "Minutes" },
       { name: 'open', label: "Open →", defaultValue: "Open →" },
       {
         name: "aqar",
