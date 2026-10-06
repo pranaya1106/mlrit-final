@@ -4,6 +4,8 @@ import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
 import AboutQuickNav from '@/components/AboutQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'About MLRIT — Marri Laxman Reddy Institute of Technology',
@@ -51,7 +53,10 @@ const PILLARS = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const row = await getSection('about', 'overview').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -79,13 +84,9 @@ export default function AboutPage() {
           <section id="story" className="bg-white py-6 md:py-14">
             <div className="w-full px-4 md:px-10 lg:px-12 grid lg:grid-cols-[1fr_1.2fr] gap-6 lg:gap-14 items-start">
               <Reveal preset="right">
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Our Story</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  From a vision in 2005
-                  <br />
-                  <span className="font-display italic font-medium" style={gradientText}>
-                    to a benchmark today.
-                  </span>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('ourStory', 'Our Story')}</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('fromAVisionIn', 'From a vision in 2005')}<br />
+                  <span className="font-display italic font-medium" style={gradientText}>{copy('toABenchmarkToday', 'to a benchmark today.')}</span>
                 </h2>
                 <div className="mt-5 md:mt-8 grid grid-cols-2 gap-3 md:gap-4">
                   {[
@@ -106,37 +107,29 @@ export default function AboutPage() {
                 <div className="space-y-3 md:space-y-4 text-foreground leading-relaxed text-[0.95rem] md:text-[1.05rem]">
                   <p>
                     MLR Institute of Technology was founded in 2005 by{' '}
-                    <strong>Sri Marri Laxman Reddy Garu</strong> and his family under the{' '}
-                    <strong>KMR Educational Society</strong>, with a clear purpose — to bring rigorous, industry-aligned engineering
-                    education to Telangana.
-                  </p>
+                    <strong>{copy('sriMarriLaxmanReddy', 'Sri Marri Laxman Reddy Garu')}</strong> and his family under the{' '}
+                    <strong>{copy('kmrEducationalSociety', 'KMR Educational Society')}</strong>{copy('withAClearPurpose', ', with a clear purpose — to bring rigorous, industry-aligned engineering education to Telangana.')}</p>
                   <p>
                     Starting with a handful of branches on a 38-acre campus at Dundigal, the institution has grown steadily
                     into one of the region&apos;s most trusted engineering colleges. Two decades on, MLRIT holds{' '}
-                    <strong>autonomous status</strong> from the UGC,{' '}
-                    <strong>NAAC institutional accreditation</strong>,{' '}
-                    <strong>NBA programme-level accreditation</strong> across five branches, and a consistent place in NIRF
-                    engineering rankings.
-                  </p>
+                    <strong>{copy('autonomousStatus', 'autonomous status')}</strong> from the UGC,{' '}
+                    <strong>{copy('naacInstitutionalAccreditation', 'NAAC institutional accreditation')}</strong>,{' '}
+                    <strong>{copy('nbaProgrammeLevelAccreditation', 'NBA programme-level accreditation')}</strong>{copy('acrossFiveBranchesAnd', 'across five branches, and a consistent place in NIRF engineering rankings.')}</p>
                   <p>
                     Over 7,000 alumni now work across India and the world — in software, aerospace, finance, research and
                     public service — each carrying forward the founding promise of{' '}
-                    <em>right education, bright placements.</em>
+                    <em>{copy('rightEducationBrightPlacements', 'right education, bright placements.')}</em>
                   </p>
                 </div>
                 <div className="mt-5 md:mt-8 flex flex-wrap gap-4">
                   <Link
                     href="/about/legacy"
                     className="inline-flex items-center gap-2 text-primary font-semibold text-[0.9rem] hover:gap-3 transition-all"
-                  >
-                    Read our full legacy →
-                  </Link>
+                  >{copy('readOurFullLegacy', 'Read our full legacy →')}</Link>
                   <Link
                     href="/about/timeline"
                     className="inline-flex items-center gap-2 text-muted font-semibold text-[0.9rem] hover:text-primary hover:gap-3 transition-all"
-                  >
-                    View timeline →
-                  </Link>
+                  >{copy('viewTimeline', 'View timeline →')}</Link>
                 </div>
               </Reveal>
             </div>
@@ -146,10 +139,10 @@ export default function AboutPage() {
           <section id="pillars" className="bg-warm-light py-8 md:py-16">
             <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">What Defines Us</span>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('whatDefinesUs', 'What Defines Us')}</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
                   Six pillars of{' '}
-                  <span className="font-display italic font-medium" style={gradientText}>MLRIT.</span>
+                  <span className="font-display italic font-medium" style={gradientText}>{copy('mlrit', 'MLRIT.')}</span>
                 </h2>
               </Reveal>
               <Stagger className="mt-8 md:mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" delay={0.07}>

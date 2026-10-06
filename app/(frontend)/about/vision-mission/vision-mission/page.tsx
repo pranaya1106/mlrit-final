@@ -3,6 +3,8 @@ import PageHeader from '@/components/PageHeader';
 import AboutQuickNav from '@/components/AboutQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Vision & Mission — MLRIT',
@@ -21,7 +23,10 @@ const NAV_ITEMS = [
   { id: 'values',  label: 'Core Values' },
 ];
 
-export default function VisionMissionPage() {
+export default async function VisionMissionPage() {
+  const row = await getSection('about', 'vision-mission').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -48,10 +53,8 @@ export default function VisionMissionPage() {
               {/* Vision */}
               <Reveal preset="right">
                 <div className="rounded-2xl border-2 border-secondary bg-white p-6 md:p-12">
-                  <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Vision</span>
-                  <p className="mt-5 font-sans font-black text-foreground text-[clamp(1.4rem,2.8vw,2.2rem)] leading-[1.25] tracking-tight max-w-[760px]">
-                    Promote academic excellence, research, innovation, and entrepreneurial skills to produce graduates with human values and leadership qualities to serve the nation.
-                  </p>
+                  <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('vision', 'Vision')}</span>
+                  <p className="mt-5 font-sans font-black text-foreground text-[clamp(1.4rem,2.8vw,2.2rem)] leading-[1.25] tracking-tight max-w-[760px]">{copy('promoteAcademicExcellenceResearch', 'Promote academic excellence, research, innovation, and entrepreneurial skills to produce graduates with human values and leadership qualities to serve the nation.')}</p>
                 </div>
               </Reveal>
 
@@ -64,7 +67,7 @@ export default function VisionMissionPage() {
               {/* Mission */}
               <Reveal preset="up" delay={0.1}>
                 <div className="rounded-2xl border border-border bg-warm-light p-6 md:p-12">
-                  <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Mission</span>
+                  <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('mission', 'Mission')}</span>
                   <ul className="mt-6 space-y-3 md:space-y-5">
                     {[
                       'Provide student-centric education and training on cutting-edge technologies to make the students globally competitive and socially responsible citizens.',
@@ -92,7 +95,7 @@ export default function VisionMissionPage() {
               {/* Core values strip */}
               <Reveal preset="up" delay={0.2}>
                 <div className="rounded-2xl border border-border bg-white p-5 md:p-8">
-                  <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-muted">Core Values</span>
+                  <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-muted">{copy('coreValues', 'Core Values')}</span>
                   <div className="mt-5 flex flex-wrap gap-3">
                     {['Integrity', 'Inclusivity', 'Empathy', 'Excellence', 'Innovation', 'Learning for Life'].map((v) => (
                       <span key={v} className="px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-warm-light border border-border font-sans font-semibold text-[0.85rem] md:text-[0.95rem] text-foreground">

@@ -4,6 +4,8 @@ import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = { title: 'External (SEE) Timetable — Examinations — MLRIT' };
 
@@ -202,7 +204,10 @@ const NAV_ITEMS = [
   { id: 'timetable-external', label: 'Timetable (External)' },
 ];
 
-export default function ExternalTimetablePage() {
+export default async function ExternalTimetablePage() {
+  const row = await getSection('examinations', 'timetable-external').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -254,11 +259,9 @@ export default function ExternalTimetablePage() {
               Semester End Examinations · {TIMETABLES.length} Timetables
             </span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              SEE <span className="font-display italic font-medium" style={gradientText}>schedules.</span>
+              SEE <span className="font-display italic font-medium" style={gradientText}>{copy('schedules', 'schedules.')}</span>
             </h2>
-            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">
-              All timetables are hosted locally. Use View to open in-browser or Download to save a copy.
-            </p>
+            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">{copy('allTimetablesAreHosted', 'All timetables are hosted locally. Use View to open in-browser or Download to save a copy.')}</p>
           </Reveal>
 
           <Stagger className="mt-6 md:mt-10 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.05}>
@@ -271,9 +274,7 @@ export default function ExternalTimetablePage() {
                     </span>
                     {t.current && (
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.6rem] font-bold tracking-wide uppercase">
-                        <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-                        Current
-                      </span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />{copy('current', 'Current')}</span>
                     )}
                   </div>
                   <div className="flex-1">
@@ -301,13 +302,9 @@ export default function ExternalTimetablePage() {
               </svg>
               <p className="text-muted text-[0.88rem] leading-relaxed">
                 For fee notifications and result announcements related to these examinations, see{' '}
-                <a href="/examinations/circulars" className="text-secondary font-semibold hover:underline">
-                  Circulars
-                </a>{' '}
+                <a href="/examinations/circulars" className="text-secondary font-semibold hover:underline">{copy('circulars', 'Circulars')}</a>{' '}
                 or contact the{' '}
-                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">
-                  COE office
-                </a>.
+                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">{copy('coeOffice', 'COE office')}</a>.
               </p>
             </div>
           </Reveal>

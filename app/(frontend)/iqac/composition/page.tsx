@@ -4,6 +4,8 @@ import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'IQAC Composition — IQAC — MLRIT',
@@ -128,7 +130,10 @@ const ROLES: RoleDetail[] = [
   },
 ];
 
-export default function CompositionPage() {
+export default async function CompositionPage() {
+  const row = await getSection('iqac', 'composition').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -150,17 +155,17 @@ export default function CompositionPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="members">
-            <H2 italic="">IQAC Members</H2>
-            <Lede>The IQAC functions as the nodal agency for quality assurance and enhancement, bringing together institutional leadership, faculty, and external experts.</Lede>
+            <H2 italic="">{copy('iqacMembers', 'IQAC Members')}</H2>
+            <Lede>{copy('theIqacFunctionsAs2', 'The IQAC functions as the nodal agency for quality assurance and enhancement, bringing together institutional leadership, faculty, and external experts.')}</Lede>
             <Reveal preset="up" delay={0.08}>
               <div className="mt-5 md:mt-8 overflow-x-auto rounded-2xl border border-border">
                 <table className="w-full text-left">
-                  <caption className="sr-only">IQAC Member Composition</caption>
+                  <caption className="sr-only">{copy('iqacMemberComposition', 'IQAC Member Composition')}</caption>
                   <thead>
                     <tr className="bg-warm-light border-b border-border">
                       <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted w-12">S.No.</th>
-                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Category</th>
-                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">Position</th>
+                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">{copy('category', 'Category')}</th>
+                      <th scope="col" className="px-3 md:px-5 py-2.5 md:py-3 font-mono text-[0.68rem] font-bold tracking-[0.18em] uppercase text-muted">{copy('position', 'Position')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
@@ -191,23 +196,19 @@ export default function CompositionPage() {
           </Section>
 
           <Section id="head-iqac">
-            <H2 italic="">Head IQAC</H2>
+            <H2 italic="">{copy('headIqac', 'Head IQAC')}</H2>
             <Reveal preset="up" delay={0.1}>
               <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-white p-5 md:p-10 flex flex-col md:flex-row gap-5 md:gap-8">
                 <div className="shrink-0 w-40 h-44 md:w-44 md:h-48 rounded-2xl overflow-hidden border border-border self-start">
                   <img src="/images/leadership/dr-radhika-devi.jpg" alt="Dr. Radhika Devi V" className="w-full h-full object-cover object-top" />
                 </div>
                 <div className="flex-1">
-                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2">Head IQAC</div>
-                  <h3 className="font-sans font-black text-foreground text-[1.4rem] tracking-tight">Dr. Radhika Devi V</h3>
+                  <div className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2">{copy('headIqac', 'Head IQAC')}</div>
+                  <h3 className="font-sans font-black text-foreground text-[1.4rem] tracking-tight">{copy('drRadhikaDeviV', 'Dr. Radhika Devi V')}</h3>
                   <p className="mt-1 font-mono text-muted text-[0.78rem] tracking-wide uppercase">Director · Dean H&amp;S · Head IQAC</p>
                   <div className="mt-5 h-px bg-border" />
-                  <p className="mt-5 text-foreground leading-relaxed text-[1rem]">
-                    An acclaimed academician and administrator in the field of technical education with more than 21 years of academic experience. Former Head of the Science and Humanities Department at MLR Institute of Technology.
-                  </p>
-                  <p className="mt-3 text-muted leading-relaxed text-[0.95rem]">
-                    She has organised and attended several National and International Conferences, Seminars and Workshops, and has published nearly 20 research papers in Journals of National and International Repute.
-                  </p>
+                  <p className="mt-5 text-foreground leading-relaxed text-[1rem]">{copy('anAcclaimedAcademicianAnd', 'An acclaimed academician and administrator in the field of technical education with more than 21 years of academic experience. Former Head of the Science and Humanities Department at MLR Institute of Technology.')}</p>
+                  <p className="mt-3 text-muted leading-relaxed text-[0.95rem]">{copy('sheHasOrganisedAnd', 'She has organised and attended several National and International Conferences, Seminars and Workshops, and has published nearly 20 research papers in Journals of National and International Repute.')}</p>
                   <div className="mt-5 flex flex-wrap gap-3">
                     {[
                       'IUCEE Showcase Award — Excellence in Academic Leadership',
@@ -221,18 +222,18 @@ export default function CompositionPage() {
                 <div className="md:w-64 shrink-0">
                   <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-6 space-y-4">
                     <div>
-                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Qualification</div>
-                      <p className="text-foreground text-[0.93rem]">M.Sc., Ph.D — Physics<br /><span className="text-muted text-[0.85rem]">Hyderabad Central University</span></p>
+                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('qualification', 'Qualification')}</div>
+                      <p className="text-foreground text-[0.93rem]">{copy('mScPhD', 'M.Sc., Ph.D — Physics')}<br /><span className="text-muted text-[0.85rem]">{copy('hyderabadCentralUniversity', 'Hyderabad Central University')}</span></p>
                     </div>
                     <div className="h-px bg-border" />
                     <div>
-                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Specialisation</div>
-                      <p className="text-foreground text-[0.93rem]">Density Functional Theory · Transparent Conducting Oxides</p>
+                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('specialisation', 'Specialisation')}</div>
+                      <p className="text-foreground text-[0.93rem]">{copy('densityFunctionalTheoryTransparent', 'Density Functional Theory · Transparent Conducting Oxides')}</p>
                     </div>
                     <div className="h-px bg-border" />
                     <div>
-                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Research Focus</div>
-                      <p className="text-foreground text-[0.93rem]">TCOs · Smart Materials · Higher Education · ICT in Education</p>
+                      <div className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('researchFocus', 'Research Focus')}</div>
+                      <p className="text-foreground text-[0.93rem]">{copy('tcosSmartMaterialsHigher', 'TCOs · Smart Materials · Higher Education · ICT in Education')}</p>
                     </div>
                   </div>
                 </div>
@@ -243,9 +244,7 @@ export default function CompositionPage() {
           <Section id="roles-responsibilities">
             <H2 italic="">Roles &amp; Responsibilities</H2>
             <Reveal preset="right">
-              <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-                The IQAC functions as the nodal agency for quality assurance and enhancement, ensuring that the institution continuously improves its academic and administrative performance.
-              </p>
+              <p className="mt-4 text-muted leading-relaxed text-[1rem]">{copy('theIqacFunctionsAs', 'The IQAC functions as the nodal agency for quality assurance and enhancement, ensuring that the institution continuously improves its academic and administrative performance.')}</p>
             </Reveal>
             <div className="mt-5 md:mt-8 space-y-4">
               {ROLES.map((r, i) => (

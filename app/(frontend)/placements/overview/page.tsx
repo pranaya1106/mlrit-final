@@ -4,6 +4,8 @@ import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { PLACEMENT_HIGHLIGHTS, PLACEMENT_OVERVIEW } from '@/lib/placements';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Placements — Overview — MLRIT',
@@ -56,7 +58,10 @@ const NAV_ITEMS = [
   { id: 'overview', label: 'Overview' },
 ];
 
-export default function PlacementsOverviewPage() {
+export default async function PlacementsOverviewPage() {
+  const row = await getSection('placements', 'overview').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PlacementsQuickNav active="/placements/overview" />
@@ -74,19 +79,13 @@ export default function PlacementsOverviewPage() {
         <div className="w-full px-6 md:px-10 lg:px-12">
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-6 lg:gap-16 items-start">
             <Reveal>
-              <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">
-                Overview
-              </span>
+              <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">{copy('overview', 'Overview')}</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2.2rem,4vw,3.6rem)] leading-[1.02]">
                 Where careers{' '}
-                <span className="font-display italic font-medium" style={gradientText}>
-                  begin.
-                </span>
+                <span className="font-display italic font-medium" style={gradientText}>{copy('begin', 'begin.')}</span>
               </h2>
               <div className="mt-6 border-l-[3px] border-primary pl-6">
-                <p className="font-display italic font-medium text-foreground text-[clamp(1.15rem,1.5vw,1.5rem)] leading-[1.45]">
-                  Twenty-one years of building industry-ready professionals — every year, MLRIT places 81%+ of its graduating class.
-                </p>
+                <p className="font-display italic font-medium text-foreground text-[clamp(1.15rem,1.5vw,1.5rem)] leading-[1.45]">{copy('twentyOneYearsOf', 'Twenty-one years of building industry-ready professionals — every year, MLRIT places 81%+ of its graduating class.')}</p>
               </div>
             </Reveal>
 
@@ -141,9 +140,7 @@ export default function PlacementsOverviewPage() {
         <div className="relative w-full px-6 md:px-10 lg:px-12">
           <div className="max-w-[820px] mb-8 md:mb-14">
             <Reveal>
-              <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-warm">
-                Why MLRIT
-              </span>
+              <span className="font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-warm">{copy('whyMlrit', 'Why MLRIT')}</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,4vw,3.4rem)] leading-[1.02]">
                 What sets our{' '}
                 <span
@@ -153,9 +150,7 @@ export default function PlacementsOverviewPage() {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                   }}
-                >
-                  placements apart.
-                </span>
+                >{copy('placementsApart', 'placements apart.')}</span>
               </h2>
               <p className="mt-4 text-white/70 text-[clamp(1rem,1.15vw,1.15rem)] leading-relaxed max-w-[720px]">
                 Six qualities the T&amp;P Cell has built into the college for over two decades.
@@ -196,14 +191,10 @@ export default function PlacementsOverviewPage() {
         <div className="relative w-full px-6 md:px-10 lg:px-12">
           <div className="max-w-[820px] mb-6 md:mb-14">
             <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] font-extrabold tracking-[0.24em] uppercase text-primary">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              Explore the Placements Section
-            </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />{copy('exploreThePlacementsSection', 'Explore the Placements Section')}</span>
             <h2 className="mt-4 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,4vw,3.4rem)] leading-[1.02]">
               Six ways to know{' '}
-              <span className="font-display italic font-medium" style={gradientText}>
-                MLRIT placements.
-              </span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('mlritPlacements', 'MLRIT placements.')}</span>
             </h2>
           </div>
 
@@ -246,9 +237,7 @@ export default function PlacementsOverviewPage() {
                       <p className="mt-3 text-muted text-[0.94rem] leading-[1.7] group-hover:text-white/85 transition-colors duration-500">
                         {e.desc}
                       </p>
-                      <div className="mt-6 font-sans font-bold text-[0.85rem] text-primary group-hover:text-white transition-colors duration-500">
-                        Explore →
-                      </div>
+                      <div className="mt-6 font-sans font-bold text-[0.85rem] text-primary group-hover:text-white transition-colors duration-500">{copy('explore', 'Explore →')}</div>
                     </div>
                   </Link>
                 </StaggerItem>

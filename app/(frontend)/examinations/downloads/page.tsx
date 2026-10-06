@@ -5,6 +5,8 @@ import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
 import { EXAM_DOWNLOADS, EXAM_CALENDARS } from '@/lib/examinations';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Downloads — Examinations — MLRIT',
@@ -29,7 +31,10 @@ const NAV_ITEMS = [
   { id: 'downloads', label: 'Downloads' },
 ];
 
-export default function DownloadsPage() {
+export default async function DownloadsPage() {
+  const row = await getSection('examinations', 'downloads').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   const forms  = EXAM_DOWNLOADS.filter((d) => d.category === 'forms');
   const policy = EXAM_DOWNLOADS.filter((d) => d.category !== 'forms');
 
@@ -61,14 +66,12 @@ export default function DownloadsPage() {
           {/* Forms */}
           <div>
             <Reveal>
-              <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Student Forms</span>
+              <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('studentForms', 'Student Forms')}</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
                 Application{' '}
-                <span className="font-display italic font-medium" style={gradientText}>forms.</span>
+                <span className="font-display italic font-medium" style={gradientText}>{copy('forms', 'forms.')}</span>
               </h2>
-              <p className="mt-3 text-muted text-[0.9rem] max-w-[520px] leading-relaxed">
-                Download, print and submit these forms to the COE office with supporting documents and prescribed fees.
-              </p>
+              <p className="mt-3 text-muted text-[0.9rem] max-w-[520px] leading-relaxed">{copy('downloadPrintAndSubmit', 'Download, print and submit these forms to the COE office with supporting documents and prescribed fees.')}</p>
             </Reveal>
 
             <Stagger className="mt-5 md:mt-8 space-y-2" delay={0.04}>
@@ -95,7 +98,7 @@ export default function DownloadsPage() {
               <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Policy &amp; Instructions</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
                 Policy{' '}
-                <span className="font-display italic font-medium" style={gradientText}>documents.</span>
+                <span className="font-display italic font-medium" style={gradientText}>{copy('documents', 'documents.')}</span>
               </h2>
             </Reveal>
 
@@ -120,10 +123,10 @@ export default function DownloadsPage() {
           {/* Academic Calendars */}
           <div>
             <Reveal>
-              <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Academic Calendars</span>
+              <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('academicCalendars', 'Academic Calendars')}</span>
               <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
                 Year-wise{' '}
-                <span className="font-display italic font-medium" style={gradientText}>calendars.</span>
+                <span className="font-display italic font-medium" style={gradientText}>{copy('calendars', 'calendars.')}</span>
               </h2>
             </Reveal>
 
@@ -137,9 +140,7 @@ export default function DownloadsPage() {
                       </span>
                       {c.current && (
                         <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.58rem] font-bold tracking-wide uppercase">
-                          <span className="w-1 h-1 rounded-full bg-secondary animate-pulse" />
-                          Current
-                        </span>
+                          <span className="w-1 h-1 rounded-full bg-secondary animate-pulse" />{copy('current', 'Current')}</span>
                       )}
                     </div>
                     <h3 className="font-sans font-extrabold text-foreground text-[0.95rem] leading-snug flex-1">

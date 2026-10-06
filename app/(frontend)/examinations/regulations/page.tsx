@@ -4,6 +4,8 @@ import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = { title: 'Regulations — Examinations — MLRIT' };
 
@@ -142,7 +144,10 @@ const NAV_ITEMS = [
   { id: 'regulations', label: 'Regulations' },
 ];
 
-export default function RegulationsPage() {
+export default async function RegulationsPage() {
+  const row = await getSection('examinations', 'regulations').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -169,15 +174,10 @@ export default function RegulationsPage() {
         <div className="w-full px-4 md:px-10 lg:px-12">
 
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
-              All Regulations
-            </span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Programme <span className="font-display italic font-medium" style={gradientText}>regulations.</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('allRegulations', 'All Regulations')}</span>
+            <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('programme', 'Programme')}<span className="font-display italic font-medium" style={gradientText}>{copy('regulations', 'regulations.')}</span>
             </h2>
-            <p className="mt-4 text-muted text-[1rem] max-w-[600px] leading-relaxed">
-              As an autonomous institution since 2015, MLRIT designs its own regulations approved by UGC and affiliated to JNTUH. Download the applicable regulation PDF for your programme and batch year.
-            </p>
+            <p className="mt-4 text-muted text-[1rem] max-w-[600px] leading-relaxed">{copy('asAnAutonomousInstitution', 'As an autonomous institution since 2015, MLRIT designs its own regulations approved by UGC and affiliated to JNTUH. Download the applicable regulation PDF for your programme and batch year.')}</p>
           </Reveal>
 
           {/* Regulation groups */}
@@ -241,12 +241,8 @@ export default function RegulationsPage() {
               <p className="text-muted text-[0.88rem] leading-relaxed">
                 For the institutional examination policy covering conduct, malpractice, re-evaluation and grievance procedures, download the{' '}
                 <a href="/examinations/exam-policy.pdf" target="_blank" rel="noopener noreferrer"
-                  className="text-secondary font-semibold hover:underline">
-                  Examination Policy PDF
-                </a>. For any regulation-related queries, visit{' '}
-                <a href="/examinations/support" className="text-secondary font-semibold hover:underline">
-                  Examinations Support
-                </a>.
+                  className="text-secondary font-semibold hover:underline">{copy('examinationPolicyPdf', 'Examination Policy PDF')}</a>. For any regulation-related queries, visit{' '}
+                <a href="/examinations/support" className="text-secondary font-semibold hover:underline">{copy('examinationsSupport', 'Examinations Support')}</a>.
               </p>
             </div>
           </Reveal>

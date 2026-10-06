@@ -4,6 +4,8 @@ import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import { CERTIFICATIONS } from '@/lib/placements';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
@@ -23,7 +25,10 @@ const NAV_ITEMS = [
   { id: 'global-certification', label: 'Global Certifications' },
 ];
 
-export default function GlobalCertificationPage() {
+export default async function GlobalCertificationPage() {
+  const row = await getSection('placements', 'global-certification').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -48,8 +53,7 @@ export default function GlobalCertificationPage() {
       <section id="global-certification" className="bg-white py-8 md:py-20">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.25rem] md:text-[1.5rem] mb-5 md:mb-8">
-              Verified <span className="font-display italic font-medium" style={gradientText}>certifications.</span>
+            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.25rem] md:text-[1.5rem] mb-5 md:mb-8">{copy('verified', 'Verified')}<span className="font-display italic font-medium" style={gradientText}>{copy('certifications', 'certifications.')}</span>
             </h2>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-5">
@@ -98,13 +102,10 @@ export default function GlobalCertificationPage() {
         <section className="bg-ink text-white py-6 md:py-14">
           <div className="w-full px-6 md:px-10 lg:px-12">
             <Reveal>
-              <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Certification Partners</span>
-              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                More <span className="font-display italic font-medium text-warm">programmes.</span>
+              <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">{copy('certificationPartners', 'Certification Partners')}</span>
+              <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('more', 'More')}<span className="font-display italic font-medium text-warm">{copy('programmes', 'programmes.')}</span>
               </h2>
-              <p className="mt-3 text-white/50 max-w-[540px] text-[0.92rem]">
-                Additional certification partners — full programme details updated as institutional records are confirmed.
-              </p>
+              <p className="mt-3 text-white/50 max-w-[540px] text-[0.92rem]">{copy('additionalCertificationPartnersFull', 'Additional certification partners — full programme details updated as institutional records are confirmed.')}</p>
             </Reveal>
             <Stagger className="mt-6 md:mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-5" delay={0.07}>
               {OTHER_CERTS.map((cert) => (
@@ -121,7 +122,7 @@ export default function GlobalCertificationPage() {
                         />
                       </div>
                     )}
-                    <p className="font-mono text-[0.68rem] tracking-[0.1em] text-white/45 uppercase">Partner</p>
+                    <p className="font-mono text-[0.68rem] tracking-[0.1em] text-white/45 uppercase">{copy('partner', 'Partner')}</p>
                   </div>
                 </StaggerItem>
               ))}
@@ -134,9 +135,8 @@ export default function GlobalCertificationPage() {
       <section className="bg-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Why It Matters</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Beyond the <span className="font-display italic font-medium" style={gradientText}>degree.</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('whyItMatters', 'Why It Matters')}</span>
+            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('beyondThe', 'Beyond the')}<span className="font-display italic font-medium" style={gradientText}>{copy('degree', 'degree.')}</span>
             </h2>
           </Reveal>
           <div className="mt-6 md:mt-10 grid md:grid-cols-3 gap-5">

@@ -10,6 +10,8 @@ import { buildLeadStory, buildRecentStories, buildTierStories, buildArchiveStori
 import ChroniclesQuickNav from '@/components/ChroniclesQuickNav';
 import ChroniclesTicker from '@/components/ChroniclesTicker';
 import ArticleImage from '@/components/ArticleImage';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'MLRIT Chronicles — The campus broadsheet',
@@ -37,6 +39,9 @@ function editionDate(): string {
 }
 
 export default async function ChroniclesPage() {
+  const row = await getSection('chronicles', 'overview').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   const [liveNewsFeed, archivedNewsFeed] = await Promise.all([
     getLiveNews(LIVE_FEED_SIZE),
     getArchivedNews(),
@@ -60,11 +65,11 @@ export default async function ChroniclesPage() {
             {EDITION_DATE}
           </span>
           <div className="flex items-center gap-3">
-            <span>MLRIT · HYDERABAD</span>
+            <span>{copy('mlritHyderabad', 'MLRIT · HYDERABAD')}</span>
             <span className="hidden md:inline">·</span>
-            <span className="hidden md:inline">VOL. V · NO. 23</span>
+            <span className="hidden md:inline">{copy('volVNo23', 'VOL. V · NO. 23')}</span>
             <span className="hidden md:inline">·</span>
-            <span className="hidden md:inline">SPRING EDITION</span>
+            <span className="hidden md:inline">{copy('springEdition', 'SPRING EDITION')}</span>
           </div>
         </div>
       </div>
@@ -80,15 +85,9 @@ export default async function ChroniclesPage() {
             height={112}
             className="h-9 md:h-11 w-auto mx-auto mb-4"
           />
-          <p className="font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/60 mb-2.5">
-            The campus broadsheet of MLR Institute of Technology
-          </p>
-          <h1 className="font-display font-black uppercase tracking-tight leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)]">
-            MLRIT Chronicles
-          </h1>
-          <p className="font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/60 mt-3">
-            Campus · Research · Placements · Sport
-          </p>
+          <p className="font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/60 mb-2.5">{copy('theCampusBroadsheetOf', 'The campus broadsheet of MLR Institute of Technology')}</p>
+          <h1 className="font-display font-black uppercase tracking-tight leading-[0.9] text-[clamp(2.4rem,8vw,5.5rem)]">{copy('mlritChronicles', 'MLRIT Chronicles')}</h1>
+          <p className="font-mono uppercase text-[0.65rem] tracking-[0.15em] text-black/60 mt-3">{copy('campusResearchPlacementsSport', 'Campus · Research · Placements · Sport')}</p>
         </div>
       </header>
 
@@ -136,9 +135,7 @@ export default async function ChroniclesPage() {
               target="_blank"
               rel="noopener"
               className="inline-block mt-4 font-mono font-bold uppercase tracking-[0.15em] text-[0.7rem] text-primary border-b-2 border-primary pb-0.5 hover:bg-primary hover:text-white hover:border-transparent hover:px-2 transition-all"
-            >
-              Continue reading →
-            </a>
+            >{copy('continueReading', 'Continue reading →')}</a>
           </article>
 
           {/* RIGHT RAIL — In Brief, Live Wire, Most Read */}
@@ -194,7 +191,7 @@ export default async function ChroniclesPage() {
             {/* Most Read — boxed, per the broadsheet sidebar */}
             <section className="border-2 border-black p-5">
               <div className="flex items-center gap-3 mb-5">
-                <h3 className="font-display font-bold text-xl uppercase tracking-tight">Most Read</h3>
+                <h3 className="font-display font-bold text-xl uppercase tracking-tight">{copy('mostRead', 'Most Read')}</h3>
                 <div className="flex-1 border-t border-black/30" />
               </div>
               <ol className="space-y-4 list-none p-0 m-0">

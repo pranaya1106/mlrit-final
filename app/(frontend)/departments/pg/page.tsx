@@ -4,6 +4,8 @@ import PageHeader from '@/components/PageHeader';
 import { Section, H2, Lede } from '@/components/PageSection';
 import { DEPARTMENTS } from '@/lib/departments';
 import AcademicsQuickNav from '@/components/AcademicsQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = { title: 'Postgraduate Programmes — MLRIT' };
 
@@ -14,7 +16,10 @@ const MTECH = [
   { code: 'MTech-AERO', name: 'Aerospace Propulsion',           tag: 'Propulsion, materials and unmanned systems.' },
 ];
 
-export default function PGPage() {
+export default async function PGPage() {
+  const row = await getSection('departments', 'pg').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   const mba = DEPARTMENTS.find((d) => d.slug === 'mba')!;
   return (
     <>
@@ -28,8 +33,8 @@ export default function PGPage() {
       />
       <AcademicsQuickNav active="/departments/pg" />
       <Section>
-        <H2 italic="specialisations">M.Tech</H2>
-        <Lede>Four research-led M.Tech tracks across CSE, VLSI, Power Systems and Aerospace Propulsion.</Lede>
+        <H2 italic="specialisations">{copy('mTech', 'M.Tech')}</H2>
+        <Lede>{copy('fourResearchLedM', 'Four research-led M.Tech tracks across CSE, VLSI, Power Systems and Aerospace Propulsion.')}</Lede>
         <div className="mt-6 md:mt-10 grid md:grid-cols-2 gap-3 md:gap-5">
           {MTECH.map((m) => (
             <div key={m.code} className="rounded-2xl border border-border bg-white p-4 md:p-7 hover:border-primary transition-colors">
@@ -43,9 +48,7 @@ export default function PGPage() {
       <Section surface>
         <H2 italic="(Management)">MBA</H2>
         <Lede>{mba.tagline}</Lede>
-        <Link href="/departments/mba" className="mt-5 md:mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-white font-semibold hover:bg-primary transition-colors">
-          Explore MBA programme →
-        </Link>
+        <Link href="/departments/mba" className="mt-5 md:mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-full bg-foreground text-white font-semibold hover:bg-primary transition-colors">{copy('exploreMbaProgramme', 'Explore MBA programme →')}</Link>
       </Section>
     </>
   );

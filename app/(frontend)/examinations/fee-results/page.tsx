@@ -3,6 +3,8 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Exam Fee & Results — Examinations — MLRIT',
@@ -42,7 +44,10 @@ const NAV_ITEMS = [
   { id: 'fee-results', label: 'Fee & Results' },
 ];
 
-export default function FeeResultsPage() {
+export default async function FeeResultsPage() {
+  const row = await getSection('examinations', 'fee-results').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -69,15 +74,9 @@ export default function FeeResultsPage() {
       <section id="fee-results" className="bg-ink text-white py-8 md:py-14">
         <div className="w-full px-4 md:px-10 lg:px-12 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
           <div className="flex-1">
-            <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-white/50 mb-2 inline-block">
-              MLRIT Examinations Portal
-            </span>
-            <h2 className="font-sans font-black tracking-tighter text-white text-[clamp(1.5rem,2.5vw,2.1rem)] leading-[1.1]">
-              Fee payment and results<br />are on the Exam Portal.
-            </h2>
-            <p className="mt-3 text-white/60 text-[0.9rem] leading-relaxed max-w-[500px]">
-              The MLRIT Examinations Portal is the single destination for paying examination fees, accessing results and downloading hall tickets.
-            </p>
+            <span className="font-mono text-[0.68rem] font-bold tracking-[0.2em] uppercase text-white/50 mb-2 inline-block">{copy('mlritExaminationsPortal', 'MLRIT Examinations Portal')}</span>
+            <h2 className="font-sans font-black tracking-tighter text-white text-[clamp(1.5rem,2.5vw,2.1rem)] leading-[1.1]">{copy('feePaymentAndResults', 'Fee payment and results')}<br />{copy('areOnTheExam', 'are on the Exam Portal.')}</h2>
+            <p className="mt-3 text-white/60 text-[0.9rem] leading-relaxed max-w-[500px]">{copy('theMlritExaminationsPortal', 'The MLRIT Examinations Portal is the single destination for paying examination fees, accessing results and downloading hall tickets.')}</p>
           </div>
           <div className="shrink-0">
             <a
@@ -85,9 +84,7 @@ export default function FeeResultsPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-primary text-white font-semibold text-[0.93rem] hover:bg-primary/90 transition-colors"
-            >
-              Open Exam Portal ↗
-            </a>
+            >{copy('openExamPortal', 'Open Exam Portal ↗')}</a>
           </div>
         </div>
       </section>
@@ -96,10 +93,10 @@ export default function FeeResultsPage() {
       <section className="bg-white py-8 md:py-14">
         <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">How to Pay</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('howToPay', 'How to Pay')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.06]">
               Fee payment in{' '}
-              <span className="font-display italic font-medium" style={gradientText}>four steps.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('fourSteps', 'four steps.')}</span>
             </h2>
           </Reveal>
 
@@ -121,14 +118,12 @@ export default function FeeResultsPage() {
       <section className="bg-warm-light py-10 md:py-20 border-t border-border">
         <div className="w-full px-4 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Results</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('results2', 'Results')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.6rem,2.6vw,2.2rem)] leading-[1.06]">
               Checking your{' '}
-              <span className="font-display italic font-medium" style={gradientText}>results.</span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('results', 'results.')}</span>
             </h2>
-            <p className="mt-4 text-muted text-[0.93rem] max-w-[600px] leading-relaxed">
-              Semester results are published on the MLRIT Exam Portal within the timelines specified in the academic calendar. Log in with your student credentials to view and download your grade sheet.
-            </p>
+            <p className="mt-4 text-muted text-[0.93rem] max-w-[600px] leading-relaxed">{copy('semesterResultsArePublished', 'Semester results are published on the MLRIT Exam Portal within the timelines specified in the academic calendar. Log in with your student credentials to view and download your grade sheet.')}</p>
           </Reveal>
 
           <Reveal preset="up" delay={0.1}>
@@ -138,15 +133,11 @@ export default function FeeResultsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
-              >
-                View Results on Portal ↗
-              </a>
+              >{copy('viewResultsOnPortal', 'View Results on Portal ↗')}</a>
               <a
                 href="/examinations/contact"
                 className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full border border-border text-foreground font-semibold text-sm hover:border-secondary transition-colors"
-              >
-                Contact COE for Result Queries →
-              </a>
+              >{copy('contactCoeForResult', 'Contact COE for Result Queries →')}</a>
             </div>
           </Reveal>
         </div>

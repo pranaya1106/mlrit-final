@@ -4,6 +4,8 @@ import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
 import AcademicsQuickNav from '@/components/AcademicsQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Academics — MLR Institute of Technology',
@@ -33,7 +35,10 @@ const NAV_ITEMS = [
   { id: 'explore',   label: 'Explore'   },
 ];
 
-export default function AcademicsPage() {
+export default async function AcademicsPage() {
+  const row = await getSection('academics', 'overview').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -58,13 +63,10 @@ export default function AcademicsPage() {
           <section id="framework" className="bg-white py-7 md:py-14">
             <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">How We Teach</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  The four <span className="font-display italic font-medium" style={gradientText}>frameworks.</span>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('howWeTeach', 'How We Teach')}</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('theFour', 'The four')}<span className="font-display italic font-medium" style={gradientText}>{copy('frameworks', 'frameworks.')}</span>
                 </h2>
-                <p className="mt-4 max-w-[720px] text-muted leading-relaxed">
-                  Every academic decision at MLRIT runs through four lenses — outcome-based teaching, autonomy of regulation, industry integration, and research-led depth.
-                </p>
+                <p className="mt-4 max-w-[720px] text-muted leading-relaxed">{copy('everyAcademicDecisionAt', 'Every academic decision at MLRIT runs through four lenses — outcome-based teaching, autonomy of regulation, industry integration, and research-led depth.')}</p>
               </Reveal>
               <Stagger className="mt-8 md:mt-12 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.1}>
                 {FRAMEWORKS.map((f) => (
@@ -84,9 +86,8 @@ export default function AcademicsPage() {
           <section id="explore" className="bg-warm-light py-7 md:py-14">
             <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Explore</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  Pick your <span className="font-display italic font-medium" style={gradientText}>thread.</span>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('explore', 'Explore')}</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('pickYour', 'Pick your')}<span className="font-display italic font-medium" style={gradientText}>{copy('thread', 'thread.')}</span>
                 </h2>
               </Reveal>
               <Stagger className="mt-8 md:mt-12 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.08}>
@@ -96,7 +97,7 @@ export default function AcademicsPage() {
                       <div className="font-mono text-[0.66rem] font-bold tracking-[0.2em] uppercase text-primary">{h.tag}</div>
                       <h3 className="mt-2 font-sans font-extrabold text-foreground text-xl">{h.title}</h3>
                       <p className="mt-3 text-muted leading-relaxed text-[0.96rem]">{h.body}</p>
-                      <div className="mt-5 inline-flex items-center gap-2 text-primary font-semibold text-sm">Open →</div>
+                      <div className="mt-5 inline-flex items-center gap-2 text-primary font-semibold text-sm">{copy('open', 'Open →')}</div>
                     </Link>
                   </StaggerItem>
                 ))}

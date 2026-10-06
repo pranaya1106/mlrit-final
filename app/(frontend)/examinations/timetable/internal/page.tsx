@@ -4,6 +4,8 @@ import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = { title: 'Internal (CIE) Timetable — Examinations — MLRIT' };
 
@@ -73,7 +75,10 @@ const NAV_ITEMS = [
   { id: 'timetable-internal', label: 'Timetable (Internal)' },
 ];
 
-export default function InternalTimetablePage() {
+export default async function InternalTimetablePage() {
+  const row = await getSection('examinations', 'timetable-internal').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -125,11 +130,9 @@ export default function InternalTimetablePage() {
               Continuous Internal Evaluation · {CIE_TIMETABLES.length} Timetables
             </span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              CIE <span className="font-display italic font-medium" style={gradientText}>schedules.</span>
+              CIE <span className="font-display italic font-medium" style={gradientText}>{copy('schedules', 'schedules.')}</span>
             </h2>
-            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">
-              Mid-term and unit test timetables published by the COE. Use View to open in-browser or Download to save a copy.
-            </p>
+            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">{copy('midTermAndUnit', 'Mid-term and unit test timetables published by the COE. Use View to open in-browser or Download to save a copy.')}</p>
           </Reveal>
 
           <Stagger className="mt-6 md:mt-10 grid md:grid-cols-2 gap-3 md:gap-5" delay={0.05}>
@@ -142,9 +145,7 @@ export default function InternalTimetablePage() {
                     </span>
                     {t.current && (
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-mono text-[0.6rem] font-bold tracking-wide uppercase">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                        Current
-                      </span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />{copy('current', 'Current')}</span>
                     )}
                   </div>
                   <div className="flex-1">
@@ -172,9 +173,7 @@ export default function InternalTimetablePage() {
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
                 For CIE-related queries, contact your department&apos;s academic coordinator or the{' '}
-                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">
-                  COE office
-                </a>.
+                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">{copy('coeOffice', 'COE office')}</a>.
               </p>
             </div>
           </Reveal>

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import ResearchQuickNav from '@/components/ResearchQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Research Support — MLRIT',
@@ -36,7 +38,10 @@ const NAV_ITEMS = [
   { id: 'support', label: 'Support' },
 ];
 
-export default function ResearchSupportPage() {
+export default async function ResearchSupportPage() {
+  const row = await getSection('research', 'support').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ResearchQuickNav active="/research/support" />
@@ -60,7 +65,7 @@ export default function ResearchSupportPage() {
                 <p className="mt-1 text-muted text-[0.88rem]">{c.purpose}</p>
                 <div className="mt-4 md:mt-5 flex flex-col gap-2.5">
                   {c.phone === 'To be updated' ? (
-                    <span className="inline-flex items-center gap-2 text-muted text-[0.88rem] italic">Phone — To be updated</span>
+                    <span className="inline-flex items-center gap-2 text-muted text-[0.88rem] italic">{copy('phoneToBeUpdated', 'Phone — To be updated')}</span>
                   ) : (
                     <a
                       href={`tel:+91${c.phone.replace(/\s/g, '')}`}
@@ -89,20 +94,14 @@ export default function ResearchSupportPage() {
 
           <Reveal preset="up">
             <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
-              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">R&D Cell — Research Block</h3>
-              <p className="text-foreground text-[0.93rem] leading-relaxed">
-                MLR Institute of Technology<br />
-                Survey No. 444, Dundigal, Gandi Maisamma<br />
-                Medchal Malkajgiri, Telangana – 500 043
-              </p>
+              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('officeLocation', 'Office Location')}</p>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">{copy('rDCellResearch', 'R&D Cell — Research Block')}</h3>
+              <p className="text-foreground text-[0.93rem] leading-relaxed">{copy('mlrInstituteOfTechnology', 'MLR Institute of Technology')}<br />{copy('surveyNo444Dundigal', 'Survey No. 444, Dundigal, Gandi Maisamma')}<br />{copy('medchalMalkajgiriTelangana500', 'Medchal Malkajgiri, Telangana – 500 043')}</p>
               <div className="mt-4 md:mt-5">
                 <a
                   href="mailto:research@mlrinstitutions.ac.in"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
-                >
-                  Email R&D Cell
-                </a>
+                >{copy('emailRDCell', 'Email R&D Cell')}</a>
               </div>
             </div>
           </Reveal>

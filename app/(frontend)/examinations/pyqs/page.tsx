@@ -3,6 +3,8 @@ import ExaminationsHero from '@/components/ExaminationsHero';
 import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = { title: 'Previous Question Papers — Examinations — MLRIT' };
 
@@ -248,7 +250,10 @@ const NAV_ITEMS = [
 ];
 
 /* ── Page ────────────────────────────────────────────────────────── */
-export default function PYQsPage() {
+export default async function PYQsPage() {
+  const row = await getSection('examinations', 'pyqs').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -276,18 +281,12 @@ export default function PYQsPage() {
 
           {/* ── B.Tech section ── */}
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">
-              Undergraduate
-            </span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('undergraduate', 'Undergraduate')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               B.Tech{' '}
-              <span className="font-display italic font-medium" style={gradientText}>
-                Question Papers.
-              </span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('questionPapers', 'Question Papers.')}</span>
             </h2>
-            <p className="mt-3 text-muted text-[0.9rem] max-w-[540px] leading-relaxed">
-              Semester-wise archives from 2016 to 2026, organised by year.
-            </p>
+            <p className="mt-3 text-muted text-[0.9rem] max-w-[540px] leading-relaxed">{copy('semesterWiseArchivesFrom', 'Semester-wise archives from 2016 to 2026, organised by year.')}</p>
           </Reveal>
 
           <Stagger className="mt-6 md:mt-10" delay={0.05}>
@@ -303,18 +302,12 @@ export default function PYQsPage() {
 
           {/* ── PG section ── */}
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">
-              Postgraduate
-            </span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('postgraduate', 'Postgraduate')}</span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
               M.Tech &amp; MBA{' '}
-              <span className="font-display italic font-medium" style={gradientText}>
-                Question Papers.
-              </span>
+              <span className="font-display italic font-medium" style={gradientText}>{copy('questionPapers', 'Question Papers.')}</span>
             </h2>
-            <p className="mt-3 text-muted text-[0.9rem] max-w-[540px] leading-relaxed">
-              PG programme archives from 2020 to 2026.
-            </p>
+            <p className="mt-3 text-muted text-[0.9rem] max-w-[540px] leading-relaxed">{copy('pgProgrammeArchivesFrom', 'PG programme archives from 2020 to 2026.')}</p>
           </Reveal>
 
           <Stagger className="mt-6 md:mt-10" delay={0.05}>
@@ -336,19 +329,13 @@ export default function PYQsPage() {
               <p className="text-muted text-[0.88rem] leading-relaxed">
                 Files are hosted on the{' '}
                 <a href="https://exams.mlrinstitutions.ac.in/" target="_blank" rel="noopener noreferrer"
-                  className="text-secondary font-semibold hover:underline">
-                  MLRIT Exam Portal
-                </a>
+                  className="text-secondary font-semibold hover:underline">{copy('mlritExamPortal', 'MLRIT Exam Portal')}</a>
                 . You need a RAR extractor such as{' '}
                 <a href="https://www.win-rar.com/" target="_blank" rel="noopener noreferrer"
-                  className="text-secondary font-semibold hover:underline">
-                  WinRAR
-                </a>{' '}
+                  className="text-secondary font-semibold hover:underline">{copy('winrar', 'WinRAR')}</a>{' '}
                 or{' '}
                 <a href="https://www.7-zip.org/" target="_blank" rel="noopener noreferrer"
-                  className="text-secondary font-semibold hover:underline">
-                  7-Zip
-                </a>{' '}
+                  className="text-secondary font-semibold hover:underline">{copy('text7Zip', '7-Zip')}</a>{' '}
                 to open the downloaded archives.
               </p>
             </div>

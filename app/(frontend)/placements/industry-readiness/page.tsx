@@ -4,6 +4,8 @@ import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
 import { READINESS_MODULES, BRANCH_CURRICULA } from '@/lib/placements';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
@@ -15,7 +17,10 @@ const NAV_ITEMS = [
   { id: 'industry-readiness', label: 'Industry Readiness' },
 ];
 
-export default function IndustryReadinessPage() {
+export default async function IndustryReadinessPage() {
+  const row = await getSection('placements', 'industry-readiness').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -40,8 +45,7 @@ export default function IndustryReadinessPage() {
       <section id="industry-readiness" className="bg-white py-8 md:py-20">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
-            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.35rem] md:text-[1.6rem] leading-tight mb-5 md:mb-8">
-              Preparation <span className="font-display italic font-medium" style={gradientText}>areas.</span>
+            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.35rem] md:text-[1.6rem] leading-tight mb-5 md:mb-8">{copy('preparation', 'Preparation')}<span className="font-display italic font-medium" style={gradientText}>{copy('areas', 'areas.')}</span>
             </h2>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-5">
@@ -75,9 +79,8 @@ export default function IndustryReadinessPage() {
       <section className="bg-ink text-white py-10 md:py-28">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">Curriculum</span>
-            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Branch-wise <span className="font-display italic font-medium text-warm">training.</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">{copy('curriculum', 'Curriculum')}</span>
+            <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('branchWise', 'Branch-wise')}<span className="font-display italic font-medium text-warm">{copy('training', 'training.')}</span>
             </h2>
           </Reveal>
           <div className="mt-6 md:mt-10 flex flex-col gap-4">

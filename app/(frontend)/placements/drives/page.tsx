@@ -2,6 +2,8 @@
 import Image from 'next/image';
 import Reveal from '@/components/motion/Reveal';
 import { DRIVES } from '@/lib/placements';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 const gradientText: React.CSSProperties = {
   backgroundImage: 'linear-gradient(180deg, var(--foreground) 0%, var(--primary) 115%)',
@@ -9,20 +11,20 @@ const gradientText: React.CSSProperties = {
   WebkitTextFillColor: 'transparent', color: 'transparent',
 };
 
-export default function PlacementDrivesPage() {
+export default async function PlacementDrivesPage() {
+  const row = await getSection('placements', 'drives').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       {/* Page intro */}
       <section className="bg-white pt-8 md:pt-14 pb-4">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">On Campus</span>
-            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-              Placement <span className="font-display italic font-medium" style={gradientText}>Drives.</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('onCampus', 'On Campus')}</span>
+            <h1 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('placement', 'Placement')}<span className="font-display italic font-medium" style={gradientText}>{copy('drives', 'Drives.')}</span>
             </h1>
-            <p className="mt-4 max-w-[680px] text-muted leading-relaxed">
-              Industry partners recruit directly from campus — bringing pre-placement talks, assessments, and offer sessions to MLRIT every year.
-            </p>
+            <p className="mt-4 max-w-[680px] text-muted leading-relaxed">{copy('industryPartnersRecruitDirectly', 'Industry partners recruit directly from campus — bringing pre-placement talks, assessments, and offer sessions to MLRIT every year.')}</p>
           </Reveal>
         </div>
       </section>

@@ -4,6 +4,8 @@ import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import DocActions from '@/components/examinations/DocActions';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Notifications — Examinations — MLRIT',
@@ -107,7 +109,10 @@ const NAV_ITEMS = [
   { id: 'notifications', label: 'Notifications' },
 ];
 
-export default function NotificationsPage() {
+export default async function NotificationsPage() {
+  const row = await getSection('examinations', 'notifications').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -138,11 +143,9 @@ export default function NotificationsPage() {
               {NOTIFICATIONS.length} Notifications
             </span>
             <h2 className="mt-3 font-sans font-black tracking-tighter text-foreground text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.04]">
-              COE <span className="font-display italic font-medium text-primary">notifications.</span>
+              COE <span className="font-display italic font-medium text-primary">{copy('notifications', 'notifications.')}</span>
             </h2>
-            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">
-              Results declarations, mark verifications and revaluation notices. Use View to open in-browser or Download to save a copy.
-            </p>
+            <p className="mt-3 text-muted text-[0.93rem] max-w-[620px] leading-relaxed">{copy('resultsDeclarationsMarkVerifications', 'Results declarations, mark verifications and revaluation notices. Use View to open in-browser or Download to save a copy.')}</p>
           </Reveal>
 
           <Stagger className="mt-6 md:mt-10 space-y-3" delay={0.04}>
@@ -156,9 +159,7 @@ export default function NotificationsPage() {
                       </span>
                       {n.hot && (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.58rem] font-bold tracking-wide uppercase">
-                          <span className="w-1 h-1 rounded-full bg-secondary animate-pulse" />
-                          New
-                        </span>
+                          <span className="w-1 h-1 rounded-full bg-secondary animate-pulse" />{copy('new', 'New')}</span>
                       )}
                       <span className="font-mono text-[0.62rem] text-muted tracking-wide">{n.date}</span>
                     </div>
@@ -185,9 +186,7 @@ export default function NotificationsPage() {
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
                 For direct enquiries regarding a specific notification, email the COE office at{' '}
-                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                  coe@mlrinstitutions.ac.in
-                </a>{' '}
+                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{' '}
                 or call{' '}
                 <a href="tel:+919100963025" className="text-secondary font-semibold hover:underline">
                   91009 63025

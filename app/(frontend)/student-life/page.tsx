@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import MemoryLane from './MemoryLane';
 import CurvedLoopText from './CurvedLoopText';
 import { MEMORY_LANE_ITEMS } from './data';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Student Life | MLR Institute of Technology',
@@ -17,7 +19,10 @@ const STATS = [
   { value: '18+', label: 'Sports Teams' },
 ];
 
-export default function StudentLifeOverviewPage() {
+export default async function StudentLifeOverviewPage() {
+  const row = await getSection('student-life', 'overview').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     // Page-level cream canvas — editorial off-white foundation
     <div className="bg-cream">
@@ -124,16 +129,13 @@ export default function StudentLifeOverviewPage() {
               lineHeight: 1.25,
               color: '#0f0f0f',
             }}
-          >
-            Welcome to Student Life<br />
-            at <em className="font-display italic" style={{ fontStyle: 'italic' }}>MLR Institute of Technology</em>
+          >{copy('welcomeToStudentLife', 'Welcome to Student Life')}<br />
+            at <em className="font-display italic" style={{ fontStyle: 'italic' }}>{copy('mlrInstituteOfTechnology', 'MLR Institute of Technology')}</em>
           </h2>
           <p
             className="mt-3 font-sans"
             style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)', color: '#5e5d57' }}
-          >
-            Where learning meets living — every day on campus
-          </p>
+          >{copy('whereLearningMeetsLiving', 'Where learning meets living — every day on campus')}</p>
         </div>
 
         {/* Stats row */}
@@ -205,9 +207,7 @@ export default function StudentLifeOverviewPage() {
               <h2
                 className="font-sans font-semibold"
                 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)', lineHeight: 1.2, color: '#0f0f0f' }}
-              >
-                Celebrate Campus
-              </h2>
+              >{copy('celebrateCampus', 'Celebrate Campus')}</h2>
               <span
                 className="font-display italic"
                 style={{
@@ -216,9 +216,7 @@ export default function StudentLifeOverviewPage() {
                   color: '#c9a84c',
                   display: 'block',
                 }}
-              >
-                Engagements
-              </span>
+              >{copy('engagements', 'Engagements')}</span>
             </div>
 
             {/* Right: body copy */}
@@ -226,9 +224,7 @@ export default function StudentLifeOverviewPage() {
               <p
                 className="font-sans leading-relaxed"
                 style={{ fontSize: 'clamp(0.875rem, 1.11vw, 1rem)', color: '#5e5d57' }}
-              >
-                Dive into campus clubs, cultural fests, sports leagues, and academic competitions that spark growth and lasting memories. At MLRIT, every event is a chance to discover your passion, build your network, and create experiences that stay with you long after graduation.
-              </p>
+              >{copy('diveIntoCampusClubs', 'Dive into campus clubs, cultural fests, sports leagues, and academic competitions that spark growth and lasting memories. At MLRIT, every event is a chance to discover your passion, build your network, and create experiences that stay with you long after graduation.')}</p>
             </div>
           </div>
         </div>

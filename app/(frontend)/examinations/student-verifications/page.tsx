@@ -4,6 +4,8 @@ import ExaminationsQuickNav from '@/components/ExaminationsQuickNav';
 import Reveal from '@/components/motion/Reveal';
 import DocActions from '@/components/examinations/DocActions';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Student Verifications — Examinations — MLRIT',
@@ -22,7 +24,10 @@ const NAV_ITEMS = [
   { id: 'student-verifications', label: 'Student Verifications' },
 ];
 
-export default function StudentVerificationsPage() {
+export default async function StudentVerificationsPage() {
+  const row = await getSection('examinations', 'student-verifications').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <ExaminationsHero
@@ -51,13 +56,9 @@ export default function StudentVerificationsPage() {
           {/* Download form */}
           <Reveal preset="up">
             <div className="bg-white rounded-2xl border border-border p-5 md:p-7 shadow-card-soft">
-              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">Step 1</p>
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">
-                Download the Verification Form
-              </h3>
-              <p className="text-muted text-[0.88rem] leading-relaxed mb-5">
-                Download and complete the Student Verification Form. This form is required for all credential authentication requests submitted to the COE office.
-              </p>
+              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">{copy('step1', 'Step 1')}</p>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">{copy('downloadTheVerificationForm', 'Download the Verification Form')}</h3>
+              <p className="text-muted text-[0.88rem] leading-relaxed mb-5">{copy('downloadAndCompleteThe', 'Download and complete the Student Verification Form. This form is required for all credential authentication requests submitted to the COE office.')}</p>
               <DocActions href="/examinations/student-verification.pdf" viewLabel="View Form" downloadLabel="Download Form" />
             </div>
           </Reveal>
@@ -65,27 +66,20 @@ export default function StudentVerificationsPage() {
           {/* Submit instructions */}
           <Reveal preset="up" delay={0.08}>
             <div className="bg-white rounded-2xl border border-border p-5 md:p-7 shadow-card-soft">
-              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">Step 2</p>
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">
-                Submit to the COE Office
-              </h3>
+              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-2">{copy('step2', 'Step 2')}</p>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-2">{copy('submitToTheCoe', 'Submit to the COE Office')}</h3>
               <p className="text-muted text-[0.88rem] leading-relaxed mb-4">
                 Submit the completed form in person at the COE office (Administrative Block) or send it by email to{' '}
-                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                  coe@mlrinstitutions.ac.in
-                </a>.
-                Attach a copy of the document to be verified and a valid government-issued ID proof.
-              </p>
+                <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{copy('attachACopyOf', '. Attach a copy of the document to be verified and a valid government-issued ID proof.')}</p>
               <p className="text-muted text-[0.85rem] leading-relaxed">
-                <span className="font-semibold text-foreground">Processing time:</span> 5–7 working days for standard requests. Urgent requests may be accommodated subject to workload — contact the office in advance.
-              </p>
+                <span className="font-semibold text-foreground">{copy('processingTime', 'Processing time:')}</span>{copy('text57WorkingDays', '5–7 working days for standard requests. Urgent requests may be accommodated subject to workload — contact the office in advance.')}</p>
             </div>
           </Reveal>
 
           {/* Use cases */}
           <Reveal preset="up" delay={0.14}>
             <div className="bg-white rounded-2xl border border-border p-5 md:p-7 shadow-card-soft">
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3 md:mb-5">Verification is accepted for</h3>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3 md:mb-5">{copy('verificationIsAcceptedFor', 'Verification is accepted for')}</h3>
               <ul className="space-y-3">
                 {USE_CASES.map((u) => (
                   <li key={u.title} className="flex items-start gap-3">
@@ -109,8 +103,7 @@ export default function StudentVerificationsPage() {
               </svg>
               <p className="text-muted text-[0.85rem] leading-relaxed">
                 For WES or international credential evaluations, contact the COE office directly — additional supporting documents may be required. See the{' '}
-                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">Contact Us</a> page for office details.
-              </p>
+                <a href="/examinations/contact" className="text-secondary font-semibold hover:underline">{copy('contactUs', 'Contact Us')}</a>{copy('pageForOfficeDetails', 'page for office details.')}</p>
             </div>
           </Reveal>
 

@@ -3,6 +3,8 @@ import PageHeader from '@/components/PageHeader';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
 import AdmissionsQuickNav from '@/components/AdmissionsQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 // ── Fee data ───────────────────────────────────────────────────────────────
 const FEE_DATA = [
@@ -51,7 +53,10 @@ const NAV_ITEMS = [
   { id: 'other', label: 'Other Fees'   },
 ];
 
-export default function FeesPage() {
+export default async function FeesPage() {
+  const row = await getSection('admissions', 'fees').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -99,9 +104,9 @@ export default function FeesPage() {
                         <table className="w-full text-sm">
                           <thead>
                             <tr className="border-b border-border">
-                              <th className="text-left px-6 py-3 font-mono text-[0.7rem] uppercase tracking-widest text-muted font-bold w-[55%]">Programme</th>
-                              <th className="text-right px-6 py-3 font-mono text-[0.7rem] uppercase tracking-widest text-muted font-bold">Tuition Fee / Year</th>
-                              <th className="text-right px-6 py-3 font-mono text-[0.7rem] uppercase tracking-widest text-muted font-bold">Approx. Total / Year</th>
+                              <th className="text-left px-6 py-3 font-mono text-[0.7rem] uppercase tracking-widest text-muted font-bold w-[55%]">{copy('programme', 'Programme')}</th>
+                              <th className="text-right px-6 py-3 font-mono text-[0.7rem] uppercase tracking-widest text-muted font-bold">{copy('tuitionFeeYear', 'Tuition Fee / Year')}</th>
+                              <th className="text-right px-6 py-3 font-mono text-[0.7rem] uppercase tracking-widest text-muted font-bold">{copy('approxTotalYear', 'Approx. Total / Year')}</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -122,11 +127,11 @@ export default function FeesPage() {
                           <div key={j} className="p-5 flex flex-col gap-2">
                             <p className="font-sans font-medium text-foreground text-[0.95rem]">{p.name}</p>
                             <div className="flex justify-between mt-1">
-                              <span className="font-mono text-[0.75rem] text-muted">Tuition / year</span>
+                              <span className="font-mono text-[0.75rem] text-muted">{copy('tuitionYear', 'Tuition / year')}</span>
                               <span className="font-mono font-bold text-foreground">₹{p.tuition}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="font-mono text-[0.75rem] text-muted">Approx. total / year</span>
+                              <span className="font-mono text-[0.75rem] text-muted">{copy('approxTotalYear2', 'Approx. total / year')}</span>
                               <span className="font-mono text-muted">₹{p.total}</span>
                             </div>
                           </div>
@@ -142,8 +147,8 @@ export default function FeesPage() {
                 <Reveal preset="up" delay={0.15}>
                   <div className="bg-white rounded-2xl border border-border shadow-card-soft overflow-hidden">
                     <div className="px-4 py-4 md:px-6 md:py-5 border-b border-border">
-                      <h3 className="font-sans font-bold text-[1.05rem] text-foreground">Other Fees & Charges</h3>
-                      <p className="text-muted text-[0.85rem] mt-1">These are in addition to the annual tuition fee.</p>
+                      <h3 className="font-sans font-bold text-[1.05rem] text-foreground">{copy('otherFeesCharges', 'Other Fees & Charges')}</h3>
+                      <p className="text-muted text-[0.85rem] mt-1">{copy('theseAreInAddition', 'These are in addition to the annual tuition fee.')}</p>
                     </div>
                     <Stagger className="flex flex-col divide-y divide-border">
                       {OTHER_FEES.map(f => (
@@ -162,10 +167,8 @@ export default function FeesPage() {
                 <Reveal preset="up" delay={0.1}>
                   <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4 md:p-6 flex flex-col sm:flex-row gap-3 md:gap-5 items-start sm:items-center justify-between">
                     <div>
-                      <p className="font-sans font-semibold text-foreground text-[0.95rem]">Fee Revision Note</p>
-                      <p className="text-muted text-[0.87rem] mt-1 max-w-xl">
-                        Fee structure is subject to revision by the respective fee regulatory authority each academic year. Fees shown are for AY 2025–26. Management quota fees differ from convener quota and are available on request.
-                      </p>
+                      <p className="font-sans font-semibold text-foreground text-[0.95rem]">{copy('feeRevisionNote', 'Fee Revision Note')}</p>
+                      <p className="text-muted text-[0.87rem] mt-1 max-w-xl">{copy('feeStructureIsSubject', 'Fee structure is subject to revision by the respective fee regulatory authority each academic year. Fees shown are for AY 2025–26. Management quota fees differ from convener quota and are available on request.')}</p>
                     </div>
                     <a
                       href="/admissions/how-to-apply"
@@ -173,16 +176,14 @@ export default function FeesPage() {
                     >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      How to Apply
-                    </a>
+                      </svg>{copy('howToApply', 'How to Apply')}</a>
                   </div>
                 </Reveal>
 
                 {/* Payment modes */}
                 <Reveal preset="up" delay={0.1}>
                   <div className="bg-white border border-border rounded-2xl p-4 md:p-6 shadow-card-soft">
-                    <h3 className="font-sans font-bold text-[1.02rem] text-foreground mb-4">Accepted Payment Modes</h3>
+                    <h3 className="font-sans font-bold text-[1.02rem] text-foreground mb-4">{copy('acceptedPaymentModes', 'Accepted Payment Modes')}</h3>
                     <div className="grid sm:grid-cols-3 gap-4">
                       {[
                         { mode: 'Online Portal', detail: 'MLRIT student portal — debit/credit card, UPI, net banking' },

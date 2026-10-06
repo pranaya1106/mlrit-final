@@ -3,6 +3,8 @@ import PageHeader from '@/components/PageHeader';
 import AboutQuickNav from '@/components/AboutQuickNav';
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import SideQuickNav from '@/components/SideQuickNav';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'Rankings & Awards — MLRIT',
@@ -40,7 +42,10 @@ const NAV_ITEMS = [
   { id: 'awards', label: 'Awards'         },
 ];
 
-export default function RankingsAwardsPage() {
+export default async function RankingsAwardsPage() {
+  const row = await getSection('about', 'rankings-awards').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       <PageHeader
@@ -65,9 +70,8 @@ export default function RankingsAwardsPage() {
           <section id="stats" className="bg-white py-8 md:py-14">
             <div className="w-full px-6 md:px-10 lg:px-12">
               <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">Accreditations & Rankings</span>
-                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  Numbers that <span className="font-display italic font-medium" style={gradientText}>speak for themselves.</span>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('accreditationsRankings', 'Accreditations & Rankings')}</span>
+                <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">{copy('numbersThat', 'Numbers that')}<span className="font-display italic font-medium" style={gradientText}>{copy('speakForThemselves', 'speak for themselves.')}</span>
                 </h2>
               </Reveal>
               <Stagger className="mt-8 md:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5" delay={0.07}>
@@ -88,9 +92,9 @@ export default function RankingsAwardsPage() {
           <section id="awards" className="bg-warm-light py-8 md:py-14">
             <div className="w-full px-6 md:px-10 lg:px-12">
               <Reveal>
-                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">Timeline</span>
+                <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary">{copy('timeline', 'Timeline')}</span>
                 <h2 className="mt-3 font-sans font-black tracking-tighter-2 text-foreground text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-                  Awards &amp; <span className="font-display italic font-medium" style={gradientText}>recognitions.</span>
+                  Awards &amp; <span className="font-display italic font-medium" style={gradientText}>{copy('recognitions', 'recognitions.')}</span>
                 </h2>
               </Reveal>
               <div className="mt-8 md:mt-12 relative">

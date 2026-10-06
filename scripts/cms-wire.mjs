@@ -29,6 +29,26 @@ const NOISE = /^(\s*|[\d\s.,%+–—-]*|#[0-9a-f]{3,8}|\/[^\s]*|https?:\/\/\S+|[
 const src = readFileSync(file, 'utf8');
 
 /**
+ * Only the default export's body is rewritten. copy() closes over the section
+ * content that function awaits, so a call placed in a module-level constant —
+ * admissions/policies keeps its sections in one — compiles to "Cannot find
+ * name 'copy'". Text above the default export needs the constant turned into a
+ * function of copy, which is a judgement call, not something to generate; the
+ * audit keeps reporting those pages until someone does it.
+ */
+const bodyStart = (() => {
+  const m = src.match(/export default (async )?function/);
+  if (!m) {
+    console.error(`no default export function in ${file} — nothing rewritten`);
+    process.exit(2);
+  }
+  return m.index;
+})();
+const head = src.slice(0, bodyStart);
+const body = src.slice(bodyStart);
+
+
+/**
  * JSX renders &apos; as an apostrophe; a JS string does not — it would print
  * the entity. Every fallback and default therefore carries the decoded text,
  * which is also what an editor expects to see in the form.
@@ -60,7 +80,7 @@ function keyFor(text, used) {
 
 const used = new Set();
 const fields = [];
-let out = src;
+let out = body;
 
 // Longest first: replacing a short string that also occurs inside a longer one
 // would corrupt the longer match.
@@ -71,7 +91,7 @@ let out = src;
 // characters that only appear in code.
 const CODE = /[;=(){}[\]]|=>|\breturn\b|\bconst\b/;
 
-const nodes = [...src.matchAll(/(.)>([^<>{}]+)</g)]
+const nodes = [...body.matchAll(/(.)>([^<>{}]+)</g)]
   .filter((m) => m[1] !== '=' && !CODE.test(m[2]))
   .map((m) => ({ raw: m[2], text: decode(m[2].replace(/\s+/g, ' ').trim()) }))
   .filter((n) => n.text.length > 2 && !NOISE.test(n.text) && /[a-z]{3}/i.test(n.text))
@@ -102,7 +122,7 @@ const block = fields
 console.log(`// ${sectionKey} — ${fields.length} field(s)\n${block}\n`);
 
 if (APPLY) {
-  writeFileSync(file, out);
+  writeFileSync(file, head + out);
   console.log(`applied to ${file}`);
 } else {
   console.log('(dry run — pass --apply to rewrite the page)');

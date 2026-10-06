@@ -1,13 +1,18 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getSection } from '@/lib/content/client';
+import { asText } from '@/lib/content/sections';
 
 export const metadata: Metadata = {
   title: 'B-Category Admissions — MLRIT',
   description: 'B-Category (Management Quota) admissions at MLR Institute of Technology, Dundigal. Direct admissions for B.Tech programmes.',
 };
 
-export default function BCategoryPage() {
+export default async function BCategoryPage() {
+  const row = await getSection('admissions', 'b-category').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
   return (
     <>
       {/* ── HERO ── */}
@@ -23,24 +28,19 @@ export default function BCategoryPage() {
         <div className="relative w-full px-6 md:px-10 lg:px-12 pt-28 pb-24">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/50 mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">{copy('home', 'Home')}</Link>
             <span>/</span>
-            <Link href="/admissions" className="hover:text-white transition-colors">Admissions</Link>
+            <Link href="/admissions" className="hover:text-white transition-colors">{copy('admissions2', 'Admissions')}</Link>
             <span>/</span>
-            <span className="text-white/80">B-Category</span>
+            <span className="text-white/80">{copy('bCategory2', 'B-Category')}</span>
           </div>
 
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/80 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Management Quota
-          </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />{copy('managementQuota', 'Management Quota')}</span>
 
           <h1 className="font-sans font-black text-white leading-[1.02] tracking-tight"
-            style={{ fontSize: 'clamp(2.8rem,5.5vw,5rem)' }}>
-            B-Category<br />
-            <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>
-              Admissions
-            </span>
+            style={{ fontSize: 'clamp(2.8rem,5.5vw,5rem)' }}>{copy('bCategory', 'B-Category')}<br />
+            <span className="font-display italic font-medium" style={{ color: '#ffb27a' }}>{copy('admissions', 'Admissions')}</span>
           </h1>
 
           <p className="mt-6 text-white/75 text-[1.06rem] leading-relaxed max-w-[520px]">
@@ -51,18 +51,14 @@ export default function BCategoryPage() {
             <Link
               href="/admissions/support"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-all hover:scale-105"
-            >
-              Contact Admissions
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+            >{copy('contactAdmissions', 'Contact Admissions')}<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </Link>
             <Link
               href="/admissions/fees"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold text-sm hover:bg-white/20 transition-all"
-            >
-              View Fee Structure
-            </Link>
+            >{copy('viewFeeStructure', 'View Fee Structure')}</Link>
           </div>
         </div>
 
@@ -125,16 +121,14 @@ export default function BCategoryPage() {
           <div className="rounded-2xl px-6 py-6 md:px-10 md:py-10 flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6"
             style={{ background: '#01741f' }}>
             <div>
-              <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/60 mb-1">Limited seats available</p>
-              <h3 className="font-sans font-black text-white text-[1.2rem] md:text-[1.5rem] leading-snug">Ready to join MLRIT?</h3>
+              <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-white/60 mb-1">{copy('limitedSeatsAvailable', 'Limited seats available')}</p>
+              <h3 className="font-sans font-black text-white text-[1.2rem] md:text-[1.5rem] leading-snug">{copy('readyToJoinMlrit', 'Ready to join MLRIT?')}</h3>
             </div>
             <div className="flex flex-wrap gap-4 shrink-0">
               <Link
                 href="/admissions/support"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-foreground font-bold text-sm hover:bg-warm-light transition-all"
-              >
-                Get in Touch
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              >{copy('getInTouch', 'Get in Touch')}<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </Link>
