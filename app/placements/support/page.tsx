@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
@@ -25,6 +26,10 @@ const NAV_ITEMS = [
 export const revalidate = 60;
 
 export default async function PlacementsSupportPage() {
+  const row = await getSection('placements', 'support').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_contacts = await getRows('placements', 'support', 'contacts');
   const PLACEMENT_CONTACTS_LIVE = saved_contacts.length > 0 ? saved_contacts.map((r) => ({ name: asText(r.name), designation: asText(r.designation), phones: asText(r.phones).split(',').map((v) => v.trim()).filter(Boolean), email: asText(r.email), purpose: asText(r.purpose) })) : PLACEMENT_CONTACTS;
 
@@ -91,29 +96,19 @@ export default async function PlacementsSupportPage() {
           {/* Office location */}
           <Reveal preset="up">
             <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
-              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
-              <h2 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">T&P Cell — Ground Floor, Main Block</h2>
-              <address className="not-italic text-foreground text-[0.93rem] leading-relaxed">
-                MLR Institute of Technology<br />
-                Survey No. 444, Dundigal, Gandi Maisamma<br />
-                Medchal Malkajgiri, Telangana – 500 043
-              </address>
-              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 font-mono text-[0.72rem] font-semibold text-secondary tracking-wide">
-                EAPCET Code · MLID
-              </div>
+              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('officeLocation', 'Office Location')}</p>
+              <h2 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">{copy('tPCellGround', 'T&P Cell — Ground Floor, Main Block')}</h2>
+              <address className="not-italic text-foreground text-[0.93rem] leading-relaxed">{copy('mlrInstituteOfTechnology', 'MLR Institute of Technology')}<br />{copy('surveyNo444Dundigal', 'Survey No. 444, Dundigal, Gandi Maisamma')}<br />{copy('medchalMalkajgiriTelangana500', 'Medchal Malkajgiri, Telangana – 500 043')}</address>
+              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 font-mono text-[0.72rem] font-semibold text-secondary tracking-wide">{copy('eapcetCodeMlid', 'EAPCET Code · MLID')}</div>
               <div className="mt-5 flex flex-wrap gap-3">
                 <a
                   href="mailto:placements@mlrinstitutions.ac.in"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
-                >
-                  Email T&P Cell
-                </a>
+                >{copy('emailTPCell', 'Email T&P Cell')}</a>
                 <a
                   href="tel:+919849991299"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-warm-light text-foreground font-semibold text-sm hover:border-secondary transition-colors"
-                >
-                  Call +91 98499 91299
-                </a>
+                >{copy('call919849991299', 'Call +91 98499 91299')}</a>
               </div>
             </div>
           </Reveal>

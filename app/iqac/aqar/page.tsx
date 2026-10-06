@@ -137,9 +137,7 @@ export default async function AQARPage() {
                     >
                       {r.latest && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.58rem] font-bold tracking-wide uppercase mb-3">
-                          <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
-                          Latest
-                        </span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />{copy('latest', 'Latest')}</span>
                       )}
                       <div className="font-sans font-black text-foreground text-[1.4rem] tracking-tighter-2 group-hover:text-secondary transition-colors">
                         {r.year}
@@ -148,15 +146,13 @@ export default async function AQARPage() {
                       <div className="mt-4 inline-flex items-center gap-1.5 text-secondary font-bold text-[0.78rem] group-hover:gap-2.5 transition-all">
                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                           <path d="M6.5 1.5v7M4 6.5l2.5 2.5 2.5-2.5M1.5 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        Download PDF
-                      </div>
+                        </svg>{copy('downloadPdf', 'Download PDF')}</div>
                     </a>
                   ) : (
                     <div className="block rounded-2xl border-2 border-dashed border-border bg-warm-light/40 p-4 md:p-6 text-center opacity-60">
                       <div className="font-sans font-black text-foreground text-[1.4rem] tracking-tighter-2">{r.year}</div>
                       <div className="mt-1 font-mono text-muted text-[0.68rem] tracking-wide uppercase">AQAR</div>
-                      <div className="mt-4 font-mono text-muted text-[0.7rem]">Contact IQAC Office</div>
+                      <div className="mt-4 font-mono text-muted text-[0.7rem]">{copy('contactIqacOffice', 'Contact IQAC Office')}</div>
                     </div>
                   )}
                 </StaggerItem>
@@ -171,9 +167,7 @@ export default async function AQARPage() {
                 </svg>
                 <p className="text-muted text-[0.88rem] leading-relaxed">
                   For reports not available for download, please contact the IQAC office at{' '}
-                  <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">
-                    coe@mlrinstitutions.ac.in
-                  </a>{' '}
+                  <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{' '}
                   or call <a href="tel:+919652226061" className="text-secondary font-semibold hover:underline">+91 96522 26061</a>.
                 </p>
               </div>

@@ -1,6 +1,7 @@
 
 import Reveal, { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import PageHeader from '@/components/PageHeader';
 import PlacementsQuickNav from '@/components/PlacementsQuickNav';
@@ -24,6 +25,10 @@ const NAV_ITEMS = [
 export const revalidate = 60;
 
 export default async function PlacementsMoUsPage() {
+  const row = await getSection('placements', 'mous').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_mous = await getRows('placements', 'mous', 'mous');
   const MOUS_LIVE: Mou[] = saved_mous.length > 0 ? saved_mous.map((r) => ({ name: asText(r.name), domain: asText(r.domain), package: asText(r.package), type: asText(r.type) === 'Centre of Excellence' ? 'Centre of Excellence' : 'MoU Partner', docs: asText(r.docFile) ? [{ label: asText(r.docLabel), file: asText(r.docFile) }] : [] })) : MOUS;
 
@@ -55,9 +60,8 @@ export default async function PlacementsMoUsPage() {
       <section id="mous" className="bg-white py-8 md:py-20">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2 inline-block">On-Campus</span>
-            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.35rem] md:text-[1.6rem] leading-tight mb-5 md:mb-8">
-              Centres of <span className="font-display italic font-medium" style={gradientText}>Excellence.</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-primary mb-2 inline-block">{copy('onCampus', 'On-Campus')}</span>
+            <h2 className="font-sans font-black tracking-tighter-2 text-foreground text-[1.35rem] md:text-[1.6rem] leading-tight mb-5 md:mb-8">{copy('centresOf', 'Centres of')}<span className="font-display italic font-medium" style={gradientText}>{copy('excellence', 'Excellence.')}</span>
             </h2>
           </Reveal>
           <Stagger className="grid md:grid-cols-2 gap-5" delay={0.07}>
@@ -66,9 +70,7 @@ export default async function PlacementsMoUsPage() {
                 <div className="rounded-2xl border border-border bg-warm-light p-4 md:p-7 h-full hover:border-primary hover:-translate-y-1 transition-all">
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <h3 className="font-sans font-extrabold text-foreground text-lg">{m.name}</h3>
-                    <span className="shrink-0 font-mono text-[0.6rem] tracking-[0.14em] uppercase px-2 py-1 rounded-full bg-primary/10 text-primary border border-primary/30">
-                      CoE
-                    </span>
+                    <span className="shrink-0 font-mono text-[0.6rem] tracking-[0.14em] uppercase px-2 py-1 rounded-full bg-primary/10 text-primary border border-primary/30">{copy('coe', 'CoE')}</span>
                   </div>
                   <p className="text-muted leading-relaxed text-[0.95rem]">{m.domain}</p>
                   {m.package && (
@@ -107,9 +109,8 @@ export default async function PlacementsMoUsPage() {
       <section className="bg-ink text-white py-6 md:py-14">
         <div className="w-full px-6 md:px-10 lg:px-12">
           <Reveal>
-            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55 mb-2 inline-block">Strategic</span>
-            <h2 className="font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04] mb-5 md:mb-8">
-              MoU <span className="font-display italic font-medium text-warm">Partners.</span>
+            <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55 mb-2 inline-block">{copy('strategic', 'Strategic')}</span>
+            <h2 className="font-sans font-black tracking-tighter-2 text-white text-[clamp(2rem,3.6vw,3rem)] leading-[1.04] mb-5 md:mb-8">{copy('mou2', 'MoU')}<span className="font-display italic font-medium text-warm">{copy('partners', 'Partners.')}</span>
             </h2>
           </Reveal>
           <Stagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" delay={0.07}>
@@ -118,9 +119,7 @@ export default async function PlacementsMoUsPage() {
                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 md:p-7 h-full hover:border-warm/40 hover:bg-white/[0.07] transition-all">
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <h3 className="font-sans font-extrabold text-white text-lg">{m.name}</h3>
-                    <span className="shrink-0 font-mono text-[0.6rem] tracking-[0.14em] uppercase px-2 py-1 rounded-full bg-green-900/40 text-green-400 border border-green-800/50">
-                      MoU
-                    </span>
+                    <span className="shrink-0 font-mono text-[0.6rem] tracking-[0.14em] uppercase px-2 py-1 rounded-full bg-green-900/40 text-green-400 border border-green-800/50">{copy('mou', 'MoU')}</span>
                   </div>
                   <p className="text-white/60 leading-relaxed text-[0.92rem]">{m.domain}</p>
                   {m.docs && m.docs.length > 0 && (

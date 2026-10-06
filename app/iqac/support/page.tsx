@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
 import Reveal from '@/components/motion/Reveal';
@@ -32,6 +33,10 @@ const FALLBACK_CONTACTS = [
 export const revalidate = 60;
 
 export default async function IQACSupportPage() {
+  const row = await getSection('iqac', 'support').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_contacts = await getRows('iqac', 'support', 'contacts');
   const CONTACTS = saved_contacts.length > 0 ? saved_contacts.map((r) => ({ name: asText(r.name), role: asText(r.role), phone: asText(r.phone), tollFree: asText(r.tollFree).toLowerCase() === 'yes', email: asText(r.email), purpose: asText(r.purpose) })) : FALLBACK_CONTACTS;
 
@@ -62,7 +67,7 @@ export default async function IQACSupportPage() {
                 <p className="mt-1 text-muted text-[0.88rem]">{c.purpose}</p>
                 <div className="mt-5 flex flex-col gap-2.5">
                   {c.phone === 'To be updated' ? (
-                    <span className="inline-flex items-center gap-2 text-muted text-[0.88rem] italic">Phone — To be updated</span>
+                    <span className="inline-flex items-center gap-2 text-muted text-[0.88rem] italic">{copy('phoneToBeUpdated', 'Phone — To be updated')}</span>
                   ) : (
                     <a
                       href={c.tollFree ? `tel:${c.phone.replace(/\s/g, '')}` : `tel:+91${c.phone.replace(/\s/g, '')}`}
@@ -91,20 +96,14 @@ export default async function IQACSupportPage() {
 
           <Reveal preset="up">
             <div className="bg-white rounded-2xl border border-border p-4 md:p-7 shadow-card-soft">
-              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">Office Location</p>
-              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">IQAC Office — Administrative Block</h3>
-              <p className="text-foreground text-[0.93rem] leading-relaxed">
-                MLR Institute of Technology<br />
-                Survey No. 444, Dundigal, Gandi Maisamma<br />
-                Medchal Malkajgiri, Telangana – 500 043
-              </p>
+              <p className="font-mono text-[0.65rem] font-bold tracking-[0.18em] uppercase text-muted mb-1">{copy('officeLocation', 'Office Location')}</p>
+              <h3 className="font-sans font-extrabold text-foreground text-[1.05rem] mb-3">{copy('iqacOfficeAdministrativeBlock', 'IQAC Office — Administrative Block')}</h3>
+              <p className="text-foreground text-[0.93rem] leading-relaxed">{copy('mlrInstituteOfTechnology', 'MLR Institute of Technology')}<br />{copy('surveyNo444Dundigal', 'Survey No. 444, Dundigal, Gandi Maisamma')}<br />{copy('medchalMalkajgiriTelangana500', 'Medchal Malkajgiri, Telangana – 500 043')}</p>
               <div className="mt-5">
                 <a
                   href="mailto:iqac@mlrinstitutions.ac.in"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary text-white font-semibold text-sm hover:bg-secondary/90 transition-colors"
-                >
-                  Email IQAC Office
-                </a>
+                >{copy('emailIqacOffice', 'Email IQAC Office')}</a>
               </div>
             </div>
           </Reveal>

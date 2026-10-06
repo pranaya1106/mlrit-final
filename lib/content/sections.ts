@@ -678,6 +678,14 @@ export const CONTENT_SECTIONS = {
     label: 'Placements — MoUs',
     previewPath: '/placements/mous',
     fields: [
+      { name: 'coe', label: "CoE", defaultValue: "CoE" },
+      { name: 'mou', label: "MoU", defaultValue: "MoU" },
+      { name: 'centresOf', label: "Centres of", defaultValue: "Centres of" },
+      { name: 'mou2', label: "MoU", defaultValue: "MoU" },
+      { name: 'excellence', label: "Excellence.", defaultValue: "Excellence." },
+      { name: 'onCampus', label: "On-Campus", defaultValue: "On-Campus" },
+      { name: 'strategic', label: "Strategic", defaultValue: "Strategic" },
+      { name: 'partners', label: "Partners.", defaultValue: "Partners." },
       { name: 'mous', label: 'MoUs', type: 'repeater',
         // One document per MoU, flattened into two columns: every bundled
         // entry has at most one, and a nested list is not something a
@@ -714,6 +722,14 @@ export const CONTENT_SECTIONS = {
     label: 'Placements — Contacts',
     previewPath: '/placements/support',
     fields: [
+      { name: 'medchalMalkajgiriTelangana500', label: "Medchal Malkajgiri, Telangana – 500 043", defaultValue: "Medchal Malkajgiri, Telangana – 500 043" },
+      { name: 'surveyNo444Dundigal', label: "Survey No. 444, Dundigal, Gandi Maisamma", defaultValue: "Survey No. 444, Dundigal, Gandi Maisamma" },
+      { name: 'call919849991299', label: "Call +91 98499 91299", defaultValue: "Call +91 98499 91299" },
+      { name: 'eapcetCodeMlid', label: "EAPCET Code · MLID", defaultValue: "EAPCET Code · MLID" },
+      { name: 'emailTPCell', label: "Email T&P Cell", defaultValue: "Email T&P Cell" },
+      { name: 'mlrInstituteOfTechnology', label: "MLR Institute of Technology", defaultValue: "MLR Institute of Technology" },
+      { name: 'tPCellGround', label: "T&P Cell — Ground Floor, Main Block", defaultValue: "T&P Cell — Ground Floor, Main Block" },
+      { name: 'officeLocation', label: "Office Location", defaultValue: "Office Location" },
       { name: 'contacts', label: 'Contacts', type: 'repeater',
         itemFields: [
           { name: 'name', label: 'Name' },
@@ -769,6 +785,10 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — AQAR reports',
     previewPath: '/iqac/aqar',
     fields: [
+      { name: 'coeMlrinstitutionsAcIn', label: "coe@mlrinstitutions.ac.in", defaultValue: "coe@mlrinstitutions.ac.in" },
+      { name: 'downloadPdf', label: "Download PDF", defaultValue: "Download PDF" },
+      { name: 'latest', label: "Latest", defaultValue: "Latest" },
+      { name: 'contactIqacOffice', label: "Contact IQAC Office", defaultValue: "Contact IQAC Office" },
       { name: 'aboutHeading', label: 'About heading', defaultValue: 'About AQAR' },
       { name: 'aboutBody1', label: 'About paragraph 1', multiline: true, defaultValue: "The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT's Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year." },
       { name: 'aboutBody2', label: 'About paragraph 2', multiline: true, defaultValue: "AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance." },
@@ -1010,6 +1030,10 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — Initiatives',
     previewPath: '/iqac/initiatives',
     fields: [
+      { name: 'theIqacActivelyCoordinates', label: "The IQAC actively coordinates institutional in…", multiline: true, defaultValue: "The IQAC actively coordinates institutional initiatives in the following areas to ensure holistic institutional development:" },
+      { name: 'theIqacActsAs', label: "The IQAC acts as the institutional quality cat…", defaultValue: "The IQAC acts as the institutional quality catalyst by:" },
+      { name: 'majorQualityInitiatives', label: "Major Quality Initiatives", defaultValue: "Major Quality Initiatives" },
+      { name: 'keyResponsibilities', label: "Key Responsibilities", defaultValue: "Key Responsibilities" },
       { name: 'initiatives', label: 'Initiatives', type: 'repeater',
         itemFields: [{ name: 'text', label: 'Initiative' }],
         defaultItems: [
@@ -1052,6 +1076,13 @@ export const CONTENT_SECTIONS = {
     label: 'IQAC — Support contacts',
     previewPath: '/iqac/support',
     fields: [
+      { name: 'medchalMalkajgiriTelangana500', label: "Medchal Malkajgiri, Telangana – 500 043", defaultValue: "Medchal Malkajgiri, Telangana – 500 043" },
+      { name: 'surveyNo444Dundigal', label: "Survey No. 444, Dundigal, Gandi Maisamma", defaultValue: "Survey No. 444, Dundigal, Gandi Maisamma" },
+      { name: 'emailIqacOffice', label: "Email IQAC Office", defaultValue: "Email IQAC Office" },
+      { name: 'mlrInstituteOfTechnology', label: "MLR Institute of Technology", defaultValue: "MLR Institute of Technology" },
+      { name: 'iqacOfficeAdministrativeBlock', label: "IQAC Office — Administrative Block", defaultValue: "IQAC Office — Administrative Block" },
+      { name: 'phoneToBeUpdated', label: "Phone — To be updated", defaultValue: "Phone — To be updated" },
+      { name: 'officeLocation', label: "Office Location", defaultValue: "Office Location" },
       { name: 'contacts', label: 'Contacts', type: 'repeater',
         itemFields: [
           { name: 'name', label: 'Name' },
@@ -1150,6 +1181,11 @@ export const CONTENT_SECTIONS = {
     label: "IQAC — Contact details",
     previewPath: '/iqac/contact',
     fields: [
+      { name: 'forQuestionsRelatedTo', label: "For questions related to accreditation, qualit…", multiline: true, defaultValue: "For questions related to accreditation, quality assurance reports, feedback forms or IQAC activities, write to us directly or visit the IQAC office during working hours." },
+      { name: 'emailIqac', label: "Email IQAC →", defaultValue: "Email IQAC →" },
+      { name: 'contactDetails', label: "Contact Details", defaultValue: "Contact Details" },
+      { name: 'sendAQuery', label: "Send a Query", defaultValue: "Send a Query" },
+      { name: 'sendQuery', label: "Send Query", defaultValue: "Send Query" },
       {
         name: "details",
         label: "Contact details",

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
+import { getSection } from '@/lib/content/client';
 import { asText } from '@/lib/content/sections';
 import { Section, H2, Lede } from '@/components/PageSection';
 import Reveal from '@/components/motion/Reveal';
@@ -55,6 +56,10 @@ const FALLBACK_RESPONSIBILITIES = [
 export const revalidate = 60;
 
 export default async function InitiativesPage() {
+  const row = await getSection('iqac', 'initiatives').catch(() => null);
+  const c = (row?.content ?? {}) as Record<string, unknown>;
+  const copy = (key: string, fallback: string) => asText(c[key], fallback);
+
   const saved_initiatives = await getRows('iqac', 'initiatives', 'initiatives');
   const INITIATIVES = saved_initiatives.length > 0 ? saved_initiatives.map((r) => asText(r.text)).filter(Boolean) : FALLBACK_INITIATIVES;
   const saved_responsibilities = await getRows('iqac', 'initiatives', 'responsibilities');
@@ -81,10 +86,8 @@ export default async function InitiativesPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="initiatives">
-            <H2 italic="">Major Quality Initiatives</H2>
-            <Lede>
-              The IQAC actively coordinates institutional initiatives in the following areas to ensure holistic institutional development:
-            </Lede>
+            <H2 italic="">{copy('majorQualityInitiatives', 'Major Quality Initiatives')}</H2>
+            <Lede>{copy('theIqacActivelyCoordinates', 'The IQAC actively coordinates institutional initiatives in the following areas to ensure holistic institutional development:')}</Lede>
             <Reveal preset="up" delay={0.08}>
               <div className="mt-5 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {INITIATIVES.map((item, i) => (
@@ -103,11 +106,9 @@ export default async function InitiativesPage() {
           </Section>
 
           <Section id="responsibilities">
-            <H2 italic="">Key Responsibilities</H2>
+            <H2 italic="">{copy('keyResponsibilities', 'Key Responsibilities')}</H2>
             <Reveal preset="right">
-              <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-                The IQAC acts as the institutional quality catalyst by:
-              </p>
+              <p className="mt-4 text-muted leading-relaxed text-[1rem]">{copy('theIqacActsAs', 'The IQAC acts as the institutional quality catalyst by:')}</p>
             </Reveal>
             <Reveal preset="up" delay={0.08}>
               <div className="mt-4 md:mt-6 rounded-2xl border border-border bg-white p-4 md:p-7">
