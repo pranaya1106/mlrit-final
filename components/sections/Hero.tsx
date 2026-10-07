@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ChevronRight } from '../icons';
-import type { DeptReel } from '@/lib/departments';
 import { resolveAssetUrl } from '@/lib/cdn/url';
 import { sectionDomId, useMergedSection } from '@/lib/preview/context';
 import VideoLightbox from '../VideoLightbox';
@@ -31,10 +30,6 @@ type HeroProps = {
   /** Uploaded campus still; falls back to the bundled photograph. */
   poster?: string;
 };
-
-// Kept for API compatibility.
-const HERO_REELS: DeptReel[] = [];
-void HERO_REELS;
 
 export default function Hero(props: HeroProps) {
   const { headlineLead, headlineAccent, body, film, poster } = useMergedSection('home/hero', props);

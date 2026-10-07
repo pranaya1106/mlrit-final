@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Self-hosted fonts — no next/font/google, no network dependency */
-@import url('/fonts/fonts.css');
-
-/* Font CSS variables — defined here so all var(--font-*) references resolve
-   regardless of next/font cache state. Points to the self-hosted font names. */
-:root {
-  --font-manrope:  'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-mono:     'JetBrains Mono', ui-monospace, monospace;
-}
-
 /* ════════════════════════════════════════════════════════════════
    GLOBAL CSS — design tokens + base reset
    Mirrors the static-site theme tokens but lives in the Next.js
@@ -25,7 +14,6 @@
   --primary:        #e85d04;
   --primary-hover:  #f06a14;
   --primary-pressed:#c44b00;
-  --secondary:      #2d8b55;
 
   /* ── Orange / Green tints ── */
   --orange-50:  #fff5ec;
@@ -227,10 +215,6 @@ button { font: inherit; cursor: pointer; }
   user-select: none;
   z-index: 0;
 }
-.ghost-numeral--ink {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
-}
-
 /* ── ChroniclesAttentionButton ─────────────────────────────── */
 @keyframes chron-spin {
   to { transform: translate(-50%, -50%) rotate(360deg); }

@@ -76,9 +76,9 @@ const config: Config = {
 
       // ── Fonts (preserved)
       fontFamily: {
-        sans:    ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
-        mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        sans:    ['var(--font-manrope)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-playfair)', 'Georgia', 'serif'],
+        mono:    ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
 
       letterSpacing: {

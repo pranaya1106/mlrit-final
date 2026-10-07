@@ -164,13 +164,13 @@ export default function Header() {
                 />
               </Link>
 
-              {/* Institute name — Playfair serif, all caps, editorial letterspacing */}
+              {/* Institute name */}
               <div
                 className="hidden md:flex items-center pl-5 lg:pl-6 border-l"
                 style={{ borderColor: clubTheme ? 'rgba(255,255,255,0.18)' : undefined }}
               >
                 <span
-                  className="font-display text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] uppercase"
+                  className="font-sans text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] uppercase"
                   style={{ color: clubTheme ? 'rgba(255,255,255,0.80)' : undefined }}
                 >
                   MLR Institute of Technology
