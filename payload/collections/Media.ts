@@ -13,9 +13,10 @@ export const Media: CollectionConfig = {
   admin: { group: 'Administration' },
   access: { read: () => true, create: isSignedIn },
   upload: {
-    // ponytail: local disk. Writable on a VM but NOT on Vercel/Lambda — swap in
-    // @payloadcms/storage-s3 (Supabase Storage speaks S3) before deploying
-    // serverless, or uploads will fail at runtime with EROFS.
+    // Where files land is set by the s3Storage plugin when S3_BUCKET is
+    // configured; this stays as the local fallback for development without
+    // AWS credentials. On the EC2 host the bucket is authoritative, so an
+    // instance replacement never takes the media with it.
     staticDir: 'public/uploads',
     mimeTypes: ['image/*', 'video/*', 'application/pdf'],
     imageSizes: [{ name: 'thumbnail', width: 400, height: undefined, position: 'centre' }],

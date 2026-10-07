@@ -2,6 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { postgresAdapter } from '@payloadcms/db-postgres';
+import { s3Storage } from '@payloadcms/storage-s3';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
@@ -12,7 +13,31 @@ import { sectionGlobals } from './payload/globals';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ * S3-backed media, enabled only when a bucket is configured.
+ *
+ * Uploads otherwise go to public/uploads on the instance's own disk, which is
+ * fine for local development but means an EC2 instance replacement — or a
+ * second instance behind the load balancer — loses or never sees them. With
+ * the bucket set, the disk holds nothing that matters.
+ *
+ * Credentials are left to the default provider chain rather than read from
+ * env: on EC2 that resolves to the instance role, so no long-lived key needs
+ * to exist on the host at all. Set AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY
+ * only when running outside AWS.
+ */
+const storagePlugins = process.env.S3_BUCKET
+  ? [
+      s3Storage({
+        collections: { media: true },
+        bucket: process.env.S3_BUCKET,
+        config: { region: process.env.AWS_REGION ?? 'ap-south-1' },
+      }),
+    ]
+  : [];
+
 export default buildConfig({
+  plugins: storagePlugins,
   admin: {
     user: Users.slug,
     // Mounted at /admin, the URL the previous hand-rolled admin used, so
