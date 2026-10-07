@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Self-hosted fonts — no next/font/google, no network dependency */
+@import url('/fonts/fonts.css');
+
+/* Font CSS variables — defined here so all var(--font-*) references resolve
+   regardless of next/font cache state. Points to the self-hosted font names. */
+:root {
+  --font-manrope:  'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+}
+
 /* ────────────────────────────────────────────────────────────────
    Hard-fallback colour classes.
    These are layered AFTER tailwind so they always resolve, even
@@ -93,7 +104,11 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth is intentionally OMITTED globally.
+     Native smooth-scroll adds OS momentum on top of Framer Motion's scroll-driven
+     animations, causing jank/lag in sticky scroll sections (APEX, Events, etc.).
+     Per-anchor smooth scroll is applied via JS window.scrollTo({behavior:'smooth'})
+     in the components that need it, which avoids the conflict. */
   background: var(--background);
 }
 
@@ -390,9 +405,9 @@ button { font: inherit; cursor: pointer; }
 }
 .chron-box {
   cursor: pointer;
-  border: 3px solid #d0cdc8;
+  border: 2px solid #d0cdc8;
   background-color: #b0ada8;
-  padding-bottom: 6px;
+  padding-bottom: 3px;
   transition: 0.1s ease-in-out;
   user-select: none;
   display: inline-block;
@@ -403,15 +418,15 @@ button { font: inherit; cursor: pointer; }
 }
 .chron-box .chron-inner {
   background-color: #fff;
-  border: 3px solid #fff;
-  padding: 5px 14px;
+  border: 2px solid #fff;
+  padding: 3px 10px;
   border-radius: 3px;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
 }
 .chron-label {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   letter-spacing: 0.02em;
   color: #1a1a1a;
   font-weight: 600;
@@ -419,15 +434,15 @@ button { font: inherit; cursor: pointer; }
 }
 .chron-box:active {
   padding: 0;
-  margin-bottom: 6px;
-  transform: translateY(6px);
+  margin-bottom: 3px;
+  transform: translateY(3px);
 }
 .chron-new {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 900;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 1px 5px;
+  padding: 1px 4px;
   border-radius: 999px;
   background: #e85d04;
   color: #fff;

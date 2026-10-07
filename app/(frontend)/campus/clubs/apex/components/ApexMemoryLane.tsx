@@ -16,12 +16,16 @@ const MEMORIES = [
   { src: '/images/clubs/apex/gallery/4.jpg', label: 'LAN Night',         caption: 'Side by side, every Friday.',               category: 'Community',    rotation: 3,    oy: -4 },
   { src: '/images/clubs/apex/gallery/5.jpg', label: 'Build Session',     caption: 'Unity and deadlines in equal measure.',     category: 'Game Dev',     rotation: -2,   oy: 6  },
   { src: '/images/clubs/apex/gallery/6.jpg', label: 'APEX · Founded',    caption: 'March 2024. The beginning.',                category: 'Origins',      rotation: 1.5,  oy: -10 },
+  { src: '/images/clubs/apex/gallery/7.jpg', label: 'On the Floor',      caption: 'Ideas taking shape between rounds.',         category: 'Community',    rotation: -2.5, oy: 7  },
+  { src: '/images/clubs/apex/gallery/8.jpg', label: 'Team Huddle',       caption: 'A quick reset before the next challenge.',   category: 'Tournament',   rotation: 2,    oy: -8 },
+  { src: '/images/clubs/apex/gallery/9.jpg', label: 'In the Moment',     caption: 'The room comes alive when the timer starts.', category: 'Community',    rotation: -1,   oy: 5  },
+  { src: '/images/clubs/apex/gallery/10.jpg', label: 'APEX · Together',  caption: 'The people behind every memorable round.',    category: 'Origins',      rotation: 1.5,  oy: -6 },
 ] as const;
 
 // ─── DNA Carousel constants ───────────────────────────────────────────────────
 // Reference: horizontal fan, two prominent front cards, cards spread like
 // physical cards on a table with rotateZ fan effect.
-const CARD_W         = 220;
+const CARD_W         = 236;
 const CARD_H_RATIO   = 4 / 3; // portrait polaroid
 const GAP            = 30;
 const PERSPECTIVE    = 1200;
@@ -38,9 +42,7 @@ const BLUR_MAX       = 6;    // px
 const DRAG_SENS      = 1.4;
 const VEL_CLAMP      = 2.8;
 const MOMENTUM_DECAY = 0.92; // per frame at 60fps
-const SNAP_THRESH    = 0.028;
-const SNAP_STRENGTH  = 0.20;
-const AUTO_INTERVAL  = 3800; // ms
+const AUTO_SPEED      = 0.5; // cards per second; one centered photo every ~2s
 
 function easeOut(t: number) { return 1 - Math.pow(1 - Math.max(0, Math.min(1, t)), 3); }
 
@@ -81,18 +83,14 @@ function PolaroidCard({
   memory,
   dist,
   onClick,
-  reduced,
 }: {
   memory: typeof MEMORIES[number];
   dist: number;
   onClick: () => void;
-  reduced: boolean | null;
 }) {
   const t       = cardTransform(dist);
   const isActive = Math.abs(dist) < 0.5;
-  const spring  = reduced
-    ? { duration: 0 }
-    : { type: 'spring' as const, stiffness: 280, damping: 32, mass: 0.9 };
+  const isVisible = Math.abs(dist) <= 3.5;
 
   return (
     <motion.div
@@ -103,14 +101,17 @@ function PolaroidCard({
         rotateY: t.rotY,
         rotateZ: t.rotZ + memory.rotation * 0.15,
         scale:   t.scale,
-        opacity: t.opacity,
+        opacity: isVisible ? t.opacity : 0,
         filter:  `blur(${t.blur}px)`,
       }}
-      transition={spring}
+      transition={{ duration: 0 }}
       style={{
         zIndex:           t.zIndex,
         position:         'absolute',
         transformStyle:   'preserve-3d',
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+        pointerEvents:    isVisible && !isActive ? 'auto' : 'none',
         cursor:           isActive ? 'default' : 'pointer',
         transformOrigin:  'center bottom',
       }}
@@ -126,7 +127,7 @@ function PolaroidCard({
           width:        CARD_W,
           background:   '#f4efe6',
           padding:      '10px 10px 44px',
-          borderRadius: 2,
+          borderRadius: 10,
           boxShadow:    t.shadow,
           userSelect:   'none',
         }}
@@ -187,12 +188,12 @@ function PolaroidCard({
 export default function ApexMemoryLane() {
   const count       = MEMORIES.length;
   const reduced     = useReducedMotion();
+  const autoSpeed   = reduced ? 0 : AUTO_SPEED;
 
   const posRef      = useRef(0);
   const velRef      = useRef(0);
   const rafRef      = useRef<number>(0);
   const lastTRef    = useRef<number>(0);
-  const lastAutoRef = useRef<number>(0);
   const dragging    = useRef(false);
   const [displayPos, setDisplayPos] = useState(0);
 
@@ -202,24 +203,11 @@ export default function ApexMemoryLane() {
     lastTRef.current = now;
 
     if (!dragging.current) {
-      // Auto-advance: every AUTO_INTERVAL ms when settled
-      if (Math.abs(velRef.current) < SNAP_THRESH && now - lastAutoRef.current > AUTO_INTERVAL) {
-        velRef.current   = 0.85;
-        lastAutoRef.current = now;
-      }
+      posRef.current += autoSpeed * dt;
 
-      velRef.current *= Math.pow(MOMENTUM_DECAY, dt * 60);
-
-      if (Math.abs(velRef.current) < SNAP_THRESH) {
-        const target = Math.round(posRef.current);
-        const snapF  = 1 - Math.exp(-SNAP_STRENGTH * 60 * dt);
-        posRef.current += (target - posRef.current) * snapF;
-        if (Math.abs(posRef.current - target) < 0.001) {
-          posRef.current = target;
-          velRef.current = 0;
-        }
-      } else {
+      if (Math.abs(velRef.current) > 0.001) {
         posRef.current += velRef.current * dt;
+        velRef.current *= Math.pow(MOMENTUM_DECAY, dt * 60);
       }
 
       posRef.current = ((posRef.current % count) + count) % count;
@@ -227,12 +215,11 @@ export default function ApexMemoryLane() {
     }
 
     rafRef.current = requestAnimationFrame(tick);
-  }, [count]);
+  }, [autoSpeed, count]);
 
   const startLoop = useCallback(() => {
     cancelAnimationFrame(rafRef.current);
     lastTRef.current    = performance.now();
-    lastAutoRef.current = performance.now();
     rafRef.current      = requestAnimationFrame(tick);
   }, [tick]);
 
@@ -240,10 +227,6 @@ export default function ApexMemoryLane() {
     startLoop();
     return () => cancelAnimationFrame(rafRef.current);
   }, [startLoop]);
-
-  const resetAuto = useCallback(() => {
-    lastAutoRef.current = performance.now();
-  }, []);
 
   // Drag
   const onDragStart = useCallback(() => {
@@ -261,13 +244,11 @@ export default function ApexMemoryLane() {
     dragging.current = false;
     const rawVel = -(info.velocity.x / (CARD_W + GAP)) * DRAG_SENS;
     velRef.current = Math.max(-VEL_CLAMP, Math.min(VEL_CLAMP, rawVel));
-    resetAuto();
-  }, [resetAuto]);
+  }, []);
 
   const go = useCallback((dir: 1 | -1) => {
     velRef.current = dir * 1.1;
-    resetAuto();
-  }, [resetAuto]);
+  }, []);
 
   // Keyboard
   useEffect(() => {
@@ -316,17 +297,14 @@ export default function ApexMemoryLane() {
         >
           {MEMORIES.map((memory, i) => {
             const dist = shortDist(i, displayPos, count);
-            if (Math.abs(dist) > 3.5) return null;
             return (
               <PolaroidCard
                 key={memory.label}
                 memory={memory}
                 dist={dist}
-                reduced={!!reduced}
                 onClick={() => {
                   const d = shortDist(i, displayPos, count);
                   velRef.current = d * 1.4;
-                  resetAuto();
                 }}
               />
             );
@@ -349,7 +327,6 @@ export default function ApexMemoryLane() {
                 onClick={() => {
                   const d = shortDist(i, displayPos, count);
                   velRef.current = d * 1.4;
-                  resetAuto();
                 }}
               >
                 <motion.div

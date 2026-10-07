@@ -1,15 +1,15 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import {
-  motion,
   useScroll,
-  useTransform,
+  useSpring,
+  useMotionValueEvent,
   useReducedMotion,
-  type MotionValue,
 } from 'framer-motion';
 
-// ─── APEX about text ──────────────────────────────────────────────────────────
+const APEX_RED = '#D80000';
+
 const ABOUT_TEXT =
   'APEX MLRIT is a student-led esports and game development community. ' +
   'Established March 2024, it brings players, developers, designers and ' +
@@ -28,70 +28,93 @@ const FACTS = [
   ['Engines',     'Unity · Unreal · Godot'],
 ] as const;
 
-const APEX_RED = '#D80000';
-
-// DIM_OPACITY matches the reference — barely-there grey
 const DIM  = 'rgba(255,255,255,0.18)';
 const FULL = 'rgba(255,255,255,1.00)';
 
-// ─── Per-character span ───────────────────────────────────────────────────────
-// Reference: sharp binary transition at the scroll front — no trailing glow.
-// Each char gets a small window [start, end] that is just wide enough to
-// prevent a hard step function but narrow enough to look like a moving front.
-function Char({
-  char,
-  progress,
-  start,
-  end,
-  reduced,
-}: {
-  char:     string;
-  progress: MotionValue<number>;
-  start:    number;
-  end:      number;
-  reduced:  boolean;
-}) {
-  const color = useTransform(
-    progress,
-    [start, end],
-    reduced ? [FULL, FULL] : [DIM, FULL],
-  );
-  return <motion.span style={{ color }} aria-hidden="true">{char}</motion.span>;
-}
+const REVEAL_START = 0.04;
+const REVEAL_END   = 0.92;
+const SPAN         = REVEAL_END - REVEAL_START;
+const WINDOW       = 0.018;
 
-// ─── Main section ─────────────────────────────────────────────────────────────
 export default function ApexAbout() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduced    = !!useReducedMotion();
+  const sectionRef   = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const factsRef     = useRef<HTMLDivElement>(null);
+  const reduced      = !!useReducedMotion();
 
-  // Section is 220vh — sticky panel fills viewport for the scroll travel
+  // Per-character metadata: index in the flat string → scroll thresholds
+  // Spaces are included as plain chars so natural text flow is preserved
+  const chars = useMemo(() => {
+    const totalNonSpace = ABOUT_TEXT.replace(/ /g, '').length;
+    let nonSpaceIdx = 0;
+    return Array.from(ABOUT_TEXT).map((ch) => {
+      if (ch === ' ') return { ch, start: 0, end: 0, isSpace: true };
+      const t     = nonSpaceIdx / (totalNonSpace - 1);
+      const start = REVEAL_START + t * (SPAN - WINDOW);
+      nonSpaceIdx++;
+      return { ch, start, end: start + WINDOW, isSpace: false };
+    });
+  }, []);
+
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
   const { scrollYProgress } = useScroll({
     target:  sectionRef,
     offset:  ['start start', 'end end'],
   });
+  // Near-critically damped — tracks scroll closely instead of trailing/crawling to catch up.
+  const smooth = useSpring(scrollYProgress, { stiffness: 300, damping: 30 });
 
-  const words = useMemo(() => ABOUT_TEXT.split(' '), []);
-  const totalChars = useMemo(() => ABOUT_TEXT.replace(/ /g, '').length, []);
+  // Initialise
+  useEffect(() => {
+    spanRefs.current.forEach((el) => {
+      if (!el) return;
+      el.style.color = reduced ? FULL : DIM;
+      (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke = '0px transparent';
+      el.style.textShadow = 'none';
+    });
+  }, [reduced]);
 
-  // Reveal window: narrow (~3 chars worth) so the front looks sharp
-  // Reference shows near-binary transition, not a wide gradient
-  const REVEAL_START = 0.04;
-  const REVEAL_END   = 0.92;
-  const SPAN         = REVEAL_END - REVEAL_START;
-  const WINDOW       = 0.022; // tight — about 2 chars wide at the front
+  // Single listener — direct DOM writes, zero React re-renders per frame
+  useMotionValueEvent(smooth, 'change', (progress) => {
+    // Eyebrow header
+    const hdr = containerRef.current?.querySelector<HTMLElement>('.apex-about-hdr');
+    if (hdr) {
+      const o = Math.min(1, progress / 0.04);
+      hdr.style.opacity   = String(o);
+      hdr.style.transform = `translateY(${12 - o * 12}px)`;
+    }
 
-  const wordCharOffsets = useMemo(() => {
-    let offset = 0;
-    return words.map(w => { const o = offset; offset += w.length; return o; });
-  }, [words]);
+    // Char colour reveal + club-coloured stroke that fades in as char reveals
+    if (!reduced) {
+      spanRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const { start, end, isSpace } = chars[i];
+        if (isSpace) return;
+        const t     = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+        const alpha = 0.18 + t * 0.82;
+        el.style.color = `rgba(255,255,255,${alpha.toFixed(3)})`;
+        // Stroke: 0px when dim, peaks at 0.4px when fully revealed
+        const strokeW = (t * 0.4).toFixed(3);
+        (el.style as CSSStyleDeclaration & { webkitTextStroke: string }).webkitTextStroke =
+          `${strokeW}px ${APEX_RED}`;
+        // Sporty glow — tight inner bloom + wide outer halo, both scale with reveal
+        const a1 = Math.round(t * 178).toString(16).padStart(2, '0');
+        const a2 = Math.round(t * 89).toString(16).padStart(2, '0');
+        el.style.textShadow = t > 0.05
+          ? `0 0 8px ${APEX_RED}${a1}, 0 0 28px ${APEX_RED}${a2}`
+          : 'none';
+      });
+    }
 
-  // Header fade-in at section start
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1]);
-  const headerY       = useTransform(scrollYProgress, [0, 0.04], [12, 0]);
-
-  // Facts fade in near end
-  const factsOpacity = useTransform(scrollYProgress, [0.82, 0.93], [0, 1]);
-  const factsY       = useTransform(scrollYProgress, [0.82, 0.93], [16, 0]);
+    // Facts
+    const f = factsRef.current;
+    if (f) {
+      const o = Math.max(0, Math.min(1, (progress - 0.82) / 0.11));
+      f.style.opacity   = String(o);
+      f.style.transform = `translateY(${16 - o * 16}px)`;
+    }
+  });
 
   return (
     <section
@@ -100,54 +123,53 @@ export default function ApexAbout() {
       style={{ height: '220vh' }}
       aria-label="What is APEX?"
     >
-      <div className="sticky top-0 flex items-center justify-center min-h-screen overflow-hidden px-6 py-20">
+      <div
+        ref={containerRef}
+        className="sticky top-0 flex items-center justify-center min-h-screen overflow-hidden px-6 py-20"
+      >
         <div className="max-w-[860px] w-full mx-auto">
 
           {/* Eyebrow */}
-          <motion.div
-            style={{ opacity: headerOpacity, y: headerY }}
-            className="flex items-center gap-3 mb-8"
+          <div
+            className="apex-about-hdr flex items-center gap-3 mb-8"
+            style={{ opacity: 0, transform: 'translateY(12px)', willChange: 'opacity, transform' }}
           >
             <span aria-hidden className="h-px w-6" style={{ backgroundColor: APEX_RED }} />
             <span className="font-mono text-[0.68rem] font-bold tracking-[0.3em] uppercase" style={{ color: APEX_RED }}>
               What is APEX?
             </span>
-          </motion.div>
+          </div>
 
-          {/* Text reveal — reference accurate */}
-          {/* Each word wrapped in inline-block span to prevent mid-word breaks */}
+          {/* Paragraph — renders as a single flowing block of text.
+              Each character is a plain inline <span>; spaces are literal text nodes.
+              The browser wraps the line naturally, identical to a normal paragraph. */}
           <p
-            className="font-sans font-bold leading-[1.6]"
-            style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.85rem)' }}
+            className="font-sans font-semibold leading-[1.75]"
+            style={{ fontSize: 'clamp(1.05rem, 2vw, 1.5rem)' }}
             aria-label={ABOUT_TEXT}
           >
-            {words.map((word, wi) => (
-              <span key={wi} className="inline-block mr-[0.28em] whitespace-nowrap" aria-hidden="true">
-                {Array.from(word).map((ch, ci) => {
-                  const charIdx = wordCharOffsets[wi] + ci;
-                  const t       = charIdx / (totalChars - 1);
-                  // Map t → scroll progress range for this char
-                  const start   = REVEAL_START + t * (SPAN - WINDOW);
-                  const end     = start + WINDOW;
-                  return (
-                    <Char
-                      key={ci}
-                      char={ch}
-                      progress={scrollYProgress}
-                      start={start}
-                      end={end}
-                      reduced={reduced}
-                    />
-                  );
-                })}
-              </span>
-            ))}
+            {chars.map((c, i) =>
+              c.isSpace ? (
+                // Plain text space — preserves word spacing and natural wrapping
+                <span key={i} aria-hidden="true"> </span>
+              ) : (
+                <span
+                  key={i}
+                  ref={el => { spanRefs.current[i] = el; }}
+                  aria-hidden="true"
+                  style={{ color: reduced ? FULL : DIM, willChange: 'color' }}
+                >
+                  {c.ch}
+                </span>
+              )
+            )}
           </p>
 
           {/* Facts grid */}
-          <motion.div
-            style={{ opacity: factsOpacity, y: factsY }}
-            className="mt-12 border-t border-white/10 pt-6 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8"
+          <div
+            ref={factsRef}
+            className="mt-14 border-t border-white/10 pt-8 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-8"
+            style={{ opacity: 0, transform: 'translateY(16px)', willChange: 'opacity, transform' }}
           >
             {FACTS.map(([k, v]) => (
               <div key={k}>
@@ -155,7 +177,7 @@ export default function ApexAbout() {
                 <div className="mt-1.5 text-white/80 text-[0.9rem] leading-snug">{v}</div>
               </div>
             ))}
-          </motion.div>
+          </div>
 
         </div>
       </div>

@@ -43,12 +43,12 @@ function Hero() {
         <Reveal delay={0.1}>
           <div className="grid md:grid-cols-2 gap-5 md:gap-12 mt-6 md:mt-14">
             <p className="text-muted leading-[1.75] text-[1.05rem] max-w-[520px]">
-              Fifteen student-led communities on the Dundigal campus.
+              Fourteen student-led communities on the Dundigal campus.
               Technical, cultural, sport, department, service — every branch
               and every corner has a room to walk into.
             </p>
             <div className="grid grid-cols-3 gap-4 md:gap-6 md:justify-self-end self-end">
-              <StatBlock value="15" label="Clubs" />
+              <StatBlock value="14" label="Clubs" />
               <StatBlock value="05" label="Categories" />
               <StatBlock value="04" label="Chapter" muted />
             </div>
@@ -121,21 +121,22 @@ type Size = { col: 3 | 6; row: 1 | 2 };
 // Explicit size pattern per club index. Grid packs with dense auto-flow so
 // gaps from filter changes fill naturally.
 const WALL_PATTERN: Size[] = [
-  { col: 6, row: 2 },  // 0 — hero landscape (2×2)
-  { col: 3, row: 1 },  // 1
-  { col: 3, row: 1 },  // 2
-  { col: 3, row: 2 },  // 3 — portrait
-  { col: 3, row: 1 },  // 4
-  { col: 3, row: 1 },  // 5
-  { col: 6, row: 2 },  // 6 — hero landscape
-  { col: 3, row: 1 },  // 7
-  { col: 3, row: 1 },  // 8
-  { col: 3, row: 1 },  // 9
-  { col: 3, row: 2 },  // 10 — portrait
-  { col: 3, row: 1 },  // 11
-  { col: 3, row: 1 },  // 12
-  { col: 3, row: 1 },  // 13
-  { col: 3, row: 1 },  // 14
+  { col: 6, row: 2 },  // 0 — hero landscape (scope)
+  { col: 3, row: 1 },  // 1 (apex)
+  { col: 3, row: 1 },  // 2 (cie)
+  { col: 3, row: 1 },  // 3 (ewb)
+  { col: 3, row: 1 },  // 4 (came)
+  { col: 6, row: 2 },  // 5 — hero landscape (aws-sbg)
+  { col: 3, row: 1 },  // 6 (robotics)
+  { col: 3, row: 1 },  // 7 (cse-ds)
+  { col: 3, row: 1 },  // 8 (cse-aiml)
+  { col: 3, row: 1 },  // 9 (code)
+  { col: 3, row: 1 },  // 10 (mech)
+  { col: 3, row: 1 },  // 11 (eee)
+  { col: 3, row: 1 },  // 12 (aero)
+  { col: 3, row: 1 },  // 13 (lit)
+  { col: 6, row: 1 },  // 14 (nss) — wide
+  { col: 6, row: 1 },  // 15 (csi) — wide
 ];
 
 function TheWall() {

@@ -2,14 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 
-import ApexHero          from './components/ApexHero';
-import ApexQuote         from './components/ApexQuote';
-import ApexAbout         from './components/ApexAbout';
-import ApexHowItWorks    from './components/ApexHowItWorks';
-import ApexEventsGallery from './components/ApexEventsGallery';
-import ApexMemoryLane    from './components/ApexMemoryLane';
-import ApexAtmosphere    from './components/ApexAtmosphere';
-import ApexRedGlow       from './components/ApexRedGlow';
+import ApexHero                  from './components/ApexHero';
+import ApexQuote                 from './components/ApexQuote';
+import ApexAbout                 from './components/ApexAbout';
+import ApexHowItWorks            from './components/ApexHowItWorks';
+import ApexCollectionGallery      from './components/ApexCollectionGallery';
+import ApexMemoryLane            from './components/ApexMemoryLane';
+import ApexAtmosphere            from './components/ApexAtmosphere';
+import ApexRedGlow               from './components/ApexRedGlow';
 
 export default function APEXClubPage() {
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function APEXClubPage() {
       <ApexQuote />
       <ApexAbout />
       <ApexHowItWorks sectionRef={howItWorksRef} />
-      <ApexEventsGallery />
+      <ApexCollectionGallery />
       <ApexMemoryLane />
     </div>
   );

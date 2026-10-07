@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { NAV_PRIMARY, NAV_RIGHT } from '@/lib/nav';
 import { ChevronRight, Menu, X, ChevronDown } from './icons';
 import { Search } from 'lucide-react';
 import SearchOverlay from './SearchOverlay';
 import ChroniclesAttentionButton from './ChroniclesAttentionButton';
+import { getClubTheme, type ClubTheme } from '@/lib/club-themes';
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
@@ -15,6 +17,10 @@ export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [watermarkOpacity, setWatermarkOpacity] = useState(0.42);
   const headerRef = useRef<HTMLElement>(null);
+
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const clubTheme: ClubTheme | null = getClubTheme(pathname);
 
   const closeMobileMenu = () => { setMobileOpen(false); setOpenMobileItem(null); };
 
@@ -92,9 +98,18 @@ export default function Header() {
     <>
       <header
         ref={headerRef}
-        className={`fixed inset-x-0 top-0 z-[1000] bg-paper/95 backdrop-blur-md transition-transform duration-300 ease-out-quart ${
+        className={`fixed inset-x-0 top-0 z-[1000] backdrop-blur-md transition-transform duration-300 ease-out-quart ${
           hidden ? '-translate-y-full' : 'translate-y-0'
         }`}
+        style={{
+          backgroundColor: clubTheme
+            ? `color-mix(in srgb, ${clubTheme.primary} 9%, rgb(8 8 8 / 0.96))`
+            : 'rgb(250 248 244 / 0.95)',
+          boxShadow: clubTheme
+            ? `0 1px 0 0 ${clubTheme.primary}35`
+            : undefined,
+          transition: 'background-color 0.6s ease, box-shadow 0.6s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1)',
+        }}
       >
         <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
@@ -136,8 +151,8 @@ export default function Header() {
         />
 
         {/* ── ROW 1 · MASTHEAD ────────────────────────────────
-            Logo lockup on the left, serif institute name after a hair
-            divider. Mobile shows the utility rail here instead. */}
+            Logo lockup on the left. Right side: club identity on desktop,
+            search + hamburger on mobile. */}
         <div className="relative z-[1]">
           <div className="mx-auto max-w-[1440px] flex items-center justify-between gap-4 px-5 lg:px-10 pt-4 pb-4">
             <div className="flex items-center gap-5 lg:gap-6">
@@ -150,12 +165,56 @@ export default function Header() {
               </Link>
 
               {/* Institute name — Playfair serif, all caps, editorial letterspacing */}
-              <div className="hidden md:flex items-center pl-5 lg:pl-6 border-l border-border/80">
-                <span className="font-display text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] text-foreground/90 uppercase">
+              <div
+                className="hidden md:flex items-center pl-5 lg:pl-6 border-l"
+                style={{ borderColor: clubTheme ? 'rgba(255,255,255,0.18)' : undefined }}
+              >
+                <span
+                  className="font-display text-[1rem] lg:text-[1.15rem] font-medium tracking-[0.08em] uppercase"
+                  style={{ color: clubTheme ? 'rgba(255,255,255,0.80)' : undefined }}
+                >
                   MLR Institute of Technology
                 </span>
               </div>
             </div>
+
+            {/* Desktop right: club identity badge (only on club pages) */}
+            {clubTheme && (
+              <div className="hidden lg:flex items-center gap-3">
+                {/* Separator */}
+                <div className="h-8 w-px" style={{ backgroundColor: `${clubTheme.primary}30` }} />
+                {/* Badge */}
+                <div
+                  className="flex items-center gap-2.5 px-4 h-10 rounded-full border"
+                  style={{
+                    borderColor: `${clubTheme.primary}50`,
+                    backgroundColor: `${clubTheme.primary}0f`,
+                    boxShadow: `0 0 16px 0 ${clubTheme.primary}28, inset 0 1px 0 ${clubTheme.primary}18`,
+                  }}
+                >
+                  {clubTheme.logo ? (
+                    <img
+                      src={clubTheme.logo}
+                      alt={clubTheme.name}
+                      className="h-5 w-auto object-contain"
+                    />
+                  ) : (
+                    <span
+                      className="font-mono text-[0.72rem] font-bold tracking-[0.22em] uppercase"
+                      style={{ color: clubTheme.primary }}
+                    >
+                      {clubTheme.initials}
+                    </span>
+                  )}
+                  <span
+                    className="text-[0.78rem] font-semibold tracking-[0.04em]"
+                    style={{ color: `${clubTheme.primary}cc` }}
+                  >
+                    Club
+                  </span>
+                </div>
+              </div>
+            )}
 
             {/* Mobile utility — search + hamburger */}
             <div className="lg:hidden flex items-center gap-2">
@@ -188,26 +247,58 @@ export default function Header() {
           <div className="mx-auto max-w-[1440px] flex items-end justify-between px-5 lg:px-10 pb-1">
             <nav
               aria-label="Main"
-              className="inline-flex rounded-full px-2 border border-white/70 bg-white/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_14px_34px_-18px_rgba(24,20,15,0.22),inset_0_1px_0_rgba(255,255,255,0.75)]"
+              className="inline-flex rounded-full px-2 border backdrop-blur-2xl backdrop-saturate-150"
               style={{
                 WebkitBackdropFilter: 'blur(28px) saturate(160%)',
                 backdropFilter: 'blur(28px) saturate(160%)',
+                backgroundColor: clubTheme ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.55)',
+                borderColor: clubTheme ? `${clubTheme.primary}44` : 'rgba(255,255,255,0.70)',
+                boxShadow: clubTheme
+                  ? `0 14px 34px -18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px ${clubTheme.primary}22`
+                  : '0 14px 34px -18px rgba(24,20,15,0.22), inset 0 1px 0 rgba(255,255,255,0.75)',
+                transition: 'background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease',
               }}
             >
               <ul className="flex items-stretch gap-1">
+                {!isHome && (
+                  <>
+                    <li>
+                      <Link
+                        href="/"
+                        aria-label="Home"
+                        className="relative flex items-center justify-center h-[56px] px-3 transition-colors"
+                        style={{ color: clubTheme ? 'rgba(255,255,255,0.5)' : undefined }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden>
+                          <path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H13v-4H7v4H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+                        </svg>
+                      </Link>
+                    </li>
+                    <li
+                      className="self-center w-px h-4 mx-1"
+                      style={{ backgroundColor: clubTheme ? 'rgba(255,255,255,0.15)' : undefined }}
+                      aria-hidden
+                    />
+                  </>
+                )}
                 {NAV_PRIMARY.map((item) => (
                   <li key={item.label} className="group relative">
                     {item.href && !item.cols ? (
                       <Link
                         href={item.href}
-                        className="relative flex items-center h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart hover:after:bg-primary hover:after:h-[1.5px]"
+                        className="relative flex items-center h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart hover:after:h-[1.5px]"
+                        style={{
+                          color: clubTheme ? 'rgba(255,255,255,0.75)' : undefined,
+                          // after: pseudo can't be targeted via inline style, hover handled by group
+                        }}
                       >
                         {item.label}
                       </Link>
                     ) : (
                       <button
                         type="button"
-                        className="relative flex items-center gap-1.5 h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium text-foreground/80 hover:text-primary tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart group-hover:after:bg-primary group-hover:after:h-[1.5px]"
+                        className="relative flex items-center gap-1.5 h-[56px] px-4 whitespace-nowrap text-[1.02rem] font-medium tracking-[-0.005em] transition-colors after:absolute after:left-4 after:right-4 after:bottom-2 after:h-px after:bg-transparent after:transition-all after:duration-300 after:ease-out-quart group-hover:after:h-[1.5px]"
+                        style={{ color: clubTheme ? 'rgba(255,255,255,0.75)' : undefined }}
                       >
                         {item.label}
                         <ChevronDown className="w-3.5 h-3.5 opacity-50 transition-transform duration-200 group-hover:rotate-180 group-hover:opacity-100" />
@@ -246,31 +337,30 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Utility rail — right side: search, Chronicles, Contact */}
-            <div className="flex items-end gap-4">
+            {/* Utility rail — right side: search, Chronicles, [club badge], Contact */}
+            <div className="flex items-end gap-2.5">
               <button
                 id="search-trigger-btn"
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="inline-flex items-center justify-center w-10 h-10 mb-2 rounded-full text-muted hover:text-primary transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 mb-2 rounded-full transition-colors"
+                style={{ color: clubTheme ? 'rgba(255,255,255,0.5)' : undefined }}
                 title="Search (Ctrl+K)"
                 aria-label="Open search (Ctrl+K)"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4 h-4" />
               </button>
 
               <ChroniclesAttentionButton href={NAV_RIGHT.href ?? '/chronicles'} />
 
-              {/* Contact — orange CTA pill */}
+              {/* Contact — compact pill on all pages */}
               <Link
                 href="/admissions/support"
                 style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
-                className="group inline-flex items-center gap-3 h-[56px] mb-[1px] pl-7 pr-6 rounded-full text-[1.05rem] font-semibold border hover:shadow-primary-glow hover:-translate-y-[1px] transition-all duration-300 ease-out-quart tracking-[-0.005em]"
+                className="group inline-flex items-center gap-1.5 h-[30px] mb-2 pl-4 pr-3 border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] text-[0.78rem]"
               >
                 Contact
-                <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                  <ChevronRight className="w-4 h-4" />
-                </span>
+                <ChevronRight className="w-2.5 h-2.5" />
               </Link>
             </div>
           </div>
@@ -377,7 +467,35 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="flex-shrink-0 p-4 border-t border-border">
+        <div className="flex-shrink-0 p-4 border-t border-border space-y-3">
+          {clubTheme && (
+            <div
+              className="flex items-center gap-2.5 px-4 h-10 rounded-full border"
+              style={{
+                borderColor: `${clubTheme.primary}44`,
+                backgroundColor: `${clubTheme.primary}10`,
+              }}
+            >
+              {clubTheme.logo ? (
+                <img
+                  src={clubTheme.logo}
+                  alt={clubTheme.name}
+                  className="h-4 w-auto object-contain"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
+              ) : (
+                <span
+                  className="font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase"
+                  style={{ color: clubTheme.primary }}
+                >
+                  {clubTheme.initials}
+                </span>
+              )}
+              <span className="text-[0.82rem] font-medium text-foreground/70">
+                {clubTheme.name} Club
+              </span>
+            </div>
+          )}
           <Link
             href="/admissions/support"
             onClick={closeMobileMenu}
