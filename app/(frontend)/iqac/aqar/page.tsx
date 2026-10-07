@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
 import { getSection } from '@/lib/content/client';
-import { Copy, SectionContent } from '@/lib/content/live';
 import { sectionDomId } from '@/lib/preview/dom';
 import { asText } from '@/lib/content/sections';
 import IQACQuickNav from '@/components/IQACQuickNav';
@@ -68,7 +67,7 @@ export default async function AQARPage() {
       : FALLBACK_FACTS;
 
   return (
-    <SectionContent sectionKey="iqac/aqar" content={c}>
+    <>
       <PageHeader
         eyebrow="IQAC"
         title="Annual Quality"
@@ -89,14 +88,14 @@ export default async function AQARPage() {
 
           {/* About */}
           <Section id="about">
-            <H2 italic=""><Copy k="aboutHeading">{'About AQAR'}</Copy></H2>
+            <H2 italic="">{copy('aboutHeading', 'About AQAR')}</H2>
             <div className="mt-4 md:mt-6 grid md:grid-cols-2 gap-4 md:gap-8">
               <Reveal preset="right">
                 <p className="text-foreground leading-relaxed text-[1.05rem]">
-                  <Copy k="aboutBody1">{"The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT's Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year."}</Copy>
+                  {copy('aboutBody1', "The Annual Quality Assurance Report (AQAR) is a yearly report prepared and submitted by MLRIT's Internal Quality Assurance Cell (IQAC) to NAAC. It documents the quality initiatives undertaken, academic outcomes achieved and improvements made during the academic year.")}
                 </p>
                 <p className="mt-4 text-muted leading-relaxed text-[1rem]">
-                  <Copy k="aboutBody2">{'AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance.'}</Copy>
+                  {copy('aboutBody2', 'AQAR submission is a mandatory requirement for all NAAC-accredited institutions and forms a key part of the continuous quality assessment process. It covers curriculum, teaching-learning, research, infrastructure, student support and governance.')}
                 </p>
               </Reveal>
               <Reveal preset="up" delay={0.1}>
@@ -114,9 +113,9 @@ export default async function AQARPage() {
 
           {/* Reports */}
           <Section id="reports" surface>
-            <H2 italic=""><Copy k="reportsHeading">{'AQAR Reports'}</Copy></H2>
+            <H2 italic="">{copy('reportsHeading', 'AQAR Reports')}</H2>
             <Lede>
-              <Copy k="reportsLede">{'Annual Quality Assurance Reports for each academic year. Click to download the PDF.'}</Copy>
+              {copy('reportsLede', 'Annual Quality Assurance Reports for each academic year. Click to download the PDF.')}
             </Lede>
             <Stagger className="mt-5 md:mt-8 grid md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" delay={0.06}>
               {REPORTS.map((r) => (
@@ -129,7 +128,7 @@ export default async function AQARPage() {
                     >
                       {r.latest && (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-[0.58rem] font-bold tracking-wide uppercase mb-3">
-                          <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" /><Copy k="latest">{'Latest'}</Copy></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />{copy('latest', 'Latest')}</span>
                       )}
                       <div className="font-sans font-black text-foreground text-[1.4rem] tracking-tighter-2 group-hover:text-secondary transition-colors">
                         {r.year}
@@ -138,13 +137,13 @@ export default async function AQARPage() {
                       <div className="mt-4 inline-flex items-center gap-1.5 text-secondary font-bold text-[0.78rem] group-hover:gap-2.5 transition-all">
                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                           <path d="M6.5 1.5v7M4 6.5l2.5 2.5 2.5-2.5M1.5 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg><Copy k="downloadPdf">{'Download PDF'}</Copy></div>
+                        </svg>{copy('downloadPdf', 'Download PDF')}</div>
                     </a>
                   ) : (
                     <div className="block rounded-2xl border-2 border-dashed border-border bg-warm-light/40 p-4 md:p-6 text-center opacity-60">
                       <div className="font-sans font-black text-foreground text-[1.4rem] tracking-tighter-2">{r.year}</div>
                       <div className="mt-1 font-mono text-muted text-[0.68rem] tracking-wide uppercase">AQAR</div>
-                      <div className="mt-4 font-mono text-muted text-[0.7rem]"><Copy k="contactIqacOffice">{'Contact IQAC Office'}</Copy></div>
+                      <div className="mt-4 font-mono text-muted text-[0.7rem]">{copy('contactIqacOffice', 'Contact IQAC Office')}</div>
                     </div>
                   )}
                 </StaggerItem>
@@ -159,7 +158,7 @@ export default async function AQARPage() {
                 </svg>
                 <p className="text-muted text-[0.88rem] leading-relaxed">
                   For reports not available for download, please contact the IQAC office at{' '}
-                  <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline"><Copy k="coeMlrinstitutionsAcIn">{'coe@mlrinstitutions.ac.in'}</Copy></a>{' '}
+                  <a href="mailto:coe@mlrinstitutions.ac.in" className="text-secondary font-semibold hover:underline">{copy('coeMlrinstitutionsAcIn', 'coe@mlrinstitutions.ac.in')}</a>{' '}
                   or call <a href="tel:+919652226061" className="text-secondary font-semibold hover:underline">+91 96522 26061</a>.
                 </p>
               </div>
@@ -168,6 +167,6 @@ export default async function AQARPage() {
 
         </div>
       </div>
-    </SectionContent>
+    </>
   );
 }

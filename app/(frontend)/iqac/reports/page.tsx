@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Copy, SectionContent } from '@/lib/content/live';
 import PageHeader from '@/components/PageHeader';
 import { getRows } from '@/lib/content/rows';
 import { getSection } from '@/lib/content/client';
@@ -70,7 +69,7 @@ export default async function ReportsPage() {
       : FALLBACK_OTHER_REPORTS;
 
   return (
-    <SectionContent sectionKey="iqac/reports" content={c}>
+    <>
       <PageHeader
         eyebrow="IQAC"
         title="Reports & Documents"
@@ -90,7 +89,7 @@ export default async function ReportsPage() {
         <div className="flex-1 min-w-0">
 
           <Section id="aqar-reports">
-            <H2 italic=""><Copy k="aqarReports">{'AQAR Reports'}</Copy></H2>
+            <H2 italic="">{copy('aqarReports', 'AQAR Reports')}</H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {AQAR_REPORTS.map((r) => (
                 <a
@@ -102,14 +101,14 @@ export default async function ReportsPage() {
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all"><Copy k="open">{'Open →'}</Copy></div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">{copy('open', 'Open →')}</div>
                 </a>
               ))}
             </div>
           </Section>
 
           <Section id="minutes">
-            <H2 italic=""><Copy k="minutesHeading">{'Minutes'}</Copy></H2>
+            <H2 italic="">{copy('minutesHeading', 'Minutes')}</H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {MINUTES.map((r) => (
                 <a
@@ -121,21 +120,21 @@ export default async function ReportsPage() {
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all"><Copy k="open">{'Open →'}</Copy></div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">{copy('open', 'Open →')}</div>
                 </a>
               ))}
             </div>
           </Section>
 
           <Section id="audit-reports">
-            <H2 italic=""><Copy k="auditReports">{'Audit Reports'}</Copy></H2>
+            <H2 italic="">{copy('auditReports', 'Audit Reports')}</H2>
             <div className="mt-4 md:mt-6 rounded-2xl border border-dashed border-border bg-warm-light/40 p-5 md:p-8 text-center">
-              <p className="text-muted italic text-[0.95rem]"><Copy k="contentToBeUpdated">{'Content to be updated.'}</Copy></p>
+              <p className="text-muted italic text-[0.95rem]">{copy('contentToBeUpdated', 'Content to be updated.')}</p>
             </div>
           </Section>
 
           <Section id="policy-documents">
-            <H2 italic=""><Copy k="policyDocuments">{'Policy Documents'}</Copy></H2>
+            <H2 italic="">{copy('policyDocuments', 'Policy Documents')}</H2>
             <div className="mt-5 md:mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {OTHER_REPORTS.map((r) => (
                 <a
@@ -147,7 +146,7 @@ export default async function ReportsPage() {
                 >
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.2em] uppercase text-secondary mb-2">{r.tag}</div>
                   <div className="font-sans font-extrabold text-foreground text-[0.95rem] group-hover:text-secondary transition-colors leading-snug">{r.label}</div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all"><Copy k="open">{'Open →'}</Copy></div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-secondary font-semibold text-[0.78rem] group-hover:gap-2 transition-all">{copy('open', 'Open →')}</div>
                 </a>
               ))}
             </div>
@@ -155,6 +154,6 @@ export default async function ReportsPage() {
 
         </div>
       </div>
-    </SectionContent>
+    </>
   );
 }

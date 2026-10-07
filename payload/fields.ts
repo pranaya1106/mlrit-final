@@ -9,6 +9,7 @@ import {
   type GalleryItemField,
   type RepeaterItemField,
 } from '@/lib/content/sections';
+import { transientMediaMessage } from '@/lib/content/validate';
 
 /**
  * Translate one CONTENT_SECTIONS field into its Payload equivalent.
@@ -49,6 +50,11 @@ const mediaField = (
       `${accept === 'document' ? 'PDF' : accept} — upload under Media, then paste its URL here. ` +
       'A rooted path (/legacy/…) or an external URL also works.',
   },
+  // Rejects blob:/data: — a handle into one browser document that renders as
+  // a broken asset once saved. One such URL reached the live homepage under
+  // the previous CMS; media fields are still plain text here, so the guard
+  // still earns its place.
+  validate: transientMediaMessage,
   custom: { accept },
 });
 

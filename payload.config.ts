@@ -15,10 +15,8 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 export default buildConfig({
   admin: {
     user: Users.slug,
-    // Mounted at /cms, not /admin, so the outgoing hand-rolled admin keeps
-    // working side by side during the migration — running both is how the
-    // migrated content gets checked against the old editor. Move to /admin
-    // once app/(frontend)/admin is deleted.
+    // Mounted at /admin, the URL the previous hand-rolled admin used, so
+    // existing bookmarks keep working now that it is gone.
     importMap: { baseDir: dirname },
     livePreview: {
       breakpoints: [
@@ -28,7 +26,10 @@ export default buildConfig({
       ],
     },
   },
-  routes: { admin: '/cms', api: '/cms-api' },
+  // The previous admin is gone, so Payload takes the URL people already know.
+  // Defaults would be /admin and /api anyway; stated explicitly because the
+  // route folders under app/(payload) have to match.
+  routes: { admin: '/admin', api: '/api' },
   collections: [Users, Media],
   globals: sectionGlobals,
   editor: lexicalEditor(),
