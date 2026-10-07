@@ -149,10 +149,10 @@ function PolaroidCard({
 
         {/* Caption area */}
         <div className="mt-2 px-1">
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#9e886a', marginBottom: 3 }}>
+          <div className="font-mono" style={{ fontSize: '0.5rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#9e886a', marginBottom: 3 }}>
             {memory.category}
           </div>
-          <div style={{ fontFamily: 'var(--font-manrope)', fontSize: '0.74rem', fontWeight: 600, lineHeight: 1.35, color: '#2e2318' }}>
+          <div className="font-sans" style={{ fontSize: '0.74rem', fontWeight: 600, lineHeight: 1.35, color: '#2e2318' }}>
             {memory.caption}
           </div>
         </div>
@@ -161,6 +161,7 @@ function PolaroidCard({
       {/* Handwritten label below active card */}
       {isActive && (
         <motion.div
+          className="font-display italic"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -170,8 +171,6 @@ function PolaroidCard({
             bottom:     -30,
             left: 0, right: 0,
             textAlign:  'center',
-            fontFamily: 'var(--font-playfair)',
-            fontStyle:  'italic',
             fontSize:   '0.78rem',
             color:      'rgba(255,255,255,0.42)',
             pointerEvents: 'none',

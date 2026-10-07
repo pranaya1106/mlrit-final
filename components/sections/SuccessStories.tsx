@@ -141,7 +141,6 @@ export default function SuccessStories(props: SuccessStoriesProps) {
               <span
                 className="font-display font-medium pb-[0.14em] text-foreground"
                 style={{
-                  fontFamily: 'var(--font-playfair), Georgia, serif',
                   fontStyle: 'normal',
                   fontWeight: 500,
                   lineHeight: 1.08,

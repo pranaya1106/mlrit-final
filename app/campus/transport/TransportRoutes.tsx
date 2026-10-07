@@ -218,7 +218,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
             marginBottom: 10,
           }}>
             <span style={{
-              fontFamily: 'sans-serif', fontWeight: 900, fontSize: 20,
+              fontFamily: 'var(--font-manrope), ui-sans-serif, system-ui, sans-serif', fontWeight: 900, fontSize: 20,
               color: '#e85d04', lineHeight: 1, letterSpacing: '-0.02em',
             }}>
               {route.routeNumber}
@@ -232,7 +232,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
           </p>
           <p style={{
             fontSize: '0.72rem', color: '#9d9b94',
-            fontFamily: 'monospace', letterSpacing: '0.01em',
+            fontFamily: 'var(--font-mono), ui-monospace, monospace', letterSpacing: '0.01em',
           }}>
             {route.stops.length} stops
           </p>
@@ -268,7 +268,7 @@ function RouteCard({ route, onViewDetails }: RouteCardProps) {
               <p style={{ fontWeight: 800, fontSize: '0.82rem', color: '#0f0f0f', lineHeight: 1.1 }}>
                 Route {route.routeNumber}
               </p>
-              <p style={{ fontSize: '0.62rem', color: '#9d9b94', fontFamily: 'monospace', marginTop: 1 }}>
+              <p style={{ fontSize: '0.62rem', color: '#9d9b94', fontFamily: 'var(--font-mono), ui-monospace, monospace', marginTop: 1 }}>
                 {route.stops.length} stops
               </p>
             </div>
@@ -450,7 +450,7 @@ export default function TransportRoutes({ routes }: { routes: BusRoute[] }) {
                     <Phone className="w-4 h-4" style={{ color: '#e85d04' }} />
                   </div>
                   <div>
-                    <p style={{ fontSize: '0.72rem', color: '#9d9b94', fontFamily: 'monospace', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 2 }}>{label}</p>
+                    <p style={{ fontSize: '0.72rem', color: '#9d9b94', fontFamily: 'var(--font-mono), ui-monospace, monospace', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 2 }}>{label}</p>
                     <p style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0f0f0f', lineHeight: 1.2 }}>{name}</p>
                     <p style={{ fontSize: '0.78rem', color: '#e85d04', fontWeight: 600, marginTop: 1 }}>{phone}</p>
                   </div>

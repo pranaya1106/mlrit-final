@@ -2,24 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ────────────────────────────────────────────────────────────────
-   Hard-fallback colour classes.
-   These are layered AFTER tailwind so they always resolve, even
-   if the JIT layer ships a stale chunk during dev. They mirror the
-   token values from tailwind.config.ts exactly.
-   ──────────────────────────────────────────────────────────────── */
-@layer utilities {
-  .bg-ink      { background-color: #0c0c0e !important; }
-  .bg-ink-2    { background-color: #16161a !important; }
-  .bg-ink-3    { background-color: #1f1f24 !important; }
-  .bg-cream    { background-color: #faf7f0 !important; }
-  .bg-cream-2  { background-color: #f1ece1 !important; }
-  .bg-cream-deep { background-color: #e8e2d2 !important; }
-  .bg-snow     { background-color: #fbfbfa !important; }
-  .text-warm   { color: #ecdec1 !important; }
-  .bg-warm     { background-color: #ecdec1 !important; }
-}
-
 /* ════════════════════════════════════════════════════════════════
    GLOBAL CSS — design tokens + base reset
    Mirrors the static-site theme tokens but lives in the Next.js
@@ -33,16 +15,12 @@
   --primary-hover:  #f06a14;
   --primary-pressed:#c44b00;
   --secondary:      #2d8b55;
-  --secondary-hover:#3dad6c;
 
   /* ── Orange / Green tints ── */
   --orange-50:  #fff5ec;
-  --orange-100: #ffe5d3;
   --orange-200: #ffcfa6;
   --green-50:   #f1f8f4;
   --green-nav:  #01741f;
-  --forest:     #143c22;   /* muted, editorial deep-green for rails */
-  --forest-2:   #0d2a17;
 
   /* ── Surfaces (light) — paper-first, not white-first ── */
   /* The site's default canvas is cream, not pure white. Pure white next to
@@ -50,18 +28,8 @@
      lets the same accents feel editorial instead. */
   --background: #faf7f0;   /* was #ffffff — now cream by default */
   --paper:      #faf7f0;
-  --paper-2:    #f1ece1;
-  --snow:       #fbfbfa;
   --cream:      #faf7f0;
-  --cream-2:    #f1ece1;
-  --cream-deep: #e8e2d2;
-  --warm:       #ecdec1;
   --warm-light: #faf7f0;   /* alias of --cream */
-
-  /* ── Surfaces (dark) ── */
-  --ink:   #0c0c0e;        /* deepest dark section */
-  --ink-2: #16161a;        /* nested dark cards inside dark sections */
-  --ink-3: #1f1f24;        /* hover/raised inside dark cards */
 
   /* ── Text ── */
   --foreground: #0f0f0f;
@@ -70,7 +38,6 @@
 
   /* ── Borders ── */
   --border:        #e4e0d7;
-  --border-dark:   rgba(255,255,255,0.10);
 
   /* ── Accents ── */
   --gold-50:    #fdf3e0;
@@ -132,11 +99,6 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
-.grain-ink::before {
-  mix-blend-mode: screen;
-  opacity: 0.045;
-}
-
 ::selection { background: var(--primary); color: #fff; }
 
 /* Headings: no global colour — sections decide */
@@ -148,30 +110,6 @@ h1, h2, h3, h4, h5, h6 {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button { font: inherit; cursor: pointer; }
-
-/* Italic accent helper used inside headings */
-.serif-italic {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
-}
-
-/* Transport page — detail panel entrance */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  @keyframes fadeUp {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-}
-
-@keyframes chron-spin {
-  to { transform: rotate(360deg); }
-}
 
 /* Club memory-lane — continuous horizontal photo marquee (Purdue-style) */
 @keyframes marquee-x {
@@ -213,16 +151,6 @@ button { font: inherit; cursor: pointer; }
   background-image:
     radial-gradient(1200px 400px at 15% 0%, rgba(232, 93, 4, 0.035), transparent 55%),
     radial-gradient(1000px 400px at 90% 100%, rgba(20, 60, 34, 0.035), transparent 55%);
-}
-
-/* Editorial ink card — for the rounded hero video frame. */
-.ink-card {
-  background: var(--ink);
-  border-radius: 28px;
-  box-shadow:
-    0 40px 80px -20px rgba(15, 15, 15, 0.35),
-    0 10px 30px -8px rgba(15, 15, 15, 0.18),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 /* Serif italic accent — display-family italic, used inside headlines and pulls. */
@@ -272,24 +200,6 @@ button { font: inherit; cursor: pointer; }
   box-shadow: 0 0 0 4px rgba(232, 93, 4, 0.15);
 }
 
-/* Editorial ornament — a tiny fleuron-like mark used between eyebrow spans.
-   Not a Unicode fleuron because those render poorly cross-platform;
-   this is a hand-drawn asterisk-diamond that stays consistent. */
-.editorial-ornament {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  vertical-align: middle;
-  color: var(--gold);
-  opacity: 0.7;
-  transform: rotate(0deg);
-}
-.editorial-ornament::before {
-  content: '✦';
-  font-size: 12px;
-  line-height: 1;
-}
-
 /* Ghost numeral — the huge muted number sitting behind a section's
    chapter mark. Adds editorial weight without competing with content. */
 .ghost-numeral {
@@ -309,42 +219,6 @@ button { font: inherit; cursor: pointer; }
 .ghost-numeral--ink {
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
 }
-
-/* Editorial vertical rail — used on the outer margin of sections for
-   date/place/edition marginalia. Only visible on large screens. */
-.side-rail {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* Editorial pull-mark — a big italic quote glyph that decorates
-   pull-quotes and section corners in the classical way. */
-.pull-mark {
-  font-family: var(--font-playfair), Georgia, serif;
-  font-style: italic;
-  font-weight: 700;
-  line-height: 0.5;
-  color: var(--primary);
-}
-
-/* Scroll cue at the base of the hero — micro-animation, respects reduced motion. */
-@keyframes scroll-cue {
-  0%, 100% { transform: translateY(0); opacity: 0.65; }
-  50%      { transform: translateY(6px); opacity: 1; }
-}
-.scroll-cue {
-  animation: scroll-cue 2.4s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .scroll-cue { animation: none; }
-}
-
 
 /* ── ChroniclesAttentionButton ─────────────────────────────── */
 @keyframes chron-spin {
@@ -435,7 +309,7 @@ button { font: inherit; cursor: pointer; }
   border-radius: 999px;
   background: #e85d04;
   color: #fff;
-  font-family: monospace;
+  font-family: var(--font-mono), ui-monospace, monospace;
   flex-shrink: 0;
   animation: chron-pulse 2s ease-in-out infinite;
   display: inline-block;

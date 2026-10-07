@@ -84,7 +84,7 @@ function PageFace({ page, side }: { page: PageContent; side: 'front' | 'back' })
   if (page.type === 'blank') {
     return (
       <div style={{ position: 'absolute', inset: 0, background: page.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: 'clamp(0.52rem, 0.8vw, 0.65rem)', fontWeight: 900, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.08)', writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+        <span style={{ fontFamily: 'var(--font-mono), ui-monospace, monospace', fontSize: 'clamp(0.52rem, 0.8vw, 0.65rem)', fontWeight: 900, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.08)', writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
           CAME · MLRIT
         </span>
       </div>
@@ -99,7 +99,7 @@ function PageFace({ page, side }: { page: PageContent; side: 'front' | 'back' })
         ))}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ width: 24, height: 2, background: page.color, borderRadius: 999, opacity: 0.7 }} />
-          <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: 'clamp(0.52rem, 0.8vw, 0.65rem)', fontWeight: 900, letterSpacing: '0.26em', textTransform: 'uppercase', color: page.color, opacity: 0.8 }}>
+          <span style={{ fontFamily: 'var(--font-mono), ui-monospace, monospace', fontSize: 'clamp(0.52rem, 0.8vw, 0.65rem)', fontWeight: 900, letterSpacing: '0.26em', textTransform: 'uppercase', color: page.color, opacity: 0.8 }}>
             CAME · MLRIT
           </span>
         </div>
@@ -121,7 +121,7 @@ function PageFace({ page, side }: { page: PageContent; side: 'front' | 'back' })
   // domain
   return (
     <div style={{ position: 'absolute', inset: 0, background: page.bg, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: pad, overflow: 'hidden' }}>
-      <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: 'clamp(0.58rem, 0.9vw, 0.72rem)', fontWeight: 900, letterSpacing: '0.2em', color: page.color, opacity: 0.75 }}>
+      <span style={{ fontFamily: 'var(--font-mono), ui-monospace, monospace', fontSize: 'clamp(0.58rem, 0.9vw, 0.72rem)', fontWeight: 900, letterSpacing: '0.2em', color: page.color, opacity: 0.75 }}>
         {page.n}
       </span>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -131,7 +131,7 @@ function PageFace({ page, side }: { page: PageContent; side: 'front' | 'back' })
         <p style={{ fontSize: 'clamp(0.68rem, 0.9vw, 0.8rem)', color: 'rgba(255,255,255,0.46)', lineHeight: 1.7, margin: 0 }}>
           {page.body}
         </p>
-        <div style={{ fontFamily: 'ui-monospace, monospace', fontSize: 'clamp(0.44rem, 0.58vw, 0.55rem)', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.18)' }}>
+        <div style={{ fontFamily: 'var(--font-mono), ui-monospace, monospace', fontSize: 'clamp(0.44rem, 0.58vw, 0.55rem)', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.18)' }}>
           {page.sub}
         </div>
       </div>
@@ -337,7 +337,7 @@ export default function CameHowItWorks({
 
       {/* Hint */}
       <div className="flex justify-center">
-        <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)' }}>
+        <span style={{ fontFamily: 'var(--font-mono), ui-monospace, monospace', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)' }}>
           {isBookClosed
             ? 'Click to open'
             : flippedCount < TOTAL_LEAVES
