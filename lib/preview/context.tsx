@@ -33,9 +33,10 @@ export const MESSAGE = {
   exitFullscreen: 'cms-preview-exit-fullscreen',
 } as const;
 
-/** Stable DOM id for a section, e.g. "home/hero" -> "cms-section-home-hero". */
-export const sectionDomId = (sectionKey: string): string =>
-  `cms-section-${sectionKey.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
+// Re-exported so existing client imports keep working; the implementation
+// lives in a neutral module that Server Components can call too.
+export { sectionDomId } from '@/lib/preview/dom';
+import { sectionDomId } from '@/lib/preview/dom';
 
 /** Values may be strings, or arrays of objects for gallery fields. */
 type SectionOverride = Record<string, unknown>;
@@ -115,7 +116,7 @@ const isPreviewWindow = (): boolean => {
 };
 
 export function PreviewProvider({ children }: { children: React.ReactNode }) {
-  const storeRef = useRef<OverrideStore>();
+  const storeRef = useRef<OverrideStore>(undefined);
   if (!storeRef.current) storeRef.current = createOverrideStore();
   const store = storeRef.current;
 
@@ -267,5 +268,8 @@ export function useMergedSection<T extends Record<string, unknown>>(
   props: T
 ): T {
   const override = usePreviewOverride(sectionKey);
-  return useMemo(() => ({ ...props, ...(override ?? {}) }) as T, [props, override]);
+  return useMemo(() => (({
+    ...props,
+    ...(override ?? {})
+  }) as T), [props, override]);
 }

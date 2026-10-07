@@ -7,9 +7,15 @@
 // colour, hairline draws, word-stagger on the title, and a facts strip with a
 // mono chapter mark on the right.
 //
-// Pure CSS animations (no framer-motion) so the component stays server-safe
-// and every hero renders on first paint with no client bundle cost.
+// Pure CSS animations (no framer-motion), so the hero still renders on first
+// paint. It is a client component only to read its CMS override by route —
+// six of its consumers are client pages and InfoPageRenderer renders it too,
+// so it could not be async.
+'use client';
+
 import { ReactNode } from 'react';
+
+import { usePageHeaderOverride } from '@/lib/content/page-headers';
 
 type Variant = 'green' | 'navy' | 'orange';
 type Tone = 'dark' | 'light';
@@ -37,6 +43,14 @@ export default function PageHeader({
   variant?: Variant;
   tone?: Tone;
 }) {
+  // CMS wins when set; every field falls back to what the page passes, so an
+  // unedited route renders exactly as before.
+  const cms = usePageHeaderOverride();
+  eyebrow = cms.eyebrow ?? eyebrow;
+  title = cms.title ?? title;
+  italic = cms.italic ?? italic;
+  dek = cms.dek ?? dek;
+
   const accent = ACCENT[variant];
   const isDark = tone === 'dark';
 
