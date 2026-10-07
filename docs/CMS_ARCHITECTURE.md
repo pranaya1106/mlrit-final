@@ -259,20 +259,28 @@ The editor route, dashboard row, and write-API validation all derive from it.
 8. **`Hero.tsx` on main has dead code** — `StudentReelSlider` import and
    `HERO_REELS` remain after the component was removed in `1525ab6`. Pre-existing
    on main, not introduced here.
+9. **`POST /api/content/upload` is authenticated but not section-scoped.** It
+   checks only that the caller is signed in, so any editor may upload media
+   regardless of which sections they hold. Not an escalation on its own — the
+   returned key is worthless until a `PUT /api/content/[page]/[section]` accepts
+   it, and that route does enforce `canEditSection` — but it does let a
+   least-privileged editor put arbitrary bytes in the public `assets` bucket.
+   Scoping it means passing the target section with the upload and checking it,
+   which the current `prefix` form field does not do.
 
 ### Nice to have
-9. ~~Migrate `/admin/home/hero` onto `ContentEditor` and delete
+10. ~~Migrate `/admin/home/hero` onto `ContentEditor` and delete
    `HeroEditor.tsx`.~~ Done — the static route was removed so the URL now falls
    through to `/admin/[page]/[section]`; the path is unchanged for editors.
-10. Banner edit (currently create/toggle/delete only — no way to change a title).
-11. `next/image` for banners once `assets.width/height` are populated.
-12. Video cap is 25 MB; two existing site videos are ~29 MB. Raise if those ever
+11. Banner edit (currently create/toggle/delete only — no way to change a title).
+12. `next/image` for banners once `assets.width/height` are populated.
+13. Video cap is 25 MB; two existing site videos are ~29 MB. Raise if those ever
     become CMS-managed.
-13. Section-aware `revalidatePath` — currently always `/`, wrong once non-home
+14. Section-aware `revalidatePath` — currently always `/`, wrong once non-home
     pages become editable.
-14. Asset preloading on media swap: `preload="metadata"` means `load()`
+15. Asset preloading on media swap: `preload="metadata"` means `load()`
     discards the buffer and refetches, so a large file can blank briefly when
     the preview swaps blob → uploaded key. Deferred deliberately.
-15. Tighten the transient-URL guard to *all* fields, not just configured media
+16. Tighten the transient-URL guard to *all* fields, not just configured media
     fields — an unconfigured section currently has no media fields known, so a
     `blob:` value there would still persist. Not reachable today.

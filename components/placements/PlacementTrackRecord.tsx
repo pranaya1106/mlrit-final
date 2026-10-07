@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Reveal from '@/components/motion/Reveal';
-import { PLACEMENT_YEARS } from '@/lib/placements';
+import { type PlacementYearSummary, PLACEMENT_YEARS } from '@/lib/placements';
 import type { SelectionCount } from '@/lib/placements';
 
 function formatSelections(s: SelectionCount): string {
@@ -14,7 +14,12 @@ function formatSelections(s: SelectionCount): string {
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-export default function PlacementTrackRecord() {
+export default function PlacementTrackRecord({
+  years = PLACEMENT_YEARS,
+}: {
+  /** Year-wise record; falls back to the bundled data when nothing is saved. */
+  years?: PlacementYearSummary[];
+}) {
   const [openYear, setOpenYear] = useState<string | null>(null);
 
   function toggle(year: string) {
@@ -52,7 +57,7 @@ export default function PlacementTrackRecord() {
           </div>
 
           {/* Rows */}
-          {PLACEMENT_YEARS.map((y, i) => {
+          {years.map((y, i) => {
             const isOpen = openYear === y.year;
             const isLast = i === PLACEMENT_YEARS.length - 1;
 

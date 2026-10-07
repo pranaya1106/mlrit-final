@@ -102,3 +102,10 @@ chatbot/__pycache__/
 chatbot/indexes/__pycache__/
 chatbot/ingest/__pycache__/
 chatbot/*.log
+
+# Tool artifacts — skill output and Supabase CLI version cache
+graphify-out/
+supabase/.temp/
+
+# Payload local media uploads
+public/uploads/

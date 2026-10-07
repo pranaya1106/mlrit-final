@@ -4,8 +4,17 @@
 // that scrapes Google News + Bing News RSS directly into D1; point NEWS_API_URL
 // at it (see .env.example) even in local dev.
 import { spawn } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, rmSync } from 'node:fs';
 import { platform } from 'node:process';
+
+// Clear stale .next cache before every dev start so next/font class-name
+// hashes always stay in sync with the CSS that gets injected. Without this,
+// restarting the server after a build can leave the CSS referencing hash
+// __variable_bfd9e0 while the HTML injects __variable_2afa32 → all fonts
+// fall back to Times New Roman.
+try {
+  rmSync('.next', { recursive: true, force: true });
+} catch { /* ignore if already absent */ }
 
 const isWin = platform === 'win32';
 // cmd.exe (spawned under shell:true on Windows) mis-parses a forward-slash exe

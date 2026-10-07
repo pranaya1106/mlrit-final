@@ -16,6 +16,20 @@ export type FieldError = { error: string; field: string };
 /** blob:/data: are document-scoped handles that must never reach the database. */
 const TRANSIENT = /^(blob|data):/i;
 
+/**
+ * Field-level guard for Payload. The whole-section walk below exists for the
+ * previous admin's save path; Payload validates one field at a time, and this
+ * is the same rule in the shape its `validate` hook wants.
+ *
+ * Still worth keeping after the CMS swap: media fields are plain text, so a
+ * blob: URL pasted from a browser's devtools or a half-finished upload is as
+ * easy to save now as it was when one reached the live homepage.
+ */
+export const transientMediaMessage = (value: unknown): string | true => {
+  if (typeof value !== 'string' || !TRANSIENT.test(value)) return true;
+  return `A ${schemeOf(value)}: URL only exists inside the page that made it. Upload the file and use its URL instead.`;
+};
+
 const schemeOf = (value: string): string => value.slice(0, value.indexOf(':'));
 
 /**
