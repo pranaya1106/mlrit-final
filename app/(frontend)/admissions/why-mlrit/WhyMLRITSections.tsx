@@ -605,7 +605,7 @@ function InnovationResearchStory() {
                     <div className="font-sans font-black tracking-tighter-2 text-[1.4rem] leading-none text-primary">
                       <Counter to={s.val} suffix={s.suffix} />
                     </div>
-                    <div className="mt-1.5 font-mono text-[0.6rem] tracking-wide text-white/38 leading-tight">{s.sub}</div>
+                    <div className="mt-1.5 font-mono text-[0.6rem] tracking-wide text-white/70 leading-tight">{s.sub}</div>
                   </div>
                 </StaggerItem>
               ))}

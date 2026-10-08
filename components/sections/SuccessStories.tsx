@@ -185,12 +185,14 @@ export default function SuccessStories(props: SuccessStoriesProps) {
             'linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%)',
         }}
       >
-        <div className="flex w-max gap-5 md:gap-6 py-2 marquee-cards">
+        {/* Mobile spaces cards with margin (not gap) so -50% lands exactly on
+            the duplicated set; md+ keeps gap-6 as before. */}
+        <div className="flex w-max gap-0 md:gap-6 py-2 marquee-cards">
           {/* Duplicated once so the track loops seamlessly at -50% */}
           {[...items, ...items].map((c, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[74vw] max-w-[380px] md:w-[36vw] md:max-w-[440px] lg:w-[26vw] lg:max-w-[420px] aspect-[3/4] relative rounded-2xl md:rounded-[24px] overflow-hidden bg-ink-2 group cursor-pointer"
+              className="flex-shrink-0 mr-4 md:mr-0 w-[60vw] max-w-[260px] md:w-[36vw] md:max-w-[440px] lg:w-[26vw] lg:max-w-[420px] aspect-[3/4] relative rounded-2xl md:rounded-[24px] overflow-hidden bg-ink-2 group cursor-pointer"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -207,17 +209,17 @@ export default function SuccessStories(props: SuccessStoriesProps) {
                     'linear-gradient(180deg, rgba(12,12,14,0) 0%, rgba(12,12,14,0.9) 100%)',
                 }}
               />
-              <div className="absolute top-4 left-4 md:top-5 md:left-5 z-[2]">
-                <span className="inline-flex items-center h-7 md:h-8 px-3 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white/85 font-mono text-[0.6rem] md:text-[0.65rem] font-bold tracking-[0.18em] uppercase">
+              <div className="absolute top-3 left-3 md:top-5 md:left-5 z-[2]">
+                <span className="inline-flex items-center h-6 md:h-8 px-2.5 md:px-3 rounded-full bg-black/45 backdrop-blur-sm border border-white/15 text-white/85 font-mono text-[0.55rem] md:text-[0.65rem] font-bold tracking-[0.14em] md:tracking-[0.18em] uppercase">
                   {c.season}
                 </span>
               </div>
-              <div className="absolute inset-x-0 bottom-0 z-[2] p-5 md:p-6">
-                <div className="font-sans font-black text-white text-[1.05rem] md:text-[1.2rem] leading-[1.15] tracking-tight">
+              <div className="absolute inset-x-0 bottom-0 z-[2] p-4 md:p-6">
+                <div className="font-sans font-black text-white text-[0.95rem] md:text-[1.2rem] leading-[1.15] tracking-tight">
                   {c.name}
                 </div>
                 {c.detail && (
-                  <div className="mt-1.5 text-white/70 text-[0.82rem] md:text-[0.88rem] leading-snug">
+                  <div className="mt-1 md:mt-1.5 text-white/70 text-[0.76rem] md:text-[0.88rem] leading-snug">
                     {c.detail}
                   </div>
                 )}
@@ -235,6 +237,12 @@ export default function SuccessStories(props: SuccessStoriesProps) {
         }
         .marquee-cards:hover {
           animation-play-state: paused;
+        }
+        /* Mobile only: smaller cards, so a shorter loop keeps a lively pace;
+           a tap leaves :hover stuck on touch screens, so never pause there. */
+        @media (max-width: 767px) {
+          .marquee-cards { animation-duration: 30s; }
+          .marquee-cards:hover { animation-play-state: running; }
         }
         @keyframes ss-marquee {
           from { transform: translateX(0); }

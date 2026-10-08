@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 
 /**
  * Broadsheet ticker rail.
@@ -15,6 +15,9 @@ export default function ChroniclesTicker({ items }: { items: string[] }) {
   if (items.length === 0) return null;
 
   const line = items.join('  ·  ');
+  // Mobile only: the track is w-max there, so -50% travels one full copy of the
+  // headlines. ~7px per character at 0.85rem, scrolled at ~70px/s.
+  const mobileSecs = Math.max(8, Math.round(((line.length + 5) * 7) / 70));
 
   return (
     <div className="border-b border-black/20 bg-black text-white overflow-hidden">
@@ -25,9 +28,10 @@ export default function ChroniclesTicker({ items }: { items: string[] }) {
 
         <div className="overflow-hidden flex-1 py-2">
           <div
-            className={`animate-marquee motion-reduce:animate-none whitespace-nowrap font-display text-[0.85rem] tracking-wide ${
+            className={`w-max md:w-auto animate-[marquee_var(--ticker-secs)_linear_infinite] md:animate-marquee motion-reduce:animate-none md:motion-reduce:animate-none whitespace-nowrap font-display text-[0.85rem] tracking-wide ${
               paused ? '[animation-play-state:paused]' : ''
             }`}
+            style={{ '--ticker-secs': `${mobileSecs}s` } as CSSProperties}
           >
             {line}{'  ·  '}{line}
           </div>

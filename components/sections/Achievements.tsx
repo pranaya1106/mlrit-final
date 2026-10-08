@@ -215,13 +215,15 @@ export default function Achievements(props: AchievementsProps) {
                   'linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%)',
               }}
             >
-              <div className="flex w-[200%] animate-marquee gap-12 md:gap-14 items-center">
+              {/* Mobile: w-max track + per-item margin (not gap) so -50% lands
+                  exactly on the duplicated set — a seamless loop. md+ unchanged. */}
+              <div className="flex w-max md:w-[200%] animate-[marquee_22s_linear_infinite] md:animate-marquee gap-0 md:gap-14 items-center">
                 {[...displayLogos, ...displayLogos].map((l, i) => (
                   <figure
                     key={`${l.name}-${i}`}
-                    className="group flex-shrink-0 flex flex-col items-center justify-center"
+                    className="group flex-shrink-0 flex flex-col items-center justify-center mr-5 md:mr-0"
                   >
-                    <div className="relative flex items-center justify-center h-32 md:h-40 lg:h-44 w-44 md:w-56 lg:w-64 rounded-2xl bg-white border border-border transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_20px_48px_-16px_rgba(232,93,4,0.24)]">
+                    <div className="relative flex items-center justify-center h-24 md:h-40 lg:h-44 w-32 md:w-56 lg:w-64 rounded-xl md:rounded-2xl bg-white border border-border transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_20px_48px_-16px_rgba(232,93,4,0.24)]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={l.src}
@@ -229,7 +231,7 @@ export default function Achievements(props: AchievementsProps) {
                         className="max-h-[70%] max-w-[76%] object-contain grayscale-[0.15] group-hover:grayscale-0 transition-all duration-500"
                       />
                     </div>
-                    <figcaption className="mt-4 font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase text-muted group-hover:text-primary transition-colors">
+                    <figcaption className="mt-2 md:mt-4 font-mono text-[0.62rem] md:text-[0.7rem] font-bold tracking-[0.2em] uppercase text-muted group-hover:text-primary transition-colors">
                       {l.name}
                     </figcaption>
                   </figure>

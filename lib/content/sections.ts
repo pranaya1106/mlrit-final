@@ -545,7 +545,7 @@ export const CONTENT_SECTIONS = {
         defaultItems: [
           { id: "2026", year: "2026", academicYear: "2025–26", jobOffers: "621", companiesVisited: "37", highestPackageLpa: "51", provisional: "" },
           { id: "2025", year: "2025", academicYear: "2024–25", jobOffers: "536", companiesVisited: "62", highestPackageLpa: "33", provisional: "" },
-          { id: "2024", year: "2024", academicYear: "2023–24", jobOffers: "674", companiesVisited: "55", highestPackageLpa: "28.5", provisional: "yes" },
+          { id: "2024", year: "2024", academicYear: "2023–24", jobOffers: "674", companiesVisited: "55", highestPackageLpa: "28.5", provisional: "" },
           { id: "2023", year: "2023", academicYear: "2022–23", jobOffers: "734", companiesVisited: "32", highestPackageLpa: "58", provisional: "" },
           { id: "2022", year: "2022", academicYear: "2021–22", jobOffers: "1236", companiesVisited: "42", highestPackageLpa: "25", provisional: "" },
           { id: "2021", year: "2021", academicYear: "2020–21", jobOffers: "740", companiesVisited: "49", highestPackageLpa: "18.1", provisional: "" },

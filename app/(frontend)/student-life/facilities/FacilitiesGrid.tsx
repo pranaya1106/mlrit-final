@@ -423,40 +423,43 @@ export default function FacilitiesGrid() {
             </span>
           </div>
 
-          <Stagger className="grid gap-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }} delay={0.06}>
+          {/* Mobile: 2 columns — wide cards span both, the rest pair up, each at
+              a fixed height so every photo crops evenly. md+ is the original
+              4-column bento (same spans and min-heights as before). */}
+          <Stagger className="grid gap-3 grid-cols-2 md:grid-cols-4" delay={0.06}>
 
             {/* Green Campus 2×2 */}
-            <StaggerItem style={{ gridColumn: 'span 2', gridRow: 'span 2', minHeight: 500 }}>
+            <StaggerItem className="col-span-2 h-[230px] md:h-auto md:row-span-2 md:min-h-[500px]">
               <BentoCard facility={FACILITIES[0]} onOpen={() => setOpen(FACILITIES[0])} />
             </StaggerItem>
 
             {/* Cafeteria 1×1 */}
-            <StaggerItem style={{ gridColumn: 'span 1', minHeight: 240 }}>
+            <StaggerItem className="col-span-1 h-[170px] md:h-auto md:min-h-[240px]">
               <BentoCard facility={FACILITIES[1]} onOpen={() => setOpen(FACILITIES[1])} />
             </StaggerItem>
 
             {/* STI Hub 1×1 */}
-            <StaggerItem style={{ gridColumn: 'span 1', minHeight: 240 }}>
+            <StaggerItem className="col-span-1 h-[170px] md:h-auto md:min-h-[240px]">
               <BentoCard facility={FACILITIES[2]} onOpen={() => setOpen(FACILITIES[2])} />
             </StaggerItem>
 
             {/* Library 2×1 */}
-            <StaggerItem style={{ gridColumn: 'span 2', minHeight: 240 }}>
+            <StaggerItem className="col-span-2 h-[190px] md:h-auto md:min-h-[240px]">
               <BentoCard facility={FACILITIES[3]} onOpen={() => setOpen(FACILITIES[3])} />
             </StaggerItem>
 
             {/* Hospital 1×1 */}
-            <StaggerItem style={{ gridColumn: 'span 1', minHeight: 210 }}>
+            <StaggerItem className="col-span-1 h-[170px] md:h-auto md:min-h-[210px]">
               <BentoCard facility={FACILITIES[4]} onOpen={() => setOpen(FACILITIES[4])} />
             </StaggerItem>
 
             {/* Stationery 1×1 */}
-            <StaggerItem style={{ gridColumn: 'span 1', minHeight: 210 }}>
+            <StaggerItem className="col-span-1 h-[170px] md:h-auto md:min-h-[210px]">
               <BentoCard facility={FACILITIES[5]} onOpen={() => setOpen(FACILITIES[5])} />
             </StaggerItem>
 
             {/* ATM 2×1 */}
-            <StaggerItem style={{ gridColumn: 'span 2', minHeight: 210 }}>
+            <StaggerItem className="col-span-2 h-[190px] md:h-auto md:min-h-[210px]">
               <BentoCard facility={FACILITIES[6]} onOpen={() => setOpen(FACILITIES[6])} />
             </StaggerItem>
 

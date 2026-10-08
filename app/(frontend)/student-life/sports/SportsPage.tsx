@@ -1066,9 +1066,9 @@ function TrainerCard({ t }: { t: (typeof TRAINERS)[number] }) {
         <img src={t.photo} alt={`Portrait of ${t.name}`}
           className="w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-700" loading="lazy" />
       </div>
-      <div className="p-4 md:p-5">
-        <p className="font-sans font-bold text-foreground text-[1rem] leading-snug">{t.name}</p>
-        <p className="mt-1 font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted">{t.role}</p>
+      <div className="p-3 sm:p-4 md:p-5">
+        <p className="font-sans font-bold text-foreground text-[0.88rem] sm:text-[1rem] leading-snug">{t.name}</p>
+        <p className="mt-1 font-mono text-[0.52rem] sm:text-[0.6rem] tracking-[0.1em] sm:tracking-[0.14em] uppercase text-muted leading-snug">{t.role}</p>
       </div>
     </motion.div>
   );
@@ -1103,7 +1103,7 @@ function TrainersSection() {
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {TRAINERS.map((t) => (
             <TrainerCard key={t.name} t={t} />
           ))}
@@ -1143,13 +1143,13 @@ function AccoladeCard({ a, idx }: { a: (typeof ACCOLADES)[number]; idx: number }
             <Trophy className="w-10 h-10 text-secondary/30" aria-hidden="true" />
           </div>
         )}
-        <div className="absolute bottom-0 inset-x-0 px-3 pb-2 pt-10 bg-gradient-to-t from-black/70 to-transparent">
-          <span className="font-mono text-[0.56rem] font-bold tracking-[0.15em] uppercase text-white/90">{a.level}</span>
+        <div className="absolute bottom-0 inset-x-0 px-2.5 sm:px-3 pb-2 pt-8 sm:pt-10 bg-gradient-to-t from-black/70 to-transparent">
+          <span className="font-mono text-[0.5rem] sm:text-[0.56rem] font-bold tracking-[0.1em] sm:tracking-[0.15em] uppercase text-white/90">{a.level}</span>
         </div>
       </div>
-      <div className="p-4">
-        <p className="font-sans font-bold text-foreground text-[0.95rem]">{a.name}</p>
-        <p className="mt-0.5 text-muted text-[0.8rem]">{a.sport}</p>
+      <div className="p-3 sm:p-4">
+        <p className="font-sans font-bold text-foreground text-[0.85rem] sm:text-[0.95rem] leading-snug">{a.name}</p>
+        <p className="mt-0.5 text-muted text-[0.74rem] sm:text-[0.8rem]">{a.sport}</p>
       </div>
     </motion.div>
   );
@@ -1194,7 +1194,7 @@ function AccoladesSection() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           {ACCOLADES.map((a, i) => (
             <AccoladeCard key={a.name} a={a} idx={i} />
           ))}

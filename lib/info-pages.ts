@@ -26,7 +26,9 @@ export type InfoBlock =
   | { kind: 'pill-band'; video?: string; image?: string; title?: string; items: { label: string }[] }
   | { kind: 'brochure-card'; title: string; subtitle?: string; meta?: string; href: string; external?: boolean }
   | { kind: 'button-group'; items: { label: string; href: string; variant?: 'solid' | 'outline'; external?: boolean }[] }
-  | { kind: 'table'; columns: string[]; rows: string[][]; caption?: string }
+  // fitMobile: below md, drop the 640px min-width so a narrow table fits the
+  // screen without sideways scrolling. md+ renders exactly as without it.
+  | { kind: 'table'; columns: string[]; rows: string[][]; caption?: string; fitMobile?: boolean }
   | { kind: 'timeline'; eyebrow?: string; title?: string; items: { y: string; t: string; d: string }[] };
 
 export type InfoPage = {
@@ -577,6 +579,7 @@ export const INFO_PAGES: Record<string, InfoPage> = {
       {
         kind: 'table',
         columns: ['Meal', 'Girls', 'Boys'],
+        fitMobile: true,
         rows: [
           ['Breakfast',    '7:00 – 8:00 AM',  '8:00 – 9:00 AM'],
           ['Lunch',        'As per timetable', 'As per timetable'],

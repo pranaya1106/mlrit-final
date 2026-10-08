@@ -76,7 +76,8 @@ const nextConfig = {
               // Video/audio: bundled files, /cdn proxy (both 'self'), plus blob:
               // for the admin live preview showing a not-yet-uploaded file.
               "media-src 'self' blob: data:",
-              "frame-src 'self' https://www.google.com https://www.instagram.com",
+              // openstreetmap.org: components/MapEmbed.tsx (campus map on contact/support pages).
+              "frame-src 'self' https://www.google.com https://www.instagram.com https://www.openstreetmap.org",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",

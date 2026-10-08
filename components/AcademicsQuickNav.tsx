@@ -46,7 +46,8 @@ export default function AcademicsQuickNav({ active }: { active: string }) {
         {activeSections.length > 0 && (
           <div className="flex flex-wrap gap-1 pb-1.5 border-t border-border/50 pt-1 lg:hidden">
             {activeSections.map((s) => (
-              <a key={s.id} href={`#${s.id}`} className="px-2 py-0.5 rounded-full text-[0.65rem] leading-tight font-medium bg-orange-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors whitespace-nowrap">
+              // Explore sits first on mobile (see app/(frontend)/academics/page.tsx), so its pill does too.
+              <a key={s.id} href={`#${s.id}`} className={`${s.id === 'explore' ? 'order-first md:order-none ' : ''}px-2 py-0.5 rounded-full text-[0.65rem] leading-tight font-medium bg-orange-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors whitespace-nowrap`}>
                 {s.label}
               </a>
             ))}

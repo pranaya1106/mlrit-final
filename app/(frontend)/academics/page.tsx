@@ -57,7 +57,9 @@ export default async function AcademicsPage() {
             <SideQuickNav items={NAV_ITEMS} />
           </div>
         </aside>
-        <div className="flex-1 min-w-0">
+        {/* Mobile: flex column so "Pick your thread" (Explore) can sit first;
+            md+ is a plain block, keeping the original Framework → Explore order. */}
+        <div className="flex-1 min-w-0 flex flex-col md:block">
 
           {/* FRAMEWORK */}
           <section id="framework" className="bg-white py-7 md:py-14">
@@ -83,7 +85,7 @@ export default async function AcademicsPage() {
           </section>
 
           {/* HUB LINKS */}
-          <section id="explore" className="bg-warm-light py-7 md:py-14">
+          <section id="explore" className="order-first md:order-none bg-warm-light py-7 md:py-14">
             <div className="w-full px-4 md:px-10 lg:px-12">
               <Reveal>
                 <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-secondary">{copy('explore', 'Explore')}</span>

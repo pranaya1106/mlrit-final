@@ -682,13 +682,13 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
       return (
         <Reveal>
           <div className="overflow-x-auto rounded-2xl border border-border bg-white shadow-card-soft">
-            <table className="w-full min-w-[640px] border-collapse text-left">
+            <table className={`w-full border-collapse text-left ${block.fitMobile ? 'md:min-w-[640px]' : 'min-w-[640px]'}`}>
               <thead>
                 <tr className="bg-cream-2 border-b border-border">
                   {block.columns.map((c) => (
                     <th
                       key={c}
-                      className="px-3 py-3 md:px-5 md:py-4 font-mono text-[0.62rem] font-bold tracking-[0.16em] uppercase text-muted whitespace-nowrap"
+                      className={`${block.fitMobile ? 'px-2.5 first:pl-3.5 md:first:pl-5' : 'px-3'} py-3 md:px-5 md:py-4 font-mono text-[0.62rem] font-bold tracking-[0.16em] uppercase text-muted whitespace-nowrap`}
                     >
                       {c}
                     </th>
@@ -704,7 +704,7 @@ function Block({ block, index }: { block: InfoBlock; index: number }) {
                     {row.map((cell, ci) => (
                       <td
                         key={ci}
-                        className={`px-3 py-3 md:px-5 md:py-4 text-[0.92rem] leading-snug align-top ${
+                        className={`${block.fitMobile ? 'px-2.5 first:pl-3.5 md:first:pl-5 text-[0.8rem]' : 'px-3 text-[0.92rem]'} py-3 md:px-5 md:py-4 md:text-[0.92rem] leading-snug align-top ${
                           ci === 0 ? 'font-sans font-bold text-foreground' : 'text-muted'
                         }`}
                       >

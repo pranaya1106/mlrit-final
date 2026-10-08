@@ -180,17 +180,20 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
       >
         <div className="grid grid-cols-1 md:grid-cols-[clamp(280px,35%,420px)_1fr]">
           {/* ── Portrait column ──────────────────────────────── */}
+          {/* Mobile: fixed 250px so the whole card fits under the pinned stack;
+              md+ keeps the original clamp. */}
           <div
-            className="relative overflow-hidden"
-            style={{ minHeight: 'clamp(240px,40vw,420px)' }}
+            className="relative overflow-hidden h-[250px] md:h-auto md:min-h-[clamp(240px,40vw,420px)]"
             onMouseEnter={() => setImgHovered(true)}
             onMouseLeave={() => setImgHovered(false)}
           >
-            {/* Photo */}
+            {/* Photo — mobile anchors to the top so the full head shows, and the
+                standalone `scale` (composes with the hover transform) zooms 8%
+                so the white border baked into some source photos is cropped off. */}
             <img
               src={leader.img}
               alt={leader.name}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
+              className="absolute inset-0 w-full h-full object-cover object-top md:object-center [scale:1.08] md:[scale:1] transition-transform duration-700 ease-out"
               style={{ transform: imgHovered ? 'scale(1.04)' : 'scale(1)' }}
             />
 
@@ -244,10 +247,10 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
                 {leader.role}
               </p>
 
-              <div className="my-4 md:my-6 h-px bg-border" />
+              <div className="my-3 md:my-6 h-px bg-border" />
 
-              <blockquote className="pl-5 border-l-[3px]" style={{ borderColor: leader.accent }}>
-                <p className="font-display italic text-[clamp(1rem,1.4vw,1.15rem)] text-foreground/80 leading-[1.8]">
+              <blockquote className="pl-4 md:pl-5 border-l-[3px]" style={{ borderColor: leader.accent }}>
+                <p className="font-display italic text-[0.92rem] md:text-[clamp(1rem,1.4vw,1.15rem)] text-foreground/80 leading-[1.65] md:leading-[1.8]">
                   &ldquo;{leader.message}&rdquo;
                 </p>
               </blockquote>
@@ -273,7 +276,7 @@ function LeaderCard({ leader, index, total }: { leader: Leader; index: number; t
               )}
             </div>
 
-            <div className="mt-6 md:mt-8 h-0.5 w-12 rounded-full" style={{ background: leader.accent }} />
+            <div className="mt-4 md:mt-8 h-0.5 w-12 rounded-full" style={{ background: leader.accent }} />
           </div>
         </div>
       </div>

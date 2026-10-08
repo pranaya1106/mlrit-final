@@ -122,8 +122,6 @@ export const PLACEMENT_YEARS: PlacementYearSummary[] = [
     highestPackageLpa: 28.5,
     topRecruiter: 'Accenture',
     topRecruiterRole: 'Associate Software Engineer',
-    isProvisional: true,
-    provisionalNote: 'Total marked as 674* on official page.',
     sourceUrl: 'https://mlrit.ac.in/placements/placements-statistics-2024/',
     lastVerified: '2026-07-30',
     companies: [

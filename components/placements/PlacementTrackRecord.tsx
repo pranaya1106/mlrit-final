@@ -14,6 +14,11 @@ function formatSelections(s: SelectionCount): string {
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+// Shared by the header and every row so columns line up. Mobile drops the
+// trailing spacer and sizes year/package to content; md+ is the original grid.
+const ROW_GRID =
+  'grid grid-cols-[0.75rem_2.6rem_1fr_1fr_auto] md:grid-cols-[2rem_1fr_1fr_1fr_1fr_2rem] gap-x-2.5 md:gap-x-4 px-3 md:px-5';
+
 export default function PlacementTrackRecord({
   years = PLACEMENT_YEARS,
 }: {
@@ -28,7 +33,7 @@ export default function PlacementTrackRecord({
 
   return (
     <section className="bg-ink-2 text-white py-10 md:py-14">
-      <div className="w-full px-6 md:px-10 lg:px-12">
+      <div className="w-full px-4 md:px-10 lg:px-12">
 
         <Reveal>
           <span className="font-mono text-[0.7rem] font-bold tracking-[0.22em] uppercase text-warm/55">
@@ -47,13 +52,13 @@ export default function PlacementTrackRecord({
           onMouseLeave={() => setOpenYear(null)}
         >
           {/* Table header */}
-          <div className="grid grid-cols-[2rem_1fr_1fr_1fr_1fr_2rem] gap-x-4 px-5 py-3 border-b border-white/10 bg-white/[0.03]">
+          <div className={`${ROW_GRID} py-3 items-end md:items-stretch border-b border-white/10 bg-white/[0.03]`}>
             <div />
-            <div className="font-mono text-[0.62rem] tracking-[0.16em] uppercase text-white/35">Year</div>
-            <div className="font-mono text-[0.62rem] tracking-[0.16em] uppercase text-white/35">Job Offers</div>
-            <div className="font-mono text-[0.62rem] tracking-[0.16em] uppercase text-white/35">Companies</div>
-            <div className="font-mono text-[0.62rem] tracking-[0.16em] uppercase text-white/35">Highest Package</div>
-            <div />
+            <div className="font-mono text-[0.55rem] md:text-[0.62rem] tracking-[0.1em] md:tracking-[0.16em] uppercase text-white/35 leading-tight">Year</div>
+            <div className="font-mono text-[0.55rem] md:text-[0.62rem] tracking-[0.1em] md:tracking-[0.16em] uppercase text-white/35 leading-tight">Job Offers</div>
+            <div className="font-mono text-[0.55rem] md:text-[0.62rem] tracking-[0.1em] md:tracking-[0.16em] uppercase text-white/35 leading-tight">Companies</div>
+            <div className="font-mono text-[0.55rem] md:text-[0.62rem] tracking-[0.1em] md:tracking-[0.16em] uppercase text-white/35 leading-tight w-[4.6rem] md:w-auto">Highest Package</div>
+            <div className="hidden md:block" />
           </div>
 
           {/* Rows */}
@@ -72,7 +77,7 @@ export default function PlacementTrackRecord({
                   onMouseEnter={() => setOpenYear(y.year)}
                   onFocus={() => setOpenYear(y.year)}
                   className={[
-                    'group relative w-full grid grid-cols-[2rem_1fr_1fr_1fr_1fr_2rem] gap-x-4 px-5 py-4 text-left',
+                    `group relative w-full ${ROW_GRID} py-3.5 md:py-4 text-left`,
                     'transition-all duration-300 ease-out will-change-transform origin-center',
                     'hover:-translate-y-1 hover:scale-[1.02] hover:z-10 hover:shadow-[0_28px_60px_-14px_rgba(0,0,0,0.65),inset_4px_0_0_0_rgba(255,140,30,0.95)]',
                     'hover:bg-gradient-to-r hover:from-white/[0.08] hover:via-white/[0.05] hover:to-transparent',
@@ -103,7 +108,7 @@ export default function PlacementTrackRecord({
 
                   {/* Year */}
                   <div className="flex items-center gap-2">
-                    <span className="font-sans font-bold text-white text-[1rem] transition-all duration-300 origin-left group-hover:text-warm group-hover:scale-110">
+                    <span className="font-sans font-bold text-white text-[0.92rem] md:text-[1rem] transition-all duration-300 origin-left group-hover:text-warm group-hover:scale-110">
                       {y.year}
                     </span>
                     {y.isProvisional && (
@@ -119,7 +124,7 @@ export default function PlacementTrackRecord({
                       className="font-sans font-extrabold text-white leading-none tracking-tight transition-all duration-300 origin-left group-hover:scale-[1.18]"
                       style={{ textShadow: '0 0 0 rgba(255,140,30,0)' }}
                     >
-                      <span className="inline-block group-hover:[text-shadow:0_0_24px_rgba(255,180,80,0.55)] transition-[text-shadow] duration-300 text-[1.3rem]">
+                      <span className="inline-block group-hover:[text-shadow:0_0_24px_rgba(255,180,80,0.55)] transition-[text-shadow] duration-300 text-[1.12rem] md:text-[1.3rem]">
                         {y.jobOffers.toLocaleString()}
                       </span>
                     </span>
@@ -127,19 +132,19 @@ export default function PlacementTrackRecord({
 
                   {/* Companies */}
                   <div className="flex items-center">
-                    <span className="font-sans font-semibold text-white/80 text-[1rem] transition-all duration-300 origin-left group-hover:text-white group-hover:scale-110">
+                    <span className="font-sans font-semibold text-white/80 text-[0.92rem] md:text-[1rem] transition-all duration-300 origin-left group-hover:text-white group-hover:scale-110">
                       {y.companiesVisited}
                     </span>
                   </div>
 
                   {/* Highest package */}
-                  <div className="flex items-center">
-                    <span className="font-mono font-bold text-primary text-[1rem] leading-none transition-all duration-300 origin-left group-hover:scale-[1.2] group-hover:[text-shadow:0_0_20px_rgba(232,93,4,0.55)]">
+                  <div className="flex items-center w-[4.6rem] md:w-auto">
+                    <span className="font-mono font-bold text-primary text-[0.8rem] md:text-[1rem] leading-none whitespace-nowrap transition-all duration-300 origin-left group-hover:scale-[1.2] group-hover:[text-shadow:0_0_20px_rgba(232,93,4,0.55)]">
                       ₹{y.highestPackageLpa} LPA
                     </span>
                   </div>
 
-                  <div />
+                  <div className="hidden md:block" />
                 </button>
 
                 {/* Expandable company detail */}

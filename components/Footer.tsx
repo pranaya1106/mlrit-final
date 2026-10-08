@@ -301,18 +301,20 @@ export default function Footer(props: FooterContent = {}) {
 
       {/* Accredited row */}
       <div className="border-y border-border">
-        <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-wrap items-center gap-7">
+        {/* Mobile: label + Back to top share row 1, logos drop to a full-width
+            row 2 so they can't be squeezed to nothing. md+ is one row, unchanged. */}
+        <div className="w-full px-6 md:px-10 lg:px-12 py-5 flex flex-wrap items-center gap-x-7 gap-y-4 md:gap-7">
           <span className="font-mono text-[0.66rem] font-bold tracking-[0.22em] uppercase text-muted flex-shrink-0">
             Accredited by
           </span>
-          <div className="flex items-center gap-7 flex-1 min-w-0">
+          <div className="order-last md:order-none basis-full md:basis-auto flex flex-wrap md:flex-nowrap items-center justify-center md:justify-start gap-x-8 gap-y-3 md:gap-7 flex-1 min-w-0">
             {logos.map((logo) => (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={logo.src}
                 src={logo.src}
                 alt={logo.name}
-                className="h-9 w-auto opacity-90"
+                className="h-11 md:h-9 w-auto flex-shrink-0 md:flex-shrink opacity-90"
               />
             ))}
           </div>
