@@ -6,6 +6,7 @@ __pycache__/
 node_modules/
 .next/
 out/
+next-env.d.ts
 next-env.d.ts.bak
 
 # TypeScript incremental build cache
