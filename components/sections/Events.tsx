@@ -72,18 +72,6 @@ const SLIDES: Slide[] = [
     video: '/videos/traditionalday.mp4',
     poster:'/images/events/traditionalday-poster.jpg',
   },
-  {
-    logo:  '/assets/logo.svg',
-    alt:   'Navrat Naveli 2025',
-    tag:   'Cultural · Dussehra · 2025',
-    title: 'Navrat Naveli 2025',
-    desc:  'Navrat Naveli is MLRIT\'s Dussehra cultural event — classical and folk performances, garba, rangoli, traditional food and student-led celebrations marking the spirit of the festival across the campus.',
-    quote: 'Music, dance, colour and tradition — Navrat Naveli is how MLRIT celebrates Dussehra together.',
-    speaker: 'Navrat Naveli',
-    speakerRole: 'Cultural Fest · MLRIT',
-    video: '/videos/came.mp4',
-    poster:'https://mlrit-next.vercel.app/assets/SBS_1131.JPG',
-  },
 ];
 
 type EventsProps = {

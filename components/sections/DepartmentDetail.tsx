@@ -421,8 +421,9 @@ function getInitials(name: string): string {
 
 function OverviewPanel({ d, data }: PanelProps) {
   const allFaculty = getFacultyByDepartment(d.slug);
-  const hod = allFaculty.find((f) => f.isHod);
-  const hodPhoto = hod?.image ?? data.faculty.find((f) => /head|hod/i.test(f.role))?.photo;
+  const hods = allFaculty.filter((f) => f.isHod);
+  const primaryHod = hods[0];
+  const hodPhoto = primaryHod?.image ?? data.faculty.find((f) => /head|hod/i.test(f.role))?.photo;
   const initials = getInitials(d.hod.name);
   const message =
     data.hodMessage ||
@@ -433,67 +434,124 @@ function OverviewPanel({ d, data }: PanelProps) {
       <PanelHeading id="intro">Introduction</PanelHeading>
 
       {/* ── HOD Message — editorial section ─────────────────────────────────── */}
-      <div
-        className="mt-8 rounded-2xl overflow-hidden"
-        style={{ background: '#fff', border: '1px solid #e8e3d8', borderLeft: '4px solid var(--primary)' }}
-      >
-        <div className="flex flex-col sm:flex-row gap-0">
-          {/* Portrait */}
+      <div className="mt-8 space-y-4">
+        {hods.length > 0 ? hods.map((hodFaculty, idx) => (
           <div
-            className="relative flex-shrink-0 overflow-hidden"
-            style={{ width: 'clamp(140px, 22%, 200px)', minHeight: 'clamp(180px, 25vw, 260px)' }}
+            key={hodFaculty.id}
+            className="rounded-2xl overflow-hidden"
+            style={{ background: '#fff', border: '1px solid #e8e3d8', borderLeft: '4px solid var(--primary)' }}
           >
-            {hodPhoto ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={hodPhoto}
-                alt={d.hod.name}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: '50% 12%' }}
-              />
-            ) : (
+            <div className="flex flex-col sm:flex-row gap-0">
+              {/* Portrait */}
               <div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ background: 'linear-gradient(160deg, #1F6B24 0%, #2d8b55 100%)' }}
+                className="relative flex-shrink-0 overflow-hidden"
+                style={{ width: 'clamp(140px, 22%, 200px)', minHeight: 'clamp(180px, 25vw, 260px)' }}
               >
-                <span className="font-sans font-black text-white text-[2.2rem] tracking-wider opacity-90">
-                  {initials}
-                </span>
+                {hodFaculty.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={hodFaculty.image}
+                    alt={hodFaculty.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ objectPosition: '50% 12%' }}
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ background: 'linear-gradient(160deg, #1F6B24 0%, #2d8b55 100%)' }}
+                  >
+                    <span className="font-sans font-black text-white text-[2.2rem] tracking-wider opacity-90">
+                      {getInitials(hodFaculty.name)}
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
               </div>
-            )}
-            {/* Subtle bottom fade */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-          </div>
 
-          {/* Message */}
-          <div className="flex flex-col justify-center gap-4 p-7 md:p-9 flex-1 min-w-0">
-            <div
-              className="font-mono text-[0.62rem] font-extrabold tracking-[0.2em] uppercase"
-              style={{ color: 'var(--primary)' }}
-            >
-              From the HOD&apos;s Desk
-            </div>
+              {/* Message */}
+              <div className="flex flex-col justify-center gap-4 p-7 md:p-9 flex-1 min-w-0">
+                <div
+                  className="font-mono text-[0.62rem] font-extrabold tracking-[0.2em] uppercase"
+                  style={{ color: 'var(--primary)' }}
+                >
+                  From the HOD&apos;s Desk
+                </div>
 
-            <blockquote
-              className="font-display italic leading-[1.85] text-foreground/82"
-              style={{ fontSize: 'clamp(0.97rem, 1.3vw, 1.1rem)' }}
-            >
-              &ldquo;{message}&rdquo;
-            </blockquote>
+                <blockquote
+                  className="font-display italic leading-[1.85] text-foreground/82"
+                  style={{ fontSize: 'clamp(0.97rem, 1.3vw, 1.1rem)' }}
+                >
+                  &ldquo;{idx === 0 ? message : (data.hod2Message ?? hodFaculty.description ?? message)}&rdquo;
+                </blockquote>
 
-            <div className="flex items-center gap-3 pt-1">
-              <div className="h-px w-8 rounded-full" style={{ background: 'var(--primary)', opacity: 0.5 }} />
-              <div>
-                <p className="font-sans font-bold text-foreground text-[0.9rem] leading-snug">
-                  {d.hod.name}
-                </p>
-                <p className="font-mono text-[0.67rem] text-muted tracking-wide">
-                  {d.hod.title}
-                </p>
+                <div className="flex items-center gap-3 pt-1">
+                  <div className="h-px w-8 rounded-full" style={{ background: 'var(--primary)', opacity: 0.5 }} />
+                  <div>
+                    <p className="font-sans font-bold text-foreground text-[0.9rem] leading-snug">
+                      {hodFaculty.name}
+                    </p>
+                    <p className="font-mono text-[0.67rem] text-muted tracking-wide">
+                      {hodFaculty.designation}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )) : (
+          <div
+            className="rounded-2xl overflow-hidden"
+            style={{ background: '#fff', border: '1px solid #e8e3d8', borderLeft: '4px solid var(--primary)' }}
+          >
+            <div className="flex flex-col sm:flex-row gap-0">
+              <div
+                className="relative flex-shrink-0 overflow-hidden"
+                style={{ width: 'clamp(140px, 22%, 200px)', minHeight: 'clamp(180px, 25vw, 260px)' }}
+              >
+                {hodPhoto ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={hodPhoto}
+                    alt={d.hod.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    style={{ objectPosition: '50% 12%' }}
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ background: 'linear-gradient(160deg, #1F6B24 0%, #2d8b55 100%)' }}
+                  >
+                    <span className="font-sans font-black text-white text-[2.2rem] tracking-wider opacity-90">
+                      {initials}
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              </div>
+              <div className="flex flex-col justify-center gap-4 p-7 md:p-9 flex-1 min-w-0">
+                <div
+                  className="font-mono text-[0.62rem] font-extrabold tracking-[0.2em] uppercase"
+                  style={{ color: 'var(--primary)' }}
+                >
+                  From the HOD&apos;s Desk
+                </div>
+                <blockquote
+                  className="font-display italic leading-[1.85] text-foreground/82"
+                  style={{ fontSize: 'clamp(0.97rem, 1.3vw, 1.1rem)' }}
+                >
+                  &ldquo;{message}&rdquo;
+                </blockquote>
+                <div className="flex items-center gap-3 pt-1">
+                  <div className="h-px w-8 rounded-full" style={{ background: 'var(--primary)', opacity: 0.5 }} />
+                  <div>
+                    <p className="font-sans font-bold text-foreground text-[0.9rem] leading-snug">{d.hod.name}</p>
+                    <p className="font-mono text-[0.67rem] text-muted tracking-wide">{d.hod.title}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Introduction paragraph (if available) */}

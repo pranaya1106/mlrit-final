@@ -26,6 +26,7 @@ export type DeptData = {
   intakeGrowth?: { year: string; students: number }[];
   introduction: string;
   hodMessage: string;
+  hod2Message?: string;
   teachingMethodology: string;
   peos: { id: string; text: string }[];
   labs: Lab[];
@@ -76,6 +77,8 @@ export const DEPT_DATA: Record<string, DeptData> = {
       'The Department of Computer Science and Engineering at MLRIT is one of the institute\'s flagship departments, established in 2005. With 64 dedicated faculty, 12 advanced laboratories and industry partnerships with Boeing, Cyient and EPAM Systems, the department blends rigorous theoretical foundations with hands-on experience in cutting-edge technologies — preparing students to excel in the ever-evolving technology landscape.',
     hodMessage:
       'Our department is committed to providing world-class education blending strong theoretical foundations with hands-on experience in cutting-edge technologies. With 64 dedicated faculty, 12 advanced laboratories, and industry partnerships with Boeing, Cyient, and EPAM Systems, we prepare students to excel in the ever-evolving technology landscape.',
+    hod2Message:
+      'Computer Science at MLRIT is built on a culture of curiosity, rigour and real-world problem solving. Our focus spans data analytics, cybersecurity, IoT and machine learning — equipping every student with the depth to innovate and the breadth to lead across the technology industry.',
     teachingMethodology:
       'The department follows an active learning pedagogy integrating project-based learning, flipped classrooms, and industry-mentored hackathons. Regular guest lectures from professionals at Google, Microsoft, Qualcomm, and ISRO complement the curriculum. Students participate in coding boot camps, open-source contributions, and inter-college technical competitions to build practical skills beyond the classroom.',
     peos: [

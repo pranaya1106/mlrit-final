@@ -70,8 +70,8 @@ type Item = {
 
 const ITEMS: Item[] = [
   {
-    label: 'ERP',
-    href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad',
+    label: 'CampusHub',
+    href: 'https://campushub.mlrit.ac.in/',
     external: true,
     icon: (
       <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden>
@@ -90,17 +90,6 @@ const ITEMS: Item[] = [
       <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden>
         <path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
         <circle cx="16" cy="15" r="2.5" stroke="currentColor" strokeWidth="1.6"/>
-      </svg>
-    ),
-  },
-  {
-    label: 'Edmit',
-    href: 'https://edmit.mlrit.ac.in/',
-    external: true,
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M10 2L3 6v4c0 4 3.5 7 7 8 3.5-1 7-4 7-8V6l-7-4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-        <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },

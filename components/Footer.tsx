@@ -104,7 +104,7 @@ const USEFUL_SECTIONS = [
       { label: 'NSS Event Reports', href: 'https://mlrit.ac.in/nss-event-reports/', ext: true },
       { label: 'Virtual Tour',      href: '/student-life/discover-mlr' },
       { label: 'LMS',               href: 'https://lms.mlrit.ac.in/',              ext: true },
-      { label: 'ERP Login',         href: 'https://portal.vmedulife.com/public/auth/#/login/mlrit-hyderabad', ext: true },
+      { label: 'CampusHub',          href: 'https://campushub.mlrit.ac.in/', ext: true },
     ],
   },
 ];
