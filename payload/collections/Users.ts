@@ -16,7 +16,16 @@ import { isOwner, isOwnerField, isSignedIn } from '../access';
  */
 export const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    cookies: {
+      // The session cookie must not travel over plain HTTP in production.
+      // Tied to NODE_ENV rather than hardcoded true so local development over
+      // http://localhost keeps working — but it does mean a production deploy
+      // served without TLS cannot log in, which is the intended pressure.
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+    },
+  },
   admin: { useAsTitle: 'email', group: 'Administration' },
   hooks: {
     beforeChange: [
