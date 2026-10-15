@@ -338,12 +338,12 @@ export default function Header() {
             </nav>
 
             {/* Utility rail — right side: search, Chronicles, [club badge], Contact */}
-            <div className="flex items-end gap-2.5">
+            <div className="flex items-center gap-2.5 h-[56px]">
               <button
                 id="search-trigger-btn"
                 type="button"
                 onClick={() => setIsSearchOpen(true)}
-                className="inline-flex items-center justify-center w-8 h-8 mb-2 rounded-full transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-colors"
                 style={{ color: clubTheme ? 'rgba(255,255,255,0.5)' : undefined }}
                 title="Search (Ctrl+K)"
                 aria-label="Open search (Ctrl+K)"
@@ -357,7 +357,7 @@ export default function Header() {
               <Link
                 href="/admissions/support"
                 style={{ backgroundColor: '#e85d04', color: '#ffffff', borderColor: '#e85d04' }}
-                className="group inline-flex items-center gap-1.5 h-[30px] mb-2 pl-4 pr-3 border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] text-[0.78rem]"
+                className="group inline-flex items-center gap-1.5 h-[30px] pl-4 pr-3 border hover:-translate-y-[1px] transition-all duration-300 ease-out-quart hover:shadow-primary-glow rounded-full font-semibold tracking-[-0.005em] text-[0.78rem]"
               >
                 Contact
                 <ChevronRight className="w-2.5 h-2.5" />

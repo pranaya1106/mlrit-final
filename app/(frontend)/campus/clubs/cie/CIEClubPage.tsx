@@ -2,8 +2,17 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Instagram, Linkedin, Youtube, Twitter, Mail } from 'lucide-react';
+import CieHero from './components/CieHero';
+import CieVision from './components/CieVision';
+import CieVerticals from './components/CieVerticals';
+import CiePillars from './components/CiePillars';
+import CieEvents from './components/CieEvents';
+import CieFacilities from './components/CieFacilities';
+import CieNumbers from './components/CieNumbers';
+import CieGallery from './components/CieGallery';
+import CieContact from './components/CieContact';
 
 // ─── Data (from https://mlritcie.in) ─────────────────────────────────────────
 
@@ -241,6 +250,59 @@ function WordStagger({ text, className, style, as = 'h2' }: {
   );
 }
 
+// Kinetic heading — per-character flip-up reveal with a blur-in, scroll-
+// triggered. Each letter rotates up from its baseline and sharpens into place,
+// staggered tightly so the whole line resolves like a title sequence.
+function KineticHeading({ text, className }: { text: string; className?: string }) {
+  const reduced = useReducedMotion();
+  const words = text.split(' ');
+
+  if (reduced) {
+    return <h2 className={className}>{text}</h2>;
+  }
+
+  return (
+    <h2 className={className} aria-label={text}>
+      <motion.span
+        aria-hidden
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-15%' }}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.026, delayChildren: 0.05 } } }}
+        style={{ display: 'inline-block', perspective: 900 }}
+      >
+        {words.map((word, wi) => (
+          <span key={wi} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+            {Array.from(word).map((ch, ci) => (
+              <motion.span
+                key={ci}
+                variants={{
+                  hidden: { opacity: 0, y: '0.6em', rotateX: -80, filter: 'blur(6px)' },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    filter: 'blur(0px)',
+                    transition: { duration: 0.6, ease: EASE },
+                  },
+                }}
+                style={{ display: 'inline-block', transformOrigin: 'bottom center', willChange: 'transform, filter' }}
+              >
+                {ch}
+              </motion.span>
+            ))}
+            {wi < words.length - 1 && (
+              <span aria-hidden style={{ display: 'inline-block', width: '0.26em' }}>
+                &nbsp;
+              </span>
+            )}
+          </span>
+        ))}
+      </motion.span>
+    </h2>
+  );
+}
+
 // Ledger row — the horizontal hairline draws in, then the number and body
 // stagger up together. Used by the Pillars and Facilities sections.
 function LedgerRow({ children }: { children: React.ReactNode }) {
@@ -270,76 +332,8 @@ function LedgerRow({ children }: { children: React.ReactNode }) {
 export default function CIEClubPage() {
   return (
     <main className="bg-black text-white">
-      {/* ═════════ HERO — CIE editorial poster ═════════ */}
-      <section className="relative bg-black overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-6 md:pt-8 relative z-[2]">
-          <div className="flex items-center justify-between gap-4">
-            <Link
-              href="/campus/clubs"
-              className="inline-flex items-center gap-2 font-mono text-[0.7rem] font-bold tracking-[0.24em] uppercase text-white/50 hover:text-primary transition-colors"
-            >
-              ← Clubs &amp; Societies
-            </Link>
-            <span className="font-mono text-[0.68rem] font-bold tracking-[0.24em] uppercase text-white/45 hidden md:inline">
-              MLRIT · Centre for Innovation &amp; Entrepreneurship
-            </span>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full mt-2 md:mt-4 flex justify-center"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/clubs/cie-hero.svg"
-            alt="CIE — Centre for Innovation and Entrepreneurship"
-            className="block w-full max-w-[1440px] h-auto max-h-[880px] object-contain"
-          />
-        </motion.div>
-
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 pt-8 pb-20 md:pb-28 relative z-[2]">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
-          >
-            <div className="max-w-[720px]">
-              <Eyebrow>Ideate · Build · Innovate</Eyebrow>
-              <h1 className="mt-6 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2.4rem,4.6vw,4rem)]">
-                Where ideas become real ventures.
-              </h1>
-              <p className="mt-5 text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[600px]">
-                A student-driven community of builders, designers, writers and
-                first-time founders — turning curiosity into shipped work
-                through projects, workshops, hackathons and mentorship.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 lg:flex-shrink-0">
-              <Link
-                href="https://mlritcie.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ backgroundColor: '#e85d04', color: '#fff' }}
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-primary-glow transition-all duration-300"
-              >
-                Visit mlritcie.in
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="#about"
-                className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
-              >
-                Read on
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* ═════════ HERO — signature immersive stage ═════════ */}
+      <CieHero />
 
       {/* ═════════ ABOUT — split spread with chapter mark ═════════ */}
       <section id="about" className="relative bg-black py-24 md:py-36 overflow-hidden">
@@ -407,7 +401,7 @@ export default function CIEClubPage() {
 
             {/* RIGHT — display heading + prose with drop cap */}
             <div className="lg:col-span-8 lg:pl-8 lg:border-l lg:border-white/10">
-              <WordStagger
+              <KineticHeading
                 text="A student-run incubator, built for building."
                 className="font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.4rem,5.6vw,5rem)] mb-10 md:mb-14 max-w-[16ch]"
               />
@@ -467,470 +461,23 @@ export default function CIEClubPage() {
         </div>
       </div>
 
-      {/* ═════════ VISION + MISSION — two blocks, one rule ═════════ */}
-      <section className="relative bg-black py-20 md:py-24 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>Vision &amp; Mission</Eyebrow>
+      {/* ═════════ VISION + MISSION — scroll-driven manifesto ═════════ */}
+      <CieVision />
 
-          <motion.div
-            className="mt-10 grid lg:grid-cols-2 lg:divide-x lg:divide-white/10"
-            initial="hidden"
-            whileInView="show"
-            viewport={IN_VIEW}
-            variants={stagger(0.16, 0.1)}
-          >
-            {[
-              { n: '01', label: 'Vision',  body: 'Create a student culture where innovation is not limited to competitions or special occasions.' },
-              { n: '02', label: 'Mission', body: 'Make learning more practical, collaborative and student-driven.' },
-            ].map((v, i) => (
-              <motion.div
-                key={v.n}
-                variants={stagger(0.1, 0)}
-                className={i === 0 ? 'lg:pr-14' : 'mt-12 lg:mt-0 lg:pl-14'}
-              >
-                <div className="flex items-baseline gap-4">
-                  <motion.span
-                    variants={{
-                      hidden: { opacity: 0, y: 30 },
-                      show:   { opacity: 0.25, y: 0, transition: { duration: 0.8, ease: EASE } },
-                    }}
-                    className="font-sans font-black text-white text-[3rem] leading-none tracking-tighter-2 tabular-nums"
-                    style={{ display: 'inline-block' }}
-                  >
-                    {v.n}
-                  </motion.span>
-                  <motion.span
-                    variants={fadeUpTight}
-                    className="font-mono text-[0.66rem] font-bold tracking-[0.24em] uppercase text-white/55"
-                  >
-                    {v.label}
-                  </motion.span>
-                </div>
-                <motion.p
-                  variants={fadeUp}
-                  className="mt-5 text-white text-[clamp(1.15rem,1.55vw,1.4rem)] leading-[1.5] font-medium max-w-[42ch]"
-                >
-                  {v.body}
-                </motion.p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      {/* ═════════ PILLARS — cursor-spotlight cards ═════════ */}
+      <CiePillars />
 
-      {/* ═════════ PILLARS — vertical ledger, no cards ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-          {/* Header row with 03 / 06 counter as editorial mark */}
-          <div className="flex items-end justify-between gap-6 mb-16 md:mb-20 flex-wrap">
-            <div>
-              <Eyebrow>Six pillars · How we work</Eyebrow>
-              <WordStagger
-                text="Six ways of moving."
-                className="mt-6 font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.6rem,6vw,5.5rem)] max-w-[14ch]"
-              />
-            </div>
-            <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/40 pb-2">
-              § 01 → 06
-            </div>
-          </div>
+      {/* ═════════ VERTICALS — interactive expanding accordion ═════════ */}
+      <CieVerticals />
 
-          {/* Off-grid staggered stack — alternating rows slide in from left/right,
-              with the numeral bleeding out into the margin. Each row's own
-              hairline draws in on view. */}
-          <div className="space-y-2">
-            {OBJECTIVES.map((o, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <motion.div
-                  key={o.n}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={IN_VIEW}
-                  variants={stagger(0.1, 0)}
-                  whileHover="hover"
-                  className={`group relative py-8 md:py-10 lg:py-12 ${isEven ? '' : 'lg:pl-[8%]'}`}
-                >
-                  {/* Row hairline — top */}
-                  <motion.span
-                    aria-hidden
-                    className="absolute top-0 left-0 right-0 h-px bg-white/15 origin-left"
-                    variants={{
-                      hidden: { scaleX: 0 },
-                      show:   { scaleX: 1, transition: { duration: 0.9, ease: EASE } },
-                      hover:  { backgroundColor: 'rgba(232,93,4,0.7)', transition: { duration: 0.35 } },
-                    }}
-                  />
+      {/* ═════════ EVENTS — draggable 3D-tilt reel ═════════ */}
+      <CieEvents />
 
-                  <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[auto_1fr_auto] gap-6 md:gap-10 items-start">
-                    {/* Big numeral — bleeds toward margin, gets orange glow on hover */}
-                    <motion.div
-                      variants={{
-                        hidden: { opacity: 0, y: 32, x: -8 },
-                        show:   { opacity: 1, y: 0, x: 0, transition: { duration: 0.8, ease: EASE } },
-                      }}
-                      className="relative"
-                    >
-                      <div
-                        className="font-sans font-black leading-[0.85] tracking-tighter-3 tabular-nums text-white/40 group-hover:text-primary transition-colors duration-500"
-                        style={{ fontSize: 'clamp(3.8rem, 8vw, 7rem)' }}
-                      >
-                        {o.n}
-                      </div>
-                    </motion.div>
+      {/* ═════════ FACILITIES — interactive ledger ═════════ */}
+      <CieFacilities />
 
-                    {/* Title + body */}
-                    <motion.div
-                      variants={fadeUpTight}
-                      className="pt-2 md:pt-4 max-w-[62ch]"
-                    >
-                      <h3 className="font-sans font-black text-white text-[clamp(1.3rem,2vw,1.8rem)] leading-[1.1] tracking-tight">
-                        {o.t}
-                      </h3>
-                      <p className="mt-3 md:mt-4 text-white/55 text-[0.98rem] md:text-[1.02rem] leading-[1.7]">
-                        {o.b}
-                      </p>
-                    </motion.div>
-
-                    {/* Right side — small mono counter and hover arrow */}
-                    <motion.div
-                      variants={fadeUpTight}
-                      className="hidden md:flex flex-col items-end gap-3 pt-3 min-w-[3rem]"
-                    >
-                      <span className="font-mono text-[0.6rem] font-bold tracking-[0.24em] uppercase text-white/30">
-                        Pillar
-                      </span>
-                      <span
-                        aria-hidden
-                        className="w-8 h-px bg-white/15 group-hover:bg-primary group-hover:w-14 transition-all duration-500 ease-out-quart"
-                      />
-                    </motion.div>
-                  </div>
-                </motion.div>
-              );
-            })}
-            {/* Final hairline to close the ledger */}
-            <motion.span
-              aria-hidden
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={IN_VIEW}
-              transition={{ duration: 0.9, ease: EASE }}
-              className="block h-px bg-white/15 origin-left"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════ VERTICALS — logo-first cards, no chrome ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        {/* Faint beam decor, blends into the top */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/clubs/cie/decor/beam.svg"
-          alt=""
-          aria-hidden
-          className="hidden lg:block absolute -top-12 -right-32 w-[520px] h-auto pointer-events-none select-none z-0"
-          style={{ opacity: 0.35, mixBlendMode: 'screen' }}
-        />
-
-        <div className="relative max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="flex items-end justify-between gap-6 mb-16 md:mb-20 flex-wrap max-w-[1200px]">
-            <div>
-              <Eyebrow>What&apos;s inside</Eyebrow>
-              <WordStagger
-                text="Four rooms. Four teams."
-                className="mt-6 font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.6rem,6vw,5.5rem)] max-w-[14ch]"
-              />
-            </div>
-            <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/40 pb-2">
-              § 04 / MP · CS · PD · SC
-            </div>
-          </div>
-
-          {/* Full-width alternating bands — logo left OR right, big display code letters as graphic */}
-          <div className="space-y-2">
-            {VERTICALS.map((v, i) => {
-              const flipped = i % 2 === 1;
-              return (
-                <motion.article
-                  key={v.code}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={IN_VIEW}
-                  variants={stagger(0.08, 0)}
-                  whileHover="hover"
-                  className="group relative py-10 md:py-14 lg:py-16"
-                >
-                  {/* Row hairline */}
-                  <motion.span
-                    aria-hidden
-                    className="absolute top-0 left-0 right-0 h-px bg-white/15 origin-left"
-                    variants={{
-                      hidden: { scaleX: 0 },
-                      show:   { scaleX: 1, transition: { duration: 0.9, ease: EASE } },
-                      hover:  { backgroundColor: 'rgba(232,93,4,0.7)', transition: { duration: 0.35 } },
-                    }}
-                  />
-
-                  {/* Ambient hover glow */}
-                  <span
-                    aria-hidden
-                    className={`pointer-events-none absolute top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl ${flipped ? 'right-0 md:-right-20' : 'left-0 md:-left-20'}`}
-                    style={{ backgroundColor: 'rgba(232,93,4,0.12)' }}
-                  />
-
-                  <div className={`relative grid gap-8 md:gap-14 items-center ${flipped ? 'md:grid-cols-[1fr_auto]' : 'md:grid-cols-[auto_1fr]'}`}>
-                    {/* LOGO (with big display code letters behind it) */}
-                    <motion.div
-                      variants={{
-                        hidden: { opacity: 0, scale: 0.85, y: 20 },
-                        show:   { opacity: 1, scale: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
-                      }}
-                      className={`relative flex-shrink-0 mx-auto md:mx-0 ${flipped ? 'md:order-2' : ''}`}
-                    >
-                      {/* Big display code letters — the graphic anchor */}
-                      <div
-                        aria-hidden
-                        className={`absolute inset-0 flex items-center pointer-events-none select-none ${flipped ? 'justify-end -mr-8' : 'justify-start -ml-8'}`}
-                      >
-                        <span
-                          className="font-sans font-black leading-[0.75] tracking-tighter-3 text-white/[0.05] group-hover:text-white/[0.08] transition-colors duration-700"
-                          style={{ fontSize: 'clamp(9rem, 18vw, 20rem)' }}
-                        >
-                          {v.code}
-                        </span>
-                      </div>
-
-                      {/* The logo itself, sitting above the display letters */}
-                      <motion.div
-                        className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] flex items-center justify-center"
-                        whileHover={{ rotate: [-1.5, 1.5, -1, 0] }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={v.logo}
-                          alt={`${v.name} logo`}
-                          className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.06]"
-                        />
-                      </motion.div>
-                    </motion.div>
-
-                    {/* TEXT */}
-                    <motion.div
-                      variants={fadeUpTight}
-                      className={`max-w-[52ch] ${flipped ? 'md:order-1 md:text-right md:ml-auto' : ''}`}
-                    >
-                      <div className={`flex items-center gap-3 mb-4 ${flipped ? 'md:justify-end' : ''}`}>
-                        <span className="font-mono text-[0.62rem] font-bold tracking-[0.28em] uppercase text-primary">
-                          Vertical · {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <span aria-hidden className="h-px w-8 bg-primary" />
-                      </div>
-                      <h3 className="font-sans font-black text-white text-[clamp(1.8rem,3.4vw,3rem)] leading-[0.98] tracking-tighter-2">
-                        {v.name}
-                      </h3>
-                      <p className={`mt-5 text-white/60 text-[1rem] md:text-[1.05rem] leading-[1.75] ${flipped ? 'md:ml-auto' : ''}`}>
-                        {v.body}
-                      </p>
-                    </motion.div>
-                  </div>
-                </motion.article>
-              );
-            })}
-            {/* Closing hairline */}
-            <motion.span
-              aria-hidden
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={IN_VIEW}
-              transition={{ duration: 0.9, ease: EASE }}
-              className="block h-px bg-white/15 origin-left"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════ EVENTS — infinite marquee (posters only) ═════════ */}
-      <section id="events" className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 mb-12">
-          <Eyebrow>Events</Eyebrow>
-          <WordStagger
-            text="The record."
-            className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]"
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={IN_VIEW}
-            transition={{ duration: 0.6, delay: 0.35, ease: EASE }}
-            className="mt-3 text-white/50 text-[0.92rem] max-w-[52ch]"
-          >
-            Hover any poster to read what it was.
-          </motion.p>
-        </div>
-
-        <div
-          className="relative overflow-hidden"
-          style={{
-            WebkitMaskImage:
-              'linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%)',
-            maskImage:
-              'linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%)',
-          }}
-        >
-          <div className="flex w-max gap-5 md:gap-6 py-2 cie-events-marquee">
-            {[...EVENTS, ...EVENTS].map((e, i) => (
-              <article
-                key={`${e.name}-${i}`}
-                className="group relative flex-shrink-0 w-[260px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] cursor-pointer"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={e.poster}
-                  alt={e.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/85 to-transparent"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-4 z-[1] transition-opacity duration-300 group-hover:opacity-0">
-                  <div className="font-sans font-black text-white text-[1rem] leading-tight tracking-tight">
-                    {e.name}
-                  </div>
-                </div>
-                <div
-                  className="absolute inset-0 z-[2] p-5 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background:
-                      'linear-gradient(180deg, rgba(6,6,6,0.35) 0%, rgba(6,6,6,0.9) 100%)',
-                  }}
-                >
-                  <div className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-primary">
-                    {e.kind}
-                  </div>
-                  <h3 className="mt-2 font-sans font-black text-white text-[1.15rem] leading-tight tracking-tight">
-                    {e.name}
-                  </h3>
-                  <div className="mt-1 font-mono text-[0.62rem] font-bold tracking-[0.18em] uppercase text-white/50">
-                    {e.date}
-                  </div>
-                  <p className="mt-3 text-white/75 text-[0.78rem] leading-[1.5]">
-                    {e.body}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <style jsx>{`
-          .cie-events-marquee {
-            animation: cie-events-scroll 60s linear infinite;
-          }
-          .cie-events-marquee:hover {
-            animation-play-state: paused;
-          }
-          @keyframes cie-events-scroll {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .cie-events-marquee { animation: none; }
-          }
-        `}</style>
-      </section>
-
-      {/* ═════════ FACILITIES — vertical ledger ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>Facilities</Eyebrow>
-          <WordStagger
-            text="Rooms we use."
-            className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)] mb-14"
-          />
-
-          <div className="grid md:grid-cols-2 md:gap-x-14 lg:gap-x-20">
-            {FACILITIES.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial="hidden"
-                whileInView="show"
-                viewport={IN_VIEW}
-                variants={stagger(0.08, 0)}
-                whileHover="hover"
-                className="relative grid grid-cols-[auto_1fr] gap-6 py-6"
-              >
-                <motion.span
-                  aria-hidden
-                  className="absolute top-0 left-0 right-0 h-px bg-white/10 origin-left"
-                  variants={{
-                    hidden: { scaleX: 0 },
-                    show:   { scaleX: 1, transition: { duration: 0.8, ease: EASE } },
-                    hover:  { backgroundColor: 'rgba(232,93,4,0.55)', transition: { duration: 0.4 } },
-                  }}
-                />
-                <motion.span
-                  variants={fadeUpTight}
-                  className="font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase text-primary pt-1 min-w-[2rem] tabular-nums"
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </motion.span>
-                <motion.div variants={fadeUpTight}>
-                  <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                    <h3 className="font-sans font-extrabold text-white text-[1.05rem] md:text-[1.15rem] leading-tight">
-                      {f.title}
-                    </h3>
-                    <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-white/40">
-                      {f.meta}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-white/55 text-[0.88rem] leading-[1.65]">
-                    {f.body}
-                  </p>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════ NUMBERS — dramatic display treatment ═════════ */}
-      <section className="relative bg-black py-24 md:py-32 overflow-hidden border-t border-white/[0.08]">
-        {/* Background ambient — big "07" chapter marker in the corner */}
-        <div aria-hidden className="absolute top-8 right-8 hidden md:block z-[1]">
-          <div className="font-mono text-[0.66rem] font-bold tracking-[0.28em] uppercase text-white/40 text-right">
-            § Chapter Seven
-          </div>
-        </div>
-
-        <div className="relative max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16 z-[1]">
-          <div className="flex items-end justify-between gap-6 mb-16 md:mb-20 flex-wrap">
-            <div>
-              <Eyebrow>By the numbers</Eyebrow>
-              <WordStagger
-                text="In practice."
-                className="mt-6 font-sans font-black tracking-tighter-3 leading-[0.98] text-white text-[clamp(2.6rem,6vw,5.5rem)]"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-14 md:gap-y-0">
-            {STATS.map((s, i) => (
-              <StatItem
-                key={s.label}
-                value={s.value}
-                label={s.label}
-                suffix={s.suffix}
-                showDivider={i < STATS.length - 1}
-                index={i}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ═════════ NUMBERS — count-up band ═════════ */}
+      <CieNumbers />
 
       {/* ═════════ VALUES — quiet marquee ribbon ═════════ */}
       <section className="relative bg-black py-14 overflow-hidden border-t border-white/[0.08]">
@@ -976,176 +523,12 @@ export default function CIEClubPage() {
         `}</style>
       </section>
 
-      {/* ═════════ GALLERY — varied bento ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-16">
-          <div className="max-w-[1200px] mx-auto mb-12">
-            <Eyebrow>Gallery</Eyebrow>
-            <WordStagger
-              text="Living document."
-              className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(1.8rem,3vw,2.6rem)]"
-            />
-          </div>
+      {/* ═════════ GALLERY — clip-reveal bento ═════════ */}
+      <CieGallery />
 
-          <motion.div
-            className="grid grid-cols-12 gap-3 md:gap-4"
-            initial="hidden"
-            whileInView="show"
-            viewport={IN_VIEW}
-            variants={stagger(0.06, 0.05)}
-          >
-            {GALLERY.map((g) => (
-              <motion.figure
-                key={g.src}
-                variants={{
-                  hidden: { opacity: 0, y: 32, clipPath: 'inset(0 0 100% 0)' },
-                  show:   {
-                    opacity: 1,
-                    y: 0,
-                    clipPath: 'inset(0 0 0% 0)',
-                    transition: { duration: 0.9, ease: EASE },
-                  },
-                }}
-                className="relative group overflow-hidden rounded-xl bg-white/[0.03] aspect-[4/3]"
-                style={{ gridColumn: `span ${g.span} / span ${g.span}` }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={g.src}
-                  alt={g.caption}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none transition-opacity duration-500"
-                  style={{
-                    background:
-                      'linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.78) 100%)',
-                  }}
-                />
-                {/* Caption slides up on hover with a hairline accent */}
-                <figcaption className="absolute inset-x-0 bottom-0 p-3 md:p-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-500 ease-out-quart">
-                  <span
-                    aria-hidden
-                    className="block h-px w-0 group-hover:w-8 bg-primary transition-all duration-500 ease-out-quart mb-2"
-                  />
-                  <span className="font-mono text-[0.6rem] font-bold tracking-[0.2em] uppercase text-white/85">
-                    {g.caption}
-                  </span>
-                </figcaption>
-              </motion.figure>
-            ))}
-          </motion.div>
+      {/* ═════════ CONTACT — get involved finale ═════════ */}
+      <CieContact />
 
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="https://mlritcie.in/gallery"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 h-11 px-5 rounded-full font-sans font-semibold text-[0.9rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 transition-all"
-            >
-              Full archive on mlritcie.in
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════ CONTACT — plain, no card ═════════ */}
-      <section className="relative bg-black py-20 md:py-28 overflow-hidden border-t border-white/[0.08]">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
-          <Eyebrow>Get involved</Eyebrow>
-          <WordStagger
-            text="Bring the idea."
-            className="mt-5 font-sans font-black tracking-tighter-2 leading-[1.02] text-white text-[clamp(2rem,3.6vw,3rem)] mb-8"
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={IN_VIEW}
-            transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-            className="text-white/60 leading-[1.75] text-[1rem] md:text-[1.05rem] max-w-[52ch]"
-          >
-            Any branch, any year. Walk in during club hours, or reach out on
-            any channel below.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={IN_VIEW}
-            transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
-            className="mt-10 flex flex-wrap items-center gap-3"
-          >
-            <Link
-              href="https://mlritcie.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ backgroundColor: '#e85d04', color: '#fff' }}
-              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] hover:-translate-y-[1px] hover:shadow-primary-glow transition-all duration-300"
-            >
-              Visit mlritcie.in
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="mailto:ciemlrit@mlrit.ac.in"
-              className="inline-flex items-center gap-2.5 h-12 px-6 rounded-full font-semibold text-[0.95rem] bg-white/[0.06] text-white border border-white/15 hover:bg-white/[0.1] hover:border-white/30 hover:-translate-y-[1px] transition-all duration-300"
-            >
-              <Mail className="w-4 h-4" />
-              Email us
-            </Link>
-          </motion.div>
-
-          <div className="mt-14 border-t border-white/10 pt-8 grid md:grid-cols-3 gap-y-8 gap-x-10">
-            <div>
-              <div className="font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/45">
-                Address
-              </div>
-              <div className="mt-2 text-white/85 text-[0.95rem] leading-snug">
-                MLRIT, Dundigal,<br />
-                Hyderabad, Telangana 500043
-              </div>
-            </div>
-            <div>
-              <div className="font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/45">
-                Email
-              </div>
-              <div className="mt-2 space-y-1">
-                <Link href="mailto:ciemlrit@mlrit.ac.in" className="block text-white/85 hover:text-primary text-[0.95rem]">
-                  ciemlrit@mlrit.ac.in
-                </Link>
-                <Link href="mailto:cie@mlrinstitutions.ac.in" className="block text-white/85 hover:text-primary text-[0.95rem]">
-                  cie@mlrinstitutions.ac.in
-                </Link>
-              </div>
-            </div>
-            <div>
-              <div className="font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase text-white/45">
-                Follow
-              </div>
-              <div className="mt-3 flex items-center gap-2">
-                {[
-                  { Icon: Instagram, href: 'https://mlritcie.in', label: 'Instagram' },
-                  { Icon: Linkedin,  href: 'https://mlritcie.in', label: 'LinkedIn' },
-                  { Icon: Youtube,   href: 'https://mlritcie.in', label: 'YouTube' },
-                  { Icon: Twitter,   href: 'https://mlritcie.in', label: 'X' },
-                ].map(({ Icon, href, label }) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="w-9 h-9 rounded-full border border-white/15 text-white/70 grid place-items-center hover:text-primary hover:border-primary/40 transition-colors"
-                  >
-                    <Icon className="w-4 h-4" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
