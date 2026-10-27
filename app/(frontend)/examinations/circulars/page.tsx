@@ -20,6 +20,39 @@ type Circular = {
 };
 
 const CIRCULARS: Circular[] = [
+  // ── October 2026 ────────────────────────────────────────────────────────────
+  {
+    title: 'I B.Tech I Semester R25 — MID-I Examinations October 2026 Timetable',
+    file: 'I-B.Tech.-I-Semester-R25-MID-I-Examinations-October-2026-Timetable.pdf',
+    category: 'Timetable',
+    date: 'October 2026',
+  },
+  {
+    title: 'I B.Tech I Semester R22 — MID-I Examinations October 2026 Timetable (Re-Registered Students)',
+    file: 'I-B.Tech.-I-Semester-R22-MID-I-Examinations-October-2026-Timetable-For-Re-Registered-Students.pdf',
+    category: 'Timetable',
+    date: 'October 2026',
+  },
+  {
+    title: 'II M.Tech I Semester R25 — MID-I Examinations October 2026 Timetable',
+    file: 'II-M.Tech.-I-Sem.-R25-MID-I-Examinations-October-2026-Timetable.pdf',
+    category: 'Timetable',
+    date: 'October 2026',
+  },
+  // ── September 2026 ──────────────────────────────────────────────────────────
+  {
+    title: 'Postponement & Reschedule of IV & I B.Tech MID-I Examinations — 02-09-2026 Rescheduled to 08-09-2026 (ECE, EEE & CSM Branches)',
+    file: 'Postponement-and-Reschedule-of-IV-I-B.Tech-MID-I-Examinations-Scheduled-on-02-09-2026-Afternoon-to-08-09-2026-Afternoon-for-ECE-EEE-and-CSM-Branches.pdf',
+    category: 'Notice',
+    date: 'September 2026',
+  },
+  {
+    title: 'II, III & IV B.Tech I Sem — Verify CIE-I Marks in Autonomous Portal (Last Date: 30-09-2026)',
+    file: 'II-III-and-IV-B.TECH-I-SEM-Students-are-Verify-your-CIE-I-Marks-in-Autonomous-Portal-Last-Date-for-Verification-is-30-09-202.pdf',
+    category: 'Notice',
+    date: 'September 2026',
+  },
+  // ── July 2026 ───────────────────────────────────────────────────────────────
   {
     title: 'I B.Tech II SEM — Verify CBT Marks in Autonomous Portal (Last Date: 25-07-2026)',
     file: 'I-B.Tech.-II-SEM-Students-are-Verify-your-CBT-Marks-in-Autonomous-Portal-Last-Date-for-Verification-is-25-07-2026.pdf',
