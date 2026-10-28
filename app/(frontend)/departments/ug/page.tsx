@@ -24,7 +24,7 @@ export default async function UGPage() {
         eyebrow="B.Tech Programmes"
         title="Undergraduate"
         italic="programmes."
-        dek="A four-year B.Tech across seven engineering branches, built on a shared first-year foundation — with an industry-integrated curriculum, hands-on labs and a culture of inquiry."
+        dek="A four-year B.Tech across nine engineering branches, built on a shared first-year foundation — with an industry-integrated curriculum, hands-on labs and a culture of inquiry."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Academics' }, { label: 'Undergraduate' }]}
         variant="green"
       />

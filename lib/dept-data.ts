@@ -337,6 +337,140 @@ export const DEPT_DATA: Record<string, DeptData> = {
   },
 
   // ═══════════════════════════════════════════════════════════════
+  // CSIT
+  // ═══════════════════════════════════════════════════════════════
+  csit: {
+    vision:
+      'To produce globally competent CSIT professionals who can apply knowledge from both Computer Science and Information Technology to solve diverse real-world computational problems with ethics and innovation.',
+    mission: [
+      'Build strong foundations in mathematics, programming, algorithms and systems alongside applied IT disciplines including networks, databases and modern web technologies.',
+      'Provide hands-on industry exposure through project-based learning, internships and partnerships with leading IT employers — preparing graduates for diverse computational engineering roles.',
+      'Cultivate professional ethics, multi-disciplinary problem-solving and the soft skills required to lead and collaborate effectively in global IT environments.',
+      'Encourage research, higher studies and entrepreneurship by fostering self-learning, critical thinking and an innovation-first mindset.',
+    ],
+    history:
+      'CSIT was launched in academic year 2020-2021 with an initial intake of 60 students, in response to industry demand for graduates fluent in both core Computer Science and applied IT. Designed as a single integrated programme rather than separate CSE and IT tracks, CSIT is positioned to serve students who want maximum optionality across the IT industry landscape.',
+    introduction:
+      'The Department of Computer Science and Information Technology (CSIT) at MLRIT was launched in 2020-2021 with an intake of 60 students per year. The programme deliberately combines the rigorous core of Computer Science with the breadth of Information Technology, so graduates are prepared for roles across software engineering, networking, databases, cloud and modern web stacks. The integrated curriculum gives students a clear edge in placement outcomes compared to single-discipline CSE or IT graduates.',
+    hodMessage:
+      'Our department combines the best of Computer Science and Information Technology in a single integrated programme. Students gain depth in core CS — algorithms, systems, AI — alongside breadth in IT — networks, databases, cloud, and modern web. The result is graduates who can step into any role across the IT industry and command higher offers than single-discipline counterparts.',
+    teachingMethodology:
+      'The CSIT programme follows a project-driven pedagogy that interleaves theory with hands-on labs in every semester. Students build real software systems — from low-level systems programming through to full-stack web applications, mobile apps and cloud-native services — and present their work in capstone reviews to industry mentors. Teaching is supplemented with workshops on emerging stacks, hackathons and structured internship rotations from the third year onwards.',
+    peos: [
+      { id: 'PEO 1', text: 'Apply knowledge and skills from both Computer Science and Information Technology to solve diverse computational engineering problems across software, systems, networks, and data domains.' },
+      { id: 'PEO 2', text: 'Apply acquired skills across multi-disciplinary domains while operating ethically and meeting evolving social challenges in the global IT industry.' },
+      { id: 'PEO 3', text: 'Demonstrate the soft skills, professional values, and adaptability required to excel in diverse global work environments and pursue lifelong learning.' },
+    ],
+    labs: [
+      { name: 'Programming and Data Structures Lab', desc: 'C, C++ and Python labs for foundational programming, DSA and algorithmic problem solving' },
+      { name: 'Web Technologies Lab', desc: 'Full-stack web development — React, Node.js, REST APIs, modern build tooling' },
+      { name: 'Networks and Cyber Security Lab', desc: 'Cisco Packet Tracer, Wireshark and security tooling for hands-on networking and defensive exercises' },
+      { name: 'Database Systems Lab', desc: 'PostgreSQL, MongoDB and Oracle — relational and NoSQL design, query optimisation' },
+      { name: 'Cloud and DevOps Lab', desc: 'AWS, Docker, Kubernetes and CI/CD pipelines for cloud-native deployment workflows' },
+    ],
+    faculty: [
+      { name: 'Dr. D.B.K. Kamesh', role: 'Professor and HOD', photo: '/faculty/csit/d-b-k-kamesh.jpg' },
+      { name: 'Ms. P. Nishitha', role: 'Assistant Professor', photo: '/faculty/csit/p-nishitha.jpg' },
+      { name: 'D. Rajeshwari', role: 'Assistant Professor', specialization: 'E-Commerce, Information Retrieval System, Cloud Essentials', photo: '/faculty/csit/d-rajeshwari.jpg' },
+      { name: 'A. Nirisha', role: 'Assistant Professor', photo: '/faculty/csit/a-nirisha.jpg' },
+      { name: 'P. Poojasree', role: 'Assistant Professor', specialization: 'Devops, Python, Production Support', photo: '/faculty/csit/p-poojasree.jpg' },
+      { name: 'Rajkumar Bhookya', role: 'Assistant Professor', specialization: 'Image processing, Deep learning, Cloud - Devops', photo: '/faculty/csit/rajkumar-bhookya.jpg' },
+      { name: 'Devolla Manogna', role: 'Assistant Professor', specialization: 'Programming languages, Computer Networks, and Cyber Security', photo: '/faculty/csit/devolla-manogna.jpg' },
+      { name: 'S. Anudeep', role: 'Assistant Professor', photo: '/faculty/csit/s-anudeep.jpg' },
+      { name: 'Banothu Seva', role: 'Assistant Professor', specialization: 'Programming languages, Computer Networks, and Cyber Security', photo: '/faculty/csit/banothu-seva.jpg' },
+      { name: 'Ms. Madhavi Banala', role: 'Assistant Professor', photo: '/faculty/csit/madhavi-banala.jpg' },
+      { name: 'N. Thulasi Chithra', role: 'Assistant Professor', photo: '/faculty/csit/n-thulasi-chithra.jpg' },
+      { name: 'V. Srikanth', role: 'Assistant Professor', specialization: 'Artificial Intelligence, Machine Learning', photo: '/faculty/csit/v-srikanth.jpg' },
+      { name: 'T. Gandhi', role: 'Assistant Professor', specialization: 'Machine Learning', photo: '/faculty/csit/t-gandhi.jpg' },
+      { name: 'Mrs. T. Mounika', role: 'Assistant Professor', specialization: 'Machine Learning', photo: '/faculty/csit/t-mounika.jpg' },
+      { name: 'Mrs. S. Parvathi', role: 'Assistant Professor', photo: '/faculty/csit/s-parvathi.jpg' },
+      { name: 'N. Sandhya', role: 'Assistant Professor', photo: '/faculty/csit/n-sandhya.jpg' },
+      { name: 'Mrs. M. Srividya', role: 'Assistant Professor', photo: '/faculty/csit/m-srividya.jpg' },
+      { name: 'Ms. D. Neelima Priyadarshini', role: 'Assistant Professor', photo: '/faculty/csit/d-neelima-priyadarshini.jpg' },
+      { name: 'Ms. N. Vijayasri', role: 'Assistant Professor', photo: '/faculty/csit/n-vijayasri.jpg' },
+      { name: 'S. Navya', role: 'Assistant Professor', photo: '/faculty/csit/s-navya.jpg' },
+    ],
+    studentAchievements: [
+      { title: 'Hackathon Wins', desc: 'CSIT students have placed in the top 10 at multiple national hackathons including Smart India Hackathon and Hack-the-North editions across 2023 and 2024.' },
+      { title: 'Multi-Disciplinary Capstones', desc: 'Capstone projects routinely span CS and IT domains — full-stack apps with ML backends, secure cloud microservices and analytics dashboards — earning recognition from industry mentors.' },
+      { title: 'Strong Placement Outcomes', desc: 'The integrated curriculum has translated into placement offers across software engineering, full-stack development, cloud engineering and IT services roles at competitive packages.' },
+    ],
+    committees: [
+      { name: 'Vision and Mission Committee' },
+      { name: 'Departmental Advisory Committee (DAC)' },
+      { name: 'Programme Assessment Committee (PAC)' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // IT
+  // ═══════════════════════════════════════════════════════════════
+  it: {
+    vision:
+      'To build an IT department committed to continuous improvement that adapts swiftly to 21st-century challenges by developing professionals with robust technical and research backgrounds.',
+    mission: [
+      'Provide a quality teaching-learning environment that builds proficiency in theoretical and applied IT foundations.',
+      'Create skilled IT engineers capable of research and developing solutions for national betterment.',
+      'Instil professional and ethical values and a sense of social responsibility among students.',
+      'Develop entrepreneurial skills and motivate the pursuit of higher studies and lifelong learning.',
+    ],
+    history:
+      'The Department of Information Technology was established in 2005 with an intake of 60, growing over the years to its current intake of 180 students per year. Two decades of consistent investment in faculty, labs and industry tie-ups have produced thousands of alumni serving across software engineering, systems and emerging IT roles globally.',
+    introduction:
+      'The Department of Information Technology was established in 2005 with an initial intake of 60, expanded to 180 students per year. The department offers a 4-year B.Tech programme designed to produce industry-ready software engineers through creative teaching, structured in-house training and a deliberate focus on personality development — combining theoretical depth, applied skills and the general competencies required to thrive in the IT industry.',
+    hodMessage:
+      'The IT department has produced quality engineers since 2005. Our pedagogy combines rigorous theoretical foundations with applied skills, in-house training programmes, and personality development — so graduates step into IT industry roles confident, well-rounded, and industry-ready from day one.',
+    teachingMethodology:
+      'The IT department combines lecture-based theory with structured in-house training, creative teaching techniques and continuous evaluation. Students benefit from skill-building workshops, certification programmes and personality-development modules embedded across the curriculum — preparing them not only for technical interviews but for long-term success in industry roles.',
+    peos: [
+      { id: 'PEO 1', text: 'Be successfully employed as software engineers in the IT industry, applying knowledge of computing and engineering principles to deliver real-world software solutions.' },
+      { id: 'PEO 2', text: 'Become successful entrepreneurs, project leaders, and team members who assume leadership positions and contribute to the IT industry and society.' },
+      { id: 'PEO 3', text: 'Progress through advanced degree or certificate programmes in engineering and related fields, demonstrating commitment to lifelong learning.' },
+    ],
+    labs: [
+      { name: 'Programming and Web Lab', desc: 'C, Java, Python and full-stack web technologies for foundational and applied programming work' },
+      { name: 'Networks Lab', desc: 'Computer networks, protocol simulation and packet analysis with Cisco Packet Tracer and Wireshark' },
+      { name: 'Database Lab', desc: 'Oracle, MySQL and MongoDB — relational and NoSQL design, queries and optimisation' },
+      { name: 'Cloud and DevOps Lab', desc: 'AWS, Docker, Kubernetes and CI/CD pipelines for modern cloud-native workflows' },
+      { name: 'IT Project Lab', desc: 'Capstone and mini-project workstations equipped for full-stack, mobile and analytics projects' },
+    ],
+    faculty: [
+      { name: 'Dr. N V Raja Sekhar Reddy', role: 'Professor and HOD', specialization: 'Wireless Networks, Cloud Computing', photo: '/faculty/it/n-v-raja-sekhar-reddy.jpg' },
+      { name: 'Dr. Dhilli Rao Gorja', role: 'Associate Professor', specialization: 'Organic Synthesis, Chemical Biology, Cancer Research', photo: '/faculty/it/dhilli-rao-gorja.jpg' },
+      { name: 'Mrs. K. Neeraja', role: 'Associate Professor' },
+      { name: 'Mr. Vikram Raju', role: 'Associate Professor' },
+      { name: 'Dr. Mopur Vijaya Bhaskar Reddy', role: 'Associate Professor', photo: '/faculty/it/mopur-vijaya-bhaskar-reddy.jpg' },
+      { name: 'Mrs. IVS. Haritha', role: 'Assistant Professor' },
+      { name: 'Mrs. G. Anitha', role: 'Assistant Professor' },
+      { name: 'Vemuri Nitin', role: 'Assistant Professor', specialization: 'Data Mining', photo: '/faculty/it/vemuri-nitin.jpg' },
+      { name: 'Mrs. Shruthi Patel', role: 'Assistant Professor', photo: '/faculty/it/shruthi-patel.jpg' },
+      { name: 'Mr. D. Sandeep', role: 'Assistant Professor', photo: '/faculty/it/d-sandeep.jpg' },
+      { name: 'J. Adilakshmi', role: 'Assistant Professor', photo: '/faculty/it/j-adilakshmi.jpg' },
+      { name: 'Bhasker Boddu', role: 'Assistant Professor', specialization: 'Computer Science and Engineering', photo: '/faculty/it/bhasker-boddu.jpg' },
+      { name: 'P. Laxmaiah', role: 'Assistant Professor', photo: '/faculty/it/p-laxmaiah.jpg' },
+      { name: 'B. Varija', role: 'Assistant Professor', photo: '/faculty/it/b-varija.jpg' },
+      { name: 'Ms. B. Sushma', role: 'Assistant Professor', photo: '/faculty/it/b-sushma.jpg' },
+      { name: 'G. Sathyanarayan', role: 'Assistant Professor', photo: '/faculty/it/g-sathyanarayan.jpg' },
+      { name: 'Mr. Mohd Anwar Ali', role: 'Assistant Professor', photo: '/faculty/it/mohd-anwar-ali.jpg' },
+      { name: 'M. Harshini', role: 'Assistant Professor', photo: '/faculty/it/m-harshini.jpg' },
+      { name: 'J. Shubangi', role: 'Assistant Professor' },
+      { name: 'Agosh M C', role: 'Faculty' },
+      { name: 'Venkatesh G', role: 'Faculty' },
+      { name: 'Hm Lijo Mon', role: 'Faculty' },
+    ],
+    studentAchievements: [
+      { title: 'Two Decades of IT Engineers', desc: 'Since 2005 the department has graduated thousands of alumni serving across software engineering, systems, networking and emerging IT roles globally — including leadership positions at Tier-1 IT services firms.' },
+      { title: 'NPTEL / SWAYAM Certifications', desc: 'Sustained high participation in NPTEL and SWAYAM certification courses across operating systems, networks, databases and modern web development.' },
+      { title: 'Industry Internships', desc: 'Strong internship pipeline into Tier-1 IT services firms — TCS, Infosys, Wipro, Cognizant — converted into full-time roles for many students.' },
+    ],
+    committees: [
+      { name: 'Vision and Mission Committee' },
+      { name: 'Departmental Advisory Committee (DAC)' },
+      { name: 'Programme Assessment Committee (PAC)' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════
   // ECE
   // ═══════════════════════════════════════════════════════════════
   ece: {
