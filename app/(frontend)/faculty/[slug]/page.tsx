@@ -81,6 +81,24 @@ function TagList({ items }: { items: string[] }) {
   );
 }
 
+// The <ol list-decimal> sections below already render one sequential marker
+// per entry, but many entries from the source spreadsheets carry their own
+// manual enumerator ("5.\t", "[23]. ", "a)\t") plus stray bullets. Strip the
+// duplicate numbering so each entry shows exactly one number. Lookaheads keep
+// version-like openings ("2.0", "10.1109") and citations ("A. Kiran") intact.
+const LEADING_NOISE = /^[\s\u00a0\u2022\u00b7\u200b\u200e\u2060\uf000-\uf8ff]+/;
+const LEADING_ENUMERATOR =
+  /^\d{1,3}[.)\]](?!\d)[\s\u00a0]*|^\(\d{1,3}\)[\s\u00a0]+|^\[\d{1,3}\]\.?\s*|^[a-z][.)\]](?=[\s\u00a0]*\S)[\s\u00a0]*/;
+
+function numberedEntry(entry: string): string {
+  let text = entry;
+  for (;;) {
+    const before = text;
+    text = text.replace(LEADING_NOISE, '').replace(LEADING_ENUMERATOR, '');
+    if (text === before) return text.trim();
+  }
+}
+
 export default async function FacultyProfilePage(
   props: {
     params: Promise<{ slug: string }>;
@@ -305,7 +323,7 @@ export default async function FacultyProfilePage(
                         key={i}
                         className="text-foreground text-[0.88rem] leading-relaxed pl-1"
                       >
-                        {pub}
+                        {numberedEntry(pub)}
                       </li>
                     ))}
                   </ol>
@@ -321,7 +339,7 @@ export default async function FacultyProfilePage(
                   <ol className="space-y-3 list-decimal list-outside pl-5">
                     {f.patents.map((p, i) => (
                       <li key={i} className="text-foreground text-[0.88rem] leading-relaxed pl-1">
-                        {p}
+                        {numberedEntry(p)}
                       </li>
                     ))}
                   </ol>
@@ -337,7 +355,7 @@ export default async function FacultyProfilePage(
                   <ol className="space-y-3 list-decimal list-outside pl-5">
                     {f.books.map((b, i) => (
                       <li key={i} className="text-foreground text-[0.88rem] leading-relaxed pl-1">
-                        {b}
+                        {numberedEntry(b)}
                       </li>
                     ))}
                   </ol>
