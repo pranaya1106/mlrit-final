@@ -99,6 +99,7 @@ const USEFUL_SECTIONS = [
       { label: 'Scholarships',      href: '/admissions/scholarships' },
       { label: 'Admissions FAQ',    href: '/admissions/support' },
       { label: 'Fee Structure',     href: '/admissions/fees' },
+      { label: 'Transport Fee Payment', href: 'https://formbuilder.ccavenue.com/live/kotak-mahindra/kmr-educational-society', ext: true },
       { label: 'Sports',            href: '/campus/sports' },
       { label: 'Student Clubs',      href: '/campus/clubs' },
       { label: 'NSS Event Reports', href: '/old/nss-event-reports', ext: false },
