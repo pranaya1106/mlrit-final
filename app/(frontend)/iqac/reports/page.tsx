@@ -21,12 +21,12 @@ const FALLBACK_AQAR_REPORTS = [
 ];
 
 const FALLBACK_MINUTES = [
-  { label: 'IQAC Minutes of Meeting',       href: 'https://mlrit.ac.in/iqac-mom/',       tag: 'Governance'    },
+  { label: 'IQAC Minutes of Meeting',       href: '/iqac/minutes',                       tag: 'Governance'    },
 ];
 
 const FALLBACK_OTHER_REPORTS = [
   { label: 'Strategic Perspective Plan',    href: '/iqac',                               tag: 'Planning'      },
-  { label: 'Policies',                      href: 'https://mlrit.ac.in/iqac/policies/',  tag: 'Policy'        },
+  { label: 'Policies',                      href: '/iqac/policies',                      tag: 'Policy'        },
   { label: 'Newsletters',                   href: '/iqac',                               tag: 'Publications'  },
   { label: 'NBA — Programme Accreditation', href: '/iqac/nba',                           tag: 'Accreditation' },
 ];

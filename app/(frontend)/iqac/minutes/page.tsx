@@ -16,8 +16,6 @@ const DOCS = [
   { tag: 'Governance', label: 'IQAC MoM A.Y. 2024-2025', href: 'https://files.mlrit.ac.in/iqac/IQAC_MOM_2024-25.pdf' },
   { tag: 'Governance', label: 'IQAC MoM A.Y. 2023-2024', href: 'https://files.mlrit.ac.in/iqac/IQAC_MOM_2023-24.pdf' },
   { tag: 'Governance', label: 'IQAC MoM A.Y. 2022-2023', href: 'https://files.mlrit.ac.in/Iqac/IQAC-2022.pdf' },
-  { tag: 'Governance', label: 'IQAC MoM A.Y. 2019-2020', href: 'https://mlrit.ac.in/wp-content/uploads/files/iqac/IQAC%20MoM%20A.Y.%202019-2020.pdf' },
-  { tag: 'Governance', label: 'IQAC MoM A.Y. 2018-2019', href: 'https://mlrit.ac.in/wp-content/uploads/files/iqac/IQAC%20MoM%20A.Y.%202018-2019.pdf' },
   { tag: 'Governance', label: 'IQAC MoM A.Y. 2017-2018', href: 'https://mlrit.ac.in/wp-content/uploads/iqac/17-18-IQAC.pdf' },
   { tag: 'Governance', label: 'IQAC MoM A.Y. 2016-2017', href: 'https://mlrit.ac.in/wp-content/uploads/iqac/16-17-IQAC.pdf' },
 ];

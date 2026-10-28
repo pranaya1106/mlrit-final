@@ -1136,7 +1136,7 @@ export const CONTENT_SECTIONS = {
           { name: "tag", label: "Tag" },
         ],
         defaultItems: [
-          { id: "iqac-minutes-of-meeting", label: "IQAC Minutes of Meeting", href: "https://mlrit.ac.in/iqac-mom/", tag: "Governance" },
+          { id: "iqac-minutes-of-meeting", label: "IQAC Minutes of Meeting", href: "/iqac/minutes", tag: "Governance" },
         ],
       },
       {
@@ -1150,7 +1150,7 @@ export const CONTENT_SECTIONS = {
         ],
         defaultItems: [
           { id: "strategic-perspective-plan", label: "Strategic Perspective Plan", href: "/iqac", tag: "Planning" },
-          { id: "policies", label: "Policies", href: "https://mlrit.ac.in/iqac/policies/", tag: "Policy" },
+          { id: "policies", label: "Policies", href: "/iqac/policies", tag: "Policy" },
           { id: "newsletters", label: "Newsletters", href: "/iqac", tag: "Publications" },
           { id: "nba-programme-accreditation", label: "NBA — Programme Accreditation", href: "/iqac/nba", tag: "Accreditation" },
         ],

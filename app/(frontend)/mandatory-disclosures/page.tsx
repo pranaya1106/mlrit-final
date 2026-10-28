@@ -8,18 +8,12 @@ export const metadata: Metadata = {
     'AICTE mandatory disclosure documents for MLR Institute of Technology, year-wise from 2017-18 to 2025-26.',
 };
 
-// Source: mlrit.ac.in/mandatory-disclosures/ — PDFs hosted on files.mlrit.ac.in
-// (and the legacy uploads folder for years predating the file server).
+// Source: mlrit.ac.in/mandatory-disclosures/ — PDFs hosted on files.mlrit.ac.in.
 const DOCS = [
   { tag: 'Disclosure', label: 'Mandatory Disclosure 2025-26', href: 'https://files.mlrit.ac.in/uploads/AICTE_Mandatory_Disclosure-2025-26_FINAL.pdf' },
   { tag: 'Disclosure', label: 'Mandatory Disclosure 2024-25', href: 'https://files.mlrit.ac.in/uploads/2024-25.pdf' },
   { tag: 'Disclosure', label: 'Mandatory Disclosure 2023-24', href: 'https://files.mlrit.ac.in/uploads/2023-24.pdf' },
   { tag: 'Disclosure', label: 'Mandatory Disclosure 2022-23', href: 'https://files.mlrit.ac.in/uploads/AICTEMandatoryDisclosure-2022-23.pdf' },
-  { tag: 'Disclosure', label: 'Mandatory Disclosure 2021-22', href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/AICTEMandatoryDisclosure-2021-22.pdf' },
-  { tag: 'Disclosure', label: 'Mandatory Disclosure 2020-21', href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/AICTEMandatoryDisclosure-2020-21.pdf' },
-  { tag: 'Disclosure', label: 'Mandatory Disclosure 2019-20', href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/AICTEMandatoryDisclosure-2019-20.pdf' },
-  { tag: 'Disclosure', label: 'Mandatory Disclosure 2018-19', href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/AICTEMandatoryDisclosure-2018-19.pdf' },
-  { tag: 'Disclosure', label: 'Mandatory Disclosure 2017-18', href: 'https://mlrit.ac.in/wp-content/uploads/gen/govern/AICTEMandatoryDisclosure2017-18.pdf' },
   { tag: 'Brochure', label: 'Institutional Brochure 2025-26', href: '/admissions/mlrit-brochure.pdf' },
 ];
 

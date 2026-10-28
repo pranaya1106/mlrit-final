@@ -8,8 +8,6 @@ export const metadata: Metadata = {
 };
 
 // Source: mlrit.ac.in/financial-statements/ — PDFs on files.mlrit.ac.in.
-// F.Y 2024-25 is not listed: the legacy page links a malformed URL that is
-// broken at the source, so no verified document exists for it yet.
 const DOCS = [
   { tag: 'Statement', label: 'F.Y 2023-24', href: 'https://files.mlrit.ac.in/uploads/Committees/FY_2023-24.pdf' },
   { tag: 'Statement', label: 'F.Y 2022-23', href: 'https://files.mlrit.ac.in/uploads/FY_2022-23.pdf' },
