@@ -105,6 +105,18 @@ const ITEMS: Item[] = [
     ),
   },
   {
+    label: 'Transport Fee Payment',
+    href: 'https://formbuilder.ccavenue.com/live/kotak-mahindra/kmr-educational-society',
+    external: true,
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden>
+        <rect x="3" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.6"/>
+        <path d="M3 7h14" stroke="currentColor" strokeWidth="1.6"/>
+        <path d="M6 16v1.5M14 16v1.5M5 17.5h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
     label: 'Syllabus & PYQs',
     subPopup: true,
     icon: (
