@@ -3224,11 +3224,12 @@ export const FACULTY: FacultyProfile[] = [
     imageAlt: "Portrait of JUTTU SURESH",
   },
   {
-    id: "k-shiva-krishna-cse-ds",
-    slug: "k-shiva-krishna-cse-ds",
-    name: "K Shiva Krishna",
-    designation: "Assistant professor",
-    department: "cse-ds",
+    id: "k-shiva-krishna-aiml",
+    slug: "k-shiva-krishna-aiml",
+    name: "Dr. K Shiva Krishna",
+    designation: "Head of Department",
+    isHod: true,
+    department: "aiml",
     qualifications: [
     "B.tech CSE",
     "M.tech CS",
@@ -3259,8 +3260,8 @@ export const FACULTY: FacultyProfile[] = [
       scopus: "Nill",
       orcid: "0009-0005-7696-1216"
     },
-    image: "/faculty-new/cse-ds/cse-ds-k-shiva-krishna.jpg",
-    imageAlt: "Portrait of K Shiva Krishna",
+    image: "/faculty-new/aiml/aiml-k-shiva-krishna.jpg",
+    imageAlt: "Portrait of Dr. K Shiva Krishna",
   },
   {
     id: "kannuri-sandhya-cse-ds",
@@ -4514,7 +4515,7 @@ imageAlt: "Portrait of Kommula Rani",
   {
     id: "penubaka-kiran-kumar-reddy-aiml",
     slug: "penubaka-kiran-kumar-reddy-aiml",
-    name: "Penubaka Kiran Kumar Reddy",
+    name: "Dr. P Kiran Kumar Reddy",
     designation: "Professor",
     department: "aiml",
     qualifications: [
@@ -4641,7 +4642,7 @@ imageAlt: "Portrait of Kommula Rani",
       orcid: "0000-0002-0941-4803"
     },
     image: "/faculty-new/aiml/aiml-penubaka-kiran-kumar-reddy.jpg",
-    imageAlt: "Portrait of Penubaka Kiran Kumar Reddy",
+    imageAlt: "Portrait of Dr. P Kiran Kumar Reddy",
   },
   {
     id: "pottapinjara-babu-aiml",

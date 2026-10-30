@@ -103,7 +103,7 @@ export const DEPARTMENTS: Department[] = [
       { id: 'PEO2', text: 'Advance through M.Tech and PhD programmes globally.' },
       { id: 'PEO3', text: 'Build AI systems responsibly with fairness and explainability.' },
     ],
-    hod: { name: 'Dr. Kashi Sai Prasad', title: 'Associate Professor & Head of Department' },
+    hod: { name: 'Dr. K Shiva Krishna', title: 'Head of Department, CSE (AI & ML)' },
     reels: [
       {
         reelUrl: 'https://www.instagram.com/reel/DWdgy0xDGvL/',
