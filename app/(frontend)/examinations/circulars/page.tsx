@@ -23,6 +23,12 @@ type Circular = {
 const CIRCULARS: Circular[] = [
   // ── October 2026 ────────────────────────────────────────────────────────────
   {
+    title: 'I B.Tech I Sem Regular/Supply and I B.Tech II Sem Supply Examinations December 2026 Fee Notification',
+    file: 'I-B.Tech-I-Sem.-Regular-and-Supply-and-I-B.Tech.-II-Sem.-Supply-Examinations-December-2026-Fee-Notification.pdf',
+    category: 'Fee',
+    date: 'October 29, 2026',
+  },
+  {
     title: 'IV B.Tech I Sem - Practical Regular Examinations November 2026 Timetable',
     file: 'IV-B.Tech.-I-Sem.-Practical-Regular-Examinations-November-2026-Timetable.pdf',
     category: 'Timetable',
