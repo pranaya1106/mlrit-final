@@ -230,15 +230,6 @@ export default function PageHeader({
             {dek}
           </p>
         )}
-
-        {/* Bottom-right mono chapter mark — quiet editorial signature */}
-        <div
-          aria-hidden
-          className="absolute right-8 bottom-8 pointer-events-none hidden md:block font-mono text-[0.62rem] font-bold tracking-[0.28em] uppercase ph-mark"
-          style={{ color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(15,15,15,0.4)' }}
-        >
-          § {(eyebrow || 'Chapter').trim().slice(0, 20)}
-        </div>
       </div>
 
       {/* CSS animations — one keyframe set, applied via animation-delay per element */}
@@ -284,7 +275,6 @@ export default function PageHeader({
         .ph-hero .ph-ghost     { animation: phGhostSlide 1.2s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.05s; }
         .ph-hero .ph-bracket   { animation: phBracket 0.6s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.5s; }
         .ph-hero .ph-crumbs    { animation: phFade 0.6s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.05s; }
-        .ph-hero .ph-mark      { animation: phFade 0.7s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0.9s; }
 
         @media (prefers-reduced-motion: reduce) {
           .ph-hero .ph-rule,
@@ -294,8 +284,7 @@ export default function PageHeader({
           .ph-hero .ph-dek,
           .ph-hero .ph-ghost,
           .ph-hero .ph-bracket,
-          .ph-hero .ph-crumbs,
-          .ph-hero .ph-mark {
+          .ph-hero .ph-crumbs {
             animation: none;
           }
         }

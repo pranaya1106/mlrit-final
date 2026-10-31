@@ -223,7 +223,6 @@ export default function DepartmentHero({
                   ['Degree',   d.degree],
                   ['Duration', d.duration],
                   ['Level',    d.level.toUpperCase()],
-                  ['Chapter',  '§ 03'],
                 ].map(([k, v]) => (
                   <div key={k}>
                     <div className="font-mono text-[0.58rem] font-bold tracking-[0.24em] uppercase text-white/40">
@@ -298,7 +297,7 @@ export default function DepartmentHero({
                 {/* TOP-LEFT — mono caption */}
                 <div className="absolute top-5 left-5 md:top-6 md:left-6 z-[2]">
                   <div className="font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-white/70">
-                    § In their words
+                    In their words
                   </div>
                 </div>
 
@@ -398,10 +397,7 @@ export default function DepartmentHero({
                 }}
               >
                 <div>
-                  <div className="font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-white/70">
-                    § Chapter cover
-                  </div>
-                  <div className="mt-3 font-sans font-black text-white text-[2.5rem] leading-tight tracking-tight">
+                  <div className="font-sans font-black text-white text-[2.5rem] leading-tight tracking-tight">
                     {d.short}
                   </div>
                 </div>

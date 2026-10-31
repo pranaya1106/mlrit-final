@@ -342,9 +342,6 @@ export default function AdmissionsPageView({ content }: { content: Record<string
             </div>
           </div>
         </div>
-
-        {/* Chapter mark */}
-        <div aria-hidden className="absolute right-8 bottom-8 pointer-events-none hidden md:block font-mono text-[0.62rem] font-bold tracking-[0.28em] uppercase ph-mark" style={{ color: 'rgba(255,255,255,0.35)' }}>{copy('admissions', '§ Admissions')}</div>
       </section>
 
       {/* ── HOW TO APPLY — sticky image left, scroll-driven steps right */}
