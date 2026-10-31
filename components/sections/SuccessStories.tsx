@@ -350,11 +350,11 @@ export default function SuccessStories(props: SuccessStoriesProps) {
       </div>
 
       {/* Local marquee keyframes — duration scales with the card count so the
-          per-card pace stays leisurely; pauses on hover so users can inspect a
+          track keeps a brisk pace; pauses on hover so users can inspect a
           card. */}
       <style jsx>{`
         .marquee-cards {
-          animation: ss-marquee 260s linear infinite;
+          animation: ss-marquee 110s linear infinite;
         }
         .marquee-cards:hover {
           animation-play-state: paused;
@@ -362,7 +362,7 @@ export default function SuccessStories(props: SuccessStoriesProps) {
         /* Mobile only: smaller cards, so a shorter loop keeps a lively pace;
            a tap leaves :hover stuck on touch screens, so never pause there. */
         @media (max-width: 767px) {
-          .marquee-cards { animation-duration: 130s; }
+          .marquee-cards { animation-duration: 55s; }
           .marquee-cards:hover { animation-play-state: running; }
         }
         @keyframes ss-marquee {
