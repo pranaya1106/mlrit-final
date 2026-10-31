@@ -174,11 +174,6 @@ export default function Placements(props: PlacementsProps) {
                 </span>
               </h2>
             </div>
-
-            <p className="text-muted leading-[1.7] text-[1rem] max-w-[440px] lg:justify-self-end lg:text-right">
-              A data-backed look at where our engineers go, what they earn, and
-              which companies come back every year to recruit them.
-            </p>
           </motion.div>
 
           {/* ── FEATURED HERO + STATS SIDEBAR ─────────────── */}
@@ -379,9 +374,6 @@ function MiniStatCard({ stat, index }: { stat: MiniStat; index: number }) {
       <div className="relative z-10 mt-4 md:mt-0">
         <div className="font-sans font-semibold text-foreground text-[0.94rem] md:text-[1rem] leading-[1.25]">
           {stat.label}
-        </div>
-        <div className="mt-1.5 text-muted text-[0.82rem] leading-[1.4]">
-          {stat.note}
         </div>
       </div>
     </motion.div>

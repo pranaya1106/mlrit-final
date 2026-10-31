@@ -97,7 +97,7 @@ export default function Stats(props: StatsProps) {
   );
 }
 
-function StatItem({ target, suffix, label, caption, footnote, index }: Stat & { index: number }) {
+function StatItem({ target, suffix, label, footnote }: Stat & { index: number }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -121,16 +121,8 @@ function StatItem({ target, suffix, label, caption, footnote, index }: Stat & { 
     return () => io.disconnect();
   }, [target]);
 
-  const idx = String(index + 1).padStart(2, '0');
-
   return (
     <div ref={ref} className="flex flex-col items-start border-t-2 border-border/70 pt-3 md:pt-5 group relative">
-      {/* First item's caption now lives in Hero, anchored to the image, so
-          it isn't shown twice on mobile. */}
-      <div className={`${index === 0 ? 'hidden md:flex' : 'flex'} items-center gap-2 mb-2 md:mb-4 w-full`}>
-        <span className="chapter-mark !text-[0.66rem]">{idx}</span>
-        <span className="editorial-eyebrow !text-[0.66rem] truncate">{caption}</span>
-      </div>
       <div className="flex items-baseline gap-1 text-foreground">
         <span className="font-sans font-black leading-none tracking-tighter-3 text-[2.2rem] md:text-[clamp(3.4rem,5.6vw,4.8rem)]">
           {count}
@@ -143,7 +135,6 @@ function StatItem({ target, suffix, label, caption, footnote, index }: Stat & { 
         {label}
       </div>
       <div className="mt-1 md:mt-1.5 text-muted text-[0.76rem] md:text-[0.82rem] leading-snug">
-        <span className="hidden md:inline text-primary font-mono font-bold mr-1">†</span>
         {footnote}
       </div>
     </div>

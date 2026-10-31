@@ -187,13 +187,6 @@ export default function Achievements(props: AchievementsProps) {
             ))}
           </ul>
 
-          {/* Trust-mark line separator */}
-          <div className="mt-10 md:mt-14 flex items-center gap-3">
-            <span className="chapter-mark">§ 03</span>
-            <span className="editorial-rule" aria-hidden />
-            <span className="editorial-eyebrow">{displayLogos.length} · Trust Marks · Scrolling below</span>
-          </div>
-
           {/* ── LOGOS MARQUEE ─────────────────────────────────
               Big accreditation logos scrolling horizontally under
               the heading + rank cards. Duplicated once so the loop

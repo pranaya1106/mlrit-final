@@ -11,7 +11,6 @@ import {
 const DEFAULT_EYEBROW = 'Alumni Voices';
 const DEFAULT_HEADING_LEAD = 'What Our';
 const DEFAULT_HEADING_ACCENT = 'Graduates Say.';
-const DEFAULT_BODY = 'Five MLRIT alumni — five different paths, one shared starting line.';
 
 type TestimonialsProps = {
   eyebrow?: string;
@@ -48,7 +47,7 @@ function peopleFrom(value: unknown): Testimonial[] | undefined {
 
 export default function Testimonials(props: TestimonialsProps) {
   // Live-preview draft wins over the saved props; fallbacks below are unchanged.
-  const { eyebrow, headingLead, headingAccent, body, people } = useMergedSection(
+  const { eyebrow, headingLead, headingAccent, people } = useMergedSection(
     'home/testimonials',
     props
   );
@@ -56,7 +55,6 @@ export default function Testimonials(props: TestimonialsProps) {
   const eyebrowText = eyebrow?.trim() || DEFAULT_EYEBROW;
   const headingLeadText = headingLead?.trim() || DEFAULT_HEADING_LEAD;
   const headingAccentText = headingAccent?.trim() || DEFAULT_HEADING_ACCENT;
-  const bodyText = body?.trim() || DEFAULT_BODY;
   const testimonials = peopleFrom(people);
 
   return (
@@ -82,7 +80,6 @@ export default function Testimonials(props: TestimonialsProps) {
             {headingLeadText}{' '}
             <span className="font-display italic font-medium text-primary">{headingAccentText}</span>
           </h2>
-          <p className="mt-4 text-foreground/65">{bodyText}</p>
         </div>
 
         {/* Undefined leaves the carousel on its own bundled alumni. */}

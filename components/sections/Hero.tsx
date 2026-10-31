@@ -182,13 +182,13 @@ export default function Hero(props: HeroProps) {
             <motion.div
               variants={lineUp}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-[minmax(0,540px)_auto] items-end gap-6 md:gap-12"
+              className="mt-6 md:mt-8"
             >
               <p className="text-white/90 leading-[1.65] text-[1.08rem] md:text-[1.2rem] font-light max-w-[560px]">
                 {bodyText}
               </p>
 
-              <div className="flex items-center gap-5">
+              <div className="mt-7 md:mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
                 <Link href="#programs" className="btn-precious">
                   <span className="btn-precious__dot" aria-hidden />
                   Explore Programmes
@@ -196,7 +196,7 @@ export default function Hero(props: HeroProps) {
                 </Link>
                 <Link
                   href="/about"
-                  className="hidden sm:inline text-[0.85rem] font-medium text-white/75 hover:text-white transition-colors border-b border-white/25 hover:border-white/60 pb-0.5"
+                  className="text-[0.85rem] font-medium text-white/75 hover:text-white transition-colors border-b border-white/25 hover:border-white/60 pb-0.5"
                 >
                   About the Institute
                 </Link>
@@ -254,15 +254,6 @@ export default function Hero(props: HeroProps) {
             </div>
           </div>
         </motion.button>
-      </div>
-
-      {/* "01 · Est 2005" chapter mark — anchors to the hero image instead of
-          floating detached at the top of Stats below. Mobile only; Stats
-          hides its own copy of this same first-item caption so it isn't
-          shown twice. */}
-      <div className="md:hidden flex items-center gap-2 mx-4 mt-4">
-        <span className="chapter-mark !text-[0.66rem]">01</span>
-        <span className="editorial-eyebrow !text-[0.66rem]">Est · 2005</span>
       </div>
     </section>
   );
