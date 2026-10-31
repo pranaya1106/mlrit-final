@@ -54,6 +54,126 @@ const CARDS: Card[] = [
     name: 'Mehta Hitech Industries',
     detail: '3 Students · Batch 2025',
   },
+  {
+    img: '/success-stories/iic-7-0-four-star-rating.jpg',
+    season: 'Recognition · IIC',
+    name: 'IIC 7.0 Four-Star Rating',
+    detail: 'Institution’s Innovation Council · AY 2024–25',
+  },
+  {
+    img: '/success-stories/greenmetric-world-university-rankings-2026.jpg',
+    season: 'Ranking · 2026',
+    name: 'GreenMetric World Rankings',
+    detail: 'World 1341 · India 55',
+  },
+  {
+    img: '/success-stories/mech-sae-india-baja-chairmans-award.jpg',
+    season: 'Baja · Award',
+    name: 'Mechanical Dept. — Chairman’s Award',
+    detail: 'SAE India Chennai Baja Finals · July 2026',
+  },
+  {
+    img: '/success-stories/ravi-teja-powerlifting-national-trials-2026.jpg',
+    season: 'Sports · Gold',
+    name: 'Ravi Teja — Powerlifting Champion',
+    detail: '1st Place · WPC National Trials 2026',
+  },
+  {
+    img: '/success-stories/ravi-teja-wpso-wpc-india-nationals.jpg',
+    season: 'Sports · 2026',
+    name: 'Ravi Teja at India Nationals',
+    detail: 'WPSO & WPC Deadlift Nationals · III Year ECE',
+  },
+  {
+    img: '/success-stories/football-vibhava-2026-first-prize.jpg',
+    season: 'Sports · 1st Place',
+    name: 'MLRIT Football Team',
+    detail: 'Vibhava 2026 · VBIT · Sept 28–29',
+  },
+  {
+    img: '/success-stories/cricket-vibhava-2026-first-prize.jpg',
+    season: 'Sports · 1st Place',
+    name: 'MLRIT Cricket Team',
+    detail: 'Vibhava 2026 · VBIT · Oct 1',
+  },
+  {
+    img: '/success-stories/m-devi-prasad-state-athletics-relay.jpg',
+    season: 'Sports · 3rd Place',
+    name: 'M. Devi Prasad',
+    detail: '4x400m Relay · Telangana State Junior Athletics',
+  },
+  {
+    img: '/success-stories/mlr-chairman-swimming-championship-medals.jpg',
+    season: 'Sports · Medals',
+    name: 'Shri Marri Laxman Reddy Garu',
+    detail: '2 Gold · 1 Silver · 1 Bronze · TS Masters Swimming',
+  },
+  {
+    img: '/success-stories/mp-lucky-pre-republic-day-parade-camp.jpg',
+    season: 'NSS · Selection',
+    name: 'Mr. M. P. Lucky',
+    detail: 'West Zone Pre-Republic Day Parade Camp · IV Year AE',
+  },
+  {
+    img: '/success-stories/virtusa-jatayu-season-5-runner-up.jpg',
+    season: 'Competition · Runner-Up',
+    name: 'Team TOXIC — Virtusa Jatayu S5',
+    detail: 'Runner-up among 100+ finalist teams',
+  },
+  {
+    img: '/success-stories/capgemini-tech4positive-hackathon.jpg',
+    season: 'Hackathon · 2nd & 3rd',
+    name: 'MLRIT at Capgemini Tech4Positive',
+    detail: 'II & III Prize · Capgemini, Hyderabad',
+  },
+  {
+    img: '/success-stories/ai-frontier-hackathon-iare-3rd-prize.jpg',
+    season: 'Hackathon · 3rd Prize',
+    name: 'III Year CSE (AI & ML)',
+    detail: 'AI Frontier Hackathon · IARE',
+  },
+  {
+    img: '/success-stories/ece-idea-hackathon-cbit-2nd-prize.jpg',
+    season: 'Hackathon · 2nd Prize',
+    name: 'ECE Students — Idea Hackathon',
+    detail: '2nd Runner-up · CBIT College',
+  },
+  {
+    img: '/success-stories/roboveda-hackathon-snist-3rd-prize.jpg',
+    season: 'Hackathon · 3rd Prize',
+    name: 'ECE at RoboVeda-2026',
+    detail: '3rd Prize · SNIST',
+  },
+  {
+    img: '/success-stories/finathon-hiring-hackathon-winners.jpg',
+    season: 'Hackathon · Winners',
+    name: 'FinaThon 36-Hour Hiring Hackathon',
+    detail: 'Organised by CSE–AI&ML, MLRIT',
+  },
+  {
+    img: '/success-stories/dr-ajmeera-kiran-state-best-teacher-award.jpg',
+    season: 'Faculty · Award',
+    name: 'Dr. Ajmeera Kiran',
+    detail: 'State Level Best Teacher · Acharya Ratna Awards 2K26',
+  },
+  {
+    img: '/success-stories/dr-dbk-kamesh-tmtia-2026-award-of-honour.jpg',
+    season: 'Faculty · Award',
+    name: 'Dr. D. B. K. Kamesh',
+    detail: 'Award of Honour · Mother Teresa Iconic Awards 2026',
+  },
+  {
+    img: '/success-stories/mrs-b-manjusha-tmtia-2026-award-of-honour.jpg',
+    season: 'Faculty · Award',
+    name: 'Mrs. B. Manjusha',
+    detail: 'Award of Honour · Mother Teresa Iconic Awards 2026',
+  },
+  {
+    img: '/success-stories/wipro-talentnext-dotnet-faculty-certification.jpg',
+    season: 'Faculty · Cert',
+    name: 'Mr. J Teja & Mr. P Sai Kumar',
+    detail: 'TalentNext Wipro .NET Full Stack · CSE-AI&ML',
+  },
 ];
 
 const DEFAULT_EYEBROW = 'Wall of Achievements';
@@ -229,11 +349,12 @@ export default function SuccessStories(props: SuccessStoriesProps) {
         </div>
       </div>
 
-      {/* Local marquee keyframes — long duration so it feels leisurely,
-          pauses on hover so users can inspect a card. */}
+      {/* Local marquee keyframes — duration scales with the card count so the
+          per-card pace stays leisurely; pauses on hover so users can inspect a
+          card. */}
       <style jsx>{`
         .marquee-cards {
-          animation: ss-marquee 60s linear infinite;
+          animation: ss-marquee 260s linear infinite;
         }
         .marquee-cards:hover {
           animation-play-state: paused;
@@ -241,7 +362,7 @@ export default function SuccessStories(props: SuccessStoriesProps) {
         /* Mobile only: smaller cards, so a shorter loop keeps a lively pace;
            a tap leaves :hover stuck on touch screens, so never pause there. */
         @media (max-width: 767px) {
-          .marquee-cards { animation-duration: 30s; }
+          .marquee-cards { animation-duration: 130s; }
           .marquee-cards:hover { animation-play-state: running; }
         }
         @keyframes ss-marquee {
