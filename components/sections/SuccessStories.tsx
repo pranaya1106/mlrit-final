@@ -192,14 +192,17 @@ type SuccessStoriesProps = {
 };
 
 /**
- * Maps gallery items onto Card. An empty gallery yields CARDS verbatim, so an
- * unsaved section renders exactly as the design ships it.
+ * Maps gallery items onto Card and merges them with the bundled CARDS. A saved
+ * gallery adds its cards to the front instead of replacing the fallback, so
+ * posters shipped with the code stay visible even while an older, smaller CMS
+ * gallery is saved. A saved card whose name matches a bundled one replaces it,
+ * which is how an editor overrides a specific poster. An empty gallery yields
+ * CARDS verbatim.
  */
 function cardsFrom(value: unknown): Card[] {
   const items = asGalleryItems(value);
-  if (items.length === 0) return CARDS;
 
-  return items
+  const saved = items
     .map((item, i) => ({
       img: resolveAssetUrl(item.key, { allowTransient: true }) ?? CARDS[i]?.img ?? '',
       season: asText(item.season),
@@ -207,6 +210,9 @@ function cardsFrom(value: unknown): Card[] {
       detail: asText(item.detail) || undefined,
     }))
     .filter((card) => card.img);
+
+  const overridden = new Set(saved.map((card) => card.name));
+  return [...saved, ...CARDS.filter((card) => !overridden.has(card.name))];
 }
 
 export default function SuccessStories(props: SuccessStoriesProps) {
