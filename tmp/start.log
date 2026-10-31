@@ -1,0 +1,14 @@
+   ▲ Next.js 15.4.11
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.103:3000
+
+ ✓ Starting...
+ ✓ Ready in 618ms
+
+(process:15488): GLib-GObject-CRITICAL **: 15:51:39.742: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+
+(process:15488): GLib-GObject-CRITICAL **: 15:52:50.789: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+
+(process:15488): GLib-GObject-CRITICAL **: 15:53:09.380: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+
+(process:15488): GLib-GObject-CRITICAL **: 15:53:53.649: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'

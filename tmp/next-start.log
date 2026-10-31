@@ -1,0 +1,12 @@
+
+> mlrit-final@0.2.0 start
+> next start
+
+   ▲ Next.js 15.4.11
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.29.238:3000
+
+ ✓ Starting...
+ ✓ Ready in 979ms
+(node:24728) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

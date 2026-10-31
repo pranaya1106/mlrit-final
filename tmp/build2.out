@@ -1,0 +1,238 @@
+
+> mlrit-final@0.2.0 build
+> next build
+
+   ▲ Next.js 15.4.11
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 41s
+   Skipping validation of types
+   Linting ...
+
+./app/(frontend)/about/internal-governance/InternalGovernancePageView.tsx
+193:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/(frontend)/admissions/AdmissionsPageView.tsx
+169:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+364:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+498:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+559:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/(frontend)/admissions/why-mlrit/WhyMLRITSections.tsx
+125:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+235:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+357:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+485:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+551:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+580:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+786:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/(frontend)/campus/clubs/apex/components/ApexCollectionGallery.tsx
+157:19  Warning: The ref value 'dwellTimers.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'dwellTimers.current' to a variable inside the effect, and use that variable in the cleanup function.  react-hooks/exhaustive-deps
+
+./app/(frontend)/campus/clubs/came/components/CameCollectionGallery.tsx
+178:19  Warning: The ref value 'dwellTimers.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'dwellTimers.current' to a variable inside the effect, and use that variable in the cleanup function.  react-hooks/exhaustive-deps
+
+./app/(frontend)/iqac/composition/page.tsx
+203:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./app/(frontend)/student-life/sports/SportsPage.tsx
+684:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+835:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+1097:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+1170:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+1219:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/ArticleImage.tsx
+33:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/Chatbot.tsx
+45:3  Warning: Unused eslint-disable directive (no problems were reported from 'no-console').
+627:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/Header.tsx
+122:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+135:9  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+164:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+200:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+484:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/InfoPageRenderer.tsx
+558:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+651:21  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/LeadershipCards.tsx
+68:19  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/MilestonesTimeline.tsx
+148:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/sections/Events.tsx
+164:6  Warning: React Hook useCallback has a missing dependency: 'SLIDE_LIST.length'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./components/sections/Hero.tsx
+59:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/sections/Programs.tsx
+133:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/sections/Testimonials.tsx
+66:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/sections/WhyMLRIT.tsx
+86:7  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/604) ...
+   Generating static pages (151/604) 
+   Generating static pages (302/604) 
+   Generating static pages (453/604) 
+ ✓ Generating static pages (604/604)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                       Size  First Load JS  Revalidate  Expire
+┌ ○ /                                                          23.1 kB         182 kB          1m      1y
+├ ○ /_not-found                                                  998 B         102 kB
+├ ○ /about                                                     4.51 kB         153 kB          1m      1y
+├ ○ /about/internal-governance                                 3.53 kB         113 kB          1m      1y
+├ ○ /about/legacy                                              1.78 kB         111 kB          1m      1y
+├ ○ /about/messages/dean                                         200 B         161 kB          1m      1y
+├ ○ /about/messages/principal                                    200 B         161 kB          1m      1y
+├ ○ /about/rankings-awards                                      4.5 kB         153 kB          1m      1y
+├ ○ /about/timeline                                            6.02 kB         111 kB          1m      1y
+├ ○ /about/vision-mission/vision-mission                        4.5 kB         153 kB          1m      1y
+├ ○ /academics                                                 1.41 kB         153 kB          1m      1y
+├ ○ /accreditation/nba                                         1.41 kB         154 kB          1m      1y
+├ ƒ /admin/[[...segments]]                                       390 B         577 kB
+├ ○ /admissions                                                 6.7 kB         155 kB          1m      1y
+├ ○ /admissions/b-category                                       177 B         110 kB          1m      1y
+├ ○ /admissions/by-degree                                      3.35 kB         155 kB          1m      1y
+├ ○ /admissions/counselling                                    6.09 kB         158 kB          1m      1y
+├ ○ /admissions/eligibility                                      200 B         161 kB          1m      1y
+├ ○ /admissions/fee-structure                                    200 B         161 kB          1m      1y
+├ ○ /admissions/fees                                           1.41 kB         153 kB          1m      1y
+├ ○ /admissions/how-to-apply                                     200 B         161 kB          1m      1y
+├ ○ /admissions/policies                                         622 B         153 kB          1m      1y
+├ ○ /admissions/scholarships                                   4.01 kB         156 kB          1m      1y
+├ ○ /admissions/support                                        6.27 kB         158 kB          1m      1y
+├ ○ /admissions/why-mlrit                                      10.9 kB         167 kB          1m      1y
+├ ƒ /api/[...slug]                                               163 B         101 kB
+├ ƒ /api/graphql                                                 163 B         101 kB
+├ ƒ /api/graphql-playground                                      163 B         101 kB
+├ ○ /campus/cafeteria                                            200 B         161 kB          1m      1y
+├ ○ /campus/clubs                                              8.93 kB         179 kB          1m      1y
+├ ● /campus/clubs/[id]                                          6.3 kB         180 kB          1m      1y
+├   ├ /campus/clubs/scope                                                                      1m      1y
+├   ├ /campus/clubs/apex                                                                       1m      1y
+├   ├ /campus/clubs/cie                                                                        1m      1y
+├   └ [+13 more paths]
+├ ○ /campus/clubs/apex                                         11.6 kB         163 kB          1m      1y
+├ ○ /campus/clubs/came                                         11.7 kB         163 kB          1m      1y
+├ ○ /campus/clubs/cie                                          9.66 kB         161 kB          1m      1y
+├ ○ /campus/clubs/code                                           11 kB         163 kB          1m      1y
+├ ○ /campus/clubs/ewb                                          11.3 kB         163 kB          1m      1y
+├ ○ /campus/clubs/robotics                                     10.4 kB         164 kB          1m      1y
+├ ○ /campus/clubs/scope                                        12.6 kB         164 kB          1m      1y
+├ ○ /campus/hostels                                              200 B         161 kB          1m      1y
+├ ○ /campus/sports                                               200 B         161 kB          1m      1y
+├ ○ /campus/transport                                          20.8 kB         130 kB          1m      1y
+├ ƒ /cdn/[...path]                                               163 B         101 kB
+├ ƒ /chronicles                                                1.07 kB         102 kB
+├ ● /departments/[slug]                                        16.6 kB         418 kB          1m      1y
+├   ├ /departments/cse                                                                         1m      1y
+├   ├ /departments/cse-ds                                                                      1m      1y
+├   ├ /departments/aiml                                                                        1m      1y
+├   └ [+8 more paths]
+├ ○ /departments/pg                                              191 B         108 kB          1m      1y
+├ ● /departments/syllabus/[program]/[regulation]               2.63 kB         107 kB          1m      1y
+├   ├ /departments/syllabus/cse/mlr18                                                          1m      1y
+├   ├ /departments/syllabus/cse/mlr20                                                          1m      1y
+├   ├ /departments/syllabus/cse/r22                                                            1m      1y
+├   └ [+25 more paths]
+├ ● /departments/syllabus/[program]/[regulation]/[year]/[sem]  2.63 kB         107 kB          1m      1y
+├   ├ /departments/syllabus/cse/mlr18/year1/sem1                                               1m      1y
+├   ├ /departments/syllabus/cse/mlr18/year1/sem2                                               1m      1y
+├   ├ /departments/syllabus/cse/mlr18/year2/sem3                                               1m      1y
+├   └ [+221 more paths]
+├ ○ /departments/ug                                              191 B         108 kB          1m      1y
+├ ○ /examinations                                                163 B         101 kB          1m      1y
+├ ○ /examinations/annual-reports                                 660 B         154 kB          1m      1y
+├ ○ /examinations/certificates                                   660 B         154 kB          1m      1y
+├ ○ /examinations/circulars                                      660 B         154 kB          1m      1y
+├ ○ /examinations/citizen-charter                                660 B         154 kB          1m      1y
+├ ○ /examinations/coe                                            660 B         154 kB          1m      1y
+├ ○ /examinations/contact                                        632 B         154 kB          1m      1y
+├ ○ /examinations/downloads                                      660 B         154 kB          1m      1y
+├ ○ /examinations/fee-results                                    632 B         154 kB          1m      1y
+├ ○ /examinations/notifications                                  660 B         154 kB          1m      1y
+├ ○ /examinations/pyqs                                           660 B         154 kB          1m      1y
+├ ○ /examinations/regulations                                    660 B         154 kB          1m      1y
+├ ○ /examinations/student-verifications                          632 B         154 kB          1m      1y
+├ ○ /examinations/support                                        163 B         101 kB          1m      1y
+├ ○ /examinations/syllabus                                     3.02 kB         142 kB          1m      1y
+├ ○ /examinations/timetable                                      163 B         101 kB          1m      1y
+├ ○ /examinations/timetable/external                             660 B         154 kB          1m      1y
+├ ○ /examinations/timetable/internal                             660 B         154 kB          1m      1y
+├ ● /faculty/[slug]                                            2.63 kB         107 kB          1m      1y
+├   ├ /faculty/ajmeera-kiran-cse                                                               1m      1y
+├   ├ /faculty/d-b-k-kamesh-cse                                                                1m      1y
+├   ├ /faculty/a-laxmi-prasanna-cse                                                            1m      1y
+├   └ [+218 more paths]
+├ ○ /financial-statements                                      2.61 kB         104 kB          1m      1y
+├ ○ /iqac                                                      1.43 kB         154 kB          1m      1y
+├ ○ /iqac/aqar                                                 1.41 kB         154 kB          1m      1y
+├ ○ /iqac/best-practices                                       1.43 kB         154 kB          1m      1y
+├ ○ /iqac/composition                                          1.43 kB         154 kB          1m      1y
+├ ○ /iqac/contact                                              1.43 kB         154 kB          1m      1y
+├ ○ /iqac/feedback                                             1.43 kB         154 kB          1m      1y
+├ ○ /iqac/functions                                            1.43 kB         154 kB          1m      1y
+├ ○ /iqac/initiatives                                          1.43 kB         154 kB          1m      1y
+├ ○ /iqac/minutes                                                183 B         109 kB          1m      1y
+├ ○ /iqac/naac                                                 1.05 kB         110 kB          1m      1y
+├ ○ /iqac/nba                                                  1.41 kB         154 kB          1m      1y
+├ ○ /iqac/objectives                                           1.41 kB         154 kB          1m      1y
+├ ○ /iqac/policies                                               183 B         109 kB          1m      1y
+├ ○ /iqac/reports                                              1.05 kB         110 kB          1m      1y
+├ ○ /iqac/support                                                621 B         153 kB          1m      1y
+├ ○ /mandatory-disclosures                                     2.61 kB         104 kB          1m      1y
+├ ○ /nss-event-reports                                         2.61 kB         104 kB          1m      1y
+├ ƒ /old/[...slug]                                               167 B         104 kB
+├ ○ /placements                                                  163 B         101 kB          1m      1y
+├ ○ /placements/alumni                                         14.4 kB         167 kB          1m      1y
+├ ○ /placements/drives                                           900 B         151 kB          1m      1y
+├ ○ /placements/global-certification                             138 B         157 kB          1m      1y
+├ ○ /placements/industry-readiness                               139 B         157 kB          1m      1y
+├ ○ /placements/mous                                             138 B         157 kB          1m      1y
+├ ○ /placements/overview                                       2.26 kB         154 kB          1m      1y
+├ ○ /placements/recruiters                                      4.7 kB         154 kB          1m      1y
+├ ○ /placements/statistics                                      7.9 kB         160 kB          1m      1y
+├ ○ /placements/support                                          139 B         157 kB          1m      1y
+├ ○ /placements/training                                         163 B         101 kB          1m      1y
+├ ○ /research                                                  2.63 kB         158 kB          1m      1y
+├ ● /research/[slug]                                             186 B         161 kB          1m      1y
+├   ├ /research/centers                                                                        1m      1y
+├   ├ /research/sponsored-projects                                                             1m      1y
+├   ├ /research/scholars                                                                       1m      1y
+├   └ [+7 more paths]
+├ ○ /research/about-rdc                                          182 B         155 kB          1m      1y
+├ ○ /research/areas                                              182 B         155 kB          1m      1y
+├ ○ /research/committees                                         182 B         155 kB          1m      1y
+├ ○ /research/downloads                                          180 B         155 kB          1m      1y
+├ ○ /research/facilities                                         183 B         155 kB          1m      1y
+├ ○ /research/support                                          1.39 kB         149 kB          1m      1y
+├ ○ /student-life                                              2.93 kB         109 kB          1m      1y
+├ ○ /student-life/discover-mlr                                 9.79 kB         154 kB          1m      1y
+├ ○ /student-life/facilities                                   12.8 kB         163 kB          1m      1y
+└ ○ /student-life/sports                                       10.4 kB         165 kB          1m      1y
++ First Load JS shared by all                                   101 kB
+  ├ chunks/4bd1b696-cc729d47eba2cee4.js                        54.1 kB
+  ├ chunks/5964-217149ecc4b4e5f3.js                              44 kB
+  └ other shared chunks (total)                                2.79 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

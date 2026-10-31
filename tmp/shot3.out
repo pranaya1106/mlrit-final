@@ -1,0 +1,8 @@
+desktop {"tiles":12,"pins":19,"paths":2,"zoom":true,"attrib":true,"stops":18,"overflow":false}
+mobile {"tiles":6,"pins":19,"paths":2,"zoom":true,"attrib":true,"stops":18,"overflow":false}
+ERRORS: [
+  "[desktop] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client",
+  '[desktop] Failed to load resource: the server responded with a status of 500 (Internal Server Error)',
+  "[mobile] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client",
+  '[mobile] Failed to load resource: the server responded with a status of 500 (Internal Server Error)'
+]

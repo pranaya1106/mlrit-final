@@ -1,0 +1,260 @@
+div
+  nav.fixed.top-0.left-0.w-full.px-2.5.min-[360px]:px-3.min-[400px]:px-5.md:px-12.xl:px-8.2xl:px
+    div.absolute.inset-0.-z-10.pointer-events-none.transition-all.duration-300.bg-white/98.backdro
+    div.max-w-screen-2xl.mx-auto.flex.items-center.justify-between.gap-2.min-[400px]:gap-4.relativ
+      a.flex.items-center.shrink-0.py-2
+      div.hidden.xl:flex.items-center.gap-1.2xl:gap-3.h-16
+        div.relative.group.inline-flex.items-center
+          a.relative.z-10.flex.items-center.gap-1.5.whitespace-nowrap.px-2.5.2xl:px-3.5.py-1.5.rounded
+            span :: DISCOVER AIMS
+          div.absolute.left-0.top-[calc(100%+4px)].hidden.w-56.z-50.before:absolute.before:-top-3.before
+            div.absolute.inset-0.pointer-events-none.-z-10.bg-white/98.backdrop-blur-2xl.rounded-2xl.shado
+            div.p-1.relative.text-white
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+        div.relative.group.inline-flex.items-center
+          a.relative.z-10.flex.items-center.gap-1.5.whitespace-nowrap.px-2.5.2xl:px-3.5.py-1.5.rounded
+            span :: ACADEMICS
+          div.absolute.left-0.top-[calc(100%+4px)].hidden.w-56.z-50.before:absolute.before:-top-3.before
+            div.absolute.inset-0.pointer-events-none.-z-10.bg-white/98.backdrop-blur-2xl.rounded-2xl.shado
+            div.p-1.relative.text-white
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+        div.relative.group.inline-flex.items-center
+          a.relative.z-10.flex.items-center.gap-1.5.whitespace-nowrap.px-2.5.2xl:px-3.5.py-1.5.rounded
+            span :: ADMISSIONS
+          div.absolute.left-0.top-[calc(100%+4px)].hidden.w-56.z-50.before:absolute.before:-top-3.before
+            div.absolute.inset-0.pointer-events-none.-z-10.bg-white/98.backdrop-blur-2xl.rounded-2xl.shado
+            div.p-1.relative.text-white
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+        div.relative.group.inline-flex.items-center
+          a.relative.z-10.flex.items-center.gap-1.5.whitespace-nowrap.px-2.5.2xl:px-3.5.py-1.5.rounded
+            span :: INFRASTRUCTURE
+          div.absolute.right-0.top-[calc(100%+4px)].hidden.w-56.z-50.before:absolute.before:-top-3.befor
+            div.absolute.inset-0.pointer-events-none.-z-10.bg-white/98.backdrop-blur-2xl.rounded-2xl.shado
+            div.p-1.relative.text-white
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+        div.relative.group.inline-flex.items-center
+          a.relative.z-10.flex.items-center.gap-1.5.whitespace-nowrap.px-2.5.2xl:px-3.5.py-1.5.rounded
+            span :: PATIENT CARE
+          div.absolute.right-0.top-[calc(100%+4px)].hidden.w-56.z-50.before:absolute.before:-top-3.befor
+            div.absolute.inset-0.pointer-events-none.-z-10.bg-white/98.backdrop-blur-2xl.rounded-2xl.shado
+            div.p-1.relative.text-white
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+              div.relative.group/sub
+      div.hidden.xl:flex.items-center.gap-3.shrink-0
+        a.virtual-tour-btn.flex.items-center.justify-center.px-3.5.py-1.5.rounded-full.text-xs.font-
+          span.relative.z-10.whitespace-nowrap :: AIMS in News
+        a.virtual-tour-btn.flex.items-center.justify-center.px-3.5.py-1.5.rounded-full.text-xs.font-
+          span.relative.z-10.whitespace-nowrap :: Virtual Tour
+        a.group.relative.flex.items-center.justify-center.rounded-full.transition-all.duration-300.c
+        button.group.relative.flex.items-center.justify-center.rounded-full.transition-all.duration-300.c
+      div.flex.xl:hidden.items-center.gap-1.min-[360px]:gap-1.5.min-[400px]:gap-2.py-3.shrink-0
+        a.virtual-tour-btn.flex.items-center.justify-center.px-2.min-[360px]:px-2.5.py-1.rounded-ful
+          span.relative.z-10 :: News
+        a.virtual-tour-btn.flex.items-center.justify-center.px-2.min-[360px]:px-2.5.py-1.rounded-ful
+          span.relative.z-10 :: Tour
+        a.group.relative.flex.items-center.justify-center.rounded-full.transition-all.duration-300.c
+        button.group.relative.flex.items-center.justify-center.rounded-full.transition-all.duration-300.c
+        button.w-8.h-8.flex.items-center.justify-center.rounded-full.focus:outline-none.transition-all.du
+    div.fixed.top-0.left-0.z-[60].w-full.h-screen.flex.flex-col.justify-start.items-start.px-6.sm:
+      button.absolute.top-6.right-6.p-2.rounded-full.text-[#1f3351].bg-white.border.border-[#1f3351]/15
+      div.m-stagger.w-full.flex.flex-col
+        div.w-full.border-b.border-[#1f3351]/10
+          button.w-full.flex.items-center.justify-between.py-4.font-bold.tracking-wide.text-left
+            span :: DISCOVER AIMS
+          div.grid.transition-[grid-template-rows,opacity].duration-300.ease-out.grid-rows-[0fr].opacity
+            div.overflow-hidden
+              div.pl-2.pb-4.flex.flex-col
+        div.w-full.border-b.border-[#1f3351]/10
+          button.w-full.flex.items-center.justify-between.py-4.font-bold.tracking-wide.text-left
+            span :: ACADEMICS
+          div.grid.transition-[grid-template-rows,opacity].duration-300.ease-out.grid-rows-[0fr].opacity
+            div.overflow-hidden
+              div.pl-2.pb-4.flex.flex-col
+        div.w-full.border-b.border-[#1f3351]/10
+          button.w-full.flex.items-center.justify-between.py-4.font-bold.tracking-wide.text-left
+            span :: ADMISSIONS
+          div.grid.transition-[grid-template-rows,opacity].duration-300.ease-out.grid-rows-[0fr].opacity
+            div.overflow-hidden
+              div.pl-2.pb-4.flex.flex-col
+        div.w-full.border-b.border-[#1f3351]/10
+          button.w-full.flex.items-center.justify-between.py-4.font-bold.tracking-wide.text-left
+            span :: INFRASTRUCTURE
+          div.grid.transition-[grid-template-rows,opacity].duration-300.ease-out.grid-rows-[0fr].opacity
+            div.overflow-hidden
+              div.pl-2.pb-4.flex.flex-col
+        div.w-full.border-b.border-[#1f3351]/10
+          button.w-full.flex.items-center.justify-between.py-4.font-bold.tracking-wide.text-left
+            span :: PATIENT CARE
+          div.grid.transition-[grid-template-rows,opacity].duration-300.ease-out.grid-rows-[0fr].opacity
+            div.overflow-hidden
+              div.pl-2.pb-4.flex.flex-col
+      div.w-full.mt-6.p-4.rounded-2xl.border.bg-white.border-[#1f3351]/15
+        div.mb-2.text-[#1f3351]
+          span.block.text-xs.font-bold.uppercase.tracking-wider :: Admissions Enquiry
+          span.block.mt-0.5.text-base.font-semibold :: Dr. Achireddy
+        a.flex.items-center.gap-2.text-sm.font-bold.hover:underline.text-[#1f3351]
+          span :: +91 90009 94842
+        a.mt-4.flex.w-full.min-h-11.items-center.justify-center.rounded-xl.px-4.text-sm.font-semibol :: Contact Us
+  div.atmos-page.min-h-screen.bg-[#FAF9F5].tracking-[0.015em].transition-colors.duration-300.dar
+    header.relative.isolate.overflow-hidden.bg-[#0d2346].pb-20.pt-32.sm:pb-24.lg:pb-28.lg:pt-40.dark:
+      div.absolute.inset-0.-z-10.bg-[#0d2346]/45.mix-blend-multiply.dark:bg-[#040a16]/60
+      div.absolute.inset-0.-z-10.hidden.md:block
+      div.absolute.inset-0.-z-10.md:hidden
+      div.absolute.inset-x-0.bottom-0.-z-10.h-1/2
+      div.relative.mx-auto.w-full.max-w-[1280px].px-4.sm:px-8.lg:px-12
+        div.max-w-2xl.lg:max-w-[700px]
+          nav.mb-7.inline-flex.items-center.gap-1.5.rounded-full.border.border-white/20.bg-white/10.px-3
+            a.transition-colors.hover:text-white :: Home
+            span.text-white :: Facilities
+          div.mb-4.flex.w-fit.items-center.gap-3
+            span.h-px.w-10.flex-shrink-0.bg-white/50
+            span.mr-[-0.24em].text-xs.font-semibold.uppercase.tracking-[0.24em].text-[#f1f5f9]/90.sm:text-[ :: Campus Transport
+            span.h-px.w-10.flex-shrink-0.bg-white/50
+          h1.font-['Manrope',sans-serif].text-3xl.font-bold.leading-[1.1].tracking-tight.text-white.dro :: College Bus Routes
+          p.mt-5.text-sm.leading-relaxed.text-[#e2e8f0]/90.sm:text-base.lg:text-[17px] :: 27 college bus routes connect Hyderabad, Secunderabad and Sa
+    div.relative.z-10.mx-auto.w-full.max-w-[1280px].px-4.pb-20.pt-8.sm:px-8.sm:pt-12.lg:px-12
+      div.grid.grid-cols-1.gap-6.lg:grid-cols-12
+        aside.lg:col-span-4.lg:sticky.lg:top-28.lg:self-start
+          label.relative.block
+            input.w-full.rounded-2xl.border.border-[#e5e7eb].bg-white.py-3.pl-11.pr-4.text-sm.text-[#162740]
+          p.mt-3.px-1.text-xs.font-semibold.uppercase.tracking-wider.text-[#64748b].dark:text-slate-40 :: 27 of 27 routes
+          ul.mt-2.flex.max-h-[420px].flex-col.gap-1.5.overflow-y-auto.pr-1.lg:max-h-[calc(100vh-15rem)]
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+            li
+              button.group.flex.w-full.items-center.gap-3.rounded-2xl.border.px-3.5.py-3.text-left.transition.b
+        section.scroll-mt-24.lg:col-span-8
+          div.rounded-[28px].border.border-[#e5e7eb].bg-white.p-4.shadow-[0_10px_30px_rgba(0,0,0,0.04)].
+            div.flex.flex-col.gap-4.sm:flex-row.sm:items-end.sm:justify-between
+              div.min-w-0
+              div.grid.grid-cols-1.min-[360px]:grid-cols-2.gap-2.sm:flex
+            div.relative.mt-5.h-[420px].overflow-hidden.rounded-2xl.border.border-[#e5e7eb].bg-[#eef1f5].s
+              div.h-full.w-full.maplibregl-map
+              div.pointer-events-none.absolute.left-3.top-3.max-w-[70%].rounded-full.border.border-[#e5e7eb] :: L.B. Nagar Ring Road
+            div.mt-3.flex.flex-wrap.items-center.gap-2.rounded-2xl.border.border-[#e5e7eb].bg-[#f8fafc].p-
+              button.flex.h-10.w-10.shrink-0.items-center.justify-center.rounded-full.bg-[#1f3351].text-white.t
+              button.flex.h-9.w-9.shrink-0.items-center.justify-center.rounded-full.text-[#475569].transition.h
+              input.h-1.5.min-w-[120px].flex-1.cursor-pointer.accent-[#1f3351].dark:accent-teal-400
+              div.flex.items-center.gap-0.5.rounded-full.bg-white.p-1.ring-1.ring-[#e5e7eb].dark:bg-white/5.
+              div.flex.items-center.gap-0.5.rounded-full.bg-white.p-1.ring-1.ring-[#e5e7eb].dark:bg-white/5.
+            ol.mt-5.grid.grid-cols-1.gap-1.5.sm:grid-cols-2.xl:grid-cols-3
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+              li
+          p.mt-4.flex.gap-2.px-1.text-xs.leading-relaxed.text-[#64748b].dark:text-slate-400 :: The map is an animated preview of the route, not live GPS tr
+  footer.atmos-footer.bg-[#0d2346].dark:bg-[#040810].py-12.px-4.sm:px-6.lg:px-8.tracking-[0.015em].
+    div.w-full.max-w-7xl.mx-auto
+      div.grid.grid-cols-2.md:grid-cols-3.lg:grid-cols-12.gap-x-8.gap-y-10.max-md:gap-x-6.max-md:gap
+        div.col-span-2.md:col-span-3.lg:col-span-3.flex.flex-col.items-center.md:items-start.text-cent
+          a.flex.items-center.justify-center.md:justify-start
+          h3.text-sm.text-white.font-medium.mt-5 :: Contact Us
+          div.flex.flex-col.gap-3.mt-4.max-w-sm.items-center.md:items-start.text-center.md:text-left
+            a.flex.items-start.gap-3.text-sm.text-white/60.hover:text-white.transition-colors
+              span :: Beside MLRIT, Dundigal, Gandi Maisamma, Medchal-Malkajgiri D
+            a.flex.items-center.gap-3.text-sm.text-white/90.hover:text-white.transition-colors.font-medi
+              span :: Admissions (Dr. Achireddy): +91 90009 94842
+            a.flex.items-center.gap-3.text-sm.text-white/60.hover:text-white.transition-colors
+              span :: +91 80556 67888
+            a.flex.items-center.gap-3.text-sm.text-white/60.hover:text-white.transition-colors
+              span :: arundathihospital@gmail.com
+          div.flex.items-center.gap-4.mt-6
+            a.w-9.h-9.rounded-full.bg-white/10.flex.items-center.justify-center.hover:bg-white/20.transi
+            a.w-9.h-9.rounded-full.bg-white/10.flex.items-center.justify-center.hover:bg-white/20.transi
+            a.w-9.h-9.rounded-full.bg-white/10.flex.items-center.justify-center.hover:bg-white/20.transi
+            a.w-9.h-9.rounded-full.bg-white/10.flex.items-center.justify-center.hover:bg-white/20.transi
+        div.lg:col-span-2.flex.flex-col.items-start.
+          h3.text-sm.text-white.font-medium :: Institution
+          ul.flex.flex-col.gap-2.5.mt-4.
+            li

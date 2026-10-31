@@ -1,0 +1,90 @@
+
+> mlrit-final@0.2.0 dev
+> node scripts/dev-all.mjs
+
+[dev-all] no venv found at chatbot\.venv\Scripts\python.exe — skipping the chatbot backend.
+[dev-all] set it up with: cd chatbot && python -m venv .venv && .venv\Scripts\pip install -r requirements.txt
+   ▲ Next.js 15.4.11
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.103:3000
+
+ ✓ Starting...
+ ✓ Ready in 7s
+ ○ Compiling /campus/transport ...
+ ✓ Compiled /campus/transport in 10.4s (2154 modules)
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/leaflet/dist/leaflet-src.js (C:\mlrit-final\.next\server\vendor-chunks\leaflet.js:19:1)
+    at eval (webpack-internal:///(ssr)/./app/(frontend)/campus/transport/TransportRouteMap.tsx:10:65)
+    at (ssr)/./app/(frontend)/campus/transport/TransportRouteMap.tsx (C:\mlrit-final\.next\server\app\(frontend)\campus\transport\page.js:306:1)
+    at eval (webpack-internal:///(ssr)/./app/(frontend)/campus/transport/TransportRoutes.tsx:17:76)
+    at (ssr)/./app/(frontend)/campus/transport/TransportRoutes.tsx (C:\mlrit-final\.next\server\app\(frontend)\campus\transport\page.js:317:1) {
+  digest: '1458585449'
+}
+ GET /campus/transport 500 in 20183ms
+ ✓ Compiled in 10.4s (729 modules)
+ ✓ Compiled in 1128ms (729 modules)
+ ○ Compiling /campus/transport ...
+ ✓ Compiled /campus/transport in 991ms (1439 modules)
+ GET /campus/transport 200 in 4540ms
+ GET /campus/transport 200 in 672ms
+ GET /campus/transport 200 in 852ms
+
+(process:5344): GLib-GObject-CRITICAL **: 14:55:31.215: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 836ms
+ GET /campus/transport 200 in 734ms
+
+(process:5344): GLib-GObject-CRITICAL **: 14:56:07.575: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 1038ms
+ GET /campus/transport 200 in 303ms
+
+(process:5344): GLib-GObject-CRITICAL **: 14:57:39.894: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ ✓ Compiled in 1790ms (2168 modules)
+ ✓ Compiled in 1233ms (2168 modules)
+ GET /campus/transport 200 in 2823ms
+ GET /campus/transport 200 in 560ms
+ GET /campus/transport 200 in 2286ms
+ GET /campus/transport 200 in 1520ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\mlrit-final\.next\cache\webpack\client-development\11.pack.gz_' -> 'C:\mlrit-final\.next\cache\webpack\client-development\11.pack.gz'
+ GET /campus/transport 200 in 1560ms
+ GET /campus/transport 200 in 768ms
+ GET /campus/transport 200 in 1622ms
+ GET /campus/transport 200 in 1854ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:00:41.503: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 1329ms
+ GET /campus/transport 200 in 1019ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:02:51.742: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ ✓ Compiled in 12s (2168 modules)
+ ✓ Compiled in 6.7s (2168 modules)
+ GET /campus/transport 200 in 6573ms
+ GET /campus/transport 200 in 5026ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:07:11.043: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 4470ms
+ GET /campus/transport 200 in 3438ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:09:49.019: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 2710ms
+ GET /campus/transport 200 in 3317ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:11:52.232: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 3466ms
+ GET /campus/transport 200 in 2010ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:15:52.267: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 1361ms
+ GET /campus/transport 200 in 1685ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:16:55.153: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 2511ms
+ GET /campus/transport 200 in 1635ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:18:11.299: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 1277ms
+ GET /campus/transport 200 in 1346ms
+
+(process:5344): GLib-GObject-CRITICAL **: 15:18:53.215: value "32" of type 'gint' is invalid or out of range for property 'space' of type 'VipsInterpretation'
+ GET /campus/transport 200 in 840ms
+[?25h
+[dev-all] next exited (0) — stopping the rest

@@ -1,0 +1,23 @@
+e},{role:`Driver`,...e.driver}].map(e=>(0,$.jsxs)(`a`,{href:`tel:+91${e.phone}`,className:`group flex min-w-0 items-center gap-2.5 rounded-2xl border border-[#e5e7eb] px-3 py-2 transition hover:border-[#1f3351] dark:border-white/10 dark:hover:border-teal-400`,children:[(0,$.jsx)(`span`,
+{className:`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1f3351]/10 text-[#1f3351] dark:bg-teal-400/15 dark:text-teal-300`,children:(0,$.jsx)(u,
+{className:`h-3.5 w-3.5`})})
+(0,$.jsxs)(`span`,
+{className:`min-w-0 leading-tight`,children:[(0,$.jsx)(`span`,
+{className:`block text-[10px] font-bold uppercase tracking-wider text-[#64748b] dark:text-slate-500`,children:e.role})
+(0,$.jsx)(`span`,
+{className:`block truncate text-sm font-semibold text-[#162740] dark:text-white`,children:e.name})
+(0,$.jsx)(`span`,
+{className:`block text-xs tabular-nums text-[#596d86] group-hover:text-[#1f3351] dark:text-slate-400 dark:group-hover:text-teal-300`,children:e.phone})]})]},e.role))})]})
+(0,$.jsxs)(`div`,
+{className:`relative mt-5 h-[420px] overflow-hidden rounded-2xl border border-[#e5e7eb] bg-[#eef1f5] sm:h-[520px] dark:border-white/10 dark:bg-[#0b1220]`,children:[(0,$.jsx)(`div`,{ref:ee,className:`h-full w-full`})
+(0,$.jsxs)(`div`,
+{className:`pointer-events-none absolute left-3 top-3 max-w-[70%] rounded-full border border-[#e5e7eb] bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-[#162740] shadow-sm backdrop-blur dark:border-white/10 dark:bg-[#0b1424]/85 dark:text-white`,children:[(0,$.jsxs)(`span`,
+{className:`text-[#64748b] dark:text-slate-400`,children:[l>=1?`Arrived`:k===0&&w<.01?`Starts at`:`Passed`,` · `]}),e.stops[k]]})]})
+(0,$.jsxs)(`div`,
+{className:`mt-3 flex flex-wrap items-center gap-2 rounded-2xl border border-[#e5e7eb] bg-[#f8fafc] p-2 sm:gap-3 dark:border-white/10 dark:bg-white/[0.03]`,children:[(0,$.jsx)(`button`,{type:`button`,onClick:ce,"aria-label":p?`Pause`:`Play`,className:`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1f3351] text-white transition hover:bg-[#162740] active:scale-95 dark:bg-teal-400 dark:text-[#06201d] dark:hover:bg-teal-300`,children:p?(0,$.jsx)(g,{size:17,fill:`currentColor`}):(0,$.jsx)(v,{size:17,fill:`currentColor`,className:`ml-0.5`})})
+(0,$.jsx)(`button`,{type:`button`,onClick:()=>{h(!1),d(0)},"aria-label":`Restart`,className:`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#475569] transition hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/10`,children:(0,$.jsx)(b,{size:15})})
+(0,$.jsx)(`input`,{type:`range`,min:0,max:1e3,value:Math.round(l*1e3),onChange:e=>d(Number(e.target.value)/1e3),"aria-label":`Trip progress`,className:`h-1.5 min-w-[120px] flex-1 cursor-pointer accent-[#1f3351] dark:accent-teal-400`})
+(0,$.jsx)(`div`,
+{className:`flex items-center gap-0.5 rounded-full bg-white p-1 ring-1 ring-[#e5e7eb] dark:bg-white/5 dark:ring-0`,children:gG.map(e=>(0,$.jsxs)(`button`,{type:`button`,onClick:()=>y(e),className:le(_===e),children:[e,`x`]},e))})
+(0,$.jsx)(`div`,
+{className:`flex items-center gap-0.5 rounded

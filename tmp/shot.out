@@ -1,0 +1,142 @@
+desktop {"tiles":12,"pins":19,"paths":2,"zoom":true,"attrib":true,"stops":18,"overflow":false}
+mobile {"tiles":6,"pins":19,"paths":2,"zoom":true,"attrib":true,"stops":18,"overflow":false}
+ERRORS: [
+  "[desktop] PAGEERROR Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n" +
+    '\n' +
+    "- A server/client branch `if (typeof window !== 'undefined')`.\n" +
+    "- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n" +
+    "- Date formatting in a user's locale which doesn't match the server.\n" +
+    '- External changing data without sending a snapshot of it along with the HTML.\n' +
+    '- Invalid HTML tag nesting.\n' +
+    '\n' +
+    'It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n' +
+    '\n' +
+    'https://react.dev/link/hydration-mismatch\n' +
+    '\n' +
+    '  ...\n' +
+    '    <RedirectBoundary>\n' +
+    '      <RedirectErrorBoundary router={{...}}>\n' +
+    '        <InnerLayoutRouter url="/campus/tr..." tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n' +
+    '          <TransportPage>\n' +
+    '            <TransportHero>\n' +
+    '            <TransportPage>\n' +
+    '              <TransportRoutes routes={[...]}>\n' +
+    '                <section id="routes" aria-label="Bus network" style={{...}} className="pb-16 md:p...">\n' +
+    '                  <div className="w-full max...">\n' +
+    '                    <div className="grid gap-6...">\n' +
+    '                      <div>\n' +
+    '                      <div ref={{current:null}} className="scroll-mt-...">\n' +
+    '                        <article aria-labelledby="route-1-he..." style={{...}}>\n' +
+    '                          <div>\n' +
+    '                          <div className="mt-5">\n' +
+    '                            <TransportRouteMap route={{id:"route-1", ...}}>\n' +
+    '                              <div>\n' +
+    '                                <div>\n' +
+    '                                <div className="mt-3 flex ...">\n' +
+    '                                  <button>\n' +
+    '                                  <input\n' +
+    '                                    ref={{current:null}}\n' +
+    '                                    type="range"\n' +
+    '                                    min={0}\n' +
+    '                                    max={1000}\n' +
+    '                                    defaultValue={0}\n' +
+    '                                    aria-label="Position along the route"\n' +
+    '                                    onChange={function onChange}\n' +
+    '+                                   className="tp-range flex-1 basis-full order-last min-w-[120px] sm:order-none sm:ba..."\n' +
+    '-                                   className="tp-range flex-1"\n' +
+    '-                                   style={{min-width:"120px"}}\n' +
+    '                                  >\n' +
+    '                                  ...\n' +
+    '                                <p>\n' +
+    '                                <ol>\n' +
+    '                                <style>\n' +
+    `+                                 {"...        /* Mute OSM's palette so the route line and pins stay the loudest thi..."}\n` +
+    '-                                 {"...        .leaflet-control-zoom a { color: #0c0c0e !important; }\\n        .leaf..."}\n' +
+    '                          ...\n' +
+    '                    ...\n' +
+    '          ...\n',
+  "[mobile] PAGEERROR Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:\n" +
+    '\n' +
+    "- A server/client branch `if (typeof window !== 'undefined')`.\n" +
+    "- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n" +
+    "- Date formatting in a user's locale which doesn't match the server.\n" +
+    '- External changing data without sending a snapshot of it along with the HTML.\n' +
+    '- Invalid HTML tag nesting.\n' +
+    '\n' +
+    'It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.\n' +
+    '\n' +
+    'https://react.dev/link/hydration-mismatch\n' +
+    '\n' +
+    '  ...\n' +
+    '    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>\n' +
+    '      <LoadingBoundary loading={null}>\n' +
+    '        <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>\n' +
+    '          <RedirectBoundary>\n' +
+    '            <RedirectErrorBoundary router={{...}}>\n' +
+    '              <InnerLayoutRouter url="/campus/tr..." tree={[...]} cacheNode={{lazyData:null, ...}} segmentPath={[...]}>\n' +
+    '                <TransportPage>\n' +
+    '                  <TransportHero>\n' +
+    '                  <TransportPage>\n' +
+    '                    <TransportRoutes routes={[...]}>\n' +
+    '                      <section id="routes" aria-label="Bus network" style={{...}} className="pb-16 md:p...">\n' +
+    '                        <div className="w-full max...">\n' +
+    '                          <div className="grid gap-6...">\n' +
+    '                            <div className="lg:sticky ...">\n' +
+    '                              <label>\n' +
+    '                              <div className="flex items..." style={{...}}>\n' +
+    '                                <Search>\n' +
+    '                                <input\n' +
+    '                                  id="route-search"\n' +
+    '                                  type="search"\n' +
+    '                                  value=""\n' +
+    '                                  onChange={function onChange}\n' +
+    '                                  onKeyDown={function onKeyDown}\n' +
+    '                                  placeholder="Search your area or stop, e.g. Miyapur"\n' +
+    '                                  className="w-full font-sans focus-visible:outline-none"\n' +
+    '                                  style={{\n' +
+    '+                                   fontSize: "0.84rem"\n' +
+    '+                                   color: "#0f0f0f"\n' +
+    '-                                   color: "rgb(15, 15, 15)"\n' +
+    '+                                   background: "transparent"\n' +
+    '-                                   font-size: "0.84rem"\n' +
+    '-                                   background-image: "initial"\n' +
+    '-                                   background-position-x: "initial"\n' +
+    '-                                   background-position-y: "initial"\n' +
+    '-                                   background-size: "initial"\n' +
+    '-                                   background-repeat: "initial"\n' +
+    '-                                   background-attachment: "initial"\n' +
+    '-                                   background-origin: "initial"\n' +
+    '-                                   background-clip: "initial"\n' +
+    '-                                   background-color: "transparent"\n' +
+    '-                                   caret-color: "transparent"\n' +
+    '                                  }}\n' +
+    '                                >\n' +
+    '                              ...\n' +
+    '                            ...\n' +
+    '                              <div className="mt-5">\n' +
+    '                                <TransportRouteMap route={{id:"route-1", ...}}>\n' +
+    '                                  <div>\n' +
+    '                                    <div>\n' +
+    '                                    <div className="mt-3 flex ...">\n' +
+    '                                      <button>\n' +
+    '                                      <input\n' +
+    '                                        ref={{current:null}}\n' +
+    '                                        type="range"\n' +
+    '                                        min={0}\n' +
+    '                                        max={1000}\n' +
+    '                                        defaultValue={0}\n' +
+    '                                        aria-label="Position along the route"\n' +
+    '                                        onChange={function onChange}\n' +
+    '+                                       className="tp-range flex-1 basis-full order-last min-w-[120px] sm:order-none s..."\n' +
+    '-                                       className="tp-range flex-1"\n' +
+    '-                                       style={{min-width:"120px",caret-color:"transparent"}}\n' +
+    '                                      >\n' +
+    '                                      ...\n' +
+    '                                    <p>\n' +
+    '                                    <ol>\n' +
+    '                                    <style>\n' +
+    `+                                     {"...        /* Mute OSM's palette so the route line and pins stay the loudest..."}\n` +
+    '-                                     {"...        .leaflet-control-zoom a { color: #0c0c0e !important; }\\n        ...."}\n' +
+    '                          ...\n' +
+    '                ...\n'
+]
