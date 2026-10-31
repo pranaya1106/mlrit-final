@@ -105,6 +105,9 @@ const nextConfig = {
       // old inbound links working after the redesign serves mlrit.ac.in.
       { source: '/virtual-tour', destination: '/student-life/discover-mlr', permanent: true },
       { source: '/campus-life/library', destination: '/student-life/facilities', permanent: true },
+      // Retired faculty profile — send the old shared URL to the EEE listing
+      // instead of leaving visitors on a dead 404 page.
+      { source: '/faculty/dr-b-v-rajanna-eee', destination: '/departments/eee#all-faculty', permanent: true },
     ];
   },
 };
