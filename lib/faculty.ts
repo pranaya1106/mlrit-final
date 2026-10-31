@@ -10555,6 +10555,78 @@ imageAlt: "Portrait of NEELA AMAR NATH",
     image: "/faculty-new/hs/hs-dr-y-anantha-lakshmi.jpg",
     imageAlt: "Portrait of Dr.Y.Anantha Lakshmi",
   },
+  {
+    id: "raghunath-rao-hs",
+    slug: "raghunath-rao-hs",
+    name: "Dr. Raghunath Rao",
+    designation: "Professor",
+    department: "hs",
+    qualifications: [],
+    specialization: [
+    "English",
+  ],
+    subjectsTaught: [
+    "English for Skill Enhancement",
+  ],
+    publications: [],
+    patents: [],
+    books: [],
+    imageAlt: "Portrait of Dr. Raghunath Rao",
+  },
+  {
+    id: "rajya-lakshmi-hs",
+    slug: "rajya-lakshmi-hs",
+    name: "Dr. Rajya Lakshmi",
+    designation: "Assistant professor",
+    department: "hs",
+    qualifications: [],
+    specialization: [
+    "English",
+  ],
+    subjectsTaught: [
+    "English for Skill Enhancement",
+  ],
+    publications: [],
+    patents: [],
+    books: [],
+    imageAlt: "Portrait of Dr. Rajya Lakshmi",
+  },
+  {
+    id: "harika-patnala-hs",
+    slug: "harika-patnala-hs",
+    name: "Dr. Harika Patnala",
+    designation: "Professor",
+    department: "hs",
+    qualifications: [],
+    specialization: [
+    "Chemistry",
+  ],
+    subjectsTaught: [
+    "Engineering Chemistry",
+  ],
+    publications: [],
+    patents: [],
+    books: [],
+    imageAlt: "Portrait of Dr. Harika Patnala",
+  },
+  {
+    id: "sudhakar-hs",
+    slug: "sudhakar-hs",
+    name: "Dr. Sudhakar",
+    designation: "Assistant professor",
+    department: "hs",
+    qualifications: [],
+    specialization: [
+    "Chemistry",
+  ],
+    subjectsTaught: [
+    "Engineering Chemistry",
+  ],
+    publications: [],
+    patents: [],
+    books: [],
+    imageAlt: "Portrait of Dr. Sudhakar",
+  },
 ];
 
 export function getFacultyBySlug(slug: string): FacultyProfile | undefined {
