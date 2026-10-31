@@ -11,6 +11,8 @@ export interface BusRoute {
   id: string;
   routeNumber: number;
   stops: string[];
+  /** Notable intermediate stops the bus is highlighted for, where published. */
+  passBy?: string[];
   inchargeName: string;
   inchargeContact: string;
   driverName: string;
@@ -72,6 +74,7 @@ export const BUS_ROUTES: BusRoute[] = [
   {
     id: 'route-4',
     routeNumber: 4,
+    passBy: ['Rethibowli'],
     stops: [
       'Attapur', 'Ring Road', 'Rethibowli', 'Mehdipatnam', 'NMDC',
       'Mahaveer', 'Lakdikapool', 'Khairathabad', 'Punjagutta', 'Ameerpet',
@@ -133,6 +136,7 @@ export const BUS_ROUTES: BusRoute[] = [
   {
     id: 'route-8',
     routeNumber: 8,
+    passBy: ['Dhulapally', 'Kompally'],
     stops: [
       'Sagar Ring Road', 'IS Sadan', 'Govt Press', 'Malakpet',
       'Chanderghat', 'Kachiguda', 'YMC', 'Narayanaguda X Road',
@@ -181,6 +185,7 @@ export const BUS_ROUTES: BusRoute[] = [
   {
     id: 'route-11',
     routeNumber: 11,
+    passBy: ['Bollaram', 'Bachupally'],
     stops: [
       'BHEL Old LIG', 'BHEL New MIG', 'BHEL Kaman', 'Madinaguda',
       'Allwyn Colony', 'Miyapur', 'Miyapur X Roads', 'Bollaram',
@@ -388,6 +393,7 @@ export const BUS_ROUTES: BusRoute[] = [
   {
     id: 'route-25',
     routeNumber: 25,
+    passBy: ['Ferozguda'],
     stops: [
       'New Bowenpally', 'Ferozguda', 'Balanagar BBR Hospital', 'HAL',
       'IDPL', 'Ganesh Nagar (Sha Theatre)', 'Jeedimetla',
@@ -419,6 +425,7 @@ export const BUS_ROUTES: BusRoute[] = [
   {
     id: 'route-27',
     routeNumber: 27,
+    passBy: ['Kompally', 'Dhulapally'],
     stops: [
       'Lothkunta', 'Alwal', 'Suchitra', 'Pet Basheerabad',
       'Dhulapally', 'Kompally', 'Gundlapochampally', 'MLRIT',
@@ -431,6 +438,15 @@ export const BUS_ROUTES: BusRoute[] = [
     lastVerified: VERIFIED,
   },
 ];
+
+/** Three representative points along a route, used as the "via" line in lists. */
+export function viaSummary(stops: string[]): string {
+  const middle = stops.slice(1, -1);
+  if (middle.length === 0) return stops[0] ?? '';
+  return [0.25, 0.5, 0.75]
+    .map((f) => middle[Math.round(f * (middle.length - 1))])
+    .join(' · ');
+}
 
 export function searchRoutes(query: string): BusRoute[] {
   const q = query.trim().toLowerCase().replace(/\s+/g, ' ');
