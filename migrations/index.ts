@@ -4,6 +4,7 @@ import * as migration_20261019_061412_s3_storage from './20261019_061412_s3_stor
 import * as migration_20261104_125754_examinations_circulars_media from './20261104_125754_examinations_circulars_media';
 import * as migration_20261110_062720_faculty_cms from './20261110_062720_faculty_cms';
 import * as migration_20261110_faculty_seed from './20261110_faculty_seed';
+import * as migration_20261110_october_circulars from './20261110_october_circulars';
 
 export const migrations = [
   {
@@ -34,7 +35,12 @@ export const migrations = [
   {
     up: migration_20261110_faculty_seed.up,
     down: migration_20261110_faculty_seed.down,
-    name: '20261110_faculty_seed'
+    name: '20261110_faculty_seed',
+  },
+  {
+    up: migration_20261110_october_circulars.up,
+    down: migration_20261110_october_circulars.down,
+    name: '20261110_october_circulars',
   },
 ];
 
