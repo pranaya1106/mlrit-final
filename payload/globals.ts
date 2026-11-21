@@ -3,7 +3,7 @@ import type { GlobalConfig } from 'payload';
 
 import { CONTENT_SECTIONS, type SectionConfig, type SectionKey } from '@/lib/content/sections';
 
-import { canEditSection } from './access';
+import { canEditSection, hiddenUnlessSection } from './access';
 import { toPayloadField } from './fields';
 import { SECTION_KEYS, toGlobalSlug } from './slug';
 
@@ -44,6 +44,8 @@ export const sectionGlobal = (key: SectionKey): GlobalConfig => {
     label: titleFor(config),
     admin: {
       group: groupFor(key, config),
+      // A restricted account sees only the sections it was given.
+      hidden: hiddenUnlessSection(key),
       // Live Preview replaces the hand-rolled postMessage draft store: Payload
       // reloads the iframe itself, so it works on every section rather than
       // only the homepage ones that subscribed to the old store.

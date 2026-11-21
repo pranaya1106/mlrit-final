@@ -2,7 +2,7 @@ import type { CollectionConfig, Field } from 'payload';
 
 import { DEPARTMENTS } from '@/lib/departments';
 
-import { isSignedIn } from '../access';
+import { canEditFaculty, hiddenUnlessFaculty } from '../access';
 import { mediaField } from '../fields';
 
 /**
@@ -47,13 +47,14 @@ export const Faculty: CollectionConfig = {
   labels: { singular: 'Faculty member', plural: 'Faculty' },
   admin: {
     group: 'Faculty',
+    hidden: hiddenUnlessFaculty,
     useAsTitle: 'name',
     defaultColumns: ['name', 'department', 'designation', 'isHod'],
     listSearchableFields: ['name', 'empId', 'email'],
     pagination: { defaultLimit: 50 },
   },
   defaultSort: 'order',
-  access: { read: () => true, create: isSignedIn, update: isSignedIn, delete: isSignedIn },
+  access: { read: () => true, create: canEditFaculty, update: canEditFaculty, delete: canEditFaculty },
   hooks: {
     beforeValidate: [
       ({ data }) => {

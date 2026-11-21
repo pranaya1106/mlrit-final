@@ -65,7 +65,7 @@ export const migrations = [
   {
     up: migration_20261121_banners_seed.up,
     down: migration_20261121_banners_seed.down,
-    name: '20261121_banners_seed',
+    name: '20261121_banners_seed'
   },
   {
     up: migration_20261121_research_downloads_seed.up,

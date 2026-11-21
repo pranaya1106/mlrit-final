@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 import { CONTENT_SECTIONS } from '@/lib/content/sections';
 
-import { isOwner, isOwnerField, isSignedIn } from '../access';
+import { hiddenUnlessOwner, isOwner, isOwnerField, isSignedIn } from '../access';
 
 /**
  * Admin accounts. Replaces the `admin_users` table: `role` is the same
@@ -26,7 +26,8 @@ export const Users: CollectionConfig = {
       sameSite: 'Lax',
     },
   },
-  admin: { useAsTitle: 'email', group: 'Administration' },
+  // Only owners manage accounts, so only owners are shown the list.
+  admin: { useAsTitle: 'email', group: 'Administration', hidden: hiddenUnlessOwner },
   hooks: {
     beforeChange: [
       async ({ data, operation, req }) => {
@@ -80,6 +81,17 @@ export const Users: CollectionConfig = {
         value,
         label: config.label,
       })),
+    },
+    {
+      name: 'canEditFaculty',
+      type: 'checkbox',
+      label: 'Can manage Faculty',
+      defaultValue: false,
+      admin: {
+        condition: (data) => data?.role !== 'owner',
+        description: 'Shows the Faculty section and lets this editor add and change faculty profiles. Owners always can.',
+      },
+      access: { update: isOwnerField },
     },
   ],
 };

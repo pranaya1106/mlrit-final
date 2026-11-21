@@ -361,6 +361,10 @@ export interface User {
         | 'admissions/policies'
       )[]
     | null;
+  /**
+   * Shows the Faculty section and lets this editor add and change faculty profiles. Owners always can.
+   */
+  canEditFaculty?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -589,6 +593,7 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   role?: T;
   sections?: T;
+  canEditFaculty?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
